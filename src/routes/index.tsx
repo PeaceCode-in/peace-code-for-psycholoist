@@ -361,7 +361,7 @@ function Dashboard() {
 
           {/* Journey */}
           <section
-            className="rounded-[32px] p-8 mb-8 relative overflow-hidden"
+            className="rounded-[32px] p-6 sm:p-8 mb-8 relative overflow-hidden"
             style={{ background: dark ? "#221f1c" : "#ede4d1", border: `1px solid ${dark ? "#2a2724" : "#ddd0b8"}` }}
           >
             <div className="flex items-start justify-between mb-8">
