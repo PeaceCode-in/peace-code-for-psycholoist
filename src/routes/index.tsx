@@ -109,10 +109,10 @@ function Dashboard() {
         color: dark ? "#e8e2d5" : "#2a2724",
       }}
     >
-      <div className="grid grid-cols-[220px_1fr_340px] h-screen">
+      <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_320px] xl:grid-cols-[220px_1fr_340px] lg:h-screen">
         {/* ============ SIDEBAR ============ */}
         <aside
-          className="flex flex-col px-5 py-7 border-r"
+          className="flex flex-col px-5 py-7 lg:border-r border-b lg:border-b-0"
           style={{ borderColor: dark ? "#2a2724" : "#e8dfd0", background: dark ? "#1a1815" : "#f0e9dc" }}
         >
           <div className="flex items-center gap-2.5 mb-12">
@@ -204,16 +204,16 @@ function Dashboard() {
         </aside>
 
         {/* ============ MAIN ============ */}
-        <main className="px-12 py-10 overflow-y-auto">
-          <header className="flex items-start justify-between mb-10">
-            <div>
+        <main className="px-6 sm:px-8 lg:px-12 py-8 lg:py-10 lg:overflow-y-auto min-w-0">
+          <header className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 mb-10">
+            <div className="min-w-0">
               <div
                 className="text-[10px] tracking-[0.3em] uppercase mb-3 opacity-60"
                 style={{ color: "#a89380" }}
               >
                 Wednesday · Eleven July
               </div>
-              <h1 className="font-serif text-[52px] leading-[1.05] tracking-tight max-w-xl" style={{ letterSpacing: "-0.02em" }}>
+              <h1 className="font-serif text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] tracking-tight max-w-xl" style={{ letterSpacing: "-0.02em" }}>
                 <em className="italic font-light" style={{ color: "#a67c52" }}>Softly,</em>
                 <br />
                 you begin again.
@@ -222,9 +222,9 @@ function Dashboard() {
                 A slow look at how your mind and moments are moving today. No pressure — just presence.
               </p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 shrink-0">
               <div
-                className="flex items-center gap-2 rounded-full px-4 py-2"
+                className="hidden sm:flex items-center gap-2 rounded-full px-4 py-2"
                 style={{ background: dark ? "#221f1c" : "#faf6ee", border: `1px solid ${dark ? "#2a2724" : "#ebe2d1"}` }}
               >
                 <Search className="w-3.5 h-3.5 opacity-40" />
@@ -234,7 +234,7 @@ function Dashboard() {
                 />
               </div>
               <button
-                className="relative w-10 h-10 rounded-full flex items-center justify-center"
+                className="relative w-10 h-10 rounded-full flex items-center justify-center shrink-0"
                 style={{ background: dark ? "#221f1c" : "#faf6ee", border: `1px solid ${dark ? "#2a2724" : "#ebe2d1"}` }}
               >
                 <Bell className="w-4 h-4 opacity-60" strokeWidth={1.5} />
@@ -244,14 +244,14 @@ function Dashboard() {
           </header>
 
           {/* Days */}
-          <div className="flex items-center gap-2 mb-10">
+          <div className="flex items-center gap-2 mb-10 overflow-x-auto pb-1 -mx-2 px-2 scrollbar-none">
             {days.map((dd) => {
               const active = day === dd.n;
               return (
                 <button
                   key={dd.n}
                   onClick={() => setDay(dd.n)}
-                  className="flex flex-col items-center justify-center w-12 h-16 rounded-full transition-all text-[10px]"
+                  className="shrink-0 flex flex-col items-center justify-center w-12 h-16 rounded-full transition-all text-[10px]"
                   style={
                     active
                       ? { background: "#2a2724", color: "#faf6ee" }
@@ -263,12 +263,12 @@ function Dashboard() {
                 </button>
               );
             })}
-            <div className="flex-1 h-px ml-4" style={{ background: dark ? "#2a2724" : "#ebe2d1" }} />
+            <div className="hidden sm:block flex-1 h-px ml-4 min-w-8" style={{ background: dark ? "#2a2724" : "#ebe2d1" }} />
           </div>
 
           {/* Mood + hero */}
           <section
-            className="rounded-[32px] p-8 mb-6 relative overflow-hidden"
+            className="rounded-[32px] p-6 sm:p-8 mb-6 relative overflow-hidden"
             style={{ background: dark ? "#221f1c" : "#faf6ee", border: `1px solid ${dark ? "#2a2724" : "#ebe2d1"}` }}
           >
             <Mark className="absolute -right-8 -bottom-8 w-56 h-56" opacity={dark ? 0.05 : 0.06} />
@@ -281,10 +281,10 @@ function Dashboard() {
                 log mood <ArrowUpRight className="w-3 h-3" />
               </button>
             </div>
-            <div className="flex items-center gap-10 mb-6">
-              <div className="flex-1">
+            <div className="flex flex-wrap items-center gap-6 sm:gap-10 mb-6">
+              <div className="flex-1 min-w-[160px]">
                 <div className="flex items-baseline gap-3 mb-1">
-                  <span className="font-serif text-[72px] leading-none tracking-tight">90</span>
+                  <span className="font-serif text-[56px] sm:text-[72px] leading-none tracking-tight">90</span>
                   <span className="font-serif italic text-2xl opacity-50">%</span>
                 </div>
                 <p className="text-[13px] opacity-60">a soft, quiet kind of happy.</p>
@@ -308,7 +308,7 @@ function Dashboard() {
               <div style={{ width: "15%", background: "#c17b6f" }} />
               <div style={{ width: "15%", background: "#a89380" }} />
             </div>
-            <div className="grid grid-cols-3 gap-6 pt-6 mt-6 border-t" style={{ borderColor: dark ? "#2a2724" : "#ebe2d1" }}>
+            <div className="grid grid-cols-3 gap-4 sm:gap-6 pt-6 mt-6 border-t" style={{ borderColor: dark ? "#2a2724" : "#ebe2d1" }}>
               {[
                 { v: "87", u: "min", l: "in stillness" },
                 { v: "23", u: "", l: "sessions" },
@@ -330,7 +330,7 @@ function Dashboard() {
             <h3 className="font-serif text-[22px] tracking-tight">A quiet toolkit</h3>
             <span className="text-[10px] tracking-[0.25em] uppercase opacity-50">tap to begin</span>
           </div>
-          <div className="grid grid-cols-4 gap-3 mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
             {focusTools.map((t) => {
               const I = t.icon;
               return (
@@ -361,7 +361,7 @@ function Dashboard() {
 
           {/* Journey */}
           <section
-            className="rounded-[32px] p-8 mb-8 relative overflow-hidden"
+            className="rounded-[32px] p-6 sm:p-8 mb-8 relative overflow-hidden"
             style={{ background: dark ? "#221f1c" : "#ede4d1", border: `1px solid ${dark ? "#2a2724" : "#ddd0b8"}` }}
           >
             <div className="flex items-start justify-between mb-8">
@@ -442,7 +442,7 @@ function Dashboard() {
               <Plus className="w-3 h-3" /> share
             </button>
           </div>
-          <div className="grid grid-cols-3 gap-3 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-10">
             {posts.map((p, i) => (
               <div
                 key={i}
@@ -469,13 +469,13 @@ function Dashboard() {
 
           {/* Emergency */}
           <div
-            className="rounded-3xl p-6 flex items-center gap-5"
+            className="rounded-3xl p-5 sm:p-6 flex flex-wrap items-center gap-4 sm:gap-5"
             style={{ background: dark ? "#2a201d" : "#efdfd5", border: `1px solid ${dark ? "#3a2a25" : "#e0c9bc"}` }}
           >
             <div className="w-11 h-11 rounded-full flex items-center justify-center" style={{ background: "#c17b6f" }}>
               <Mark className="w-6 h-6" />
             </div>
-            <div className="flex-1">
+            <div className="flex-1 min-w-[180px]">
               <div className="font-serif text-[17px] leading-tight">Not okay right now?</div>
               <div className="text-[12px] opacity-60 mt-0.5 italic">a trained listener is one soft tap away — always, and in confidence.</div>
             </div>
@@ -494,11 +494,12 @@ function Dashboard() {
 
         {/* ============ RIGHT PANEL ============ */}
         <aside
-          className="px-7 py-8 border-l overflow-y-auto"
+          className="px-6 sm:px-7 py-8 lg:border-l border-t lg:border-t-0 lg:overflow-y-auto"
           style={{ borderColor: dark ? "#2a2724" : "#e8dfd0", background: dark ? "#1a1815" : "#f0e9dc" }}
         >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 lg:gap-0">
           {/* Featured */}
-          <div className="mb-8">
+          <div className="lg:mb-8">
             <div className="text-[10px] tracking-[0.28em] uppercase opacity-50 mb-3">a featured stillness</div>
             <div
               className="relative rounded-[28px] overflow-hidden aspect-[4/5] p-6 flex flex-col justify-between cursor-pointer group"
@@ -688,6 +689,7 @@ function Dashboard() {
                 );
               })}
             </div>
+          </div>
           </div>
 
           <div className="mt-8 flex items-center gap-2 text-[10px] tracking-[0.25em] uppercase opacity-40 justify-center">
