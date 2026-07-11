@@ -308,7 +308,7 @@ function Dashboard() {
               <div style={{ width: "15%", background: "#c17b6f" }} />
               <div style={{ width: "15%", background: "#a89380" }} />
             </div>
-            <div className="grid grid-cols-3 gap-6 pt-6 mt-6 border-t" style={{ borderColor: dark ? "#2a2724" : "#ebe2d1" }}>
+            <div className="grid grid-cols-3 gap-4 sm:gap-6 pt-6 mt-6 border-t" style={{ borderColor: dark ? "#2a2724" : "#ebe2d1" }}>
               {[
                 { v: "87", u: "min", l: "in stillness" },
                 { v: "23", u: "", l: "sessions" },
