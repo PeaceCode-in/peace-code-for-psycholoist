@@ -263,7 +263,7 @@ function Dashboard() {
                 </button>
               );
             })}
-            <div className="flex-1 h-px ml-4" style={{ background: dark ? "#2a2724" : "#ebe2d1" }} />
+            <div className="hidden sm:block flex-1 h-px ml-4 min-w-8" style={{ background: dark ? "#2a2724" : "#ebe2d1" }} />
           </div>
 
           {/* Mood + hero */}
