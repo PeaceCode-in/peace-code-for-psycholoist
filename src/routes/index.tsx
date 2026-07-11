@@ -497,8 +497,9 @@ function Dashboard() {
           className="px-6 sm:px-7 py-8 lg:border-l border-t lg:border-t-0 lg:overflow-y-auto"
           style={{ borderColor: dark ? "#2a2724" : "#e8dfd0", background: dark ? "#1a1815" : "#f0e9dc" }}
         >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 lg:gap-0">
           {/* Featured */}
-          <div className="mb-8">
+          <div className="lg:mb-8">
             <div className="text-[10px] tracking-[0.28em] uppercase opacity-50 mb-3">a featured stillness</div>
             <div
               className="relative rounded-[28px] overflow-hidden aspect-[4/5] p-6 flex flex-col justify-between cursor-pointer group"
