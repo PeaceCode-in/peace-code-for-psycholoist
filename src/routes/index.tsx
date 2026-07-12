@@ -519,7 +519,7 @@ function Dashboard() {
                                        fill={expSaved[i] ? "#F7FAFF" : "none"}
                                        style={{ color: expSaved[i] ? "#F7FAFF" : "#1D2A44" }} strokeWidth={1.6}/>
                               </button>
-                              <button className="group w-14 h-14 rounded-full flex items-center justify-center transition hover:scale-105 relative overflow-hidden" style={{ background: "#1D2A44" }}>
+                              <Link to="/breathe" onClick={(e) => e.stopPropagation()} aria-label="play" className="group w-14 h-14 rounded-full flex items-center justify-center transition hover:scale-105 relative overflow-hidden" style={{ background: "#1D2A44" }}>
                                 {/* ring progress on the play button */}
                                 <svg className="absolute inset-0 -rotate-90" viewBox="0 0 56 56">
                                   <circle cx="28" cy="28" r="26" fill="none" stroke="rgba(245,238,224,0.15)" strokeWidth="1.5"/>
@@ -528,7 +528,7 @@ function Dashboard() {
                                           strokeDashoffset={2 * Math.PI * 26 * (1 - (expAuto ? expProgress : 0))} />
                                 </svg>
                                 <Play className="w-4 h-4 ml-0.5 relative" style={{ color: "#FFFFFF" }} strokeWidth={2}/>
-                              </button>
+                              </Link>
                             </div>
                           )}
                         </div>
