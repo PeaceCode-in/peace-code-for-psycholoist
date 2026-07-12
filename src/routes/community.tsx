@@ -119,9 +119,11 @@ export default function CommunityPage() {
           }}
         />
       )}
-    </div>
+      </div>
+    </AppShell>
   );
 }
+
 
 // ─── home view ────────────────────────────────────────────────────
 function HomeView({
