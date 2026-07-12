@@ -13,6 +13,7 @@ import {
   computeStreak, weekSummary, dayKey,
   type BreathSession, type BreathTechniqueKey, type BreathPattern, type BreathPrefs,
 } from "@/lib/breathe-store";
+import { AppShell } from "@/components/AppShell";
 
 export const Route = createFileRoute("/breathe")({ component: BreathePage });
 
