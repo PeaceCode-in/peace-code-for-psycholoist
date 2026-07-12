@@ -853,6 +853,7 @@ function BreathePage() {
         setShowCompletion(null);
         reset();
       }} />}
+      {showA11y && <A11yModal prefs={prefs} onChange={updatePrefs} onClose={() => setShowA11y(false)} />}
     </div>
   );
 }
