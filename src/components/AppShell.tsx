@@ -216,8 +216,8 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
       {/* ─── mobile top bar ─── */}
       {showHeader && (
         <header
-          className={`lg:hidden sticky top-0 z-30 backdrop-blur-xl transition ${scrolled ? "border-b shadow-[0_10px_30px_-20px_rgba(29,42,68,0.2)]" : ""}`}
-          style={{ background: "rgba(247,250,255,0.92)", borderColor: border }}
+          className={`lg:hidden sticky top-0 z-30 backdrop-blur-xl transition ${scrolled ? "border-b shadow-[0_10px_30px_-20px_rgba(0,0,0,0.25)]" : ""}`}
+          style={{ background: "var(--pc-header)", borderColor: border }}
         >
           <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 sm:px-5 py-3">
             <Link to="/" className="flex items-center gap-2.5 min-w-0">
@@ -235,6 +235,9 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
               <div className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px]" style={{ background: surface2, color: primary }}>
                 <Flame className="w-3 h-3" strokeWidth={1.5}/> 12
               </div>
+              <button onClick={toggleTheme} className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}`, color: muted }} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>
+                {theme === "dark" ? <Sun className="w-3.5 h-3.5" strokeWidth={1.5}/> : <Moon className="w-3.5 h-3.5" strokeWidth={1.5}/>}
+              </button>
               <button className="relative w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }} aria-label="notifications">
                 <Bell className="w-3.5 h-3.5 opacity-70" strokeWidth={1.5}/>
                 <span className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full" style={{ background: primary }}/>
@@ -250,7 +253,8 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
       {/* mobile drawer */}
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 z-50" role="dialog" aria-modal="true">
-          <div className="absolute inset-0" style={{ background: "rgba(29,42,68,0.35)" }} onClick={() => setMobileOpen(false)} />
+          <div className="absolute inset-0" style={{ background: "var(--pc-scrim)" }} onClick={() => setMobileOpen(false)} />
+
           <div className="absolute top-0 right-0 bottom-0 w-[86%] max-w-sm p-5 flex flex-col overflow-y-auto"
                style={{ background: surface, borderLeft: `1px solid ${border}` }}>
             <div className="flex items-center justify-between mb-6">
