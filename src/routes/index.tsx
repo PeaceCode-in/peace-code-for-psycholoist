@@ -185,7 +185,46 @@ function Dashboard() {
   const [expAuto, setExpAuto] = useState(true);
   const [expSaved, setExpSaved] = useState<Record<number, boolean>>({});
   const [expProgress, setExpProgress] = useState(0);
+  const [activeRitual, setActiveRitual] = useState(1);
+  const [ritualProgress, setRitualProgress] = useState(42);
+  const [chatInput, setChatInput] = useState("");
+  const [chatLog, setChatLog] = useState<{ from: "me" | "peace"; text: string }[]>([
+    { from: "me", text: "I've felt tight lately. Sleep is uneven." },
+    { from: "peace", text: "I hear you. When did the tightness first arrive?" },
+  ]);
+  const [peaceTyping, setPeaceTyping] = useState(true);
   const mainRef = useRef<HTMLDivElement>(null);
+
+  // gentle "peace is thinking" heartbeat + soft canned response
+  useEffect(() => {
+    if (!peaceTyping) return;
+    const t = setTimeout(() => setPeaceTyping(false), 2600);
+    return () => clearTimeout(t);
+  }, [peaceTyping, chatLog.length]);
+
+  const sendToPeace = (text: string) => {
+    const t = text.trim();
+    if (!t) return;
+    setChatLog((l) => [...l, { from: "me", text: t }]);
+    setChatInput("");
+    setPeaceTyping(true);
+    const softReplies = [
+      "let's stay with that for a breath. what does it feel like in the body?",
+      "thank you for saying it out loud. we can move slowly from here.",
+      "that sounds heavy. would a two-minute pause help right now?",
+      "noted, gently. nothing needs solving tonight — just noticing.",
+    ];
+    setTimeout(() => {
+      setChatLog((l) => [...l, { from: "peace", text: softReplies[l.length % softReplies.length] }]);
+      setPeaceTyping(false);
+    }, 2400);
+  };
+
+  // slow progress creep on the active ritual, like a lived-in moment
+  useEffect(() => {
+    const t = setInterval(() => setRitualProgress((p) => (p >= 96 ? 42 : p + 1)), 1400);
+    return () => clearInterval(t);
+  }, []);
 
   useEffect(() => {
     if (!running) return;
@@ -963,94 +1002,314 @@ function Dashboard() {
           </div>
         </section>
 
-        {/* ACTIVITIES + CHAT */}
+        {/* ─── THE HOURS · a ritual ribbon + Peace, listening ─── */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-16">
-          <div className="lg:col-span-7">
-            <div className="flex items-baseline justify-between mb-5">
-              <div>
-                <div className="text-[10px] tracking-[0.35em] uppercase opacity-50 mb-2" style={{ color: accent }}>small things, today</div>
-                <h3 className="font-serif text-[26px] tracking-tight">Four gentle motions.</h3>
-              </div>
-              <span className="text-[10px] tracking-[0.25em] uppercase opacity-50">1h · 07m</span>
+          {/* LEFT · THE HOURS */}
+          <div className="lg:col-span-7 relative rounded-[32px] p-7 sm:p-9 overflow-hidden"
+               style={{ background: surface, border: `1px solid ${border}` }}>
+            {/* editorial background — ghost numeral + curl */}
+            <div aria-hidden className="pointer-events-none absolute -right-8 -top-14 font-serif select-none"
+                 style={{ fontSize: 260, lineHeight: 1, color: ink, opacity: 0.03, letterSpacing: "-0.05em" }}>
+              {String(activeRitual + 1).padStart(2, "0")}
             </div>
-            <div className="space-y-2">
-              {activities.map((a, i) => (
-                <div key={a.title}
-                     onMouseMove={trackCursor}
-                     className="group card-lift cursor-glow flex items-center gap-4 py-4 px-5 rounded-2xl cursor-pointer relative"
-                     style={{ background: surface, border: `1px solid ${border}` }}>
-                  <div className="font-serif italic text-[13px] w-6 transition-colors duration-300" style={{ color: muted }}>0{i + 1}</div>
-                  <div className="relative w-11 h-11 rounded-full flex items-center justify-center shrink-0 transition-all duration-500 group-hover:scale-105"
-                       style={{ background: surface2 }}>
-                    <Mark className="w-5 h-5 transition-opacity duration-300 group-hover:opacity-0" opacity={0.75}/>
-                    <span className="absolute inset-0 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition duration-300"
-                          style={{ background: ink, color: bg }}>
-                      <Play className="w-3.5 h-3.5 ml-0.5" strokeWidth={2}/>
-                    </span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="font-serif text-[17px] leading-tight truncate">{a.title}</div>
-                    <div className="text-[11px] italic mt-0.5" style={{ color: muted }}>{a.subtitle}</div>
-                    {/* soft progress line drawing in on hover */}
-                    <div className="mt-2 h-px w-full overflow-hidden" style={{ background: border }}>
-                      <div className="h-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-[900ms] ease-out"
-                           style={{ background: accent, width: `${30 + i * 18}%` }} />
+            <Curl stroke={muted} className="absolute -left-10 -bottom-12 w-[280px] opacity-25 pointer-events-none"/>
+
+            <div className="flex items-start justify-between mb-6 relative">
+              <div>
+                <div className="text-[10px] tracking-[0.35em] uppercase opacity-55 mb-2" style={{ color: accent }}>the hours · today</div>
+                <h3 className="font-serif text-[28px] sm:text-[32px] tracking-tight leading-[1.05]">
+                  Four gentle motions,<br/>
+                  <em className="italic opacity-70">held by the day.</em>
+                </h3>
+              </div>
+              <div className="text-right shrink-0">
+                <div className="font-serif text-[22px] leading-none">1<span className="text-[13px] opacity-55">h</span> 07<span className="text-[13px] opacity-55">m</span></div>
+                <div className="text-[9.5px] tracking-[0.3em] uppercase opacity-45 mt-1.5">time offered</div>
+              </div>
+            </div>
+
+            {/* SUN-ARC TIMELINE — an SVG day passing through 06 → 22 */}
+            <div className="relative mb-8">
+              <svg viewBox="0 0 600 90" className="w-full h-[70px]" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="arcGrad" x1="0" x2="1">
+                    <stop offset="0" stopColor={muted} stopOpacity="0.15"/>
+                    <stop offset="0.5" stopColor={accent} stopOpacity="0.55"/>
+                    <stop offset="1" stopColor={muted} stopOpacity="0.15"/>
+                  </linearGradient>
+                </defs>
+                {/* the arc — a day, curving */}
+                <path d="M 20 80 Q 300 -20 580 80" fill="none" stroke="url(#arcGrad)" strokeWidth="1.2" strokeLinecap="round"/>
+                {/* faint hour ticks */}
+                {[0.05, 0.25, 0.5, 0.75, 0.95].map((t, i) => {
+                  const x = 20 + t * 560;
+                  const y = 80 - Math.sin(t * Math.PI) * 100;
+                  return <circle key={i} cx={x} cy={y} r="1.2" fill={muted} opacity="0.35"/>;
+                })}
+                {/* each ritual pinned on the arc at its own hour */}
+                {activities.map((a, i) => {
+                  const hour = parseInt(a.time.split(":")[0], 10);
+                  const t = Math.max(0.02, Math.min(0.98, (hour - 5) / 17));
+                  const x = 20 + t * 560;
+                  const y = 80 - Math.sin(t * Math.PI) * 100;
+                  const isActive = i === activeRitual;
+                  return (
+                    <g key={i} onClick={() => setActiveRitual(i)} style={{ cursor: "pointer" }}>
+                      {isActive && (
+                        <>
+                          <circle cx={x} cy={y} r="14" fill={accent} opacity="0.18">
+                            <animate attributeName="r" values="10;18;10" dur="3s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" values="0.28;0.08;0.28" dur="3s" repeatCount="indefinite"/>
+                          </circle>
+                          <circle cx={x} cy={y} r="7" fill={ink}/>
+                          <circle cx={x} cy={y} r="2.5" fill={bg}/>
+                        </>
+                      )}
+                      {!isActive && (
+                        <circle cx={x} cy={y} r="4.5" fill={surface} stroke={muted} strokeWidth="1"/>
+                      )}
+                      <text x={x} y={y + 20} textAnchor="middle" fontSize="8" fill={ink}
+                            opacity={isActive ? 0.85 : 0.45}
+                            style={{ letterSpacing: "0.15em" }}>
+                        {a.time}
+                      </text>
+                    </g>
+                  );
+                })}
+              </svg>
+              <div className="flex justify-between text-[9px] tracking-[0.3em] uppercase opacity-35 -mt-1">
+                <span>dawn</span><span>midday</span><span>dusk</span>
+              </div>
+            </div>
+
+            {/* RITUAL LIST — the four motions, each a moment */}
+            <div className="space-y-2 relative">
+              {activities.map((a, i) => {
+                const isActive = i === activeRitual;
+                const done = i < activeRitual;
+                return (
+                  <button key={a.title}
+                          onClick={() => setActiveRitual(i)}
+                          onMouseMove={trackCursor}
+                          className={`group cursor-glow w-full text-left flex items-center gap-4 py-3.5 pl-4 pr-5 rounded-2xl relative overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isActive ? "scale-[1.01]" : "hover:translate-x-1"}`}
+                          style={{
+                            background: isActive ? ink : "transparent",
+                            color: isActive ? bg : ink,
+                            border: `1px solid ${isActive ? "transparent" : border}`,
+                            boxShadow: isActive ? "0 22px 44px -22px rgba(38,34,28,0.45)" : "none",
+                          }}>
+                    {/* ghost numeral */}
+                    <div className="font-serif italic text-[13px] w-7 shrink-0"
+                         style={{ opacity: isActive ? 0.55 : 0.35 }}>
+                      {String(i + 1).padStart(2, "0")}
                     </div>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <div className="font-serif text-[18px] leading-none">{a.minutes}<span className="text-[10px] opacity-50 ml-1">min</span></div>
-                    <div className="text-[10px] tracking-widest opacity-40 mt-1">{a.time}</div>
-                  </div>
-                  <ChevronRight className="w-4 h-4 opacity-20 group-hover:opacity-80 group-hover:translate-x-1 transition duration-300"/>
-                </div>
-              ))}
+
+                    {/* ring: shows progress on active, checkmark-dot on done, subtle on future */}
+                    <div className="relative w-11 h-11 shrink-0">
+                      <svg viewBox="0 0 44 44" className="absolute inset-0 -rotate-90">
+                        <circle cx="22" cy="22" r="19" fill="none"
+                                stroke={isActive ? bg : border} strokeOpacity={isActive ? 0.2 : 1} strokeWidth="1.2"/>
+                        <circle cx="22" cy="22" r="19" fill="none"
+                                stroke={isActive ? bg : (done ? accent : muted)}
+                                strokeWidth={isActive ? 1.6 : 1.2}
+                                strokeLinecap="round"
+                                strokeDasharray={2 * Math.PI * 19}
+                                strokeDashoffset={2 * Math.PI * 19 * (1 - (isActive ? ritualProgress / 100 : done ? 1 : 0.08))}
+                                style={{ transition: "stroke-dashoffset 1.2s ease" }}/>
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        {isActive
+                          ? <Pause className="w-3.5 h-3.5" style={{ color: bg }} strokeWidth={2}/>
+                          : done
+                            ? <Mark className="w-4 h-4" opacity={0.85}/>
+                            : <Play className="w-3.5 h-3.5 ml-0.5 opacity-70" strokeWidth={2}/>}
+                      </div>
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2.5">
+                        <div className="font-serif text-[17px] leading-tight truncate">{a.title}</div>
+                        {isActive && (
+                          <span className="flex items-end gap-[2px] h-3 ml-0.5" aria-label="now playing">
+                            {[0, 1, 2, 3].map((k) => (
+                              <span key={k}
+                                    className="w-[2px] rounded-full animate-pulse"
+                                    style={{
+                                      background: accent,
+                                      height: `${6 + (k % 2) * 5}px`,
+                                      animationDelay: `${k * 0.15}s`,
+                                      animationDuration: "1.1s",
+                                    }}/>
+                            ))}
+                          </span>
+                        )}
+                        {done && !isActive && (
+                          <span className="text-[8.5px] tracking-[0.3em] uppercase opacity-45">held</span>
+                        )}
+                      </div>
+                      <div className="text-[11.5px] italic mt-0.5"
+                           style={{ color: isActive ? bg : muted, opacity: isActive ? 0.7 : 0.85 }}>
+                        {a.subtitle}
+                      </div>
+                    </div>
+
+                    <div className="text-right shrink-0 hidden sm:block">
+                      <div className="font-serif text-[19px] leading-none tabular-nums">
+                        {a.minutes}<span className="text-[10px] opacity-55 ml-1">min</span>
+                      </div>
+                      <div className="text-[9.5px] tracking-[0.25em] mt-1 opacity-50 tabular-nums">{a.time}</div>
+                    </div>
+
+                    {/* soft "begin" pill that slides in on hover for inactive rows */}
+                    {!isActive && (
+                      <span className="hidden sm:flex items-center gap-1.5 text-[9.5px] tracking-[0.3em] uppercase px-3 py-2 rounded-full transition-all duration-500 opacity-0 -mr-6 group-hover:opacity-100 group-hover:mr-0"
+                            style={{ background: ink, color: bg }}>
+                        begin <ArrowUpRight className="w-2.5 h-2.5"/>
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* footer whisper */}
+            <div className="mt-6 pt-5 border-t flex items-center justify-between text-[10px] tracking-[0.28em] uppercase"
+                 style={{ borderColor: border, color: muted }}>
+              <span>you're on ritual {activeRitual + 1} of 4</span>
+              <span className="italic tracking-normal opacity-70 normal-case">nothing here is a task. only an offering.</span>
             </div>
           </div>
 
-          <div className="lg:col-span-5 rounded-[28px] p-6 flex flex-col"
-               style={{ background: surface, border: `1px solid ${border}` }}>
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center relative" style={{ background: surface2 }}>
-                  <Mark className="w-5 h-5"/>
-                  <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border-2" style={{ background: accent, borderColor: surface }}/>
+          {/* RIGHT · PEACE, LISTENING */}
+          <div className="lg:col-span-5 relative rounded-[32px] p-6 sm:p-7 flex flex-col overflow-hidden"
+               style={{ background: `linear-gradient(180deg, ${surface} 0%, ${surface2} 100%)`, border: `1px solid ${border}` }}>
+            {/* ambient wash following the top */}
+            <div aria-hidden className="pointer-events-none absolute -top-24 -right-16 w-72 h-72 rounded-full blur-3xl"
+                 style={{ background: accent, opacity: 0.16 }}/>
+            <Curl stroke={accent} className="absolute -right-6 bottom-6 w-40 opacity-20 pointer-events-none"/>
+
+            {/* HEADER · living avatar */}
+            <div className="flex items-center justify-between mb-5 relative">
+              <div className="flex items-center gap-3.5">
+                <div className="relative w-14 h-14 shrink-0">
+                  {/* breathing concentric rings */}
+                  <span className="absolute inset-0 rounded-full animate-breathe"
+                        style={{ background: `radial-gradient(circle at 30% 30%, ${accent}55, transparent 65%)` }}/>
+                  <span className="absolute inset-1.5 rounded-full"
+                        style={{ background: surface, border: `1px solid ${border}` }}/>
+                  <span className="absolute inset-0 rounded-full animate-pulse-soft"
+                        style={{ boxShadow: `0 0 0 1px ${accent}55 inset` }}/>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Mark className="w-6 h-6" opacity={0.9}/>
+                  </div>
+                  <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full flex items-center justify-center"
+                        style={{ background: bg }}>
+                    <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "#7fa084" }}/>
+                  </span>
                 </div>
                 <div>
-                  <div className="font-serif text-[16px] leading-tight">Peace</div>
-                  <div className="text-[10px] italic opacity-50">a gentle listener · here now</div>
+                  <div className="font-serif text-[18px] leading-none flex items-center gap-2">
+                    Peace
+                    <span className="text-[8.5px] tracking-[0.3em] uppercase opacity-55 px-1.5 py-0.5 rounded-full"
+                          style={{ border: `1px solid ${border}`, color: muted }}>listening</span>
+                  </div>
+                  <div className="text-[10.5px] italic opacity-60 mt-1">always here · never louder than you</div>
                 </div>
               </div>
-              <button className="text-[10px] tracking-[0.25em] uppercase opacity-50">new</button>
+              <button className="text-[9.5px] tracking-[0.28em] uppercase opacity-55 hover:opacity-100 transition"
+                      style={{ color: muted }}>new thread</button>
             </div>
 
-            <div className="flex-1 space-y-2.5 mb-4 min-h-[140px]">
-              <div className="flex justify-end">
-                <div className="max-w-[85%] rounded-2xl rounded-tr-md text-[12px] px-3.5 py-2.5" style={{ background: ink, color: bg }}>
-                  I've felt tight lately. Sleep is uneven.
-                </div>
+            {/* CONVERSATION */}
+            <div className="flex-1 space-y-3 mb-4 min-h-[180px] pr-1 overflow-y-auto scrollbar-none">
+              {/* soft day divider */}
+              <div className="flex items-center gap-3 opacity-45">
+                <span className="h-px flex-1" style={{ background: border }}/>
+                <span className="text-[8.5px] tracking-[0.35em] uppercase" style={{ color: muted }}>today · 21:04</span>
+                <span className="h-px flex-1" style={{ background: border }}/>
               </div>
-              <div className="flex justify-start">
-                <div className="max-w-[85%] rounded-2xl rounded-tl-md text-[12.5px] px-3.5 py-2.5 font-serif italic" style={{ background: surface2 }}>
-                  I hear you. When did the tightness first arrive?
+
+              {chatLog.map((m, i) => (
+                <div key={i} className={`flex ${m.from === "me" ? "justify-end" : "justify-start"} animate-rise`}>
+                  {m.from === "peace" && (
+                    <span className="font-serif italic text-[26px] leading-none mr-2 select-none opacity-35"
+                          style={{ color: accent }}>“</span>
+                  )}
+                  <div className={`max-w-[80%] text-[12.5px] leading-relaxed px-3.5 py-2.5 ${m.from === "me" ? "rounded-2xl rounded-tr-md" : "rounded-2xl rounded-tl-md font-serif italic"}`}
+                       style={m.from === "me"
+                         ? { background: ink, color: bg }
+                         : { background: bg, border: `1px solid ${border}`, color: ink }}>
+                    {m.text}
+                  </div>
                 </div>
-              </div>
-              <div className="flex justify-start">
-                <div className="rounded-full px-3 py-2 flex gap-1" style={{ background: surface2 }}>
-                  <span className="w-1 h-1 rounded-full animate-pulse" style={{ background: muted }}/>
-                  <span className="w-1 h-1 rounded-full animate-pulse [animation-delay:0.15s]" style={{ background: muted }}/>
-                  <span className="w-1 h-1 rounded-full animate-pulse [animation-delay:0.3s]" style={{ background: muted }}/>
+              ))}
+
+              {/* peace is thinking — waveform, not dots */}
+              {peaceTyping && (
+                <div className="flex justify-start animate-rise">
+                  <div className="rounded-full px-4 py-2.5 flex items-end gap-[3px]"
+                       style={{ background: bg, border: `1px solid ${border}` }}>
+                    {[0, 1, 2, 3, 4, 5, 6].map((k) => (
+                      <span key={k}
+                            className="w-[2px] rounded-full animate-pulse"
+                            style={{
+                              background: accent,
+                              height: `${4 + ((k * 3) % 9)}px`,
+                              animationDelay: `${k * 0.08}s`,
+                              animationDuration: "1.1s",
+                            }}/>
+                    ))}
+                    <span className="ml-2 text-[9px] tracking-[0.3em] uppercase italic opacity-55 font-sans not-italic"
+                          style={{ color: muted }}>gathering words</span>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
-            <div className="flex items-center gap-2 rounded-full pl-4 pr-1.5 py-1.5" style={{ background: surface2 }}>
-              <input placeholder="say something soft…" className="flex-1 bg-transparent outline-none text-[12px] placeholder:opacity-40 font-serif italic"/>
-              <button className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: ink }}>
-                <Send className="w-3 h-3" style={{ color: bg }}/>
+            {/* SUGGESTION CHIPS — one-tap openings */}
+            <div className="flex flex-wrap gap-1.5 mb-3">
+              {["today feels heavy", "help me sleep", "one honest thing", "I'm scattered"].map((s) => (
+                <button key={s}
+                        onClick={() => sendToPeace(s)}
+                        className="text-[10.5px] italic font-serif px-3 py-1.5 rounded-full transition hover:-translate-y-0.5"
+                        style={{ background: bg, border: `1px solid ${border}`, color: ink }}>
+                  {s}
+                </button>
+              ))}
+            </div>
+
+            {/* COMPOSER */}
+            <form onSubmit={(e) => { e.preventDefault(); sendToPeace(chatInput); }}
+                  className="flex items-center gap-2 rounded-full pl-4 pr-1.5 py-1.5 transition-all"
+                  style={{ background: bg, border: `1px solid ${border}`, boxShadow: chatInput ? `0 0 0 3px ${accent}22` : "none" }}>
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse shrink-0" style={{ background: accent }}/>
+              <input value={chatInput}
+                     onChange={(e) => setChatInput(e.target.value)}
+                     placeholder="say something soft…"
+                     className="flex-1 bg-transparent outline-none text-[12.5px] placeholder:opacity-40 font-serif italic py-1"/>
+              <button type="button"
+                      className={`w-8 h-8 rounded-full flex items-center justify-center transition-opacity ${chatInput ? "opacity-30" : "opacity-100"}`}
+                      style={{ border: `1px solid ${border}` }}
+                      aria-label="voice">
+                <Volume2 className="w-3.5 h-3.5" style={{ color: ink }}/>
               </button>
+              <button type="submit"
+                      className={`w-9 h-9 rounded-full flex items-center justify-center transition-transform ${chatInput ? "scale-100" : "scale-90 opacity-70"}`}
+                      style={{ background: ink }}
+                      aria-label="send">
+                <Send className="w-3.5 h-3.5" style={{ color: bg }}/>
+              </button>
+            </form>
+
+            <div className="mt-3 flex items-center justify-between text-[9px] tracking-[0.28em] uppercase opacity-45"
+                 style={{ color: muted }}>
+              <span className="flex items-center gap-1.5"><span className="w-1 h-1 rounded-full" style={{ background: accent }}/> end-to-end soft</span>
+              <span className="italic tracking-normal normal-case opacity-90">a small private garden</span>
             </div>
           </div>
         </section>
+
+
 
         {/* COMMUNITY */}
         <div className="flex items-baseline justify-between mb-5">
