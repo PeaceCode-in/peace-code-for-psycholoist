@@ -15,9 +15,17 @@ export const Route = createFileRoute("/buddies/")({
 function BuddiesHome() {
   const { surface, surface2, border, ink, muted, primary, soft, lavender } = palette;
   const sessions = listSessions();
-  const cont = useMemo(() => sessions.find((s) => s.status === "active" || s.status === "accepted"), [sessions]);
-  const upcoming = sessions.filter((s) => s.scheduledFor && s.scheduledFor > Date.now()).slice(0, 3);
+  const cont = useMemo(
+    () => sessions.find((s) => s.status === "active" || s.status === "accepted" || s.status === "waiting" || s.status === "rescheduled"),
+    [sessions]
+  );
+  const upcoming = sessions
+    .filter((s) => s.scheduledFor && s.scheduledFor > Date.now() && ["waiting","accepted","rescheduled"].includes(s.status))
+    .sort((a,b)=>(a.scheduledFor??0)-(b.scheduledFor??0))
+    .slice(0, 3);
   const featured = BUDDIES.filter((b) => b.rating >= 4.8).slice(0, 3);
+  const active = BUDDIES.filter((b) => b.online).slice(0, 4);
+  const rec = BUDDIES.find((b) => favorites().includes(b.id)) ?? BUDDIES[0];
   const active = BUDDIES.filter((b) => b.online).slice(0, 4);
   const rec = BUDDIES.find((b) => favorites().includes(b.id)) ?? BUDDIES[0];
 
