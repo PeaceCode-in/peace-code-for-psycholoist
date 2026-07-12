@@ -14,6 +14,8 @@ import { Route as FocusRouteImport } from './routes/focus'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as BreatheRouteImport } from './routes/breathe'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as JournalVoiceRouteImport } from './routes/journal.voice'
+import { Route as JournalMemoriesRouteImport } from './routes/journal.memories'
 import { Route as JournalIdRouteImport } from './routes/journal.$id'
 import { Route as BreatheStatsRouteImport } from './routes/breathe.stats'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
@@ -43,6 +45,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const JournalVoiceRoute = JournalVoiceRouteImport.update({
+  id: '/voice',
+  path: '/voice',
+  getParentRoute: () => JournalRoute,
+} as any)
+const JournalMemoriesRoute = JournalMemoriesRouteImport.update({
+  id: '/memories',
+  path: '/memories',
+  getParentRoute: () => JournalRoute,
+} as any)
 const JournalIdRoute = JournalIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -68,6 +80,8 @@ export interface FileRoutesByFullPath {
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/journal/$id': typeof JournalIdRoute
+  '/journal/memories': typeof JournalMemoriesRoute
+  '/journal/voice': typeof JournalVoiceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +92,8 @@ export interface FileRoutesByTo {
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/journal/$id': typeof JournalIdRoute
+  '/journal/memories': typeof JournalMemoriesRoute
+  '/journal/voice': typeof JournalVoiceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +105,8 @@ export interface FileRoutesById {
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/journal/$id': typeof JournalIdRoute
+  '/journal/memories': typeof JournalMemoriesRoute
+  '/journal/voice': typeof JournalVoiceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +119,8 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/breathe/stats'
     | '/journal/$id'
+    | '/journal/memories'
+    | '/journal/voice'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +131,8 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/breathe/stats'
     | '/journal/$id'
+    | '/journal/memories'
+    | '/journal/voice'
   id:
     | '__root__'
     | '/'
@@ -121,6 +143,8 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/breathe/stats'
     | '/journal/$id'
+    | '/journal/memories'
+    | '/journal/voice'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -169,6 +193,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/journal/voice': {
+      id: '/journal/voice'
+      path: '/voice'
+      fullPath: '/journal/voice'
+      preLoaderRoute: typeof JournalVoiceRouteImport
+      parentRoute: typeof JournalRoute
+    }
+    '/journal/memories': {
+      id: '/journal/memories'
+      path: '/memories'
+      fullPath: '/journal/memories'
+      preLoaderRoute: typeof JournalMemoriesRouteImport
+      parentRoute: typeof JournalRoute
+    }
     '/journal/$id': {
       id: '/journal/$id'
       path: '/$id'
@@ -206,10 +244,14 @@ const BreatheRouteWithChildren =
 
 interface JournalRouteChildren {
   JournalIdRoute: typeof JournalIdRoute
+  JournalMemoriesRoute: typeof JournalMemoriesRoute
+  JournalVoiceRoute: typeof JournalVoiceRoute
 }
 
 const JournalRouteChildren: JournalRouteChildren = {
   JournalIdRoute: JournalIdRoute,
+  JournalMemoriesRoute: JournalMemoriesRoute,
+  JournalVoiceRoute: JournalVoiceRoute,
 }
 
 const JournalRouteWithChildren =
