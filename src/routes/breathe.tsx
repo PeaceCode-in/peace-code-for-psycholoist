@@ -315,6 +315,16 @@ function BreathePage() {
     setTimeout(() => start(), 50);
   };
 
+  // ─ cinema (fullscreen) mode ─
+  const [cinema, setCinema] = useState(false);
+  useEffect(() => {
+    if (!cinema) return;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setCinema(false); };
+    window.addEventListener("keydown", onKey);
+    return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", onKey); };
+  }, [cinema]);
+
   const hc = prefs.highContrast;
   const themeStyle = {
     background: hc ? "#FFFFFF" : bg,
