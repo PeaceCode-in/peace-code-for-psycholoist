@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as FocusRouteImport } from './routes/focus'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 
+const FocusRoute = FocusRouteImport.update({
+  id: '/focus',
+  path: '/focus',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CommunityRoute = CommunityRouteImport.update({
   id: '/community',
   path: '/community',
@@ -32,35 +38,46 @@ const ApiChatRoute = ApiChatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
+  '/focus': typeof FocusRoute
   '/api/chat': typeof ApiChatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
+  '/focus': typeof FocusRoute
   '/api/chat': typeof ApiChatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
+  '/focus': typeof FocusRoute
   '/api/chat': typeof ApiChatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/community' | '/api/chat'
+  fullPaths: '/' | '/community' | '/focus' | '/api/chat'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/community' | '/api/chat'
-  id: '__root__' | '/' | '/community' | '/api/chat'
+  to: '/' | '/community' | '/focus' | '/api/chat'
+  id: '__root__' | '/' | '/community' | '/focus' | '/api/chat'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CommunityRoute: typeof CommunityRoute
+  FocusRoute: typeof FocusRoute
   ApiChatRoute: typeof ApiChatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/focus': {
+      id: '/focus'
+      path: '/focus'
+      fullPath: '/focus'
+      preLoaderRoute: typeof FocusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/community': {
       id: '/community'
       path: '/community'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CommunityRoute: CommunityRoute,
+  FocusRoute: FocusRoute,
   ApiChatRoute: ApiChatRoute,
 }
 export const routeTree = rootRouteImport

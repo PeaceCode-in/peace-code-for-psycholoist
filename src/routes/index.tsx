@@ -31,7 +31,7 @@ const navGroups = [
     label: "Wellness Tools",
     items: [
       { icon: Wind, label: "Breathe" },
-      { icon: Target, label: "Focus" },
+      { icon: Target, label: "Focus", to: "/focus" },
       { icon: Heart, label: "Gratitude" },
       { icon: PenLine, label: "Journal" },
       { icon: Activity, label: "Mood Tracker" },
