@@ -30,7 +30,7 @@ const navGroups = [
   {
     label: "Wellness Tools",
     items: [
-      { icon: Wind, label: "Breathe" },
+      { icon: Wind, label: "Breathe", to: "/breathe" },
       { icon: Target, label: "Focus", to: "/focus" },
       { icon: Heart, label: "Gratitude" },
       { icon: PenLine, label: "Journal" },
