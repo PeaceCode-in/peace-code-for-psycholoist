@@ -55,6 +55,7 @@ import { Route as ScreeningConsentIdRouteImport } from './routes/screening.conse
 import { Route as ScreeningAssessmentIdRouteImport } from './routes/screening.assessment.$id'
 import { Route as PeacebotCIdRouteImport } from './routes/peacebot.c.$id'
 import { Route as BuddiesSafetyIdRouteImport } from './routes/buddies.safety.$id'
+import { Route as BuddiesRequestIdRouteImport } from './routes/buddies.request.$id'
 import { Route as BuddiesGuidelinesIdRouteImport } from './routes/buddies.guidelines.$id'
 import { Route as BuddiesFeedbackIdRouteImport } from './routes/buddies.feedback.$id'
 import { Route as BuddiesChatIdRouteImport } from './routes/buddies.chat.$id'
@@ -290,6 +291,11 @@ const BuddiesSafetyIdRoute = BuddiesSafetyIdRouteImport.update({
   path: '/buddies/safety/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BuddiesRequestIdRoute = BuddiesRequestIdRouteImport.update({
+  id: '/buddies/request/$id',
+  path: '/buddies/request/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BuddiesGuidelinesIdRoute = BuddiesGuidelinesIdRouteImport.update({
   id: '/buddies/guidelines/$id',
   path: '/buddies/guidelines/$id',
@@ -354,6 +360,7 @@ export interface FileRoutesByFullPath {
   '/buddies/chat/$id': typeof BuddiesChatIdRoute
   '/buddies/feedback/$id': typeof BuddiesFeedbackIdRoute
   '/buddies/guidelines/$id': typeof BuddiesGuidelinesIdRoute
+  '/buddies/request/$id': typeof BuddiesRequestIdRoute
   '/buddies/safety/$id': typeof BuddiesSafetyIdRoute
   '/peacebot/c/$id': typeof PeacebotCIdRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
@@ -406,6 +413,7 @@ export interface FileRoutesByTo {
   '/buddies/chat/$id': typeof BuddiesChatIdRoute
   '/buddies/feedback/$id': typeof BuddiesFeedbackIdRoute
   '/buddies/guidelines/$id': typeof BuddiesGuidelinesIdRoute
+  '/buddies/request/$id': typeof BuddiesRequestIdRoute
   '/buddies/safety/$id': typeof BuddiesSafetyIdRoute
   '/peacebot/c/$id': typeof PeacebotCIdRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
@@ -459,6 +467,7 @@ export interface FileRoutesById {
   '/buddies/chat/$id': typeof BuddiesChatIdRoute
   '/buddies/feedback/$id': typeof BuddiesFeedbackIdRoute
   '/buddies/guidelines/$id': typeof BuddiesGuidelinesIdRoute
+  '/buddies/request/$id': typeof BuddiesRequestIdRoute
   '/buddies/safety/$id': typeof BuddiesSafetyIdRoute
   '/peacebot/c/$id': typeof PeacebotCIdRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
@@ -513,6 +522,7 @@ export interface FileRouteTypes {
     | '/buddies/chat/$id'
     | '/buddies/feedback/$id'
     | '/buddies/guidelines/$id'
+    | '/buddies/request/$id'
     | '/buddies/safety/$id'
     | '/peacebot/c/$id'
     | '/screening/assessment/$id'
@@ -565,6 +575,7 @@ export interface FileRouteTypes {
     | '/buddies/chat/$id'
     | '/buddies/feedback/$id'
     | '/buddies/guidelines/$id'
+    | '/buddies/request/$id'
     | '/buddies/safety/$id'
     | '/peacebot/c/$id'
     | '/screening/assessment/$id'
@@ -617,6 +628,7 @@ export interface FileRouteTypes {
     | '/buddies/chat/$id'
     | '/buddies/feedback/$id'
     | '/buddies/guidelines/$id'
+    | '/buddies/request/$id'
     | '/buddies/safety/$id'
     | '/peacebot/c/$id'
     | '/screening/assessment/$id'
@@ -670,6 +682,7 @@ export interface RootRouteChildren {
   BuddiesChatIdRoute: typeof BuddiesChatIdRoute
   BuddiesFeedbackIdRoute: typeof BuddiesFeedbackIdRoute
   BuddiesGuidelinesIdRoute: typeof BuddiesGuidelinesIdRoute
+  BuddiesRequestIdRoute: typeof BuddiesRequestIdRoute
   BuddiesSafetyIdRoute: typeof BuddiesSafetyIdRoute
   PeacebotCIdRoute: typeof PeacebotCIdRoute
   ScreeningAssessmentIdRoute: typeof ScreeningAssessmentIdRoute
@@ -1004,6 +1017,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BuddiesSafetyIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/buddies/request/$id': {
+      id: '/buddies/request/$id'
+      path: '/buddies/request/$id'
+      fullPath: '/buddies/request/$id'
+      preLoaderRoute: typeof BuddiesRequestIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/buddies/guidelines/$id': {
       id: '/buddies/guidelines/$id'
       path: '/buddies/guidelines/$id'
@@ -1078,6 +1098,7 @@ const rootRouteChildren: RootRouteChildren = {
   BuddiesChatIdRoute: BuddiesChatIdRoute,
   BuddiesFeedbackIdRoute: BuddiesFeedbackIdRoute,
   BuddiesGuidelinesIdRoute: BuddiesGuidelinesIdRoute,
+  BuddiesRequestIdRoute: BuddiesRequestIdRoute,
   BuddiesSafetyIdRoute: BuddiesSafetyIdRoute,
   PeacebotCIdRoute: PeacebotCIdRoute,
   ScreeningAssessmentIdRoute: ScreeningAssessmentIdRoute,

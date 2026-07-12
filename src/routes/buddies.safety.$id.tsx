@@ -1,8 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { AppShell, palette } from "@/components/AppShell";
-import { getBuddy, avatarFor, createSession } from "@/lib/buddies-store";
-import { ArrowLeft, ArrowRight, ShieldAlert } from "lucide-react";
-import { useState } from "react";
+import { getBuddy, avatarFor, createSession, upcomingSlots, isBuddyAvailable } from "@/lib/buddies-store";
+import { ArrowLeft, ArrowRight, ShieldAlert, Clock } from "lucide-react";
+import { useMemo, useState } from "react";
 
 export const Route = createFileRoute("/buddies/safety/$id")({
   component: Safety,
@@ -31,23 +31,26 @@ function Safety() {
   const [reason, setReason] = useState("");
   const [goal, setGoal] = useState("");
   const [urgency, setUrgency] = useState("");
+  const [slotTs, setSlotTs] = useState<number | null>(null);
   const [crisisChecked, setCrisisChecked] = useState<string[]>([]);
+
+  const slots = useMemo(() => (b ? upcomingSlots(b.id, 7, 8) : []), [b]);
+  const available = b ? isBuddyAvailable(b.id) : false;
 
   if (!b) return <AppShell><main className="p-10 text-center">Buddy not found.</main></AppShell>;
 
   const isCrisis = crisisChecked.length > 0;
-  const ready = mood && energy && reason && goal && urgency && !isCrisis;
+  const ready = mood && energy && reason && goal && urgency && slotTs && !isCrisis && available;
 
   const proceed = () => {
-    const s = createSession({ buddyId: id, moodBefore: mood, topic: reason, goal, urgency });
-    setTimeout(() => {
-      // simulate buddy accepting
-      const sess = JSON.parse(localStorage.getItem("peacecode.buddies.sessions.v1") || "[]");
-      const idx = sess.findIndex((x: {id:string}) => x.id === s.id);
-      if (idx >= 0) { sess[idx].status = "accepted"; localStorage.setItem("peacecode.buddies.sessions.v1", JSON.stringify(sess)); }
-    }, 800);
-    navigate({ to: "/buddies/chat/$id", params: { id: s.id } });
+    const chosen = slots.find(s => s.ts === slotTs);
+    const s = createSession({
+      buddyId: id, moodBefore: mood, topic: reason, goal, urgency,
+      scheduledFor: chosen?.ts, slotLabel: chosen ? `${chosen.label} · ${chosen.slot}` : undefined,
+    });
+    navigate({ to: "/buddies/request/$id", params: { id: s.id } });
   };
+
 
   return (
     <AppShell>
