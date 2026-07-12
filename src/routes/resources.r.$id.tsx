@@ -106,7 +106,7 @@ function ResourcePage() {
         <div className="rounded-3xl overflow-hidden mb-8 relative min-h-[280px]" style={{ background: heroBg(r.hero) }}>
           <div className="absolute inset-0 p-8 sm:p-10 flex flex-col justify-end" style={{ background: "linear-gradient(180deg,transparent 30%,rgba(0,0,0,0.5) 100%)" }}>
             <div className="flex items-center gap-2 mb-3">
-              <span className="px-2.5 py-1 rounded-full text-[10px] tracking-[0.16em] uppercase bg-white/25 text-white">{FORMAT_LABELS[r.format]}</span>
+              <span className="px-2.5 py-1 rounded-full text-[10px] tracking-[0.16em] uppercase bg-white/25 text-white">{FORMAT_LABELS[r.format as keyof typeof FORMAT_LABELS]}</span>
               {cat && (
                 <Link to="/resources/c/$slug" params={{ slug: cat.slug }} className="px-2.5 py-1 rounded-full text-[10px] tracking-[0.16em] uppercase bg-white/25 text-white hover:bg-white/35">
                   {cat.emoji} {cat.name}
