@@ -314,8 +314,19 @@ function BreathePage() {
     setTimeout(() => start(), 50);
   };
 
+  const hc = prefs.highContrast;
+  const themeStyle = {
+    background: hc ? "#FFFFFF" : bg,
+    color: hc ? "#000000" : ink,
+    fontSize: `${prefs.fontScale * 100}%`,
+  };
+  const cardBorder = hc ? "#000000" : border;
+
   return (
-    <div className="min-h-screen font-['DM_Sans',sans-serif]" style={{ background: bg, color: ink }}>
+    <div className="min-h-screen font-['DM_Sans',sans-serif]" style={themeStyle}>
+      {/* live region for screen readers */}
+      <div aria-live="polite" aria-atomic="true" className="sr-only">{announce}</div>
+
       {/* header */}
       <header className="max-w-6xl mx-auto px-4 sm:px-8 pt-6 sm:pt-10 pb-6 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 group">
@@ -326,16 +337,32 @@ function BreathePage() {
         <div className="flex items-center gap-2 sm:gap-3">
           <button
             onClick={quickCalm}
-            className="hidden sm:inline-flex items-center gap-2 px-4 h-10 rounded-full text-[12px] tracking-wide transition-all hover:-translate-y-0.5"
+            className="hidden sm:inline-flex items-center gap-2 px-4 h-10 rounded-full text-[12px] tracking-wide transition-all hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
             style={{ background: peach, color: ink }}
           >
-            <Zap size={14} /> quick calm · 60s
+            <Zap size={14} aria-hidden="true" /> quick calm · 60s
+          </button>
+          <Link
+            to="/breathe/stats"
+            className="w-10 h-10 rounded-full flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2"
+            style={{ background: surface, border: `1px solid ${cardBorder}` }}
+            aria-label="technique stats"
+          >
+            <BarChart3 size={16} />
+          </Link>
+          <button
+            onClick={() => setShowA11y(true)}
+            className="w-10 h-10 rounded-full flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2"
+            style={{ background: surface, border: `1px solid ${cardBorder}` }}
+            aria-label="accessibility settings"
+          >
+            <Accessibility size={16} />
           </button>
           <button
             onClick={() => setShowHistory(true)}
-            className="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
-            style={{ background: surface, border: `1px solid ${border}` }}
-            aria-label="history"
+            className="w-10 h-10 rounded-full flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2"
+            style={{ background: surface, border: `1px solid ${cardBorder}` }}
+            aria-label="session history"
           >
             <Timer size={16} />
           </button>
