@@ -185,7 +185,46 @@ function Dashboard() {
   const [expAuto, setExpAuto] = useState(true);
   const [expSaved, setExpSaved] = useState<Record<number, boolean>>({});
   const [expProgress, setExpProgress] = useState(0);
+  const [activeRitual, setActiveRitual] = useState(1);
+  const [ritualProgress, setRitualProgress] = useState(42);
+  const [chatInput, setChatInput] = useState("");
+  const [chatLog, setChatLog] = useState<{ from: "me" | "peace"; text: string }[]>([
+    { from: "me", text: "I've felt tight lately. Sleep is uneven." },
+    { from: "peace", text: "I hear you. When did the tightness first arrive?" },
+  ]);
+  const [peaceTyping, setPeaceTyping] = useState(true);
   const mainRef = useRef<HTMLDivElement>(null);
+
+  // gentle "peace is thinking" heartbeat + soft canned response
+  useEffect(() => {
+    if (!peaceTyping) return;
+    const t = setTimeout(() => setPeaceTyping(false), 2600);
+    return () => clearTimeout(t);
+  }, [peaceTyping, chatLog.length]);
+
+  const sendToPeace = (text: string) => {
+    const t = text.trim();
+    if (!t) return;
+    setChatLog((l) => [...l, { from: "me", text: t }]);
+    setChatInput("");
+    setPeaceTyping(true);
+    const softReplies = [
+      "let's stay with that for a breath. what does it feel like in the body?",
+      "thank you for saying it out loud. we can move slowly from here.",
+      "that sounds heavy. would a two-minute pause help right now?",
+      "noted, gently. nothing needs solving tonight — just noticing.",
+    ];
+    setTimeout(() => {
+      setChatLog((l) => [...l, { from: "peace", text: softReplies[l.length % softReplies.length] }]);
+      setPeaceTyping(false);
+    }, 2400);
+  };
+
+  // slow progress creep on the active ritual, like a lived-in moment
+  useEffect(() => {
+    const t = setInterval(() => setRitualProgress((p) => (p >= 96 ? 42 : p + 1)), 1400);
+    return () => clearInterval(t);
+  }, []);
 
   useEffect(() => {
     if (!running) return;
