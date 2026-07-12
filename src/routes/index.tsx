@@ -1700,7 +1700,7 @@ function Dashboard() {
               {["first breath","seven mornings","one honest note","a walk alone","two weeks steady","empty inbox","early sleep","stillness · 10h"].map((name, i) => {
                 const unlocked = i < 4;
                 return (
-                  <button key={i} title={name}
+                  <Link key={i} to="/resources/achievements" title={name}
                        onMouseMove={trackCursor}
                        className="group cursor-glow aspect-square rounded-2xl flex items-center justify-center cursor-pointer relative overflow-hidden transition-all duration-500 hover:-translate-y-1 focus:outline-none"
                        style={{ background: surface2, border: `1px solid ${border}` }}>
@@ -1712,7 +1712,7 @@ function Dashboard() {
                           style={{ background: ink, color: bg }}>
                       {name}
                     </span>
-                  </button>
+                  </Link>
                 );
               })}
             </div>
