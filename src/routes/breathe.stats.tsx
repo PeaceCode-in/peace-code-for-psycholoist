@@ -213,8 +213,10 @@ function BreatheStatsPage() {
         </div>
       </section>
     </div>
+    </AppShell>
   );
 }
+
 
 function Big({ label, value }: { label: string; value: number | string }) {
   return (
