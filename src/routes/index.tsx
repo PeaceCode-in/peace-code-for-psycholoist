@@ -302,11 +302,11 @@ function Dashboard() {
     <div className={`min-h-screen w-full font-sans transition-colors ${dark ? "dark" : ""}`} style={{ background: bg, color: ink }}>
       {/* soft aurora backdrop — one palette only */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full opacity-45 blur-3xl"
+        <div className="absolute -top-24 -left-24 w-72 h-72 lg:-top-40 lg:-left-40 lg:w-[520px] lg:h-[520px] rounded-full opacity-45 blur-3xl"
              style={{ background: dark ? "radial-gradient(circle,#1E2A48,transparent 70%)" : "radial-gradient(circle,#D5C9F7,transparent 70%)" }} />
-        <div className="absolute top-1/3 -right-40 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
+        <div className="absolute top-1/3 -right-24 w-80 h-80 lg:-right-40 lg:w-[600px] lg:h-[600px] rounded-full opacity-30 blur-3xl"
              style={{ background: dark ? "radial-gradient(circle,#182238,transparent 70%)" : "radial-gradient(circle,#AFC9F5,transparent 70%)" }} />
-        <div className="absolute -bottom-40 left-1/3 w-[500px] h-[500px] rounded-full opacity-25 blur-3xl"
+        <div className="absolute -bottom-24 left-1/4 w-72 h-72 lg:-bottom-40 lg:left-1/3 lg:w-[500px] lg:h-[500px] rounded-full opacity-25 blur-3xl"
              style={{ background: dark ? "radial-gradient(circle,#22304E,transparent 70%)" : "radial-gradient(circle,#EAF3FF,transparent 70%)" }} />
       </div>
 
@@ -422,10 +422,10 @@ function Dashboard() {
       </header>
 
       {/* ─── editorial canvas ─── */}
-      <main ref={mainRef} className="relative z-10 lg:pl-[120px] lg:pr-10 xl:pr-14 px-5 sm:px-8 py-8 lg:py-12 pb-32 lg:pb-16 max-w-[1600px] mx-auto">
+      <main ref={mainRef} className="relative z-10 lg:pl-[120px] lg:pr-10 xl:pr-14 px-4 sm:px-8 py-5 lg:py-12 pb-32 lg:pb-16 max-w-[1600px] mx-auto">
 
         {/* HERO — quiet editorial band */}
-        <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 items-start">
+        <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 mb-10 lg:mb-16 items-start">
           <div className="lg:col-span-8 flex flex-col">
             <div className="hidden lg:flex items-center justify-between mb-8">
               <div className="text-[10px] tracking-[0.35em] uppercase opacity-60" style={{ color: accent }}>
@@ -1862,7 +1862,7 @@ function TodayBrief({ accent, ink, bg, border, surface, surface2, muted }: Brief
   ];
 
   return (
-    <div className="relative rounded-[38px] overflow-hidden group card-lift"
+    <div className="relative rounded-[28px] sm:rounded-[38px] overflow-hidden group card-lift"
          style={{
            background: `linear-gradient(150deg, ${surface} 0%, ${bg} 55%, ${surface2} 100%)`,
            border: `1px solid ${border}`,
@@ -1874,16 +1874,16 @@ function TodayBrief({ accent, ink, bg, border, surface, surface2, muted }: Brief
              background: `radial-gradient(60% 80% at 85% 0%, ${accent}18, transparent 60%),
                           radial-gradient(50% 70% at 0% 100%, ${accent}12, transparent 60%)`
            }}/>
-      <Curl stroke={accent} className="absolute -left-6 -bottom-6 w-[240px] opacity-15 pointer-events-none"/>
+      <Curl stroke={accent} className="absolute -left-6 -bottom-6 w-[180px] sm:w-[240px] opacity-15 pointer-events-none"/>
 
-      <div className="relative p-6 sm:p-8 lg:p-10">
+      <div className="relative p-5 sm:p-8 lg:p-10">
         {/* top line: greeting + live clock */}
-        <div className="flex items-center justify-between mb-5">
-          <div className="flex items-center gap-2 text-[10px] tracking-[0.32em] uppercase" style={{ color: accent, opacity: 0.75 }}>
+        <div className="flex items-center justify-between mb-4 sm:mb-5 gap-3">
+          <div className="flex min-w-0 items-center gap-2 text-[9px] sm:text-[10px] tracking-[0.26em] sm:tracking-[0.32em] uppercase truncate" style={{ color: accent, opacity: 0.75 }}>
             <span className="inline-block w-1.5 h-1.5 rounded-full animate-pulse-soft" style={{ background: accent }}/>
-            today's composure
+            <span className="truncate">today's composure</span>
           </div>
-          <div className="text-[10px] tracking-[0.28em] uppercase opacity-55 tabular-nums">
+          <div className="text-[9px] sm:text-[10px] tracking-[0.22em] sm:tracking-[0.28em] uppercase opacity-55 tabular-nums shrink-0">
             {time ? time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "\u00a0"}
           </div>
         </div>
@@ -1911,7 +1911,7 @@ function TodayBrief({ accent, ink, bg, border, surface, surface2, muted }: Brief
               : { label: "begin sleep story · 12 min", target: "sleep" };
           return (
             <>
-              <p className="font-serif text-[22px] sm:text-[26px] lg:text-[30px] leading-[1.25] tracking-tight max-w-[640px]"
+              <p className="font-serif text-[19px] sm:text-[26px] lg:text-[30px] leading-[1.22] sm:leading-[1.25] tracking-tight max-w-[640px]"
                  style={{ color: ink, letterSpacing: "-0.02em" }}>
                 <span className="italic" style={{ color: accent }}>{salutation}, Jai</span> —{" "}
                 <span className="relative inline-block">
@@ -1923,9 +1923,9 @@ function TodayBrief({ accent, ink, bg, border, surface, surface2, muted }: Brief
               </p>
 
               {/* the composure ring + stat rail */}
-              <div className="mt-8 grid grid-cols-1 md:grid-cols-[auto_1fr] gap-8 md:gap-10 items-center">
+              <div className="mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 md:gap-10 items-center">
                 {/* glass composure ring */}
-                <div className="relative w-[140px] h-[140px] shrink-0 mx-auto md:mx-0">
+                <div className="relative w-[118px] h-[118px] sm:w-[140px] sm:h-[140px] shrink-0 mx-auto md:mx-0">
                   <svg viewBox="0 0 140 140" className="w-full h-full -rotate-90">
                     <defs>
                       <linearGradient id="brief-arc" x1="0" x2="1" y1="0" y2="1">
@@ -1942,12 +1942,12 @@ function TodayBrief({ accent, ink, bg, border, surface, surface2, muted }: Brief
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
                     <div className="text-[9px] tracking-[0.32em] uppercase opacity-55" style={{ color: accent }}>peace</div>
-                    <div className="font-serif text-[38px] leading-none mt-1 tabular-nums" style={{ color: ink }}>{score}</div>
+                    <div className="font-serif text-[32px] sm:text-[38px] leading-none mt-1 tabular-nums" style={{ color: ink }}>{score}</div>
                     <div className="text-[9px] mt-1 opacity-55">+6 vs. yesterday</div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-1.5 sm:gap-2">
                   {stats.map((s, i) => {
                     const active = hoverStat === i;
                     const max = Math.max(...s.spark);
@@ -1955,15 +1955,15 @@ function TodayBrief({ accent, ink, bg, border, surface, surface2, muted }: Brief
                       <button key={s.k}
                               onMouseEnter={() => setHoverStat(i)}
                               onMouseLeave={() => setHoverStat(null)}
-                              className="text-left rounded-2xl p-3 sm:p-4 transition-all duration-300 group/stat"
+                              className="text-left rounded-2xl p-2.5 sm:p-4 transition-all duration-300 group/stat"
                               style={{
                                 background: active ? bg : "transparent",
                                 border: `1px solid ${active ? border : "transparent"}`,
                                 transform: active ? "translateY(-2px)" : "none",
                               }}>
-                        <div className="text-[8.5px] tracking-[0.3em] uppercase opacity-55 mb-2" style={{ color: accent }}>{s.k}</div>
-                        <div className="font-serif text-[17px] sm:text-[18px] leading-none" style={{ color: ink }}>{s.v}</div>
-                        <svg viewBox="0 0 70 22" className="w-full h-[22px] mt-3 overflow-visible">
+                        <div className="text-[8px] sm:text-[8.5px] tracking-[0.26em] sm:tracking-[0.3em] uppercase opacity-55 mb-2" style={{ color: accent }}>{s.k}</div>
+                        <div className="font-serif text-[16px] sm:text-[18px] leading-none" style={{ color: ink }}>{s.v}</div>
+                        <svg viewBox="0 0 70 22" className="w-full h-[18px] sm:h-[22px] mt-2 sm:mt-3 overflow-visible">
                           <polyline
                             points={s.spark.map((v, idx) => `${(idx / (s.spark.length - 1)) * 70},${22 - (v / max) * 18}`).join(" ")}
                             fill="none" stroke={active ? accent : ink} strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"

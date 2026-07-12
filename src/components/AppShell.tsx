@@ -132,11 +132,11 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
     <div className="min-h-screen w-full font-sans" style={{ background: bg, color: ink }}>
       {/* constant, calm aurora — same on every page, themeable */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full opacity-45 blur-3xl"
+        <div className="absolute -top-24 -left-24 w-72 h-72 lg:-top-40 lg:-left-40 lg:w-[520px] lg:h-[520px] rounded-full opacity-45 blur-3xl"
              style={{ background: "radial-gradient(circle,var(--pc-aurora-a),transparent 70%)" }} />
-        <div className="absolute top-1/3 -right-40 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
+        <div className="absolute top-1/3 -right-24 w-80 h-80 lg:-right-40 lg:w-[600px] lg:h-[600px] rounded-full opacity-30 blur-3xl"
              style={{ background: "radial-gradient(circle,var(--pc-aurora-b),transparent 70%)" }} />
-        <div className="absolute -bottom-40 left-1/3 w-[500px] h-[500px] rounded-full opacity-25 blur-3xl"
+        <div className="absolute -bottom-24 left-1/4 w-72 h-72 lg:-bottom-40 lg:left-1/3 lg:w-[500px] lg:h-[500px] rounded-full opacity-25 blur-3xl"
              style={{ background: "radial-gradient(circle,var(--pc-aurora-c),transparent 70%)" }} />
       </div>
 

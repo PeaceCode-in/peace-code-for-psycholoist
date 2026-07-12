@@ -166,7 +166,7 @@ function FocusPage() {
 
 
       {/* header */}
-      <header className="relative z-10 max-w-[1280px] mx-auto px-6 lg:px-10 pt-8 flex items-center justify-between">
+      <header className="relative z-10 max-w-[1280px] mx-auto px-5 lg:px-10 pt-6 lg:pt-8 flex items-center justify-between">
         <Link to="/" className="group flex items-center gap-3 text-[12.5px]" style={{ color: muted }}>
           <span className="w-9 h-9 rounded-full flex items-center justify-center transition group-hover:-translate-x-0.5"
                 style={{ background: surface, border: `1px solid ${border}` }}>
@@ -183,16 +183,16 @@ function FocusPage() {
         </div>
       </header>
 
-      <main className="relative z-10 max-w-[1280px] mx-auto px-6 lg:px-10 pt-10 pb-24">
+      <main className="relative z-10 max-w-[1280px] mx-auto px-5 lg:px-10 pt-8 lg:pt-10 pb-24">
         {/* hero */}
-        <section className="mb-12">
-          <div className="text-[9px] tracking-[0.4em] uppercase mb-4" style={{ color: muted }}>
+        <section className="mb-8 lg:mb-12">
+          <div className="text-[8.5px] sm:text-[9px] tracking-[0.34em] sm:tracking-[0.4em] uppercase mb-4" style={{ color: muted }}>
             focus room · {new Date().toLocaleDateString(undefined, { weekday: "long" }).toLowerCase()} · {totalMinsToday}m so far
           </div>
-          <h1 className="font-serif font-medium tracking-tight leading-[0.98] text-[clamp(2.4rem,5.5vw,4.2rem)] max-w-[820px]">
+          <h1 className="font-serif font-medium tracking-tight leading-[1.02] sm:leading-[0.98] text-[clamp(2.05rem,10vw,4.2rem)] max-w-[820px]">
             one thing, <span style={{ color: primary, fontStyle: "italic" }}>softly done.</span>
           </h1>
-          <p className="mt-5 max-w-[560px] text-[14px] leading-relaxed" style={{ color: muted }}>
+          <p className="mt-5 max-w-[560px] text-[13.5px] sm:text-[14px] leading-relaxed" style={{ color: muted }}>
             pick a rhythm. name what you're working on. every completed round is quietly saved — even after you close the tab.
           </p>
         </section>
@@ -200,17 +200,17 @@ function FocusPage() {
         {/* MAIN GRID: timer + right column */}
         <section className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-6 mb-8">
           {/* Timer card */}
-          <div className="relative overflow-hidden rounded-[32px] p-8 lg:p-12"
+          <div className="relative overflow-hidden rounded-[26px] sm:rounded-[32px] p-5 sm:p-8 lg:p-12"
                style={{ background: `linear-gradient(160deg, ${surface} 0%, ${surface2} 100%)`, border: `1px solid ${border}` }}>
             <div className="absolute -top-24 -right-16 w-80 h-80 rounded-full blur-3xl opacity-60 pointer-events-none"
                  style={{ background: `radial-gradient(circle, ${currentMode.color}, transparent 70%)` }}/>
 
-            <div className="relative flex flex-wrap gap-2 mb-6 items-center">
+            <div className="relative grid grid-cols-2 sm:flex sm:flex-wrap gap-2 mb-5 sm:mb-6 items-center">
               {modes.map(m => {
                 const active = mode === m.key;
                 return (
                   <button key={m.key} onClick={() => setMode(m.key)}
-                          className="h-9 px-4 rounded-full text-[12px] tracking-wide transition"
+                          className="h-9 px-3 sm:px-4 rounded-full text-[11.5px] sm:text-[12px] tracking-wide transition"
                           style={{
                             background: active ? ink : surface,
                             color: active ? "#F7FAFF" : ink,
@@ -222,7 +222,7 @@ function FocusPage() {
               })}
               <button onClick={() => setCinema(true)}
                       title="enter cinema mode (fullscreen)"
-                      className="ml-auto inline-flex items-center gap-2 h-9 px-4 rounded-full text-[11.5px] tracking-wide transition hover:-translate-y-0.5"
+                       className="sm:ml-auto inline-flex items-center justify-center gap-2 h-9 px-4 rounded-full text-[11.5px] tracking-wide transition hover:-translate-y-0.5"
                       style={{ background: surface, color: ink, border: `1px solid ${border}` }}>
                 <Maximize2 className="w-3.5 h-3.5" strokeWidth={1.6}/> cinema
               </button>
@@ -238,7 +238,7 @@ function FocusPage() {
 
             {/* dial */}
             <div className="relative flex flex-col items-center">
-              <div className="relative w-[280px] h-[280px] sm:w-[340px] sm:h-[340px]">
+              <div className="relative w-[min(100%,260px)] h-[260px] sm:w-[340px] sm:h-[340px]">
                 <svg viewBox="0 0 200 200" className="w-full h-full -rotate-90">
                   <defs>
                     <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
@@ -261,7 +261,7 @@ function FocusPage() {
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
                   <div className="text-[9.5px] tracking-[0.4em] uppercase" style={{ color: muted }}>{currentMode.label}</div>
-                  <div className="font-serif text-[68px] sm:text-[84px] leading-none tabular-nums mt-2" style={{ color: ink }}>
+                  <div className="font-serif text-[56px] sm:text-[84px] leading-none tabular-nums mt-2" style={{ color: ink }}>
                     {mm}<span style={{ color: muted }}>:</span>{ss}
                   </div>
                   <div className="text-[11px] mt-3 tracking-[0.28em] uppercase" style={{ color: muted }}>
@@ -270,14 +270,14 @@ function FocusPage() {
                 </div>
               </div>
 
-              <div className="mt-10 flex items-center gap-3">
+              <div className="mt-8 sm:mt-10 flex items-center gap-3">
                 <button onClick={() => setRemaining(currentMode.mins * 60)}
                         className="w-12 h-12 rounded-full flex items-center justify-center transition hover:-translate-y-0.5"
                         style={{ background: surface, border: `1px solid ${border}`, color: ink }}>
                   <RotateCcw className="w-4 h-4" strokeWidth={1.6}/>
                 </button>
                 <button onClick={() => setRunning(r => !r)}
-                        className="h-14 px-8 rounded-full flex items-center gap-3 text-[13.5px] tracking-wide transition hover:-translate-y-0.5"
+                        className="h-13 sm:h-14 px-7 sm:px-8 rounded-full flex items-center gap-3 text-[13px] sm:text-[13.5px] tracking-wide transition hover:-translate-y-0.5"
                         style={{ background: ink, color: "#F7FAFF", boxShadow: "0 16px 32px -14px rgba(29,42,68,0.55)" }}>
                   {running ? <Pause className="w-4 h-4" strokeWidth={1.8}/> : <Play className="w-4 h-4" strokeWidth={1.8}/>}
                   {running ? "pause" : remaining === totalSecs ? "begin" : "resume"}
@@ -291,16 +291,16 @@ function FocusPage() {
             </div>
 
             {/* today stats */}
-            <div className="relative mt-10 grid grid-cols-4 gap-3">
+            <div className="relative mt-8 sm:mt-10 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
               {[
                 { label: "sessions today", value: completedToday, icon: Target },
                 { label: "minutes held",   value: totalMinsToday, icon: Timer },
                 { label: "current streak", value: `${streaks.current}d`, icon: Flame },
                 { label: "longest ever",   value: `${streaks.longest}d`, icon: TrendingUp },
               ].map((s) => (
-                <div key={s.label} className="rounded-[16px] p-3.5"
+                <div key={s.label} className="rounded-[16px] p-3 sm:p-3.5"
                      style={{ background: surface, border: `1px solid ${border}` }}>
-                  <div className="flex items-center gap-1.5 text-[9px] tracking-[0.24em] uppercase" style={{ color: muted }}>
+                  <div className="flex min-w-0 items-center gap-1.5 text-[8.5px] sm:text-[9px] tracking-[0.2em] sm:tracking-[0.24em] uppercase" style={{ color: muted }}>
                     <s.icon className="w-3 h-3" strokeWidth={1.6}/> {s.label}
                   </div>
                   <div className="font-serif text-[24px] leading-none mt-2" style={{ color: ink }}>{s.value}</div>

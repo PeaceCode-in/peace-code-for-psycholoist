@@ -88,7 +88,7 @@ export default function CommunityPage() {
 
 
       {/* header */}
-      <header className="relative z-10 max-w-[1280px] mx-auto px-6 lg:px-10 pt-8 flex items-center justify-between">
+      <header className="relative z-10 max-w-[1280px] mx-auto px-5 lg:px-10 pt-6 lg:pt-8 flex items-center justify-between">
         <Link to="/" className="group flex items-center gap-3 text-[12.5px]" style={{ color: muted }}>
           <span className="w-9 h-9 rounded-full flex items-center justify-center transition group-hover:-translate-x-0.5"
                 style={{ background: surface, border: `1px solid ${border}` }}>
@@ -183,29 +183,29 @@ function HomeView({
   }, [threads, query, sort]);
 
   return (
-    <main className="relative z-10 max-w-[1280px] mx-auto px-6 lg:px-10 pt-10 pb-24">
+    <main className="relative z-10 max-w-[1280px] mx-auto px-5 lg:px-10 pt-8 lg:pt-10 pb-24">
       {/* Editorial hero */}
-      <section className="relative mb-14">
-        <div className="text-[9px] tracking-[0.4em] uppercase mb-4" style={{ color: muted }}>
+      <section className="relative mb-9 lg:mb-14">
+        <div className="text-[8.5px] sm:text-[9px] tracking-[0.34em] sm:tracking-[0.4em] uppercase mb-4" style={{ color: muted }}>
           the circle · sunday · 42 quietly here
         </div>
-        <h1 className="font-serif font-medium tracking-tight leading-[0.98] text-[clamp(2.6rem,6vw,4.6rem)] max-w-[900px]">
+        <h1 className="font-serif font-medium tracking-tight leading-[1.02] sm:leading-[0.98] text-[clamp(2.05rem,10vw,4.6rem)] max-w-[900px]">
           nobody heals alone. <span style={{ color: primary, fontStyle: "italic" }}>even in silence, we're here.</span>
         </h1>
-        <p className="mt-6 max-w-[560px] text-[14px] leading-relaxed" style={{ color: muted }}>
+        <p className="mt-5 sm:mt-6 max-w-[560px] text-[13.5px] sm:text-[14px] leading-relaxed" style={{ color: muted }}>
           circles are small rooms for the same feeling. live rooms are voices held together. threads are quiet letters, left open for someone else to find.
         </p>
 
         {/* live pulse bar */}
-        <div className="mt-8 flex flex-wrap items-center gap-4">
-          <div className="flex items-center gap-2.5 rounded-full h-11 pl-4 pr-5" style={{ background: surface, border: `1px solid ${border}` }}>
+        <div className="mt-7 sm:mt-8 grid grid-cols-1 sm:flex sm:flex-wrap sm:items-center gap-3 sm:gap-4">
+          <div className="flex min-w-0 items-center gap-2.5 rounded-full h-11 pl-4 pr-5" style={{ background: surface, border: `1px solid ${border}` }}>
             <span className="relative flex w-2 h-2">
               <span className="absolute inset-0 rounded-full animate-ping" style={{ background: "#EF6B6B", opacity: 0.6 }}/>
               <span className="relative rounded-full w-2 h-2" style={{ background: "#EF6B6B" }}/>
             </span>
-            <span className="text-[11.5px] tracking-[0.22em] uppercase" style={{ color: muted }}>live · 4 rooms · 180 listening</span>
+            <span className="text-[10.5px] sm:text-[11.5px] tracking-[0.2em] sm:tracking-[0.22em] uppercase truncate" style={{ color: muted }}>live · 4 rooms · 180 listening</span>
           </div>
-          <div className="flex-1 min-w-[220px] flex items-center gap-2 h-11 rounded-full px-4"
+          <div className="flex-1 min-w-0 sm:min-w-[220px] flex items-center gap-2 h-11 rounded-full px-4"
                style={{ background: surface, border: `1px solid ${border}` }}>
             <Search className="w-4 h-4" strokeWidth={1.5} style={{ color: muted }}/>
             <input
@@ -217,7 +217,7 @@ function HomeView({
             />
           </div>
           <button onClick={() => openCompose && openCompose()}
-                  className="h-11 px-5 rounded-full flex items-center gap-2 text-[12.5px] tracking-wide transition hover:translate-y-[-1px]"
+                  className="h-11 px-5 rounded-full inline-flex w-fit items-center gap-2 text-[12.5px] tracking-wide transition hover:translate-y-[-1px]"
                   style={{ background: ink, color: "#F7FAFF", boxShadow: "0 12px 24px -12px rgba(29,42,68,0.5)" }}>
             <Plus className="w-4 h-4" strokeWidth={1.8}/> offer a thread
           </button>
@@ -225,7 +225,7 @@ function HomeView({
       </section>
 
       {/* tabs */}
-      <div className="flex items-center gap-1 mb-10 border-b" style={{ borderColor: border }}>
+      <div className="grid grid-cols-3 items-end gap-0 mb-7 lg:mb-10 border-b" style={{ borderColor: border }}>
         {[
           { k: "circles", label: "circles", icon: Users, count: circles.length },
           { k: "rooms",   label: "live rooms", icon: Radio, count: rooms.length },
@@ -235,10 +235,10 @@ function HomeView({
           const Icon = t.icon;
           return (
             <button key={t.k} onClick={() => setTab(t.k)}
-                    className="relative flex items-center gap-2 px-5 py-4 text-[13px] transition"
+                    className="relative flex min-w-0 items-center justify-center sm:justify-start gap-1.5 sm:gap-2 px-2 sm:px-5 py-3.5 sm:py-4 text-[12px] sm:text-[13px] transition"
                     style={{ color: active ? ink : muted }}>
               <Icon className="w-4 h-4" strokeWidth={1.5}/>
-              <span className="tracking-wide">{t.label}</span>
+              <span className="tracking-wide truncate">{t.label}</span>
               <span className="text-[10px] opacity-60">{t.count}</span>
               {active && (
                 <span className="absolute left-3 right-3 -bottom-px h-[2px] rounded-full" style={{ background: primary }}/>
@@ -271,7 +271,7 @@ function CirclesGrid() {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
       {circles.map((c, i) => (
         <div key={c.name}
-             className="group relative overflow-hidden rounded-[28px] p-6 transition duration-300 hover:-translate-y-1 cursor-pointer"
+             className="group relative overflow-hidden rounded-[24px] sm:rounded-[28px] p-5 sm:p-6 transition duration-300 hover:-translate-y-1 cursor-pointer"
              style={{ background: surface, border: `1px solid ${border}`, boxShadow: "0 1px 2px rgba(29,42,68,0.03)" }}>
           {/* orb */}
           <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full blur-2xl opacity-70 transition-opacity duration-500 group-hover:opacity-100"
@@ -284,7 +284,7 @@ function CirclesGrid() {
           <div className="relative flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase mb-6" style={{ color: muted }}>
             <Hash className="w-3 h-3" strokeWidth={1.6}/> {c.tag}
           </div>
-          <h3 className="relative font-serif text-[26px] leading-tight tracking-tight max-w-[220px]">{c.name}</h3>
+           <h3 className="relative font-serif text-[23px] sm:text-[26px] leading-tight tracking-tight max-w-[220px]">{c.name}</h3>
 
           {/* avatars stack */}
           <div className="relative mt-6 flex items-center gap-3">
@@ -381,7 +381,7 @@ function ThreadsList({ threads, sort, setSort, openThread, onVote, saved, toggle
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8">
       {/* main list */}
       <div>
-        <div className="flex items-center gap-1 mb-5">
+        <div className="flex items-center gap-1 mb-5 overflow-x-auto scrollbar-none -mx-1 px-1">
           {[
             { k: "soft", label: "softly ordered", icon: Sparkles },
             { k: "warm", label: "warmest",        icon: Flame },
@@ -405,8 +405,8 @@ function ThreadsList({ threads, sort, setSort, openThread, onVote, saved, toggle
 
         <div className="flex flex-col gap-4">
           {threads.map((t: any) => (
-            <article key={t.id}
-                     className="group relative flex gap-5 p-6 rounded-[24px] transition hover:-translate-y-0.5 cursor-pointer"
+              <article key={t.id}
+                     className="group relative flex gap-3 sm:gap-5 p-4 sm:p-6 rounded-[22px] sm:rounded-[24px] transition hover:-translate-y-0.5 cursor-pointer"
                      onClick={() => openThread(t.id)}
                      style={{ background: surface, border: `1px solid ${border}` }}>
               {/* vote rail */}
@@ -425,7 +425,7 @@ function ThreadsList({ threads, sort, setSort, openThread, onVote, saved, toggle
               </div>
 
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 text-[10.5px] tracking-[0.24em] uppercase" style={{ color: muted }}>
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] sm:text-[10.5px] tracking-[0.2em] sm:tracking-[0.24em] uppercase" style={{ color: muted }}>
                   <span className="rounded-full px-2 py-0.5" style={{ background: surface2, color: ink }}>{t.circle}</span>
                   <span>·</span>
                   <span>{t.author}</span>
@@ -435,7 +435,7 @@ function ThreadsList({ threads, sort, setSort, openThread, onVote, saved, toggle
                 <h3 className="mt-3 font-serif text-[22px] leading-[1.2] tracking-tight">{t.title}</h3>
                 <p className="mt-2 text-[13.5px] leading-relaxed line-clamp-2" style={{ color: muted }}>{t.body}</p>
 
-                <div className="mt-4 flex items-center gap-5 text-[12px]" style={{ color: muted }}>
+                <div className="mt-4 flex flex-wrap items-center gap-3 sm:gap-5 text-[12px]" style={{ color: muted }}>
                   <span className="flex items-center gap-1.5"><MessageCircle className="w-3.5 h-3.5" strokeWidth={1.6}/> {t.comments} held it</span>
                   <button onClick={(e) => { e.stopPropagation(); toggleSave(t.id); }}
                           className="flex items-center gap-1.5 transition hover:text-[--i]"
