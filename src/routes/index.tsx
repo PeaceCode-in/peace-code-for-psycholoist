@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
-  Home, Compass, BookOpen, Moon, Sun, Settings, Bell, Play, Pause, Send,
-  Heart, Flame, Trophy, Users, Feather, Wind, BookHeart, Search, Plus,
+  BookOpen, Moon, Sun, Settings, Bell, Play, Pause, Send,
+  Heart, Flame, Users, Feather, Wind, Search, Plus,
   ChevronRight, ArrowUpRight, Waves, Leaf, Coffee, PenLine, Volume2, VolumeX, Quote,
   Bot, CalendarCheck, UserCheck, ClipboardList, Target, Activity, Brain, Menu, X,
 } from "lucide-react";
