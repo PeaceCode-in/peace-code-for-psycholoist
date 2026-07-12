@@ -45,7 +45,7 @@ const navGroups: NavGroup[] = [
       { icon: Wind, label: "Breathe", to: "/breathe" },
       { icon: Target, label: "Focus", to: "/focus" },
       { icon: Heart, label: "Gratitude" },
-      { icon: PenLine, label: "Journal" },
+      { icon: PenLine, label: "Journal", to: "/journal" },
       { icon: Activity, label: "Mood Tracker" },
       { icon: Brain, label: "Mind Gym" },
     ],
