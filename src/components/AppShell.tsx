@@ -110,6 +110,7 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [theme, , toggleTheme] = useTheme();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -125,6 +126,7 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
     if (to === "/") return pathname === "/";
     return pathname === to || pathname.startsWith(to + "/");
   };
+
 
   return (
     <div className="min-h-screen w-full font-sans" style={{ background: bg, color: ink }}>
