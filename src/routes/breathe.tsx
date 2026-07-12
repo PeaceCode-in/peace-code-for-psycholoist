@@ -132,7 +132,9 @@ function BreathePage() {
   const [showLibrary, setShowLibrary] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [showCustom, setShowCustom] = useState(false);
+  const [showA11y, setShowA11y] = useState(false);
   const [showCompletion, setShowCompletion] = useState<null | { mins: number; cycles: number }>(null);
+  const [announce, setAnnounce] = useState("");
 
   const currentTech = techniques.find((t) => t.key === techniqueKey) ?? techniques[0];
   const activePattern: BreathPattern = techniqueKey === "custom" ? prefs.customPattern : currentTech.pattern;
