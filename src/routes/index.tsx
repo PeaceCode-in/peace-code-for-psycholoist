@@ -277,7 +277,7 @@ function Dashboard() {
           </div>
         </div>
 
-        <nav className="flex-1 min-h-0 flex flex-col gap-4 px-3 overflow-y-auto scrollbar-soft group-hover:pr-2">
+        <nav className="flex-1 min-h-0 flex flex-col gap-4 px-3 overflow-x-hidden overflow-y-hidden group-hover:overflow-y-auto scrollbar-none group-hover:scrollbar-soft">
           {navGroups.map((group) => (
             <div key={group.label} className="flex flex-col gap-1">
               <div className="h-4 flex items-center pl-4 mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">
