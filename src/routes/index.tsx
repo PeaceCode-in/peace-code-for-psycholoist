@@ -389,21 +389,8 @@ function Dashboard() {
               </div>
             </div>
 
-            <div className="relative">
-              {/* decorative sprig — sits behind title, right side */}
-              <Sprig stroke={accent} className="hidden sm:block absolute -right-2 lg:right-8 -top-6 w-[90px] lg:w-[130px] opacity-25 pointer-events-none"/>
-              <Curl stroke={accent} className="hidden lg:block absolute -left-10 top-24 w-[220px] opacity-20 pointer-events-none"/>
-
-              <h1 className="font-serif font-medium text-[32px] xs:text-[38px] sm:text-[54px] lg:text-[68px] xl:text-[78px] leading-[1.05] lg:leading-[1.02] tracking-tight relative" style={{ letterSpacing: "-0.035em" }}>
-                <span className="italic font-normal block" style={{ color: accent }}>Breathe,</span>
-                <span className="block">your mind</span>
-                <span className="block">matters<span style={{ color: accent }}>.</span></span>
-              </h1>
-            </div>
-
-            <p className="text-[13px] sm:text-[14px] mt-8 lg:mt-10 opacity-60 max-w-md leading-relaxed">
-              A slow look at how your mind and moments are moving today. No pressure — just presence.
-            </p>
+            {/* ─── Today's Composure — the luxury morning brief ─── */}
+            <TodayBrief accent={accent} ink={ink} bg={bg} border={border} surface={surface} surface2={surface2} muted={muted}/>
 
             {/* editorial day rail */}
             <div className="mt-12 lg:mt-14 relative">
