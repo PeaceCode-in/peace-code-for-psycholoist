@@ -216,7 +216,7 @@ function HomeView({
               style={{ color: ink }}
             />
           </div>
-          <button onClick={() => setComposeOpen(true)}
+          <button onClick={() => openCompose && openCompose()}
                   className="h-11 px-5 rounded-full flex items-center gap-2 text-[12.5px] tracking-wide transition hover:translate-y-[-1px]"
                   style={{ background: ink, color: "#F7FAFF", boxShadow: "0 12px 24px -12px rgba(29,42,68,0.5)" }}>
             <Plus className="w-4 h-4" strokeWidth={1.8}/> offer a thread
