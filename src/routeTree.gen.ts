@@ -9,13 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ScreeningRouteImport } from './routes/screening'
 import { Route as JournalRouteImport } from './routes/journal'
 import { Route as GratitudeRouteImport } from './routes/gratitude'
 import { Route as FocusRouteImport } from './routes/focus'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as BreatheRouteImport } from './routes/breathe'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ScreeningIndexRouteImport } from './routes/screening.index'
 import { Route as ScreeningSettingsRouteImport } from './routes/screening.settings'
 import { Route as ScreeningResourcesRouteImport } from './routes/screening.resources'
 import { Route as ScreeningLibraryRouteImport } from './routes/screening.library'
@@ -36,11 +36,6 @@ import { Route as ScreeningInstructionsIdRouteImport } from './routes/screening.
 import { Route as ScreeningConsentIdRouteImport } from './routes/screening.consent.$id'
 import { Route as ScreeningAssessmentIdRouteImport } from './routes/screening.assessment.$id'
 
-const ScreeningRoute = ScreeningRouteImport.update({
-  id: '/screening',
-  path: '/screening',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const JournalRoute = JournalRouteImport.update({
   id: '/journal',
   path: '/journal',
@@ -71,25 +66,30 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ScreeningIndexRoute = ScreeningIndexRouteImport.update({
+  id: '/screening/',
+  path: '/screening/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ScreeningSettingsRoute = ScreeningSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => ScreeningRoute,
+  id: '/screening/settings',
+  path: '/screening/settings',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ScreeningResourcesRoute = ScreeningResourcesRouteImport.update({
-  id: '/resources',
-  path: '/resources',
-  getParentRoute: () => ScreeningRoute,
+  id: '/screening/resources',
+  path: '/screening/resources',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ScreeningLibraryRoute = ScreeningLibraryRouteImport.update({
-  id: '/library',
-  path: '/library',
-  getParentRoute: () => ScreeningRoute,
+  id: '/screening/library',
+  path: '/screening/library',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ScreeningHistoryRoute = ScreeningHistoryRouteImport.update({
-  id: '/history',
-  path: '/history',
-  getParentRoute: () => ScreeningRoute,
+  id: '/screening/history',
+  path: '/screening/history',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const JournalVoiceRoute = JournalVoiceRouteImport.update({
   id: '/voice',
@@ -137,34 +137,34 @@ const ApiChatRoute = ApiChatRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ScreeningTestIdRoute = ScreeningTestIdRouteImport.update({
-  id: '/test/$id',
-  path: '/test/$id',
-  getParentRoute: () => ScreeningRoute,
+  id: '/screening/test/$id',
+  path: '/screening/test/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ScreeningResultsIdRoute = ScreeningResultsIdRouteImport.update({
-  id: '/results/$id',
-  path: '/results/$id',
-  getParentRoute: () => ScreeningRoute,
+  id: '/screening/results/$id',
+  path: '/screening/results/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ScreeningProcessingIdRoute = ScreeningProcessingIdRouteImport.update({
-  id: '/processing/$id',
-  path: '/processing/$id',
-  getParentRoute: () => ScreeningRoute,
+  id: '/screening/processing/$id',
+  path: '/screening/processing/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ScreeningInstructionsIdRoute = ScreeningInstructionsIdRouteImport.update({
-  id: '/instructions/$id',
-  path: '/instructions/$id',
-  getParentRoute: () => ScreeningRoute,
+  id: '/screening/instructions/$id',
+  path: '/screening/instructions/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ScreeningConsentIdRoute = ScreeningConsentIdRouteImport.update({
-  id: '/consent/$id',
-  path: '/consent/$id',
-  getParentRoute: () => ScreeningRoute,
+  id: '/screening/consent/$id',
+  path: '/screening/consent/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ScreeningAssessmentIdRoute = ScreeningAssessmentIdRouteImport.update({
-  id: '/assessment/$id',
-  path: '/assessment/$id',
-  getParentRoute: () => ScreeningRoute,
+  id: '/screening/assessment/$id',
+  path: '/screening/assessment/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -174,7 +174,6 @@ export interface FileRoutesByFullPath {
   '/focus': typeof FocusRoute
   '/gratitude': typeof GratitudeRouteWithChildren
   '/journal': typeof JournalRouteWithChildren
-  '/screening': typeof ScreeningRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/gratitude/forest': typeof GratitudeForestRoute
@@ -188,6 +187,7 @@ export interface FileRoutesByFullPath {
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/resources': typeof ScreeningResourcesRoute
   '/screening/settings': typeof ScreeningSettingsRoute
+  '/screening/': typeof ScreeningIndexRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
   '/screening/instructions/$id': typeof ScreeningInstructionsIdRoute
@@ -202,7 +202,6 @@ export interface FileRoutesByTo {
   '/focus': typeof FocusRoute
   '/gratitude': typeof GratitudeRouteWithChildren
   '/journal': typeof JournalRouteWithChildren
-  '/screening': typeof ScreeningRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/gratitude/forest': typeof GratitudeForestRoute
@@ -216,6 +215,7 @@ export interface FileRoutesByTo {
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/resources': typeof ScreeningResourcesRoute
   '/screening/settings': typeof ScreeningSettingsRoute
+  '/screening': typeof ScreeningIndexRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
   '/screening/instructions/$id': typeof ScreeningInstructionsIdRoute
@@ -231,7 +231,6 @@ export interface FileRoutesById {
   '/focus': typeof FocusRoute
   '/gratitude': typeof GratitudeRouteWithChildren
   '/journal': typeof JournalRouteWithChildren
-  '/screening': typeof ScreeningRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/gratitude/forest': typeof GratitudeForestRoute
@@ -245,6 +244,7 @@ export interface FileRoutesById {
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/resources': typeof ScreeningResourcesRoute
   '/screening/settings': typeof ScreeningSettingsRoute
+  '/screening/': typeof ScreeningIndexRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
   '/screening/instructions/$id': typeof ScreeningInstructionsIdRoute
@@ -261,7 +261,6 @@ export interface FileRouteTypes {
     | '/focus'
     | '/gratitude'
     | '/journal'
-    | '/screening'
     | '/api/chat'
     | '/breathe/stats'
     | '/gratitude/forest'
@@ -275,6 +274,7 @@ export interface FileRouteTypes {
     | '/screening/library'
     | '/screening/resources'
     | '/screening/settings'
+    | '/screening/'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
     | '/screening/instructions/$id'
@@ -289,7 +289,6 @@ export interface FileRouteTypes {
     | '/focus'
     | '/gratitude'
     | '/journal'
-    | '/screening'
     | '/api/chat'
     | '/breathe/stats'
     | '/gratitude/forest'
@@ -303,6 +302,7 @@ export interface FileRouteTypes {
     | '/screening/library'
     | '/screening/resources'
     | '/screening/settings'
+    | '/screening'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
     | '/screening/instructions/$id'
@@ -317,7 +317,6 @@ export interface FileRouteTypes {
     | '/focus'
     | '/gratitude'
     | '/journal'
-    | '/screening'
     | '/api/chat'
     | '/breathe/stats'
     | '/gratitude/forest'
@@ -331,6 +330,7 @@ export interface FileRouteTypes {
     | '/screening/library'
     | '/screening/resources'
     | '/screening/settings'
+    | '/screening/'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
     | '/screening/instructions/$id'
@@ -346,19 +346,22 @@ export interface RootRouteChildren {
   FocusRoute: typeof FocusRoute
   GratitudeRoute: typeof GratitudeRouteWithChildren
   JournalRoute: typeof JournalRouteWithChildren
-  ScreeningRoute: typeof ScreeningRouteWithChildren
   ApiChatRoute: typeof ApiChatRoute
+  ScreeningHistoryRoute: typeof ScreeningHistoryRoute
+  ScreeningLibraryRoute: typeof ScreeningLibraryRoute
+  ScreeningResourcesRoute: typeof ScreeningResourcesRoute
+  ScreeningSettingsRoute: typeof ScreeningSettingsRoute
+  ScreeningIndexRoute: typeof ScreeningIndexRoute
+  ScreeningAssessmentIdRoute: typeof ScreeningAssessmentIdRoute
+  ScreeningConsentIdRoute: typeof ScreeningConsentIdRoute
+  ScreeningInstructionsIdRoute: typeof ScreeningInstructionsIdRoute
+  ScreeningProcessingIdRoute: typeof ScreeningProcessingIdRoute
+  ScreeningResultsIdRoute: typeof ScreeningResultsIdRoute
+  ScreeningTestIdRoute: typeof ScreeningTestIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/screening': {
-      id: '/screening'
-      path: '/screening'
-      fullPath: '/screening'
-      preLoaderRoute: typeof ScreeningRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/journal': {
       id: '/journal'
       path: '/journal'
@@ -401,33 +404,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/screening/': {
+      id: '/screening/'
+      path: '/screening'
+      fullPath: '/screening/'
+      preLoaderRoute: typeof ScreeningIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/screening/settings': {
       id: '/screening/settings'
-      path: '/settings'
+      path: '/screening/settings'
       fullPath: '/screening/settings'
       preLoaderRoute: typeof ScreeningSettingsRouteImport
-      parentRoute: typeof ScreeningRoute
+      parentRoute: typeof rootRouteImport
     }
     '/screening/resources': {
       id: '/screening/resources'
-      path: '/resources'
+      path: '/screening/resources'
       fullPath: '/screening/resources'
       preLoaderRoute: typeof ScreeningResourcesRouteImport
-      parentRoute: typeof ScreeningRoute
+      parentRoute: typeof rootRouteImport
     }
     '/screening/library': {
       id: '/screening/library'
-      path: '/library'
+      path: '/screening/library'
       fullPath: '/screening/library'
       preLoaderRoute: typeof ScreeningLibraryRouteImport
-      parentRoute: typeof ScreeningRoute
+      parentRoute: typeof rootRouteImport
     }
     '/screening/history': {
       id: '/screening/history'
-      path: '/history'
+      path: '/screening/history'
       fullPath: '/screening/history'
       preLoaderRoute: typeof ScreeningHistoryRouteImport
-      parentRoute: typeof ScreeningRoute
+      parentRoute: typeof rootRouteImport
     }
     '/journal/voice': {
       id: '/journal/voice'
@@ -494,45 +504,45 @@ declare module '@tanstack/react-router' {
     }
     '/screening/test/$id': {
       id: '/screening/test/$id'
-      path: '/test/$id'
+      path: '/screening/test/$id'
       fullPath: '/screening/test/$id'
       preLoaderRoute: typeof ScreeningTestIdRouteImport
-      parentRoute: typeof ScreeningRoute
+      parentRoute: typeof rootRouteImport
     }
     '/screening/results/$id': {
       id: '/screening/results/$id'
-      path: '/results/$id'
+      path: '/screening/results/$id'
       fullPath: '/screening/results/$id'
       preLoaderRoute: typeof ScreeningResultsIdRouteImport
-      parentRoute: typeof ScreeningRoute
+      parentRoute: typeof rootRouteImport
     }
     '/screening/processing/$id': {
       id: '/screening/processing/$id'
-      path: '/processing/$id'
+      path: '/screening/processing/$id'
       fullPath: '/screening/processing/$id'
       preLoaderRoute: typeof ScreeningProcessingIdRouteImport
-      parentRoute: typeof ScreeningRoute
+      parentRoute: typeof rootRouteImport
     }
     '/screening/instructions/$id': {
       id: '/screening/instructions/$id'
-      path: '/instructions/$id'
+      path: '/screening/instructions/$id'
       fullPath: '/screening/instructions/$id'
       preLoaderRoute: typeof ScreeningInstructionsIdRouteImport
-      parentRoute: typeof ScreeningRoute
+      parentRoute: typeof rootRouteImport
     }
     '/screening/consent/$id': {
       id: '/screening/consent/$id'
-      path: '/consent/$id'
+      path: '/screening/consent/$id'
       fullPath: '/screening/consent/$id'
       preLoaderRoute: typeof ScreeningConsentIdRouteImport
-      parentRoute: typeof ScreeningRoute
+      parentRoute: typeof rootRouteImport
     }
     '/screening/assessment/$id': {
       id: '/screening/assessment/$id'
-      path: '/assessment/$id'
+      path: '/screening/assessment/$id'
       fullPath: '/screening/assessment/$id'
       preLoaderRoute: typeof ScreeningAssessmentIdRouteImport
-      parentRoute: typeof ScreeningRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -581,36 +591,6 @@ const JournalRouteChildren: JournalRouteChildren = {
 const JournalRouteWithChildren =
   JournalRoute._addFileChildren(JournalRouteChildren)
 
-interface ScreeningRouteChildren {
-  ScreeningHistoryRoute: typeof ScreeningHistoryRoute
-  ScreeningLibraryRoute: typeof ScreeningLibraryRoute
-  ScreeningResourcesRoute: typeof ScreeningResourcesRoute
-  ScreeningSettingsRoute: typeof ScreeningSettingsRoute
-  ScreeningAssessmentIdRoute: typeof ScreeningAssessmentIdRoute
-  ScreeningConsentIdRoute: typeof ScreeningConsentIdRoute
-  ScreeningInstructionsIdRoute: typeof ScreeningInstructionsIdRoute
-  ScreeningProcessingIdRoute: typeof ScreeningProcessingIdRoute
-  ScreeningResultsIdRoute: typeof ScreeningResultsIdRoute
-  ScreeningTestIdRoute: typeof ScreeningTestIdRoute
-}
-
-const ScreeningRouteChildren: ScreeningRouteChildren = {
-  ScreeningHistoryRoute: ScreeningHistoryRoute,
-  ScreeningLibraryRoute: ScreeningLibraryRoute,
-  ScreeningResourcesRoute: ScreeningResourcesRoute,
-  ScreeningSettingsRoute: ScreeningSettingsRoute,
-  ScreeningAssessmentIdRoute: ScreeningAssessmentIdRoute,
-  ScreeningConsentIdRoute: ScreeningConsentIdRoute,
-  ScreeningInstructionsIdRoute: ScreeningInstructionsIdRoute,
-  ScreeningProcessingIdRoute: ScreeningProcessingIdRoute,
-  ScreeningResultsIdRoute: ScreeningResultsIdRoute,
-  ScreeningTestIdRoute: ScreeningTestIdRoute,
-}
-
-const ScreeningRouteWithChildren = ScreeningRoute._addFileChildren(
-  ScreeningRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BreatheRoute: BreatheRouteWithChildren,
@@ -618,19 +598,19 @@ const rootRouteChildren: RootRouteChildren = {
   FocusRoute: FocusRoute,
   GratitudeRoute: GratitudeRouteWithChildren,
   JournalRoute: JournalRouteWithChildren,
-  ScreeningRoute: ScreeningRouteWithChildren,
   ApiChatRoute: ApiChatRoute,
+  ScreeningHistoryRoute: ScreeningHistoryRoute,
+  ScreeningLibraryRoute: ScreeningLibraryRoute,
+  ScreeningResourcesRoute: ScreeningResourcesRoute,
+  ScreeningSettingsRoute: ScreeningSettingsRoute,
+  ScreeningIndexRoute: ScreeningIndexRoute,
+  ScreeningAssessmentIdRoute: ScreeningAssessmentIdRoute,
+  ScreeningConsentIdRoute: ScreeningConsentIdRoute,
+  ScreeningInstructionsIdRoute: ScreeningInstructionsIdRoute,
+  ScreeningProcessingIdRoute: ScreeningProcessingIdRoute,
+  ScreeningResultsIdRoute: ScreeningResultsIdRoute,
+  ScreeningTestIdRoute: ScreeningTestIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import { TESTS, loadSessions, loadPrefs, overallWellness, type Session } from "@/lib/screening-store";
 
-export const Route = createFileRoute("/screening")({
+export const Route = createFileRoute("/screening/")({
   head: () => ({
     meta: [
       { title: "Mental Health Screening — PeaceCode" },
