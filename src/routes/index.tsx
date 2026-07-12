@@ -431,34 +431,8 @@ function Dashboard() {
             {/* ─── Today's Composure — the luxury morning brief ─── */}
             <TodayBrief accent={accent} ink={ink} bg={bg} border={border} surface={surface} surface2={surface2} muted={muted}/>
 
-            {/* editorial day rail */}
-            <div className="mt-12 lg:mt-14 relative">
-              <div className="absolute left-0 right-0 top-1/2 h-px opacity-40" style={{ background: border }} />
-              <div className="relative flex items-center gap-2 sm:gap-3 overflow-x-auto scrollbar-none pb-1">
-                {days.map((dd) => {
-                  const active = day === dd.n;
-                  return (
-                    <button key={dd.n} onClick={() => setDay(dd.n)}
-                            className="shrink-0 group/day flex flex-col items-center justify-center relative w-[54px] sm:w-[62px] transition-all">
-                      <div className="text-[8.5px] tracking-[0.28em] uppercase mb-2 transition-colors"
-                           style={{ color: active ? accent : muted, opacity: active ? 1 : 0.55 }}>
-                        {dd.d}
-                      </div>
-                      <div className={`flex items-center justify-center rounded-full font-serif transition-all duration-300 ${active ? "w-[54px] h-[54px] sm:w-[62px] sm:h-[62px] text-[22px]" : "w-11 h-11 text-[17px] hover:scale-105"}`}
-                           style={active
-                              ? { background: ink, color: bg, boxShadow: "0 12px 28px -12px rgba(38,34,28,0.55)" }
-                              : { background: "transparent", color: ink, border: `1px solid ${border}` }}>
-                        {dd.n}
-                      </div>
-                      <div className="mt-2 h-1 flex items-center justify-center">
-                        <span className="w-1 h-1 rounded-full transition-all" style={{ background: active ? accent : "transparent" }}/>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
           </div>
+
 
           {/* right: STILLNESS DECK — layered rotating carousel of experiences */}
           <div className="lg:col-span-4">
@@ -580,6 +554,89 @@ function Dashboard() {
             </div>
           </div>
         </section>
+
+        {/* ─── THE WEEK · full-width editorial day rail ─── */}
+        <section className="mb-16 relative">
+          <div className="flex items-baseline justify-between mb-6 gap-4 flex-wrap">
+            <div>
+              <div className="text-[10px] tracking-[0.35em] uppercase opacity-55 mb-2" style={{ color: accent }}>this week · july</div>
+              <h3 className="font-serif text-[22px] sm:text-[24px] tracking-tight leading-tight">
+                Seven mornings, <em className="italic opacity-70">softly counted.</em>
+              </h3>
+            </div>
+            <div className="flex items-center gap-3 text-[9.5px] tracking-[0.3em] uppercase opacity-55" style={{ color: muted }}>
+              <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full" style={{ background: accent }}/> today</span>
+              <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full opacity-40" style={{ background: ink }}/> held</span>
+              <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full" style={{ background: "transparent", border: `1px solid ${border}` }}/> soon</span>
+            </div>
+          </div>
+
+          <div className="relative rounded-[28px] px-4 sm:px-10 py-8 overflow-hidden"
+               style={{ background: surface, border: `1px solid ${border}` }}>
+            {/* decorative curls at both ends */}
+            <Curl stroke={muted} className="absolute -left-8 -top-6 w-[180px] opacity-25 pointer-events-none"/>
+            <Curl stroke={muted} className="absolute -right-8 -bottom-6 w-[180px] opacity-25 pointer-events-none rotate-180"/>
+
+            {/* thin editorial line running through the middle */}
+            <div aria-hidden className="absolute left-8 right-8 top-1/2 -translate-y-1 h-px" style={{ background: border }}/>
+
+            <div className="relative flex items-center justify-between gap-2">
+              {days.map((dd, i) => {
+                const active = day === dd.n;
+                const past = dd.n < day;
+                const sessions = [3, 2, 4, 3, 2, 3, 1][i] ?? 0;
+                return (
+                  <button key={dd.n} onClick={() => setDay(dd.n)}
+                          className="group/day relative flex flex-col items-center justify-center transition-all flex-1 min-w-0">
+                    <div className="text-[9px] tracking-[0.32em] uppercase mb-3 transition-all"
+                         style={{ color: active ? accent : muted, opacity: active ? 1 : 0.5,
+                                  letterSpacing: active ? "0.4em" : "0.32em" }}>
+                      {dd.d}
+                    </div>
+                    <div className="relative flex items-center justify-center">
+                      {/* soft halo behind active */}
+                      {active && (
+                        <span className="absolute w-[86px] h-[86px] rounded-full animate-pulse-soft"
+                              style={{ background: `radial-gradient(circle, ${accent}33, transparent 65%)` }}/>
+                      )}
+                      <div className={`flex items-center justify-center rounded-full font-serif transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] relative ${active ? "w-[68px] h-[68px] text-[26px]" : "w-[46px] h-[46px] text-[17px] group-hover/day:scale-110"}`}
+                           style={active
+                             ? { background: bg, color: ink, boxShadow: "0 18px 40px -18px rgba(38,34,28,0.55), 0 0 0 1px rgba(38,34,28,0.08)" }
+                             : past
+                               ? { background: "transparent", color: ink, border: `1px solid ${border}`, opacity: 0.55 }
+                               : { background: "transparent", color: ink, border: `1px solid ${border}` }}>
+                        {dd.n}
+                        {past && (
+                          <span className="absolute inset-0 flex items-center justify-center">
+                            <span className="w-[70%] h-px rotate-[-20deg] opacity-30" style={{ background: ink }}/>
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    {/* session pips */}
+                    <div className="mt-3 flex items-center gap-1 h-2">
+                      {active
+                        ? <span className="text-[8.5px] tracking-[0.3em] uppercase animate-pulse" style={{ color: accent }}>today</span>
+                        : Array.from({ length: sessions }).map((_, k) => (
+                            <span key={k} className="w-1 h-1 rounded-full"
+                                  style={{ background: past ? accent : muted, opacity: past ? 0.75 : 0.35 }}/>
+                          ))}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* footer whisper */}
+            <div className="mt-6 pt-5 border-t flex items-center justify-between text-[9.5px] tracking-[0.28em] uppercase"
+                 style={{ borderColor: border, color: muted }}>
+              <span>week 28 · 18 rituals held</span>
+              <span className="italic tracking-normal opacity-70 normal-case">a soft rhythm is forming.</span>
+            </div>
+          </div>
+        </section>
+
+
 
         {/* SECTION LABEL */}
         <div className="flex items-baseline justify-between mb-6">
