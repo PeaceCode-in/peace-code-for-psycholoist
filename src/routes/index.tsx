@@ -51,13 +51,13 @@ const navGroups = [
 const moods = ["cloudy", "gentle", "grounded", "tender", "restless", "flowing"];
 
 const focusTools = [
-  { label: "Breathe", icon: Wind, hint: "box · 4·4·4·4" },
-  { label: "Rainfall", icon: Waves, hint: "36 min loop" },
-  { label: "Pomodoro", icon: Coffee, hint: "25 · 5 · 25" },
-  { label: "Journal", icon: Feather, hint: "one line a day" },
-  { label: "Body scan", icon: Leaf, hint: "9 min guided" },
-  { label: "Silence", icon: Quote, hint: "just be" },
-];
+  { label: "Breathe", icon: Wind, hint: "box · 4·4·4·4", to: "/breathe" },
+  { label: "Rainfall", icon: Waves, hint: "36 min loop", to: "/focus" },
+  { label: "Pomodoro", icon: Coffee, hint: "25 · 5 · 25", to: "/focus" },
+  { label: "Journal", icon: Feather, hint: "one line a day", to: "/journal" },
+  { label: "Body scan", icon: Leaf, hint: "9 min guided", to: "/breathe" },
+  { label: "Silence", icon: Quote, hint: "just be", to: "/peacebot/tools" },
+] as const;
 
 const journey = [
   { day: 1, label: "Seed", done: true },
