@@ -1904,12 +1904,12 @@ function TodayBrief({ accent, ink, bg, border, surface, surface2, muted }: Brief
               : { lead: "the day is winding down", body: "dim the screen. a breath box, then sleep story. tomorrow is not urgent." };
           const cta =
             hour < 12
-              ? { label: "start a 10-min focus", target: "focus" }
+              ? { label: "start a 10-min focus", target: "focus", to: "/focus" as const }
               : hour < 17
-              ? { label: "resume · meditation & movement", target: "meditation" }
+              ? { label: "resume · meditation & movement", target: "meditation", to: "/breathe" as const }
               : hour < 21
-              ? { label: "open gratitude · 3 lines", target: "gratitude" }
-              : { label: "begin sleep story · 12 min", target: "sleep" };
+              ? { label: "open gratitude · 3 lines", target: "gratitude", to: "/gratitude" as const }
+              : { label: "begin sleep story · 12 min", target: "sleep", to: "/peacebot" as const };
           return (
             <>
               <p className="font-serif text-[17.5px] sm:text-[26px] lg:text-[30px] leading-[1.18] sm:leading-[1.25] tracking-tight max-w-[640px]"
