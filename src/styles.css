@@ -258,3 +258,16 @@ a:focus-visible {
   outline-offset: 3px;
   border-radius: 12px;
 }
+
+/* Hide scrollbars on opt-in containers (horizontal rails) */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar { display: none; width: 0; height: 0; }
+
+/* Only one scrollbar on the page — the window itself.
+   Prevent stray horizontal overflow from decorative elements. */
+html, body { overflow-x: hidden; }
+html { overflow-y: auto; }
+body { overflow-y: visible; }
