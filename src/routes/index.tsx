@@ -5,6 +5,7 @@ import {
   Heart, Flame, Users, Feather, Wind, Search, Plus,
   ChevronRight, ArrowUpRight, Waves, Leaf, Coffee, PenLine, Volume2, VolumeX, Quote,
   Bot, CalendarCheck, UserCheck, ClipboardList, Target, Activity, Brain, Menu, X,
+  MessageCircle,
 } from "lucide-react";
 import logo from "@/assets/peacecode-logo.png";
 
@@ -144,6 +145,13 @@ function Donut({ segments, size = 200, ink }: { segments: { v: number; c: string
     </svg>
   );
 }
+
+// tracks the cursor as CSS vars so ambient glows can follow the pointer
+const trackCursor = (e: React.MouseEvent<HTMLElement>) => {
+  const r = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty("--mx", `${((e.clientX - r.left) / r.width) * 100}%`);
+  e.currentTarget.style.setProperty("--my", `${((e.clientY - r.top) / r.height) * 100}%`);
+};
 
 function Dashboard() {
   const [dark, setDark] = useState(false);
@@ -574,18 +582,25 @@ function Dashboard() {
             const I = t.icon;
             return (
               <button key={t.label}
-                      className="group relative overflow-hidden rounded-[24px] aspect-square p-5 flex flex-col justify-between text-left transition hover:-translate-y-1 duration-200"
+                      onMouseMove={trackCursor}
+                      className="group card-lift cursor-glow relative rounded-[24px] aspect-square p-5 flex flex-col justify-between text-left"
                       style={{ background: surface, border: `1px solid ${border}` }}>
-                <div className="flex items-center justify-between">
-                  <I className="w-5 h-5 opacity-70" strokeWidth={1.3}/>
-                  <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-50 transition"/>
+                <span className="shine" aria-hidden />
+                <div className="flex items-center justify-between relative">
+                  <span className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-500 group-hover:-translate-y-0.5"
+                        style={{ background: surface2 }}>
+                    <I className="w-[18px] h-[18px] transition-transform duration-500 group-hover:scale-110" strokeWidth={1.3}/>
+                  </span>
+                  <span className="w-7 h-7 rounded-full flex items-center justify-center reveal" style={{ background: ink, color: bg }}>
+                    <ArrowUpRight className="w-3 h-3" strokeWidth={2}/>
+                  </span>
                 </div>
-                <div>
-                  <div className="font-serif text-[19px] leading-none tracking-tight">{t.label}</div>
-                  <div className="text-[9px] tracking-[0.2em] uppercase opacity-50 mt-2">{t.hint}</div>
+                <div className="relative">
+                  <div className="font-serif text-[19px] leading-none tracking-tight ink-underline">{t.label}</div>
+                  <div className="text-[9px] tracking-[0.2em] uppercase mt-2 transition-colors duration-500"
+                       style={{ color: muted }}>{t.hint}</div>
+                  <div className="mt-3 h-px w-8 origin-left transition-all duration-500 group-hover:w-full" style={{ background: accent, opacity: 0.5 }} />
                 </div>
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none"
-                     style={{ background: `radial-gradient(circle at 80% 100%, ${soft}30, transparent 60%)` }}/>
               </button>
             );
           })}
@@ -608,15 +623,20 @@ function Dashboard() {
               <div className="absolute left-4 right-4 top-4 h-px" style={{ background: dark ? "#3a3630" : "#c9b99a" }}/>
               <div className="absolute left-4 top-4 h-px transition-all duration-1000" style={{ width: "40%", background: accent }}/>
               {journey.map((m) => (
-                <div key={m.day} className="relative flex flex-col items-center gap-3 z-10 shrink-0 px-2">
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center font-serif text-[12px] transition"
-                       style={m.current ? { background: ink, color: bg, transform: "scale(1.25)" }
+                <button key={m.day} className="group relative flex flex-col items-center gap-3 z-10 shrink-0 px-2 focus:outline-none">
+                  {/* tooltip above */}
+                  <span className="pointer-events-none absolute -top-9 whitespace-nowrap opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300 text-[9px] tracking-[0.28em] uppercase px-2.5 py-1 rounded-full"
+                        style={{ background: ink, color: bg }}>
+                    day {m.day} · {m.label}
+                  </span>
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center font-serif text-[12px] transition-all duration-300 group-hover:scale-110"
+                       style={m.current ? { background: ink, color: bg, transform: "scale(1.25)", boxShadow: `0 10px 24px -10px ${accent}` }
                                         : m.done ? { background: accent, color: "#faf3e3" }
                                                  : { background: surface, color: muted, border: `1px solid ${dark ? "#3a3630" : "#c9b99a"}` }}>
                     {m.day}
                   </div>
-                  <span className="text-[9px] tracking-[0.2em] uppercase opacity-60">{m.label}</span>
-                </div>
+                  <span className="text-[9px] tracking-[0.2em] uppercase transition-opacity" style={{ color: m.current || m.done ? ink : muted, opacity: m.current ? 0.9 : 0.55 }}>{m.label}</span>
+                </button>
               ))}
             </div>
           </div>
@@ -654,21 +674,33 @@ function Dashboard() {
             </div>
             <div className="space-y-2">
               {activities.map((a, i) => (
-                <div key={a.title} className="group flex items-center gap-4 py-4 px-5 rounded-2xl transition cursor-pointer hover:translate-x-1"
+                <div key={a.title}
+                     onMouseMove={trackCursor}
+                     className="group card-lift cursor-glow flex items-center gap-4 py-4 px-5 rounded-2xl cursor-pointer relative"
                      style={{ background: surface, border: `1px solid ${border}` }}>
-                  <div className="font-serif italic text-[13px] opacity-40 w-6">0{i + 1}</div>
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ background: surface2 }}>
-                    <Mark className="w-5 h-5" opacity={0.75}/>
+                  <div className="font-serif italic text-[13px] w-6 transition-colors duration-300" style={{ color: muted }}>0{i + 1}</div>
+                  <div className="relative w-11 h-11 rounded-full flex items-center justify-center shrink-0 transition-all duration-500 group-hover:scale-105"
+                       style={{ background: surface2 }}>
+                    <Mark className="w-5 h-5 transition-opacity duration-300 group-hover:opacity-0" opacity={0.75}/>
+                    <span className="absolute inset-0 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition duration-300"
+                          style={{ background: ink, color: bg }}>
+                      <Play className="w-3.5 h-3.5 ml-0.5" strokeWidth={2}/>
+                    </span>
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="font-serif text-[17px] leading-tight truncate">{a.title}</div>
-                    <div className="text-[11px] italic opacity-50 mt-0.5">{a.subtitle}</div>
+                    <div className="text-[11px] italic mt-0.5" style={{ color: muted }}>{a.subtitle}</div>
+                    {/* soft progress line drawing in on hover */}
+                    <div className="mt-2 h-px w-full overflow-hidden" style={{ background: border }}>
+                      <div className="h-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-[900ms] ease-out"
+                           style={{ background: accent, width: `${30 + i * 18}%` }} />
+                    </div>
                   </div>
                   <div className="text-right shrink-0">
                     <div className="font-serif text-[18px] leading-none">{a.minutes}<span className="text-[10px] opacity-50 ml-1">min</span></div>
                     <div className="text-[10px] tracking-widest opacity-40 mt-1">{a.time}</div>
                   </div>
-                  <ChevronRight className="w-4 h-4 opacity-20 group-hover:opacity-70 transition"/>
+                  <ChevronRight className="w-4 h-4 opacity-20 group-hover:opacity-80 group-hover:translate-x-1 transition duration-300"/>
                 </div>
               ))}
             </div>
@@ -724,28 +756,86 @@ function Dashboard() {
           <div>
             <div className="text-[10px] tracking-[0.35em] uppercase opacity-50 mb-2" style={{ color: accent }}>a quiet circle</div>
             <h3 className="font-serif text-[26px] tracking-tight">Anonymous gratitude.</h3>
+            <p className="text-[12px] italic opacity-55 mt-1.5 max-w-md">little offerings from students, held gently. no names, no likes count as approval — just witness.</p>
           </div>
-          <button className="text-[10px] tracking-[0.25em] uppercase opacity-60 hover:opacity-100 flex items-center gap-1">
-            <Plus className="w-3 h-3"/> share
+          <button className="group flex items-center gap-2 text-[10px] tracking-[0.25em] uppercase px-4 py-2.5 rounded-full transition"
+                  style={{ background: ink, color: bg }}>
+            <Plus className="w-3 h-3 transition-transform group-hover:rotate-90 duration-500"/> offer one
           </button>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-16">
-          {posts.map((p, i) => (
-            <div key={i} className="group rounded-[24px] p-5 transition cursor-pointer relative overflow-hidden hover:-translate-y-1 duration-200"
-                 style={{ background: surface, border: `1px solid ${border}` }}>
-              <Curl stroke={accent} className="absolute -right-6 -top-6 w-24 opacity-20" />
-              <div className="text-[10px] tracking-[0.25em] uppercase opacity-50 mb-3 relative">{p.name}</div>
-              <p className="font-serif italic text-[15px] leading-snug mb-5 opacity-90 relative">"{p.text}"</p>
-              <div className="flex items-center justify-between relative">
-                <button onClick={() => setLikes({ ...likes, [i]: (likes[i] ?? 0) + 1 })}
-                        className="flex items-center gap-1.5 text-[11px] opacity-70 hover:opacity-100 transition" style={{ color: accent }}>
-                  <Heart className={`w-3.5 h-3.5 transition ${likes[i] ? "fill-current" : ""}`} strokeWidth={1.5}/>
-                  {p.likes + (likes[i] ?? 0)}
-                </button>
-                <span className="text-[9px] opacity-40 tracking-widest uppercase">6h ago</span>
-              </div>
-            </div>
-          ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
+          {posts.map((p, i) => {
+            const liked = (likes[i] ?? 0) > 0;
+            // subtle rotation of tonal accents within the ONE palette — no color clashes
+            const tints = [
+              { bg: surface,  ribbon: soft   },
+              { bg: surface2, ribbon: accent },
+              { bg: surface,  ribbon: deep   },
+              { bg: surface2, ribbon: soft   },
+            ];
+            const t = tints[i % tints.length];
+            return (
+              <article key={i}
+                       onMouseMove={trackCursor}
+                       className="group card-lift cursor-glow relative rounded-[28px] p-6 pb-5 cursor-pointer flex flex-col min-h-[220px]"
+                       style={{ background: t.bg, border: `1px solid ${border}` }}>
+                <span className="shine" aria-hidden />
+                {/* delicate top ribbon that widens on hover */}
+                <span aria-hidden className="absolute left-6 right-6 top-0 h-[2px] rounded-b-full transition-all duration-500 group-hover:left-3 group-hover:right-3"
+                      style={{ background: t.ribbon, opacity: 0.55 }} />
+
+                {/* oversized editorial quote glyph */}
+                <div className="absolute -top-2 right-4 font-serif italic leading-none select-none pointer-events-none transition-all duration-500 group-hover:-translate-y-1 group-hover:opacity-40"
+                     style={{ fontSize: 96, color: t.ribbon, opacity: 0.18 }}>
+                  &ldquo;
+                </div>
+
+                {/* header row */}
+                <header className="relative flex items-center gap-2.5 mb-4">
+                  <span className="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
+                        style={{ background: t.ribbon, opacity: 0.9 }}>
+                    <Feather className="w-3 h-3" style={{ color: "#faf3e3" }} strokeWidth={1.6}/>
+                  </span>
+                  <div className="min-w-0">
+                    <div className="text-[10.5px] tracking-[0.22em] uppercase truncate" style={{ color: ink, opacity: 0.75 }}>{p.name}</div>
+                    <div className="text-[8.5px] tracking-[0.28em] uppercase opacity-45 mt-0.5">left an offering</div>
+                  </div>
+                </header>
+
+                {/* body — the whisper */}
+                <p className="relative font-serif italic text-[15.5px] leading-[1.45] mb-5" style={{ color: ink }}>
+                  {p.text}
+                </p>
+
+                {/* hairline that draws in on hover */}
+                <div className="mt-auto relative">
+                  <div className="h-px w-full mb-3 origin-left transition-transform duration-700 group-hover:scale-x-100 scale-x-[0.25]"
+                       style={{ background: t.ribbon, opacity: 0.5 }} />
+
+                  {/* footer — heart, time, and hover-reveal reply/hold */}
+                  <div className="flex items-center justify-between relative">
+                    <button onClick={(e) => { e.stopPropagation(); setLikes({ ...likes, [i]: (likes[i] ?? 0) + 1 }); }}
+                            className="flex items-center gap-2 text-[11px] transition group/heart">
+                      <span key={likes[i] ?? 0} className="inline-flex" style={{ animation: liked ? "heart-pop 0.55s cubic-bezier(0.22,1,0.36,1)" : "none" }}>
+                        <Heart className={`w-[15px] h-[15px] transition ${liked ? "fill-current" : ""}`}
+                               style={{ color: liked ? t.ribbon : muted }} strokeWidth={1.5}/>
+                      </span>
+                      <span className="font-serif" style={{ color: liked ? ink : muted }}>{p.likes + (likes[i] ?? 0)}</span>
+                      <span className="text-[9px] tracking-[0.25em] uppercase opacity-40 hidden sm:inline">held</span>
+                    </button>
+
+                    <div className="flex items-center gap-2">
+                      <button className="reveal flex items-center gap-1.5 text-[10px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-full"
+                              style={{ background: "transparent", border: `1px solid ${border}`, color: ink }}>
+                        <MessageCircle className="w-3 h-3" strokeWidth={1.5}/> echo
+                      </button>
+                      <span className="text-[9px] tracking-[0.22em] uppercase opacity-40 group-hover:opacity-0 transition duration-300">6h ago</span>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
 
         {/* ACHIEVEMENTS + SUPPORT (unified tone, no peach) */}
@@ -758,15 +848,22 @@ function Dashboard() {
               </div>
             </div>
             <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
-              {Array.from({ length: 8 }).map((_, i) => {
+              {["first breath","seven mornings","one honest note","a walk alone","two weeks steady","empty inbox","early sleep","stillness · 10h"].map((name, i) => {
                 const unlocked = i < 4;
                 return (
-                  <div key={i}
-                       className="aspect-square rounded-2xl flex items-center justify-center transition hover:scale-110 cursor-pointer relative overflow-hidden"
+                  <button key={i} title={name}
+                       onMouseMove={trackCursor}
+                       className="group cursor-glow aspect-square rounded-2xl flex items-center justify-center cursor-pointer relative overflow-hidden transition-all duration-500 hover:-translate-y-1 focus:outline-none"
                        style={{ background: surface2, border: `1px solid ${border}` }}>
-                    <Mark className="w-6 h-6" opacity={unlocked ? 0.85 : 0.18}/>
-                    {unlocked && <div className="absolute inset-0 opacity-30" style={{ background: `radial-gradient(circle at 30% 30%,${soft},transparent 70%)` }}/>}
-                  </div>
+                    <Mark className="w-6 h-6 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3" opacity={unlocked ? 0.9 : 0.16}/>
+                    {unlocked && <div className="absolute inset-0 opacity-40 transition-opacity duration-500 group-hover:opacity-70" style={{ background: `radial-gradient(circle at 30% 30%,${soft},transparent 70%)` }}/>}
+                    {!unlocked && <span className="absolute bottom-1.5 text-[7.5px] tracking-[0.25em] uppercase opacity-40">locked</span>}
+                    {/* tooltip */}
+                    <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300 text-[8.5px] tracking-[0.25em] uppercase px-2 py-1 rounded-full z-10"
+                          style={{ background: ink, color: bg }}>
+                      {name}
+                    </span>
+                  </button>
                 );
               })}
             </div>
