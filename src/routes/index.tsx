@@ -16,15 +16,35 @@ const days = [
   { n: 10, d: "Th" }, { n: 11, d: "Fr" }, { n: 12, d: "Sa" }, { n: 13, d: "Su" },
 ];
 
-const nav = [
-  { icon: Home, label: "Today", active: true },
-  { icon: Compass, label: "Explore" },
-  { icon: BookOpen, label: "Sessions" },
-  { icon: Moon, label: "Sleep" },
-  { icon: Users, label: "Circle" },
-  { icon: BookHeart, label: "Journal" },
-  { icon: Trophy, label: "Milestones" },
-];
+const navGroups = [
+  {
+    label: "Core Care",
+    items: [
+      { icon: Bot, label: "Peace Bot" },
+      { icon: CalendarCheck, label: "Counseling" },
+      { icon: UserCheck, label: "Experts" },
+      { icon: ClipboardList, label: "Screening", active: true },
+    ],
+  },
+  {
+    label: "Wellness Tools",
+    items: [
+      { icon: Wind, label: "Breathe" },
+      { icon: Target, label: "Focus" },
+      { icon: Heart, label: "Gratitude" },
+      { icon: PenLine, label: "Journal" },
+      { icon: Activity, label: "Mood Tracker" },
+      { icon: Brain, label: "Mind Gym" },
+    ],
+  },
+  {
+    label: "Community & Resources",
+    items: [
+      { icon: Users, label: "Community" },
+      { icon: BookOpen, label: "Resources" },
+    ],
+  },
+] as const;
 
 const moods = ["cloudy", "gentle", "grounded", "tender", "restless", "flowing"];
 
