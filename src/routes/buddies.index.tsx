@@ -66,15 +66,23 @@ function BuddiesHome() {
             style={{ background: `linear-gradient(120deg, ${soft}, ${lavender})`, border: `1px solid ${border}` }}>
             <img src={avatarFor(cont.buddyId)} alt="" className="w-14 h-14 rounded-2xl" style={{ background: surface }}/>
             <div className="flex-1 min-w-0">
-              <div className="text-[10px] tracking-[0.3em] uppercase opacity-60">continue conversation</div>
+              <div className="text-[10px] tracking-[0.3em] uppercase opacity-60">
+                {cont.status === "active" ? "continue conversation" :
+                 cont.status === "accepted" ? "your buddy is ready" :
+                 cont.status === "rescheduled" ? "new time proposed" : "request pending"}
+              </div>
               <div className="font-serif text-[19px] leading-tight" style={{ color: ink }}>{getBuddy(cont.buddyId)?.name}</div>
               <div className="text-[12px]" style={{ color: muted }}>
-                {cont.status === "active" ? "active now" : "waiting for you"} · {cont.messages.length} messages
+                {cont.status === "active" ? `active now · ${cont.messages.length} messages` :
+                 cont.status === "accepted" ? "tap to open chat" :
+                 cont.status === "rescheduled" ? "review their proposed time" : "waiting for response"}
               </div>
             </div>
-            <Link to="/buddies/chat/$id" params={{ id: cont.id }} className="px-5 py-2.5 rounded-full text-[12px] font-medium" style={{ background: ink, color: surface }}>
-              open chat
-            </Link>
+            {cont.status === "active" || cont.status === "accepted" ? (
+              <Link to="/buddies/chat/$id" params={{ id: cont.id }} className="px-5 py-2.5 rounded-full text-[12px] font-medium" style={{ background: ink, color: surface }}>open chat</Link>
+            ) : (
+              <Link to="/buddies/request/$id" params={{ id: cont.id }} className="px-5 py-2.5 rounded-full text-[12px] font-medium" style={{ background: ink, color: surface }}>view request</Link>
+            )}
           </section>
         )}
 
