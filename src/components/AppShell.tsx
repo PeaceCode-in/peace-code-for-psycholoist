@@ -90,7 +90,7 @@ const navGroups: NavGroup[] = [
       { icon: Heart, label: "Gratitude", to: "/gratitude" },
       { icon: PenLine, label: "Journal", to: "/journal" },
       { icon: Activity, label: "Mood Tracker" },
-      { icon: Brain, label: "Mind Gym" },
+      { icon: Brain, label: "Mind Gym", to: "/mindgym" },
     ],
   },
   {

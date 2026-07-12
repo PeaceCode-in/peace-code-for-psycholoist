@@ -9,12 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as MindgymRouteImport } from './routes/mindgym'
 import { Route as CounsellingRouteImport } from './routes/counselling'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ScreeningIndexRouteImport } from './routes/screening.index'
 import { Route as ResourcesIndexRouteImport } from './routes/resources.index'
 import { Route as PeacebotIndexRouteImport } from './routes/peacebot.index'
+import { Route as MindgymIndexRouteImport } from './routes/mindgym.index'
 import { Route as JournalIndexRouteImport } from './routes/journal.index'
 import { Route as GratitudeIndexRouteImport } from './routes/gratitude.index'
 import { Route as FocusIndexRouteImport } from './routes/focus.index'
@@ -41,6 +43,10 @@ import { Route as PeacebotMentalRouteImport } from './routes/peacebot.mental'
 import { Route as PeacebotMemoryRouteImport } from './routes/peacebot.memory'
 import { Route as PeacebotInsightsRouteImport } from './routes/peacebot.insights'
 import { Route as PeacebotAvatarRouteImport } from './routes/peacebot.avatar'
+import { Route as MindgymStreakRouteImport } from './routes/mindgym.streak'
+import { Route as MindgymPathsRouteImport } from './routes/mindgym.paths'
+import { Route as MindgymLibraryRouteImport } from './routes/mindgym.library'
+import { Route as MindgymBrainDnaRouteImport } from './routes/mindgym.brain-dna'
 import { Route as JournalVoiceRouteImport } from './routes/journal.voice'
 import { Route as JournalMemoriesRouteImport } from './routes/journal.memories'
 import { Route as JournalIdRouteImport } from './routes/journal.$id'
@@ -85,6 +91,11 @@ import { Route as ResourcesCollectionSlugRouteImport } from './routes/resources.
 import { Route as ResourcesCSlugRouteImport } from './routes/resources.c.$slug'
 import { Route as ResourcesAuthorIdRouteImport } from './routes/resources.author.$id'
 import { Route as PeacebotCIdRouteImport } from './routes/peacebot.c.$id'
+import { Route as MindgymTrainIdRouteImport } from './routes/mindgym.train.$id'
+import { Route as MindgymShareSessionRouteImport } from './routes/mindgym.share.session'
+import { Route as MindgymResultsSidRouteImport } from './routes/mindgym.results.$sid'
+import { Route as MindgymPathSlugRouteImport } from './routes/mindgym.path.$slug'
+import { Route as MindgymExerciseIdRouteImport } from './routes/mindgym.exercise.$id'
 import { Route as CounsellingSummaryAidRouteImport } from './routes/counselling.summary.$aid'
 import { Route as CounsellingSessionAidRouteImport } from './routes/counselling.session.$aid'
 import { Route as CounsellingExpertIdRouteImport } from './routes/counselling.expert.$id'
@@ -97,6 +108,11 @@ import { Route as BuddiesFeedbackIdRouteImport } from './routes/buddies.feedback
 import { Route as BuddiesChatIdRouteImport } from './routes/buddies.chat.$id'
 import { Route as BuddiesBookIdRouteImport } from './routes/buddies.book.$id'
 
+const MindgymRoute = MindgymRouteImport.update({
+  id: '/mindgym',
+  path: '/mindgym',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CounsellingRoute = CounsellingRouteImport.update({
   id: '/counselling',
   path: '/counselling',
@@ -126,6 +142,11 @@ const PeacebotIndexRoute = PeacebotIndexRouteImport.update({
   id: '/peacebot/',
   path: '/peacebot/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const MindgymIndexRoute = MindgymIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MindgymRoute,
 } as any)
 const JournalIndexRoute = JournalIndexRouteImport.update({
   id: '/journal/',
@@ -256,6 +277,26 @@ const PeacebotAvatarRoute = PeacebotAvatarRouteImport.update({
   id: '/peacebot/avatar',
   path: '/peacebot/avatar',
   getParentRoute: () => rootRouteImport,
+} as any)
+const MindgymStreakRoute = MindgymStreakRouteImport.update({
+  id: '/streak',
+  path: '/streak',
+  getParentRoute: () => MindgymRoute,
+} as any)
+const MindgymPathsRoute = MindgymPathsRouteImport.update({
+  id: '/paths',
+  path: '/paths',
+  getParentRoute: () => MindgymRoute,
+} as any)
+const MindgymLibraryRoute = MindgymLibraryRouteImport.update({
+  id: '/library',
+  path: '/library',
+  getParentRoute: () => MindgymRoute,
+} as any)
+const MindgymBrainDnaRoute = MindgymBrainDnaRouteImport.update({
+  id: '/brain-dna',
+  path: '/brain-dna',
+  getParentRoute: () => MindgymRoute,
 } as any)
 const JournalVoiceRoute = JournalVoiceRouteImport.update({
   id: '/journal/voice',
@@ -477,6 +518,31 @@ const PeacebotCIdRoute = PeacebotCIdRouteImport.update({
   path: '/peacebot/c/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MindgymTrainIdRoute = MindgymTrainIdRouteImport.update({
+  id: '/train/$id',
+  path: '/train/$id',
+  getParentRoute: () => MindgymRoute,
+} as any)
+const MindgymShareSessionRoute = MindgymShareSessionRouteImport.update({
+  id: '/share/session',
+  path: '/share/session',
+  getParentRoute: () => MindgymRoute,
+} as any)
+const MindgymResultsSidRoute = MindgymResultsSidRouteImport.update({
+  id: '/results/$sid',
+  path: '/results/$sid',
+  getParentRoute: () => MindgymRoute,
+} as any)
+const MindgymPathSlugRoute = MindgymPathSlugRouteImport.update({
+  id: '/path/$slug',
+  path: '/path/$slug',
+  getParentRoute: () => MindgymRoute,
+} as any)
+const MindgymExerciseIdRoute = MindgymExerciseIdRouteImport.update({
+  id: '/exercise/$id',
+  path: '/exercise/$id',
+  getParentRoute: () => MindgymRoute,
+} as any)
 const CounsellingSummaryAidRoute = CounsellingSummaryAidRouteImport.update({
   id: '/summary/$aid',
   path: '/summary/$aid',
@@ -537,6 +603,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
+  '/mindgym': typeof MindgymRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/buddies/$id': typeof BuddiesIdRoute
@@ -569,6 +636,10 @@ export interface FileRoutesByFullPath {
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
+  '/mindgym/brain-dna': typeof MindgymBrainDnaRoute
+  '/mindgym/library': typeof MindgymLibraryRoute
+  '/mindgym/paths': typeof MindgymPathsRoute
+  '/mindgym/streak': typeof MindgymStreakRoute
   '/peacebot/avatar': typeof PeacebotAvatarRoute
   '/peacebot/insights': typeof PeacebotInsightsRoute
   '/peacebot/memory': typeof PeacebotMemoryRoute
@@ -595,6 +666,7 @@ export interface FileRoutesByFullPath {
   '/focus/': typeof FocusIndexRoute
   '/gratitude/': typeof GratitudeIndexRoute
   '/journal/': typeof JournalIndexRoute
+  '/mindgym/': typeof MindgymIndexRoute
   '/peacebot/': typeof PeacebotIndexRoute
   '/resources/': typeof ResourcesIndexRoute
   '/screening/': typeof ScreeningIndexRoute
@@ -609,6 +681,11 @@ export interface FileRoutesByFullPath {
   '/counselling/expert/$id': typeof CounsellingExpertIdRoute
   '/counselling/session/$aid': typeof CounsellingSessionAidRoute
   '/counselling/summary/$aid': typeof CounsellingSummaryAidRoute
+  '/mindgym/exercise/$id': typeof MindgymExerciseIdRoute
+  '/mindgym/path/$slug': typeof MindgymPathSlugRoute
+  '/mindgym/results/$sid': typeof MindgymResultsSidRoute
+  '/mindgym/share/session': typeof MindgymShareSessionRoute
+  '/mindgym/train/$id': typeof MindgymTrainIdRoute
   '/peacebot/c/$id': typeof PeacebotCIdRoute
   '/resources/author/$id': typeof ResourcesAuthorIdRoute
   '/resources/c/$slug': typeof ResourcesCSlugRoute
@@ -657,6 +734,10 @@ export interface FileRoutesByTo {
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
+  '/mindgym/brain-dna': typeof MindgymBrainDnaRoute
+  '/mindgym/library': typeof MindgymLibraryRoute
+  '/mindgym/paths': typeof MindgymPathsRoute
+  '/mindgym/streak': typeof MindgymStreakRoute
   '/peacebot/avatar': typeof PeacebotAvatarRoute
   '/peacebot/insights': typeof PeacebotInsightsRoute
   '/peacebot/memory': typeof PeacebotMemoryRoute
@@ -683,6 +764,7 @@ export interface FileRoutesByTo {
   '/focus': typeof FocusIndexRoute
   '/gratitude': typeof GratitudeIndexRoute
   '/journal': typeof JournalIndexRoute
+  '/mindgym': typeof MindgymIndexRoute
   '/peacebot': typeof PeacebotIndexRoute
   '/resources': typeof ResourcesIndexRoute
   '/screening': typeof ScreeningIndexRoute
@@ -697,6 +779,11 @@ export interface FileRoutesByTo {
   '/counselling/expert/$id': typeof CounsellingExpertIdRoute
   '/counselling/session/$aid': typeof CounsellingSessionAidRoute
   '/counselling/summary/$aid': typeof CounsellingSummaryAidRoute
+  '/mindgym/exercise/$id': typeof MindgymExerciseIdRoute
+  '/mindgym/path/$slug': typeof MindgymPathSlugRoute
+  '/mindgym/results/$sid': typeof MindgymResultsSidRoute
+  '/mindgym/share/session': typeof MindgymShareSessionRoute
+  '/mindgym/train/$id': typeof MindgymTrainIdRoute
   '/peacebot/c/$id': typeof PeacebotCIdRoute
   '/resources/author/$id': typeof ResourcesAuthorIdRoute
   '/resources/c/$slug': typeof ResourcesCSlugRoute
@@ -715,6 +802,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
+  '/mindgym': typeof MindgymRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/buddies/$id': typeof BuddiesIdRoute
@@ -747,6 +835,10 @@ export interface FileRoutesById {
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
+  '/mindgym/brain-dna': typeof MindgymBrainDnaRoute
+  '/mindgym/library': typeof MindgymLibraryRoute
+  '/mindgym/paths': typeof MindgymPathsRoute
+  '/mindgym/streak': typeof MindgymStreakRoute
   '/peacebot/avatar': typeof PeacebotAvatarRoute
   '/peacebot/insights': typeof PeacebotInsightsRoute
   '/peacebot/memory': typeof PeacebotMemoryRoute
@@ -773,6 +865,7 @@ export interface FileRoutesById {
   '/focus/': typeof FocusIndexRoute
   '/gratitude/': typeof GratitudeIndexRoute
   '/journal/': typeof JournalIndexRoute
+  '/mindgym/': typeof MindgymIndexRoute
   '/peacebot/': typeof PeacebotIndexRoute
   '/resources/': typeof ResourcesIndexRoute
   '/screening/': typeof ScreeningIndexRoute
@@ -787,6 +880,11 @@ export interface FileRoutesById {
   '/counselling/expert/$id': typeof CounsellingExpertIdRoute
   '/counselling/session/$aid': typeof CounsellingSessionAidRoute
   '/counselling/summary/$aid': typeof CounsellingSummaryAidRoute
+  '/mindgym/exercise/$id': typeof MindgymExerciseIdRoute
+  '/mindgym/path/$slug': typeof MindgymPathSlugRoute
+  '/mindgym/results/$sid': typeof MindgymResultsSidRoute
+  '/mindgym/share/session': typeof MindgymShareSessionRoute
+  '/mindgym/train/$id': typeof MindgymTrainIdRoute
   '/peacebot/c/$id': typeof PeacebotCIdRoute
   '/resources/author/$id': typeof ResourcesAuthorIdRoute
   '/resources/c/$slug': typeof ResourcesCSlugRoute
@@ -806,6 +904,7 @@ export interface FileRouteTypes {
     | '/'
     | '/community'
     | '/counselling'
+    | '/mindgym'
     | '/api/chat'
     | '/breathe/stats'
     | '/buddies/$id'
@@ -838,6 +937,10 @@ export interface FileRouteTypes {
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
+    | '/mindgym/brain-dna'
+    | '/mindgym/library'
+    | '/mindgym/paths'
+    | '/mindgym/streak'
     | '/peacebot/avatar'
     | '/peacebot/insights'
     | '/peacebot/memory'
@@ -864,6 +967,7 @@ export interface FileRouteTypes {
     | '/focus/'
     | '/gratitude/'
     | '/journal/'
+    | '/mindgym/'
     | '/peacebot/'
     | '/resources/'
     | '/screening/'
@@ -878,6 +982,11 @@ export interface FileRouteTypes {
     | '/counselling/expert/$id'
     | '/counselling/session/$aid'
     | '/counselling/summary/$aid'
+    | '/mindgym/exercise/$id'
+    | '/mindgym/path/$slug'
+    | '/mindgym/results/$sid'
+    | '/mindgym/share/session'
+    | '/mindgym/train/$id'
     | '/peacebot/c/$id'
     | '/resources/author/$id'
     | '/resources/c/$slug'
@@ -926,6 +1035,10 @@ export interface FileRouteTypes {
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
+    | '/mindgym/brain-dna'
+    | '/mindgym/library'
+    | '/mindgym/paths'
+    | '/mindgym/streak'
     | '/peacebot/avatar'
     | '/peacebot/insights'
     | '/peacebot/memory'
@@ -952,6 +1065,7 @@ export interface FileRouteTypes {
     | '/focus'
     | '/gratitude'
     | '/journal'
+    | '/mindgym'
     | '/peacebot'
     | '/resources'
     | '/screening'
@@ -966,6 +1080,11 @@ export interface FileRouteTypes {
     | '/counselling/expert/$id'
     | '/counselling/session/$aid'
     | '/counselling/summary/$aid'
+    | '/mindgym/exercise/$id'
+    | '/mindgym/path/$slug'
+    | '/mindgym/results/$sid'
+    | '/mindgym/share/session'
+    | '/mindgym/train/$id'
     | '/peacebot/c/$id'
     | '/resources/author/$id'
     | '/resources/c/$slug'
@@ -983,6 +1102,7 @@ export interface FileRouteTypes {
     | '/'
     | '/community'
     | '/counselling'
+    | '/mindgym'
     | '/api/chat'
     | '/breathe/stats'
     | '/buddies/$id'
@@ -1015,6 +1135,10 @@ export interface FileRouteTypes {
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
+    | '/mindgym/brain-dna'
+    | '/mindgym/library'
+    | '/mindgym/paths'
+    | '/mindgym/streak'
     | '/peacebot/avatar'
     | '/peacebot/insights'
     | '/peacebot/memory'
@@ -1041,6 +1165,7 @@ export interface FileRouteTypes {
     | '/focus/'
     | '/gratitude/'
     | '/journal/'
+    | '/mindgym/'
     | '/peacebot/'
     | '/resources/'
     | '/screening/'
@@ -1055,6 +1180,11 @@ export interface FileRouteTypes {
     | '/counselling/expert/$id'
     | '/counselling/session/$aid'
     | '/counselling/summary/$aid'
+    | '/mindgym/exercise/$id'
+    | '/mindgym/path/$slug'
+    | '/mindgym/results/$sid'
+    | '/mindgym/share/session'
+    | '/mindgym/train/$id'
     | '/peacebot/c/$id'
     | '/resources/author/$id'
     | '/resources/c/$slug'
@@ -1073,6 +1203,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CommunityRoute: typeof CommunityRoute
   CounsellingRoute: typeof CounsellingRouteWithChildren
+  MindgymRoute: typeof MindgymRouteWithChildren
   ApiChatRoute: typeof ApiChatRoute
   BreatheStatsRoute: typeof BreatheStatsRoute
   BuddiesIdRoute: typeof BuddiesIdRoute
@@ -1140,6 +1271,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/mindgym': {
+      id: '/mindgym'
+      path: '/mindgym'
+      fullPath: '/mindgym'
+      preLoaderRoute: typeof MindgymRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/counselling': {
       id: '/counselling'
       path: '/counselling'
@@ -1181,6 +1319,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/peacebot/'
       preLoaderRoute: typeof PeacebotIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/mindgym/': {
+      id: '/mindgym/'
+      path: '/'
+      fullPath: '/mindgym/'
+      preLoaderRoute: typeof MindgymIndexRouteImport
+      parentRoute: typeof MindgymRoute
     }
     '/journal/': {
       id: '/journal/'
@@ -1363,6 +1508,34 @@ declare module '@tanstack/react-router' {
       fullPath: '/peacebot/avatar'
       preLoaderRoute: typeof PeacebotAvatarRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/mindgym/streak': {
+      id: '/mindgym/streak'
+      path: '/streak'
+      fullPath: '/mindgym/streak'
+      preLoaderRoute: typeof MindgymStreakRouteImport
+      parentRoute: typeof MindgymRoute
+    }
+    '/mindgym/paths': {
+      id: '/mindgym/paths'
+      path: '/paths'
+      fullPath: '/mindgym/paths'
+      preLoaderRoute: typeof MindgymPathsRouteImport
+      parentRoute: typeof MindgymRoute
+    }
+    '/mindgym/library': {
+      id: '/mindgym/library'
+      path: '/library'
+      fullPath: '/mindgym/library'
+      preLoaderRoute: typeof MindgymLibraryRouteImport
+      parentRoute: typeof MindgymRoute
+    }
+    '/mindgym/brain-dna': {
+      id: '/mindgym/brain-dna'
+      path: '/brain-dna'
+      fullPath: '/mindgym/brain-dna'
+      preLoaderRoute: typeof MindgymBrainDnaRouteImport
+      parentRoute: typeof MindgymRoute
     }
     '/journal/voice': {
       id: '/journal/voice'
@@ -1672,6 +1845,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PeacebotCIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mindgym/train/$id': {
+      id: '/mindgym/train/$id'
+      path: '/train/$id'
+      fullPath: '/mindgym/train/$id'
+      preLoaderRoute: typeof MindgymTrainIdRouteImport
+      parentRoute: typeof MindgymRoute
+    }
+    '/mindgym/share/session': {
+      id: '/mindgym/share/session'
+      path: '/share/session'
+      fullPath: '/mindgym/share/session'
+      preLoaderRoute: typeof MindgymShareSessionRouteImport
+      parentRoute: typeof MindgymRoute
+    }
+    '/mindgym/results/$sid': {
+      id: '/mindgym/results/$sid'
+      path: '/results/$sid'
+      fullPath: '/mindgym/results/$sid'
+      preLoaderRoute: typeof MindgymResultsSidRouteImport
+      parentRoute: typeof MindgymRoute
+    }
+    '/mindgym/path/$slug': {
+      id: '/mindgym/path/$slug'
+      path: '/path/$slug'
+      fullPath: '/mindgym/path/$slug'
+      preLoaderRoute: typeof MindgymPathSlugRouteImport
+      parentRoute: typeof MindgymRoute
+    }
+    '/mindgym/exercise/$id': {
+      id: '/mindgym/exercise/$id'
+      path: '/exercise/$id'
+      fullPath: '/mindgym/exercise/$id'
+      preLoaderRoute: typeof MindgymExerciseIdRouteImport
+      parentRoute: typeof MindgymRoute
+    }
     '/counselling/summary/$aid': {
       id: '/counselling/summary/$aid'
       path: '/summary/$aid'
@@ -1804,10 +2012,40 @@ const CounsellingRouteWithChildren = CounsellingRoute._addFileChildren(
   CounsellingRouteChildren,
 )
 
+interface MindgymRouteChildren {
+  MindgymBrainDnaRoute: typeof MindgymBrainDnaRoute
+  MindgymLibraryRoute: typeof MindgymLibraryRoute
+  MindgymPathsRoute: typeof MindgymPathsRoute
+  MindgymStreakRoute: typeof MindgymStreakRoute
+  MindgymIndexRoute: typeof MindgymIndexRoute
+  MindgymExerciseIdRoute: typeof MindgymExerciseIdRoute
+  MindgymPathSlugRoute: typeof MindgymPathSlugRoute
+  MindgymResultsSidRoute: typeof MindgymResultsSidRoute
+  MindgymShareSessionRoute: typeof MindgymShareSessionRoute
+  MindgymTrainIdRoute: typeof MindgymTrainIdRoute
+}
+
+const MindgymRouteChildren: MindgymRouteChildren = {
+  MindgymBrainDnaRoute: MindgymBrainDnaRoute,
+  MindgymLibraryRoute: MindgymLibraryRoute,
+  MindgymPathsRoute: MindgymPathsRoute,
+  MindgymStreakRoute: MindgymStreakRoute,
+  MindgymIndexRoute: MindgymIndexRoute,
+  MindgymExerciseIdRoute: MindgymExerciseIdRoute,
+  MindgymPathSlugRoute: MindgymPathSlugRoute,
+  MindgymResultsSidRoute: MindgymResultsSidRoute,
+  MindgymShareSessionRoute: MindgymShareSessionRoute,
+  MindgymTrainIdRoute: MindgymTrainIdRoute,
+}
+
+const MindgymRouteWithChildren =
+  MindgymRoute._addFileChildren(MindgymRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CommunityRoute: CommunityRoute,
   CounsellingRoute: CounsellingRouteWithChildren,
+  MindgymRoute: MindgymRouteWithChildren,
   ApiChatRoute: ApiChatRoute,
   BreatheStatsRoute: BreatheStatsRoute,
   BuddiesIdRoute: BuddiesIdRoute,
