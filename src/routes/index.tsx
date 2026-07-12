@@ -1657,100 +1657,131 @@ function TodayBrief({ accent, ink, bg, border, surface, surface2, muted }: Brief
           </div>
         </div>
 
-        {/* editorial sentence — the ONE thing worth reading */}
-        <p className="font-serif text-[22px] sm:text-[26px] lg:text-[30px] leading-[1.25] tracking-tight max-w-[640px]"
-           style={{ color: ink, letterSpacing: "-0.02em" }}>
-          <span className="italic" style={{ color: accent }}>{salutation}, Aarav</span> — you are{" "}
-          <span className="relative inline-block">
-            <span className="relative z-10">softly ahead</span>
-            <span className="absolute left-0 right-0 bottom-[3px] h-[6px] rounded-full -z-0"
-                  style={{ background: `${accent}25` }}/>
-          </span>{" "}
-          of yesterday. sleep held, focus returned, and a small kindness is waiting to be noticed.
-        </p>
+        {/* editorial sentence — dynamic, contextual, personal */}
+        {(() => {
+          // hour-aware, data-aware insight — the ONE line worth reading
+          const insight =
+            hour < 5
+              ? { lead: "still up", body: "the night has held you long enough. one slow exhale before the pillow." }
+              : hour < 12
+              ? { lead: "sleep held at 7h 24m", body: "your body arrived rested. a small 10-minute focus would fit here beautifully." }
+              : hour < 17
+              ? { lead: "mood is steadier than yesterday", body: "you're softly ahead. keep the afternoon light — one pomodoro, then water." }
+              : hour < 21
+              ? { lead: "you've offered 2 slow hours today", body: "that's plenty. gratitude, three lines, no pressure — the day is closing kindly." }
+              : { lead: "the day is winding down", body: "dim the screen. a breath box, then sleep story. tomorrow is not urgent." };
+          const cta =
+            hour < 12
+              ? { label: "start a 10-min focus", target: "focus" }
+              : hour < 17
+              ? { label: "resume · meditation & movement", target: "meditation" }
+              : hour < 21
+              ? { label: "open gratitude · 3 lines", target: "gratitude" }
+              : { label: "begin sleep story · 12 min", target: "sleep" };
+          return (
+            <>
+              <p className="font-serif text-[22px] sm:text-[26px] lg:text-[30px] leading-[1.25] tracking-tight max-w-[640px]"
+                 style={{ color: ink, letterSpacing: "-0.02em" }}>
+                <span className="italic" style={{ color: accent }}>{salutation}, Jai</span> —{" "}
+                <span className="relative inline-block">
+                  <span className="relative z-10">{insight.lead}</span>
+                  <span className="absolute left-0 right-0 bottom-[3px] h-[6px] rounded-full -z-0"
+                        style={{ background: `${accent}25` }}/>
+                </span>
+                . {insight.body}
+              </p>
 
-        {/* the composure ring + stat rail */}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-[auto_1fr] gap-8 md:gap-10 items-center">
-          {/* glass composure ring */}
-          <div className="relative w-[140px] h-[140px] shrink-0 mx-auto md:mx-0">
-            <svg viewBox="0 0 140 140" className="w-full h-full -rotate-90">
-              <defs>
-                <linearGradient id="brief-arc" x1="0" x2="1" y1="0" y2="1">
-                  <stop offset="0%" stopColor={accent} stopOpacity="0.9"/>
-                  <stop offset="100%" stopColor={ink} stopOpacity="0.85"/>
-                </linearGradient>
-              </defs>
-              <circle cx="70" cy="70" r={R} fill="none" stroke={border} strokeWidth="1.5"/>
-              <circle cx="70" cy="70" r={R} fill="none" stroke="url(#brief-arc)" strokeWidth="4"
-                      strokeLinecap="round" strokeDasharray={C}
-                      strokeDashoffset={C - (score/100) * C}
-                      style={{ transition: "stroke-dashoffset 1.2s cubic-bezier(0.22,1,0.36,1)" }}/>
-              <circle cx="70" cy="70" r={R - 10} fill="none" stroke={accent} strokeWidth="0.5" opacity="0.25"/>
-            </svg>
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <div className="text-[9px] tracking-[0.32em] uppercase opacity-55" style={{ color: accent }}>peace</div>
-              <div className="font-serif text-[38px] leading-none mt-1 tabular-nums" style={{ color: ink }}>{score}</div>
-              <div className="text-[9px] mt-1 opacity-55">+6 vs. yesterday</div>
-            </div>
-          </div>
-
-          {/* stat rail — 4 quiet glyphs */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
-            {stats.map((s, i) => {
-              const active = hoverStat === i;
-              const max = Math.max(...s.spark);
-              return (
-                <button key={s.k}
-                        onMouseEnter={() => setHoverStat(i)}
-                        onMouseLeave={() => setHoverStat(null)}
-                        className="text-left rounded-2xl p-3 sm:p-4 transition-all duration-300 group/stat"
-                        style={{
-                          background: active ? bg : "transparent",
-                          border: `1px solid ${active ? border : "transparent"}`,
-                          transform: active ? "translateY(-2px)" : "none",
-                        }}>
-                  <div className="text-[8.5px] tracking-[0.3em] uppercase opacity-55 mb-2" style={{ color: accent }}>{s.k}</div>
-                  <div className="font-serif text-[17px] sm:text-[18px] leading-none" style={{ color: ink }}>{s.v}</div>
-                  {/* editorial sparkline */}
-                  <svg viewBox="0 0 70 22" className="w-full h-[22px] mt-3 overflow-visible">
-                    <polyline
-                      points={s.spark.map((v, idx) => `${(idx / (s.spark.length - 1)) * 70},${22 - (v / max) * 18}`).join(" ")}
-                      fill="none" stroke={active ? accent : ink} strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"
-                      style={{ opacity: active ? 1 : 0.5, transition: "opacity 300ms ease" }}/>
-                    <circle cx="70" cy={22 - (s.spark[s.spark.length-1] / max) * 18} r="2" fill={accent}/>
+              {/* the composure ring + stat rail */}
+              <div className="mt-8 grid grid-cols-1 md:grid-cols-[auto_1fr] gap-8 md:gap-10 items-center">
+                {/* glass composure ring */}
+                <div className="relative w-[140px] h-[140px] shrink-0 mx-auto md:mx-0">
+                  <svg viewBox="0 0 140 140" className="w-full h-full -rotate-90">
+                    <defs>
+                      <linearGradient id="brief-arc" x1="0" x2="1" y1="0" y2="1">
+                        <stop offset="0%" stopColor={accent} stopOpacity="0.9"/>
+                        <stop offset="100%" stopColor={ink} stopOpacity="0.85"/>
+                      </linearGradient>
+                    </defs>
+                    <circle cx="70" cy="70" r={R} fill="none" stroke={border} strokeWidth="1.5"/>
+                    <circle cx="70" cy="70" r={R} fill="none" stroke="url(#brief-arc)" strokeWidth="4"
+                            strokeLinecap="round" strokeDasharray={C}
+                            strokeDashoffset={C - (score/100) * C}
+                            style={{ transition: "stroke-dashoffset 1.2s cubic-bezier(0.22,1,0.36,1)" }}/>
+                    <circle cx="70" cy="70" r={R - 10} fill="none" stroke={accent} strokeWidth="0.5" opacity="0.25"/>
                   </svg>
-                  <div className="text-[10px] mt-2 opacity-0 group-hover/stat:opacity-70 transition-opacity leading-snug"
-                       style={{ color: muted }}>
-                    {s.hint}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <div className="text-[9px] tracking-[0.32em] uppercase opacity-55" style={{ color: accent }}>peace</div>
+                    <div className="font-serif text-[38px] leading-none mt-1 tabular-nums" style={{ color: ink }}>{score}</div>
+                    <div className="text-[9px] mt-1 opacity-55">+6 vs. yesterday</div>
                   </div>
-                </button>
-              );
-            })}
-          </div>
-        </div>
+                </div>
 
-        {/* one gentle nudge — the ONLY CTA */}
-        <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5">
-          <div className="flex items-center gap-3 flex-1 min-w-0">
-            <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
-                 style={{ background: surface2, border: `1px solid ${border}` }}>
-              <Feather className="w-4 h-4" strokeWidth={1.5} style={{ color: accent }}/>
-            </div>
-            <div className="min-w-0">
-              <div className="text-[9px] tracking-[0.3em] uppercase opacity-55 mb-0.5" style={{ color: accent }}>a soft suggestion</div>
-              <div className="text-[13px] leading-snug truncate" style={{ color: ink }}>
-                resume <span className="italic font-serif" style={{ color: accent }}>Meditation & movement</span> — you left it at minute four.
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+                  {stats.map((s, i) => {
+                    const active = hoverStat === i;
+                    const max = Math.max(...s.spark);
+                    return (
+                      <button key={s.k}
+                              onMouseEnter={() => setHoverStat(i)}
+                              onMouseLeave={() => setHoverStat(null)}
+                              className="text-left rounded-2xl p-3 sm:p-4 transition-all duration-300 group/stat"
+                              style={{
+                                background: active ? bg : "transparent",
+                                border: `1px solid ${active ? border : "transparent"}`,
+                                transform: active ? "translateY(-2px)" : "none",
+                              }}>
+                        <div className="text-[8.5px] tracking-[0.3em] uppercase opacity-55 mb-2" style={{ color: accent }}>{s.k}</div>
+                        <div className="font-serif text-[17px] sm:text-[18px] leading-none" style={{ color: ink }}>{s.v}</div>
+                        <svg viewBox="0 0 70 22" className="w-full h-[22px] mt-3 overflow-visible">
+                          <polyline
+                            points={s.spark.map((v, idx) => `${(idx / (s.spark.length - 1)) * 70},${22 - (v / max) * 18}`).join(" ")}
+                            fill="none" stroke={active ? accent : ink} strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"
+                            style={{ opacity: active ? 1 : 0.5, transition: "opacity 300ms ease" }}/>
+                          <circle cx="70" cy={22 - (s.spark[s.spark.length-1] / max) * 18} r="2" fill={accent}/>
+                        </svg>
+                        <div className="text-[10px] mt-2 opacity-0 group-hover/stat:opacity-70 transition-opacity leading-snug"
+                             style={{ color: muted }}>
+                          {s.hint}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          </div>
-          <button className="group/cta relative overflow-hidden rounded-full px-5 h-11 flex items-center gap-2.5 text-[12px] tracking-wide shrink-0 transition-all duration-300 hover:pr-6"
-                  style={{ background: ink, color: bg }}>
-            <span className="relative z-10">continue where you paused</span>
-            <ArrowUpRight className="w-3.5 h-3.5 relative z-10 transition-transform group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" strokeWidth={1.75}/>
-            <span className="absolute inset-0 opacity-0 group-hover/cta:opacity-100 transition-opacity"
-                  style={{ background: `linear-gradient(90deg, ${ink} 0%, ${accent} 120%)` }}/>
-          </button>
-        </div>
+
+              {/* one gentle, time-aware nudge — the ONLY CTA */}
+              <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5">
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
+                       style={{ background: surface2, border: `1px solid ${border}` }}>
+                    <Feather className="w-4 h-4" strokeWidth={1.5} style={{ color: accent }}/>
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-[9px] tracking-[0.3em] uppercase opacity-55 mb-0.5" style={{ color: accent }}>peace suggests</div>
+                    <div className="text-[13px] leading-snug" style={{ color: ink }}>
+                      {hour < 12
+                        ? <>your morning is open — <span className="italic font-serif" style={{ color: accent }}>should we start a 10-minute focus?</span></>
+                        : hour < 17
+                        ? <>you paused at minute four — <span className="italic font-serif" style={{ color: accent }}>meditation & movement is waiting.</span></>
+                        : hour < 21
+                        ? <>the day was full — <span className="italic font-serif" style={{ color: accent }}>three lines of gratitude before it closes?</span></>
+                        : <>the screens have been long — <span className="italic font-serif" style={{ color: accent }}>a 12-min sleep story would settle you.</span></>}
+                    </div>
+                  </div>
+                </div>
+                <button className="group/cta relative overflow-hidden rounded-full px-5 h-11 flex items-center gap-2.5 text-[12px] tracking-wide shrink-0 transition-all duration-300 hover:pr-6"
+                        style={{ background: ink, color: bg }}
+                        data-target={cta.target}>
+                  <span className="relative z-10">{cta.label}</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 relative z-10 transition-transform group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" strokeWidth={1.75}/>
+                  <span className="absolute inset-0 opacity-0 group-hover/cta:opacity-100 transition-opacity"
+                        style={{ background: `linear-gradient(90deg, ${ink} 0%, ${accent} 120%)` }}/>
+                </button>
+              </div>
+            </>
+          );
+        })()}
+
       </div>
     </div>
   );
