@@ -89,11 +89,11 @@ const quotes = [
 ];
 
 const experiences = [
-  { kicker: "a walk with breath", title: "Meditation", italic: "& movement",  mins: 24, tag: "gentle · guided",   hue: ["#e2c39c", "#a67c52", "#5a3a22"], mood: "grounding" },
-  { kicker: "a soft descent",     title: "Sleep",      italic: "stories",     mins: 32, tag: "night · whispered",  hue: ["#b9a48a", "#5a4632", "#241a12"], mood: "drift" },
-  { kicker: "the still hour",     title: "Deep",       italic: "focus",       mins: 45, tag: "flow · instrumental",hue: ["#d9b58a", "#8a5a36", "#3a2416"], mood: "sharp" },
-  { kicker: "for the tight chest",title: "Anxiety",    italic: "release",     mins: 12, tag: "grounding · body",   hue: ["#e6c9a4", "#b07a48", "#4a2e1a"], mood: "hold" },
-  { kicker: "on waking",          title: "Morning",    italic: "intention",   mins: 8,  tag: "brief · warm",       hue: ["#eed8b4", "#c8955c", "#5c3820"], mood: "begin" },
+  { kicker: "a walk with breath", title: "Meditation", italic: "& movement",  mins: 24, tag: "gentle · guided",   hue: ["#AFC9F5", "#4B6CB7", "#1D2A44"], mood: "grounding" },
+  { kicker: "a soft descent",     title: "Sleep",      italic: "stories",     mins: 32, tag: "night · whispered",  hue: ["#D5C9F7", "#6B7FB0", "#1D2A44"], mood: "drift" },
+  { kicker: "the still hour",     title: "Deep",       italic: "focus",       mins: 45, tag: "flow · instrumental",hue: ["#C9DFFF", "#4B6CB7", "#1D2A44"], mood: "sharp" },
+  { kicker: "for the tight chest",title: "Anxiety",    italic: "release",     mins: 12, tag: "grounding · body",   hue: ["#D5C9F7", "#7587A6", "#1D2A44"], mood: "hold" },
+  { kicker: "on waking",          title: "Morning",    italic: "intention",   mins: 8,  tag: "brief · warm",       hue: ["#EAF3FF", "#AFC9F5", "#4B6CB7"], mood: "begin" },
 ];
 
 function Mark({ className = "w-5 h-5", opacity = 1 }: { className?: string; opacity?: number }) {
@@ -287,26 +287,26 @@ function Dashboard() {
   const ss = String(seconds % 60).padStart(2, "0");
 
   // ONE unified sepia palette — no green, blue, or peach clashes
-  const bg      = dark ? "#141210" : "#f4ecdd";
-  const surface = dark ? "#1e1b17" : "#faf3e3";
-  const surface2= dark ? "#26221d" : "#ebe0c8";
-  const border  = dark ? "#2b2723" : "#e2d6ba";
-  const ink     = dark ? "#ece4d2" : "#26221c";
-  const muted   = dark ? "#8a8175" : "#8a7f6d";
-  const accent  = "#a67c52";  // clay-bronze
-  const deep    = "#6b4a30";  // deep clay
-  const soft    = "#c9a679";  // wheat
+  const bg      = dark ? "#0F1626" : "#F7FAFF";
+  const surface = dark ? "#182238" : "#FFFFFF";
+  const surface2= dark ? "#1F2A44" : "#EAF3FF";
+  const border  = dark ? "#2A3654" : "#DCE3EF";
+  const ink     = dark ? "#E8EEFB" : "#1D2A44";
+  const muted   = dark ? "#8B9AB8" : "#7587A6";
+  const accent  = "#4B6CB7";  // clay-bronze
+  const deep    = "#2E4A8A";  // deep clay
+  const soft    = "#AFC9F5";  // wheat
 
   return (
     <div className={`min-h-screen w-full font-sans transition-colors ${dark ? "dark" : ""}`} style={{ background: bg, color: ink }}>
       {/* soft aurora backdrop — one palette only */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full opacity-45 blur-3xl"
-             style={{ background: dark ? "radial-gradient(circle,#3a2c1e,transparent 70%)" : "radial-gradient(circle,#e8cfa5,transparent 70%)" }} />
+             style={{ background: dark ? "radial-gradient(circle,#1E2A48,transparent 70%)" : "radial-gradient(circle,#D5C9F7,transparent 70%)" }} />
         <div className="absolute top-1/3 -right-40 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
-             style={{ background: dark ? "radial-gradient(circle,#2e2118,transparent 70%)" : "radial-gradient(circle,#dcc59a,transparent 70%)" }} />
+             style={{ background: dark ? "radial-gradient(circle,#182238,transparent 70%)" : "radial-gradient(circle,#AFC9F5,transparent 70%)" }} />
         <div className="absolute -bottom-40 left-1/3 w-[500px] h-[500px] rounded-full opacity-25 blur-3xl"
-             style={{ background: dark ? "radial-gradient(circle,#3a2823,transparent 70%)" : "radial-gradient(circle,#e5d3b0,transparent 70%)" }} />
+             style={{ background: dark ? "radial-gradient(circle,#22304E,transparent 70%)" : "radial-gradient(circle,#EAF3FF,transparent 70%)" }} />
       </div>
 
       {/* ─── glass sidebar (fixed shape, expands cleanly) ─── */}
@@ -334,7 +334,7 @@ function Dashboard() {
                 const active = "active" in item && item.active;
                 return (
                   <button key={item.label} className="relative flex items-center h-11 rounded-2xl transition"
-                          style={active ? { background: dark ? "#2b2620" : "#ebe0c8", color: ink } : { color: muted }}>
+                          style={active ? { background: dark ? "#223050" : "#EAF3FF", color: ink } : { color: muted }}>
                     <span className="w-[56px] shrink-0 flex justify-center">
                       <Icon className="w-[19px] h-[19px]" strokeWidth={1.4} />
                     </span>
@@ -350,20 +350,20 @@ function Dashboard() {
         <div className="shrink-0 mt-4 mx-3 pt-3 flex flex-col gap-1"
              style={{ borderTop: `1px solid ${border}` }}>
           <button onClick={() => setDark(!dark)} className="flex items-center h-10 rounded-2xl transition hover:bg-[color:var(--hov)]"
-                  style={{ color: muted, ["--hov" as any]: dark ? "#2b2620" : "#ebe0c8" }}>
+                  style={{ color: muted, ["--hov" as any]: dark ? "#223050" : "#EAF3FF" }}>
             <span className="w-[56px] shrink-0 flex justify-center">
               {dark ? <Sun className="w-[19px] h-[19px]" strokeWidth={1.4}/> : <Moon className="w-[19px] h-[19px]" strokeWidth={1.4}/>}
             </span>
             <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">{dark ? "day" : "night"} mode</span>
           </button>
           <button className="flex items-center h-10 rounded-2xl transition hover:bg-[color:var(--hov)]"
-                  style={{ color: muted, ["--hov" as any]: dark ? "#2b2620" : "#ebe0c8" }}>
+                  style={{ color: muted, ["--hov" as any]: dark ? "#223050" : "#EAF3FF" }}>
             <span className="w-[56px] shrink-0 flex justify-center">
               <Settings className="w-[19px] h-[19px]" strokeWidth={1.4}/>
             </span>
             <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">Settings</span>
           </button>
-          <div className="mt-2 rounded-2xl flex items-center h-14" style={{ background: dark ? "#26221d" : "#ebe0c8" }}>
+          <div className="mt-2 rounded-2xl flex items-center h-14" style={{ background: dark ? "#1F2A44" : "#EAF3FF" }}>
             <span className="w-[56px] shrink-0 flex justify-center">
               <span className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: soft }}>
                 <Mark className="w-4 h-4"/>
@@ -473,7 +473,7 @@ function Dashboard() {
                            pointerEvents: visible ? "auto" : "none",
                          }}>
                       {/* decorative curls + mark */}
-                      <Curl stroke="#f5eee0" className={`absolute -left-6 top-8 w-[220px] transition-all duration-1000 ${isTop ? "opacity-40" : "opacity-25"}`} />
+                      <Curl stroke="#F7FAFF" className={`absolute -left-6 top-8 w-[220px] transition-all duration-1000 ${isTop ? "opacity-40" : "opacity-25"}`} />
                       <Mark className={`absolute -right-12 -bottom-12 w-72 h-72 transition-transform duration-[1500ms] ${isTop ? "" : "scale-90"}`} opacity={0.16}/>
 
                       {/* grain */}
@@ -484,20 +484,20 @@ function Dashboard() {
                       <div className="relative h-full p-7 flex flex-col justify-between">
                         <div>
                           <div className="flex items-center justify-between">
-                            <div className="text-[10px] tracking-[0.3em] uppercase" style={{ color: "#f5eee0" }}>{exp.kicker}</div>
+                            <div className="text-[10px] tracking-[0.3em] uppercase" style={{ color: "#F7FAFF" }}>{exp.kicker}</div>
                             {isTop && (
-                              <div className="flex items-center gap-1 text-[9px] tracking-[0.25em] uppercase" style={{ color: "#f5eee0", opacity: 0.75 }}>
+                              <div className="flex items-center gap-1 text-[9px] tracking-[0.25em] uppercase" style={{ color: "#F7FAFF", opacity: 0.75 }}>
                                 <span>{expIdx + 1}</span><span className="opacity-50">/</span><span className="opacity-60">{total}</span>
                               </div>
                             )}
                           </div>
-                          <div className="font-serif text-[38px] lg:text-[46px] leading-[0.95] mt-4" style={{ color: "#2a1f14" }}>
+                          <div className="font-serif text-[38px] lg:text-[46px] leading-[0.95] mt-4" style={{ color: "#1D2A44" }}>
                             {exp.title}<br/><em className="italic font-light">{exp.italic}</em>
                           </div>
                         </div>
 
                         <div className="flex items-end justify-between">
-                          <div style={{ color: "#2a1f14" }}>
+                          <div style={{ color: "#1D2A44" }}>
                             <div className="font-serif italic text-xl">{exp.mins} min</div>
                             <div className="opacity-60 tracking-[0.25em] uppercase text-[9px] mt-1">{exp.tag}</div>
                           </div>
@@ -506,20 +506,20 @@ function Dashboard() {
                               <button onClick={(e) => { e.stopPropagation(); setExpSaved({ ...expSaved, [i]: !expSaved[i] }); }}
                                       aria-label="save"
                                       className="w-11 h-11 rounded-full flex items-center justify-center transition hover:scale-105 active:scale-95"
-                                      style={{ background: expSaved[i] ? "#26221c" : "rgba(255,255,255,0.18)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.25)" }}>
+                                      style={{ background: expSaved[i] ? "#1D2A44" : "rgba(255,255,255,0.18)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.25)" }}>
                                 <Heart className={`w-3.5 h-3.5 ${expSaved[i] ? "animate-heart-pop" : ""}`}
-                                       fill={expSaved[i] ? "#f5eee0" : "none"}
-                                       style={{ color: expSaved[i] ? "#f5eee0" : "#2a1f14" }} strokeWidth={1.6}/>
+                                       fill={expSaved[i] ? "#F7FAFF" : "none"}
+                                       style={{ color: expSaved[i] ? "#F7FAFF" : "#1D2A44" }} strokeWidth={1.6}/>
                               </button>
-                              <button className="group w-14 h-14 rounded-full flex items-center justify-center transition hover:scale-105 relative overflow-hidden" style={{ background: "#26221c" }}>
+                              <button className="group w-14 h-14 rounded-full flex items-center justify-center transition hover:scale-105 relative overflow-hidden" style={{ background: "#1D2A44" }}>
                                 {/* ring progress on the play button */}
                                 <svg className="absolute inset-0 -rotate-90" viewBox="0 0 56 56">
                                   <circle cx="28" cy="28" r="26" fill="none" stroke="rgba(245,238,224,0.15)" strokeWidth="1.5"/>
-                                  <circle cx="28" cy="28" r="26" fill="none" stroke="#f5eee0" strokeWidth="1.5" strokeLinecap="round"
+                                  <circle cx="28" cy="28" r="26" fill="none" stroke="#F7FAFF" strokeWidth="1.5" strokeLinecap="round"
                                           strokeDasharray={2 * Math.PI * 26}
                                           strokeDashoffset={2 * Math.PI * 26 * (1 - (expAuto ? expProgress : 0))} />
                                 </svg>
-                                <Play className="w-4 h-4 ml-0.5 relative" style={{ color: "#faf3e3" }} strokeWidth={2}/>
+                                <Play className="w-4 h-4 ml-0.5 relative" style={{ color: "#FFFFFF" }} strokeWidth={2}/>
                               </button>
                             </div>
                           )}
@@ -715,7 +715,7 @@ function Dashboard() {
                   <span className="text-[10px] italic opacity-60">{stress < 30 ? "settled" : stress < 60 ? "some weight" : "carrying a lot"}</span>
                 </div>
                 <input type="range" min={0} max={100} value={stress} onChange={(e) => setStress(+e.target.value)}
-                       className="w-full accent-[#a67c52]"/>
+                       className="w-full accent-[#4B6CB7]"/>
                 <div className="flex justify-between text-[9px] tracking-[0.2em] uppercase opacity-40 mt-1">
                   <span>calm</span><span>heavy</span>
                 </div>
@@ -839,10 +839,10 @@ function Dashboard() {
               </div>
 
               {/* ─── II · POMODORO — cinematic ink slab with SVG dial ─── */}
-              <div className="relative p-7 md:p-8 lg:border-r flex flex-col" style={{ background: "#211d18", color: "#f4ecdd", borderColor: border }}>
+              <div className="relative p-7 md:p-8 lg:border-r flex flex-col" style={{ background: "#1D2A44", color: "#F7FAFF", borderColor: border }}>
                 <div className="absolute inset-0 pointer-events-none opacity-40"
                      style={{ background: "radial-gradient(400px 220px at 70% 20%, rgba(244,236,221,0.06), transparent 60%)" }} />
-                <Curl stroke="#f4ecdd" className="absolute -right-10 -bottom-10 w-64 opacity-[0.08] pointer-events-none" />
+                <Curl stroke="#F7FAFF" className="absolute -right-10 -bottom-10 w-64 opacity-[0.08] pointer-events-none" />
 
                 <div className="relative flex items-center justify-between mb-4">
                   <div>
@@ -854,8 +854,8 @@ function Dashboard() {
                       <button key={m} onClick={() => { setPomoLength(m); setSeconds(m * 60); setRunning(false); }}
                               className="text-[9px] tracking-[0.2em] uppercase px-2.5 py-1 rounded-full transition-all"
                               style={{
-                                background: pomoLength === m ? "#f4ecdd" : "transparent",
-                                color: pomoLength === m ? "#211d18" : "rgba(244,236,221,0.55)",
+                                background: pomoLength === m ? "#F7FAFF" : "transparent",
+                                color: pomoLength === m ? "#1D2A44" : "rgba(244,236,221,0.55)",
                                 border: `1px solid ${pomoLength === m ? "transparent" : "rgba(244,236,221,0.12)"}`,
                               }}>
                         {m}m
@@ -869,7 +869,7 @@ function Dashboard() {
                   <div className="relative w-[220px] h-[220px]">
                     <svg viewBox="0 0 100 100" className="absolute inset-0 -rotate-90">
                       <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(244,236,221,0.08)" strokeWidth="1.2"/>
-                      <circle cx="50" cy="50" r="45" fill="none" stroke="#f4ecdd" strokeWidth="1.4" strokeLinecap="round"
+                      <circle cx="50" cy="50" r="45" fill="none" stroke="#F7FAFF" strokeWidth="1.4" strokeLinecap="round"
                               strokeDasharray={2 * Math.PI * 45}
                               strokeDashoffset={2 * Math.PI * 45 * (1 - (seconds / (pomoLength * 60)))}
                               style={{ transition: "stroke-dashoffset 1s linear" }} />
@@ -887,7 +887,7 @@ function Dashboard() {
                       <div className="mt-3 flex items-center gap-1.5">
                         {[0, 1, 2, 3].map((i) => (
                           <span key={i} className="w-1.5 h-1.5 rounded-full transition-all"
-                                style={{ background: i < pomoSessions ? "#f4ecdd" : "rgba(244,236,221,0.18)" }} />
+                                style={{ background: i < pomoSessions ? "#F7FAFF" : "rgba(244,236,221,0.18)" }} />
                         ))}
                       </div>
                       <div className="mt-1.5 text-[9px] tracking-[0.3em] uppercase opacity-50">
@@ -900,7 +900,7 @@ function Dashboard() {
                 <div className="relative flex items-center gap-2 mt-4">
                   <button onClick={() => setRunning(!running)}
                           className="flex-1 rounded-full py-3 text-[11px] tracking-[0.25em] uppercase flex items-center justify-center gap-2 transition-transform active:scale-[0.98]"
-                          style={{ background: "#f4ecdd", color: "#211d18" }}>
+                          style={{ background: "#F7FAFF", color: "#1D2A44" }}>
                     {running ? <Pause className="w-3 h-3"/> : <Play className="w-3 h-3"/>}
                     {running ? "pause" : seconds < pomoLength * 60 ? "resume" : "begin"}
                   </button>
@@ -1024,7 +1024,7 @@ function Dashboard() {
               </div>
             </div>
             <div className="relative flex items-center justify-between overflow-x-auto scrollbar-none">
-              <div className="absolute left-4 right-4 top-4 h-px" style={{ background: dark ? "#3a3630" : "#c9b99a" }}/>
+              <div className="absolute left-4 right-4 top-4 h-px" style={{ background: dark ? "#2E3A56" : "#C7D5EC" }}/>
               <div className="absolute left-4 top-4 h-px transition-all duration-1000" style={{ width: "40%", background: accent }}/>
               {journey.map((m) => (
                 <button key={m.day} className="group relative flex flex-col items-center gap-3 z-10 shrink-0 px-2 focus:outline-none">
@@ -1035,8 +1035,8 @@ function Dashboard() {
                   </span>
                   <div className="w-8 h-8 rounded-full flex items-center justify-center font-serif text-[12px] transition-all duration-300 group-hover:scale-110"
                        style={m.current ? { background: ink, color: bg, transform: "scale(1.25)", boxShadow: `0 10px 24px -10px ${accent}` }
-                                        : m.done ? { background: accent, color: "#faf3e3" }
-                                                 : { background: surface, color: muted, border: `1px solid ${dark ? "#3a3630" : "#c9b99a"}` }}>
+                                        : m.done ? { background: accent, color: "#FFFFFF" }
+                                                 : { background: surface, color: muted, border: `1px solid ${dark ? "#2E3A56" : "#C7D5EC"}` }}>
                     {m.day}
                   </div>
                   <span className="text-[9px] tracking-[0.2em] uppercase transition-opacity" style={{ color: m.current || m.done ? ink : muted, opacity: m.current ? 0.9 : 0.55 }}>{m.label}</span>
@@ -1268,7 +1268,7 @@ function Dashboard() {
                   </div>
                   <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full flex items-center justify-center"
                         style={{ background: bg }}>
-                    <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "#7fa084" }}/>
+                    <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "#4B6CB7" }}/>
                   </span>
                 </div>
                 <div>
@@ -1418,7 +1418,7 @@ function Dashboard() {
                 <header className="relative flex items-center gap-2.5 mb-4">
                   <span className="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
                         style={{ background: t.ribbon, opacity: 0.9 }}>
-                    <Feather className="w-3 h-3" style={{ color: "#faf3e3" }} strokeWidth={1.6}/>
+                    <Feather className="w-3 h-3" style={{ color: "#FFFFFF" }} strokeWidth={1.6}/>
                   </span>
                   <div className="min-w-0">
                     <div className="text-[10.5px] tracking-[0.22em] uppercase truncate" style={{ color: ink, opacity: 0.75 }}>{p.name}</div>
@@ -1522,7 +1522,7 @@ function Dashboard() {
       {/* mobile bottom bar — brand mark + hamburger */}
       <nav className="lg:hidden fixed bottom-4 left-4 right-4 z-30 rounded-full backdrop-blur-xl px-3 py-2 flex items-center justify-between"
            style={{ background: dark ? "rgba(30,27,23,0.92)" : "rgba(255,251,240,0.94)", border: `1px solid ${border}`, boxShadow: "0 14px 44px -14px rgba(42,39,36,0.28)" }}>
-        <button aria-label="PeaceCode" className="w-11 h-11 rounded-full flex items-center justify-center" style={{ background: dark ? "#2b2620" : "#ebe0c8" }}>
+        <button aria-label="PeaceCode" className="w-11 h-11 rounded-full flex items-center justify-center" style={{ background: dark ? "#223050" : "#EAF3FF" }}>
           <Mark className="w-5 h-5"/>
         </button>
         <div className="flex items-center gap-1 text-[10px] tracking-[0.3em] uppercase" style={{ color: muted }}>
@@ -1530,7 +1530,7 @@ function Dashboard() {
         </div>
         <button aria-label="Open menu" onClick={() => setMenuOpen(true)}
                 className="w-11 h-11 rounded-full flex items-center justify-center transition active:scale-95"
-                style={{ background: dark ? "#2b2620" : "#ebe0c8", color: ink }}>
+                style={{ background: dark ? "#223050" : "#EAF3FF", color: ink }}>
           <Menu className="w-[18px] h-[18px]" strokeWidth={1.6}/>
         </button>
       </nav>
@@ -1566,9 +1566,9 @@ function Dashboard() {
                       return (
                         <button key={item.label} onClick={() => setMenuOpen(false)}
                                 className="flex items-center gap-3 h-12 px-3 rounded-2xl transition"
-                                style={active ? { background: dark ? "#2b2620" : "#ebe0c8", color: ink } : { color: ink }}>
+                                style={active ? { background: dark ? "#223050" : "#EAF3FF", color: ink } : { color: ink }}>
                           <span className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
-                                style={{ background: active ? (dark ? "#1e1b17" : "#faf3e3") : (dark ? "#26221d" : "#f2e8d1") }}>
+                                style={{ background: active ? (dark ? "#182238" : "#FFFFFF") : (dark ? "#1F2A44" : "#EAF3FF") }}>
                             <Icon className="w-[17px] h-[17px]" strokeWidth={1.5}/>
                           </span>
                           <span className="text-[14px]">{item.label}</span>
