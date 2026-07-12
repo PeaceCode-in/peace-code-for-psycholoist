@@ -133,7 +133,36 @@ export default function CommunityPage() {
           toggleSave={(id: string) => {
             const s = new Set(saved); s.has(id) ? s.delete(id) : s.add(id); setSaved(s);
           }}
+          openCompose={() => setComposeOpen(true)}
         />
+      )}
+
+      {composeOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "rgba(29,42,68,0.35)" }} onClick={() => setComposeOpen(false)}>
+          <div className="w-full max-w-lg rounded-[24px] p-6" style={{ background: surface, border: `1px solid ${border}` }} onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4">
+              <div className="font-serif text-[20px]">offer a thread</div>
+              <button onClick={() => setComposeOpen(false)} className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: surface2, color: ink }}>×</button>
+            </div>
+            <select value={composeCircle} onChange={(e) => setComposeCircle(e.target.value)}
+                    className="w-full h-11 px-4 rounded-full text-[13px] mb-3 outline-none"
+                    style={{ background: surface2, color: ink, border: `1px solid ${border}` }}>
+              {circles.map(c => <option key={c.name} value={c.name}>{c.name}</option>)}
+            </select>
+            <input value={composeTitle} onChange={(e) => setComposeTitle(e.target.value)}
+                   placeholder="a soft title…"
+                   className="w-full h-11 px-4 rounded-full text-[13px] mb-3 outline-none"
+                   style={{ background: surface2, color: ink }}/>
+            <textarea value={composeBody} onChange={(e) => setComposeBody(e.target.value)}
+                      rows={4} placeholder="a sentence is enough."
+                      className="w-full px-4 py-3 rounded-2xl text-[13px] resize-none outline-none"
+                      style={{ background: surface2, color: ink }}/>
+            <div className="mt-4 flex items-center justify-end gap-2">
+              <button onClick={() => setComposeOpen(false)} className="h-10 px-4 rounded-full text-[12px]" style={{ background: surface2, color: ink }}>cancel</button>
+              <button onClick={submitCompose} className="h-10 px-5 rounded-full text-[12px]" style={{ background: ink, color: "#F7FAFF" }}>post anonymously</button>
+            </div>
+          </div>
+        </div>
       )}
       </div>
     </AppShell>
