@@ -16,6 +16,7 @@ import { Route as FocusRouteImport } from './routes/focus'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as BreatheRouteImport } from './routes/breathe'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ScreeningResourcesRouteImport } from './routes/screening.resources'
 import { Route as ScreeningLibraryRouteImport } from './routes/screening.library'
 import { Route as ScreeningHistoryRouteImport } from './routes/screening.history'
 import { Route as JournalVoiceRouteImport } from './routes/journal.voice'
@@ -68,6 +69,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ScreeningResourcesRoute = ScreeningResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => ScreeningRoute,
 } as any)
 const ScreeningLibraryRoute = ScreeningLibraryRouteImport.update({
   id: '/library',
@@ -174,6 +180,7 @@ export interface FileRoutesByFullPath {
   '/journal/voice': typeof JournalVoiceRoute
   '/screening/history': typeof ScreeningHistoryRoute
   '/screening/library': typeof ScreeningLibraryRoute
+  '/screening/resources': typeof ScreeningResourcesRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
   '/screening/instructions/$id': typeof ScreeningInstructionsIdRoute
@@ -200,6 +207,7 @@ export interface FileRoutesByTo {
   '/journal/voice': typeof JournalVoiceRoute
   '/screening/history': typeof ScreeningHistoryRoute
   '/screening/library': typeof ScreeningLibraryRoute
+  '/screening/resources': typeof ScreeningResourcesRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
   '/screening/instructions/$id': typeof ScreeningInstructionsIdRoute
@@ -227,6 +235,7 @@ export interface FileRoutesById {
   '/journal/voice': typeof JournalVoiceRoute
   '/screening/history': typeof ScreeningHistoryRoute
   '/screening/library': typeof ScreeningLibraryRoute
+  '/screening/resources': typeof ScreeningResourcesRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
   '/screening/instructions/$id': typeof ScreeningInstructionsIdRoute
@@ -255,6 +264,7 @@ export interface FileRouteTypes {
     | '/journal/voice'
     | '/screening/history'
     | '/screening/library'
+    | '/screening/resources'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
     | '/screening/instructions/$id'
@@ -281,6 +291,7 @@ export interface FileRouteTypes {
     | '/journal/voice'
     | '/screening/history'
     | '/screening/library'
+    | '/screening/resources'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
     | '/screening/instructions/$id'
@@ -307,6 +318,7 @@ export interface FileRouteTypes {
     | '/journal/voice'
     | '/screening/history'
     | '/screening/library'
+    | '/screening/resources'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
     | '/screening/instructions/$id'
@@ -376,6 +388,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/screening/resources': {
+      id: '/screening/resources'
+      path: '/resources'
+      fullPath: '/screening/resources'
+      preLoaderRoute: typeof ScreeningResourcesRouteImport
+      parentRoute: typeof ScreeningRoute
     }
     '/screening/library': {
       id: '/screening/library'
@@ -546,6 +565,7 @@ const JournalRouteWithChildren =
 interface ScreeningRouteChildren {
   ScreeningHistoryRoute: typeof ScreeningHistoryRoute
   ScreeningLibraryRoute: typeof ScreeningLibraryRoute
+  ScreeningResourcesRoute: typeof ScreeningResourcesRoute
   ScreeningAssessmentIdRoute: typeof ScreeningAssessmentIdRoute
   ScreeningConsentIdRoute: typeof ScreeningConsentIdRoute
   ScreeningInstructionsIdRoute: typeof ScreeningInstructionsIdRoute
@@ -557,6 +577,7 @@ interface ScreeningRouteChildren {
 const ScreeningRouteChildren: ScreeningRouteChildren = {
   ScreeningHistoryRoute: ScreeningHistoryRoute,
   ScreeningLibraryRoute: ScreeningLibraryRoute,
+  ScreeningResourcesRoute: ScreeningResourcesRoute,
   ScreeningAssessmentIdRoute: ScreeningAssessmentIdRoute,
   ScreeningConsentIdRoute: ScreeningConsentIdRoute,
   ScreeningInstructionsIdRoute: ScreeningInstructionsIdRoute,
