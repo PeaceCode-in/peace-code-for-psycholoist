@@ -49,7 +49,13 @@ function GratitudePage() {
   const [showPrivacy, setShowPrivacy] = useState(false);
   const [showAch, setShowAch] = useState(false);
   const [showChallenges, setShowChallenges] = useState(false);
+  const [reflection, setReflection] = useState<string>("");
+  const [loadingReflection, setLoadingReflection] = useState(false);
+  const [monthlyReflection, setMonthlyReflection] = useState<string>("");
+  const [loadingMonthly, setLoadingMonthly] = useState(false);
+  const [notifPerm, setNotifPerm] = useState<NotifyPermission>("default");
   const promptFn = useServerFn(gratitudeAI);
+  const reflectFn = useServerFn(gratitudeAI);
 
   useEffect(() => { setEntries(loadEntries()); }, []);
   useEffect(() => { setPrivacy(prefs.defaultPrivacy); }, [prefs.defaultPrivacy]);
