@@ -141,6 +141,45 @@
   --input: oklch(1 0 0 / 0.12);
 }
 
+/* ---- PeaceCode themeable palette (used via inline styles across the app) ---- */
+:root {
+  --pc-bg:       #F7FAFF;
+  --pc-surface:  #FFFFFF;
+  --pc-surface2: #EAF3FF;
+  --pc-border:   #DCE3EF;
+  --pc-ink:      #1D2A44;
+  --pc-muted:    #7587A6;
+  --pc-primary:  #4B6CB7;
+  --pc-soft:     #AFC9F5;
+  --pc-lavender: #D5C9F7;
+  --pc-shell:    rgba(255,255,255,0.78);
+  --pc-header:   rgba(247,250,255,0.92);
+  --pc-scrim:    rgba(29,42,68,0.35);
+  --pc-aurora-a: #D5C9F7;
+  --pc-aurora-b: #AFC9F5;
+  --pc-aurora-c: #EAF3FF;
+}
+.dark, [data-theme="dark"] {
+  --pc-bg:       #0B1020;
+  --pc-surface:  #141B33;
+  --pc-surface2: #1E2745;
+  --pc-border:   #2A3557;
+  --pc-ink:      #E8ECF7;
+  --pc-muted:    #8E9BC0;
+  --pc-primary:  #93B0F0;
+  --pc-soft:     #4C6CB0;
+  --pc-lavender: #6B5FA8;
+  --pc-shell:    rgba(20,27,51,0.72);
+  --pc-header:   rgba(11,16,32,0.88);
+  --pc-scrim:    rgba(0,0,0,0.55);
+  --pc-aurora-a: #3B2E6B;
+  --pc-aurora-b: #1E3A6E;
+  --pc-aurora-c: #12203E;
+}
+html { color-scheme: light; }
+html.dark, html[data-theme="dark"] { color-scheme: dark; }
+
+
 @layer base {
   * {
     border-color: var(--color-border);
