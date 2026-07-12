@@ -230,22 +230,36 @@ function Dashboard() {
       </aside>
 
       {/* ─── mobile top bar ─── */}
-      <header className={`lg:hidden sticky top-0 z-30 flex items-center justify-between px-5 py-3 backdrop-blur-xl transition ${scrolled ? "border-b" : ""}`}
-              style={{ background: dark ? "rgba(20,18,16,0.85)" : "rgba(244,236,221,0.88)", borderColor: border }}>
-        <div className="flex items-center gap-2.5 min-w-0">
-          <Mark className="w-7 h-7 shrink-0"/>
-          <div className="min-w-0">
-            <div className="font-serif text-[15px] leading-none truncate">PeaceCode</div>
-            <div className="text-[8px] tracking-[0.3em] uppercase mt-1 opacity-50">a soft place</div>
+      <header className={`lg:hidden sticky top-0 z-30 backdrop-blur-xl transition ${scrolled ? "border-b shadow-[0_10px_30px_-20px_rgba(38,34,28,0.25)]" : ""}`}
+              style={{ background: dark ? "rgba(20,18,16,0.9)" : "rgba(244,236,221,0.92)", borderColor: border }}>
+        <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 sm:px-5 py-3">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <Mark className="w-8 h-8 shrink-0"/>
+            <div className="min-w-0">
+              <div className="font-serif text-[15px] leading-none truncate">PeaceCode</div>
+              <div className="text-[7.5px] tracking-[0.3em] uppercase mt-1 opacity-50 truncate">a soft place</div>
+            </div>
+          </div>
+          <div className="hidden xs:flex items-center gap-2 rounded-full px-3 py-1.5 mx-1 min-w-0" style={{ background: surface, border: `1px solid ${border}` }}>
+            <Search className="w-3 h-3 opacity-40 shrink-0"/>
+            <input placeholder="search…" className="bg-transparent outline-none text-[11px] w-full placeholder:opacity-40"/>
+          </div>
+          <div className="flex items-center gap-1.5 shrink-0">
+            <div className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px]" style={{ background: surface2, color: accent }}>
+              <Flame className="w-3 h-3" strokeWidth={1.5}/> 12
+            </div>
+            <button className="relative w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }}>
+              <Bell className="w-3.5 h-3.5 opacity-70" strokeWidth={1.5}/>
+              <span className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full" style={{ background: accent }}/>
+            </button>
+            <button onClick={() => setDark(!dark)} aria-label="toggle mode" className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }}>
+              {dark ? <Sun className="w-3.5 h-3.5 opacity-70"/> : <Moon className="w-3.5 h-3.5 opacity-70"/>}
+            </button>
           </div>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
-          <div className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px]" style={{ background: surface2, color: accent }}>
-            <Flame className="w-3 h-3" strokeWidth={1.5}/> 12
-          </div>
-          <button onClick={() => setDark(!dark)} className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }}>
-            {dark ? <Sun className="w-4 h-4 opacity-70"/> : <Moon className="w-4 h-4 opacity-70"/>}
-          </button>
+        <div className="px-4 sm:px-5 pb-2.5 flex items-center justify-between text-[9px] tracking-[0.3em] uppercase opacity-60" style={{ color: accent }}>
+          <span className="truncate">Wed · 11 July · 06:41</span>
+          <span className="opacity-70 shrink-0 ml-3">day 14 · bloom</span>
         </div>
       </header>
 
