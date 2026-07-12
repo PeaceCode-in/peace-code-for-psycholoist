@@ -364,13 +364,13 @@ function Dashboard() {
             </span>
             <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">{dark ? "day" : "night"} mode</span>
           </button>
-          <button className="flex items-center h-10 rounded-2xl transition hover:bg-[color:var(--hov)]"
+          <Link to="/peacebot/settings" className="flex items-center h-10 rounded-2xl transition hover:bg-[color:var(--hov)]"
                   style={{ color: muted, ["--hov" as any]: dark ? "#223050" : "#EAF3FF" }}>
             <span className="w-[56px] shrink-0 flex justify-center">
               <Settings className="w-[19px] h-[19px]" strokeWidth={1.4}/>
             </span>
             <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">Settings</span>
-          </button>
+          </Link>
           <div className="mt-2 rounded-2xl flex items-center h-14" style={{ background: dark ? "#1F2A44" : "#EAF3FF" }}>
             <span className="w-[56px] shrink-0 flex justify-center">
               <span className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: soft }}>
