@@ -130,21 +130,22 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
 
   return (
     <div className="min-h-screen w-full font-sans" style={{ background: bg, color: ink }}>
-      {/* constant, calm aurora — same on every page */}
+      {/* constant, calm aurora — same on every page, themeable */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full opacity-45 blur-3xl"
-             style={{ background: "radial-gradient(circle,#D5C9F7,transparent 70%)" }} />
+             style={{ background: "radial-gradient(circle,var(--pc-aurora-a),transparent 70%)" }} />
         <div className="absolute top-1/3 -right-40 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
-             style={{ background: "radial-gradient(circle,#AFC9F5,transparent 70%)" }} />
+             style={{ background: "radial-gradient(circle,var(--pc-aurora-b),transparent 70%)" }} />
         <div className="absolute -bottom-40 left-1/3 w-[500px] h-[500px] rounded-full opacity-25 blur-3xl"
-             style={{ background: "radial-gradient(circle,#EAF3FF,transparent 70%)" }} />
+             style={{ background: "radial-gradient(circle,var(--pc-aurora-c),transparent 70%)" }} />
       </div>
 
       {/* ─── desktop sidebar ─── */}
       <aside
         className="hidden lg:flex fixed top-6 bottom-6 left-6 z-40 group flex-col py-6 rounded-[38px] backdrop-blur-2xl transition-[width] duration-300 ease-out hover:w-60 w-[80px] overflow-hidden"
-        style={{ background: "rgba(255,255,255,0.78)", border: `1px solid ${border}`, boxShadow: "0 30px 60px -30px rgba(29,42,68,0.18)" }}
+        style={{ background: "var(--pc-shell)", border: `1px solid ${border}`, boxShadow: "0 30px 60px -30px rgba(0,0,0,0.28)" }}
       >
+
         <div className="flex items-center h-12 mb-8">
           <div className="w-[80px] shrink-0 flex justify-center"><Mark className="w-9 h-9" /></div>
           <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 whitespace-nowrap -ml-1">
