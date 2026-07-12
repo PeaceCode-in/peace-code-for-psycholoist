@@ -13,6 +13,7 @@ import { Route as FocusRouteImport } from './routes/focus'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as BreatheRouteImport } from './routes/breathe'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BreatheStatsRouteImport } from './routes/breathe.stats'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 
 const FocusRoute = FocusRouteImport.update({
@@ -35,6 +36,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BreatheStatsRoute = BreatheStatsRouteImport.update({
+  id: '/stats',
+  path: '/stats',
+  getParentRoute: () => BreatheRoute,
+} as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
   path: '/api/chat',
@@ -43,37 +49,59 @@ const ApiChatRoute = ApiChatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/breathe': typeof BreatheRoute
+  '/breathe': typeof BreatheRouteWithChildren
   '/community': typeof CommunityRoute
   '/focus': typeof FocusRoute
   '/api/chat': typeof ApiChatRoute
+  '/breathe/stats': typeof BreatheStatsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/breathe': typeof BreatheRoute
+  '/breathe': typeof BreatheRouteWithChildren
   '/community': typeof CommunityRoute
   '/focus': typeof FocusRoute
   '/api/chat': typeof ApiChatRoute
+  '/breathe/stats': typeof BreatheStatsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/breathe': typeof BreatheRoute
+  '/breathe': typeof BreatheRouteWithChildren
   '/community': typeof CommunityRoute
   '/focus': typeof FocusRoute
   '/api/chat': typeof ApiChatRoute
+  '/breathe/stats': typeof BreatheStatsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/breathe' | '/community' | '/focus' | '/api/chat'
+  fullPaths:
+    | '/'
+    | '/breathe'
+    | '/community'
+    | '/focus'
+    | '/api/chat'
+    | '/breathe/stats'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/breathe' | '/community' | '/focus' | '/api/chat'
-  id: '__root__' | '/' | '/breathe' | '/community' | '/focus' | '/api/chat'
+  to:
+    | '/'
+    | '/breathe'
+    | '/community'
+    | '/focus'
+    | '/api/chat'
+    | '/breathe/stats'
+  id:
+    | '__root__'
+    | '/'
+    | '/breathe'
+    | '/community'
+    | '/focus'
+    | '/api/chat'
+    | '/breathe/stats'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BreatheRoute: typeof BreatheRoute
+  BreatheRoute: typeof BreatheRouteWithChildren
   CommunityRoute: typeof CommunityRoute
   FocusRoute: typeof FocusRoute
   ApiChatRoute: typeof ApiChatRoute
@@ -109,6 +137,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/breathe/stats': {
+      id: '/breathe/stats'
+      path: '/stats'
+      fullPath: '/breathe/stats'
+      preLoaderRoute: typeof BreatheStatsRouteImport
+      parentRoute: typeof BreatheRoute
+    }
     '/api/chat': {
       id: '/api/chat'
       path: '/api/chat'
@@ -119,9 +154,20 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface BreatheRouteChildren {
+  BreatheStatsRoute: typeof BreatheStatsRoute
+}
+
+const BreatheRouteChildren: BreatheRouteChildren = {
+  BreatheStatsRoute: BreatheStatsRoute,
+}
+
+const BreatheRouteWithChildren =
+  BreatheRoute._addFileChildren(BreatheRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BreatheRoute: BreatheRoute,
+  BreatheRoute: BreatheRouteWithChildren,
   CommunityRoute: CommunityRoute,
   FocusRoute: FocusRoute,
   ApiChatRoute: ApiChatRoute,
