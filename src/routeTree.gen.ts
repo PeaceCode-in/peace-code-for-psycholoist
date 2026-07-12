@@ -16,6 +16,7 @@ import { Route as FocusRouteImport } from './routes/focus'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as BreatheRouteImport } from './routes/breathe'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ScreeningSettingsRouteImport } from './routes/screening.settings'
 import { Route as ScreeningResourcesRouteImport } from './routes/screening.resources'
 import { Route as ScreeningLibraryRouteImport } from './routes/screening.library'
 import { Route as ScreeningHistoryRouteImport } from './routes/screening.history'
@@ -69,6 +70,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ScreeningSettingsRoute = ScreeningSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => ScreeningRoute,
 } as any)
 const ScreeningResourcesRoute = ScreeningResourcesRouteImport.update({
   id: '/resources',
@@ -181,6 +187,7 @@ export interface FileRoutesByFullPath {
   '/screening/history': typeof ScreeningHistoryRoute
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/resources': typeof ScreeningResourcesRoute
+  '/screening/settings': typeof ScreeningSettingsRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
   '/screening/instructions/$id': typeof ScreeningInstructionsIdRoute
@@ -208,6 +215,7 @@ export interface FileRoutesByTo {
   '/screening/history': typeof ScreeningHistoryRoute
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/resources': typeof ScreeningResourcesRoute
+  '/screening/settings': typeof ScreeningSettingsRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
   '/screening/instructions/$id': typeof ScreeningInstructionsIdRoute
@@ -236,6 +244,7 @@ export interface FileRoutesById {
   '/screening/history': typeof ScreeningHistoryRoute
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/resources': typeof ScreeningResourcesRoute
+  '/screening/settings': typeof ScreeningSettingsRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
   '/screening/instructions/$id': typeof ScreeningInstructionsIdRoute
@@ -265,6 +274,7 @@ export interface FileRouteTypes {
     | '/screening/history'
     | '/screening/library'
     | '/screening/resources'
+    | '/screening/settings'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
     | '/screening/instructions/$id'
@@ -292,6 +302,7 @@ export interface FileRouteTypes {
     | '/screening/history'
     | '/screening/library'
     | '/screening/resources'
+    | '/screening/settings'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
     | '/screening/instructions/$id'
@@ -319,6 +330,7 @@ export interface FileRouteTypes {
     | '/screening/history'
     | '/screening/library'
     | '/screening/resources'
+    | '/screening/settings'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
     | '/screening/instructions/$id'
@@ -388,6 +400,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/screening/settings': {
+      id: '/screening/settings'
+      path: '/settings'
+      fullPath: '/screening/settings'
+      preLoaderRoute: typeof ScreeningSettingsRouteImport
+      parentRoute: typeof ScreeningRoute
     }
     '/screening/resources': {
       id: '/screening/resources'
@@ -566,6 +585,7 @@ interface ScreeningRouteChildren {
   ScreeningHistoryRoute: typeof ScreeningHistoryRoute
   ScreeningLibraryRoute: typeof ScreeningLibraryRoute
   ScreeningResourcesRoute: typeof ScreeningResourcesRoute
+  ScreeningSettingsRoute: typeof ScreeningSettingsRoute
   ScreeningAssessmentIdRoute: typeof ScreeningAssessmentIdRoute
   ScreeningConsentIdRoute: typeof ScreeningConsentIdRoute
   ScreeningInstructionsIdRoute: typeof ScreeningInstructionsIdRoute
@@ -578,6 +598,7 @@ const ScreeningRouteChildren: ScreeningRouteChildren = {
   ScreeningHistoryRoute: ScreeningHistoryRoute,
   ScreeningLibraryRoute: ScreeningLibraryRoute,
   ScreeningResourcesRoute: ScreeningResourcesRoute,
+  ScreeningSettingsRoute: ScreeningSettingsRoute,
   ScreeningAssessmentIdRoute: ScreeningAssessmentIdRoute,
   ScreeningConsentIdRoute: ScreeningConsentIdRoute,
   ScreeningInstructionsIdRoute: ScreeningInstructionsIdRoute,
