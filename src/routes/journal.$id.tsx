@@ -130,6 +130,7 @@ function EditorPage() {
 
   const fontFamily = font === "serif" ? "'Fraunces', serif" : font === "mono" ? "'JetBrains Mono', ui-monospace, monospace" : "'DM Sans', sans-serif";
 
+  if (!entry) return <AppShell><div className="p-10 opacity-50">loading…</div></AppShell>;
 
   const created = new Date(entry.createdAt);
 
