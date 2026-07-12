@@ -483,6 +483,16 @@ function BreathePage() {
                 </button>
               ))}
             </div>
+
+            {/* keyboard hints */}
+            {prefs.keyboardHints && (
+              <div className="mt-6 text-[10px] tracking-[0.2em] uppercase opacity-50 flex flex-wrap gap-x-4 gap-y-1 justify-center">
+                <span><kbd className="font-sans not-italic">space</kbd> play · pause</span>
+                <span><kbd className="font-sans not-italic">r</kbd> reset</span>
+                <span><kbd className="font-sans not-italic">s</kbd> stop</span>
+                <span><kbd className="font-sans not-italic">1–6</kbd> technique</span>
+              </div>
+            )}
           </div>
         </div>
       </section>
