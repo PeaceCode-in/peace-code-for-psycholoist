@@ -183,43 +183,54 @@ function Dashboard() {
       </div>
 
       {/* ─── glass sidebar (fixed shape, expands cleanly) ─── */}
-      <aside className="hidden lg:flex fixed top-6 bottom-6 left-6 z-40 group flex-col py-6 px-3 rounded-[38px] backdrop-blur-2xl transition-[width] duration-300 ease-out hover:w-60 w-[80px]"
+      <aside className="hidden lg:flex fixed top-6 bottom-6 left-6 z-40 group flex-col py-6 rounded-[38px] backdrop-blur-2xl transition-[width] duration-300 ease-out hover:w-60 w-[80px] overflow-hidden"
              style={{ background: dark ? "rgba(30,27,23,0.75)" : "rgba(255,251,240,0.78)", border: `1px solid ${border}`, boxShadow: "0 30px 60px -30px rgba(38,34,28,0.22)" }}>
-        <div className="flex items-center gap-3 px-2.5 mb-8 overflow-hidden">
-          <Mark className="w-10 h-10 shrink-0" />
-          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 whitespace-nowrap">
+        {/* brand row */}
+        <div className="flex items-center h-12 mb-8">
+          <div className="w-[80px] shrink-0 flex justify-center">
+            <Mark className="w-9 h-9"/>
+          </div>
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 whitespace-nowrap -ml-1">
             <div className="font-serif text-[17px] leading-none">PeaceCode</div>
             <div className="text-[8px] tracking-[0.3em] uppercase opacity-50 mt-1.5">a soft place</div>
           </div>
         </div>
 
-        <nav className="flex flex-col gap-1">
+        <nav className="flex flex-col gap-1.5 px-3">
           {nav.map((item) => {
             const Icon = item.icon;
             return (
-              <button key={item.label} className="relative flex items-center gap-3.5 px-3 py-2.5 rounded-2xl transition overflow-hidden"
+              <button key={item.label} className="relative flex items-center h-11 rounded-2xl transition"
                       style={item.active ? { background: dark ? "#2b2620" : "#ebe0c8", color: ink } : { color: muted }}>
-                <Icon className="w-[19px] h-[19px] shrink-0" strokeWidth={1.4} />
-                <span className="text-[13px] tracking-wide whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">{item.label}</span>
+                <span className="w-[56px] shrink-0 flex justify-center">
+                  <Icon className="w-[19px] h-[19px]" strokeWidth={1.4} />
+                </span>
+                <span className="text-[13px] tracking-wide whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">{item.label}</span>
               </button>
             );
           })}
         </nav>
 
-        <div className="mt-auto flex flex-col gap-1">
-          <button onClick={() => setDark(!dark)} className="flex items-center gap-3.5 px-3 py-2.5 rounded-2xl transition overflow-hidden" style={{ color: muted }}>
-            {dark ? <Sun className="w-[19px] h-[19px] shrink-0" strokeWidth={1.4}/> : <Moon className="w-[19px] h-[19px] shrink-0" strokeWidth={1.4}/>}
-            <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">{dark ? "day" : "night"} mode</span>
+        <div className="mt-auto flex flex-col gap-1.5 px-3">
+          <button onClick={() => setDark(!dark)} className="flex items-center h-11 rounded-2xl transition" style={{ color: muted }}>
+            <span className="w-[56px] shrink-0 flex justify-center">
+              {dark ? <Sun className="w-[19px] h-[19px]" strokeWidth={1.4}/> : <Moon className="w-[19px] h-[19px]" strokeWidth={1.4}/>}
+            </span>
+            <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">{dark ? "day" : "night"} mode</span>
           </button>
-          <button className="flex items-center gap-3.5 px-3 py-2.5 rounded-2xl overflow-hidden" style={{ color: muted }}>
-            <Settings className="w-[19px] h-[19px] shrink-0" strokeWidth={1.4}/>
-            <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">Settings</span>
+          <button className="flex items-center h-11 rounded-2xl" style={{ color: muted }}>
+            <span className="w-[56px] shrink-0 flex justify-center">
+              <Settings className="w-[19px] h-[19px]" strokeWidth={1.4}/>
+            </span>
+            <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">Settings</span>
           </button>
-          <div className="mt-3 rounded-2xl p-2.5 flex items-center gap-2.5 overflow-hidden" style={{ background: dark ? "#26221d" : "#ebe0c8" }}>
-            <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: soft }}>
-              <Mark className="w-4 h-4"/>
-            </div>
-            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 whitespace-nowrap min-w-0">
+          <div className="mt-3 mx-1 rounded-2xl flex items-center h-14" style={{ background: dark ? "#26221d" : "#ebe0c8" }}>
+            <span className="w-[52px] shrink-0 flex justify-center">
+              <span className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: soft }}>
+                <Mark className="w-4 h-4"/>
+              </span>
+            </span>
+            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 whitespace-nowrap min-w-0 -ml-1">
               <div className="font-serif text-[13px] leading-none">Keya</div>
               <div className="flex items-center gap-1 mt-1 text-[9px]" style={{ color: accent }}>
                 <Flame className="w-2.5 h-2.5" strokeWidth={1.5}/> 12 day streak
@@ -285,28 +296,48 @@ function Dashboard() {
               </div>
             </div>
 
-            <h1 className="font-serif text-[38px] xs:text-[44px] sm:text-[64px] lg:text-[88px] xl:text-[108px] leading-[0.94] tracking-tight break-words" style={{ letterSpacing: "-0.035em" }}>
-              <em className="italic font-light" style={{ color: accent }}>Softly,</em><br/>
-              you begin<br/>
-              again.
-            </h1>
-            <p className="text-[13px] sm:text-[14px] mt-7 opacity-60 max-w-md leading-relaxed">
+            <div className="relative">
+              {/* decorative sprig — sits behind title, right side */}
+              <Sprig stroke={accent} className="hidden sm:block absolute -right-2 lg:right-8 -top-6 w-[90px] lg:w-[130px] opacity-25 pointer-events-none"/>
+              <Curl stroke={accent} className="hidden lg:block absolute -left-10 top-24 w-[220px] opacity-20 pointer-events-none"/>
+
+              <h1 className="font-serif font-medium text-[44px] xs:text-[52px] sm:text-[76px] lg:text-[96px] xl:text-[112px] leading-[1.02] lg:leading-[0.98] tracking-tight relative" style={{ letterSpacing: "-0.04em" }}>
+                <span className="italic font-normal block" style={{ color: accent }}>Softly,</span>
+                <span className="block">you begin</span>
+                <span className="block">again<span style={{ color: accent }}>.</span></span>
+              </h1>
+            </div>
+
+            <p className="text-[13px] sm:text-[14px] mt-8 lg:mt-10 opacity-60 max-w-md leading-relaxed">
               A slow look at how your mind and moments are moving today. No pressure — just presence.
             </p>
 
-            {/* day picker */}
-            <div className="mt-10 flex items-center gap-1.5 overflow-x-auto scrollbar-none">
-              {days.map((dd) => {
-                const active = day === dd.n;
-                return (
-                  <button key={dd.n} onClick={() => setDay(dd.n)}
-                          className="shrink-0 flex flex-col items-center justify-center w-14 h-[74px] rounded-full transition-all text-[10px]"
-                          style={active ? { background: ink, color: bg, transform: "scale(1.02)" } : { background: "transparent", color: muted }}>
-                    <span className="font-serif text-[20px] leading-none mb-1.5">{dd.n}</span>
-                    <span className="tracking-[0.2em] uppercase opacity-70">{dd.d}</span>
-                  </button>
-                );
-              })}
+            {/* editorial day rail */}
+            <div className="mt-12 lg:mt-14 relative">
+              <div className="absolute left-0 right-0 top-1/2 h-px opacity-40" style={{ background: border }} />
+              <div className="relative flex items-center gap-2 sm:gap-3 overflow-x-auto scrollbar-none pb-1">
+                {days.map((dd) => {
+                  const active = day === dd.n;
+                  return (
+                    <button key={dd.n} onClick={() => setDay(dd.n)}
+                            className="shrink-0 group/day flex flex-col items-center justify-center relative w-[54px] sm:w-[62px] transition-all">
+                      <div className="text-[8.5px] tracking-[0.28em] uppercase mb-2 transition-colors"
+                           style={{ color: active ? accent : muted, opacity: active ? 1 : 0.55 }}>
+                        {dd.d}
+                      </div>
+                      <div className={`flex items-center justify-center rounded-full font-serif transition-all duration-300 ${active ? "w-[54px] h-[54px] sm:w-[62px] sm:h-[62px] text-[22px]" : "w-11 h-11 text-[17px] hover:scale-105"}`}
+                           style={active
+                              ? { background: ink, color: bg, boxShadow: "0 12px 28px -12px rgba(38,34,28,0.55)" }
+                              : { background: "transparent", color: ink, border: `1px solid ${border}` }}>
+                        {dd.n}
+                      </div>
+                      <div className="mt-2 h-1 flex items-center justify-center">
+                        <span className="w-1 h-1 rounded-full transition-all" style={{ background: active ? accent : "transparent" }}/>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
