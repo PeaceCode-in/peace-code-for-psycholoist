@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as CounsellingRouteImport } from './routes/counselling'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ScreeningIndexRouteImport } from './routes/screening.index'
@@ -16,6 +17,7 @@ import { Route as PeacebotIndexRouteImport } from './routes/peacebot.index'
 import { Route as JournalIndexRouteImport } from './routes/journal.index'
 import { Route as GratitudeIndexRouteImport } from './routes/gratitude.index'
 import { Route as FocusIndexRouteImport } from './routes/focus.index'
+import { Route as CounsellingIndexRouteImport } from './routes/counselling.index'
 import { Route as BuddiesIndexRouteImport } from './routes/buddies.index'
 import { Route as BreatheIndexRouteImport } from './routes/breathe.index'
 import { Route as ScreeningSettingsRouteImport } from './routes/screening.settings'
@@ -37,6 +39,21 @@ import { Route as GratitudeWallRouteImport } from './routes/gratitude.wall'
 import { Route as GratitudeTreeRouteImport } from './routes/gratitude.tree'
 import { Route as GratitudeHistoryRouteImport } from './routes/gratitude.history'
 import { Route as GratitudeForestRouteImport } from './routes/gratitude.forest'
+import { Route as CounsellingWellnessRouteImport } from './routes/counselling.wellness'
+import { Route as CounsellingUpcomingRouteImport } from './routes/counselling.upcoming'
+import { Route as CounsellingSettingsRouteImport } from './routes/counselling.settings'
+import { Route as CounsellingResourcesRouteImport } from './routes/counselling.resources'
+import { Route as CounsellingReportsRouteImport } from './routes/counselling.reports'
+import { Route as CounsellingMyRouteImport } from './routes/counselling.my'
+import { Route as CounsellingMessagesRouteImport } from './routes/counselling.messages'
+import { Route as CounsellingMedicationRouteImport } from './routes/counselling.medication'
+import { Route as CounsellingHomeworkRouteImport } from './routes/counselling.homework'
+import { Route as CounsellingHistoryRouteImport } from './routes/counselling.history'
+import { Route as CounsellingExpertsRouteImport } from './routes/counselling.experts'
+import { Route as CounsellingEmergencyRouteImport } from './routes/counselling.emergency'
+import { Route as CounsellingDocumentsRouteImport } from './routes/counselling.documents'
+import { Route as CounsellingBillingRouteImport } from './routes/counselling.billing'
+import { Route as CounsellingAssessmentsRouteImport } from './routes/counselling.assessments'
 import { Route as BuddiesSettingsRouteImport } from './routes/buddies.settings'
 import { Route as BuddiesPsychologistsRouteImport } from './routes/buddies.psychologists'
 import { Route as BuddiesHistoryRouteImport } from './routes/buddies.history'
@@ -54,6 +71,11 @@ import { Route as ScreeningInstructionsIdRouteImport } from './routes/screening.
 import { Route as ScreeningConsentIdRouteImport } from './routes/screening.consent.$id'
 import { Route as ScreeningAssessmentIdRouteImport } from './routes/screening.assessment.$id'
 import { Route as PeacebotCIdRouteImport } from './routes/peacebot.c.$id'
+import { Route as CounsellingSummaryAidRouteImport } from './routes/counselling.summary.$aid'
+import { Route as CounsellingSessionAidRouteImport } from './routes/counselling.session.$aid'
+import { Route as CounsellingExpertIdRouteImport } from './routes/counselling.expert.$id'
+import { Route as CounsellingBookIdRouteImport } from './routes/counselling.book.$id'
+import { Route as CounsellingApptAidRouteImport } from './routes/counselling.appt.$aid'
 import { Route as BuddiesSafetyIdRouteImport } from './routes/buddies.safety.$id'
 import { Route as BuddiesRequestIdRouteImport } from './routes/buddies.request.$id'
 import { Route as BuddiesGuidelinesIdRouteImport } from './routes/buddies.guidelines.$id'
@@ -61,6 +83,11 @@ import { Route as BuddiesFeedbackIdRouteImport } from './routes/buddies.feedback
 import { Route as BuddiesChatIdRouteImport } from './routes/buddies.chat.$id'
 import { Route as BuddiesBookIdRouteImport } from './routes/buddies.book.$id'
 
+const CounsellingRoute = CounsellingRouteImport.update({
+  id: '/counselling',
+  path: '/counselling',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CommunityRoute = CommunityRouteImport.update({
   id: '/community',
   path: '/community',
@@ -95,6 +122,11 @@ const FocusIndexRoute = FocusIndexRouteImport.update({
   id: '/focus/',
   path: '/focus/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const CounsellingIndexRoute = CounsellingIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CounsellingRoute,
 } as any)
 const BuddiesIndexRoute = BuddiesIndexRouteImport.update({
   id: '/buddies/',
@@ -201,6 +233,81 @@ const GratitudeForestRoute = GratitudeForestRouteImport.update({
   path: '/gratitude/forest',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CounsellingWellnessRoute = CounsellingWellnessRouteImport.update({
+  id: '/wellness',
+  path: '/wellness',
+  getParentRoute: () => CounsellingRoute,
+} as any)
+const CounsellingUpcomingRoute = CounsellingUpcomingRouteImport.update({
+  id: '/upcoming',
+  path: '/upcoming',
+  getParentRoute: () => CounsellingRoute,
+} as any)
+const CounsellingSettingsRoute = CounsellingSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => CounsellingRoute,
+} as any)
+const CounsellingResourcesRoute = CounsellingResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => CounsellingRoute,
+} as any)
+const CounsellingReportsRoute = CounsellingReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => CounsellingRoute,
+} as any)
+const CounsellingMyRoute = CounsellingMyRouteImport.update({
+  id: '/my',
+  path: '/my',
+  getParentRoute: () => CounsellingRoute,
+} as any)
+const CounsellingMessagesRoute = CounsellingMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => CounsellingRoute,
+} as any)
+const CounsellingMedicationRoute = CounsellingMedicationRouteImport.update({
+  id: '/medication',
+  path: '/medication',
+  getParentRoute: () => CounsellingRoute,
+} as any)
+const CounsellingHomeworkRoute = CounsellingHomeworkRouteImport.update({
+  id: '/homework',
+  path: '/homework',
+  getParentRoute: () => CounsellingRoute,
+} as any)
+const CounsellingHistoryRoute = CounsellingHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => CounsellingRoute,
+} as any)
+const CounsellingExpertsRoute = CounsellingExpertsRouteImport.update({
+  id: '/experts',
+  path: '/experts',
+  getParentRoute: () => CounsellingRoute,
+} as any)
+const CounsellingEmergencyRoute = CounsellingEmergencyRouteImport.update({
+  id: '/emergency',
+  path: '/emergency',
+  getParentRoute: () => CounsellingRoute,
+} as any)
+const CounsellingDocumentsRoute = CounsellingDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => CounsellingRoute,
+} as any)
+const CounsellingBillingRoute = CounsellingBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => CounsellingRoute,
+} as any)
+const CounsellingAssessmentsRoute = CounsellingAssessmentsRouteImport.update({
+  id: '/assessments',
+  path: '/assessments',
+  getParentRoute: () => CounsellingRoute,
+} as any)
 const BuddiesSettingsRoute = BuddiesSettingsRouteImport.update({
   id: '/buddies/settings',
   path: '/buddies/settings',
@@ -286,6 +393,31 @@ const PeacebotCIdRoute = PeacebotCIdRouteImport.update({
   path: '/peacebot/c/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CounsellingSummaryAidRoute = CounsellingSummaryAidRouteImport.update({
+  id: '/summary/$aid',
+  path: '/summary/$aid',
+  getParentRoute: () => CounsellingRoute,
+} as any)
+const CounsellingSessionAidRoute = CounsellingSessionAidRouteImport.update({
+  id: '/session/$aid',
+  path: '/session/$aid',
+  getParentRoute: () => CounsellingRoute,
+} as any)
+const CounsellingExpertIdRoute = CounsellingExpertIdRouteImport.update({
+  id: '/expert/$id',
+  path: '/expert/$id',
+  getParentRoute: () => CounsellingRoute,
+} as any)
+const CounsellingBookIdRoute = CounsellingBookIdRouteImport.update({
+  id: '/book/$id',
+  path: '/book/$id',
+  getParentRoute: () => CounsellingRoute,
+} as any)
+const CounsellingApptAidRoute = CounsellingApptAidRouteImport.update({
+  id: '/appt/$aid',
+  path: '/appt/$aid',
+  getParentRoute: () => CounsellingRoute,
+} as any)
 const BuddiesSafetyIdRoute = BuddiesSafetyIdRouteImport.update({
   id: '/buddies/safety/$id',
   path: '/buddies/safety/$id',
@@ -320,6 +452,7 @@ const BuddiesBookIdRoute = BuddiesBookIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
+  '/counselling': typeof CounsellingRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/buddies/$id': typeof BuddiesIdRoute
@@ -330,6 +463,21 @@ export interface FileRoutesByFullPath {
   '/buddies/history': typeof BuddiesHistoryRoute
   '/buddies/psychologists': typeof BuddiesPsychologistsRoute
   '/buddies/settings': typeof BuddiesSettingsRoute
+  '/counselling/assessments': typeof CounsellingAssessmentsRoute
+  '/counselling/billing': typeof CounsellingBillingRoute
+  '/counselling/documents': typeof CounsellingDocumentsRoute
+  '/counselling/emergency': typeof CounsellingEmergencyRoute
+  '/counselling/experts': typeof CounsellingExpertsRoute
+  '/counselling/history': typeof CounsellingHistoryRoute
+  '/counselling/homework': typeof CounsellingHomeworkRoute
+  '/counselling/medication': typeof CounsellingMedicationRoute
+  '/counselling/messages': typeof CounsellingMessagesRoute
+  '/counselling/my': typeof CounsellingMyRoute
+  '/counselling/reports': typeof CounsellingReportsRoute
+  '/counselling/resources': typeof CounsellingResourcesRoute
+  '/counselling/settings': typeof CounsellingSettingsRoute
+  '/counselling/upcoming': typeof CounsellingUpcomingRoute
+  '/counselling/wellness': typeof CounsellingWellnessRoute
   '/gratitude/forest': typeof GratitudeForestRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
   '/gratitude/tree': typeof GratitudeTreeRoute
@@ -351,6 +499,7 @@ export interface FileRoutesByFullPath {
   '/screening/settings': typeof ScreeningSettingsRoute
   '/breathe/': typeof BreatheIndexRoute
   '/buddies/': typeof BuddiesIndexRoute
+  '/counselling/': typeof CounsellingIndexRoute
   '/focus/': typeof FocusIndexRoute
   '/gratitude/': typeof GratitudeIndexRoute
   '/journal/': typeof JournalIndexRoute
@@ -362,6 +511,11 @@ export interface FileRoutesByFullPath {
   '/buddies/guidelines/$id': typeof BuddiesGuidelinesIdRoute
   '/buddies/request/$id': typeof BuddiesRequestIdRoute
   '/buddies/safety/$id': typeof BuddiesSafetyIdRoute
+  '/counselling/appt/$aid': typeof CounsellingApptAidRoute
+  '/counselling/book/$id': typeof CounsellingBookIdRoute
+  '/counselling/expert/$id': typeof CounsellingExpertIdRoute
+  '/counselling/session/$aid': typeof CounsellingSessionAidRoute
+  '/counselling/summary/$aid': typeof CounsellingSummaryAidRoute
   '/peacebot/c/$id': typeof PeacebotCIdRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
@@ -383,6 +537,21 @@ export interface FileRoutesByTo {
   '/buddies/history': typeof BuddiesHistoryRoute
   '/buddies/psychologists': typeof BuddiesPsychologistsRoute
   '/buddies/settings': typeof BuddiesSettingsRoute
+  '/counselling/assessments': typeof CounsellingAssessmentsRoute
+  '/counselling/billing': typeof CounsellingBillingRoute
+  '/counselling/documents': typeof CounsellingDocumentsRoute
+  '/counselling/emergency': typeof CounsellingEmergencyRoute
+  '/counselling/experts': typeof CounsellingExpertsRoute
+  '/counselling/history': typeof CounsellingHistoryRoute
+  '/counselling/homework': typeof CounsellingHomeworkRoute
+  '/counselling/medication': typeof CounsellingMedicationRoute
+  '/counselling/messages': typeof CounsellingMessagesRoute
+  '/counselling/my': typeof CounsellingMyRoute
+  '/counselling/reports': typeof CounsellingReportsRoute
+  '/counselling/resources': typeof CounsellingResourcesRoute
+  '/counselling/settings': typeof CounsellingSettingsRoute
+  '/counselling/upcoming': typeof CounsellingUpcomingRoute
+  '/counselling/wellness': typeof CounsellingWellnessRoute
   '/gratitude/forest': typeof GratitudeForestRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
   '/gratitude/tree': typeof GratitudeTreeRoute
@@ -404,6 +573,7 @@ export interface FileRoutesByTo {
   '/screening/settings': typeof ScreeningSettingsRoute
   '/breathe': typeof BreatheIndexRoute
   '/buddies': typeof BuddiesIndexRoute
+  '/counselling': typeof CounsellingIndexRoute
   '/focus': typeof FocusIndexRoute
   '/gratitude': typeof GratitudeIndexRoute
   '/journal': typeof JournalIndexRoute
@@ -415,6 +585,11 @@ export interface FileRoutesByTo {
   '/buddies/guidelines/$id': typeof BuddiesGuidelinesIdRoute
   '/buddies/request/$id': typeof BuddiesRequestIdRoute
   '/buddies/safety/$id': typeof BuddiesSafetyIdRoute
+  '/counselling/appt/$aid': typeof CounsellingApptAidRoute
+  '/counselling/book/$id': typeof CounsellingBookIdRoute
+  '/counselling/expert/$id': typeof CounsellingExpertIdRoute
+  '/counselling/session/$aid': typeof CounsellingSessionAidRoute
+  '/counselling/summary/$aid': typeof CounsellingSummaryAidRoute
   '/peacebot/c/$id': typeof PeacebotCIdRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
@@ -427,6 +602,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/community': typeof CommunityRoute
+  '/counselling': typeof CounsellingRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/buddies/$id': typeof BuddiesIdRoute
@@ -437,6 +613,21 @@ export interface FileRoutesById {
   '/buddies/history': typeof BuddiesHistoryRoute
   '/buddies/psychologists': typeof BuddiesPsychologistsRoute
   '/buddies/settings': typeof BuddiesSettingsRoute
+  '/counselling/assessments': typeof CounsellingAssessmentsRoute
+  '/counselling/billing': typeof CounsellingBillingRoute
+  '/counselling/documents': typeof CounsellingDocumentsRoute
+  '/counselling/emergency': typeof CounsellingEmergencyRoute
+  '/counselling/experts': typeof CounsellingExpertsRoute
+  '/counselling/history': typeof CounsellingHistoryRoute
+  '/counselling/homework': typeof CounsellingHomeworkRoute
+  '/counselling/medication': typeof CounsellingMedicationRoute
+  '/counselling/messages': typeof CounsellingMessagesRoute
+  '/counselling/my': typeof CounsellingMyRoute
+  '/counselling/reports': typeof CounsellingReportsRoute
+  '/counselling/resources': typeof CounsellingResourcesRoute
+  '/counselling/settings': typeof CounsellingSettingsRoute
+  '/counselling/upcoming': typeof CounsellingUpcomingRoute
+  '/counselling/wellness': typeof CounsellingWellnessRoute
   '/gratitude/forest': typeof GratitudeForestRoute
   '/gratitude/history': typeof GratitudeHistoryRoute
   '/gratitude/tree': typeof GratitudeTreeRoute
@@ -458,6 +649,7 @@ export interface FileRoutesById {
   '/screening/settings': typeof ScreeningSettingsRoute
   '/breathe/': typeof BreatheIndexRoute
   '/buddies/': typeof BuddiesIndexRoute
+  '/counselling/': typeof CounsellingIndexRoute
   '/focus/': typeof FocusIndexRoute
   '/gratitude/': typeof GratitudeIndexRoute
   '/journal/': typeof JournalIndexRoute
@@ -469,6 +661,11 @@ export interface FileRoutesById {
   '/buddies/guidelines/$id': typeof BuddiesGuidelinesIdRoute
   '/buddies/request/$id': typeof BuddiesRequestIdRoute
   '/buddies/safety/$id': typeof BuddiesSafetyIdRoute
+  '/counselling/appt/$aid': typeof CounsellingApptAidRoute
+  '/counselling/book/$id': typeof CounsellingBookIdRoute
+  '/counselling/expert/$id': typeof CounsellingExpertIdRoute
+  '/counselling/session/$aid': typeof CounsellingSessionAidRoute
+  '/counselling/summary/$aid': typeof CounsellingSummaryAidRoute
   '/peacebot/c/$id': typeof PeacebotCIdRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
@@ -482,6 +679,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/community'
+    | '/counselling'
     | '/api/chat'
     | '/breathe/stats'
     | '/buddies/$id'
@@ -492,6 +690,21 @@ export interface FileRouteTypes {
     | '/buddies/history'
     | '/buddies/psychologists'
     | '/buddies/settings'
+    | '/counselling/assessments'
+    | '/counselling/billing'
+    | '/counselling/documents'
+    | '/counselling/emergency'
+    | '/counselling/experts'
+    | '/counselling/history'
+    | '/counselling/homework'
+    | '/counselling/medication'
+    | '/counselling/messages'
+    | '/counselling/my'
+    | '/counselling/reports'
+    | '/counselling/resources'
+    | '/counselling/settings'
+    | '/counselling/upcoming'
+    | '/counselling/wellness'
     | '/gratitude/forest'
     | '/gratitude/history'
     | '/gratitude/tree'
@@ -513,6 +726,7 @@ export interface FileRouteTypes {
     | '/screening/settings'
     | '/breathe/'
     | '/buddies/'
+    | '/counselling/'
     | '/focus/'
     | '/gratitude/'
     | '/journal/'
@@ -524,6 +738,11 @@ export interface FileRouteTypes {
     | '/buddies/guidelines/$id'
     | '/buddies/request/$id'
     | '/buddies/safety/$id'
+    | '/counselling/appt/$aid'
+    | '/counselling/book/$id'
+    | '/counselling/expert/$id'
+    | '/counselling/session/$aid'
+    | '/counselling/summary/$aid'
     | '/peacebot/c/$id'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
@@ -545,6 +764,21 @@ export interface FileRouteTypes {
     | '/buddies/history'
     | '/buddies/psychologists'
     | '/buddies/settings'
+    | '/counselling/assessments'
+    | '/counselling/billing'
+    | '/counselling/documents'
+    | '/counselling/emergency'
+    | '/counselling/experts'
+    | '/counselling/history'
+    | '/counselling/homework'
+    | '/counselling/medication'
+    | '/counselling/messages'
+    | '/counselling/my'
+    | '/counselling/reports'
+    | '/counselling/resources'
+    | '/counselling/settings'
+    | '/counselling/upcoming'
+    | '/counselling/wellness'
     | '/gratitude/forest'
     | '/gratitude/history'
     | '/gratitude/tree'
@@ -566,6 +800,7 @@ export interface FileRouteTypes {
     | '/screening/settings'
     | '/breathe'
     | '/buddies'
+    | '/counselling'
     | '/focus'
     | '/gratitude'
     | '/journal'
@@ -577,6 +812,11 @@ export interface FileRouteTypes {
     | '/buddies/guidelines/$id'
     | '/buddies/request/$id'
     | '/buddies/safety/$id'
+    | '/counselling/appt/$aid'
+    | '/counselling/book/$id'
+    | '/counselling/expert/$id'
+    | '/counselling/session/$aid'
+    | '/counselling/summary/$aid'
     | '/peacebot/c/$id'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
@@ -588,6 +828,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/community'
+    | '/counselling'
     | '/api/chat'
     | '/breathe/stats'
     | '/buddies/$id'
@@ -598,6 +839,21 @@ export interface FileRouteTypes {
     | '/buddies/history'
     | '/buddies/psychologists'
     | '/buddies/settings'
+    | '/counselling/assessments'
+    | '/counselling/billing'
+    | '/counselling/documents'
+    | '/counselling/emergency'
+    | '/counselling/experts'
+    | '/counselling/history'
+    | '/counselling/homework'
+    | '/counselling/medication'
+    | '/counselling/messages'
+    | '/counselling/my'
+    | '/counselling/reports'
+    | '/counselling/resources'
+    | '/counselling/settings'
+    | '/counselling/upcoming'
+    | '/counselling/wellness'
     | '/gratitude/forest'
     | '/gratitude/history'
     | '/gratitude/tree'
@@ -619,6 +875,7 @@ export interface FileRouteTypes {
     | '/screening/settings'
     | '/breathe/'
     | '/buddies/'
+    | '/counselling/'
     | '/focus/'
     | '/gratitude/'
     | '/journal/'
@@ -630,6 +887,11 @@ export interface FileRouteTypes {
     | '/buddies/guidelines/$id'
     | '/buddies/request/$id'
     | '/buddies/safety/$id'
+    | '/counselling/appt/$aid'
+    | '/counselling/book/$id'
+    | '/counselling/expert/$id'
+    | '/counselling/session/$aid'
+    | '/counselling/summary/$aid'
     | '/peacebot/c/$id'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
@@ -642,6 +904,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CommunityRoute: typeof CommunityRoute
+  CounsellingRoute: typeof CounsellingRouteWithChildren
   ApiChatRoute: typeof ApiChatRoute
   BreatheStatsRoute: typeof BreatheStatsRoute
   BuddiesIdRoute: typeof BuddiesIdRoute
@@ -695,6 +958,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/counselling': {
+      id: '/counselling'
+      path: '/counselling'
+      fullPath: '/counselling'
+      preLoaderRoute: typeof CounsellingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/community': {
       id: '/community'
       path: '/community'
@@ -743,6 +1013,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/focus/'
       preLoaderRoute: typeof FocusIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/counselling/': {
+      id: '/counselling/'
+      path: '/'
+      fullPath: '/counselling/'
+      preLoaderRoute: typeof CounsellingIndexRouteImport
+      parentRoute: typeof CounsellingRoute
     }
     '/buddies/': {
       id: '/buddies/'
@@ -891,6 +1168,111 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GratitudeForestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/counselling/wellness': {
+      id: '/counselling/wellness'
+      path: '/wellness'
+      fullPath: '/counselling/wellness'
+      preLoaderRoute: typeof CounsellingWellnessRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
+    '/counselling/upcoming': {
+      id: '/counselling/upcoming'
+      path: '/upcoming'
+      fullPath: '/counselling/upcoming'
+      preLoaderRoute: typeof CounsellingUpcomingRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
+    '/counselling/settings': {
+      id: '/counselling/settings'
+      path: '/settings'
+      fullPath: '/counselling/settings'
+      preLoaderRoute: typeof CounsellingSettingsRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
+    '/counselling/resources': {
+      id: '/counselling/resources'
+      path: '/resources'
+      fullPath: '/counselling/resources'
+      preLoaderRoute: typeof CounsellingResourcesRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
+    '/counselling/reports': {
+      id: '/counselling/reports'
+      path: '/reports'
+      fullPath: '/counselling/reports'
+      preLoaderRoute: typeof CounsellingReportsRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
+    '/counselling/my': {
+      id: '/counselling/my'
+      path: '/my'
+      fullPath: '/counselling/my'
+      preLoaderRoute: typeof CounsellingMyRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
+    '/counselling/messages': {
+      id: '/counselling/messages'
+      path: '/messages'
+      fullPath: '/counselling/messages'
+      preLoaderRoute: typeof CounsellingMessagesRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
+    '/counselling/medication': {
+      id: '/counselling/medication'
+      path: '/medication'
+      fullPath: '/counselling/medication'
+      preLoaderRoute: typeof CounsellingMedicationRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
+    '/counselling/homework': {
+      id: '/counselling/homework'
+      path: '/homework'
+      fullPath: '/counselling/homework'
+      preLoaderRoute: typeof CounsellingHomeworkRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
+    '/counselling/history': {
+      id: '/counselling/history'
+      path: '/history'
+      fullPath: '/counselling/history'
+      preLoaderRoute: typeof CounsellingHistoryRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
+    '/counselling/experts': {
+      id: '/counselling/experts'
+      path: '/experts'
+      fullPath: '/counselling/experts'
+      preLoaderRoute: typeof CounsellingExpertsRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
+    '/counselling/emergency': {
+      id: '/counselling/emergency'
+      path: '/emergency'
+      fullPath: '/counselling/emergency'
+      preLoaderRoute: typeof CounsellingEmergencyRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
+    '/counselling/documents': {
+      id: '/counselling/documents'
+      path: '/documents'
+      fullPath: '/counselling/documents'
+      preLoaderRoute: typeof CounsellingDocumentsRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
+    '/counselling/billing': {
+      id: '/counselling/billing'
+      path: '/billing'
+      fullPath: '/counselling/billing'
+      preLoaderRoute: typeof CounsellingBillingRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
+    '/counselling/assessments': {
+      id: '/counselling/assessments'
+      path: '/assessments'
+      fullPath: '/counselling/assessments'
+      preLoaderRoute: typeof CounsellingAssessmentsRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
     '/buddies/settings': {
       id: '/buddies/settings'
       path: '/buddies/settings'
@@ -1010,6 +1392,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PeacebotCIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/counselling/summary/$aid': {
+      id: '/counselling/summary/$aid'
+      path: '/summary/$aid'
+      fullPath: '/counselling/summary/$aid'
+      preLoaderRoute: typeof CounsellingSummaryAidRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
+    '/counselling/session/$aid': {
+      id: '/counselling/session/$aid'
+      path: '/session/$aid'
+      fullPath: '/counselling/session/$aid'
+      preLoaderRoute: typeof CounsellingSessionAidRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
+    '/counselling/expert/$id': {
+      id: '/counselling/expert/$id'
+      path: '/expert/$id'
+      fullPath: '/counselling/expert/$id'
+      preLoaderRoute: typeof CounsellingExpertIdRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
+    '/counselling/book/$id': {
+      id: '/counselling/book/$id'
+      path: '/book/$id'
+      fullPath: '/counselling/book/$id'
+      preLoaderRoute: typeof CounsellingBookIdRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
+    '/counselling/appt/$aid': {
+      id: '/counselling/appt/$aid'
+      path: '/appt/$aid'
+      fullPath: '/counselling/appt/$aid'
+      preLoaderRoute: typeof CounsellingApptAidRouteImport
+      parentRoute: typeof CounsellingRoute
+    }
     '/buddies/safety/$id': {
       id: '/buddies/safety/$id'
       path: '/buddies/safety/$id'
@@ -1055,9 +1472,62 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface CounsellingRouteChildren {
+  CounsellingAssessmentsRoute: typeof CounsellingAssessmentsRoute
+  CounsellingBillingRoute: typeof CounsellingBillingRoute
+  CounsellingDocumentsRoute: typeof CounsellingDocumentsRoute
+  CounsellingEmergencyRoute: typeof CounsellingEmergencyRoute
+  CounsellingExpertsRoute: typeof CounsellingExpertsRoute
+  CounsellingHistoryRoute: typeof CounsellingHistoryRoute
+  CounsellingHomeworkRoute: typeof CounsellingHomeworkRoute
+  CounsellingMedicationRoute: typeof CounsellingMedicationRoute
+  CounsellingMessagesRoute: typeof CounsellingMessagesRoute
+  CounsellingMyRoute: typeof CounsellingMyRoute
+  CounsellingReportsRoute: typeof CounsellingReportsRoute
+  CounsellingResourcesRoute: typeof CounsellingResourcesRoute
+  CounsellingSettingsRoute: typeof CounsellingSettingsRoute
+  CounsellingUpcomingRoute: typeof CounsellingUpcomingRoute
+  CounsellingWellnessRoute: typeof CounsellingWellnessRoute
+  CounsellingIndexRoute: typeof CounsellingIndexRoute
+  CounsellingApptAidRoute: typeof CounsellingApptAidRoute
+  CounsellingBookIdRoute: typeof CounsellingBookIdRoute
+  CounsellingExpertIdRoute: typeof CounsellingExpertIdRoute
+  CounsellingSessionAidRoute: typeof CounsellingSessionAidRoute
+  CounsellingSummaryAidRoute: typeof CounsellingSummaryAidRoute
+}
+
+const CounsellingRouteChildren: CounsellingRouteChildren = {
+  CounsellingAssessmentsRoute: CounsellingAssessmentsRoute,
+  CounsellingBillingRoute: CounsellingBillingRoute,
+  CounsellingDocumentsRoute: CounsellingDocumentsRoute,
+  CounsellingEmergencyRoute: CounsellingEmergencyRoute,
+  CounsellingExpertsRoute: CounsellingExpertsRoute,
+  CounsellingHistoryRoute: CounsellingHistoryRoute,
+  CounsellingHomeworkRoute: CounsellingHomeworkRoute,
+  CounsellingMedicationRoute: CounsellingMedicationRoute,
+  CounsellingMessagesRoute: CounsellingMessagesRoute,
+  CounsellingMyRoute: CounsellingMyRoute,
+  CounsellingReportsRoute: CounsellingReportsRoute,
+  CounsellingResourcesRoute: CounsellingResourcesRoute,
+  CounsellingSettingsRoute: CounsellingSettingsRoute,
+  CounsellingUpcomingRoute: CounsellingUpcomingRoute,
+  CounsellingWellnessRoute: CounsellingWellnessRoute,
+  CounsellingIndexRoute: CounsellingIndexRoute,
+  CounsellingApptAidRoute: CounsellingApptAidRoute,
+  CounsellingBookIdRoute: CounsellingBookIdRoute,
+  CounsellingExpertIdRoute: CounsellingExpertIdRoute,
+  CounsellingSessionAidRoute: CounsellingSessionAidRoute,
+  CounsellingSummaryAidRoute: CounsellingSummaryAidRoute,
+}
+
+const CounsellingRouteWithChildren = CounsellingRoute._addFileChildren(
+  CounsellingRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CommunityRoute: CommunityRoute,
+  CounsellingRoute: CounsellingRouteWithChildren,
   ApiChatRoute: ApiChatRoute,
   BreatheStatsRoute: BreatheStatsRoute,
   BuddiesIdRoute: BuddiesIdRoute,
