@@ -249,8 +249,9 @@ function BreathePage() {
   // phase progress 0-1
   const phaseProgress = Math.min(1, phaseElapsed / Math.max(0.01, phaseDur(phase)));
 
-  // orb scale: inhale 0.55 -> 1, hold1 = 1, exhale 1 -> 0.55, hold2 = 0.55
+  // orb scale — collapses to a static 0.85 when reduced motion is enabled
   const scale = (() => {
+    if (prefs.reducedMotion) return 0.85;
     if (phase === "inhale") return 0.55 + 0.45 * phaseProgress;
     if (phase === "hold1")  return 1;
     if (phase === "exhale") return 1 - 0.45 * phaseProgress;
@@ -260,6 +261,35 @@ function BreathePage() {
   const phaseLabel: Record<Phase, string> = {
     inhale: "breathe in", hold1: "hold", exhale: "breathe out", hold2: "hold",
   };
+
+  // announce phase changes for screen readers
+  useEffect(() => {
+    if (!running) return;
+    setAnnounce(`${phaseLabel[phase]} — ${Math.round(phaseDur(phase))} seconds`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase, running]);
+
+  // keyboard shortcuts: Space = play/pause, R = reset, S = skip, 1-6 = technique
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement)?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA") return;
+      if (e.code === "Space") {
+        e.preventDefault();
+        if (running) setRunning(false);
+        else if (totalElapsed > 0) setRunning(true);
+        else start();
+      } else if (e.key === "r" || e.key === "R") { reset(); }
+      else if (e.key === "s" || e.key === "S") { stop(); }
+      else if (e.key >= "1" && e.key <= "6") {
+        const idx = Number(e.key) - 1;
+        if (techniques[idx]) { setTechniqueKey(techniques[idx].key); reset(); }
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [running, totalElapsed]);
 
   const toggleFavorite = (k: BreathTechniqueKey) => {
     const fav = prefs.favorites.includes(k)
