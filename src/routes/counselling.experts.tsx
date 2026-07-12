@@ -136,7 +136,7 @@ function FindExperts() {
           </Card>
         )}
 
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-3 md:grid-cols-2 2xl:grid-cols-3 min-w-0">
           {results.map(e => {
             const next = nextAvailable(e.id);
             const isFav = favs.includes(e.id);
@@ -149,11 +149,12 @@ function FindExperts() {
                       <div className="font-serif text-[17px] truncate" style={{ color: ink }}>{e.name}</div>
                       {e.verified && <ShieldCheck className="w-3.5 h-3.5 flex-none" style={{ color: primary }} />}
                     </div>
-                    <div className="text-[12px]" style={{ color: muted }}>{e.title} · {e.experienceYears} yrs</div>
-                    <div className="mt-1 flex items-center gap-2 text-[12px]" style={{ color: muted }}>
+                    <div className="text-[12px] truncate" style={{ color: muted }}>{e.title} · {e.experienceYears} yrs</div>
+                    <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[12px]" style={{ color: muted }}>
                       <span className="inline-flex items-center gap-0.5"><Star className="w-3 h-3" style={{ color: "#c99a2a" }} /> {e.rating.toFixed(1)} · {e.reviewsCount}</span>
-                      <span>·</span><span>{e.sessions} sessions</span>
+                      <span>· {e.sessions} sessions</span>
                     </div>
+
                   </div>
                   <button onClick={() => { toggleFavorite(e.id); setFavs(favorites()); }} className="p-1.5 rounded-full" aria-label="favourite">
                     <Heart className="w-4 h-4" style={{ color: isFav ? "#c14a5a" : muted, fill: isFav ? "#c14a5a" : "transparent" }} />
