@@ -38,7 +38,7 @@ function AuthorPage() {
               </div>
               <p className="text-[14px] leading-[1.7] mt-4 max-w-[640px]" style={{ color: "var(--pc-ink)" }}>{a.bio}</p>
               <div className="mt-4 flex flex-wrap gap-2">
-                {a.topics.map(t => {
+                {a.topics.map((t: string) => {
                   const c = categoryBySlug(t);
                   if (!c) return null;
                   return (

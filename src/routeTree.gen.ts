@@ -26,8 +26,13 @@ import { Route as ScreeningResourcesRouteImport } from './routes/screening.resou
 import { Route as ScreeningLibraryRouteImport } from './routes/screening.library'
 import { Route as ScreeningHistoryRouteImport } from './routes/screening.history'
 import { Route as ResourcesSearchRouteImport } from './routes/resources.search'
+import { Route as ResourcesPlaylistsRouteImport } from './routes/resources.playlists'
+import { Route as ResourcesLibraryRouteImport } from './routes/resources.library'
+import { Route as ResourcesHistoryRouteImport } from './routes/resources.history'
+import { Route as ResourcesDownloadsRouteImport } from './routes/resources.downloads'
 import { Route as ResourcesCollectionsRouteImport } from './routes/resources.collections'
 import { Route as ResourcesCategoriesRouteImport } from './routes/resources.categories'
+import { Route as ResourcesAchievementsRouteImport } from './routes/resources.achievements'
 import { Route as PeacebotVoiceRouteImport } from './routes/peacebot.voice'
 import { Route as PeacebotToolsRouteImport } from './routes/peacebot.tools'
 import { Route as PeacebotSettingsRouteImport } from './routes/peacebot.settings'
@@ -74,8 +79,11 @@ import { Route as ScreeningProcessingIdRouteImport } from './routes/screening.pr
 import { Route as ScreeningInstructionsIdRouteImport } from './routes/screening.instructions.$id'
 import { Route as ScreeningConsentIdRouteImport } from './routes/screening.consent.$id'
 import { Route as ScreeningAssessmentIdRouteImport } from './routes/screening.assessment.$id'
+import { Route as ResourcesRIdRouteImport } from './routes/resources.r.$id'
+import { Route as ResourcesPlaylistIdRouteImport } from './routes/resources.playlist.$id'
 import { Route as ResourcesCollectionSlugRouteImport } from './routes/resources.collection.$slug'
 import { Route as ResourcesCSlugRouteImport } from './routes/resources.c.$slug'
+import { Route as ResourcesAuthorIdRouteImport } from './routes/resources.author.$id'
 import { Route as PeacebotCIdRouteImport } from './routes/peacebot.c.$id'
 import { Route as CounsellingSummaryAidRouteImport } from './routes/counselling.summary.$aid'
 import { Route as CounsellingSessionAidRouteImport } from './routes/counselling.session.$aid'
@@ -174,6 +182,26 @@ const ResourcesSearchRoute = ResourcesSearchRouteImport.update({
   path: '/resources/search',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResourcesPlaylistsRoute = ResourcesPlaylistsRouteImport.update({
+  id: '/resources/playlists',
+  path: '/resources/playlists',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesLibraryRoute = ResourcesLibraryRouteImport.update({
+  id: '/resources/library',
+  path: '/resources/library',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesHistoryRoute = ResourcesHistoryRouteImport.update({
+  id: '/resources/history',
+  path: '/resources/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesDownloadsRoute = ResourcesDownloadsRouteImport.update({
+  id: '/resources/downloads',
+  path: '/resources/downloads',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResourcesCollectionsRoute = ResourcesCollectionsRouteImport.update({
   id: '/resources/collections',
   path: '/resources/collections',
@@ -182,6 +210,11 @@ const ResourcesCollectionsRoute = ResourcesCollectionsRouteImport.update({
 const ResourcesCategoriesRoute = ResourcesCategoriesRouteImport.update({
   id: '/resources/categories',
   path: '/resources/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesAchievementsRoute = ResourcesAchievementsRouteImport.update({
+  id: '/resources/achievements',
+  path: '/resources/achievements',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PeacebotVoiceRoute = PeacebotVoiceRouteImport.update({
@@ -414,6 +447,16 @@ const ScreeningAssessmentIdRoute = ScreeningAssessmentIdRouteImport.update({
   path: '/screening/assessment/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResourcesRIdRoute = ResourcesRIdRouteImport.update({
+  id: '/resources/r/$id',
+  path: '/resources/r/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesPlaylistIdRoute = ResourcesPlaylistIdRouteImport.update({
+  id: '/resources/playlist/$id',
+  path: '/resources/playlist/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResourcesCollectionSlugRoute = ResourcesCollectionSlugRouteImport.update({
   id: '/resources/collection/$slug',
   path: '/resources/collection/$slug',
@@ -422,6 +465,11 @@ const ResourcesCollectionSlugRoute = ResourcesCollectionSlugRouteImport.update({
 const ResourcesCSlugRoute = ResourcesCSlugRouteImport.update({
   id: '/resources/c/$slug',
   path: '/resources/c/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesAuthorIdRoute = ResourcesAuthorIdRouteImport.update({
+  id: '/resources/author/$id',
+  path: '/resources/author/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PeacebotCIdRoute = PeacebotCIdRouteImport.update({
@@ -529,8 +577,13 @@ export interface FileRoutesByFullPath {
   '/peacebot/settings': typeof PeacebotSettingsRoute
   '/peacebot/tools': typeof PeacebotToolsRoute
   '/peacebot/voice': typeof PeacebotVoiceRoute
+  '/resources/achievements': typeof ResourcesAchievementsRoute
   '/resources/categories': typeof ResourcesCategoriesRoute
   '/resources/collections': typeof ResourcesCollectionsRoute
+  '/resources/downloads': typeof ResourcesDownloadsRoute
+  '/resources/history': typeof ResourcesHistoryRoute
+  '/resources/library': typeof ResourcesLibraryRoute
+  '/resources/playlists': typeof ResourcesPlaylistsRoute
   '/resources/search': typeof ResourcesSearchRoute
   '/screening/history': typeof ScreeningHistoryRoute
   '/screening/library': typeof ScreeningLibraryRoute
@@ -557,8 +610,11 @@ export interface FileRoutesByFullPath {
   '/counselling/session/$aid': typeof CounsellingSessionAidRoute
   '/counselling/summary/$aid': typeof CounsellingSummaryAidRoute
   '/peacebot/c/$id': typeof PeacebotCIdRoute
+  '/resources/author/$id': typeof ResourcesAuthorIdRoute
   '/resources/c/$slug': typeof ResourcesCSlugRoute
   '/resources/collection/$slug': typeof ResourcesCollectionSlugRoute
+  '/resources/playlist/$id': typeof ResourcesPlaylistIdRoute
+  '/resources/r/$id': typeof ResourcesRIdRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
   '/screening/instructions/$id': typeof ScreeningInstructionsIdRoute
@@ -609,8 +665,13 @@ export interface FileRoutesByTo {
   '/peacebot/settings': typeof PeacebotSettingsRoute
   '/peacebot/tools': typeof PeacebotToolsRoute
   '/peacebot/voice': typeof PeacebotVoiceRoute
+  '/resources/achievements': typeof ResourcesAchievementsRoute
   '/resources/categories': typeof ResourcesCategoriesRoute
   '/resources/collections': typeof ResourcesCollectionsRoute
+  '/resources/downloads': typeof ResourcesDownloadsRoute
+  '/resources/history': typeof ResourcesHistoryRoute
+  '/resources/library': typeof ResourcesLibraryRoute
+  '/resources/playlists': typeof ResourcesPlaylistsRoute
   '/resources/search': typeof ResourcesSearchRoute
   '/screening/history': typeof ScreeningHistoryRoute
   '/screening/library': typeof ScreeningLibraryRoute
@@ -637,8 +698,11 @@ export interface FileRoutesByTo {
   '/counselling/session/$aid': typeof CounsellingSessionAidRoute
   '/counselling/summary/$aid': typeof CounsellingSummaryAidRoute
   '/peacebot/c/$id': typeof PeacebotCIdRoute
+  '/resources/author/$id': typeof ResourcesAuthorIdRoute
   '/resources/c/$slug': typeof ResourcesCSlugRoute
   '/resources/collection/$slug': typeof ResourcesCollectionSlugRoute
+  '/resources/playlist/$id': typeof ResourcesPlaylistIdRoute
+  '/resources/r/$id': typeof ResourcesRIdRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
   '/screening/instructions/$id': typeof ScreeningInstructionsIdRoute
@@ -691,8 +755,13 @@ export interface FileRoutesById {
   '/peacebot/settings': typeof PeacebotSettingsRoute
   '/peacebot/tools': typeof PeacebotToolsRoute
   '/peacebot/voice': typeof PeacebotVoiceRoute
+  '/resources/achievements': typeof ResourcesAchievementsRoute
   '/resources/categories': typeof ResourcesCategoriesRoute
   '/resources/collections': typeof ResourcesCollectionsRoute
+  '/resources/downloads': typeof ResourcesDownloadsRoute
+  '/resources/history': typeof ResourcesHistoryRoute
+  '/resources/library': typeof ResourcesLibraryRoute
+  '/resources/playlists': typeof ResourcesPlaylistsRoute
   '/resources/search': typeof ResourcesSearchRoute
   '/screening/history': typeof ScreeningHistoryRoute
   '/screening/library': typeof ScreeningLibraryRoute
@@ -719,8 +788,11 @@ export interface FileRoutesById {
   '/counselling/session/$aid': typeof CounsellingSessionAidRoute
   '/counselling/summary/$aid': typeof CounsellingSummaryAidRoute
   '/peacebot/c/$id': typeof PeacebotCIdRoute
+  '/resources/author/$id': typeof ResourcesAuthorIdRoute
   '/resources/c/$slug': typeof ResourcesCSlugRoute
   '/resources/collection/$slug': typeof ResourcesCollectionSlugRoute
+  '/resources/playlist/$id': typeof ResourcesPlaylistIdRoute
+  '/resources/r/$id': typeof ResourcesRIdRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
   '/screening/instructions/$id': typeof ScreeningInstructionsIdRoute
@@ -774,8 +846,13 @@ export interface FileRouteTypes {
     | '/peacebot/settings'
     | '/peacebot/tools'
     | '/peacebot/voice'
+    | '/resources/achievements'
     | '/resources/categories'
     | '/resources/collections'
+    | '/resources/downloads'
+    | '/resources/history'
+    | '/resources/library'
+    | '/resources/playlists'
     | '/resources/search'
     | '/screening/history'
     | '/screening/library'
@@ -802,8 +879,11 @@ export interface FileRouteTypes {
     | '/counselling/session/$aid'
     | '/counselling/summary/$aid'
     | '/peacebot/c/$id'
+    | '/resources/author/$id'
     | '/resources/c/$slug'
     | '/resources/collection/$slug'
+    | '/resources/playlist/$id'
+    | '/resources/r/$id'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
     | '/screening/instructions/$id'
@@ -854,8 +934,13 @@ export interface FileRouteTypes {
     | '/peacebot/settings'
     | '/peacebot/tools'
     | '/peacebot/voice'
+    | '/resources/achievements'
     | '/resources/categories'
     | '/resources/collections'
+    | '/resources/downloads'
+    | '/resources/history'
+    | '/resources/library'
+    | '/resources/playlists'
     | '/resources/search'
     | '/screening/history'
     | '/screening/library'
@@ -882,8 +967,11 @@ export interface FileRouteTypes {
     | '/counselling/session/$aid'
     | '/counselling/summary/$aid'
     | '/peacebot/c/$id'
+    | '/resources/author/$id'
     | '/resources/c/$slug'
     | '/resources/collection/$slug'
+    | '/resources/playlist/$id'
+    | '/resources/r/$id'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
     | '/screening/instructions/$id'
@@ -935,8 +1023,13 @@ export interface FileRouteTypes {
     | '/peacebot/settings'
     | '/peacebot/tools'
     | '/peacebot/voice'
+    | '/resources/achievements'
     | '/resources/categories'
     | '/resources/collections'
+    | '/resources/downloads'
+    | '/resources/history'
+    | '/resources/library'
+    | '/resources/playlists'
     | '/resources/search'
     | '/screening/history'
     | '/screening/library'
@@ -963,8 +1056,11 @@ export interface FileRouteTypes {
     | '/counselling/session/$aid'
     | '/counselling/summary/$aid'
     | '/peacebot/c/$id'
+    | '/resources/author/$id'
     | '/resources/c/$slug'
     | '/resources/collection/$slug'
+    | '/resources/playlist/$id'
+    | '/resources/r/$id'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
     | '/screening/instructions/$id'
@@ -1002,8 +1098,13 @@ export interface RootRouteChildren {
   PeacebotSettingsRoute: typeof PeacebotSettingsRoute
   PeacebotToolsRoute: typeof PeacebotToolsRoute
   PeacebotVoiceRoute: typeof PeacebotVoiceRoute
+  ResourcesAchievementsRoute: typeof ResourcesAchievementsRoute
   ResourcesCategoriesRoute: typeof ResourcesCategoriesRoute
   ResourcesCollectionsRoute: typeof ResourcesCollectionsRoute
+  ResourcesDownloadsRoute: typeof ResourcesDownloadsRoute
+  ResourcesHistoryRoute: typeof ResourcesHistoryRoute
+  ResourcesLibraryRoute: typeof ResourcesLibraryRoute
+  ResourcesPlaylistsRoute: typeof ResourcesPlaylistsRoute
   ResourcesSearchRoute: typeof ResourcesSearchRoute
   ScreeningHistoryRoute: typeof ScreeningHistoryRoute
   ScreeningLibraryRoute: typeof ScreeningLibraryRoute
@@ -1024,8 +1125,11 @@ export interface RootRouteChildren {
   BuddiesRequestIdRoute: typeof BuddiesRequestIdRoute
   BuddiesSafetyIdRoute: typeof BuddiesSafetyIdRoute
   PeacebotCIdRoute: typeof PeacebotCIdRoute
+  ResourcesAuthorIdRoute: typeof ResourcesAuthorIdRoute
   ResourcesCSlugRoute: typeof ResourcesCSlugRoute
   ResourcesCollectionSlugRoute: typeof ResourcesCollectionSlugRoute
+  ResourcesPlaylistIdRoute: typeof ResourcesPlaylistIdRoute
+  ResourcesRIdRoute: typeof ResourcesRIdRoute
   ScreeningAssessmentIdRoute: typeof ScreeningAssessmentIdRoute
   ScreeningConsentIdRoute: typeof ScreeningConsentIdRoute
   ScreeningInstructionsIdRoute: typeof ScreeningInstructionsIdRoute
@@ -1155,6 +1259,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResourcesSearchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/resources/playlists': {
+      id: '/resources/playlists'
+      path: '/resources/playlists'
+      fullPath: '/resources/playlists'
+      preLoaderRoute: typeof ResourcesPlaylistsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources/library': {
+      id: '/resources/library'
+      path: '/resources/library'
+      fullPath: '/resources/library'
+      preLoaderRoute: typeof ResourcesLibraryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources/history': {
+      id: '/resources/history'
+      path: '/resources/history'
+      fullPath: '/resources/history'
+      preLoaderRoute: typeof ResourcesHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources/downloads': {
+      id: '/resources/downloads'
+      path: '/resources/downloads'
+      fullPath: '/resources/downloads'
+      preLoaderRoute: typeof ResourcesDownloadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/resources/collections': {
       id: '/resources/collections'
       path: '/resources/collections'
@@ -1167,6 +1299,13 @@ declare module '@tanstack/react-router' {
       path: '/resources/categories'
       fullPath: '/resources/categories'
       preLoaderRoute: typeof ResourcesCategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources/achievements': {
+      id: '/resources/achievements'
+      path: '/resources/achievements'
+      fullPath: '/resources/achievements'
+      preLoaderRoute: typeof ResourcesAchievementsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/peacebot/voice': {
@@ -1491,6 +1630,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ScreeningAssessmentIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/resources/r/$id': {
+      id: '/resources/r/$id'
+      path: '/resources/r/$id'
+      fullPath: '/resources/r/$id'
+      preLoaderRoute: typeof ResourcesRIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources/playlist/$id': {
+      id: '/resources/playlist/$id'
+      path: '/resources/playlist/$id'
+      fullPath: '/resources/playlist/$id'
+      preLoaderRoute: typeof ResourcesPlaylistIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/resources/collection/$slug': {
       id: '/resources/collection/$slug'
       path: '/resources/collection/$slug'
@@ -1503,6 +1656,13 @@ declare module '@tanstack/react-router' {
       path: '/resources/c/$slug'
       fullPath: '/resources/c/$slug'
       preLoaderRoute: typeof ResourcesCSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources/author/$id': {
+      id: '/resources/author/$id'
+      path: '/resources/author/$id'
+      fullPath: '/resources/author/$id'
+      preLoaderRoute: typeof ResourcesAuthorIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/peacebot/c/$id': {
@@ -1673,8 +1833,13 @@ const rootRouteChildren: RootRouteChildren = {
   PeacebotSettingsRoute: PeacebotSettingsRoute,
   PeacebotToolsRoute: PeacebotToolsRoute,
   PeacebotVoiceRoute: PeacebotVoiceRoute,
+  ResourcesAchievementsRoute: ResourcesAchievementsRoute,
   ResourcesCategoriesRoute: ResourcesCategoriesRoute,
   ResourcesCollectionsRoute: ResourcesCollectionsRoute,
+  ResourcesDownloadsRoute: ResourcesDownloadsRoute,
+  ResourcesHistoryRoute: ResourcesHistoryRoute,
+  ResourcesLibraryRoute: ResourcesLibraryRoute,
+  ResourcesPlaylistsRoute: ResourcesPlaylistsRoute,
   ResourcesSearchRoute: ResourcesSearchRoute,
   ScreeningHistoryRoute: ScreeningHistoryRoute,
   ScreeningLibraryRoute: ScreeningLibraryRoute,
@@ -1695,8 +1860,11 @@ const rootRouteChildren: RootRouteChildren = {
   BuddiesRequestIdRoute: BuddiesRequestIdRoute,
   BuddiesSafetyIdRoute: BuddiesSafetyIdRoute,
   PeacebotCIdRoute: PeacebotCIdRoute,
+  ResourcesAuthorIdRoute: ResourcesAuthorIdRoute,
   ResourcesCSlugRoute: ResourcesCSlugRoute,
   ResourcesCollectionSlugRoute: ResourcesCollectionSlugRoute,
+  ResourcesPlaylistIdRoute: ResourcesPlaylistIdRoute,
+  ResourcesRIdRoute: ResourcesRIdRoute,
   ScreeningAssessmentIdRoute: ScreeningAssessmentIdRoute,
   ScreeningConsentIdRoute: ScreeningConsentIdRoute,
   ScreeningInstructionsIdRoute: ScreeningInstructionsIdRoute,
