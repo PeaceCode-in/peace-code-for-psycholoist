@@ -4,6 +4,7 @@ import {
   Home, Compass, BookOpen, Moon, Sun, Settings, Bell, Play, Pause, Send,
   Heart, Flame, Trophy, Users, Feather, Wind, BookHeart, Search, Plus,
   ChevronRight, ArrowUpRight, Waves, Leaf, Coffee, PenLine, Volume2, VolumeX, Quote,
+  Bot, CalendarCheck, UserCheck, ClipboardList, Target, Activity, Brain, Menu, X,
 } from "lucide-react";
 import logo from "@/assets/peacecode-logo.png";
 
