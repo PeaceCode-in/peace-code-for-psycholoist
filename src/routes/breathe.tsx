@@ -867,8 +867,10 @@ function BreathePage() {
       }} />}
       {showA11y && <A11yModal prefs={prefs} onChange={updatePrefs} onClose={() => setShowA11y(false)} />}
     </div>
+    </AppShell>
   );
 }
+
 
 // ── helpers ───────────────────────────────────────────────────────
 function Card({ children, accent }: { children: React.ReactNode; accent?: string }) {
