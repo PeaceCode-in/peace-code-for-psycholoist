@@ -42,51 +42,61 @@ function ResourcesHome() {
 
   return (
     <AppShell>
-      <main className="max-w-[1240px] mx-auto px-4 sm:px-6 py-6 sm:py-10">
+      <main className="max-w-[1240px] mx-auto px-4 sm:px-6 py-6 sm:py-10"
+        style={lang === "hi" ? { fontFamily: '"Noto Sans Devanagari", "DM Sans", sans-serif' } : undefined}>
         {/* Welcome + Search */}
         <header className="mb-10 sm:mb-14">
-          <div className="text-[10px] tracking-[0.32em] uppercase mb-3" style={{ color: "var(--pc-muted)" }}>Library · Keya's shelf</div>
+          <div className="flex items-start justify-between gap-4 mb-3">
+            <div className="text-[10px] tracking-[0.32em] uppercase" style={{ color: "var(--pc-muted)" }}>{t.library}</div>
+            <div className="flex items-center gap-2">
+              {loading && <span className="text-[10px] flex items-center gap-1" style={{ color: "var(--pc-muted)" }}><Loader2 className="w-3 h-3 animate-spin"/>{t.translating}</span>}
+              <LanguageToggle />
+            </div>
+          </div>
           <h1 className="font-serif text-[34px] sm:text-[46px] leading-[1.05] mb-4 max-w-[720px]" style={{ color: "var(--pc-ink)", letterSpacing: "-0.02em" }}>
-            A quiet place to read, breathe, listen and learn.
+            {t.heroTitle}
           </h1>
           <p className="text-[15px] max-w-[560px]" style={{ color: "var(--pc-muted)" }}>
-            {RESOURCES.length}+ articles, meditations, podcasts and worksheets — curated by clinicians, teachers and students.
+            {t.heroSub(RESOURCES.length)}
           </p>
 
           <Link to="/resources/search" className="mt-6 flex items-center gap-3 rounded-full px-5 py-4 max-w-[640px] transition hover:shadow-md"
             style={{ background: "var(--pc-surface)", border: "1px solid var(--pc-border)" }}>
             <Search className="w-4 h-4 opacity-60"/>
-            <span className="text-[14px] flex-1" style={{ color: "var(--pc-muted)" }}>Search articles, sleep stories, worksheets…</span>
+            <span className="text-[14px] flex-1" style={{ color: "var(--pc-muted)" }}>{t.searchPh}</span>
             <span className="hidden sm:flex items-center gap-1.5 px-2 py-1 rounded-md text-[10px]" style={{ background: "var(--pc-surface2)", color: "var(--pc-muted)" }}>
-              <Filter className="w-3 h-3"/> filters
+              <Filter className="w-3 h-3"/> {t.filters}
             </span>
           </Link>
 
           <div className="mt-4 flex flex-wrap gap-2">
-            {TRENDING_SEARCHES.slice(0, 6).map(t => (
-              <Link key={t} to="/resources/search" search={{ q: t } as any}
-                className="text-[11px] px-3 py-1.5 rounded-full transition hover:bg-[var(--pc-surface2)]"
-                style={{ border: "1px solid var(--pc-border)", color: "var(--pc-muted)" }}>
-                {t}
-              </Link>
-            ))}
+            {TRENDING_SEARCHES.slice(0, 6).map(term => {
+              const display = lang === "hi" ? (TRENDING_HI[term] || term) : term;
+              return (
+                <Link key={term} to="/resources/search" search={{ q: display } as any}
+                  className="text-[11px] px-3 py-1.5 rounded-full transition hover:bg-[var(--pc-surface2)]"
+                  style={{ border: "1px solid var(--pc-border)", color: "var(--pc-muted)" }}>
+                  {display}
+                </Link>
+              );
+            })}
           </div>
 
           <nav className="mt-6 flex flex-wrap gap-2">
-            <QuickLink to="/resources/categories" icon={Compass} label="All categories"/>
-            <QuickLink to="/resources/collections" icon={Sparkles} label="Collections"/>
-            <QuickLink to="/resources/library" icon={Bookmark} label="My library"/>
-            <QuickLink to="/resources/history" icon={History} label="History"/>
-            <QuickLink to="/resources/playlists" icon={ListMusic} label="Playlists"/>
-            <QuickLink to="/resources/downloads" icon={Download} label="Downloads"/>
-            <QuickLink to="/resources/achievements" icon={Trophy} label="Achievements"/>
+            <QuickLink to="/resources/categories" icon={Compass} label={t.allCategories}/>
+            <QuickLink to="/resources/collections" icon={Sparkles} label={t.collections}/>
+            <QuickLink to="/resources/library" icon={Bookmark} label={t.myLibrary}/>
+            <QuickLink to="/resources/history" icon={History} label={t.history}/>
+            <QuickLink to="/resources/playlists" icon={ListMusic} label={t.playlists}/>
+            <QuickLink to="/resources/downloads" icon={Download} label={t.downloads}/>
+            <QuickLink to="/resources/achievements" icon={Trophy} label={t.achievements}/>
           </nav>
         </header>
 
         {/* Continue learning */}
         {cont.length > 0 && (
           <section className="mb-10">
-            <h2 className="font-serif text-[22px] sm:text-[26px] mb-4" style={{ color: "var(--pc-ink)" }}>Continue where you left off</h2>
+            <h2 className="font-serif text-[22px] sm:text-[26px] mb-4" style={{ color: "var(--pc-ink)" }}>{t.continueLearning}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {cont.map(({ resource, progress }) => (
                 <div key={resource.id} className="relative">
