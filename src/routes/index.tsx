@@ -1607,10 +1607,10 @@ function Dashboard() {
             <h3 className="font-serif text-[26px] tracking-tight">Anonymous gratitude.</h3>
             <p className="text-[12px] italic opacity-55 mt-1.5 max-w-md">little offerings from students, held gently. no names, no likes count as approval — just witness.</p>
           </div>
-          <button className="group flex items-center gap-2 text-[10px] tracking-[0.25em] uppercase px-4 py-2.5 rounded-full transition"
+          <Link to="/gratitude/wall" className="group flex items-center gap-2 text-[10px] tracking-[0.25em] uppercase px-4 py-2.5 rounded-full transition"
                   style={{ background: ink, color: bg }}>
             <Plus className="w-3 h-3 transition-transform group-hover:rotate-90 duration-500"/> offer one
-          </button>
+          </Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
           {posts.map((p, i) => {
