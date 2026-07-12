@@ -289,16 +289,85 @@ export function addMessage(sessionId: string, msg: Omit<Msg, "id" | "ts">) {
   upsertSession(s);
 }
 
-// ─── Favorites / Blocked ─────────────────────────────────────────
-export function favorites(): string[] { return load<string[]>(KEY_F, []); }
-export function toggleFavorite(id: string) {
-  const f = favorites();
-  save(KEY_F, f.includes(id) ? f.filter((x) => x !== id) : [...f, id]);
+// ─── Availability & request lifecycle ────────────────────────────
+const DAY_ORDER = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+// Parse a slot like "6pm" / "11am" / "9:30pm" into hour/min (24h).
+export function parseSlot(slot: string): { h: number; m: number } | null {
+  const s = slot.trim().toLowerCase();
+  const match = s.match(/^(\d{1,2})(?::(\d{2}))?\s*(am|pm)$/);
+  if (!match) return null;
+  let h = parseInt(match[1], 10); const m = parseInt(match[2] ?? "0", 10);
+  const pm = match[3] === "pm";
+  if (h === 12) h = pm ? 12 : 0; else if (pm) h += 12;
+  return { h, m };
 }
-export function blocked(): string[] { return load<string[]>(KEY_B, []); }
-export function toggleBlock(id: string) {
-  const b = blocked();
-  save(KEY_B, b.includes(id) ? b.filter((x) => x !== id) : [...b, id]);
+
+export type UpcomingSlot = { date: Date; day: string; label: string; slot: string; ts: number; isSoon: boolean };
+
+// Return the next N upcoming slots from a buddy's weekly schedule.
+export function upcomingSlots(buddyId: string, days = 14, limit = 24): UpcomingSlot[] {
+  const b = getBuddy(buddyId); if (!b) return [];
+  const now = new Date(); const out: UpcomingSlot[] = [];
+  for (let i = 0; i < days; i++) {
+    const d = new Date(now); d.setDate(now.getDate() + i);
+    const dayKey = DAY_ORDER[d.getDay()];
+    const slots = b.weekly[dayKey] ?? [];
+    for (const slot of slots) {
+      const p = parseSlot(slot); if (!p) continue;
+      const when = new Date(d); when.setHours(p.h, p.m, 0, 0);
+      if (when.getTime() <= now.getTime()) continue;
+      const label = i === 0 ? "Today" : i === 1 ? "Tomorrow" : when.toLocaleDateString([], { weekday: "short", day: "numeric", month: "short" });
+      out.push({
+        date: when, day: dayKey, label, slot,
+        ts: when.getTime(), isSoon: when.getTime() - now.getTime() < 6 * 60 * 60 * 1000,
+      });
+    }
+  }
+  return out.slice(0, limit);
+}
+
+export function isBuddyAvailable(buddyId: string): boolean {
+  return upcomingSlots(buddyId, 7, 1).length > 0;
+}
+
+export function respondToRequest(
+  sessionId: string,
+  action: "accept" | "decline" | "reschedule",
+  opts?: { reason?: string; proposedFor?: number }
+) {
+  const s = getSession(sessionId); if (!s) return;
+  s.respondedAt = Date.now();
+  if (action === "accept") s.status = "accepted";
+  if (action === "decline") { s.status = "declined"; s.declineReason = opts?.reason; }
+  if (action === "reschedule") { s.status = "rescheduled"; s.proposedFor = opts?.proposedFor; }
+  upsertSession(s);
+}
+
+export function acceptProposal(sessionId: string) {
+  const s = getSession(sessionId); if (!s || !s.proposedFor) return;
+  s.scheduledFor = s.proposedFor; s.proposedFor = undefined;
+  s.status = "accepted"; upsertSession(s);
+}
+
+export function cancelSession(sessionId: string) {
+  const s = getSession(sessionId); if (!s) return;
+  s.status = "cancelled"; upsertSession(s);
+}
+
+// Auto-simulate a buddy response for demo purposes (deterministic per session).
+export function simulateBuddyResponse(sessionId: string) {
+  const s = getSession(sessionId); if (!s || s.status !== "waiting") return;
+  const seed = sessionId.charCodeAt(sessionId.length - 1) + sessionId.length;
+  const roll = seed % 10;
+  if (roll < 7) respondToRequest(sessionId, "accept");
+  else if (roll < 9) {
+    const next = upcomingSlots(s.buddyId, 14, 4)[1];
+    if (next) respondToRequest(sessionId, "reschedule", { proposedFor: next.ts });
+    else respondToRequest(sessionId, "accept");
+  } else {
+    respondToRequest(sessionId, "decline", { reason: "I'm at capacity today — please try another buddy." });
+  }
 }
 
 // ─── Prefs ──────────────────────────────────────────────────────
