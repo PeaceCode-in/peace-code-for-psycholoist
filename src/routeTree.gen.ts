@@ -18,6 +18,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as JournalVoiceRouteImport } from './routes/journal.voice'
 import { Route as JournalMemoriesRouteImport } from './routes/journal.memories'
 import { Route as JournalIdRouteImport } from './routes/journal.$id'
+import { Route as GratitudeWallRouteImport } from './routes/gratitude.wall'
 import { Route as BreatheStatsRouteImport } from './routes/breathe.stats'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 
@@ -66,6 +67,11 @@ const JournalIdRoute = JournalIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => JournalRoute,
 } as any)
+const GratitudeWallRoute = GratitudeWallRouteImport.update({
+  id: '/wall',
+  path: '/wall',
+  getParentRoute: () => GratitudeRoute,
+} as any)
 const BreatheStatsRoute = BreatheStatsRouteImport.update({
   id: '/stats',
   path: '/stats',
@@ -82,10 +88,11 @@ export interface FileRoutesByFullPath {
   '/breathe': typeof BreatheRouteWithChildren
   '/community': typeof CommunityRoute
   '/focus': typeof FocusRoute
-  '/gratitude': typeof GratitudeRoute
+  '/gratitude': typeof GratitudeRouteWithChildren
   '/journal': typeof JournalRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
+  '/gratitude/wall': typeof GratitudeWallRoute
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
@@ -95,10 +102,11 @@ export interface FileRoutesByTo {
   '/breathe': typeof BreatheRouteWithChildren
   '/community': typeof CommunityRoute
   '/focus': typeof FocusRoute
-  '/gratitude': typeof GratitudeRoute
+  '/gratitude': typeof GratitudeRouteWithChildren
   '/journal': typeof JournalRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
+  '/gratitude/wall': typeof GratitudeWallRoute
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
@@ -109,10 +117,11 @@ export interface FileRoutesById {
   '/breathe': typeof BreatheRouteWithChildren
   '/community': typeof CommunityRoute
   '/focus': typeof FocusRoute
-  '/gratitude': typeof GratitudeRoute
+  '/gratitude': typeof GratitudeRouteWithChildren
   '/journal': typeof JournalRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
+  '/gratitude/wall': typeof GratitudeWallRoute
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
@@ -128,6 +137,7 @@ export interface FileRouteTypes {
     | '/journal'
     | '/api/chat'
     | '/breathe/stats'
+    | '/gratitude/wall'
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
@@ -141,6 +151,7 @@ export interface FileRouteTypes {
     | '/journal'
     | '/api/chat'
     | '/breathe/stats'
+    | '/gratitude/wall'
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
@@ -154,6 +165,7 @@ export interface FileRouteTypes {
     | '/journal'
     | '/api/chat'
     | '/breathe/stats'
+    | '/gratitude/wall'
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
@@ -164,7 +176,7 @@ export interface RootRouteChildren {
   BreatheRoute: typeof BreatheRouteWithChildren
   CommunityRoute: typeof CommunityRoute
   FocusRoute: typeof FocusRoute
-  GratitudeRoute: typeof GratitudeRoute
+  GratitudeRoute: typeof GratitudeRouteWithChildren
   JournalRoute: typeof JournalRouteWithChildren
   ApiChatRoute: typeof ApiChatRoute
 }
@@ -234,6 +246,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JournalIdRouteImport
       parentRoute: typeof JournalRoute
     }
+    '/gratitude/wall': {
+      id: '/gratitude/wall'
+      path: '/wall'
+      fullPath: '/gratitude/wall'
+      preLoaderRoute: typeof GratitudeWallRouteImport
+      parentRoute: typeof GratitudeRoute
+    }
     '/breathe/stats': {
       id: '/breathe/stats'
       path: '/stats'
@@ -262,6 +281,18 @@ const BreatheRouteChildren: BreatheRouteChildren = {
 const BreatheRouteWithChildren =
   BreatheRoute._addFileChildren(BreatheRouteChildren)
 
+interface GratitudeRouteChildren {
+  GratitudeWallRoute: typeof GratitudeWallRoute
+}
+
+const GratitudeRouteChildren: GratitudeRouteChildren = {
+  GratitudeWallRoute: GratitudeWallRoute,
+}
+
+const GratitudeRouteWithChildren = GratitudeRoute._addFileChildren(
+  GratitudeRouteChildren,
+)
+
 interface JournalRouteChildren {
   JournalIdRoute: typeof JournalIdRoute
   JournalMemoriesRoute: typeof JournalMemoriesRoute
@@ -282,7 +313,7 @@ const rootRouteChildren: RootRouteChildren = {
   BreatheRoute: BreatheRouteWithChildren,
   CommunityRoute: CommunityRoute,
   FocusRoute: FocusRoute,
-  GratitudeRoute: GratitudeRoute,
+  GratitudeRoute: GratitudeRouteWithChildren,
   JournalRoute: JournalRouteWithChildren,
   ApiChatRoute: ApiChatRoute,
 }
