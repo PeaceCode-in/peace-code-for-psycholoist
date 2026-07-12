@@ -77,7 +77,7 @@ const navGroups: NavGroup[] = [
     label: "Core Care",
     items: [
       { icon: Bot, label: "Peace Bot", to: "/peacebot" },
-      { icon: CalendarCheck, label: "Counseling" },
+      { icon: CalendarCheck, label: "Counselling", to: "/counselling" },
       { icon: UserCheck, label: "Peace Buddies", to: "/buddies" },
       { icon: ClipboardList, label: "Screening", to: "/screening" },
     ],
