@@ -158,6 +158,7 @@ function Dashboard() {
   const [quote, setQuote] = useState(0);
   const [stress, setStress] = useState(28);
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
