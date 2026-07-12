@@ -1786,16 +1786,22 @@ function Dashboard() {
                     {group.items.map((item) => {
                       const Icon = item.icon;
                       const active = "active" in item && item.active;
-                      return (
-                        <button key={item.label} onClick={() => setMenuOpen(false)}
-                                className="flex items-center gap-3 h-12 px-3 rounded-2xl transition"
-                                style={active ? { background: dark ? "#223050" : "#EAF3FF", color: ink } : { color: ink }}>
+                      const to = "to" in item ? (item as { to?: string }).to : undefined;
+                      const cls = "flex items-center gap-3 h-12 px-3 rounded-2xl transition";
+                      const style = active ? { background: dark ? "#223050" : "#EAF3FF", color: ink } : { color: ink };
+                      const inner = (
+                        <>
                           <span className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
                                 style={{ background: active ? (dark ? "#182238" : "#FFFFFF") : (dark ? "#1F2A44" : "#EAF3FF") }}>
                             <Icon className="w-[17px] h-[17px]" strokeWidth={1.5}/>
                           </span>
                           <span className="text-[14px]">{item.label}</span>
-                        </button>
+                        </>
+                      );
+                      return to ? (
+                        <Link key={item.label} to={to} onClick={() => setMenuOpen(false)} className={cls} style={style}>{inner}</Link>
+                      ) : (
+                        <button key={item.label} onClick={() => setMenuOpen(false)} className={cls} style={style}>{inner}</button>
                       );
                     })}
                   </div>
