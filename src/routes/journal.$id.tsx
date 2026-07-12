@@ -86,6 +86,51 @@ function EditorPage() {
     setTimeout(() => { ta.focus(); ta.setSelectionRange(s + txt.length, s + txt.length); }, 0);
   }
 
+  // wrap current selection with prefix/suffix (for bold, italic, etc.)
+  function wrapSelection(prefix: string, suffix: string = prefix, placeholder = "") {
+    if (!bodyRef.current || !entry) return;
+    const ta = bodyRef.current;
+    const s = ta.selectionStart, e = ta.selectionEnd;
+    const sel = entry.body.slice(s, e) || placeholder;
+    const next = entry.body.slice(0, s) + prefix + sel + suffix + entry.body.slice(e);
+    patch({ body: next });
+    setTimeout(() => {
+      ta.focus();
+      ta.setSelectionRange(s + prefix.length, s + prefix.length + sel.length);
+    }, 0);
+  }
+
+  // prepend a line marker (#, >, -, 1.) to current line
+  function prefixLine(marker: string) {
+    if (!bodyRef.current || !entry) return;
+    const ta = bodyRef.current;
+    const s = ta.selectionStart;
+    const before = entry.body.slice(0, s);
+    const lineStart = before.lastIndexOf("\n") + 1;
+    const next = entry.body.slice(0, lineStart) + marker + entry.body.slice(lineStart);
+    patch({ body: next });
+    setTimeout(() => { ta.focus(); ta.setSelectionRange(s + marker.length, s + marker.length); }, 0);
+  }
+
+  // zen (fullscreen) shortcuts
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && zen) setZen(false);
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "b") { e.preventDefault(); wrapSelection("**", "**", "bold"); }
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "i") { e.preventDefault(); wrapSelection("_", "_", "italic"); }
+    };
+    window.addEventListener("keydown", onKey);
+    if (zen) document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [zen, entry?.body]);
+
+  const fontFamily = font === "serif" ? "'Fraunces', serif" : font === "mono" ? "'JetBrains Mono', ui-monospace, monospace" : "'DM Sans', sans-serif";
+
+
   const created = new Date(entry.createdAt);
 
   return (
