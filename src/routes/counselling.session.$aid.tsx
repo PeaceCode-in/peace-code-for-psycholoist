@@ -61,25 +61,25 @@ function LiveSession() {
   const ss = String(seconds % 60).padStart(2, "0");
 
   return (
-    <div className="fixed inset-0 z-40 flex flex-col" style={{ background: "#0d1220", color: "#fff" }}>
+    <div className="fixed inset-0 z-40 flex min-w-0 flex-col" style={{ background: "#0d1220", color: "#fff" }}>
       {/* Top bar */}
-      <div className="flex items-center gap-3 px-4 py-3 border-b" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
-        <img src={photoFor(e.id)} alt="" className="w-9 h-9 rounded-xl" />
+      <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-3 sm:px-4 py-3 border-b" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
+        <img src={photoFor(e.id)} alt="" className="w-9 h-9 shrink-0 rounded-xl" />
         <div className="flex-1 min-w-0">
           <div className="text-[14px] truncate">{e.name}</div>
           <div className="text-[11px] opacity-70 tabular-nums">{hh}:{mm}:{ss} · {a.mode} session</div>
         </div>
-        <div className="flex items-center gap-1.5 text-[11px] opacity-80">
+        <div className="hidden sm:flex items-center gap-1.5 text-[11px] opacity-80">
           <Signal className="w-3.5 h-3.5" />
           <span>{signal >= 4 ? "Excellent" : signal >= 3 ? "Good" : "Fair"} connection</span>
         </div>
-        <Link to="/counselling/emergency" className="rounded-full px-3 py-1.5 text-[12px] inline-flex items-center gap-1" style={{ background: "#c14a5a" }}>
-          <LifeBuoy className="w-3.5 h-3.5" /> Emergency
+        <Link to="/counselling/emergency" className="rounded-full px-2.5 sm:px-3 py-1.5 text-[12px] inline-flex items-center gap-1" style={{ background: "#c14a5a" }}>
+          <LifeBuoy className="w-3.5 h-3.5" /> <span className="hidden xs:inline">Emergency</span>
         </Link>
       </div>
 
       {/* Main area */}
-      <div className="flex-1 min-h-0 flex">
+      <div className="flex-1 min-h-0 flex flex-col lg:flex-row">
         <div className="flex-1 relative min-w-0 flex flex-col">
           {/* Video area */}
           <div className="flex-1 min-h-0 flex items-center justify-center relative p-4">
@@ -89,7 +89,7 @@ function LiveSession() {
               <div className="absolute bottom-3 left-3 text-[12px] opacity-80">{e.name}</div>
             </div>
             {/* Self tile */}
-            <div className="absolute right-6 bottom-6 w-40 aspect-video rounded-2xl overflow-hidden" style={{ background: "linear-gradient(135deg,#3b4a75,#20263f)", border: "1px solid rgba(255,255,255,0.14)" }}>
+            <div className="absolute right-4 bottom-16 w-28 aspect-video rounded-2xl overflow-hidden sm:right-6 sm:bottom-6 sm:w-40" style={{ background: "linear-gradient(135deg,#3b4a75,#20263f)", border: "1px solid rgba(255,255,255,0.14)" }}>
               {!cam ? (
                 <div className="w-full h-full flex items-center justify-center text-[11px] opacity-70">Camera off</div>
               ) : (
@@ -99,14 +99,14 @@ function LiveSession() {
             </div>
 
             {captions && (
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 max-w-[70%] text-center rounded-full px-4 py-1.5 text-[12.5px]" style={{ background: "rgba(0,0,0,0.55)" }}>
+              <div className="absolute bottom-3 left-3 right-3 text-center rounded-full px-3 py-1.5 text-[11.5px] sm:bottom-4 sm:left-1/2 sm:right-auto sm:max-w-[70%] sm:-translate-x-1/2 sm:px-4 sm:text-[12.5px]" style={{ background: "rgba(0,0,0,0.55)" }}>
                 Take your time. Nothing you say leaves this room.
               </div>
             )}
           </div>
 
           {/* Bottom controls */}
-          <div className="p-4 flex items-center justify-center gap-2">
+          <div className="max-w-full overflow-x-auto p-3 sm:p-4 flex items-center justify-start gap-2 sm:justify-center scrollbar-none">
             <Ctrl onClick={() => setMic(v => !v)} active={mic} icon={mic ? Mic : MicOff} label={mic ? "Mic on" : "Mic off"} />
             <Ctrl onClick={() => setCam(v => !v)} active={cam} icon={cam ? Video : VideoOff} label={cam ? "Cam on" : "Cam off"} />
             <Ctrl onClick={() => setBlur(v => !v)} active={blur} icon={Sparkles} label={blur ? "Blur on" : "Blur off"} />
@@ -115,7 +115,7 @@ function LiveSession() {
             <Ctrl onClick={() => alert("Whiteboard is a demo placeholder.")} active={false} icon={Paintbrush} label="Whiteboard" />
             <Ctrl onClick={() => alert("Speaker selection is a demo placeholder.")} active={false} icon={Volume2} label="Speaker" />
             <Ctrl onClick={() => setChatOpen(v => !v)} active={chatOpen} icon={MessageSquare} label="Chat" />
-            <button onClick={endSession} className="rounded-full px-4 py-2.5 text-[13px] inline-flex items-center gap-2" style={{ background: "#c14a5a" }}>
+            <button onClick={endSession} className="shrink-0 rounded-full px-4 py-2.5 text-[13px] inline-flex items-center gap-2" style={{ background: "#c14a5a" }}>
               <PhoneOff className="w-4 h-4" /> End
             </button>
           </div>
@@ -123,7 +123,7 @@ function LiveSession() {
 
         {/* Side panel */}
         {chatOpen && (
-          <div className="w-[320px] flex-none border-l flex flex-col" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
+          <div className="fixed inset-x-3 bottom-3 z-50 max-h-[48vh] rounded-3xl border bg-[#0d1220]/95 backdrop-blur-xl flex flex-col lg:static lg:h-auto lg:max-h-none lg:w-[320px] lg:flex-none lg:rounded-none lg:border-y-0 lg:border-r-0 lg:border-l" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
             <div className="p-3 flex items-center gap-2" style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
               <MessageSquare className="w-4 h-4 opacity-80" />
               <div className="text-[13px] flex-1">In-session chat</div>
@@ -132,14 +132,14 @@ function LiveSession() {
             <div ref={msgRef} className="flex-1 min-h-0 overflow-y-auto p-3 space-y-2">
               {messages.length === 0 && <div className="text-[12px] opacity-70">Nothing yet. Say hello.</div>}
               {messages.map(m => (
-                <div key={m.id} className={`max-w-[85%] rounded-2xl px-3 py-2 text-[13px] ${m.from === "me" ? "ml-auto" : ""}`} style={{ background: m.from === "me" ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.06)" }}>
+                <div key={m.id} className={`max-w-[85%] break-words rounded-2xl px-3 py-2 text-[13px] ${m.from === "me" ? "ml-auto" : ""}`} style={{ background: m.from === "me" ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.06)" }}>
                   {m.text}
                 </div>
               ))}
             </div>
             <div className="p-2 flex gap-2" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
               <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && sendMsg()} placeholder="Type a message…" className="flex-1 rounded-full bg-white/10 px-3 py-2 text-[13px] outline-none" />
-              <button onClick={sendMsg} className="rounded-full px-3 py-2" style={{ background: "#fff", color: "#0d1220" }}><Send className="w-4 h-4" /></button>
+              <button onClick={sendMsg} className="shrink-0 rounded-full px-3 py-2" style={{ background: "#fff", color: "#0d1220" }}><Send className="w-4 h-4" /></button>
             </div>
             <div className="p-3" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
               <div className="text-[10.5px] uppercase tracking-[0.18em] opacity-70 mb-1">Your live notes</div>
@@ -154,7 +154,7 @@ function LiveSession() {
 
 function Ctrl({ icon: Icon, active, onClick, label }: { icon: typeof Mic; active: boolean; onClick: () => void; label: string }) {
   return (
-    <button onClick={onClick} title={label} className="w-11 h-11 rounded-full flex items-center justify-center transition-colors" style={{ background: active ? "rgba(255,255,255,0.16)" : "rgba(255,255,255,0.06)" }}>
+    <button onClick={onClick} title={label} className="w-11 h-11 shrink-0 rounded-full flex items-center justify-center transition-colors" style={{ background: active ? "rgba(255,255,255,0.16)" : "rgba(255,255,255,0.06)" }}>
       <Icon className="w-4 h-4" />
     </button>
   );

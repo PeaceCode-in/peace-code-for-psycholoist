@@ -70,28 +70,28 @@ function FindExperts() {
 
       {/* Search + sort */}
       <div className="flex flex-col sm:flex-row gap-2 mb-4">
-        <div className="flex-1 flex items-center gap-2 rounded-full px-4 py-2.5" style={{ background: surface, border: `1px solid ${border}` }}>
-          <Search className="w-4 h-4" style={{ color: muted }} />
+        <div className="flex-1 min-w-0 flex items-center gap-2 rounded-full px-4 py-2.5" style={{ background: surface, border: `1px solid ${border}` }}>
+          <Search className="w-4 h-4 shrink-0" style={{ color: muted }} />
           <input value={q} onChange={e => setQ(e.target.value)} placeholder="Search by name, issue, therapy type…" className="flex-1 bg-transparent outline-none text-[14px]" style={{ color: ink }} />
           {q && <button onClick={() => setQ("")}><X className="w-4 h-4" style={{ color: muted }} /></button>}
         </div>
-        <div className="flex gap-2">
-          <select value={sort} onChange={e => setSort(e.target.value as Sort)} className="rounded-full px-4 py-2.5 text-[13px]" style={{ background: surface, border: `1px solid ${border}`, color: ink }}>
+        <div className="grid grid-cols-2 gap-2 sm:flex sm:shrink-0">
+          <select value={sort} onChange={e => setSort(e.target.value as Sort)} className="min-w-0 rounded-full px-3 sm:px-4 py-2.5 text-[13px]" style={{ background: surface, border: `1px solid ${border}`, color: ink }}>
             <option value="recommended">Recommended</option>
             <option value="rating">Highest rated</option>
             <option value="soonest">Soonest available</option>
             <option value="price-low">Price: low to high</option>
             <option value="price-high">Price: high to low</option>
           </select>
-          <button onClick={() => setShowFilters(v => !v)} className="rounded-full px-4 py-2.5 text-[13px] inline-flex items-center gap-2" style={{ background: surface, border: `1px solid ${border}`, color: ink }}>
+          <button onClick={() => setShowFilters(v => !v)} className="justify-center rounded-full px-3 sm:px-4 py-2.5 text-[13px] inline-flex items-center gap-2" style={{ background: surface, border: `1px solid ${border}`, color: ink }}>
             <SlidersHorizontal className="w-4 h-4" /> Filters {activeFilterCount > 0 && <span className="rounded-full px-1.5 text-[11px]" style={{ background: ink, color: "#fff" }}>{activeFilterCount}</span>}
           </button>
         </div>
       </div>
 
-      <div className="grid gap-4" style={{ gridTemplateColumns: showFilters ? "minmax(0,260px) minmax(0,1fr)" : "minmax(0,1fr)" }}>
+      <div className={showFilters ? "grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,260px)_minmax(0,1fr)]" : "grid grid-cols-1 gap-4"}>
         {showFilters && (
-          <Card className="self-start sticky top-6">
+          <Card className="self-start lg:sticky lg:top-6">
             <div className="flex items-center justify-between mb-3">
               <div className="font-serif text-[16px]" style={{ color: ink }}>Filters</div>
               {activeFilterCount > 0 && <button onClick={clear} className="text-[11.5px]" style={{ color: muted }}>Clear all</button>}
@@ -173,12 +173,12 @@ function FindExperts() {
                   {e.emergency && <span className="rounded-full px-2 py-0.5" style={{ background: "#fff1f0", color: "#9a1c1c" }}>Emergency</span>}
                 </div>
 
-                <div className="mt-auto pt-4 flex items-end justify-between gap-3">
-                  <div>
+                <div className="mt-auto pt-4 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3">
+                  <div className="min-w-0">
                     <div className="font-serif text-[19px]" style={{ color: ink }}>{rupee(e.fees)}<span className="text-[12px]" style={{ color: muted }}> /session</span></div>
                     {next && <div className="text-[11.5px] inline-flex items-center gap-1" style={{ color: muted }}><CalendarClock className="w-3 h-3" /> {next.label} · {next.slot}</div>}
                   </div>
-                  <div className="flex gap-1.5">
+                  <div className="flex shrink-0 gap-1.5">
                     <Link to="/counselling/expert/$id" params={{ id: e.id }} className="rounded-full px-3 py-1.5 text-[12px]" style={{ background: surface2, color: ink, border: `1px solid ${border}` }}>View</Link>
                     <Link to="/counselling/book/$id" params={{ id: e.id }} className="rounded-full px-3 py-1.5 text-[12px]" style={{ background: ink, color: "#fff" }}>Book</Link>
                   </div>

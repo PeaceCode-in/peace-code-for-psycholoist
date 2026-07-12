@@ -93,13 +93,13 @@ function BookFlow() {
 
       {/* Header */}
       <Card className="mb-4">
-        <div className="flex items-center gap-3">
-          <img src={photoFor(e.id)} alt="" className="w-12 h-12 rounded-2xl" style={{ background: surface2 }} />
+        <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 sm:flex">
+          <img src={photoFor(e.id)} alt="" className="w-12 h-12 shrink-0 rounded-2xl" style={{ background: surface2 }} />
           <div className="flex-1 min-w-0">
             <div className="text-[10.5px] uppercase tracking-[0.18em]" style={{ color: muted }}>Booking</div>
             <div className="font-serif text-[20px]" style={{ color: ink }}>{e.name}</div>
           </div>
-          <div className="hidden sm:flex items-center gap-3">
+          <div className="hidden sm:flex shrink-0 items-center gap-3">
             <StepDot n={1} label="Slot" />
             <div className="w-6 h-px" style={{ background: border }} />
             <StepDot n={2} label="Details" />
@@ -116,7 +116,7 @@ function BookFlow() {
       {/* Step content */}
       {step === 1 && (
         <Card>
-          <div className="font-serif text-[22px] mb-1" style={{ color: ink }}>Choose a time that works for you.</div>
+          <div className="font-serif text-[20px] sm:text-[22px] mb-1" style={{ color: ink }}>Choose a time that works for you.</div>
           <p className="text-[13.5px] mb-4" style={{ color: muted }}>All slots shown are open in the next two weeks. You can reschedule up to 4 hours before.</p>
 
           <div className="grid sm:grid-cols-3 gap-2 mb-4">
@@ -142,9 +142,9 @@ function BookFlow() {
             ))}
           </div>
 
-          <div className="rounded-2xl p-4" style={{ border: `1px solid ${border}` }}>
+          <div className="rounded-2xl p-3 sm:p-4" style={{ border: `1px solid ${border}` }}>
             <div className="text-[10.5px] uppercase tracking-[0.18em] mb-3" style={{ color: muted }}>Pick a slot</div>
-            <div className="space-y-4 max-h-[380px] overflow-y-auto pr-1">
+            <div className="space-y-4 max-h-none overflow-visible pr-0 sm:max-h-[380px] sm:overflow-y-auto sm:pr-1">
               {Object.entries(byDay).map(([day, arr]) => (
                 <div key={day}>
                   <div className="flex items-center gap-1.5 text-[12.5px] mb-1.5" style={{ color: ink }}>
@@ -169,7 +169,7 @@ function BookFlow() {
 
       {step === 2 && (
         <Card>
-          <div className="font-serif text-[22px] mb-1" style={{ color: ink }}>A few quick details.</div>
+              <div className="font-serif text-[20px] sm:text-[22px] mb-1" style={{ color: ink }}>A few quick details.</div>
           <p className="text-[13.5px] mb-4" style={{ color: muted }}>These help your counsellor prepare for your first session.</p>
 
           <Field label="Language for the session">
@@ -190,7 +190,7 @@ function BookFlow() {
 
       {step === 3 && (
         <Card>
-          <div className="font-serif text-[22px] mb-1" style={{ color: ink }}>Pre-session intake.</div>
+          <div className="font-serif text-[20px] sm:text-[22px] mb-1" style={{ color: ink }}>Pre-session intake.</div>
           <p className="text-[13.5px] mb-4" style={{ color: muted }}>You can answer briefly. Nothing here is shared beyond your counsellor.</p>
 
           <div className="grid sm:grid-cols-2 gap-4">
@@ -242,7 +242,7 @@ function BookFlow() {
 
       {step === 4 && (
         <Card>
-          <div className="font-serif text-[22px] mb-1" style={{ color: ink }}>Your privacy and consent.</div>
+          <div className="font-serif text-[20px] sm:text-[22px] mb-1" style={{ color: ink }}>Your privacy and consent.</div>
           <p className="text-[13.5px] mb-4" style={{ color: muted }}>Please read and confirm.</p>
           <div className="space-y-2">
             {[
@@ -266,7 +266,7 @@ function BookFlow() {
 
       {step === 5 && (
         <Card>
-          <div className="font-serif text-[22px] mb-1" style={{ color: ink }}>Confirm and pay.</div>
+          <div className="font-serif text-[20px] sm:text-[22px] mb-1" style={{ color: ink }}>Confirm and pay.</div>
           <p className="text-[13.5px] mb-4" style={{ color: muted }}>This is a demo — no real payment is processed.</p>
 
           <div className="grid sm:grid-cols-2 gap-4">
@@ -324,13 +324,13 @@ function BookFlow() {
 
       {/* Footer nav */}
       {step < 6 && (
-        <div className="mt-4 flex items-center justify-between gap-2">
-          <button disabled={step === 1} onClick={() => setStep((step - 1) as Step)} className="rounded-full px-4 py-2 text-[13px] disabled:opacity-40" style={{ background: surface, color: ink, border: `1px solid ${border}` }}>
+        <div className="mt-4 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2">
+          <button disabled={step === 1} onClick={() => setStep((step - 1) as Step)} className="rounded-full px-3 sm:px-4 py-2 text-[13px] disabled:opacity-40" style={{ background: surface, color: ink, border: `1px solid ${border}` }}>
             <ArrowLeft className="w-4 h-4 inline mr-1" /> Back
           </button>
-          <div className="text-[12px]" style={{ color: muted }}>Step {step} of 5</div>
+          <div className="text-center text-[12px]" style={{ color: muted }}>Step {step} of 5</div>
           {step < 5 ? (
-            <button disabled={!canAdvance()} onClick={() => setStep((step + 1) as Step)} className="rounded-full px-4 py-2 text-[13px] disabled:opacity-40" style={{ background: ink, color: "#fff" }}>
+            <button disabled={!canAdvance()} onClick={() => setStep((step + 1) as Step)} className="rounded-full px-3 sm:px-4 py-2 text-[13px] disabled:opacity-40" style={{ background: ink, color: "#fff" }}>
               Continue <ArrowRight className="w-4 h-4 inline ml-1" />
             </button>
           ) : (
@@ -353,5 +353,5 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 }
 function Row({ label, value }: { label: string; value: string }) {
   const { ink, muted } = palette;
-  return <div className="flex justify-between text-[13px]"><span style={{ color: muted }}>{label}</span><span style={{ color: ink }}>{value}</span></div>;
+  return <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 text-[13px]"><span className="min-w-0" style={{ color: muted }}>{label}</span><span className="min-w-0 text-right" style={{ color: ink }}>{value}</span></div>;
 }

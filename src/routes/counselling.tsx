@@ -43,8 +43,8 @@ function CounsellingLayout() {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10 py-6">
-        <div className="grid gap-6 lg:gap-8" style={{ gridTemplateColumns: "minmax(0,240px) minmax(0,1fr)" }}>
+      <div className="mx-auto max-w-[1440px] px-3 sm:px-6 lg:px-10 py-4 sm:py-6">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,240px)_minmax(0,1fr)] lg:gap-8">
           {/* secondary nav */}
           <aside className="hidden lg:block sticky top-6 self-start">
             <div className="rounded-3xl p-3" style={{ background: surface, border: `1px solid ${border}` }}>
@@ -77,13 +77,13 @@ function CounsellingLayout() {
 
           <main className="min-w-0">
             {/* mobile secondary nav */}
-            <div className="lg:hidden -mx-4 px-4 mb-4 overflow-x-auto">
-              <div className="flex gap-2 min-w-max">
+            <div className="lg:hidden -mx-3 px-3 mb-4 overflow-x-auto scrollbar-none">
+              <div className="flex w-max max-w-none gap-2 pb-1">
                 {secondary.map((s) => {
                   const active = s.exact ? pathname === s.to : pathname === s.to || pathname.startsWith(s.to + "/");
                   return (
                     <Link key={s.to} to={s.to}
-                      className="flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[12.5px] whitespace-nowrap"
+                      className="flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[12.5px] whitespace-nowrap"
                       style={{
                         background: active ? ink : surface,
                         color: active ? "#fff" : muted,
@@ -108,12 +108,12 @@ export function Section({ eyebrow, title, action, children }: { eyebrow?: string
   const { ink, muted } = palette;
   return (
     <section className="mb-8">
-      <div className="flex items-end justify-between gap-3 mb-3">
-        <div>
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3 mb-3 sm:flex sm:justify-between">
+        <div className="min-w-0">
           {eyebrow && <div className="text-[10px] uppercase tracking-[0.22em] mb-1" style={{ color: muted }}>{eyebrow}</div>}
           <h2 className="font-serif text-[22px] sm:text-[26px] leading-tight" style={{ color: ink }}>{title}</h2>
         </div>
-        {action}
+        <div className="shrink-0">{action}</div>
       </div>
       {children}
     </section>
@@ -123,7 +123,7 @@ export function Section({ eyebrow, title, action, children }: { eyebrow?: string
 export function Card({ children, className = "", pad = true, style }: { children: ReactNode; className?: string; pad?: boolean; style?: React.CSSProperties }) {
   const { surface, border } = palette;
   return (
-    <div className={`rounded-3xl ${pad ? "p-5 sm:p-6" : ""} ${className}`} style={{ background: surface, border: `1px solid ${border}`, ...style }}>{children}</div>
+    <div className={`min-w-0 overflow-hidden rounded-3xl ${pad ? "p-4 sm:p-6" : ""} ${className}`} style={{ background: surface, border: `1px solid ${border}`, ...style }}>{children}</div>
   );
 }
 
@@ -132,7 +132,7 @@ export function Chip({ children, tone = "default", onClick, active }: { children
   const bg = tone === "success" ? "#eaf6ea" : tone === "warn" ? "#fff3e6" : tone === "info" ? "#eaf1ff" : (active ? ink : surface2);
   const color = tone === "success" ? "#2f6a37" : tone === "warn" ? "#a35d1a" : tone === "info" ? "#26468f" : (active ? "#fff" : muted);
   return (
-    <button onClick={onClick} className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11.5px]" style={{ background: bg, color, border: `1px solid ${active ? "transparent" : border}` }}>
+    <button onClick={onClick} className="inline-flex max-w-full items-center gap-1 rounded-full px-2.5 py-1 text-[11.5px] leading-tight" style={{ background: bg, color, border: `1px solid ${active ? "transparent" : border}` }}>
       {children}
     </button>
   );

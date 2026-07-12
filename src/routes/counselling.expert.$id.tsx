@@ -42,21 +42,21 @@ function ExpertProfile() {
 
       {/* Hero */}
       <Card className="mb-4" pad={false} style={{ background: `linear-gradient(180deg, ${lavender} 0%, ${surface} 60%)` }}>
-        <div className="p-6 sm:p-8 flex flex-col sm:flex-row gap-6">
+        <div className="p-4 sm:p-8 flex flex-col sm:flex-row gap-5 sm:gap-6">
           <div className="relative w-28 h-28 rounded-3xl overflow-hidden flex-none" style={{ background: surface2 }}>
             <img src={photoFor(e.id)} alt="" className="w-full h-full object-cover" />
           </div>
           <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <div className="flex items-center gap-2">
-                  <h1 className="font-serif text-[28px] leading-tight" style={{ color: ink }}>{e.name}</h1>
+            <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3">
+              <div className="min-w-0">
+                <div className="flex min-w-0 flex-wrap items-center gap-2">
+                  <h1 className="font-serif text-[24px] sm:text-[28px] leading-tight" style={{ color: ink }}>{e.name}</h1>
                   {e.verified && <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px]" style={{ background: "#eaf1ff", color: "#26468f" }}><ShieldCheck className="w-3 h-3" /> Verified</span>}
                 </div>
                 <div className="text-[13.5px]" style={{ color: muted }}>{e.title} · {e.qualification}</div>
                 <div className="text-[12px] mt-0.5" style={{ color: muted }}>{e.license} · {e.experienceYears} years of practice</div>
               </div>
-              <div className="flex gap-1.5">
+              <div className="flex shrink-0 gap-1.5">
                 <button onClick={() => { toggleFavorite(e.id); setFav(!fav); }} className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }}>
                   <Heart className="w-4 h-4" style={{ color: fav ? "#c14a5a" : muted, fill: fav ? "#c14a5a" : "transparent" }} />
                 </button>
@@ -84,7 +84,7 @@ function ExpertProfile() {
         </div>
 
         {/* Intro video placeholder */}
-        <div className="relative mx-6 sm:mx-8 mb-6 rounded-2xl overflow-hidden aspect-[16/6]" style={{ background: `linear-gradient(135deg, ${soft}, ${lavender})` }}>
+        <div className="relative mx-4 sm:mx-8 mb-5 sm:mb-6 rounded-2xl overflow-hidden aspect-[16/9] sm:aspect-[16/6]" style={{ background: `linear-gradient(135deg, ${soft}, ${lavender})` }}>
           <div className="absolute inset-0 flex items-center justify-center">
             <button className="flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px]" style={{ background: "rgba(255,255,255,0.85)", color: ink, border: `1px solid ${border}` }}>
               <Play className="w-4 h-4" /> Watch intro (1:20)
@@ -194,7 +194,7 @@ function ExpertProfile() {
 
           <Card>
             <div className="text-[10.5px] uppercase tracking-[0.18em] mb-2" style={{ color: muted }}>Next 14 days</div>
-            <div className="space-y-3 max-h-[420px] overflow-y-auto pr-1">
+            <div className="space-y-3 max-h-none overflow-visible pr-0 sm:max-h-[420px] sm:overflow-y-auto sm:pr-1">
               {Object.entries(grouped).slice(0, 10).map(([day, slots]) => (
                 <div key={day}>
                   <div className="flex items-center gap-1.5 text-[12.5px] mb-1" style={{ color: ink }}>
