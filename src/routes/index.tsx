@@ -1505,8 +1505,8 @@ function Dashboard() {
                   <div className="text-[10.5px] italic opacity-60 mt-1">always here · never louder than you</div>
                 </div>
               </div>
-              <button className="text-[9.5px] tracking-[0.28em] uppercase opacity-55 hover:opacity-100 transition"
-                      style={{ color: muted }}>new thread</button>
+              <Link to="/peacebot" className="text-[9.5px] tracking-[0.28em] uppercase opacity-55 hover:opacity-100 transition"
+                      style={{ color: muted }}>new thread</Link>
             </div>
 
             {/* CONVERSATION */}
