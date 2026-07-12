@@ -92,44 +92,44 @@ const ScreeningHistoryRoute = ScreeningHistoryRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const JournalVoiceRoute = JournalVoiceRouteImport.update({
-  id: '/journal/voice',
-  path: '/journal/voice',
-  getParentRoute: () => rootRouteImport,
+  id: '/voice',
+  path: '/voice',
+  getParentRoute: () => JournalRoute,
 } as any)
 const JournalMemoriesRoute = JournalMemoriesRouteImport.update({
-  id: '/journal/memories',
-  path: '/journal/memories',
-  getParentRoute: () => rootRouteImport,
+  id: '/memories',
+  path: '/memories',
+  getParentRoute: () => JournalRoute,
 } as any)
 const JournalIdRoute = JournalIdRouteImport.update({
-  id: '/journal/$id',
-  path: '/journal/$id',
-  getParentRoute: () => rootRouteImport,
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => JournalRoute,
 } as any)
 const GratitudeWallRoute = GratitudeWallRouteImport.update({
-  id: '/gratitude/wall',
-  path: '/gratitude/wall',
-  getParentRoute: () => rootRouteImport,
+  id: '/wall',
+  path: '/wall',
+  getParentRoute: () => GratitudeRoute,
 } as any)
 const GratitudeTreeRoute = GratitudeTreeRouteImport.update({
-  id: '/gratitude/tree',
-  path: '/gratitude/tree',
-  getParentRoute: () => rootRouteImport,
+  id: '/tree',
+  path: '/tree',
+  getParentRoute: () => GratitudeRoute,
 } as any)
 const GratitudeHistoryRoute = GratitudeHistoryRouteImport.update({
-  id: '/gratitude/history',
-  path: '/gratitude/history',
-  getParentRoute: () => rootRouteImport,
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => GratitudeRoute,
 } as any)
 const GratitudeForestRoute = GratitudeForestRouteImport.update({
-  id: '/gratitude/forest',
-  path: '/gratitude/forest',
-  getParentRoute: () => rootRouteImport,
+  id: '/forest',
+  path: '/forest',
+  getParentRoute: () => GratitudeRoute,
 } as any)
 const BreatheStatsRoute = BreatheStatsRouteImport.update({
-  id: '/breathe/stats',
-  path: '/breathe/stats',
-  getParentRoute: () => rootRouteImport,
+  id: '/stats',
+  path: '/stats',
+  getParentRoute: () => BreatheRoute,
 } as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
@@ -343,14 +343,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CommunityRoute: typeof CommunityRoute
   ApiChatRoute: typeof ApiChatRoute
-  BreatheStatsRoute: typeof BreatheStatsRoute
-  GratitudeForestRoute: typeof GratitudeForestRoute
-  GratitudeHistoryRoute: typeof GratitudeHistoryRoute
-  GratitudeTreeRoute: typeof GratitudeTreeRoute
-  GratitudeWallRoute: typeof GratitudeWallRoute
-  JournalIdRoute: typeof JournalIdRoute
-  JournalMemoriesRoute: typeof JournalMemoriesRoute
-  JournalVoiceRoute: typeof JournalVoiceRoute
   ScreeningHistoryRoute: typeof ScreeningHistoryRoute
   ScreeningLibraryRoute: typeof ScreeningLibraryRoute
   ScreeningResourcesRoute: typeof ScreeningResourcesRoute
@@ -449,59 +441,59 @@ declare module '@tanstack/react-router' {
     }
     '/journal/voice': {
       id: '/journal/voice'
-      path: '/journal/voice'
+      path: '/voice'
       fullPath: '/journal/voice'
       preLoaderRoute: typeof JournalVoiceRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof JournalRoute
     }
     '/journal/memories': {
       id: '/journal/memories'
-      path: '/journal/memories'
+      path: '/memories'
       fullPath: '/journal/memories'
       preLoaderRoute: typeof JournalMemoriesRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof JournalRoute
     }
     '/journal/$id': {
       id: '/journal/$id'
-      path: '/journal/$id'
+      path: '/$id'
       fullPath: '/journal/$id'
       preLoaderRoute: typeof JournalIdRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof JournalRoute
     }
     '/gratitude/wall': {
       id: '/gratitude/wall'
-      path: '/gratitude/wall'
+      path: '/wall'
       fullPath: '/gratitude/wall'
       preLoaderRoute: typeof GratitudeWallRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GratitudeRoute
     }
     '/gratitude/tree': {
       id: '/gratitude/tree'
-      path: '/gratitude/tree'
+      path: '/tree'
       fullPath: '/gratitude/tree'
       preLoaderRoute: typeof GratitudeTreeRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GratitudeRoute
     }
     '/gratitude/history': {
       id: '/gratitude/history'
-      path: '/gratitude/history'
+      path: '/history'
       fullPath: '/gratitude/history'
       preLoaderRoute: typeof GratitudeHistoryRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GratitudeRoute
     }
     '/gratitude/forest': {
       id: '/gratitude/forest'
-      path: '/gratitude/forest'
+      path: '/forest'
       fullPath: '/gratitude/forest'
       preLoaderRoute: typeof GratitudeForestRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GratitudeRoute
     }
     '/breathe/stats': {
       id: '/breathe/stats'
-      path: '/breathe/stats'
+      path: '/stats'
       fullPath: '/breathe/stats'
       preLoaderRoute: typeof BreatheStatsRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof BreatheRoute
     }
     '/api/chat': {
       id: '/api/chat'
@@ -559,14 +551,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CommunityRoute: CommunityRoute,
   ApiChatRoute: ApiChatRoute,
-  BreatheStatsRoute: BreatheStatsRoute,
-  GratitudeForestRoute: GratitudeForestRoute,
-  GratitudeHistoryRoute: GratitudeHistoryRoute,
-  GratitudeTreeRoute: GratitudeTreeRoute,
-  GratitudeWallRoute: GratitudeWallRoute,
-  JournalIdRoute: JournalIdRoute,
-  JournalMemoriesRoute: JournalMemoriesRoute,
-  JournalVoiceRoute: JournalVoiceRoute,
   ScreeningHistoryRoute: ScreeningHistoryRoute,
   ScreeningLibraryRoute: ScreeningLibraryRoute,
   ScreeningResourcesRoute: ScreeningResourcesRoute,
@@ -586,3 +570,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
