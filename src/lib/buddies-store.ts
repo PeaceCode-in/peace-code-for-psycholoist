@@ -24,12 +24,26 @@ export type Buddy = {
   weekly: Record<string, string[]>; // day -> slots
 };
 
+export type SessionStatus =
+  | "waiting"
+  | "accepted"
+  | "declined"
+  | "rescheduled"
+  | "active"
+  | "completed"
+  | "missed"
+  | "cancelled";
+
 export type Session = {
   id: string;
   buddyId: string;
-  status: "waiting" | "accepted" | "active" | "completed" | "missed" | "cancelled" | "rescheduled";
+  status: SessionStatus;
   createdAt: number;
   scheduledFor?: number;
+  proposedFor?: number;         // buddy's counter-proposal when rescheduling
+  respondedAt?: number;
+  declineReason?: string;
+  slotLabel?: string;           // e.g. "Wed · 7pm"
   duration?: number;
   topic?: string;
   language?: string;
