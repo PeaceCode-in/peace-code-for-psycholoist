@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
   BookOpen, Moon, Sun, Settings, Bell, Play, Pause, Send,
@@ -41,7 +41,7 @@ const navGroups = [
   {
     label: "Community & Resources",
     items: [
-      { icon: Users, label: "Community" },
+      { icon: Users, label: "Community", to: "/community" },
       { icon: BookOpen, label: "Resources" },
     ],
   },
@@ -332,14 +332,21 @@ function Dashboard() {
               {group.items.map((item) => {
                 const Icon = item.icon;
                 const active = "active" in item && item.active;
-                return (
-                  <button key={item.label} className="relative flex items-center h-11 rounded-2xl transition"
-                          style={active ? { background: dark ? "#223050" : "#EAF3FF", color: ink } : { color: muted }}>
+                const to = "to" in item ? (item as { to?: string }).to : undefined;
+                const cls = "relative flex items-center h-11 rounded-2xl transition";
+                const style = active ? { background: dark ? "#223050" : "#EAF3FF", color: ink } : { color: muted };
+                const inner = (
+                  <>
                     <span className="w-[56px] shrink-0 flex justify-center">
                       <Icon className="w-[19px] h-[19px]" strokeWidth={1.4} />
                     </span>
                     <span className="text-[13px] tracking-wide whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">{item.label}</span>
-                  </button>
+                  </>
+                );
+                return to ? (
+                  <Link key={item.label} to={to} className={cls} style={style}>{inner}</Link>
+                ) : (
+                  <button key={item.label} className={cls} style={style}>{inner}</button>
                 );
               })}
             </div>
@@ -1779,16 +1786,22 @@ function Dashboard() {
                     {group.items.map((item) => {
                       const Icon = item.icon;
                       const active = "active" in item && item.active;
-                      return (
-                        <button key={item.label} onClick={() => setMenuOpen(false)}
-                                className="flex items-center gap-3 h-12 px-3 rounded-2xl transition"
-                                style={active ? { background: dark ? "#223050" : "#EAF3FF", color: ink } : { color: ink }}>
+                      const to = "to" in item ? (item as { to?: string }).to : undefined;
+                      const cls = "flex items-center gap-3 h-12 px-3 rounded-2xl transition";
+                      const style = active ? { background: dark ? "#223050" : "#EAF3FF", color: ink } : { color: ink };
+                      const inner = (
+                        <>
                           <span className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
                                 style={{ background: active ? (dark ? "#182238" : "#FFFFFF") : (dark ? "#1F2A44" : "#EAF3FF") }}>
                             <Icon className="w-[17px] h-[17px]" strokeWidth={1.5}/>
                           </span>
                           <span className="text-[14px]">{item.label}</span>
-                        </button>
+                        </>
+                      );
+                      return to ? (
+                        <Link key={item.label} to={to} onClick={() => setMenuOpen(false)} className={cls} style={style}>{inner}</Link>
+                      ) : (
+                        <button key={item.label} onClick={() => setMenuOpen(false)} className={cls} style={style}>{inner}</button>
                       );
                     })}
                   </div>
