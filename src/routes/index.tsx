@@ -797,21 +797,81 @@ function Dashboard() {
         </p>
       </main>
 
-      {/* mobile bottom nav */}
-      <nav className="lg:hidden fixed bottom-3 left-3 right-3 z-30 rounded-full backdrop-blur-xl px-2 py-2 flex items-center justify-around"
-           style={{ background: dark ? "rgba(30,27,23,0.92)" : "rgba(255,251,240,0.94)", border: `1px solid ${border}`, boxShadow: "0 12px 40px -12px rgba(42,39,36,0.22)" }}>
-        {nav.slice(0, 5).map((item) => {
-          const Icon = item.icon;
-          return (
-            <button key={item.label} aria-label={item.label}
-                    className="relative flex flex-col items-center justify-center w-12 h-11 rounded-full transition"
-                    style={item.active ? { background: dark ? "#2b2620" : "#ebe0c8", color: ink } : { color: muted }}>
-              <Icon className="w-[18px] h-[18px]" strokeWidth={1.5}/>
-              {item.active && <span className="absolute -bottom-0.5 w-1 h-1 rounded-full" style={{ background: accent }}/>}
-            </button>
-          );
-        })}
+      {/* mobile bottom bar — brand mark + hamburger */}
+      <nav className="lg:hidden fixed bottom-4 left-4 right-4 z-30 rounded-full backdrop-blur-xl px-3 py-2 flex items-center justify-between"
+           style={{ background: dark ? "rgba(30,27,23,0.92)" : "rgba(255,251,240,0.94)", border: `1px solid ${border}`, boxShadow: "0 14px 44px -14px rgba(42,39,36,0.28)" }}>
+        <button aria-label="PeaceCode" className="w-11 h-11 rounded-full flex items-center justify-center" style={{ background: dark ? "#2b2620" : "#ebe0c8" }}>
+          <Mark className="w-5 h-5"/>
+        </button>
+        <div className="flex items-center gap-1 text-[10px] tracking-[0.3em] uppercase" style={{ color: muted }}>
+          <span>day 14</span><span className="opacity-40">·</span><span style={{ color: accent }}>bloom</span>
+        </div>
+        <button aria-label="Open menu" onClick={() => setMenuOpen(true)}
+                className="w-11 h-11 rounded-full flex items-center justify-center transition active:scale-95"
+                style={{ background: dark ? "#2b2620" : "#ebe0c8", color: ink }}>
+          <Menu className="w-[18px] h-[18px]" strokeWidth={1.6}/>
+        </button>
       </nav>
+
+      {/* mobile nav drawer */}
+      {menuOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 flex justify-end" onClick={() => setMenuOpen(false)}>
+          <div className="absolute inset-0 backdrop-blur-md" style={{ background: dark ? "rgba(10,8,6,0.55)" : "rgba(38,34,28,0.28)" }}/>
+          <aside onClick={(e) => e.stopPropagation()}
+                 className="relative w-[86%] max-w-[340px] m-3 rounded-[32px] flex flex-col overflow-hidden animate-rise"
+                 style={{ background: dark ? "rgba(30,27,23,0.98)" : "rgba(255,251,240,0.98)", border: `1px solid ${border}`, boxShadow: "0 40px 80px -30px rgba(20,18,16,0.5)" }}>
+            <div className="flex items-center justify-between px-6 pt-6 pb-4">
+              <div className="flex items-center gap-2.5">
+                <Mark className="w-8 h-8"/>
+                <div>
+                  <div className="font-serif text-[16px] leading-none">PeaceCode</div>
+                  <div className="text-[8px] tracking-[0.3em] uppercase opacity-50 mt-1.5">a soft place</div>
+                </div>
+              </div>
+              <button onClick={() => setMenuOpen(false)} aria-label="Close" className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface2, color: ink }}>
+                <X className="w-4 h-4" strokeWidth={1.6}/>
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto scrollbar-none px-4 pb-4">
+              {navGroups.map((group) => (
+                <div key={group.label} className="mt-4">
+                  <div className="text-[9px] tracking-[0.32em] uppercase px-3 mb-2" style={{ color: muted }}>{group.label}</div>
+                  <div className="flex flex-col gap-0.5">
+                    {group.items.map((item) => {
+                      const Icon = item.icon;
+                      const active = "active" in item && item.active;
+                      return (
+                        <button key={item.label} onClick={() => setMenuOpen(false)}
+                                className="flex items-center gap-3 h-12 px-3 rounded-2xl transition"
+                                style={active ? { background: dark ? "#2b2620" : "#ebe0c8", color: ink } : { color: ink }}>
+                          <span className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
+                                style={{ background: active ? (dark ? "#1e1b17" : "#faf3e3") : (dark ? "#26221d" : "#f2e8d1") }}>
+                            <Icon className="w-[17px] h-[17px]" strokeWidth={1.5}/>
+                          </span>
+                          <span className="text-[14px]">{item.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+
+              <div className="mt-6 flex items-center gap-2 px-1">
+                <button onClick={() => setDark(!dark)} className="flex-1 h-11 rounded-2xl flex items-center justify-center gap-2 text-[12px]"
+                        style={{ background: surface2, color: ink }}>
+                  {dark ? <Sun className="w-4 h-4" strokeWidth={1.5}/> : <Moon className="w-4 h-4" strokeWidth={1.5}/>}
+                  {dark ? "day mode" : "night mode"}
+                </button>
+                <button className="flex-1 h-11 rounded-2xl flex items-center justify-center gap-2 text-[12px]"
+                        style={{ background: surface2, color: ink }}>
+                  <Settings className="w-4 h-4" strokeWidth={1.5}/> Settings
+                </button>
+              </div>
+            </div>
+          </aside>
+        </div>
+      )}
     </div>
   );
 }
