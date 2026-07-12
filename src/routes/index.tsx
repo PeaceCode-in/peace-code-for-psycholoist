@@ -332,14 +332,21 @@ function Dashboard() {
               {group.items.map((item) => {
                 const Icon = item.icon;
                 const active = "active" in item && item.active;
-                return (
-                  <button key={item.label} className="relative flex items-center h-11 rounded-2xl transition"
-                          style={active ? { background: dark ? "#223050" : "#EAF3FF", color: ink } : { color: muted }}>
+                const to = "to" in item ? (item as { to?: string }).to : undefined;
+                const cls = "relative flex items-center h-11 rounded-2xl transition";
+                const style = active ? { background: dark ? "#223050" : "#EAF3FF", color: ink } : { color: muted };
+                const inner = (
+                  <>
                     <span className="w-[56px] shrink-0 flex justify-center">
                       <Icon className="w-[19px] h-[19px]" strokeWidth={1.4} />
                     </span>
                     <span className="text-[13px] tracking-wide whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">{item.label}</span>
-                  </button>
+                  </>
+                );
+                return to ? (
+                  <Link key={item.label} to={to} className={cls} style={style}>{inner}</Link>
+                ) : (
+                  <button key={item.label} className={cls} style={style}>{inner}</button>
                 );
               })}
             </div>
