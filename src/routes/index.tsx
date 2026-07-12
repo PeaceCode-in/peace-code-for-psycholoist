@@ -24,7 +24,7 @@ const navGroups = [
       { icon: Bot, label: "Peace Bot" },
       { icon: CalendarCheck, label: "Counseling" },
       { icon: UserCheck, label: "Experts" },
-      { icon: ClipboardList, label: "Screening", active: true },
+      { icon: ClipboardList, label: "Screening", to: "/screening" },
     ],
   },
   {
@@ -32,8 +32,8 @@ const navGroups = [
     items: [
       { icon: Wind, label: "Breathe", to: "/breathe" },
       { icon: Target, label: "Focus", to: "/focus" },
-      { icon: Heart, label: "Gratitude" },
-      { icon: PenLine, label: "Journal" },
+      { icon: Heart, label: "Gratitude", to: "/gratitude" },
+      { icon: PenLine, label: "Journal", to: "/journal" },
       { icon: Activity, label: "Mood Tracker" },
       { icon: Brain, label: "Mind Gym" },
     ],
@@ -46,6 +46,7 @@ const navGroups = [
     ],
   },
 ] as const;
+
 
 const moods = ["cloudy", "gentle", "grounded", "tender", "restless", "flowing"];
 
