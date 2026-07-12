@@ -7,18 +7,61 @@ import {
 } from "lucide-react";
 import logo from "@/assets/peacecode-logo.png";
 
-// ─── ONE constant palette for every page ─────────────────────────
+// ─── Themeable palette — every value is a CSS variable so light/dark ────
+// can be swapped globally by toggling `.dark` on <html>. Tokens live in
+// styles.css under `:root` and `.dark, [data-theme="dark"]`.
 export const palette = {
-  bg:       "#F7FAFF",
-  surface:  "#FFFFFF",
-  surface2: "#EAF3FF",
-  border:   "#DCE3EF",
-  ink:      "#1D2A44",
-  muted:    "#7587A6",
-  primary:  "#4B6CB7",
-  soft:     "#AFC9F5",
-  lavender: "#D5C9F7",
+  bg:       "var(--pc-bg)",
+  surface:  "var(--pc-surface)",
+  surface2: "var(--pc-surface2)",
+  border:   "var(--pc-border)",
+  ink:      "var(--pc-ink)",
+  muted:    "var(--pc-muted)",
+  primary:  "var(--pc-primary)",
+  soft:     "var(--pc-soft)",
+  lavender: "var(--pc-lavender)",
 };
+
+// ─── theme (persistent, cross-page) ─────────────────────────────────
+const THEME_KEY = "peacecode.theme.v1";
+export type Theme = "light" | "dark";
+
+export function getInitialTheme(): Theme {
+  if (typeof window === "undefined") return "light";
+  try {
+    const saved = localStorage.getItem(THEME_KEY);
+    if (saved === "light" || saved === "dark") return saved;
+  } catch {}
+  return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+function applyTheme(t: Theme) {
+  if (typeof document === "undefined") return;
+  const root = document.documentElement;
+  root.classList.toggle("dark", t === "dark");
+  root.setAttribute("data-theme", t);
+  try { localStorage.setItem(THEME_KEY, t); } catch {}
+  window.dispatchEvent(new CustomEvent("peacecode-theme", { detail: t }));
+}
+export function useTheme(): [Theme, (t: Theme) => void, () => void] {
+  const [theme, setThemeState] = useState<Theme>("light");
+  useEffect(() => {
+    const t = getInitialTheme();
+    setThemeState(t);
+    applyTheme(t);
+    const onSync = (e: Event) => {
+      const next = (e as CustomEvent<Theme>).detail;
+      if (next && next !== theme) setThemeState(next);
+    };
+    window.addEventListener("peacecode-theme", onSync);
+    return () => window.removeEventListener("peacecode-theme", onSync);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const setTheme = (t: Theme) => { setThemeState(t); applyTheme(t); };
+  const toggle = () => setTheme(theme === "dark" ? "light" : "dark");
+  return [theme, setTheme, toggle];
+}
+
+
 
 const { bg, surface, surface2, border, ink, muted, primary, soft } = palette;
 
@@ -67,6 +110,7 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [theme, , toggleTheme] = useTheme();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -83,23 +127,25 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
     return pathname === to || pathname.startsWith(to + "/");
   };
 
+
   return (
     <div className="min-h-screen w-full font-sans" style={{ background: bg, color: ink }}>
-      {/* constant, calm aurora — same on every page */}
+      {/* constant, calm aurora — same on every page, themeable */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full opacity-45 blur-3xl"
-             style={{ background: "radial-gradient(circle,#D5C9F7,transparent 70%)" }} />
+             style={{ background: "radial-gradient(circle,var(--pc-aurora-a),transparent 70%)" }} />
         <div className="absolute top-1/3 -right-40 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
-             style={{ background: "radial-gradient(circle,#AFC9F5,transparent 70%)" }} />
+             style={{ background: "radial-gradient(circle,var(--pc-aurora-b),transparent 70%)" }} />
         <div className="absolute -bottom-40 left-1/3 w-[500px] h-[500px] rounded-full opacity-25 blur-3xl"
-             style={{ background: "radial-gradient(circle,#EAF3FF,transparent 70%)" }} />
+             style={{ background: "radial-gradient(circle,var(--pc-aurora-c),transparent 70%)" }} />
       </div>
 
       {/* ─── desktop sidebar ─── */}
       <aside
         className="hidden lg:flex fixed top-6 bottom-6 left-6 z-40 group flex-col py-6 rounded-[38px] backdrop-blur-2xl transition-[width] duration-300 ease-out hover:w-60 w-[80px] overflow-hidden"
-        style={{ background: "rgba(255,255,255,0.78)", border: `1px solid ${border}`, boxShadow: "0 30px 60px -30px rgba(29,42,68,0.18)" }}
+        style={{ background: "var(--pc-shell)", border: `1px solid ${border}`, boxShadow: "0 30px 60px -30px rgba(0,0,0,0.28)" }}
       >
+
         <div className="flex items-center h-12 mb-8">
           <div className="w-[80px] shrink-0 flex justify-center"><Mark className="w-9 h-9" /></div>
           <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 whitespace-nowrap -ml-1">
@@ -138,6 +184,14 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
         </nav>
 
         <div className="shrink-0 mt-4 mx-3 pt-3 flex flex-col gap-1" style={{ borderTop: `1px solid ${border}` }}>
+          <button onClick={toggleTheme} className="flex items-center h-10 rounded-2xl transition" style={{ color: muted }} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>
+            <span className="w-[56px] shrink-0 flex justify-center">
+              {theme === "dark" ? <Sun className="w-[19px] h-[19px]" strokeWidth={1.4}/> : <Moon className="w-[19px] h-[19px]" strokeWidth={1.4}/>}
+            </span>
+            <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">
+              {theme === "dark" ? "Light mode" : "Dark mode"}
+            </span>
+          </button>
           <button className="flex items-center h-10 rounded-2xl transition" style={{ color: muted }} aria-label="Settings">
             <span className="w-[56px] shrink-0 flex justify-center"><Settings className="w-[19px] h-[19px]" strokeWidth={1.4}/></span>
             <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">Settings</span>
@@ -156,13 +210,14 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
             </div>
           </div>
         </div>
+
       </aside>
 
       {/* ─── mobile top bar ─── */}
       {showHeader && (
         <header
-          className={`lg:hidden sticky top-0 z-30 backdrop-blur-xl transition ${scrolled ? "border-b shadow-[0_10px_30px_-20px_rgba(29,42,68,0.2)]" : ""}`}
-          style={{ background: "rgba(247,250,255,0.92)", borderColor: border }}
+          className={`lg:hidden sticky top-0 z-30 backdrop-blur-xl transition ${scrolled ? "border-b shadow-[0_10px_30px_-20px_rgba(0,0,0,0.25)]" : ""}`}
+          style={{ background: "var(--pc-header)", borderColor: border }}
         >
           <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 sm:px-5 py-3">
             <Link to="/" className="flex items-center gap-2.5 min-w-0">
@@ -180,6 +235,9 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
               <div className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px]" style={{ background: surface2, color: primary }}>
                 <Flame className="w-3 h-3" strokeWidth={1.5}/> 12
               </div>
+              <button onClick={toggleTheme} className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}`, color: muted }} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>
+                {theme === "dark" ? <Sun className="w-3.5 h-3.5" strokeWidth={1.5}/> : <Moon className="w-3.5 h-3.5" strokeWidth={1.5}/>}
+              </button>
               <button className="relative w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }} aria-label="notifications">
                 <Bell className="w-3.5 h-3.5 opacity-70" strokeWidth={1.5}/>
                 <span className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full" style={{ background: primary }}/>
@@ -195,7 +253,8 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
       {/* mobile drawer */}
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 z-50" role="dialog" aria-modal="true">
-          <div className="absolute inset-0" style={{ background: "rgba(29,42,68,0.35)" }} onClick={() => setMobileOpen(false)} />
+          <div className="absolute inset-0" style={{ background: "var(--pc-scrim)" }} onClick={() => setMobileOpen(false)} />
+
           <div className="absolute top-0 right-0 bottom-0 w-[86%] max-w-sm p-5 flex flex-col overflow-y-auto"
                style={{ background: surface, borderLeft: `1px solid ${border}` }}>
             <div className="flex items-center justify-between mb-6">
@@ -233,6 +292,10 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
                 </div>
               ))}
             </nav>
+            <button onClick={toggleTheme} className="mt-6 flex items-center gap-3 h-11 px-3 rounded-2xl text-[13px]" style={{ background: surface2, color: ink }} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>
+              {theme === "dark" ? <Sun className="w-4 h-4" strokeWidth={1.5}/> : <Moon className="w-4 h-4" strokeWidth={1.5}/>}
+              {theme === "dark" ? "Light mode" : "Dark mode"}
+            </button>
           </div>
         </div>
       )}
