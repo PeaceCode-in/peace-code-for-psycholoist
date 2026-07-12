@@ -1834,9 +1834,10 @@ type BriefProps = {
 };
 
 function TodayBrief({ accent, ink, bg, border, surface, surface2, muted }: BriefProps) {
-  const [time, setTime] = useState<Date>(new Date());
+  const [time, setTime] = useState<Date | null>(null);
   const [hoverStat, setHoverStat] = useState<number | null>(null);
   useEffect(() => {
+    setTime(new Date());
     const id = setInterval(() => setTime(new Date()), 30_000);
     return () => clearInterval(id);
   }, []);
