@@ -14,7 +14,7 @@ import {
 } from "@/lib/focus-store";
 import { AppShell } from "@/components/AppShell";
 
-export const Route = createFileRoute("/focus")({ component: FocusPage });
+export const Route = createFileRoute("/focus/")({ component: FocusPage });
 
 // ── palette ───────────────────────────────────────────────────────
 const bg="#F7FAFF", surface="#FFFFFF", surface2="#EAF3FF", border="#DCE3EF";
