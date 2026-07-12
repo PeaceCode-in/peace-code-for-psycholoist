@@ -1,49 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
-  Home,
-  Compass,
-  BookOpen,
-  Moon,
-  Sun,
-  Settings,
-  Bell,
-  Play,
-  Pause,
-  Send,
-  Heart,
-  Flame,
-  Trophy,
-  Users,
-  Feather,
-  Wind,
-  BookHeart,
-  Search,
-  Plus,
-  ChevronRight,
-  Music,
-  ArrowUpRight,
-  Sparkles,
-  Waves,
-  Cloud,
-  Sunrise,
-  Leaf,
-  Coffee,
-  PenLine,
-  Volume2,
-  VolumeX,
-  Quote,
+  Home, Compass, BookOpen, Moon, Sun, Settings, Bell, Play, Pause, Send,
+  Heart, Flame, Trophy, Users, Feather, Wind, BookHeart, Search, Plus,
+  ChevronRight, ArrowUpRight, Waves, Leaf, Coffee, PenLine, Volume2, VolumeX, Quote,
 } from "lucide-react";
 import logo from "@/assets/peacecode-logo.png";
 
-export const Route = createFileRoute("/")({
-  component: Dashboard,
-});
+export const Route = createFileRoute("/")({ component: Dashboard });
 
 // ─── data ──────────────────────────────────────────────────────────
 const days = [
-  { n: 7, d: "Mon" }, { n: 8, d: "Tue" }, { n: 9, d: "Wed" },
-  { n: 10, d: "Thu" }, { n: 11, d: "Fri" }, { n: 12, d: "Sat" }, { n: 13, d: "Sun" },
+  { n: 7, d: "Mo" }, { n: 8, d: "Tu" }, { n: 9, d: "We" },
+  { n: 10, d: "Th" }, { n: 11, d: "Fr" }, { n: 12, d: "Sa" }, { n: 13, d: "Su" },
 ];
 
 const nav = [
@@ -56,22 +25,15 @@ const nav = [
   { icon: Trophy, label: "Milestones" },
 ];
 
-const moods = [
-  { emoji: "☁️", label: "cloudy", tint: "#c9c2b4" },
-  { emoji: "🌤", label: "gentle", tint: "#e8d5b7" },
-  { emoji: "🌿", label: "grounded", tint: "#b8c9a8" },
-  { emoji: "🌸", label: "tender", tint: "#e8c5c0" },
-  { emoji: "🔥", label: "restless", tint: "#d4a087" },
-  { emoji: "🌊", label: "flowing", tint: "#b0c4c8" },
-];
+const moods = ["cloudy", "gentle", "grounded", "tender", "restless", "flowing"];
 
 const focusTools = [
-  { label: "Breathe", icon: Wind, hint: "box · 4·4·4·4", color: "#b8c9a8" },
-  { label: "Rainfall", icon: Waves, hint: "36 min loop", color: "#b0c4c8" },
-  { label: "Pomodoro", icon: Coffee, hint: "25 · 5 · 25", color: "#d4a087" },
-  { label: "Journal", icon: Feather, hint: "one line a day", color: "#e8c5c0" },
-  { label: "Body scan", icon: Leaf, hint: "9 min guided", color: "#c9b99a" },
-  { label: "Silence", icon: Cloud, hint: "just be", color: "#c9c2b4" },
+  { label: "Breathe", icon: Wind, hint: "box · 4·4·4·4" },
+  { label: "Rainfall", icon: Waves, hint: "36 min loop" },
+  { label: "Pomodoro", icon: Coffee, hint: "25 · 5 · 25" },
+  { label: "Journal", icon: Feather, hint: "one line a day" },
+  { label: "Body scan", icon: Leaf, hint: "9 min guided" },
+  { label: "Silence", icon: Quote, hint: "just be" },
 ];
 
 const journey = [
@@ -85,10 +47,10 @@ const journey = [
 ];
 
 const posts = [
-  { name: "someone kind", text: "grateful my roommate made chai without asking today.", likes: 24, mood: "🌿" },
-  { name: "a quiet friend", text: "finished a whole week of morning stillness. it's working.", likes: 41, mood: "🌸" },
-  { name: "anon", text: "called mom instead of scrolling. small, but mine.", likes: 58, mood: "☁️" },
-  { name: "night owl", text: "slept eight hours. haven't in a month. tiny miracle.", likes: 33, mood: "🌊" },
+  { name: "someone kind", text: "grateful my roommate made chai without asking today.", likes: 24 },
+  { name: "a quiet friend", text: "finished a whole week of morning stillness. it's working.", likes: 41 },
+  { name: "anon", text: "called mom instead of scrolling. small, but mine.", likes: 58 },
+  { name: "night owl", text: "slept eight hours. haven't in a month. tiny miracle.", likes: 33 },
 ];
 
 const activities = [
@@ -106,6 +68,60 @@ const quotes = [
 
 function Mark({ className = "w-5 h-5", opacity = 1 }: { className?: string; opacity?: number }) {
   return <img src={logo} alt="" className={className} style={{ opacity }} />;
+}
+
+// ─── line-art illustrations (single stroke, no colors) ─────────────
+function Curl({ stroke, className = "" }: { stroke: string; className?: string }) {
+  return (
+    <svg viewBox="0 0 200 200" className={className} fill="none" stroke={stroke} strokeWidth="1" strokeLinecap="round">
+      <path d="M20 140 C 40 100, 70 90, 100 100 S 160 130, 180 90" />
+      <path d="M30 150 C 50 120, 80 110, 110 120 S 170 140, 185 110" opacity="0.55" />
+      <path d="M40 160 C 60 140, 90 130, 120 140 S 175 155, 188 130" opacity="0.3" />
+    </svg>
+  );
+}
+function Sprig({ stroke, className = "" }: { stroke: string; className?: string }) {
+  return (
+    <svg viewBox="0 0 120 200" className={className} fill="none" stroke={stroke} strokeWidth="1" strokeLinecap="round">
+      <path d="M60 190 C 58 140, 62 90, 60 30" />
+      <path d="M60 150 C 40 145, 30 130, 28 115" />
+      <path d="M60 120 C 82 115, 92 100, 94 85" />
+      <path d="M60 90  C 42 85, 32 70, 30 55" />
+      <path d="M60 60  C 78 55, 88 42, 90 28" />
+      <circle cx="60" cy="24" r="4" />
+    </svg>
+  );
+}
+
+// ─── glass donut chart ─────────────────────────────────────────────
+function Donut({ segments, size = 200, ink }: { segments: { v: number; c: string; l: string }[]; size?: number; ink: string }) {
+  const R = 78, C = 2 * Math.PI * R;
+  let offset = 0;
+  const total = segments.reduce((a, s) => a + s.v, 0);
+  return (
+    <svg viewBox="0 0 200 200" width={size} height={size}>
+      <defs>
+        <radialGradient id="glassRing" cx="30%" cy="30%">
+          <stop offset="0%" stopColor="rgba(255,255,255,0.9)" />
+          <stop offset="60%" stopColor="rgba(255,255,255,0.15)" />
+          <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+        </radialGradient>
+      </defs>
+      <circle cx="100" cy="100" r={R} fill="none" stroke={ink} strokeOpacity="0.08" strokeWidth="14" />
+      {segments.map((s, i) => {
+        const len = (s.v / total) * C;
+        const dash = `${len} ${C - len}`;
+        const el = (
+          <circle key={i} cx="100" cy="100" r={R} fill="none" stroke={s.c} strokeWidth="14"
+            strokeDasharray={dash} strokeDashoffset={-offset} strokeLinecap="round"
+            transform="rotate(-90 100 100)" />
+        );
+        offset += len + 3;
+        return el;
+      })}
+      <circle cx="100" cy="100" r={R + 8} fill="url(#glassRing)" opacity="0.6" />
+    </svg>
+  );
 }
 
 function Dashboard() {
@@ -143,37 +159,37 @@ function Dashboard() {
   const mm = String(Math.floor(seconds / 60)).padStart(2, "0");
   const ss = String(seconds % 60).padStart(2, "0");
 
-  // palette
-  const bg = dark ? "#151311" : "#f5efe4";
-  const surface = dark ? "#1e1b18" : "#faf5ea";
-  const surface2 = dark ? "#26221e" : "#ede4d1";
-  const border = dark ? "#2a2724" : "#e5dcc7";
-  const ink = dark ? "#ece6d8" : "#25211c";
-  const muted = dark ? "#8a8378" : "#8a8072";
-  const accent = "#a67c52";
-  const clay = "#c17b6f";
-  const sage = "#8ba282";
+  // ONE unified sepia palette — no green, blue, or peach clashes
+  const bg      = dark ? "#141210" : "#f4ecdd";
+  const surface = dark ? "#1e1b17" : "#faf3e3";
+  const surface2= dark ? "#26221d" : "#ebe0c8";
+  const border  = dark ? "#2b2723" : "#e2d6ba";
+  const ink     = dark ? "#ece4d2" : "#26221c";
+  const muted   = dark ? "#8a8175" : "#8a7f6d";
+  const accent  = "#a67c52";  // clay-bronze
+  const deep    = "#6b4a30";  // deep clay
+  const soft    = "#c9a679";  // wheat
 
   return (
     <div className={`min-h-screen w-full font-sans transition-colors ${dark ? "dark" : ""}`} style={{ background: bg, color: ink }}>
-      {/* film-grain + soft aurora backdrop */}
+      {/* soft aurora backdrop — one palette only */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full opacity-40 blur-3xl"
-             style={{ background: dark ? "radial-gradient(circle,#3a2e22,transparent 70%)" : "radial-gradient(circle,#e8d0b0,transparent 70%)" }} />
+        <div className="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full opacity-45 blur-3xl"
+             style={{ background: dark ? "radial-gradient(circle,#3a2c1e,transparent 70%)" : "radial-gradient(circle,#e8cfa5,transparent 70%)" }} />
         <div className="absolute top-1/3 -right-40 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
-             style={{ background: dark ? "radial-gradient(circle,#2a3830,transparent 70%)" : "radial-gradient(circle,#d0dcc2,transparent 70%)" }} />
+             style={{ background: dark ? "radial-gradient(circle,#2e2118,transparent 70%)" : "radial-gradient(circle,#dcc59a,transparent 70%)" }} />
         <div className="absolute -bottom-40 left-1/3 w-[500px] h-[500px] rounded-full opacity-25 blur-3xl"
-             style={{ background: dark ? "radial-gradient(circle,#3a2823,transparent 70%)" : "radial-gradient(circle,#eed0c8,transparent 70%)" }} />
+             style={{ background: dark ? "radial-gradient(circle,#3a2823,transparent 70%)" : "radial-gradient(circle,#e5d3b0,transparent 70%)" }} />
       </div>
 
-      {/* ─── slim glass sidebar (hover to expand) ─── */}
-      <aside className="hidden lg:flex fixed top-6 bottom-6 left-6 z-40 group flex-col py-6 px-3 rounded-full backdrop-blur-2xl transition-[width] duration-300 hover:w-56 w-[68px] overflow-hidden"
-             style={{ background: dark ? "rgba(30,27,24,0.72)" : "rgba(255,251,242,0.72)", border: `1px solid ${border}`, boxShadow: "0 20px 50px -20px rgba(30,27,24,0.18)" }}>
-        <div className="flex items-center gap-3 px-2.5 mb-8">
-          <Mark className="w-9 h-9 shrink-0" />
-          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-            <div className="font-serif text-[16px] leading-none">PeaceCode</div>
-            <div className="text-[8px] tracking-[0.3em] uppercase opacity-50 mt-1">a soft place</div>
+      {/* ─── glass sidebar (fixed shape, expands cleanly) ─── */}
+      <aside className="hidden lg:flex fixed top-6 bottom-6 left-6 z-40 group flex-col py-6 px-3 rounded-[38px] backdrop-blur-2xl transition-[width] duration-300 ease-out hover:w-60 w-[80px]"
+             style={{ background: dark ? "rgba(30,27,23,0.75)" : "rgba(255,251,240,0.78)", border: `1px solid ${border}`, boxShadow: "0 30px 60px -30px rgba(38,34,28,0.22)" }}>
+        <div className="flex items-center gap-3 px-2.5 mb-8 overflow-hidden">
+          <Mark className="w-10 h-10 shrink-0" />
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 whitespace-nowrap">
+            <div className="font-serif text-[17px] leading-none">PeaceCode</div>
+            <div className="text-[8px] tracking-[0.3em] uppercase opacity-50 mt-1.5">a soft place</div>
           </div>
         </div>
 
@@ -181,30 +197,29 @@ function Dashboard() {
           {nav.map((item) => {
             const Icon = item.icon;
             return (
-              <button key={item.label} className="relative flex items-center gap-3 px-3 py-2.5 rounded-full transition"
-                      style={item.active ? { background: dark ? "#2a2724" : "#ede4d1", color: ink } : { color: muted }}>
-                <Icon className="w-[18px] h-[18px] shrink-0" strokeWidth={1.4} />
-                <span className="text-[13px] tracking-wide whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">{item.label}</span>
-                {item.active && <span className="absolute right-3 w-1 h-1 rounded-full opacity-0 group-hover:opacity-100 transition" style={{ background: accent }} />}
+              <button key={item.label} className="relative flex items-center gap-3.5 px-3 py-2.5 rounded-2xl transition overflow-hidden"
+                      style={item.active ? { background: dark ? "#2b2620" : "#ebe0c8", color: ink } : { color: muted }}>
+                <Icon className="w-[19px] h-[19px] shrink-0" strokeWidth={1.4} />
+                <span className="text-[13px] tracking-wide whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">{item.label}</span>
               </button>
             );
           })}
         </nav>
 
         <div className="mt-auto flex flex-col gap-1">
-          <button onClick={() => setDark(!dark)} className="flex items-center gap-3 px-3 py-2.5 rounded-full transition" style={{ color: muted }}>
-            {dark ? <Sun className="w-[18px] h-[18px] shrink-0" strokeWidth={1.4}/> : <Moon className="w-[18px] h-[18px] shrink-0" strokeWidth={1.4}/>}
-            <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">{dark ? "day" : "night"} mode</span>
+          <button onClick={() => setDark(!dark)} className="flex items-center gap-3.5 px-3 py-2.5 rounded-2xl transition overflow-hidden" style={{ color: muted }}>
+            {dark ? <Sun className="w-[19px] h-[19px] shrink-0" strokeWidth={1.4}/> : <Moon className="w-[19px] h-[19px] shrink-0" strokeWidth={1.4}/>}
+            <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">{dark ? "day" : "night"} mode</span>
           </button>
-          <button className="flex items-center gap-3 px-3 py-2.5 rounded-full" style={{ color: muted }}>
-            <Settings className="w-[18px] h-[18px] shrink-0" strokeWidth={1.4}/>
-            <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">Settings</span>
+          <button className="flex items-center gap-3.5 px-3 py-2.5 rounded-2xl overflow-hidden" style={{ color: muted }}>
+            <Settings className="w-[19px] h-[19px] shrink-0" strokeWidth={1.4}/>
+            <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">Settings</span>
           </button>
-          <div className="mx-2 mt-3 rounded-2xl p-3 flex items-center gap-2.5" style={{ background: dark ? "#26221e" : "#ede4d1" }}>
-            <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style={{ background: "#d9c4a8" }}>
+          <div className="mt-3 rounded-2xl p-2.5 flex items-center gap-2.5 overflow-hidden" style={{ background: dark ? "#26221d" : "#ebe0c8" }}>
+            <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: soft }}>
               <Mark className="w-4 h-4"/>
             </div>
-            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 whitespace-nowrap min-w-0">
               <div className="font-serif text-[13px] leading-none">Keya</div>
               <div className="flex items-center gap-1 mt-1 text-[9px]" style={{ color: accent }}>
                 <Flame className="w-2.5 h-2.5" strokeWidth={1.5}/> 12 day streak
@@ -216,7 +231,7 @@ function Dashboard() {
 
       {/* ─── mobile top bar ─── */}
       <header className={`lg:hidden sticky top-0 z-30 flex items-center justify-between px-5 py-3 backdrop-blur-xl transition ${scrolled ? "border-b" : ""}`}
-              style={{ background: dark ? "rgba(21,19,17,0.85)" : "rgba(245,239,228,0.85)", borderColor: border }}>
+              style={{ background: dark ? "rgba(20,18,16,0.85)" : "rgba(244,236,221,0.88)", borderColor: border }}>
         <div className="flex items-center gap-2.5 min-w-0">
           <Mark className="w-7 h-7 shrink-0"/>
           <div className="min-w-0">
@@ -234,14 +249,13 @@ function Dashboard() {
         </div>
       </header>
 
-      {/* ─── full-screen editorial canvas ─── */}
-      <main ref={mainRef} className="relative z-10 lg:pl-[110px] lg:pr-8 xl:pr-12 px-5 sm:px-8 py-8 lg:py-12 pb-32 lg:pb-16 max-w-[1600px] mx-auto">
+      {/* ─── editorial canvas ─── */}
+      <main ref={mainRef} className="relative z-10 lg:pl-[120px] lg:pr-10 xl:pr-14 px-5 sm:px-8 py-8 lg:py-12 pb-32 lg:pb-16 max-w-[1600px] mx-auto">
 
-        {/* HERO — asymmetric editorial band */}
-        <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 mb-14">
-          {/* left: date + headline */}
-          <div className="lg:col-span-7 xl:col-span-8 flex flex-col justify-between">
-            <div className="flex items-center justify-between mb-6">
+        {/* HERO — quiet editorial band */}
+        <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 items-start">
+          <div className="lg:col-span-8 flex flex-col">
+            <div className="flex items-center justify-between mb-8">
               <div className="text-[10px] tracking-[0.35em] uppercase opacity-60" style={{ color: accent }}>
                 Wednesday · Eleven July · 06:41
               </div>
@@ -252,128 +266,142 @@ function Dashboard() {
                 </div>
                 <button className="relative w-10 h-10 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }}>
                   <Bell className="w-4 h-4 opacity-60" strokeWidth={1.5}/>
-                  <span className="absolute top-2.5 right-2.5 w-1.5 h-1.5 rounded-full" style={{ background: clay }}/>
+                  <span className="absolute top-2.5 right-2.5 w-1.5 h-1.5 rounded-full" style={{ background: accent }}/>
                 </button>
               </div>
             </div>
 
-            <h1 className="font-serif text-[44px] sm:text-[64px] lg:text-[84px] xl:text-[104px] leading-[0.95] tracking-tight" style={{ letterSpacing: "-0.03em" }}>
+            <h1 className="font-serif text-[44px] sm:text-[64px] lg:text-[88px] xl:text-[108px] leading-[0.94] tracking-tight" style={{ letterSpacing: "-0.035em" }}>
               <em className="italic font-light" style={{ color: accent }}>Softly,</em><br/>
               you begin<br/>
               again.
             </h1>
-            <p className="text-[13px] sm:text-[14px] mt-6 opacity-60 max-w-md leading-relaxed">
+            <p className="text-[13px] sm:text-[14px] mt-7 opacity-60 max-w-md leading-relaxed">
               A slow look at how your mind and moments are moving today. No pressure — just presence.
             </p>
 
             {/* day picker */}
-            <div className="mt-8 flex items-center gap-1.5 overflow-x-auto scrollbar-none">
+            <div className="mt-10 flex items-center gap-1.5 overflow-x-auto scrollbar-none">
               {days.map((dd) => {
                 const active = day === dd.n;
                 return (
                   <button key={dd.n} onClick={() => setDay(dd.n)}
-                          className="shrink-0 flex flex-col items-center justify-center w-14 h-[72px] rounded-full transition-all text-[10px]"
+                          className="shrink-0 flex flex-col items-center justify-center w-14 h-[74px] rounded-full transition-all text-[10px]"
                           style={active ? { background: ink, color: bg, transform: "scale(1.02)" } : { background: "transparent", color: muted }}>
                     <span className="font-serif text-[20px] leading-none mb-1.5">{dd.n}</span>
-                    <span className="tracking-[0.2em] uppercase opacity-70">{dd.d.slice(0,2)}</span>
+                    <span className="tracking-[0.2em] uppercase opacity-70">{dd.d}</span>
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* right: featured stillness — visual anchor */}
-          <div className="lg:col-span-5 xl:col-span-4">
-            <div className="relative rounded-[32px] overflow-hidden aspect-[4/5] lg:aspect-auto lg:h-full min-h-[380px] p-7 flex flex-col justify-between cursor-pointer group"
-                 style={{ background: "linear-gradient(155deg,#e8d0b0 0%,#d1a780 45%,#8b6642 100%)" }}>
-              <Mark className="absolute -right-10 -bottom-10 w-72 h-72 group-hover:scale-110 transition duration-[1200ms]" opacity={0.14}/>
-              <div>
+          {/* right: featured stillness — cinematic single anchor */}
+          <div className="lg:col-span-4">
+            <div className="relative rounded-[36px] overflow-hidden aspect-[4/5] p-7 flex flex-col justify-between cursor-pointer group"
+                 style={{ background: `linear-gradient(160deg,${soft} 0%,${accent} 50%,${deep} 100%)` }}>
+              <Curl stroke="#f5eee0" className="absolute -left-6 top-8 w-[220px] opacity-40 group-hover:translate-x-2 transition duration-700" />
+              <Mark className="absolute -right-12 -bottom-12 w-72 h-72 group-hover:scale-110 transition duration-[1200ms]" opacity={0.16}/>
+              <div className="relative">
                 <div className="text-[10px] tracking-[0.3em] uppercase mb-4" style={{ color: "#f5eee0" }}>a walk with breath</div>
-                <div className="font-serif text-[36px] lg:text-[44px] leading-[0.95]" style={{ color: "#2a1f14" }}>
+                <div className="font-serif text-[38px] lg:text-[46px] leading-[0.95]" style={{ color: "#2a1f14" }}>
                   Meditation<br/><em className="italic font-light">&amp; movement</em>
                 </div>
               </div>
-              <div className="flex items-end justify-between">
+              <div className="relative flex items-end justify-between">
                 <div style={{ color: "#2a1f14" }}>
                   <div className="font-serif italic text-xl">24 min</div>
                   <div className="opacity-60 tracking-[0.25em] uppercase text-[9px] mt-1">gentle · guided</div>
                 </div>
-                <button className="w-14 h-14 rounded-full flex items-center justify-center transition group-hover:scale-105" style={{ background: "#2a2724" }}>
-                  <Play className="w-4 h-4 ml-0.5" style={{ color: "#faf6ee" }} strokeWidth={2}/>
+                <button className="w-14 h-14 rounded-full flex items-center justify-center transition group-hover:scale-105" style={{ background: "#26221c" }}>
+                  <Play className="w-4 h-4 ml-0.5" style={{ color: "#faf3e3" }} strokeWidth={2}/>
                 </button>
               </div>
             </div>
           </div>
         </section>
 
-        {/* MOOD / TODAY — full-width editorial card */}
-        <section className="rounded-[36px] p-7 sm:p-10 mb-6 relative overflow-hidden"
-                 style={{ background: surface, border: `1px solid ${border}` }}>
-          <Mark className="absolute -right-16 -bottom-16 w-80 h-80" opacity={dark ? 0.04 : 0.05}/>
+        {/* SECTION LABEL */}
+        <div className="flex items-baseline justify-between mb-6">
+          <div>
+            <div className="text-[10px] tracking-[0.35em] uppercase opacity-50 mb-2" style={{ color: accent }}>a quiet reading</div>
+            <h2 className="font-serif text-[30px] tracking-tight">How today is settling.</h2>
+          </div>
+          <span className="text-[10px] tracking-[0.25em] uppercase opacity-40 hidden sm:block">three soft signals</span>
+        </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative">
-            {/* mood picker */}
+        {/* MOOD / PEACE / STRESS — one flowing canvas, glass donut anchor */}
+        <section className="rounded-[40px] p-7 sm:p-12 mb-16 relative overflow-hidden"
+                 style={{ background: `linear-gradient(140deg, ${surface} 0%, ${surface2} 100%)`, border: `1px solid ${border}` }}>
+          <Sprig stroke={accent} className="absolute right-8 top-8 w-24 opacity-30 hidden lg:block" />
+          <Curl stroke={accent} className="absolute -left-10 bottom-0 w-[300px] opacity-20" />
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 relative items-center">
+            {/* mood — soft chips, one tone */}
             <div className="lg:col-span-4">
               <div className="text-[10px] tracking-[0.3em] uppercase opacity-50 mb-3">how are you, really</div>
-              <h3 className="font-serif text-[32px] leading-[1.05] mb-6">
-                Today feels <em className="italic" style={{ color: accent }}>{moods[mood].label}</em>
+              <h3 className="font-serif text-[32px] leading-[1.05] mb-7">
+                Today feels <em className="italic" style={{ color: accent }}>{moods[mood]}</em>
               </h3>
-              <div className="grid grid-cols-6 lg:grid-cols-3 xl:grid-cols-6 gap-2">
+              <div className="flex flex-wrap gap-2">
                 {moods.map((m, i) => (
-                  <button key={m.label} onClick={() => setMood(i)}
-                          className="aspect-square rounded-2xl flex flex-col items-center justify-center gap-1 transition hover:scale-[1.04]"
-                          style={{ background: mood === i ? m.tint : surface2, border: `1px solid ${mood === i ? m.tint : border}` }}>
-                    <span className="text-lg">{m.emoji}</span>
-                    <span className="text-[8px] tracking-[0.15em] uppercase opacity-70">{m.label}</span>
+                  <button key={m} onClick={() => setMood(i)}
+                          className="px-4 py-2.5 rounded-full text-[11px] tracking-[0.15em] uppercase transition"
+                          style={mood === i
+                            ? { background: ink, color: bg, borderColor: ink }
+                            : { background: "transparent", color: muted, border: `1px solid ${border}` }}>
+                    {m}
                   </button>
                 ))}
               </div>
+              <p className="text-[13px] mt-7 opacity-60 italic max-w-xs">a soft, quiet kind of happy. no need to hold it — just notice.</p>
             </div>
 
-            {/* peace score */}
-            <div className="lg:col-span-4 flex flex-col justify-center lg:border-l lg:border-r lg:px-8" style={{ borderColor: border }}>
-              <div className="text-[10px] tracking-[0.3em] uppercase opacity-50 mb-2">peace score · today</div>
-              <div className="flex items-baseline gap-2 mb-3">
-                <span className="font-serif text-[88px] leading-none tracking-tight">90</span>
-                <span className="font-serif italic text-2xl opacity-40">%</span>
+            {/* peace donut — glass */}
+            <div className="lg:col-span-4 flex flex-col items-center">
+              <div className="text-[10px] tracking-[0.3em] uppercase opacity-50 mb-4">peace score · today</div>
+              <div className="relative">
+                <Donut ink={ink} size={240} segments={[
+                  { v: 70, c: accent, l: "at ease" },
+                  { v: 15, c: deep,   l: "tense" },
+                  { v: 15, c: soft,   l: "wistful" },
+                ]}/>
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <span className="font-serif text-[64px] leading-none tracking-tight">90</span>
+                  <span className="text-[9px] tracking-[0.3em] uppercase opacity-50 mt-1">out of hundred</span>
+                </div>
               </div>
-              <p className="text-[13px] opacity-60 mb-5 italic">a soft, quiet kind of happy.</p>
-              <div className="space-y-2.5">
-                {[{ c: sage, l: "at ease", v: 70 }, { c: clay, l: "tense", v: 15 }, { c: "#a89380", l: "wistful", v: 15 }].map((m) => (
-                  <div key={m.l} className="flex items-center gap-3 text-[11px]">
-                    <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: m.c }}/>
-                    <span className="opacity-60 w-14">{m.l}</span>
-                    <div className="flex-1 h-[3px] rounded-full overflow-hidden" style={{ background: dark ? "#2a2724" : "#e5dcc7" }}>
-                      <div className="h-full rounded-full transition-all duration-700" style={{ width: `${m.v}%`, background: m.c }}/>
-                    </div>
-                    <span className="font-serif italic opacity-50 w-6 text-right">{m.v}</span>
+              <div className="flex items-center gap-5 mt-5 text-[10px] tracking-[0.15em] uppercase">
+                {[{ c: accent, l: "ease", v: 70 }, { c: deep, l: "tense", v: 15 }, { c: soft, l: "wistful", v: 15 }].map(m => (
+                  <div key={m.l} className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ background: m.c }}/>
+                    <span className="opacity-60">{m.l}</span>
+                    <span className="font-serif italic opacity-50">{m.v}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* stress dial + micro stats */}
-            <div className="lg:col-span-4 flex flex-col justify-between">
-              <div>
-                <div className="text-[10px] tracking-[0.3em] uppercase opacity-50 mb-3">stress dial · slide to log</div>
-                <div className="rounded-2xl p-4" style={{ background: surface2 }}>
-                  <div className="flex items-baseline justify-between mb-2">
-                    <span className="font-serif text-[28px] leading-none">{stress}<span className="text-[12px] opacity-40 ml-1">/100</span></span>
-                    <span className="text-[10px] italic opacity-60">{stress < 30 ? "settled" : stress < 60 ? "some weight" : "carrying a lot"}</span>
-                  </div>
-                  <input type="range" min={0} max={100} value={stress} onChange={(e) => setStress(+e.target.value)}
-                         className="w-full accent-[#a67c52]"/>
-                  <div className="flex justify-between text-[9px] tracking-[0.2em] uppercase opacity-40 mt-1">
-                    <span>calm</span><span>heavy</span>
-                  </div>
+            {/* stress dial */}
+            <div className="lg:col-span-4">
+              <div className="text-[10px] tracking-[0.3em] uppercase opacity-50 mb-3">stress dial · slide to log</div>
+              <div className="mb-3">
+                <div className="flex items-baseline justify-between mb-2">
+                  <span className="font-serif text-[52px] leading-none">{stress}<span className="text-[13px] opacity-40 ml-1">/100</span></span>
+                  <span className="text-[10px] italic opacity-60">{stress < 30 ? "settled" : stress < 60 ? "some weight" : "carrying a lot"}</span>
+                </div>
+                <input type="range" min={0} max={100} value={stress} onChange={(e) => setStress(+e.target.value)}
+                       className="w-full accent-[#a67c52]"/>
+                <div className="flex justify-between text-[9px] tracking-[0.2em] uppercase opacity-40 mt-1">
+                  <span>calm</span><span>heavy</span>
                 </div>
               </div>
-              <div className="grid grid-cols-3 gap-2 mt-4">
+              <div className="grid grid-cols-3 gap-3 mt-6">
                 {[{ v: "87", u: "min", l: "stillness" }, { v: "23", u: "", l: "sessions" }, { v: "34", u: "min", l: "avg dwell" }].map((s) => (
-                  <div key={s.l} className="rounded-2xl px-3 py-3" style={{ background: surface2 }}>
-                    <div className="text-[9px] tracking-[0.2em] uppercase opacity-50 mb-1.5">{s.l}</div>
+                  <div key={s.l}>
+                    <div className="text-[9px] tracking-[0.2em] uppercase opacity-50 mb-1">{s.l}</div>
                     <div className="flex items-baseline gap-1">
-                      <span className="font-serif text-[22px] leading-none">{s.v}</span>
+                      <span className="font-serif text-[26px] leading-none">{s.v}</span>
                       <span className="text-[10px] opacity-50">{s.u}</span>
                     </div>
                   </div>
@@ -383,68 +411,65 @@ function Dashboard() {
           </div>
         </section>
 
-        {/* BENTO ROW: breathing orb · timer · quote */}
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 mb-6">
-          {/* breathing orb — interactive */}
+        {/* BENTO ROW: breathing orb · timer · quote — unified glass */}
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 mb-16">
+          {/* breathing orb */}
           <div className="lg:col-span-4 rounded-[32px] p-6 relative overflow-hidden"
-               style={{ background: `linear-gradient(160deg, ${dark ? "#1e1b18" : "#eef1e6"} 0%, ${dark ? "#26221e" : "#dfe6d1"} 100%)`, border: `1px solid ${border}` }}>
+               style={{ background: surface, border: `1px solid ${border}` }}>
             <div className="flex items-center justify-between mb-2">
               <div className="text-[10px] tracking-[0.3em] uppercase opacity-50">box breathing</div>
               <button onClick={() => setBreathing(!breathing)}
-                      className="text-[10px] tracking-[0.2em] uppercase px-3 py-1.5 rounded-full transition"
-                      style={{ background: breathing ? clay : ink, color: bg }}>
+                      className="text-[10px] tracking-[0.2em] uppercase px-3.5 py-1.5 rounded-full transition"
+                      style={{ background: ink, color: bg }}>
                 {breathing ? "pause" : "begin"}
               </button>
             </div>
             <div className="flex items-center justify-center py-6">
-              <div className="relative w-40 h-40 flex items-center justify-center">
-                <div className="absolute inset-2 rounded-full" style={{ background: "radial-gradient(circle at 30% 30%,#d9c4a8,#8ba282)", animation: breathing ? "breathe-orb 8s ease-in-out infinite" : "none", opacity: 0.9 }}/>
-                <div className="absolute inset-6 rounded-full" style={{ background: "radial-gradient(circle at 30% 30%,#e8d5b7,#a89380)", animation: breathing ? "breathe-orb 8s ease-in-out infinite reverse" : "none", opacity: 0.7 }}/>
+              <div className="relative w-44 h-44 flex items-center justify-center">
+                <div className="absolute inset-0 rounded-full" style={{ background: `radial-gradient(circle at 30% 30%, ${soft}55, ${accent}22 60%, transparent 80%)`, animation: breathing ? "breathe-orb 8s ease-in-out infinite" : "none" }}/>
+                <div className="absolute inset-4 rounded-full backdrop-blur-md" style={{ background: `radial-gradient(circle at 30% 30%, ${soft}, ${accent})`, boxShadow: `inset 0 0 40px rgba(255,255,255,0.35), inset 0 -20px 40px ${deep}55`, animation: breathing ? "breathe-orb 8s ease-in-out infinite" : "none" }}/>
                 <Mark className="relative w-12 h-12" opacity={0.9}/>
               </div>
             </div>
             <div className="font-serif italic text-center text-[13px] opacity-60">
               {breathing ? "in… hold… out… hold…" : "four seconds each side"}
             </div>
-            <style>{`@keyframes breathe-orb{0%,100%{transform:scale(0.78);opacity:0.75}50%{transform:scale(1.08);opacity:1}}`}</style>
+            <style>{`@keyframes breathe-orb{0%,100%{transform:scale(0.86);opacity:0.85}50%{transform:scale(1.06);opacity:1}}`}</style>
           </div>
 
-          {/* pomodoro timer — dark cinematic */}
-          <div className="lg:col-span-4 rounded-[32px] p-6 relative overflow-hidden" style={{ background: "#25211c", color: "#f5efe4" }}>
-            <Mark className="absolute -right-6 -bottom-6 w-40 h-40" opacity={0.08}/>
+          {/* pomodoro — dark cinematic (same warm ink) */}
+          <div className="lg:col-span-4 rounded-[32px] p-6 relative overflow-hidden" style={{ background: "#26221c", color: "#f4ecdd" }}>
+            <Curl stroke="#f4ecdd" className="absolute -right-8 -bottom-8 w-52 opacity-15" />
             <div className="relative flex flex-col h-full">
               <div className="flex items-center justify-between mb-3">
                 <div className="text-[10px] tracking-[0.3em] uppercase opacity-50">a slow hour</div>
                 <div className="text-[10px] italic opacity-60">pomodoro · deep focus</div>
               </div>
-              <div className="font-serif text-[72px] leading-none tracking-tight text-center my-6" style={{ letterSpacing: "-0.03em" }}>
+              <div className="font-serif text-[76px] leading-none tracking-tight text-center my-6" style={{ letterSpacing: "-0.03em" }}>
                 {mm}<span className="opacity-30">:</span>{ss}
               </div>
               <div className="flex gap-2 mt-auto">
                 <button onClick={() => setRunning(!running)}
                         className="flex-1 rounded-full py-3 text-[11px] tracking-[0.25em] uppercase flex items-center justify-center gap-2"
-                        style={{ background: "#f5efe4", color: "#25211c" }}>
+                        style={{ background: "#f4ecdd", color: "#26221c" }}>
                   {running ? <Pause className="w-3 h-3"/> : <Play className="w-3 h-3"/>}
                   {running ? "pause" : "begin"}
                 </button>
                 <button onClick={() => { setRunning(false); setSeconds(25 * 60); }}
                         className="px-5 rounded-full text-[11px] tracking-[0.25em] uppercase opacity-70 hover:opacity-100"
-                        style={{ border: "1px solid rgba(245,239,228,0.15)" }}>reset</button>
+                        style={{ border: "1px solid rgba(244,236,221,0.15)" }}>reset</button>
                 <button onClick={() => setSound(!sound)} className="w-11 rounded-full flex items-center justify-center opacity-70 hover:opacity-100"
-                        style={{ border: "1px solid rgba(245,239,228,0.15)" }}>
+                        style={{ border: "1px solid rgba(244,236,221,0.15)" }}>
                   {sound ? <Volume2 className="w-3.5 h-3.5"/> : <VolumeX className="w-3.5 h-3.5"/>}
                 </button>
               </div>
-              {sound && <div className="mt-3 text-[10px] tracking-[0.2em] uppercase opacity-50 flex items-center gap-2">
-                <Sparkles className="w-3 h-3"/> forest rain · looping
-              </div>}
             </div>
           </div>
 
-          {/* quote / weekly reflection */}
+          {/* quote */}
           <div className="lg:col-span-4 rounded-[32px] p-7 relative overflow-hidden flex flex-col justify-between"
-               style={{ background: surface2, border: `1px solid ${border}` }}>
-            <Quote className="w-8 h-8 opacity-30" strokeWidth={1}/>
+               style={{ background: surface, border: `1px solid ${border}` }}>
+            <Quote className="w-8 h-8 opacity-25" strokeWidth={1}/>
             <div>
               <p className="font-serif text-[19px] leading-[1.35] italic transition-opacity duration-500" style={{ color: ink }}>
                 "{quotes[quote].t}"
@@ -460,15 +485,15 @@ function Dashboard() {
           </div>
         </section>
 
-        {/* FOCUS TOOLKIT — full width grid of six tiles */}
-        <div className="flex items-baseline justify-between mb-4 mt-2">
+        {/* FOCUS TOOLKIT — monochrome, minimal */}
+        <div className="flex items-baseline justify-between mb-5 mt-2">
           <div>
-            <h3 className="font-serif text-[26px] tracking-tight">A quiet toolkit</h3>
-            <p className="text-[11px] opacity-50 mt-1 italic">tap anything. no pressure to finish.</p>
+            <div className="text-[10px] tracking-[0.35em] uppercase opacity-50 mb-2" style={{ color: accent }}>quiet toolkit</div>
+            <h3 className="font-serif text-[26px] tracking-tight">Six ways in.</h3>
           </div>
-          <span className="text-[10px] tracking-[0.25em] uppercase opacity-50">six ways in</span>
+          <span className="text-[10px] tracking-[0.25em] uppercase opacity-50 hidden sm:block">tap · no pressure</span>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-14">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-16">
           {focusTools.map((t) => {
             const I = t.icon;
             return (
@@ -476,34 +501,32 @@ function Dashboard() {
                       className="group relative overflow-hidden rounded-[24px] aspect-square p-5 flex flex-col justify-between text-left transition hover:-translate-y-1 duration-200"
                       style={{ background: surface, border: `1px solid ${border}` }}>
                 <div className="flex items-center justify-between">
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center transition group-hover:scale-110" style={{ background: t.color, opacity: 0.75 }}>
-                    <I className="w-4 h-4" strokeWidth={1.4} style={{ color: "#25211c" }}/>
-                  </div>
-                  <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-60 transition"/>
+                  <I className="w-5 h-5 opacity-70" strokeWidth={1.3}/>
+                  <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-50 transition"/>
                 </div>
                 <div>
                   <div className="font-serif text-[19px] leading-none tracking-tight">{t.label}</div>
                   <div className="text-[9px] tracking-[0.2em] uppercase opacity-50 mt-2">{t.hint}</div>
                 </div>
-                <div className="absolute -right-8 -bottom-8 w-24 h-24 rounded-full opacity-0 group-hover:opacity-60 transition duration-500" style={{ background: t.color }}/>
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none"
+                     style={{ background: `radial-gradient(circle at 80% 100%, ${soft}30, transparent 60%)` }}/>
               </button>
             );
           })}
         </div>
 
-        {/* JOURNEY + JOURNAL — asymmetric split */}
-        <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-14">
-          {/* journey */}
+        {/* JOURNEY + JOURNAL */}
+        <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-16">
           <div className="lg:col-span-8 rounded-[36px] p-7 sm:p-10 relative overflow-hidden"
-               style={{ background: `linear-gradient(135deg, ${dark ? "#26221e" : "#ede4d1"} 0%, ${dark ? "#1e1b18" : "#dfd3ba"} 100%)`, border: `1px solid ${border}` }}>
-            <div className="flex items-start justify-between mb-10">
+               style={{ background: `linear-gradient(135deg, ${surface2} 0%, ${surface} 100%)`, border: `1px solid ${border}` }}>
+            <Sprig stroke={accent} className="absolute right-10 top-1/2 -translate-y-1/2 w-20 opacity-30 hidden md:block" />
+            <div className="flex items-start justify-between mb-10 relative">
               <div>
                 <div className="text-[10px] tracking-[0.3em] uppercase opacity-50 mb-2">the slow journey</div>
                 <h3 className="font-serif text-[30px] leading-[1.05] max-w-md">
                   Fourteen days in — <em className="italic" style={{ color: accent }}>halfway to bloom.</em>
                 </h3>
               </div>
-              <Mark className="w-12 h-12 shrink-0" opacity={0.35}/>
             </div>
             <div className="relative flex items-center justify-between overflow-x-auto scrollbar-none">
               <div className="absolute left-4 right-4 top-4 h-px" style={{ background: dark ? "#3a3630" : "#c9b99a" }}/>
@@ -512,7 +535,7 @@ function Dashboard() {
                 <div key={m.day} className="relative flex flex-col items-center gap-3 z-10 shrink-0 px-2">
                   <div className="w-8 h-8 rounded-full flex items-center justify-center font-serif text-[12px] transition"
                        style={m.current ? { background: ink, color: bg, transform: "scale(1.25)" }
-                                        : m.done ? { background: accent, color: "#faf6ee" }
+                                        : m.done ? { background: accent, color: "#faf3e3" }
                                                  : { background: surface, color: muted, border: `1px solid ${dark ? "#3a3630" : "#c9b99a"}` }}>
                     {m.day}
                   </div>
@@ -522,7 +545,6 @@ function Dashboard() {
             </div>
           </div>
 
-          {/* one-line journal */}
           <div className="lg:col-span-4 rounded-[36px] p-7 relative overflow-hidden flex flex-col"
                style={{ background: surface, border: `1px solid ${border}` }}>
             <div className="flex items-center justify-between mb-3">
@@ -544,11 +566,14 @@ function Dashboard() {
           </div>
         </section>
 
-        {/* ACTIVITIES + CHAT — split */}
-        <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-14">
+        {/* ACTIVITIES + CHAT */}
+        <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-16">
           <div className="lg:col-span-7">
             <div className="flex items-baseline justify-between mb-5">
-              <h3 className="font-serif text-[26px] tracking-tight">Small things, today</h3>
+              <div>
+                <div className="text-[10px] tracking-[0.35em] uppercase opacity-50 mb-2" style={{ color: accent }}>small things, today</div>
+                <h3 className="font-serif text-[26px] tracking-tight">Four gentle motions.</h3>
+              </div>
               <span className="text-[10px] tracking-[0.25em] uppercase opacity-50">1h · 07m</span>
             </div>
             <div className="space-y-2">
@@ -573,14 +598,13 @@ function Dashboard() {
             </div>
           </div>
 
-          {/* peace chat */}
           <div className="lg:col-span-5 rounded-[28px] p-6 flex flex-col"
                style={{ background: surface, border: `1px solid ${border}` }}>
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center relative" style={{ background: surface2 }}>
                   <Mark className="w-5 h-5"/>
-                  <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border-2" style={{ background: sage, borderColor: surface }}/>
+                  <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border-2" style={{ background: accent, borderColor: surface }}/>
                 </div>
                 <div>
                   <div className="font-serif text-[16px] leading-tight">Peace</div>
@@ -622,26 +646,23 @@ function Dashboard() {
         {/* COMMUNITY */}
         <div className="flex items-baseline justify-between mb-5">
           <div>
-            <h3 className="font-serif text-[26px] tracking-tight">A quiet circle</h3>
-            <p className="text-[11px] opacity-50 mt-1 italic">anonymous gratitude from students, everywhere.</p>
+            <div className="text-[10px] tracking-[0.35em] uppercase opacity-50 mb-2" style={{ color: accent }}>a quiet circle</div>
+            <h3 className="font-serif text-[26px] tracking-tight">Anonymous gratitude.</h3>
           </div>
           <button className="text-[10px] tracking-[0.25em] uppercase opacity-60 hover:opacity-100 flex items-center gap-1">
             <Plus className="w-3 h-3"/> share
           </button>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-16">
           {posts.map((p, i) => (
             <div key={i} className="group rounded-[24px] p-5 transition cursor-pointer relative overflow-hidden hover:-translate-y-1 duration-200"
                  style={{ background: surface, border: `1px solid ${border}` }}>
-              <Mark className="absolute -right-4 -top-4 w-16 h-16" opacity={0.06}/>
-              <div className="flex items-center justify-between mb-3">
-                <div className="text-[10px] tracking-[0.25em] uppercase opacity-50">{p.name}</div>
-                <span className="text-base">{p.mood}</span>
-              </div>
-              <p className="font-serif italic text-[15px] leading-snug mb-5 opacity-90">"{p.text}"</p>
-              <div className="flex items-center justify-between">
+              <Curl stroke={accent} className="absolute -right-6 -top-6 w-24 opacity-20" />
+              <div className="text-[10px] tracking-[0.25em] uppercase opacity-50 mb-3 relative">{p.name}</div>
+              <p className="font-serif italic text-[15px] leading-snug mb-5 opacity-90 relative">"{p.text}"</p>
+              <div className="flex items-center justify-between relative">
                 <button onClick={() => setLikes({ ...likes, [i]: (likes[i] ?? 0) + 1 })}
-                        className="flex items-center gap-1.5 text-[11px] opacity-70 hover:opacity-100 transition" style={{ color: clay }}>
+                        className="flex items-center gap-1.5 text-[11px] opacity-70 hover:opacity-100 transition" style={{ color: accent }}>
                   <Heart className={`w-3.5 h-3.5 transition ${likes[i] ? "fill-current" : ""}`} strokeWidth={1.5}/>
                   {p.likes + (likes[i] ?? 0)}
                 </button>
@@ -651,15 +672,14 @@ function Dashboard() {
           ))}
         </div>
 
-        {/* ACHIEVEMENTS + EMERGENCY */}
+        {/* ACHIEVEMENTS + SUPPORT (unified tone, no peach) */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-10">
           <div className="lg:col-span-7 rounded-[28px] p-7" style={{ background: surface, border: `1px solid ${border}` }}>
             <div className="flex items-baseline justify-between mb-5">
               <div>
-                <h3 className="font-serif text-[22px] tracking-tight">Small milestones</h3>
-                <p className="text-[11px] opacity-50 italic mt-1">seven of twenty, quietly earned.</p>
+                <div className="text-[10px] tracking-[0.35em] uppercase opacity-50 mb-2" style={{ color: accent }}>small milestones</div>
+                <h3 className="font-serif text-[22px] tracking-tight">Seven of twenty, quietly earned.</h3>
               </div>
-              <Sunrise className="w-5 h-5 opacity-40" strokeWidth={1.4}/>
             </div>
             <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
               {Array.from({ length: 8 }).map((_, i) => {
@@ -667,9 +687,9 @@ function Dashboard() {
                 return (
                   <div key={i}
                        className="aspect-square rounded-2xl flex items-center justify-center transition hover:scale-110 cursor-pointer relative overflow-hidden"
-                       style={{ background: unlocked ? surface2 : (dark ? "#1a1815" : "#f0e9dc"), border: `1px solid ${border}` }}>
+                       style={{ background: surface2, border: `1px solid ${border}` }}>
                     <Mark className="w-6 h-6" opacity={unlocked ? 0.85 : 0.18}/>
-                    {unlocked && <div className="absolute inset-0 opacity-30" style={{ background: "radial-gradient(circle at 30% 30%,#e8d5b7,transparent 70%)" }}/>}
+                    {unlocked && <div className="absolute inset-0 opacity-30" style={{ background: `radial-gradient(circle at 30% 30%,${soft},transparent 70%)` }}/>}
                   </div>
                 );
               })}
@@ -677,9 +697,10 @@ function Dashboard() {
           </div>
 
           <div className="lg:col-span-5 rounded-[28px] p-7 relative overflow-hidden flex flex-col justify-between gap-4"
-               style={{ background: dark ? "#2a201d" : "#efdfd5", border: `1px solid ${dark ? "#3a2a25" : "#e0c9bc"}` }}>
-            <div className="flex items-start gap-4">
-              <div className="w-11 h-11 rounded-full flex items-center justify-center shrink-0" style={{ background: clay }}>
+               style={{ background: surface2, border: `1px solid ${border}` }}>
+            <Curl stroke={accent} className="absolute -right-8 -bottom-8 w-40 opacity-25" />
+            <div className="relative flex items-start gap-4">
+              <div className="w-11 h-11 rounded-full flex items-center justify-center shrink-0" style={{ background: accent }}>
                 <Mark className="w-6 h-6"/>
               </div>
               <div className="min-w-0">
@@ -687,11 +708,11 @@ function Dashboard() {
                 <p className="text-[12px] opacity-60 mt-1 italic leading-snug">a trained listener is one soft tap away — always, and in confidence.</p>
               </div>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="relative flex flex-wrap gap-2">
               <button className="text-[11px] tracking-[0.2em] uppercase px-5 py-2.5 rounded-full transition"
-                      style={{ background: "#2a2724", color: "#faf6ee" }}>talk now</button>
+                      style={{ background: ink, color: bg }}>talk now</button>
               <button className="text-[11px] tracking-[0.2em] uppercase px-5 py-2.5 rounded-full transition"
-                      style={{ border: `1px solid ${dark ? "#3a2a25" : "#d1b8a8"}` }}>text a friend</button>
+                      style={{ border: `1px solid ${border}` }}>text a friend</button>
             </div>
           </div>
         </section>
@@ -703,13 +724,13 @@ function Dashboard() {
 
       {/* mobile bottom nav */}
       <nav className="lg:hidden fixed bottom-3 left-3 right-3 z-30 rounded-full backdrop-blur-xl px-2 py-2 flex items-center justify-around"
-           style={{ background: dark ? "rgba(30,27,24,0.92)" : "rgba(255,251,242,0.94)", border: `1px solid ${border}`, boxShadow: "0 12px 40px -12px rgba(42,39,36,0.22)" }}>
+           style={{ background: dark ? "rgba(30,27,23,0.92)" : "rgba(255,251,240,0.94)", border: `1px solid ${border}`, boxShadow: "0 12px 40px -12px rgba(42,39,36,0.22)" }}>
         {nav.slice(0, 5).map((item) => {
           const Icon = item.icon;
           return (
             <button key={item.label} aria-label={item.label}
                     className="relative flex flex-col items-center justify-center w-12 h-11 rounded-full transition"
-                    style={item.active ? { background: dark ? "#2a2724" : "#ede4d1", color: ink } : { color: muted }}>
+                    style={item.active ? { background: dark ? "#2b2620" : "#ebe0c8", color: ink } : { color: muted }}>
               <Icon className="w-[18px] h-[18px]" strokeWidth={1.5}/>
               {item.active && <span className="absolute -bottom-0.5 w-1 h-1 rounded-full" style={{ background: accent }}/>}
             </button>
