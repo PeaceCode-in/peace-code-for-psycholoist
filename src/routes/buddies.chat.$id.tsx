@@ -54,9 +54,18 @@ function Chat() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
+  // guard: only accepted/active sessions can enter chat
+  useEffect(() => {
+    if (!session) return;
+    if (session.status === "waiting" || session.status === "declined" || session.status === "rescheduled" || session.status === "cancelled") {
+      navigate({ to: "/buddies/request/$id", params: { id: session.id } });
+    }
+  }, [session, navigate]);
+
   // seed opener + timer
   useEffect(() => {
     if (!session || !b) return;
+    if (session.status !== "accepted" && session.status !== "active") return;
     if (session.messages.length === 0) {
       const seed: Msg[] = [
         { id: "s0", from: "system", kind: "text", text: `session started with ${b.name}`, ts: Date.now() },
@@ -67,7 +76,7 @@ function Chat() {
       upsertSession(session);
       setMessages(seed);
       setStatus("active");
-    } else if (session.status === "waiting" || session.status === "accepted") {
+    } else if (session.status === "accepted") {
       session.status = "active"; upsertSession(session); setStatus("active");
     }
     const t = setInterval(() => setElapsed((s) => s + 1), 1000);
