@@ -296,28 +296,48 @@ function Dashboard() {
               </div>
             </div>
 
-            <h1 className="font-serif text-[38px] xs:text-[44px] sm:text-[64px] lg:text-[88px] xl:text-[108px] leading-[0.94] tracking-tight break-words" style={{ letterSpacing: "-0.035em" }}>
-              <em className="italic font-light" style={{ color: accent }}>Softly,</em><br/>
-              you begin<br/>
-              again.
-            </h1>
-            <p className="text-[13px] sm:text-[14px] mt-7 opacity-60 max-w-md leading-relaxed">
+            <div className="relative">
+              {/* decorative sprig — sits behind title, right side */}
+              <Sprig stroke={accent} className="hidden sm:block absolute -right-2 lg:right-8 -top-6 w-[90px] lg:w-[130px] opacity-25 pointer-events-none"/>
+              <Curl stroke={accent} className="hidden lg:block absolute -left-10 top-24 w-[220px] opacity-20 pointer-events-none"/>
+
+              <h1 className="font-serif font-medium text-[44px] xs:text-[52px] sm:text-[76px] lg:text-[96px] xl:text-[112px] leading-[1.02] lg:leading-[0.98] tracking-tight relative" style={{ letterSpacing: "-0.04em" }}>
+                <span className="italic font-normal block" style={{ color: accent }}>Softly,</span>
+                <span className="block">you begin</span>
+                <span className="block">again<span style={{ color: accent }}>.</span></span>
+              </h1>
+            </div>
+
+            <p className="text-[13px] sm:text-[14px] mt-8 lg:mt-10 opacity-60 max-w-md leading-relaxed">
               A slow look at how your mind and moments are moving today. No pressure — just presence.
             </p>
 
-            {/* day picker */}
-            <div className="mt-10 flex items-center gap-1.5 overflow-x-auto scrollbar-none">
-              {days.map((dd) => {
-                const active = day === dd.n;
-                return (
-                  <button key={dd.n} onClick={() => setDay(dd.n)}
-                          className="shrink-0 flex flex-col items-center justify-center w-14 h-[74px] rounded-full transition-all text-[10px]"
-                          style={active ? { background: ink, color: bg, transform: "scale(1.02)" } : { background: "transparent", color: muted }}>
-                    <span className="font-serif text-[20px] leading-none mb-1.5">{dd.n}</span>
-                    <span className="tracking-[0.2em] uppercase opacity-70">{dd.d}</span>
-                  </button>
-                );
-              })}
+            {/* editorial day rail */}
+            <div className="mt-12 lg:mt-14 relative">
+              <div className="absolute left-0 right-0 top-1/2 h-px opacity-40" style={{ background: border }} />
+              <div className="relative flex items-center gap-2 sm:gap-3 overflow-x-auto scrollbar-none pb-1">
+                {days.map((dd) => {
+                  const active = day === dd.n;
+                  return (
+                    <button key={dd.n} onClick={() => setDay(dd.n)}
+                            className="shrink-0 group/day flex flex-col items-center justify-center relative w-[54px] sm:w-[62px] transition-all">
+                      <div className="text-[8.5px] tracking-[0.28em] uppercase mb-2 transition-colors"
+                           style={{ color: active ? accent : muted, opacity: active ? 1 : 0.55 }}>
+                        {dd.d}
+                      </div>
+                      <div className={`flex items-center justify-center rounded-full font-serif transition-all duration-300 ${active ? "w-[54px] h-[54px] sm:w-[62px] sm:h-[62px] text-[22px]" : "w-11 h-11 text-[17px] hover:scale-105"}`}
+                           style={active
+                              ? { background: ink, color: bg, boxShadow: "0 12px 28px -12px rgba(38,34,28,0.55)" }
+                              : { background: "transparent", color: ink, border: `1px solid ${border}` }}>
+                        {dd.n}
+                      </div>
+                      <div className="mt-2 h-1 flex items-center justify-center">
+                        <span className="w-1 h-1 rounded-full transition-all" style={{ background: active ? accent : "transparent" }}/>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
