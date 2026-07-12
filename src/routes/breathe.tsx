@@ -3,8 +3,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowLeft, Play, Pause, RotateCcw, SkipForward, Wind, Zap, Heart,
   Volume2, VolumeX, Mic, MicOff, Flame, Sparkles, Target, Star,
-  Cloud, Waves, Trees, Sun, Bird, Radio, Flame as Fire,
-  Trash2, ChevronRight, X, Award, Timer, Settings2, TrendingUp,
+  Cloud, Waves, Trees, Sun, Bird, Radio, Flame as Fire, Accessibility,
+  Trash2, ChevronRight, X, Award, Timer, Settings2, TrendingUp, BarChart3,
+  Keyboard, Contrast, Type,
 } from "lucide-react";
 import logo from "@/assets/peacecode-logo.png";
 import {
@@ -131,7 +132,9 @@ function BreathePage() {
   const [showLibrary, setShowLibrary] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [showCustom, setShowCustom] = useState(false);
+  const [showA11y, setShowA11y] = useState(false);
   const [showCompletion, setShowCompletion] = useState<null | { mins: number; cycles: number }>(null);
+  const [announce, setAnnounce] = useState("");
 
   const currentTech = techniques.find((t) => t.key === techniqueKey) ?? techniques[0];
   const activePattern: BreathPattern = techniqueKey === "custom" ? prefs.customPattern : currentTech.pattern;
@@ -246,8 +249,9 @@ function BreathePage() {
   // phase progress 0-1
   const phaseProgress = Math.min(1, phaseElapsed / Math.max(0.01, phaseDur(phase)));
 
-  // orb scale: inhale 0.55 -> 1, hold1 = 1, exhale 1 -> 0.55, hold2 = 0.55
+  // orb scale — collapses to a static 0.85 when reduced motion is enabled
   const scale = (() => {
+    if (prefs.reducedMotion) return 0.85;
     if (phase === "inhale") return 0.55 + 0.45 * phaseProgress;
     if (phase === "hold1")  return 1;
     if (phase === "exhale") return 1 - 0.45 * phaseProgress;
@@ -257,6 +261,35 @@ function BreathePage() {
   const phaseLabel: Record<Phase, string> = {
     inhale: "breathe in", hold1: "hold", exhale: "breathe out", hold2: "hold",
   };
+
+  // announce phase changes for screen readers
+  useEffect(() => {
+    if (!running) return;
+    setAnnounce(`${phaseLabel[phase]} — ${Math.round(phaseDur(phase))} seconds`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase, running]);
+
+  // keyboard shortcuts: Space = play/pause, R = reset, S = skip, 1-6 = technique
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement)?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA") return;
+      if (e.code === "Space") {
+        e.preventDefault();
+        if (running) setRunning(false);
+        else if (totalElapsed > 0) setRunning(true);
+        else start();
+      } else if (e.key === "r" || e.key === "R") { reset(); }
+      else if (e.key === "s" || e.key === "S") { stop(); }
+      else if (e.key >= "1" && e.key <= "6") {
+        const idx = Number(e.key) - 1;
+        if (techniques[idx]) { setTechniqueKey(techniques[idx].key); reset(); }
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [running, totalElapsed]);
 
   const toggleFavorite = (k: BreathTechniqueKey) => {
     const fav = prefs.favorites.includes(k)
@@ -281,8 +314,19 @@ function BreathePage() {
     setTimeout(() => start(), 50);
   };
 
+  const hc = prefs.highContrast;
+  const themeStyle = {
+    background: hc ? "#FFFFFF" : bg,
+    color: hc ? "#000000" : ink,
+    fontSize: `${prefs.fontScale * 100}%`,
+  };
+  const cardBorder = hc ? "#000000" : border;
+
   return (
-    <div className="min-h-screen font-['DM_Sans',sans-serif]" style={{ background: bg, color: ink }}>
+    <div className="min-h-screen font-['DM_Sans',sans-serif]" style={themeStyle}>
+      {/* live region for screen readers */}
+      <div aria-live="polite" aria-atomic="true" className="sr-only">{announce}</div>
+
       {/* header */}
       <header className="max-w-6xl mx-auto px-4 sm:px-8 pt-6 sm:pt-10 pb-6 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 group">
@@ -293,16 +337,32 @@ function BreathePage() {
         <div className="flex items-center gap-2 sm:gap-3">
           <button
             onClick={quickCalm}
-            className="hidden sm:inline-flex items-center gap-2 px-4 h-10 rounded-full text-[12px] tracking-wide transition-all hover:-translate-y-0.5"
+            className="hidden sm:inline-flex items-center gap-2 px-4 h-10 rounded-full text-[12px] tracking-wide transition-all hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
             style={{ background: peach, color: ink }}
           >
-            <Zap size={14} /> quick calm · 60s
+            <Zap size={14} aria-hidden="true" /> quick calm · 60s
+          </button>
+          <Link
+            to="/breathe/stats"
+            className="w-10 h-10 rounded-full flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2"
+            style={{ background: surface, border: `1px solid ${cardBorder}` }}
+            aria-label="technique stats"
+          >
+            <BarChart3 size={16} />
+          </Link>
+          <button
+            onClick={() => setShowA11y(true)}
+            className="w-10 h-10 rounded-full flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2"
+            style={{ background: surface, border: `1px solid ${cardBorder}` }}
+            aria-label="accessibility settings"
+          >
+            <Accessibility size={16} />
           </button>
           <button
             onClick={() => setShowHistory(true)}
-            className="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
-            style={{ background: surface, border: `1px solid ${border}` }}
-            aria-label="history"
+            className="w-10 h-10 rounded-full flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2"
+            style={{ background: surface, border: `1px solid ${cardBorder}` }}
+            aria-label="session history"
           >
             <Timer size={16} />
           </button>
@@ -423,6 +483,16 @@ function BreathePage() {
                 </button>
               ))}
             </div>
+
+            {/* keyboard hints */}
+            {prefs.keyboardHints && (
+              <div className="mt-6 text-[10px] tracking-[0.2em] uppercase opacity-50 flex flex-wrap gap-x-4 gap-y-1 justify-center">
+                <span><kbd className="font-sans not-italic">space</kbd> play · pause</span>
+                <span><kbd className="font-sans not-italic">r</kbd> reset</span>
+                <span><kbd className="font-sans not-italic">s</kbd> stop</span>
+                <span><kbd className="font-sans not-italic">1–6</kbd> technique</span>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -793,6 +863,7 @@ function BreathePage() {
         setShowCompletion(null);
         reset();
       }} />}
+      {showA11y && <A11yModal prefs={prefs} onChange={updatePrefs} onClose={() => setShowA11y(false)} />}
     </div>
   );
 }
@@ -990,6 +1061,79 @@ function CompletionModal({ mins, cycles, onClose }: { mins: number; cycles: numb
           style={{ background: ink, color: surface }}
         >close · saved</button>
       </div>
+    </div>
+  );
+}
+
+// ── a11y modal ────────────────────────────────────────────────────
+function A11yModal({ prefs, onChange, onClose }: { prefs: BreathPrefs; onChange: (p: Partial<BreathPrefs>) => void; onClose: () => void }) {
+  const scales = [
+    { v: 1,    label: "normal" },
+    { v: 1.15, label: "large" },
+    { v: 1.3,  label: "larger" },
+    { v: 1.5,  label: "largest" },
+  ];
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "#1D2A4488" }} onClick={onClose} role="dialog" aria-modal="true" aria-label="Accessibility settings">
+      <div className="w-full max-w-md rounded-2xl p-6" style={{ background: surface, border: `1px solid ${border}` }} onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between mb-5">
+          <div>
+            <Kicker>accessibility</Kicker>
+            <h3 className="font-['Fraunces',serif] text-2xl mt-1">Tune it to fit you.</h3>
+          </div>
+          <button onClick={onClose} className="w-9 h-9 rounded-full flex items-center justify-center focus:outline-none focus-visible:ring-2" style={{ background: surface2 }} aria-label="close"><X size={15} /></button>
+        </div>
+
+        <Toggle icon={Sparkles} label="Reduced motion" hint="Freezes the orb — steady visual guide only." value={prefs.reducedMotion} onToggle={() => onChange({ reducedMotion: !prefs.reducedMotion })} />
+        <Toggle icon={Contrast} label="High contrast" hint="Black on white, thicker borders." value={prefs.highContrast} onToggle={() => onChange({ highContrast: !prefs.highContrast })} />
+        <Toggle icon={Keyboard} label="Show keyboard hints" hint="Space · play/pause  ·  R · reset  ·  S · stop  ·  1–6 · technique" value={prefs.keyboardHints} onToggle={() => onChange({ keyboardHints: !prefs.keyboardHints })} />
+
+        <div className="mt-4 pt-4" style={{ borderTop: `1px solid ${border}` }}>
+          <div className="flex items-center gap-2 mb-2">
+            <Type size={13} />
+            <span className="text-[12px]">text size</span>
+          </div>
+          <div className="grid grid-cols-4 gap-2">
+            {scales.map((s) => (
+              <button
+                key={s.v}
+                onClick={() => onChange({ fontScale: s.v })}
+                className="h-10 rounded-xl text-[11px] focus:outline-none focus-visible:ring-2"
+                style={{
+                  background: prefs.fontScale === s.v ? ink : surface,
+                  color: prefs.fontScale === s.v ? surface : ink,
+                  border: `1px solid ${prefs.fontScale === s.v ? ink : border}`,
+                }}
+              >{s.label}</button>
+            ))}
+          </div>
+        </div>
+        <button onClick={onClose} className="w-full mt-6 h-11 rounded-full text-[13px]" style={{ background: ink, color: surface }}>done</button>
+      </div>
+    </div>
+  );
+}
+
+function Toggle({ icon: Icon, label, hint, value, onToggle }: { icon: typeof Sparkles; label: string; hint: string; value: boolean; onToggle: () => void }) {
+  return (
+    <div className="flex items-start justify-between gap-4 py-3">
+      <div className="flex items-start gap-3">
+        <Icon size={15} className="mt-0.5 opacity-70" aria-hidden="true" />
+        <div>
+          <div className="text-[13px]">{label}</div>
+          <div className="text-[11px] opacity-60 mt-0.5">{hint}</div>
+        </div>
+      </div>
+      <button
+        onClick={onToggle}
+        role="switch"
+        aria-checked={value}
+        aria-label={label}
+        className="shrink-0 w-14 h-8 rounded-full relative transition-colors focus:outline-none focus-visible:ring-2"
+        style={{ background: value ? primary : border }}
+      >
+        <span className="absolute top-1 w-6 h-6 rounded-full transition-all" style={{ background: surface, left: value ? "28px" : "4px" }} />
+      </button>
     </div>
   );
 }

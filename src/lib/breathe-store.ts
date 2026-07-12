@@ -30,6 +30,11 @@ export interface BreathPrefs {
   favorites: BreathTechniqueKey[];
   customPattern: BreathPattern;
   dailyGoalMinutes: number;
+  // accessibility
+  reducedMotion: boolean;
+  highContrast: boolean;
+  fontScale: number; // 1 = default, 1.15, 1.3, 1.5
+  keyboardHints: boolean;
 }
 
 const SESSIONS_KEY = "peacecode.breathe.sessions.v1";
@@ -43,6 +48,10 @@ const defaultPrefs: BreathPrefs = {
   favorites: ["box", "478"],
   customPattern: { inhale: 4, hold1: 4, exhale: 4, hold2: 4 },
   dailyGoalMinutes: 5,
+  reducedMotion: false,
+  highContrast: false,
+  fontScale: 1,
+  keyboardHints: true,
 };
 
 function readSessions(): BreathSession[] {
