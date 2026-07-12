@@ -1016,8 +1016,9 @@ function Dashboard() {
                 "md:col-span-2 md:row-span-1",    // 5
               ];
               return (
-                <button
+                <Link
                   key={t.label}
+                  to={t.to}
                   onMouseMove={trackCursor}
                   className={`group card-lift cursor-glow relative overflow-hidden text-left transition-all ${spanMap[i]}`}
                   style={{
