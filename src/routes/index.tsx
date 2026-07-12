@@ -277,7 +277,7 @@ function Dashboard() {
           </div>
         </div>
 
-        <nav className="flex-1 flex flex-col gap-4 px-3 overflow-y-auto scrollbar-none pr-2">
+        <nav className="flex-1 min-h-0 flex flex-col gap-4 px-3 overflow-y-auto scrollbar-soft group-hover:pr-2">
           {navGroups.map((group) => (
             <div key={group.label} className="flex flex-col gap-1">
               <div className="h-4 flex items-center pl-4 mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">
@@ -300,22 +300,25 @@ function Dashboard() {
           ))}
         </nav>
 
-
-        <div className="mt-auto flex flex-col gap-1.5 px-3">
-          <button onClick={() => setDark(!dark)} className="flex items-center h-11 rounded-2xl transition" style={{ color: muted }}>
+        {/* pinned footer box — always visible, no scroll */}
+        <div className="shrink-0 mt-4 mx-3 pt-3 flex flex-col gap-1"
+             style={{ borderTop: `1px solid ${border}` }}>
+          <button onClick={() => setDark(!dark)} className="flex items-center h-10 rounded-2xl transition hover:bg-[color:var(--hov)]"
+                  style={{ color: muted, ["--hov" as any]: dark ? "#2b2620" : "#ebe0c8" }}>
             <span className="w-[56px] shrink-0 flex justify-center">
               {dark ? <Sun className="w-[19px] h-[19px]" strokeWidth={1.4}/> : <Moon className="w-[19px] h-[19px]" strokeWidth={1.4}/>}
             </span>
             <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">{dark ? "day" : "night"} mode</span>
           </button>
-          <button className="flex items-center h-11 rounded-2xl" style={{ color: muted }}>
+          <button className="flex items-center h-10 rounded-2xl transition hover:bg-[color:var(--hov)]"
+                  style={{ color: muted, ["--hov" as any]: dark ? "#2b2620" : "#ebe0c8" }}>
             <span className="w-[56px] shrink-0 flex justify-center">
               <Settings className="w-[19px] h-[19px]" strokeWidth={1.4}/>
             </span>
             <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">Settings</span>
           </button>
-          <div className="mt-3 mx-1 rounded-2xl flex items-center h-14" style={{ background: dark ? "#26221d" : "#ebe0c8" }}>
-            <span className="w-[52px] shrink-0 flex justify-center">
+          <div className="mt-2 rounded-2xl flex items-center h-14" style={{ background: dark ? "#26221d" : "#ebe0c8" }}>
+            <span className="w-[56px] shrink-0 flex justify-center">
               <span className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: soft }}>
                 <Mark className="w-4 h-4"/>
               </span>
