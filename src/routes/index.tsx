@@ -21,9 +21,9 @@ const navGroups = [
   {
     label: "Core Care",
     items: [
-      { icon: Bot, label: "Peace Bot" },
-      { icon: CalendarCheck, label: "Counseling" },
-      { icon: UserCheck, label: "Experts" },
+      { icon: Bot, label: "Peace Bot", to: "/peacebot" },
+      { icon: CalendarCheck, label: "Counseling", to: "/counselling" },
+      { icon: UserCheck, label: "Peace Buddies", to: "/buddies" },
       { icon: ClipboardList, label: "Screening", to: "/screening" },
     ],
   },
@@ -34,15 +34,15 @@ const navGroups = [
       { icon: Target, label: "Focus", to: "/focus" },
       { icon: Heart, label: "Gratitude", to: "/gratitude" },
       { icon: PenLine, label: "Journal", to: "/journal" },
-      { icon: Activity, label: "Mood Tracker" },
-      { icon: Brain, label: "Mind Gym" },
+      { icon: Activity, label: "Mood Tracker", to: "/screening" },
+      { icon: Brain, label: "Mind Gym", to: "/peacebot/tools" },
     ],
   },
   {
     label: "Community & Resources",
     items: [
       { icon: Users, label: "Community", to: "/community" },
-      { icon: BookOpen, label: "Resources" },
+      { icon: BookOpen, label: "Resources", to: "/resources" },
     ],
   },
 ] as const;
@@ -51,13 +51,13 @@ const navGroups = [
 const moods = ["cloudy", "gentle", "grounded", "tender", "restless", "flowing"];
 
 const focusTools = [
-  { label: "Breathe", icon: Wind, hint: "box · 4·4·4·4" },
-  { label: "Rainfall", icon: Waves, hint: "36 min loop" },
-  { label: "Pomodoro", icon: Coffee, hint: "25 · 5 · 25" },
-  { label: "Journal", icon: Feather, hint: "one line a day" },
-  { label: "Body scan", icon: Leaf, hint: "9 min guided" },
-  { label: "Silence", icon: Quote, hint: "just be" },
-];
+  { label: "Breathe", icon: Wind, hint: "box · 4·4·4·4", to: "/breathe" },
+  { label: "Rainfall", icon: Waves, hint: "36 min loop", to: "/focus" },
+  { label: "Pomodoro", icon: Coffee, hint: "25 · 5 · 25", to: "/focus" },
+  { label: "Journal", icon: Feather, hint: "one line a day", to: "/journal" },
+  { label: "Body scan", icon: Leaf, hint: "9 min guided", to: "/breathe" },
+  { label: "Silence", icon: Quote, hint: "just be", to: "/peacebot/tools" },
+] as const;
 
 const journey = [
   { day: 1, label: "Seed", done: true },
@@ -364,13 +364,13 @@ function Dashboard() {
             </span>
             <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">{dark ? "day" : "night"} mode</span>
           </button>
-          <button className="flex items-center h-10 rounded-2xl transition hover:bg-[color:var(--hov)]"
+          <Link to="/peacebot/settings" className="flex items-center h-10 rounded-2xl transition hover:bg-[color:var(--hov)]"
                   style={{ color: muted, ["--hov" as any]: dark ? "#223050" : "#EAF3FF" }}>
             <span className="w-[56px] shrink-0 flex justify-center">
               <Settings className="w-[19px] h-[19px]" strokeWidth={1.4}/>
             </span>
             <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">Settings</span>
-          </button>
+          </Link>
           <div className="mt-2 rounded-2xl flex items-center h-14" style={{ background: dark ? "#1F2A44" : "#EAF3FF" }}>
             <span className="w-[56px] shrink-0 flex justify-center">
               <span className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: soft }}>
@@ -406,10 +406,10 @@ function Dashboard() {
             <div className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px]" style={{ background: surface2, color: accent }}>
               <Flame className="w-3 h-3" strokeWidth={1.5}/> 12
             </div>
-            <button className="relative w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }}>
+            <Link to="/peacebot" aria-label="notifications" className="relative w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }}>
               <Bell className="w-3.5 h-3.5 opacity-70" strokeWidth={1.5}/>
               <span className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full" style={{ background: accent }}/>
-            </button>
+            </Link>
             <button onClick={() => setDark(!dark)} aria-label="toggle mode" className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }}>
               {dark ? <Sun className="w-3.5 h-3.5 opacity-70"/> : <Moon className="w-3.5 h-3.5 opacity-70"/>}
             </button>
@@ -436,10 +436,10 @@ function Dashboard() {
                   <Search className="w-3.5 h-3.5 opacity-40"/>
                   <input placeholder="search stillness…" className="bg-transparent outline-none text-[12px] w-40 placeholder:opacity-40"/>
                 </div>
-                <button className="relative w-10 h-10 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }}>
+                <Link to="/peacebot" aria-label="notifications" className="relative w-10 h-10 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }}>
                   <Bell className="w-4 h-4 opacity-60" strokeWidth={1.5}/>
                   <span className="absolute top-2.5 right-2.5 w-1.5 h-1.5 rounded-full" style={{ background: accent }}/>
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -519,7 +519,7 @@ function Dashboard() {
                                        fill={expSaved[i] ? "#F7FAFF" : "none"}
                                        style={{ color: expSaved[i] ? "#F7FAFF" : "#1D2A44" }} strokeWidth={1.6}/>
                               </button>
-                              <button className="group w-14 h-14 rounded-full flex items-center justify-center transition hover:scale-105 relative overflow-hidden" style={{ background: "#1D2A44" }}>
+                              <Link to="/breathe" onClick={(e) => e.stopPropagation()} aria-label="play" className="group w-14 h-14 rounded-full flex items-center justify-center transition hover:scale-105 relative overflow-hidden" style={{ background: "#1D2A44" }}>
                                 {/* ring progress on the play button */}
                                 <svg className="absolute inset-0 -rotate-90" viewBox="0 0 56 56">
                                   <circle cx="28" cy="28" r="26" fill="none" stroke="rgba(245,238,224,0.15)" strokeWidth="1.5"/>
@@ -528,7 +528,7 @@ function Dashboard() {
                                           strokeDashoffset={2 * Math.PI * 26 * (1 - (expAuto ? expProgress : 0))} />
                                 </svg>
                                 <Play className="w-4 h-4 ml-0.5 relative" style={{ color: "#FFFFFF" }} strokeWidth={2}/>
-                              </button>
+                              </Link>
                             </div>
                           )}
                         </div>
@@ -1016,8 +1016,9 @@ function Dashboard() {
                 "md:col-span-2 md:row-span-1",    // 5
               ];
               return (
-                <button
+                <Link
                   key={t.label}
+                  to={t.to}
                   onMouseMove={trackCursor}
                   className={`group card-lift cursor-glow relative overflow-hidden text-left transition-all ${spanMap[i]}`}
                   style={{
@@ -1104,7 +1105,7 @@ function Dashboard() {
                       </div>
                     )}
                   </div>
-                </button>
+                </Link>
               );
             })}
           </div>
@@ -1277,13 +1278,13 @@ function Dashboard() {
 
               <div className="flex items-center justify-between pt-3 border-t mt-2" style={{ borderColor: border }}>
                 <span className="text-[10px] opacity-45 tracking-[0.15em] uppercase">{note.length} · yours only</span>
-                <button className="group/keep flex items-center gap-2 text-[10px] tracking-[0.28em] uppercase pl-4 pr-1.5 py-1.5 rounded-full transition-all hover:pr-4"
+                <Link to="/journal" className="group/keep flex items-center gap-2 text-[10px] tracking-[0.28em] uppercase pl-4 pr-1.5 py-1.5 rounded-full transition-all hover:pr-4"
                         style={{ background: ink, color: bg }}>
                   <span>seal</span>
                   <span className="w-6 h-6 rounded-full flex items-center justify-center transition-transform group-hover/keep:rotate-45" style={{ background: bg, color: ink }}>
                     <Plus className="w-3 h-3" strokeWidth={2.2}/>
                   </span>
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -1504,8 +1505,8 @@ function Dashboard() {
                   <div className="text-[10.5px] italic opacity-60 mt-1">always here · never louder than you</div>
                 </div>
               </div>
-              <button className="text-[9.5px] tracking-[0.28em] uppercase opacity-55 hover:opacity-100 transition"
-                      style={{ color: muted }}>new thread</button>
+              <Link to="/peacebot" className="text-[9.5px] tracking-[0.28em] uppercase opacity-55 hover:opacity-100 transition"
+                      style={{ color: muted }}>new thread</Link>
             </div>
 
             {/* CONVERSATION */}
@@ -1606,10 +1607,10 @@ function Dashboard() {
             <h3 className="font-serif text-[26px] tracking-tight">Anonymous gratitude.</h3>
             <p className="text-[12px] italic opacity-55 mt-1.5 max-w-md">little offerings from students, held gently. no names, no likes count as approval — just witness.</p>
           </div>
-          <button className="group flex items-center gap-2 text-[10px] tracking-[0.25em] uppercase px-4 py-2.5 rounded-full transition"
+          <Link to="/gratitude/wall" className="group flex items-center gap-2 text-[10px] tracking-[0.25em] uppercase px-4 py-2.5 rounded-full transition"
                   style={{ background: ink, color: bg }}>
             <Plus className="w-3 h-3 transition-transform group-hover:rotate-90 duration-500"/> offer one
-          </button>
+          </Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
           {posts.map((p, i) => {
@@ -1699,7 +1700,7 @@ function Dashboard() {
               {["first breath","seven mornings","one honest note","a walk alone","two weeks steady","empty inbox","early sleep","stillness · 10h"].map((name, i) => {
                 const unlocked = i < 4;
                 return (
-                  <button key={i} title={name}
+                  <Link key={i} to="/resources/achievements" title={name}
                        onMouseMove={trackCursor}
                        className="group cursor-glow aspect-square rounded-2xl flex items-center justify-center cursor-pointer relative overflow-hidden transition-all duration-500 hover:-translate-y-1 focus:outline-none"
                        style={{ background: surface2, border: `1px solid ${border}` }}>
@@ -1711,7 +1712,7 @@ function Dashboard() {
                           style={{ background: ink, color: bg }}>
                       {name}
                     </span>
-                  </button>
+                  </Link>
                 );
               })}
             </div>
@@ -1730,10 +1731,10 @@ function Dashboard() {
               </div>
             </div>
             <div className="relative flex flex-wrap gap-2">
-              <button className="text-[11px] tracking-[0.2em] uppercase px-5 py-2.5 rounded-full transition"
-                      style={{ background: ink, color: bg }}>talk now</button>
-              <button className="text-[11px] tracking-[0.2em] uppercase px-5 py-2.5 rounded-full transition"
-                      style={{ border: `1px solid ${border}` }}>text a friend</button>
+              <Link to="/counselling/emergency" className="text-[11px] tracking-[0.2em] uppercase px-5 py-2.5 rounded-full transition"
+                      style={{ background: ink, color: bg }}>talk now</Link>
+              <Link to="/buddies" className="text-[11px] tracking-[0.2em] uppercase px-5 py-2.5 rounded-full transition"
+                      style={{ border: `1px solid ${border}` }}>text a friend</Link>
             </div>
           </div>
         </section>
@@ -1903,12 +1904,12 @@ function TodayBrief({ accent, ink, bg, border, surface, surface2, muted }: Brief
               : { lead: "the day is winding down", body: "dim the screen. a breath box, then sleep story. tomorrow is not urgent." };
           const cta =
             hour < 12
-              ? { label: "start a 10-min focus", target: "focus" }
+              ? { label: "start a 10-min focus", target: "focus", to: "/focus" as const }
               : hour < 17
-              ? { label: "resume · meditation & movement", target: "meditation" }
+              ? { label: "resume · meditation & movement", target: "meditation", to: "/breathe" as const }
               : hour < 21
-              ? { label: "open gratitude · 3 lines", target: "gratitude" }
-              : { label: "begin sleep story · 12 min", target: "sleep" };
+              ? { label: "open gratitude · 3 lines", target: "gratitude", to: "/gratitude" as const }
+              : { label: "begin sleep story · 12 min", target: "sleep", to: "/peacebot" as const };
           return (
             <>
               <p className="font-serif text-[17.5px] sm:text-[26px] lg:text-[30px] leading-[1.18] sm:leading-[1.25] tracking-tight max-w-[640px]"
@@ -2000,14 +2001,14 @@ function TodayBrief({ accent, ink, bg, border, surface, surface2, muted }: Brief
                     </div>
                   </div>
                 </div>
-                <button className="group/cta relative overflow-hidden rounded-full px-5 h-11 flex items-center gap-2.5 text-[12px] tracking-wide shrink-0 transition-all duration-300 hover:pr-6"
+                <Link to={cta.to} className="group/cta relative overflow-hidden rounded-full px-5 h-11 flex items-center gap-2.5 text-[12px] tracking-wide shrink-0 transition-all duration-300 hover:pr-6"
                         style={{ background: ink, color: bg }}
                         data-target={cta.target}>
                   <span className="relative z-10">{cta.label}</span>
                   <ArrowUpRight className="w-3.5 h-3.5 relative z-10 transition-transform group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" strokeWidth={1.75}/>
                   <span className="absolute inset-0 opacity-0 group-hover/cta:opacity-100 transition-opacity"
                         style={{ background: `linear-gradient(90deg, ${ink} 0%, ${accent} 120%)` }}/>
-                </button>
+                </Link>
               </div>
             </>
           );
