@@ -15,7 +15,7 @@ import {
 import { gratitudeAI } from "@/lib/gratitude-ai.functions";
 import { getPermission, requestPermission, startReminderLoop, type NotifyPermission } from "@/lib/gratitude-notify";
 
-export const Route = createFileRoute("/gratitude")({
+export const Route = createFileRoute("/gratitude/")({
   head: () => ({
     meta: [
       { title: "Gratitude — PeaceCode" },

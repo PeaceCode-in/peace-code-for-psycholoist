@@ -9,13 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as JournalRouteImport } from './routes/journal'
-import { Route as GratitudeRouteImport } from './routes/gratitude'
-import { Route as FocusRouteImport } from './routes/focus'
 import { Route as CommunityRouteImport } from './routes/community'
-import { Route as BreatheRouteImport } from './routes/breathe'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ScreeningIndexRouteImport } from './routes/screening.index'
+import { Route as JournalIndexRouteImport } from './routes/journal.index'
+import { Route as GratitudeIndexRouteImport } from './routes/gratitude.index'
+import { Route as FocusIndexRouteImport } from './routes/focus.index'
+import { Route as BreatheIndexRouteImport } from './routes/breathe.index'
 import { Route as ScreeningSettingsRouteImport } from './routes/screening.settings'
 import { Route as ScreeningResourcesRouteImport } from './routes/screening.resources'
 import { Route as ScreeningLibraryRouteImport } from './routes/screening.library'
@@ -36,29 +36,9 @@ import { Route as ScreeningInstructionsIdRouteImport } from './routes/screening.
 import { Route as ScreeningConsentIdRouteImport } from './routes/screening.consent.$id'
 import { Route as ScreeningAssessmentIdRouteImport } from './routes/screening.assessment.$id'
 
-const JournalRoute = JournalRouteImport.update({
-  id: '/journal',
-  path: '/journal',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GratitudeRoute = GratitudeRouteImport.update({
-  id: '/gratitude',
-  path: '/gratitude',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FocusRoute = FocusRouteImport.update({
-  id: '/focus',
-  path: '/focus',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const CommunityRoute = CommunityRouteImport.update({
   id: '/community',
   path: '/community',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BreatheRoute = BreatheRouteImport.update({
-  id: '/breathe',
-  path: '/breathe',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -69,6 +49,26 @@ const IndexRoute = IndexRouteImport.update({
 const ScreeningIndexRoute = ScreeningIndexRouteImport.update({
   id: '/screening/',
   path: '/screening/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JournalIndexRoute = JournalIndexRouteImport.update({
+  id: '/journal/',
+  path: '/journal/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GratitudeIndexRoute = GratitudeIndexRouteImport.update({
+  id: '/gratitude/',
+  path: '/gratitude/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FocusIndexRoute = FocusIndexRouteImport.update({
+  id: '/focus/',
+  path: '/focus/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BreatheIndexRoute = BreatheIndexRouteImport.update({
+  id: '/breathe/',
+  path: '/breathe/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ScreeningSettingsRoute = ScreeningSettingsRouteImport.update({
@@ -92,44 +92,44 @@ const ScreeningHistoryRoute = ScreeningHistoryRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const JournalVoiceRoute = JournalVoiceRouteImport.update({
-  id: '/voice',
-  path: '/voice',
-  getParentRoute: () => JournalRoute,
+  id: '/journal/voice',
+  path: '/journal/voice',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const JournalMemoriesRoute = JournalMemoriesRouteImport.update({
-  id: '/memories',
-  path: '/memories',
-  getParentRoute: () => JournalRoute,
+  id: '/journal/memories',
+  path: '/journal/memories',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const JournalIdRoute = JournalIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => JournalRoute,
+  id: '/journal/$id',
+  path: '/journal/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const GratitudeWallRoute = GratitudeWallRouteImport.update({
-  id: '/wall',
-  path: '/wall',
-  getParentRoute: () => GratitudeRoute,
+  id: '/gratitude/wall',
+  path: '/gratitude/wall',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const GratitudeTreeRoute = GratitudeTreeRouteImport.update({
-  id: '/tree',
-  path: '/tree',
-  getParentRoute: () => GratitudeRoute,
+  id: '/gratitude/tree',
+  path: '/gratitude/tree',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const GratitudeHistoryRoute = GratitudeHistoryRouteImport.update({
-  id: '/history',
-  path: '/history',
-  getParentRoute: () => GratitudeRoute,
+  id: '/gratitude/history',
+  path: '/gratitude/history',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const GratitudeForestRoute = GratitudeForestRouteImport.update({
-  id: '/forest',
-  path: '/forest',
-  getParentRoute: () => GratitudeRoute,
+  id: '/gratitude/forest',
+  path: '/gratitude/forest',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const BreatheStatsRoute = BreatheStatsRouteImport.update({
-  id: '/stats',
-  path: '/stats',
-  getParentRoute: () => BreatheRoute,
+  id: '/breathe/stats',
+  path: '/breathe/stats',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
@@ -169,11 +169,7 @@ const ScreeningAssessmentIdRoute = ScreeningAssessmentIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/breathe': typeof BreatheRouteWithChildren
   '/community': typeof CommunityRoute
-  '/focus': typeof FocusRoute
-  '/gratitude': typeof GratitudeRouteWithChildren
-  '/journal': typeof JournalRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/gratitude/forest': typeof GratitudeForestRoute
@@ -187,6 +183,10 @@ export interface FileRoutesByFullPath {
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/resources': typeof ScreeningResourcesRoute
   '/screening/settings': typeof ScreeningSettingsRoute
+  '/breathe/': typeof BreatheIndexRoute
+  '/focus/': typeof FocusIndexRoute
+  '/gratitude/': typeof GratitudeIndexRoute
+  '/journal/': typeof JournalIndexRoute
   '/screening/': typeof ScreeningIndexRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
@@ -197,11 +197,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/breathe': typeof BreatheRouteWithChildren
   '/community': typeof CommunityRoute
-  '/focus': typeof FocusRoute
-  '/gratitude': typeof GratitudeRouteWithChildren
-  '/journal': typeof JournalRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/gratitude/forest': typeof GratitudeForestRoute
@@ -215,6 +211,10 @@ export interface FileRoutesByTo {
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/resources': typeof ScreeningResourcesRoute
   '/screening/settings': typeof ScreeningSettingsRoute
+  '/breathe': typeof BreatheIndexRoute
+  '/focus': typeof FocusIndexRoute
+  '/gratitude': typeof GratitudeIndexRoute
+  '/journal': typeof JournalIndexRoute
   '/screening': typeof ScreeningIndexRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
@@ -226,11 +226,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/breathe': typeof BreatheRouteWithChildren
   '/community': typeof CommunityRoute
-  '/focus': typeof FocusRoute
-  '/gratitude': typeof GratitudeRouteWithChildren
-  '/journal': typeof JournalRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
   '/gratitude/forest': typeof GratitudeForestRoute
@@ -244,6 +240,10 @@ export interface FileRoutesById {
   '/screening/library': typeof ScreeningLibraryRoute
   '/screening/resources': typeof ScreeningResourcesRoute
   '/screening/settings': typeof ScreeningSettingsRoute
+  '/breathe/': typeof BreatheIndexRoute
+  '/focus/': typeof FocusIndexRoute
+  '/gratitude/': typeof GratitudeIndexRoute
+  '/journal/': typeof JournalIndexRoute
   '/screening/': typeof ScreeningIndexRoute
   '/screening/assessment/$id': typeof ScreeningAssessmentIdRoute
   '/screening/consent/$id': typeof ScreeningConsentIdRoute
@@ -256,11 +256,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/breathe'
     | '/community'
-    | '/focus'
-    | '/gratitude'
-    | '/journal'
     | '/api/chat'
     | '/breathe/stats'
     | '/gratitude/forest'
@@ -274,6 +270,10 @@ export interface FileRouteTypes {
     | '/screening/library'
     | '/screening/resources'
     | '/screening/settings'
+    | '/breathe/'
+    | '/focus/'
+    | '/gratitude/'
+    | '/journal/'
     | '/screening/'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
@@ -284,11 +284,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/breathe'
     | '/community'
-    | '/focus'
-    | '/gratitude'
-    | '/journal'
     | '/api/chat'
     | '/breathe/stats'
     | '/gratitude/forest'
@@ -302,6 +298,10 @@ export interface FileRouteTypes {
     | '/screening/library'
     | '/screening/resources'
     | '/screening/settings'
+    | '/breathe'
+    | '/focus'
+    | '/gratitude'
+    | '/journal'
     | '/screening'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
@@ -312,11 +312,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/breathe'
     | '/community'
-    | '/focus'
-    | '/gratitude'
-    | '/journal'
     | '/api/chat'
     | '/breathe/stats'
     | '/gratitude/forest'
@@ -330,6 +326,10 @@ export interface FileRouteTypes {
     | '/screening/library'
     | '/screening/resources'
     | '/screening/settings'
+    | '/breathe/'
+    | '/focus/'
+    | '/gratitude/'
+    | '/journal/'
     | '/screening/'
     | '/screening/assessment/$id'
     | '/screening/consent/$id'
@@ -341,16 +341,24 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BreatheRoute: typeof BreatheRouteWithChildren
   CommunityRoute: typeof CommunityRoute
-  FocusRoute: typeof FocusRoute
-  GratitudeRoute: typeof GratitudeRouteWithChildren
-  JournalRoute: typeof JournalRouteWithChildren
   ApiChatRoute: typeof ApiChatRoute
+  BreatheStatsRoute: typeof BreatheStatsRoute
+  GratitudeForestRoute: typeof GratitudeForestRoute
+  GratitudeHistoryRoute: typeof GratitudeHistoryRoute
+  GratitudeTreeRoute: typeof GratitudeTreeRoute
+  GratitudeWallRoute: typeof GratitudeWallRoute
+  JournalIdRoute: typeof JournalIdRoute
+  JournalMemoriesRoute: typeof JournalMemoriesRoute
+  JournalVoiceRoute: typeof JournalVoiceRoute
   ScreeningHistoryRoute: typeof ScreeningHistoryRoute
   ScreeningLibraryRoute: typeof ScreeningLibraryRoute
   ScreeningResourcesRoute: typeof ScreeningResourcesRoute
   ScreeningSettingsRoute: typeof ScreeningSettingsRoute
+  BreatheIndexRoute: typeof BreatheIndexRoute
+  FocusIndexRoute: typeof FocusIndexRoute
+  GratitudeIndexRoute: typeof GratitudeIndexRoute
+  JournalIndexRoute: typeof JournalIndexRoute
   ScreeningIndexRoute: typeof ScreeningIndexRoute
   ScreeningAssessmentIdRoute: typeof ScreeningAssessmentIdRoute
   ScreeningConsentIdRoute: typeof ScreeningConsentIdRoute
@@ -362,39 +370,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/journal': {
-      id: '/journal'
-      path: '/journal'
-      fullPath: '/journal'
-      preLoaderRoute: typeof JournalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/gratitude': {
-      id: '/gratitude'
-      path: '/gratitude'
-      fullPath: '/gratitude'
-      preLoaderRoute: typeof GratitudeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/focus': {
-      id: '/focus'
-      path: '/focus'
-      fullPath: '/focus'
-      preLoaderRoute: typeof FocusRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/community': {
       id: '/community'
       path: '/community'
       fullPath: '/community'
       preLoaderRoute: typeof CommunityRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/breathe': {
-      id: '/breathe'
-      path: '/breathe'
-      fullPath: '/breathe'
-      preLoaderRoute: typeof BreatheRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -409,6 +389,34 @@ declare module '@tanstack/react-router' {
       path: '/screening'
       fullPath: '/screening/'
       preLoaderRoute: typeof ScreeningIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/journal/': {
+      id: '/journal/'
+      path: '/journal'
+      fullPath: '/journal/'
+      preLoaderRoute: typeof JournalIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gratitude/': {
+      id: '/gratitude/'
+      path: '/gratitude'
+      fullPath: '/gratitude/'
+      preLoaderRoute: typeof GratitudeIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/focus/': {
+      id: '/focus/'
+      path: '/focus'
+      fullPath: '/focus/'
+      preLoaderRoute: typeof FocusIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/breathe/': {
+      id: '/breathe/'
+      path: '/breathe'
+      fullPath: '/breathe/'
+      preLoaderRoute: typeof BreatheIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/screening/settings': {
@@ -441,59 +449,59 @@ declare module '@tanstack/react-router' {
     }
     '/journal/voice': {
       id: '/journal/voice'
-      path: '/voice'
+      path: '/journal/voice'
       fullPath: '/journal/voice'
       preLoaderRoute: typeof JournalVoiceRouteImport
-      parentRoute: typeof JournalRoute
+      parentRoute: typeof rootRouteImport
     }
     '/journal/memories': {
       id: '/journal/memories'
-      path: '/memories'
+      path: '/journal/memories'
       fullPath: '/journal/memories'
       preLoaderRoute: typeof JournalMemoriesRouteImport
-      parentRoute: typeof JournalRoute
+      parentRoute: typeof rootRouteImport
     }
     '/journal/$id': {
       id: '/journal/$id'
-      path: '/$id'
+      path: '/journal/$id'
       fullPath: '/journal/$id'
       preLoaderRoute: typeof JournalIdRouteImport
-      parentRoute: typeof JournalRoute
+      parentRoute: typeof rootRouteImport
     }
     '/gratitude/wall': {
       id: '/gratitude/wall'
-      path: '/wall'
+      path: '/gratitude/wall'
       fullPath: '/gratitude/wall'
       preLoaderRoute: typeof GratitudeWallRouteImport
-      parentRoute: typeof GratitudeRoute
+      parentRoute: typeof rootRouteImport
     }
     '/gratitude/tree': {
       id: '/gratitude/tree'
-      path: '/tree'
+      path: '/gratitude/tree'
       fullPath: '/gratitude/tree'
       preLoaderRoute: typeof GratitudeTreeRouteImport
-      parentRoute: typeof GratitudeRoute
+      parentRoute: typeof rootRouteImport
     }
     '/gratitude/history': {
       id: '/gratitude/history'
-      path: '/history'
+      path: '/gratitude/history'
       fullPath: '/gratitude/history'
       preLoaderRoute: typeof GratitudeHistoryRouteImport
-      parentRoute: typeof GratitudeRoute
+      parentRoute: typeof rootRouteImport
     }
     '/gratitude/forest': {
       id: '/gratitude/forest'
-      path: '/forest'
+      path: '/gratitude/forest'
       fullPath: '/gratitude/forest'
       preLoaderRoute: typeof GratitudeForestRouteImport
-      parentRoute: typeof GratitudeRoute
+      parentRoute: typeof rootRouteImport
     }
     '/breathe/stats': {
       id: '/breathe/stats'
-      path: '/stats'
+      path: '/breathe/stats'
       fullPath: '/breathe/stats'
       preLoaderRoute: typeof BreatheStatsRouteImport
-      parentRoute: typeof BreatheRoute
+      parentRoute: typeof rootRouteImport
     }
     '/api/chat': {
       id: '/api/chat'
@@ -547,62 +555,26 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface BreatheRouteChildren {
-  BreatheStatsRoute: typeof BreatheStatsRoute
-}
-
-const BreatheRouteChildren: BreatheRouteChildren = {
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  CommunityRoute: CommunityRoute,
+  ApiChatRoute: ApiChatRoute,
   BreatheStatsRoute: BreatheStatsRoute,
-}
-
-const BreatheRouteWithChildren =
-  BreatheRoute._addFileChildren(BreatheRouteChildren)
-
-interface GratitudeRouteChildren {
-  GratitudeForestRoute: typeof GratitudeForestRoute
-  GratitudeHistoryRoute: typeof GratitudeHistoryRoute
-  GratitudeTreeRoute: typeof GratitudeTreeRoute
-  GratitudeWallRoute: typeof GratitudeWallRoute
-}
-
-const GratitudeRouteChildren: GratitudeRouteChildren = {
   GratitudeForestRoute: GratitudeForestRoute,
   GratitudeHistoryRoute: GratitudeHistoryRoute,
   GratitudeTreeRoute: GratitudeTreeRoute,
   GratitudeWallRoute: GratitudeWallRoute,
-}
-
-const GratitudeRouteWithChildren = GratitudeRoute._addFileChildren(
-  GratitudeRouteChildren,
-)
-
-interface JournalRouteChildren {
-  JournalIdRoute: typeof JournalIdRoute
-  JournalMemoriesRoute: typeof JournalMemoriesRoute
-  JournalVoiceRoute: typeof JournalVoiceRoute
-}
-
-const JournalRouteChildren: JournalRouteChildren = {
   JournalIdRoute: JournalIdRoute,
   JournalMemoriesRoute: JournalMemoriesRoute,
   JournalVoiceRoute: JournalVoiceRoute,
-}
-
-const JournalRouteWithChildren =
-  JournalRoute._addFileChildren(JournalRouteChildren)
-
-const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  BreatheRoute: BreatheRouteWithChildren,
-  CommunityRoute: CommunityRoute,
-  FocusRoute: FocusRoute,
-  GratitudeRoute: GratitudeRouteWithChildren,
-  JournalRoute: JournalRouteWithChildren,
-  ApiChatRoute: ApiChatRoute,
   ScreeningHistoryRoute: ScreeningHistoryRoute,
   ScreeningLibraryRoute: ScreeningLibraryRoute,
   ScreeningResourcesRoute: ScreeningResourcesRoute,
   ScreeningSettingsRoute: ScreeningSettingsRoute,
+  BreatheIndexRoute: BreatheIndexRoute,
+  FocusIndexRoute: FocusIndexRoute,
+  GratitudeIndexRoute: GratitudeIndexRoute,
+  JournalIndexRoute: JournalIndexRoute,
   ScreeningIndexRoute: ScreeningIndexRoute,
   ScreeningAssessmentIdRoute: ScreeningAssessmentIdRoute,
   ScreeningConsentIdRoute: ScreeningConsentIdRoute,

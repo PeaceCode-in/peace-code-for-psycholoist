@@ -15,7 +15,7 @@ import {
 import { journalAI } from "@/lib/journal-ai.functions";
 import { monthlyReflection } from "@/lib/journal-voice.functions";
 
-export const Route = createFileRoute("/journal")({ component: JournalHome });
+export const Route = createFileRoute("/journal/")({ component: JournalHome });
 
 const { surface, surface2, border, ink, muted, primary, soft, lavender } = palette;
 

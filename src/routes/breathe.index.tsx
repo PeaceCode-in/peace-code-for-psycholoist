@@ -15,7 +15,7 @@ import {
 } from "@/lib/breathe-store";
 import { AppShell } from "@/components/AppShell";
 
-export const Route = createFileRoute("/breathe")({ component: BreathePage });
+export const Route = createFileRoute("/breathe/")({ component: BreathePage });
 
 // ── palette (matches focus/index) ─────────────────────────────────
 const bg = "#F7FAFF", surface = "#FFFFFF", surface2 = "#EAF3FF", border = "#DCE3EF";
