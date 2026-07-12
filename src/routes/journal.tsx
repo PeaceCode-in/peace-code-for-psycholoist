@@ -41,6 +41,7 @@ function JournalHome() {
   const [reflection, setReflection] = useState<string>("");
   const [reflectLoading, setReflectLoading] = useState(false);
   const [modal, setModal] = useState<ModalKind>(null);
+  const [showArchived, setShowArchived] = useState(false);
 
   useEffect(() => {
     setEntries(loadEntries());
@@ -337,13 +338,40 @@ function JournalHome() {
             <span className="text-[12px]">voice journal</span>
             <ChevronRight className="w-3.5 h-3.5 ml-auto opacity-40" />
           </Link>
-          <button className="flex items-center gap-3 h-14 px-4 rounded-2xl transition hover:-translate-y-0.5"
+          <button onClick={() => setShowArchived(true)}
+            className="flex items-center gap-3 h-14 px-4 rounded-2xl transition hover:-translate-y-0.5"
             style={{ background: surface, border: `1px solid ${border}` }}>
             <Archive className="w-4 h-4 opacity-70" />
-            <span className="text-[12px]">archived</span>
+            <span className="text-[12px]">archived ({visibleEntries.filter(e => e.archived).length})</span>
             <ChevronRight className="w-3.5 h-3.5 ml-auto opacity-40" />
           </button>
         </section>
+
+        {showArchived && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "rgba(29,42,68,0.35)" }} onClick={() => setShowArchived(false)}>
+            <div className="w-full max-w-lg rounded-[24px] p-6 max-h-[80vh] overflow-y-auto" style={{ background: surface, border: `1px solid ${border}` }} onClick={(e) => e.stopPropagation()}>
+              <div className="flex items-center justify-between mb-4">
+                <div className="font-['Fraunces',serif] text-[22px]">archived entries</div>
+                <button onClick={() => setShowArchived(false)} className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: surface2, color: ink }}>
+                  <X className="w-4 h-4"/>
+                </button>
+              </div>
+              <div className="flex flex-col gap-2">
+                {visibleEntries.filter(e => e.archived).map(e => (
+                  <button key={e.id} onClick={() => { setShowArchived(false); navigate({ to: "/journal/$id", params: { id: e.id } }); }}
+                          className="text-left p-3 rounded-xl transition hover:-translate-y-0.5"
+                          style={{ background: surface2, border: `1px solid ${border}` }}>
+                    <div className="text-[13px] font-medium truncate">{e.title || "untitled"}</div>
+                    <div className="text-[11px] opacity-60 mt-1">{new Date(e.createdAt).toLocaleDateString()}</div>
+                  </button>
+                ))}
+                {visibleEntries.filter(e => e.archived).length === 0 && (
+                  <div className="text-[13px] opacity-60 py-8 text-center">no archived entries yet.</div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </main>
 
       {/* floating quick actions */}

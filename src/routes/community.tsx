@@ -63,9 +63,24 @@ export default function CommunityPage() {
   const [query, setQuery] = useState("");
   const [threads, setThreads] = useState(initialThreads);
   const [saved, setSaved] = useState<Set<string>>(new Set());
+  const [composeOpen, setComposeOpen] = useState(false);
+  const [composeTitle, setComposeTitle] = useState("");
+  const [composeBody, setComposeBody] = useState("");
+  const [composeCircle, setComposeCircle] = useState(circles[0].name);
 
   const currentRoom = view.kind === "room" ? rooms.find(r => r.id === view.roomId) : null;
   const currentThread = view.kind === "thread" ? threads.find(t => t.id === view.threadId) : null;
+
+  function submitCompose() {
+    if (!composeTitle.trim()) return;
+    const nt = {
+      id: "t" + Date.now(), author: "you (anon)", circle: composeCircle,
+      title: composeTitle.trim(), body: composeBody.trim(), votes: 1, comments: 0, tag: "soft", time: "now",
+    };
+    setThreads([nt, ...threads]);
+    setComposeOpen(false); setComposeTitle(""); setComposeBody("");
+    setTab("threads");
+  }
 
   return (
     <AppShell>
@@ -118,7 +133,36 @@ export default function CommunityPage() {
           toggleSave={(id: string) => {
             const s = new Set(saved); s.has(id) ? s.delete(id) : s.add(id); setSaved(s);
           }}
+          openCompose={() => setComposeOpen(true)}
         />
+      )}
+
+      {composeOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "rgba(29,42,68,0.35)" }} onClick={() => setComposeOpen(false)}>
+          <div className="w-full max-w-lg rounded-[24px] p-6" style={{ background: surface, border: `1px solid ${border}` }} onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4">
+              <div className="font-serif text-[20px]">offer a thread</div>
+              <button onClick={() => setComposeOpen(false)} className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: surface2, color: ink }}>×</button>
+            </div>
+            <select value={composeCircle} onChange={(e) => setComposeCircle(e.target.value)}
+                    className="w-full h-11 px-4 rounded-full text-[13px] mb-3 outline-none"
+                    style={{ background: surface2, color: ink, border: `1px solid ${border}` }}>
+              {circles.map(c => <option key={c.name} value={c.name}>{c.name}</option>)}
+            </select>
+            <input value={composeTitle} onChange={(e) => setComposeTitle(e.target.value)}
+                   placeholder="a soft title…"
+                   className="w-full h-11 px-4 rounded-full text-[13px] mb-3 outline-none"
+                   style={{ background: surface2, color: ink }}/>
+            <textarea value={composeBody} onChange={(e) => setComposeBody(e.target.value)}
+                      rows={4} placeholder="a sentence is enough."
+                      className="w-full px-4 py-3 rounded-2xl text-[13px] resize-none outline-none"
+                      style={{ background: surface2, color: ink }}/>
+            <div className="mt-4 flex items-center justify-end gap-2">
+              <button onClick={() => setComposeOpen(false)} className="h-10 px-4 rounded-full text-[12px]" style={{ background: surface2, color: ink }}>cancel</button>
+              <button onClick={submitCompose} className="h-10 px-5 rounded-full text-[12px]" style={{ background: ink, color: "#F7FAFF" }}>post anonymously</button>
+            </div>
+          </div>
+        </div>
       )}
       </div>
     </AppShell>
@@ -128,7 +172,7 @@ export default function CommunityPage() {
 
 // ─── home view ────────────────────────────────────────────────────
 function HomeView({
-  tab, setTab, sort, setSort, query, setQuery, threads, openRoom, openThread, onVote, saved, toggleSave,
+  tab, setTab, sort, setSort, query, setQuery, threads, openRoom, openThread, onVote, saved, toggleSave, openCompose,
 }: any) {
   const filtered = useMemo(() => {
     let list = [...threads];
@@ -172,7 +216,8 @@ function HomeView({
               style={{ color: ink }}
             />
           </div>
-          <button className="h-11 px-5 rounded-full flex items-center gap-2 text-[12.5px] tracking-wide transition hover:translate-y-[-1px]"
+          <button onClick={() => openCompose && openCompose()}
+                  className="h-11 px-5 rounded-full flex items-center gap-2 text-[12.5px] tracking-wide transition hover:translate-y-[-1px]"
                   style={{ background: ink, color: "#F7FAFF", boxShadow: "0 12px 24px -12px rgba(29,42,68,0.5)" }}>
             <Plus className="w-4 h-4" strokeWidth={1.8}/> offer a thread
           </button>
@@ -538,11 +583,16 @@ function LiveRoom({ room, onLeave }: any) {
               {muted_ ? <MicOff className="w-4 h-4" strokeWidth={1.6}/> : <Mic className="w-4 h-4" strokeWidth={1.6}/>}
               {muted_ ? "raise a hand" : "you're live"}
             </button>
-            <button className="h-12 w-12 rounded-full flex items-center justify-center transition hover:-translate-y-0.5"
+            <button onClick={() => {
+                      if (navigator.share) navigator.share({ title: room.name, text: room.topic }).catch(()=>{});
+                      else { navigator.clipboard.writeText(`${room.name} — ${room.topic}`); alert("room link copied"); }
+                    }}
+                    className="h-12 w-12 rounded-full flex items-center justify-center transition hover:-translate-y-0.5"
                     style={{ background: surface, border: `1px solid ${border}`, color: ink }}>
               <Heart className="w-4 h-4" strokeWidth={1.6}/>
             </button>
-            <button className="h-12 w-12 rounded-full flex items-center justify-center transition hover:-translate-y-0.5"
+            <button onClick={() => alert("room options: report · settings · leave quietly")}
+                    className="h-12 w-12 rounded-full flex items-center justify-center transition hover:-translate-y-0.5"
                     style={{ background: surface, border: `1px solid ${border}`, color: ink }}>
               <MoreHorizontal className="w-4 h-4" strokeWidth={1.6}/>
             </button>
@@ -678,9 +728,16 @@ function ThreadDetail({ thread, onBack, onVote, saved, onSave }: any) {
             </div>
             <p className="mt-2 text-[13.5px] leading-relaxed" style={{ color: ink }}>{c.text}</p>
             <div className="mt-3 flex items-center gap-4 text-[11.5px]" style={{ color: muted }}>
-              <button className="flex items-center gap-1"><ArrowUp className="w-3.5 h-3.5" strokeWidth={1.6}/> {c.votes}</button>
-              <button className="flex items-center gap-1"><Heart className="w-3.5 h-3.5" strokeWidth={1.6}/> hold</button>
-              <button>reply</button>
+              <button onClick={() => setComments(comments.map((x, j) => j === i ? { ...x, votes: x.votes + 1 } : x))}
+                      className="flex items-center gap-1 transition hover:text-[color:var(--i)]" style={{ ["--i" as any]: ink }}>
+                <ArrowUp className="w-3.5 h-3.5" strokeWidth={1.6}/> {c.votes}
+              </button>
+              <button onClick={() => setComments(comments.map((x, j) => j === i ? { ...x, held: !(x as any).held, votes: (x as any).held ? x.votes - 1 : x.votes + 1 } : x))}
+                      className="flex items-center gap-1 transition"
+                      style={{ color: (c as any).held ? "#EF6B6B" : muted }}>
+                <Heart className="w-3.5 h-3.5" strokeWidth={1.6} fill={(c as any).held ? "#EF6B6B" : "none"}/> hold
+              </button>
+              <button onClick={() => setReply(`@${c.who} `)} className="transition hover:text-[color:var(--i)]" style={{ ["--i" as any]: ink }}>reply</button>
             </div>
           </div>
         ))}
