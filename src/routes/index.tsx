@@ -669,21 +669,33 @@ function Dashboard() {
             </div>
             <div className="space-y-2">
               {activities.map((a, i) => (
-                <div key={a.title} className="group flex items-center gap-4 py-4 px-5 rounded-2xl transition cursor-pointer hover:translate-x-1"
+                <div key={a.title}
+                     onMouseMove={trackCursor}
+                     className="group card-lift cursor-glow flex items-center gap-4 py-4 px-5 rounded-2xl cursor-pointer relative"
                      style={{ background: surface, border: `1px solid ${border}` }}>
-                  <div className="font-serif italic text-[13px] opacity-40 w-6">0{i + 1}</div>
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ background: surface2 }}>
-                    <Mark className="w-5 h-5" opacity={0.75}/>
+                  <div className="font-serif italic text-[13px] w-6 transition-colors duration-300" style={{ color: muted }}>0{i + 1}</div>
+                  <div className="relative w-11 h-11 rounded-full flex items-center justify-center shrink-0 transition-all duration-500 group-hover:scale-105"
+                       style={{ background: surface2 }}>
+                    <Mark className="w-5 h-5 transition-opacity duration-300 group-hover:opacity-0" opacity={0.75}/>
+                    <span className="absolute inset-0 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition duration-300"
+                          style={{ background: ink, color: bg }}>
+                      <Play className="w-3.5 h-3.5 ml-0.5" strokeWidth={2}/>
+                    </span>
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="font-serif text-[17px] leading-tight truncate">{a.title}</div>
-                    <div className="text-[11px] italic opacity-50 mt-0.5">{a.subtitle}</div>
+                    <div className="text-[11px] italic mt-0.5" style={{ color: muted }}>{a.subtitle}</div>
+                    {/* soft progress line drawing in on hover */}
+                    <div className="mt-2 h-px w-full overflow-hidden" style={{ background: border }}>
+                      <div className="h-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-[900ms] ease-out"
+                           style={{ background: accent, width: `${30 + i * 18}%` }} />
+                    </div>
                   </div>
                   <div className="text-right shrink-0">
                     <div className="font-serif text-[18px] leading-none">{a.minutes}<span className="text-[10px] opacity-50 ml-1">min</span></div>
                     <div className="text-[10px] tracking-widest opacity-40 mt-1">{a.time}</div>
                   </div>
-                  <ChevronRight className="w-4 h-4 opacity-20 group-hover:opacity-70 transition"/>
+                  <ChevronRight className="w-4 h-4 opacity-20 group-hover:opacity-80 group-hover:translate-x-1 transition duration-300"/>
                 </div>
               ))}
             </div>
