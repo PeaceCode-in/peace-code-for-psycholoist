@@ -973,98 +973,314 @@ function Dashboard() {
           </div>
         </section>
 
-        {/* FOCUS TOOLKIT — monochrome, minimal */}
-        <div className="flex items-baseline justify-between mb-5 mt-2">
-          <div>
-            <div className="text-[10px] tracking-[0.35em] uppercase opacity-50 mb-2" style={{ color: accent }}>quiet toolkit</div>
-            <h3 className="font-serif text-[26px] tracking-tight">Six ways in.</h3>
+        {/* ─── QUIET TOOLKIT · editorial mosaic ─── */}
+        <section className="mb-16 mt-2">
+          <div className="flex items-end justify-between mb-8 flex-wrap gap-4">
+            <div>
+              <div className="text-[10px] tracking-[0.4em] uppercase opacity-50 mb-3" style={{ color: accent }}>
+                <span className="inline-block w-6 h-px align-middle mr-2" style={{ background: accent, opacity: 0.5 }}/>
+                quiet toolkit · vol. 01
+              </div>
+              <h3 className="font-serif text-[30px] sm:text-[38px] tracking-tight leading-[0.95]">
+                Six ways in.<br/>
+                <em className="italic opacity-60 text-[24px] sm:text-[28px]">Pick a door — none of them lock.</em>
+              </h3>
+            </div>
+            <div className="hidden sm:flex items-center gap-3 text-[9.5px] tracking-[0.32em] uppercase opacity-50">
+              <span>tap</span>
+              <span className="w-8 h-px" style={{ background: ink, opacity: 0.3 }}/>
+              <span>no pressure</span>
+            </div>
           </div>
-          <span className="text-[10px] tracking-[0.25em] uppercase opacity-50 hidden sm:block">tap · no pressure</span>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-16">
-          {focusTools.map((t) => {
-            const I = t.icon;
-            return (
-              <button key={t.label}
-                      onMouseMove={trackCursor}
-                      className="group card-lift cursor-glow relative rounded-[24px] aspect-square p-5 flex flex-col justify-between text-left"
-                      style={{ background: surface, border: `1px solid ${border}` }}>
-                <span className="shine" aria-hidden />
-                <div className="flex items-center justify-between relative">
-                  <span className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-500 group-hover:-translate-y-0.5"
-                        style={{ background: surface2 }}>
-                    <I className="w-[18px] h-[18px] transition-transform duration-500 group-hover:scale-110" strokeWidth={1.3}/>
-                  </span>
-                  <span className="w-7 h-7 rounded-full flex items-center justify-center reveal" style={{ background: ink, color: bg }}>
-                    <ArrowUpRight className="w-3 h-3" strokeWidth={2}/>
-                  </span>
-                </div>
-                <div className="relative">
-                  <div className="font-serif text-[19px] leading-none tracking-tight ink-underline">{t.label}</div>
-                  <div className="text-[9px] tracking-[0.2em] uppercase mt-2 transition-colors duration-500"
-                       style={{ color: muted }}>{t.hint}</div>
-                  <div className="mt-3 h-px w-8 origin-left transition-all duration-500 group-hover:w-full" style={{ background: accent, opacity: 0.5 }} />
-                </div>
-              </button>
-            );
-          })}
-        </div>
 
-        {/* JOURNEY + JOURNAL */}
+          {/* Mosaic: one featured tall tile + 5 varied tiles */}
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-3 md:gap-4 md:auto-rows-[130px]">
+            {focusTools.map((t, i) => {
+              const I = t.icon;
+              const featured = i === 0;
+              // asymmetric spans on md+
+              const spanMap = [
+                "md:col-span-2 md:row-span-2",    // 0 — featured tall
+                "md:col-span-2 md:row-span-1",    // 1 — wide
+                "md:col-span-2 md:row-span-1",    // 2 — wide
+                "md:col-span-2 md:row-span-1",    // 3 — square-ish
+                "md:col-span-2 md:row-span-1",    // 4
+                "md:col-span-2 md:row-span-1",    // 5
+              ];
+              return (
+                <button
+                  key={t.label}
+                  onMouseMove={trackCursor}
+                  className={`group card-lift cursor-glow relative overflow-hidden text-left transition-all ${spanMap[i]}`}
+                  style={{
+                    background: featured
+                      ? `linear-gradient(155deg, ${surface2} 0%, ${surface} 55%, ${bg} 100%)`
+                      : surface,
+                    border: `1px solid ${border}`,
+                    borderRadius: featured ? 32 : 22,
+                    minHeight: featured ? 268 : 128,
+                  }}
+                >
+                  <span className="shine" aria-hidden />
+
+                  {/* ghost numeral watermark */}
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute font-serif select-none transition-all duration-700 group-hover:opacity-100 group-hover:-translate-y-1"
+                    style={{
+                      right: featured ? -14 : -10,
+                      bottom: featured ? -30 : -22,
+                      fontSize: featured ? 220 : 118,
+                      lineHeight: 1,
+                      color: ink,
+                      opacity: featured ? 0.055 : 0.045,
+                      letterSpacing: "-0.06em",
+                      fontStyle: "italic",
+                    }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+
+                  {/* editorial corner brackets */}
+                  <span aria-hidden className="absolute top-3 left-3 w-3 h-3 border-l border-t opacity-30 transition-opacity duration-500 group-hover:opacity-70" style={{ borderColor: ink }}/>
+                  <span aria-hidden className="absolute top-3 right-3 w-3 h-3 border-r border-t opacity-30 transition-opacity duration-500 group-hover:opacity-70" style={{ borderColor: ink }}/>
+
+                  {/* content */}
+                  <div className={`relative h-full flex ${featured ? "flex-col justify-between p-6" : "flex-col justify-between p-5"}`}>
+                    <div className="flex items-start justify-between">
+                      <span
+                        className={`rounded-full flex items-center justify-center transition-all duration-500 group-hover:-translate-y-0.5 ${featured ? "w-12 h-12" : "w-9 h-9"}`}
+                        style={{ background: featured ? bg : surface2, border: `1px solid ${border}` }}
+                      >
+                        <I className={featured ? "w-5 h-5" : "w-[17px] h-[17px]"} strokeWidth={1.3}/>
+                      </span>
+                      {featured && (
+                        <span className="text-[9px] tracking-[0.32em] uppercase px-2.5 py-1 rounded-full opacity-80" style={{ background: ink, color: bg }}>
+                          begin here
+                        </span>
+                      )}
+                      {!featured && (
+                        <span className="text-[9px] tracking-[0.3em] uppercase opacity-40 font-serif italic">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="relative">
+                      <div className={`font-serif tracking-tight leading-none ink-underline ${featured ? "text-[34px]" : "text-[19px]"}`}>
+                        {t.label}
+                      </div>
+                      <div
+                        className={`tracking-[0.22em] uppercase mt-2 ${featured ? "text-[10px]" : "text-[9px]"}`}
+                        style={{ color: muted }}
+                      >
+                        {t.hint}
+                      </div>
+                      {featured && (
+                        <p className="mt-4 text-[13px] leading-relaxed max-w-[240px] reveal" style={{ color: muted }}>
+                          A four-count square. Inhale, hold, exhale, hold. Come back to yourself in one minute flat.
+                        </p>
+                      )}
+                      <div
+                        className="mt-3 h-px w-6 origin-left transition-all duration-500 group-hover:w-[85%]"
+                        style={{ background: accent, opacity: 0.55 }}
+                      />
+                    </div>
+
+                    {featured && (
+                      <div className="flex items-center gap-2 mt-4 reveal">
+                        <span className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: ink, color: bg }}>
+                          <Play className="w-3.5 h-3.5 ml-0.5" strokeWidth={2} fill="currentColor"/>
+                        </span>
+                        <span className="text-[10px] tracking-[0.3em] uppercase" style={{ color: ink }}>start · 1 min</span>
+                      </div>
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ─── SLOW JOURNEY · winding vine ─── */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-16">
           <div className="lg:col-span-8 rounded-[36px] p-7 sm:p-10 relative overflow-hidden"
-               style={{ background: `linear-gradient(135deg, ${surface2} 0%, ${surface} 100%)`, border: `1px solid ${border}` }}>
-            <Sprig stroke={accent} className="absolute right-10 top-1/2 -translate-y-1/2 w-20 opacity-30 hidden md:block" />
-            <div className="flex items-start justify-between mb-10 relative">
+               style={{ background: `linear-gradient(160deg, ${surface2} 0%, ${surface} 60%, ${bg} 100%)`, border: `1px solid ${border}` }}>
+            {/* soft aurora */}
+            <div aria-hidden className="absolute -top-24 -right-16 w-[320px] h-[320px] rounded-full pointer-events-none"
+                 style={{ background: `radial-gradient(circle, ${accent}22, transparent 70%)` }}/>
+
+            <div className="flex items-start justify-between mb-6 relative flex-wrap gap-4">
               <div>
-                <div className="text-[10px] tracking-[0.3em] uppercase opacity-50 mb-2">the slow journey</div>
-                <h3 className="font-serif text-[30px] leading-[1.05] max-w-md">
+                <div className="text-[10px] tracking-[0.35em] uppercase opacity-55 mb-3" style={{ color: accent }}>
+                  <span className="inline-block w-5 h-px align-middle mr-2" style={{ background: accent, opacity: 0.5 }}/>
+                  the slow journey
+                </div>
+                <h3 className="font-serif text-[30px] sm:text-[34px] leading-[1.02] max-w-lg tracking-tight">
                   Fourteen days in — <em className="italic" style={{ color: accent }}>halfway to bloom.</em>
                 </h3>
+                <p className="text-[13px] mt-3 max-w-md leading-relaxed" style={{ color: muted }}>
+                  Not a streak. A softening. Each node is a place you paused with yourself.
+                </p>
+              </div>
+              <div className="text-right shrink-0">
+                <div className="font-serif text-[40px] leading-none" style={{ color: ink }}>14<span className="opacity-40 text-[20px]">/60</span></div>
+                <div className="text-[9px] tracking-[0.3em] uppercase opacity-45 mt-1.5">days held</div>
               </div>
             </div>
-            <div className="relative flex items-center justify-between overflow-x-auto scrollbar-none">
-              <div className="absolute left-4 right-4 top-4 h-px" style={{ background: dark ? "#2E3A56" : "#C7D5EC" }}/>
-              <div className="absolute left-4 top-4 h-px transition-all duration-1000" style={{ width: "40%", background: accent }}/>
-              {journey.map((m) => (
-                <button key={m.day} className="group relative flex flex-col items-center gap-3 z-10 shrink-0 px-2 focus:outline-none">
-                  {/* tooltip above */}
-                  <span className="pointer-events-none absolute -top-9 whitespace-nowrap opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300 text-[9px] tracking-[0.28em] uppercase px-2.5 py-1 rounded-full"
-                        style={{ background: ink, color: bg }}>
-                    day {m.day} · {m.label}
-                  </span>
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center font-serif text-[12px] transition-all duration-300 group-hover:scale-110"
-                       style={m.current ? { background: ink, color: bg, transform: "scale(1.25)", boxShadow: `0 10px 24px -10px ${accent}` }
-                                        : m.done ? { background: accent, color: "#FFFFFF" }
-                                                 : { background: surface, color: muted, border: `1px solid ${dark ? "#2E3A56" : "#C7D5EC"}` }}>
-                    {m.day}
-                  </div>
-                  <span className="text-[9px] tracking-[0.2em] uppercase transition-opacity" style={{ color: m.current || m.done ? ink : muted, opacity: m.current ? 0.9 : 0.55 }}>{m.label}</span>
-                </button>
-              ))}
+
+            {/* winding path SVG */}
+            <div className="relative mt-2">
+              <svg viewBox="0 0 800 180" className="w-full h-[180px] sm:h-[210px]" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="vineGrad" x1="0" x2="1">
+                    <stop offset="0" stopColor={accent} stopOpacity="0.9"/>
+                    <stop offset="0.5" stopColor={accent} stopOpacity="0.7"/>
+                    <stop offset="1" stopColor={muted} stopOpacity="0.25"/>
+                  </linearGradient>
+                  <linearGradient id="vineGhost" x1="0" x2="1">
+                    <stop offset="0" stopColor={muted} stopOpacity="0.25"/>
+                    <stop offset="1" stopColor={muted} stopOpacity="0.25"/>
+                  </linearGradient>
+                </defs>
+                {/* ghost track — the whole 60-day arc */}
+                <path
+                  d="M 30 130 C 130 40, 220 180, 320 90 S 500 30, 600 110 S 760 140, 780 60"
+                  fill="none"
+                  stroke="url(#vineGhost)"
+                  strokeWidth="1.5"
+                  strokeDasharray="3 5"
+                />
+                {/* traveled path — up to current */}
+                <path
+                  d="M 30 130 C 130 40, 220 180, 320 90"
+                  fill="none"
+                  stroke="url(#vineGrad)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                {/* node positions along the curve (approx) */}
+                {[
+                  { x: 30,  y: 130, m: journey[0] },
+                  { x: 175, y: 92,  m: journey[1] },
+                  { x: 320, y: 90,  m: journey[2] },
+                  { x: 450, y: 60,  m: journey[3] },
+                  { x: 570, y: 100, m: journey[4] },
+                  { x: 680, y: 128, m: journey[5] },
+                  { x: 780, y: 60,  m: journey[6] },
+                ].map((n, i) => (
+                  <g key={i}>
+                    {n.m.current && (
+                      <>
+                        <circle cx={n.x} cy={n.y} r="18" fill={accent} opacity="0.18">
+                          <animate attributeName="r" values="14;22;14" dur="3.2s" repeatCount="indefinite"/>
+                          <animate attributeName="opacity" values="0.28;0.08;0.28" dur="3.2s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx={n.x} cy={n.y} r="12" fill={ink}/>
+                        <text x={n.x} y={n.y + 4} textAnchor="middle" fontSize="11" fill={bg} fontFamily="serif" fontWeight="500">{n.m.day}</text>
+                      </>
+                    )}
+                    {!n.m.current && n.m.done && (
+                      <>
+                        <circle cx={n.x} cy={n.y} r="7" fill={accent}/>
+                        <text x={n.x} y={n.y + 3} textAnchor="middle" fontSize="8" fill={bg} fontFamily="serif">{n.m.day}</text>
+                      </>
+                    )}
+                    {!n.m.done && (
+                      <>
+                        <circle cx={n.x} cy={n.y} r="6" fill={surface} stroke={muted} strokeOpacity="0.5" strokeWidth="1.2"/>
+                        <text x={n.x} y={n.y + 2.5} textAnchor="middle" fontSize="7.5" fill={muted} opacity="0.7" fontFamily="serif">{n.m.day}</text>
+                      </>
+                    )}
+                    <text x={n.x} y={n.y + 26} textAnchor="middle" fontSize="8" fill={ink}
+                          opacity={n.m.current ? 0.9 : n.m.done ? 0.55 : 0.35}
+                          style={{ letterSpacing: "0.22em", textTransform: "uppercase" }}>
+                      {n.m.label}
+                    </text>
+                    {n.m.current && (
+                      <text x={n.x} y={n.y - 22} textAnchor="middle" fontSize="7.5" fill={accent}
+                            style={{ letterSpacing: "0.28em", textTransform: "uppercase" }}>
+                        you are here
+                      </text>
+                    )}
+                  </g>
+                ))}
+                {/* tiny leaves along traveled path */}
+                <g opacity="0.6">
+                  <ellipse cx="90"  cy="82"  rx="3.5" ry="1.5" fill={accent} transform="rotate(-30 90 82)"/>
+                  <ellipse cx="240" cy="140" rx="3.5" ry="1.5" fill={accent} transform="rotate(25 240 140)"/>
+                </g>
+              </svg>
+            </div>
+
+            <div className="flex items-center justify-between mt-4 pt-4 border-t text-[10px] tracking-[0.28em] uppercase" style={{ borderColor: border, color: muted }}>
+              <span>seed → still · 60 days</span>
+              <span className="opacity-70">next node · <span style={{ color: ink }}>day 21 · grow</span></span>
             </div>
           </div>
 
-          <div className="lg:col-span-4 rounded-[36px] p-7 relative overflow-hidden flex flex-col"
-               style={{ background: surface, border: `1px solid ${border}` }}>
-            <div className="flex items-center justify-between mb-3">
-              <div className="text-[10px] tracking-[0.3em] uppercase opacity-50">one line, tonight</div>
-              <PenLine className="w-4 h-4 opacity-40"/>
-            </div>
-            <h3 className="font-serif text-[22px] leading-tight mb-4">
-              What's <em className="italic" style={{ color: accent }}>staying with you</em>?
-            </h3>
-            <textarea value={note} onChange={(e) => setNote(e.target.value)}
-                      placeholder="a small honest thing…"
-                      className="flex-1 min-h-[100px] w-full resize-none bg-transparent outline-none font-serif italic text-[15px] placeholder:opacity-30 leading-relaxed"/>
-            <div className="flex items-center justify-between pt-3 border-t" style={{ borderColor: border }}>
-              <span className="text-[10px] opacity-40">{note.length} · saved to you only</span>
-              <button className="text-[10px] tracking-[0.25em] uppercase px-4 py-2 rounded-full" style={{ background: ink, color: bg }}>
-                keep
-              </button>
+          {/* ONE LINE, TONIGHT — folded letter */}
+          <div className="lg:col-span-4 relative">
+            <div className="rounded-[36px] p-7 relative overflow-hidden flex flex-col h-full"
+                 style={{
+                   background: `linear-gradient(175deg, ${bg} 0%, ${surface} 100%)`,
+                   border: `1px solid ${border}`,
+                 }}>
+              {/* folded corner */}
+              <div
+                aria-hidden
+                className="absolute top-0 right-0 w-14 h-14"
+                style={{
+                  background: `linear-gradient(225deg, ${surface2} 0%, ${surface2} 50%, transparent 50%)`,
+                  borderTopRightRadius: 36,
+                  borderLeft: `1px solid ${border}`,
+                  borderBottom: `1px solid ${border}`,
+                }}
+              />
+              {/* stamp */}
+              <div aria-hidden className="absolute top-4 left-4 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full" style={{ background: accent }}/>
+                <span className="w-1.5 h-1.5 rounded-full" style={{ background: accent, opacity: 0.6 }}/>
+                <span className="w-1.5 h-1.5 rounded-full" style={{ background: accent, opacity: 0.3 }}/>
+              </div>
+
+              <div className="flex items-center justify-between mb-3 mt-6">
+                <div className="text-[10px] tracking-[0.32em] uppercase opacity-55" style={{ color: accent }}>one line, tonight</div>
+                <PenLine className="w-4 h-4 opacity-40"/>
+              </div>
+              <h3 className="font-serif text-[24px] leading-[1.15] mb-4 tracking-tight">
+                What's <em className="italic" style={{ color: accent }}>staying<br/>with you</em>?
+              </h3>
+
+              {/* ruled paper lines behind textarea */}
+              <div className="relative flex-1 min-h-[110px]">
+                <div aria-hidden className="absolute inset-0 pointer-events-none"
+                     style={{
+                       backgroundImage: `repeating-linear-gradient(to bottom, transparent 0, transparent 27px, ${border} 27px, ${border} 28px)`,
+                       opacity: 0.5,
+                     }}/>
+                <textarea
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                  placeholder="a small honest thing…"
+                  className="relative w-full h-full min-h-[110px] resize-none bg-transparent outline-none font-serif italic text-[15px] leading-[28px] placeholder:opacity-30"
+                />
+              </div>
+
+              <div className="flex items-center justify-between pt-3 border-t mt-2" style={{ borderColor: border }}>
+                <span className="text-[10px] opacity-45 tracking-[0.15em] uppercase">{note.length} · yours only</span>
+                <button className="group/keep flex items-center gap-2 text-[10px] tracking-[0.28em] uppercase pl-4 pr-1.5 py-1.5 rounded-full transition-all hover:pr-4"
+                        style={{ background: ink, color: bg }}>
+                  <span>seal</span>
+                  <span className="w-6 h-6 rounded-full flex items-center justify-center transition-transform group-hover/keep:rotate-45" style={{ background: bg, color: ink }}>
+                    <Plus className="w-3 h-3" strokeWidth={2.2}/>
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </section>
+
 
         {/* ─── THE HOURS · a ritual ribbon + Peace, listening ─── */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-16">
