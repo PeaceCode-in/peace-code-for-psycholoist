@@ -605,12 +605,13 @@ function DashboardInner() {
 
 // ─── Reusable Section ───────────────────────────────────────────────
 function Section({
-  title, preview, expanded, to, cta, span = "", icon: Icon, hint,
+  title, preview, expanded, to, cta, span = "", icon: Icon, hint, params,
 }: {
   title: string;
   preview?: ReactNode;
   expanded?: ReactNode;
-  to?: string;
+  to?: any;
+  params?: any;
   cta?: string;
   span?: string;
   icon?: any;
@@ -618,7 +619,7 @@ function Section({
 }) {
   const [open, setOpen] = useState(false);
   return (
-    <section className={`${span} rounded-3xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 group relative overflow-hidden`}
+    <section className={`${span} rounded-3xl p-4 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 group relative overflow-hidden`}
       style={{
         background: "var(--pc-surface)",
         border: "1px solid var(--pc-border)",
@@ -626,8 +627,8 @@ function Section({
       }}>
       <header className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-2 min-w-0">
-          {Icon && <Icon className="w-3.5 h-3.5 opacity-50" style={{ color: "var(--pc-muted)" }} />}
-          <div className="text-[10px] tracking-[0.3em] uppercase" style={{ color: "var(--pc-muted)" }}>{title}</div>
+          {Icon && <Icon className="w-3.5 h-3.5 opacity-50 shrink-0" style={{ color: "var(--pc-muted)" }} />}
+          <div className="text-[10px] tracking-[0.3em] uppercase truncate" style={{ color: "var(--pc-muted)" }}>{title}</div>
         </div>
         {hint}
       </header>
@@ -636,10 +637,18 @@ function Section({
 
       {expanded && (
         <div
-          className="overflow-hidden transition-[grid-template-rows,opacity] duration-300 grid"
+          className="overflow-hidden transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] grid motion-reduce:transition-none"
           style={{ gridTemplateRows: open ? "1fr" : "0fr", opacity: open ? 1 : 0 }}
+          aria-hidden={!open}
         >
-          <div className="min-h-0">{expanded}</div>
+          <div className="min-h-0">
+            <div
+              className="transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
+              style={{ transform: open ? "translateY(0)" : "translateY(-6px)", opacity: open ? 1 : 0 }}
+            >
+              {expanded}
+            </div>
+          </div>
         </div>
       )}
 
@@ -647,15 +656,19 @@ function Section({
         style={{ borderTop: "1px solid var(--pc-border)" }}>
         {expanded ? (
           <button onClick={() => setOpen(v => !v)}
-            className="inline-flex items-center gap-1 tracking-[0.2em] uppercase transition hover:opacity-70"
-            style={{ color: "var(--pc-muted)" }}>
-            {open ? "Less" : "More"} {open ? <ChevronDown className="w-3 h-3" /> : <ChevronRight className="w-3 h-3" />}
+            className="inline-flex items-center gap-1 tracking-[0.2em] uppercase transition hover:opacity-70 active:scale-95"
+            style={{ color: "var(--pc-muted)" }}
+            aria-expanded={open}
+          >
+            {open ? "Less" : "More"}
+            <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
           </button>
         ) : <span />}
         {to && (
-          <Link to={to} className="inline-flex items-center gap-1 font-medium tracking-[0.14em] uppercase transition hover:opacity-70"
+          <Link to={to} params={params}
+            className="inline-flex items-center gap-1 font-medium tracking-[0.14em] uppercase transition hover:opacity-70 hover:gap-2"
             style={{ color: "var(--pc-primary)" }}>
-            {cta ?? "Open"} <ArrowRight className="w-3 h-3" />
+            {cta ?? "Open"} <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
           </Link>
         )}
       </footer>
@@ -663,28 +676,56 @@ function Section({
   );
 }
 
+// ─── count-up hook (used by Stat / Ring) ────────────────────────────
+function useCountUp(target: number, duration = 900) {
+  const [v, setV] = useState(0);
+  const startRef = useRef<number | null>(null);
+  const fromRef = useRef(0);
+  useEffect(() => {
+    fromRef.current = v;
+    startRef.current = null;
+    let raf = 0;
+    const tick = (t: number) => {
+      if (startRef.current == null) startRef.current = t;
+      const p = Math.min(1, (t - startRef.current) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setV(fromRef.current + (target - fromRef.current) * eased);
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [target]);
+  return v;
+}
+
 // ─── Small building blocks ──────────────────────────────────────────
 function Stat({ kicker, value, suffix }: { kicker: string; value: string; suffix?: string }) {
+  const numeric = Number((value || "").toString().replace(/[^\d.-]/g, ""));
+  const animate = Number.isFinite(numeric) && numeric !== 0 && !value.includes("/");
+  const shown = useCountUp(animate ? numeric : 0);
+  const display = animate ? Math.round(shown).toString() : value;
   return (
-    <div className="rounded-2xl p-3" style={{ background: "var(--pc-surface2)" }}>
+    <div className="rounded-2xl p-3 transition-transform duration-300 hover:-translate-y-0.5" style={{ background: "var(--pc-surface2)" }}>
       <div className="text-[9px] tracking-[0.22em] uppercase" style={{ color: "var(--pc-muted)" }}>{kicker}</div>
-      <div className="font-serif text-[22px] mt-1 leading-none" style={{ color: "var(--pc-ink)" }}>
-        {value}<span className="text-[12px] opacity-60">{suffix}</span>
+      <div className="font-serif text-[22px] mt-1 leading-none tabular-nums" style={{ color: "var(--pc-ink)" }}>
+        {display}<span className="text-[12px] opacity-60">{suffix}</span>
       </div>
     </div>
   );
 }
 
 function Ring({ value, label }: { value: number; label: string }) {
-  const r = 22, c = 2 * Math.PI * r, dash = c * (value / 100);
+  const anim = useCountUp(value);
+  const rounded = Math.round(anim);
+  const r = 22, c = 2 * Math.PI * r, dash = c * (anim / 100);
   return (
     <div className="flex items-center gap-2.5">
       <svg viewBox="0 0 60 60" className="w-14 h-14">
         <circle cx="30" cy="30" r={r} stroke="var(--pc-border)" strokeWidth="4" fill="none" />
         <circle cx="30" cy="30" r={r} stroke="var(--pc-primary)" strokeWidth="4" fill="none"
-          strokeLinecap="round" strokeDasharray={`${dash} ${c}`} transform="rotate(-90 30 30)"
-          style={{ transition: "stroke-dasharray 800ms ease-out" }} />
-        <text x="30" y="34" textAnchor="middle" fontSize="14" fontFamily="Fraunces, serif" fill="var(--pc-ink)">{value}</text>
+          strokeLinecap="round" strokeDasharray={`${dash} ${c}`} transform="rotate(-90 30 30)" />
+        <text x="30" y="34" textAnchor="middle" fontSize="14" fontFamily="Fraunces, serif" fill="var(--pc-ink)">{rounded}</text>
       </svg>
       <div className="text-[10px] tracking-[0.24em] uppercase leading-tight" style={{ color: "var(--pc-muted)" }}>
         {label}
