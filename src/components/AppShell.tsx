@@ -116,6 +116,14 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [theme, , toggleTheme] = useTheme();
+  const [unread, setUnread] = useState(0);
+  useEffect(() => {
+    const refresh = () => { try { setUnread(notifUnread()); } catch {} };
+    refresh();
+    window.addEventListener("focus", refresh);
+    window.addEventListener("storage", refresh);
+    return () => { window.removeEventListener("focus", refresh); window.removeEventListener("storage", refresh); };
+  }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
