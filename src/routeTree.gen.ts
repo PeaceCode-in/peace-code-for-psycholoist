@@ -99,6 +99,7 @@ import { Route as MindgymBrainDnaRouteImport } from './routes/mindgym.brain-dna'
 import { Route as JournalVoiceRouteImport } from './routes/journal.voice'
 import { Route as JournalMemoriesRouteImport } from './routes/journal.memories'
 import { Route as JournalIdRouteImport } from './routes/journal.$id'
+import { Route as HubWhatsNewRouteImport } from './routes/hub.whats-new'
 import { Route as GratitudeWallRouteImport } from './routes/gratitude.wall'
 import { Route as GratitudeTreeRouteImport } from './routes/gratitude.tree'
 import { Route as GratitudeHistoryRouteImport } from './routes/gratitude.history'
@@ -640,6 +641,11 @@ const JournalIdRoute = JournalIdRouteImport.update({
   path: '/journal/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HubWhatsNewRoute = HubWhatsNewRouteImport.update({
+  id: '/whats-new',
+  path: '/whats-new',
+  getParentRoute: () => HubRoute,
+} as any)
 const GratitudeWallRoute = GratitudeWallRouteImport.update({
   id: '/gratitude/wall',
   path: '/gratitude/wall',
@@ -1156,6 +1162,7 @@ export interface FileRoutesByFullPath {
   '/gratitude/history': typeof GratitudeHistoryRoute
   '/gratitude/tree': typeof GratitudeTreeRoute
   '/gratitude/wall': typeof GratitudeWallRoute
+  '/hub/whats-new': typeof HubWhatsNewRoute
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
@@ -1328,6 +1335,7 @@ export interface FileRoutesByTo {
   '/gratitude/history': typeof GratitudeHistoryRoute
   '/gratitude/tree': typeof GratitudeTreeRoute
   '/gratitude/wall': typeof GratitudeWallRoute
+  '/hub/whats-new': typeof HubWhatsNewRoute
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
@@ -1511,6 +1519,7 @@ export interface FileRoutesById {
   '/gratitude/history': typeof GratitudeHistoryRoute
   '/gratitude/tree': typeof GratitudeTreeRoute
   '/gratitude/wall': typeof GratitudeWallRoute
+  '/hub/whats-new': typeof HubWhatsNewRoute
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
   '/journal/voice': typeof JournalVoiceRoute
@@ -1695,6 +1704,7 @@ export interface FileRouteTypes {
     | '/gratitude/history'
     | '/gratitude/tree'
     | '/gratitude/wall'
+    | '/hub/whats-new'
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
@@ -1867,6 +1877,7 @@ export interface FileRouteTypes {
     | '/gratitude/history'
     | '/gratitude/tree'
     | '/gratitude/wall'
+    | '/hub/whats-new'
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
@@ -2049,6 +2060,7 @@ export interface FileRouteTypes {
     | '/gratitude/history'
     | '/gratitude/tree'
     | '/gratitude/wall'
+    | '/hub/whats-new'
     | '/journal/$id'
     | '/journal/memories'
     | '/journal/voice'
@@ -2876,6 +2888,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JournalIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/hub/whats-new': {
+      id: '/hub/whats-new'
+      path: '/whats-new'
+      fullPath: '/hub/whats-new'
+      preLoaderRoute: typeof HubWhatsNewRouteImport
+      parentRoute: typeof HubRoute
+    }
     '/gratitude/wall': {
       id: '/gratitude/wall'
       path: '/gratitude/wall'
@@ -3661,10 +3680,12 @@ const EventsRouteWithChildren =
   EventsRoute._addFileChildren(EventsRouteChildren)
 
 interface HubRouteChildren {
+  HubWhatsNewRoute: typeof HubWhatsNewRoute
   HubIndexRoute: typeof HubIndexRoute
 }
 
 const HubRouteChildren: HubRouteChildren = {
+  HubWhatsNewRoute: HubWhatsNewRoute,
   HubIndexRoute: HubIndexRoute,
 }
 
