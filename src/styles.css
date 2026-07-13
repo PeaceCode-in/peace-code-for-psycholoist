@@ -442,54 +442,87 @@ body { overflow-y: visible; }
 .group:hover .ink-underline::after { transform: scaleX(1); }
 
 /* ============================================================
-   Resources — Liquid Glass (iOS 26 vibe) + ASCII backdrop scope
+   Resources — Liquid Glass (iOS 26) over sky-clouds backdrop
    Activated by the /resources layout via html[data-pc-resources]
    ============================================================ */
-html[data-pc-resources] body { background: #0a0f1e; }
+html[data-pc-resources] body { background: #cfe6f5; }
 
-/* Dim AppShell's aurora so the ASCII backdrop reads */
-html[data-pc-resources] .fixed.inset-0.pointer-events-none.z-0 > div { opacity: 0.08 !important; }
+/* Dim AppShell's aurora so the sky backdrop reads */
+html[data-pc-resources] .fixed.inset-0.pointer-events-none.z-0 > div { opacity: 0 !important; }
 
-/* Lift page content above the fixed canvas */
+/* Lift page content above the fixed backdrop */
 html[data-pc-resources] main { position: relative; z-index: 2; }
-html[data-pc-resources] main, html[data-pc-resources] main * { color: #f2f4fb; }
-html[data-pc-resources] main a { color: inherit; }
 
-/* Reusable liquid-glass surface */
-.pc-liquid,
-html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(button):not(a):not(input):not(.pc-solid),
-html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(button):not(a):not(input):not(.pc-solid),
-html[data-pc-resources] main [class*="rounded-[2"]:not(.no-glass):not(button):not(a):not(input):not(.pc-solid) {
-  background: linear-gradient(180deg,
-    rgba(255,255,255,0.14) 0%,
-    rgba(255,255,255,0.06) 60%,
-    rgba(255,255,255,0.09) 100%) !important;
-  backdrop-filter: blur(22px) saturate(180%);
-  border: 1px solid rgba(255,255,255,0.18) !important;
+/* Ink tuned for a light sky background */
+html[data-pc-resources] main { --pc-ink: #0f2540; --pc-muted: rgba(15,37,64,0.62); }
+html[data-pc-resources] main { color: #0f2540; }
+
+/* Frosted glass — applied to every rounded surface, search bar, pills, inputs */
+.pc-glass-card,
+html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main .rounded-xl:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main .rounded-full:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main [class*="rounded-[2"]:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main input:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main textarea:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main select:not(.no-glass):not(.pc-solid) {
+  background: rgba(255, 255, 255, 0.11) !important;
+  backdrop-filter: blur(25px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.35),
-    inset 0 -1px 0 rgba(255,255,255,0.06),
-    0 20px 50px -25px rgba(0,0,0,0.55) !important;
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 22px 11px rgba(255, 255, 255, 0.18) !important;
+  position: relative;
 }
 
-/* Interactive glass hover */
+/* Top light seam */
+html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid)::before,
+html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid)::before,
+.pc-glass-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Left highlight edge */
+html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid)::after,
+html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid)::after,
+.pc-glass-card::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 1px; height: 100%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.8), transparent, rgba(255,255,255,0.3));
+  pointer-events: none;
+}
+
+/* Ensure clipped children don't bleed through the pseudo edges */
+html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid) {
+  overflow: hidden;
+}
+
+/* Interactive lift */
 html[data-pc-resources] main a .rounded-2xl:hover,
 html[data-pc-resources] main a .rounded-3xl:hover,
 html[data-pc-resources] main button.rounded-2xl:hover,
 html[data-pc-resources] main button.rounded-3xl:hover {
-  background: rgba(255,255,255,0.18) !important;
-  border-color: rgba(255,255,255,0.28) !important;
+  background: rgba(255,255,255,0.2) !important;
+  border-color: rgba(255,255,255,0.45) !important;
 }
 
-/* Glass pill buttons/inputs */
-html[data-pc-resources] main .rounded-full:not(.no-glass):not(.pc-solid) {
-  backdrop-filter: blur(14px) saturate(160%);
-  border: 1px solid rgba(255,255,255,0.18);
+/* Inputs: readable placeholders on glass */
+html[data-pc-resources] main input::placeholder,
+html[data-pc-resources] main textarea::placeholder {
+  color: rgba(15,37,64,0.5);
 }
 
-/* Muted text becomes softer white */
-html[data-pc-resources] main [style*="var(--pc-muted)"],
-html[data-pc-resources] main [style*="var(--pc-ink)"] { color: inherit !important; }
-
-/* Force text tones to work on dark glass */
-html[data-pc-resources] main { --pc-ink: #f4f6fb; --pc-muted: rgba(244,246,251,0.62); }
+/* Neutralize muted-token overrides */
+html[data-pc-resources] main [style*="var(--pc-muted)"] { color: rgba(15,37,64,0.65) !important; }
