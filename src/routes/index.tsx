@@ -61,7 +61,7 @@ function useDashboardData() {
           streak: gratitude.computeStreak(gEntries),
           today: gratitude.todayCount(gEntries),
           tree: gratitude.computeTree(gEntries),
-          communityToday: gCommunity.filter(c => Date.now() - c.createdAt < 864e5).length,
+          communityToday: gCommunity.filter(c => Date.now() - new Date(c.createdAt).getTime() < 864e5).length,
         },
         breathe: {
           sessions: bSessions,
