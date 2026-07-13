@@ -9,6 +9,7 @@ import {
 import logo from "@/assets/peacecode-logo.png";
 import { loadSettings, applyAppearance, applyAccessibility } from "@/lib/settings-store";
 import { unreadCount as notifUnread } from "@/lib/notifications-store";
+import { GlassFX } from "@/components/GlassFX";
 
 // ─── Themeable palette — every value is a CSS variable so light/dark ────
 // can be swapped globally by toggling `.dark` on <html>. Tokens live in
@@ -299,6 +300,8 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
 
   return (
     <div className="min-h-screen w-full font-sans" style={{ background: bg, color: ink }}>
+      {/* Global frosted-glass backdrop — sky-clouds + blur + tone + grain. */}
+      <GlassFX />
       {/* constant, calm aurora — same on every page, themeable */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute -top-24 -left-24 w-72 h-72 lg:-top-40 lg:-left-40 lg:w-[520px] lg:h-[520px] rounded-full opacity-45 blur-3xl"
