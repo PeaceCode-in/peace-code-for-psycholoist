@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import auroraAsset from "@/assets/screening-aurora.jpg.asset.json";
+import skyAsset from "@/assets/sky-clouds.jpg.asset.json";
 
 /**
- * Aurora-cloud backdrop for the Screening module.
- * Layers (back → front): sharp photo → soft blurred atmosphere →
- * tone wash → editorial grain. All fixed, non-interactive.
+ * Screening backdrop — identical to ResourcesFX (sky-clouds photo,
+ * blurred atmosphere, tone wash, high-frequency grain). Uses the
+ * `data-pc-screening` root attribute so the shared liquid-glass CSS
+ * scope applies automatically.
  */
 export function ScreeningFX() {
   useEffect(() => {
@@ -25,52 +26,56 @@ export function ScreeningFX() {
       `<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'>
         <filter id='n'>
           <feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/>
-          <feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.10  0 0 0 0 0.18  0 0 0 1 0'/>
+          <feColorMatrix values='0 0 0 0 0.06  0 0 0 0 0.09  0 0 0 0 0.16  0 0 0 1 0'/>
         </filter>
-        <rect width='100%' height='100%' filter='url(#n)'/>
+        <rect width='100%' height='100%' filter='url(#n)' opacity='1'/>
       </svg>`
     ) +
     "\")";
 
   return (
     <>
+      {/* 1. sharp sky */}
       <div
         aria-hidden
         style={{
           ...fixed,
-          backgroundImage: `url(${auroraAsset.url})`,
+          backgroundImage: `url(${skyAsset.url})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       />
+      {/* 2. soft blurred atmosphere */}
       <div
         aria-hidden
         style={{
           ...fixed,
-          backgroundImage: `url(${auroraAsset.url})`,
+          backgroundImage: `url(${skyAsset.url})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          filter: "blur(48px) saturate(118%)",
-          transform: "scale(1.1)",
-          opacity: 0.7,
+          filter: "blur(36px) saturate(115%)",
+          transform: "scale(1.08)",
+          opacity: 0.55,
         }}
       />
+      {/* 3. tone wash */}
       <div
         aria-hidden
         style={{
           ...fixed,
           background:
-            "radial-gradient(120% 90% at 50% 0%, rgba(255,255,255,0.28), transparent 55%), linear-gradient(180deg, rgba(200,215,235,0.10) 0%, rgba(150,175,215,0.22) 100%)",
+            "radial-gradient(120% 90% at 50% 0%, rgba(255,255,255,0.22), transparent 55%), linear-gradient(180deg, rgba(180,210,240,0.08) 0%, rgba(120,160,210,0.20) 100%)",
         }}
       />
+      {/* 4. high grain */}
       <div
         aria-hidden
         style={{
           ...fixed,
           backgroundImage: grainUrl,
           backgroundSize: "240px 240px",
-          opacity: 0.09,
           mixBlendMode: "overlay",
+          opacity: 0.55,
         }}
       />
     </>
