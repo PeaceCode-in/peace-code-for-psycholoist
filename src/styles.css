@@ -463,10 +463,7 @@ body { overflow-y: visible; }
 :is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid),
 :is(html[data-pc-resources],html[data-pc-screening]) main .rounded-xl:not(.no-glass):not(.pc-solid),
 :is(html[data-pc-resources],html[data-pc-screening]) main .rounded-full:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening]) main [class*="rounded-[2"]:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening]) main input:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening]) main textarea:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening]) main select:not(.no-glass):not(.pc-solid) {
+:is(html[data-pc-resources],html[data-pc-screening]) main [class*="rounded-[2"]:not(.no-glass):not(.pc-solid) {
   background: rgba(255, 255, 255, 0.22) !important;
   backdrop-filter: blur(30px) saturate(140%);
   border: 1px solid rgba(255, 255, 255, 0.38) !important;
