@@ -81,6 +81,7 @@ import { Route as PeacebotMemoryRouteImport } from './routes/peacebot.memory'
 import { Route as PeacebotInsightsRouteImport } from './routes/peacebot.insights'
 import { Route as PeacebotAvatarRouteImport } from './routes/peacebot.avatar'
 import { Route as NotificationsInboxRouteImport } from './routes/notifications.inbox'
+import { Route as NotificationsIdRouteImport } from './routes/notifications.$id'
 import { Route as MindgymStreakRouteImport } from './routes/mindgym.streak'
 import { Route as MindgymPathsRouteImport } from './routes/mindgym.paths'
 import { Route as MindgymLibraryRouteImport } from './routes/mindgym.library'
@@ -506,6 +507,11 @@ const NotificationsInboxRoute = NotificationsInboxRouteImport.update({
   path: '/inbox',
   getParentRoute: () => NotificationsRoute,
 } as any)
+const NotificationsIdRoute = NotificationsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => NotificationsRoute,
+} as any)
 const MindgymStreakRoute = MindgymStreakRouteImport.update({
   id: '/streak',
   path: '/streak',
@@ -872,6 +878,7 @@ export interface FileRoutesByFullPath {
   '/mindgym/library': typeof MindgymLibraryRoute
   '/mindgym/paths': typeof MindgymPathsRoute
   '/mindgym/streak': typeof MindgymStreakRoute
+  '/notifications/$id': typeof NotificationsIdRoute
   '/notifications/inbox': typeof NotificationsInboxRoute
   '/peacebot/avatar': typeof PeacebotAvatarRoute
   '/peacebot/insights': typeof PeacebotInsightsRoute
@@ -1004,6 +1011,7 @@ export interface FileRoutesByTo {
   '/mindgym/library': typeof MindgymLibraryRoute
   '/mindgym/paths': typeof MindgymPathsRoute
   '/mindgym/streak': typeof MindgymStreakRoute
+  '/notifications/$id': typeof NotificationsIdRoute
   '/notifications/inbox': typeof NotificationsInboxRoute
   '/peacebot/avatar': typeof PeacebotAvatarRoute
   '/peacebot/insights': typeof PeacebotInsightsRoute
@@ -1143,6 +1151,7 @@ export interface FileRoutesById {
   '/mindgym/library': typeof MindgymLibraryRoute
   '/mindgym/paths': typeof MindgymPathsRoute
   '/mindgym/streak': typeof MindgymStreakRoute
+  '/notifications/$id': typeof NotificationsIdRoute
   '/notifications/inbox': typeof NotificationsInboxRoute
   '/peacebot/avatar': typeof PeacebotAvatarRoute
   '/peacebot/insights': typeof PeacebotInsightsRoute
@@ -1283,6 +1292,7 @@ export interface FileRouteTypes {
     | '/mindgym/library'
     | '/mindgym/paths'
     | '/mindgym/streak'
+    | '/notifications/$id'
     | '/notifications/inbox'
     | '/peacebot/avatar'
     | '/peacebot/insights'
@@ -1415,6 +1425,7 @@ export interface FileRouteTypes {
     | '/mindgym/library'
     | '/mindgym/paths'
     | '/mindgym/streak'
+    | '/notifications/$id'
     | '/notifications/inbox'
     | '/peacebot/avatar'
     | '/peacebot/insights'
@@ -1553,6 +1564,7 @@ export interface FileRouteTypes {
     | '/mindgym/library'
     | '/mindgym/paths'
     | '/mindgym/streak'
+    | '/notifications/$id'
     | '/notifications/inbox'
     | '/peacebot/avatar'
     | '/peacebot/insights'
@@ -2227,6 +2239,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotificationsInboxRouteImport
       parentRoute: typeof NotificationsRoute
     }
+    '/notifications/$id': {
+      id: '/notifications/$id'
+      path: '/$id'
+      fullPath: '/notifications/$id'
+      preLoaderRoute: typeof NotificationsIdRouteImport
+      parentRoute: typeof NotificationsRoute
+    }
     '/mindgym/streak': {
       id: '/mindgym/streak'
       path: '/streak'
@@ -2760,11 +2779,13 @@ const MindgymRouteWithChildren =
   MindgymRoute._addFileChildren(MindgymRouteChildren)
 
 interface NotificationsRouteChildren {
+  NotificationsIdRoute: typeof NotificationsIdRoute
   NotificationsInboxRoute: typeof NotificationsInboxRoute
   NotificationsIndexRoute: typeof NotificationsIndexRoute
 }
 
 const NotificationsRouteChildren: NotificationsRouteChildren = {
+  NotificationsIdRoute: NotificationsIdRoute,
   NotificationsInboxRoute: NotificationsInboxRoute,
   NotificationsIndexRoute: NotificationsIndexRoute,
 }
