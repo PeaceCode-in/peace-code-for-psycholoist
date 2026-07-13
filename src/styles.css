@@ -463,10 +463,7 @@ body { overflow-y: visible; }
 :is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid),
 :is(html[data-pc-resources],html[data-pc-screening]) main .rounded-xl:not(.no-glass):not(.pc-solid),
 :is(html[data-pc-resources],html[data-pc-screening]) main .rounded-full:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening]) main [class*="rounded-[2"]:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening]) main input:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening]) main textarea:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening]) main select:not(.no-glass):not(.pc-solid) {
+:is(html[data-pc-resources],html[data-pc-screening]) main [class*="rounded-[2"]:not(.no-glass):not(.pc-solid) {
   background: rgba(255, 255, 255, 0.22) !important;
   backdrop-filter: blur(30px) saturate(140%);
   border: 1px solid rgba(255, 255, 255, 0.38) !important;
@@ -527,29 +524,27 @@ body { overflow-y: visible; }
   will-change: transform;
 }
 
-/* No double-glass: inputs/textareas/selects nested inside a glass surface stay
-   transparent so only the outer container reads as frosted glass. */
-:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl input,
-:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl input,
-:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-xl input,
-:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl textarea,
-:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl textarea,
-:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-xl textarea {
+/* No double-glass: every input / textarea / select stays fully transparent —
+   the surrounding container carries the frosted glass frame. */
+:is(html[data-pc-resources],html[data-pc-screening]) input,
+:is(html[data-pc-resources],html[data-pc-screening]) textarea,
+:is(html[data-pc-resources],html[data-pc-screening]) select {
   background: transparent !important;
+  background-color: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
   backdrop-filter: none !important;
-}
-
-/* Text visibility on liquid glass — dark ink for form controls & placeholders */
-:is(html[data-pc-resources],html[data-pc-screening]) main input,
-:is(html[data-pc-resources],html[data-pc-screening]) main textarea,
-:is(html[data-pc-resources],html[data-pc-screening]) main select {
   color: #0f2540 !important;
 }
-:is(html[data-pc-resources],html[data-pc-screening]) main input::placeholder,
-:is(html[data-pc-resources],html[data-pc-screening]) main textarea::placeholder {
-  color: rgba(15, 37, 64, 0.5) !important;
+:is(html[data-pc-resources],html[data-pc-screening]) input::placeholder,
+:is(html[data-pc-resources],html[data-pc-screening]) textarea::placeholder {
+  color: rgba(15, 37, 64, 0.6) !important;
+}
+/* Native <option> renders outside our glass layer — give the dropdown menu a
+   solid, readable surface so the selected/hover row is legible. */
+:is(html[data-pc-resources],html[data-pc-screening]) select option {
+  background: #ffffff !important;
+  color: #0f2540 !important;
 }
 
 
