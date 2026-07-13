@@ -428,9 +428,6 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
               <div className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px]" style={{ background: surface2, color: primary }}>
                 <Flame className="w-3 h-3" strokeWidth={1.5}/> 12
               </div>
-              <button onClick={toggleTheme} className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}`, color: muted }} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>
-                {theme === "dark" ? <Sun className="w-3.5 h-3.5" strokeWidth={1.5}/> : <Moon className="w-3.5 h-3.5" strokeWidth={1.5}/>}
-              </button>
               <Link to="/notifications" className="relative w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }} aria-label={`notifications${unread ? `, ${unread} unread` : ""}`}>
                 <Bell className="w-3.5 h-3.5 opacity-70" strokeWidth={1.5}/>
                 {unread > 0 && (
