@@ -3,8 +3,9 @@ import { useEffect, useState, type ReactNode } from "react";
 import {
   BookOpen, Moon, Sun, Settings, Bell, Flame, Users, Wind, Search,
   Heart, PenLine, Bot, CalendarCheck, UserCheck, ClipboardList, Target, Activity, Brain,
-  Menu, X, Home,
+  Menu, X, Home, LifeBuoy,
 } from "lucide-react";
+
 import logo from "@/assets/peacecode-logo.png";
 import { loadSettings, applyAppearance, applyAccessibility } from "@/lib/settings-store";
 import { unreadCount as notifUnread } from "@/lib/notifications-store";
@@ -104,9 +105,11 @@ const navGroups: NavGroup[] = [
     items: [
       { icon: Users, label: "Community", to: "/community" },
       { icon: BookOpen, label: "Resources", to: "/resources" },
+      { icon: LifeBuoy, label: "Emergency", to: "/emergency" },
     ],
   },
 ];
+
 
 function Mark({ className = "w-5 h-5", opacity = 1 }: { className?: string; opacity?: number }) {
   return <img src={logo} alt="" className={className} style={{ opacity }} />;
@@ -337,6 +340,29 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
       <div className="relative z-10 lg:pl-[120px] lg:pr-6">
         {children}
       </div>
+
+      {/* ─── floating Emergency button (global, calm not scary) ─── */}
+      {!pathname.startsWith("/emergency") && (
+        <Link
+          to="/emergency"
+          aria-label="Open Emergency Center"
+          className="fixed z-40 flex items-center gap-2 rounded-full pl-3 pr-4 h-11 backdrop-blur-xl transition hover:scale-[1.02] active:scale-[0.98]"
+          style={{
+            right: "18px",
+            bottom: "22px",
+            background: "var(--pc-surface)",
+            border: `1px solid ${border}`,
+            boxShadow: "0 18px 40px -20px rgba(0,0,0,0.25)",
+            color: ink,
+          }}
+        >
+          <span className="w-7 h-7 rounded-full flex items-center justify-center" style={{ background: soft }}>
+            <LifeBuoy className="w-3.5 h-3.5" strokeWidth={1.6} />
+          </span>
+          <span className="text-[12px] tracking-wide">Emergency</span>
+        </Link>
+      )}
     </div>
   );
 }
+
