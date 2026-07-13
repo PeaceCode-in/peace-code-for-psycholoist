@@ -120,7 +120,7 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [theme, , toggleTheme] = useTheme();
+  useTheme();
   const [unread, setUnread] = useState(0);
 
   // ── persisted sidebar: pinned (expanded) + last active route ──
