@@ -3,11 +3,12 @@
 // glance at one module: collapsed → expanded → open full page.
 
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
   ChevronRight, ChevronDown, Sparkles, Flame, Heart, Wind, Feather,
   Users, BookOpen, Brain, CalendarCheck, UserCheck, TreePine, Trophy,
   Bot, Clock, ArrowRight, AlertCircle, Play, TrendingUp, Leaf, Moon, PenLine,
+  ClipboardList,
 } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 
@@ -18,6 +19,7 @@ import * as focus from "@/lib/focus-store";
 import * as counselling from "@/lib/counselling-store";
 import * as buddies from "@/lib/buddies-store";
 import * as screening from "@/lib/screening-store";
+import * as peacebot from "@/lib/peacebot-store";
 import { useMindGym, ensureBootstrapped, brainOverall, weeklyStats, recommendNext, EXERCISES } from "@/lib/mindgym-store";
 
 export const Route = createFileRoute("/")({
