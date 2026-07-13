@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   BookOpen, Settings, Bell, Flame, Users, Wind, Search,
   Heart, PenLine, Bot, CalendarCheck, UserCheck, ClipboardList, Target, Activity, Brain,
-  Menu, X, Home, LifeBuoy, CalendarDays, PanelLeftClose, PanelLeftOpen,
+  Menu, X, Home, LifeBuoy, CalendarDays,
 } from "lucide-react";
 
 import logo from "@/assets/peacecode-logo.png";
