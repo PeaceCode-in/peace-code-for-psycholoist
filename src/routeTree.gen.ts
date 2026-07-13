@@ -106,6 +106,7 @@ import { Route as EmergencyRecoveryRouteImport } from './routes/emergency.recove
 import { Route as EmergencyLocationRouteImport } from './routes/emergency.location'
 import { Route as EmergencyHumanRouteImport } from './routes/emergency.human'
 import { Route as EmergencyHopeBoxRouteImport } from './routes/emergency.hope-box'
+import { Route as EmergencyHistoryRouteImport } from './routes/emergency.history'
 import { Route as EmergencyHelplinesRouteImport } from './routes/emergency.helplines'
 import { Route as EmergencyGroundingRouteImport } from './routes/emergency.grounding'
 import { Route as EmergencyContactsRouteImport } from './routes/emergency.contacts'
@@ -652,6 +653,11 @@ const EmergencyHopeBoxRoute = EmergencyHopeBoxRouteImport.update({
   path: '/hope-box',
   getParentRoute: () => EmergencyRoute,
 } as any)
+const EmergencyHistoryRoute = EmergencyHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => EmergencyRoute,
+} as any)
 const EmergencyHelplinesRoute = EmergencyHelplinesRouteImport.update({
   id: '/helplines',
   path: '/helplines',
@@ -995,6 +1001,7 @@ export interface FileRoutesByFullPath {
   '/emergency/contacts': typeof EmergencyContactsRoute
   '/emergency/grounding': typeof EmergencyGroundingRoute
   '/emergency/helplines': typeof EmergencyHelplinesRoute
+  '/emergency/history': typeof EmergencyHistoryRoute
   '/emergency/hope-box': typeof EmergencyHopeBoxRoute
   '/emergency/human': typeof EmergencyHumanRoute
   '/emergency/location': typeof EmergencyLocationRoute
@@ -1147,6 +1154,7 @@ export interface FileRoutesByTo {
   '/emergency/contacts': typeof EmergencyContactsRoute
   '/emergency/grounding': typeof EmergencyGroundingRoute
   '/emergency/helplines': typeof EmergencyHelplinesRoute
+  '/emergency/history': typeof EmergencyHistoryRoute
   '/emergency/hope-box': typeof EmergencyHopeBoxRoute
   '/emergency/human': typeof EmergencyHumanRoute
   '/emergency/location': typeof EmergencyLocationRoute
@@ -1307,6 +1315,7 @@ export interface FileRoutesById {
   '/emergency/contacts': typeof EmergencyContactsRoute
   '/emergency/grounding': typeof EmergencyGroundingRoute
   '/emergency/helplines': typeof EmergencyHelplinesRoute
+  '/emergency/history': typeof EmergencyHistoryRoute
   '/emergency/hope-box': typeof EmergencyHopeBoxRoute
   '/emergency/human': typeof EmergencyHumanRoute
   '/emergency/location': typeof EmergencyLocationRoute
@@ -1468,6 +1477,7 @@ export interface FileRouteTypes {
     | '/emergency/contacts'
     | '/emergency/grounding'
     | '/emergency/helplines'
+    | '/emergency/history'
     | '/emergency/hope-box'
     | '/emergency/human'
     | '/emergency/location'
@@ -1620,6 +1630,7 @@ export interface FileRouteTypes {
     | '/emergency/contacts'
     | '/emergency/grounding'
     | '/emergency/helplines'
+    | '/emergency/history'
     | '/emergency/hope-box'
     | '/emergency/human'
     | '/emergency/location'
@@ -1779,6 +1790,7 @@ export interface FileRouteTypes {
     | '/emergency/contacts'
     | '/emergency/grounding'
     | '/emergency/helplines'
+    | '/emergency/history'
     | '/emergency/hope-box'
     | '/emergency/human'
     | '/emergency/location'
@@ -2653,6 +2665,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmergencyHopeBoxRouteImport
       parentRoute: typeof EmergencyRoute
     }
+    '/emergency/history': {
+      id: '/emergency/history'
+      path: '/history'
+      fullPath: '/emergency/history'
+      preLoaderRoute: typeof EmergencyHistoryRouteImport
+      parentRoute: typeof EmergencyRoute
+    }
     '/emergency/helplines': {
       id: '/emergency/helplines'
       path: '/helplines'
@@ -3136,6 +3155,7 @@ interface EmergencyRouteChildren {
   EmergencyContactsRoute: typeof EmergencyContactsRoute
   EmergencyGroundingRoute: typeof EmergencyGroundingRoute
   EmergencyHelplinesRoute: typeof EmergencyHelplinesRoute
+  EmergencyHistoryRoute: typeof EmergencyHistoryRoute
   EmergencyHopeBoxRoute: typeof EmergencyHopeBoxRoute
   EmergencyHumanRoute: typeof EmergencyHumanRoute
   EmergencyLocationRoute: typeof EmergencyLocationRoute
@@ -3154,6 +3174,7 @@ const EmergencyRouteChildren: EmergencyRouteChildren = {
   EmergencyContactsRoute: EmergencyContactsRoute,
   EmergencyGroundingRoute: EmergencyGroundingRoute,
   EmergencyHelplinesRoute: EmergencyHelplinesRoute,
+  EmergencyHistoryRoute: EmergencyHistoryRoute,
   EmergencyHopeBoxRoute: EmergencyHopeBoxRoute,
   EmergencyHumanRoute: EmergencyHumanRoute,
   EmergencyLocationRoute: EmergencyLocationRoute,
