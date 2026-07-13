@@ -82,6 +82,7 @@ import { Route as PeacebotInsightsRouteImport } from './routes/peacebot.insights
 import { Route as PeacebotAvatarRouteImport } from './routes/peacebot.avatar'
 import { Route as NotificationsInboxRouteImport } from './routes/notifications.inbox'
 import { Route as NotificationsBookmarksRouteImport } from './routes/notifications.bookmarks'
+import { Route as NotificationsArchiveRouteImport } from './routes/notifications.archive'
 import { Route as NotificationsIdRouteImport } from './routes/notifications.$id'
 import { Route as MindgymStreakRouteImport } from './routes/mindgym.streak'
 import { Route as MindgymPathsRouteImport } from './routes/mindgym.paths'
@@ -513,6 +514,11 @@ const NotificationsBookmarksRoute = NotificationsBookmarksRouteImport.update({
   path: '/bookmarks',
   getParentRoute: () => NotificationsRoute,
 } as any)
+const NotificationsArchiveRoute = NotificationsArchiveRouteImport.update({
+  id: '/archive',
+  path: '/archive',
+  getParentRoute: () => NotificationsRoute,
+} as any)
 const NotificationsIdRoute = NotificationsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -885,6 +891,7 @@ export interface FileRoutesByFullPath {
   '/mindgym/paths': typeof MindgymPathsRoute
   '/mindgym/streak': typeof MindgymStreakRoute
   '/notifications/$id': typeof NotificationsIdRoute
+  '/notifications/archive': typeof NotificationsArchiveRoute
   '/notifications/bookmarks': typeof NotificationsBookmarksRoute
   '/notifications/inbox': typeof NotificationsInboxRoute
   '/peacebot/avatar': typeof PeacebotAvatarRoute
@@ -1019,6 +1026,7 @@ export interface FileRoutesByTo {
   '/mindgym/paths': typeof MindgymPathsRoute
   '/mindgym/streak': typeof MindgymStreakRoute
   '/notifications/$id': typeof NotificationsIdRoute
+  '/notifications/archive': typeof NotificationsArchiveRoute
   '/notifications/bookmarks': typeof NotificationsBookmarksRoute
   '/notifications/inbox': typeof NotificationsInboxRoute
   '/peacebot/avatar': typeof PeacebotAvatarRoute
@@ -1160,6 +1168,7 @@ export interface FileRoutesById {
   '/mindgym/paths': typeof MindgymPathsRoute
   '/mindgym/streak': typeof MindgymStreakRoute
   '/notifications/$id': typeof NotificationsIdRoute
+  '/notifications/archive': typeof NotificationsArchiveRoute
   '/notifications/bookmarks': typeof NotificationsBookmarksRoute
   '/notifications/inbox': typeof NotificationsInboxRoute
   '/peacebot/avatar': typeof PeacebotAvatarRoute
@@ -1302,6 +1311,7 @@ export interface FileRouteTypes {
     | '/mindgym/paths'
     | '/mindgym/streak'
     | '/notifications/$id'
+    | '/notifications/archive'
     | '/notifications/bookmarks'
     | '/notifications/inbox'
     | '/peacebot/avatar'
@@ -1436,6 +1446,7 @@ export interface FileRouteTypes {
     | '/mindgym/paths'
     | '/mindgym/streak'
     | '/notifications/$id'
+    | '/notifications/archive'
     | '/notifications/bookmarks'
     | '/notifications/inbox'
     | '/peacebot/avatar'
@@ -1576,6 +1587,7 @@ export interface FileRouteTypes {
     | '/mindgym/paths'
     | '/mindgym/streak'
     | '/notifications/$id'
+    | '/notifications/archive'
     | '/notifications/bookmarks'
     | '/notifications/inbox'
     | '/peacebot/avatar'
@@ -2258,6 +2270,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotificationsBookmarksRouteImport
       parentRoute: typeof NotificationsRoute
     }
+    '/notifications/archive': {
+      id: '/notifications/archive'
+      path: '/archive'
+      fullPath: '/notifications/archive'
+      preLoaderRoute: typeof NotificationsArchiveRouteImport
+      parentRoute: typeof NotificationsRoute
+    }
     '/notifications/$id': {
       id: '/notifications/$id'
       path: '/$id'
@@ -2799,6 +2818,7 @@ const MindgymRouteWithChildren =
 
 interface NotificationsRouteChildren {
   NotificationsIdRoute: typeof NotificationsIdRoute
+  NotificationsArchiveRoute: typeof NotificationsArchiveRoute
   NotificationsBookmarksRoute: typeof NotificationsBookmarksRoute
   NotificationsInboxRoute: typeof NotificationsInboxRoute
   NotificationsIndexRoute: typeof NotificationsIndexRoute
@@ -2806,6 +2826,7 @@ interface NotificationsRouteChildren {
 
 const NotificationsRouteChildren: NotificationsRouteChildren = {
   NotificationsIdRoute: NotificationsIdRoute,
+  NotificationsArchiveRoute: NotificationsArchiveRoute,
   NotificationsBookmarksRoute: NotificationsBookmarksRoute,
   NotificationsInboxRoute: NotificationsInboxRoute,
   NotificationsIndexRoute: NotificationsIndexRoute,
