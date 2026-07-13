@@ -1,7 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
-  BookOpen, Moon, Sun, Settings, Bell, Flame, Users, Wind, Search,
+  BookOpen, Settings, Bell, Flame, Users, Wind, Search,
   Heart, PenLine, Bot, CalendarCheck, UserCheck, ClipboardList, Target, Activity, Brain,
   Menu, X, Home, LifeBuoy, CalendarDays, PanelLeftClose, PanelLeftOpen,
 } from "lucide-react";
@@ -120,7 +120,7 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [theme, , toggleTheme] = useTheme();
+  useTheme();
   const [unread, setUnread] = useState(0);
 
   // ── persisted sidebar: pinned (expanded) + last active route ──
@@ -385,14 +385,6 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
         </nav>
 
         <div className="shrink-0 mt-4 mx-3 pt-3 flex flex-col gap-1" style={{ borderTop: `1px solid ${border}` }}>
-          <button onClick={toggleTheme} className="flex items-center h-10 rounded-2xl transition" style={{ color: muted }} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>
-            <span className="w-[56px] shrink-0 flex justify-center">
-              {theme === "dark" ? <Sun className="w-[19px] h-[19px]" strokeWidth={1.4}/> : <Moon className="w-[19px] h-[19px]" strokeWidth={1.4}/>}
-            </span>
-            <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">
-              {theme === "dark" ? "Light mode" : "Dark mode"}
-            </span>
-          </button>
           <Link to="/settings" className="flex items-center h-10 rounded-2xl transition" style={{ color: muted }} aria-label="Settings">
             <span className="w-[56px] shrink-0 flex justify-center"><Settings className="w-[19px] h-[19px]" strokeWidth={1.4}/></span>
             <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">Settings</span>
@@ -436,9 +428,6 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
               <div className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px]" style={{ background: surface2, color: primary }}>
                 <Flame className="w-3 h-3" strokeWidth={1.5}/> 12
               </div>
-              <button onClick={toggleTheme} className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}`, color: muted }} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>
-                {theme === "dark" ? <Sun className="w-3.5 h-3.5" strokeWidth={1.5}/> : <Moon className="w-3.5 h-3.5" strokeWidth={1.5}/>}
-              </button>
               <Link to="/notifications" className="relative w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }} aria-label={`notifications${unread ? `, ${unread} unread` : ""}`}>
                 <Bell className="w-3.5 h-3.5 opacity-70" strokeWidth={1.5}/>
                 {unread > 0 && (
@@ -509,10 +498,6 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
             <Link to="/settings" className="pc-nav-item mt-6 flex items-center gap-3 h-12 px-3 rounded-2xl text-[14px]" style={{ background: "rgba(255,255,255,0.55)", color: ink }}>
               <Settings className="pc-nav-icon w-4 h-4" strokeWidth={1.5}/> Settings
             </Link>
-            <button onClick={toggleTheme} className="pc-nav-item mt-2 flex items-center gap-3 h-12 px-3 rounded-2xl text-[14px]" style={{ background: "rgba(255,255,255,0.55)", color: ink }} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>
-              {theme === "dark" ? <Sun className="pc-nav-icon w-4 h-4" strokeWidth={1.5}/> : <Moon className="pc-nav-icon w-4 h-4" strokeWidth={1.5}/>}
-              {theme === "dark" ? "Light mode" : "Dark mode"}
-            </button>
           </div>
         </div>
       )}
