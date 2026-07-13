@@ -94,21 +94,21 @@ function SearchPage() {
           <LanguageToggle />
         </div>
 
-        <div className="rounded-3xl p-4 sm:p-5 flex items-center gap-3"
-          style={{ background: "var(--pc-surface)", border: "1px solid var(--pc-border)" }}>
-          <SearchIcon className="w-5 h-5 opacity-60"/>
+        <div className="rounded-3xl p-4 sm:p-5 flex items-center gap-3">
+          <SearchIcon className="w-5 h-5 opacity-60" style={{ color: "var(--pc-ink)" }}/>
           <input autoFocus value={q} onChange={e => setQ(e.target.value)}
             onKeyDown={e => { if (e.key === "Enter") submit(q); }}
             placeholder={t.searchPh}
-            className="flex-1 bg-transparent outline-none text-[15px] placeholder:opacity-40"
-            style={{ color: "var(--pc-ink)" }} aria-label={t.searchPh}/>
-          {q && <button onClick={() => { setQ(""); setSubmitted(""); }} aria-label="Clear"><X className="w-4 h-4 opacity-60"/></button>}
+            className="no-glass flex-1 bg-transparent border-0 outline-none shadow-none text-[15px] placeholder:opacity-50"
+            style={{ background: "transparent", color: "var(--pc-ink)", border: 0, boxShadow: "none" }} aria-label={t.searchPh}/>
+          {q && <button onClick={() => { setQ(""); setSubmitted(""); }} aria-label="Clear" className="no-glass" style={{ background: "transparent", border: 0, boxShadow: "none" }}><X className="w-4 h-4" style={{ color: "var(--pc-ink)", opacity: 0.7 }}/></button>}
           <button onClick={startVoice} aria-label="Voice search"
             className="w-10 h-10 rounded-full flex items-center justify-center transition"
-            style={{ background: listening ? "var(--pc-primary)" : "var(--pc-surface2)", color: listening ? "#fff" : "var(--pc-muted)" }}>
+            style={{ background: listening ? "var(--pc-primary)" : "rgba(255,255,255,0.22)", color: listening ? "#fff" : "var(--pc-ink)" }}>
             <Mic className="w-4 h-4"/>
           </button>
         </div>
+
 
         {!submitted && (
           <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
