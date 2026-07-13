@@ -203,7 +203,7 @@ function FocusPage() {
           {/* Timer card */}
           <div className="no-glass relative overflow-hidden rounded-[26px] sm:rounded-[32px] p-4 sm:p-8 lg:p-12"
                style={{ background: `linear-gradient(160deg, ${surface} 0%, ${surface2} 100%)`, border: `1px solid ${border}` }}>
-            <div className="absolute -top-24 -right-16 w-80 h-80 rounded-full blur-3xl opacity-60 pointer-events-none"
+            <div className="no-glass absolute -top-24 -right-16 w-80 h-80 rounded-full blur-3xl opacity-60 pointer-events-none"
                  style={{ background: `radial-gradient(circle, ${currentMode.color}, transparent 70%)` }}/>
 
             <div className="relative grid grid-cols-2 sm:flex sm:flex-wrap gap-2 mb-4 sm:mb-6 items-center">
