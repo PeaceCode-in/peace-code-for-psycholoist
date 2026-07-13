@@ -463,7 +463,9 @@ body { overflow-y: visible; }
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-3xl:not(.no-glass):not(.pc-solid),
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-xl:not(.no-glass):not(.pc-solid),
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-full:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main [class*="rounded-[2"]:not(.no-glass):not(.pc-solid) {
+:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main [class*="rounded-[1"]:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main [class*="rounded-[2"]:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main [class*="rounded-[3"]:not(.no-glass):not(.pc-solid) {
   background: rgba(255, 255, 255, 0.22) !important;
   backdrop-filter: blur(30px) saturate(140%);
   border: 1px solid rgba(255, 255, 255, 0.38) !important;

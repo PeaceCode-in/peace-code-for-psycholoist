@@ -10,8 +10,11 @@ import skyAsset from "@/assets/sky-clouds.jpg.asset.json";
 export function GlassFX() {
   useEffect(() => {
     document.documentElement.setAttribute("data-pc-glass", "");
-    return () => document.documentElement.removeAttribute("data-pc-glass");
+    // Intentionally no cleanup — AppShell mounts on almost every route.
+    // Leaving the attribute set avoids a flash of solid-white cards when
+    // navigating between glass-enabled routes.
   }, []);
+
 
   const fixed = {
     position: "fixed" as const,
