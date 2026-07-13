@@ -5,7 +5,7 @@ import { palette } from "@/components/AppShell";
 import { Page, PageTitle, EventCard, Chip, EmptyState, GhostBtn } from "@/components/events/primitives";
 import { events, loadRsvps, bookmarks, statusOf, eventById, attendanceFor } from "@/lib/events-store";
 
-const { muted, primary, border } = palette;
+const { muted, primary } = palette;
 
 type Tab = "upcoming" | "today" | "completed" | "cancelled" | "bookmarked" | "waitlisted" | "past";
 
