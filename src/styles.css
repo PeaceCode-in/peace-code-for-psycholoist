@@ -880,3 +880,12 @@ html[data-pc-perf="low"] .pc-mobile-drawer::after {
   }
 }
 
+
+/* ============================================================
+   Pinned sidebar — persists expanded state across refresh.
+   When [data-pinned="true"], reveal the labels that are normally
+   only shown on hover, and enable vertical scrolling.
+   ============================================================ */
+.pc-glass-sidebar[data-pinned="true"] [class~="group-hover:opacity-100"] { opacity: 1 !important; }
+.pc-glass-sidebar[data-pinned="true"] nav.group-hover\:overflow-y-auto,
+.pc-glass-sidebar[data-pinned="true"] [class~="group-hover:overflow-y-auto"] { overflow-y: auto !important; }

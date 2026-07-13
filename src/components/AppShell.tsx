@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   BookOpen, Moon, Sun, Settings, Bell, Flame, Users, Wind, Search,
   Heart, PenLine, Bot, CalendarCheck, UserCheck, ClipboardList, Target, Activity, Brain,
-  Menu, X, Home, LifeBuoy, CalendarDays,
+  Menu, X, Home, LifeBuoy, CalendarDays, PanelLeftClose, PanelLeftOpen,
 } from "lucide-react";
 
 import logo from "@/assets/peacecode-logo.png";
@@ -122,6 +122,30 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
   const [scrolled, setScrolled] = useState(false);
   const [theme, , toggleTheme] = useTheme();
   const [unread, setUnread] = useState(0);
+
+  // ── persisted sidebar: pinned (expanded) + last active route ──
+  const SIDEBAR_KEY = "peacecode.sidebar.v1";
+  const [pinned, setPinnedState] = useState(false);
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(SIDEBAR_KEY);
+      if (raw) {
+        const s = JSON.parse(raw) as { pinned?: boolean };
+        if (typeof s.pinned === "boolean") setPinnedState(s.pinned);
+      }
+    } catch {}
+  }, []);
+  const writeSidebar = (patch: { pinned?: boolean; lastPath?: string }) => {
+    try {
+      const raw = localStorage.getItem(SIDEBAR_KEY);
+      const cur = raw ? JSON.parse(raw) : {};
+      localStorage.setItem(SIDEBAR_KEY, JSON.stringify({ ...cur, ...patch }));
+    } catch {}
+  };
+  const setPinned = (v: boolean) => { setPinnedState(v); writeSidebar({ pinned: v }); };
+  // remember last active route across refreshes
+  useEffect(() => { writeSidebar({ lastPath: pathname }); }, [pathname]);
+
   useEffect(() => {
     const refresh = () => { try { setUnread(notifUnread()); } catch {} };
     refresh();
@@ -307,8 +331,20 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
 
       {/* ─── desktop sidebar ─── */}
       <aside
-        className="pc-glass-sidebar hidden lg:flex fixed top-6 bottom-6 left-6 z-40 group flex-col py-6 rounded-[38px] transition-[width] duration-300 ease-out hover:w-60 w-[80px] overflow-hidden"
+        data-pinned={pinned ? "true" : "false"}
+        className={`pc-glass-sidebar hidden lg:flex fixed top-6 bottom-6 left-6 z-40 group flex-col py-6 rounded-[38px] transition-[width] duration-300 ease-out overflow-hidden ${pinned ? "w-60" : "hover:w-60 w-[80px]"}`}
       >
+        <button
+          onClick={() => setPinned(!pinned)}
+          className="absolute top-3 right-3 z-10 w-7 h-7 rounded-full flex items-center justify-center transition opacity-0 group-hover:opacity-100"
+          style={{ background: surface, border: `1px solid ${border}`, color: muted }}
+          aria-label={pinned ? "Collapse sidebar" : "Expand sidebar"}
+          aria-pressed={pinned}
+          title={pinned ? "Collapse sidebar" : "Keep sidebar open"}
+        >
+          {pinned ? <PanelLeftClose className="w-3.5 h-3.5" strokeWidth={1.5}/> : <PanelLeftOpen className="w-3.5 h-3.5" strokeWidth={1.5}/>}
+        </button>
+
 
 
         <div className="flex items-center h-12 mb-8">
