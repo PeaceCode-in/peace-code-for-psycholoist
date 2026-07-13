@@ -105,6 +105,7 @@ import { Route as EventsMyRouteImport } from './routes/events.my'
 import { Route as EventsCalendarRouteImport } from './routes/events.calendar'
 import { Route as EventsBrowseRouteImport } from './routes/events.browse'
 import { Route as EventsBookmarksRouteImport } from './routes/events.bookmarks'
+import { Route as EventsAchievementsRouteImport } from './routes/events.achievements'
 import { Route as EventsIdRouteImport } from './routes/events.$id'
 import { Route as EmergencyToolkitRouteImport } from './routes/emergency.toolkit'
 import { Route as EmergencySosRouteImport } from './routes/emergency.sos'
@@ -666,6 +667,11 @@ const EventsBookmarksRoute = EventsBookmarksRouteImport.update({
   path: '/bookmarks',
   getParentRoute: () => EventsRoute,
 } as any)
+const EventsAchievementsRoute = EventsAchievementsRouteImport.update({
+  id: '/achievements',
+  path: '/achievements',
+  getParentRoute: () => EventsRoute,
+} as any)
 const EventsIdRoute = EventsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -1121,6 +1127,7 @@ export interface FileRoutesByFullPath {
   '/emergency/sos': typeof EmergencySosRoute
   '/emergency/toolkit': typeof EmergencyToolkitRoute
   '/events/$id': typeof EventsIdRouteWithChildren
+  '/events/achievements': typeof EventsAchievementsRoute
   '/events/bookmarks': typeof EventsBookmarksRoute
   '/events/browse': typeof EventsBrowseRoute
   '/events/calendar': typeof EventsCalendarRoute
@@ -1290,6 +1297,7 @@ export interface FileRoutesByTo {
   '/emergency/settings': typeof EmergencySettingsRoute
   '/emergency/sos': typeof EmergencySosRoute
   '/emergency/toolkit': typeof EmergencyToolkitRoute
+  '/events/achievements': typeof EventsAchievementsRoute
   '/events/bookmarks': typeof EventsBookmarksRoute
   '/events/browse': typeof EventsBrowseRoute
   '/events/calendar': typeof EventsCalendarRoute
@@ -1469,6 +1477,7 @@ export interface FileRoutesById {
   '/emergency/sos': typeof EmergencySosRoute
   '/emergency/toolkit': typeof EmergencyToolkitRoute
   '/events/$id': typeof EventsIdRouteWithChildren
+  '/events/achievements': typeof EventsAchievementsRoute
   '/events/bookmarks': typeof EventsBookmarksRoute
   '/events/browse': typeof EventsBrowseRoute
   '/events/calendar': typeof EventsCalendarRoute
@@ -1649,6 +1658,7 @@ export interface FileRouteTypes {
     | '/emergency/sos'
     | '/emergency/toolkit'
     | '/events/$id'
+    | '/events/achievements'
     | '/events/bookmarks'
     | '/events/browse'
     | '/events/calendar'
@@ -1818,6 +1828,7 @@ export interface FileRouteTypes {
     | '/emergency/settings'
     | '/emergency/sos'
     | '/emergency/toolkit'
+    | '/events/achievements'
     | '/events/bookmarks'
     | '/events/browse'
     | '/events/calendar'
@@ -1996,6 +2007,7 @@ export interface FileRouteTypes {
     | '/emergency/sos'
     | '/emergency/toolkit'
     | '/events/$id'
+    | '/events/achievements'
     | '/events/bookmarks'
     | '/events/browse'
     | '/events/calendar'
@@ -2871,6 +2883,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventsBookmarksRouteImport
       parentRoute: typeof EventsRoute
     }
+    '/events/achievements': {
+      id: '/events/achievements'
+      path: '/achievements'
+      fullPath: '/events/achievements'
+      preLoaderRoute: typeof EventsAchievementsRouteImport
+      parentRoute: typeof EventsRoute
+    }
     '/events/$id': {
       id: '/events/$id'
       path: '/$id'
@@ -3560,6 +3579,7 @@ const EventsIdRouteWithChildren = EventsIdRoute._addFileChildren(
 
 interface EventsRouteChildren {
   EventsIdRoute: typeof EventsIdRouteWithChildren
+  EventsAchievementsRoute: typeof EventsAchievementsRoute
   EventsBookmarksRoute: typeof EventsBookmarksRoute
   EventsBrowseRoute: typeof EventsBrowseRoute
   EventsCalendarRoute: typeof EventsCalendarRoute
@@ -3570,6 +3590,7 @@ interface EventsRouteChildren {
 
 const EventsRouteChildren: EventsRouteChildren = {
   EventsIdRoute: EventsIdRouteWithChildren,
+  EventsAchievementsRoute: EventsAchievementsRoute,
   EventsBookmarksRoute: EventsBookmarksRoute,
   EventsBrowseRoute: EventsBrowseRoute,
   EventsCalendarRoute: EventsCalendarRoute,
