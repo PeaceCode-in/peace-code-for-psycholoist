@@ -199,7 +199,7 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
             <span className="w-[56px] shrink-0 flex justify-center"><Settings className="w-[19px] h-[19px]" strokeWidth={1.4}/></span>
             <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">Settings</span>
           </Link>
-          <div className="mt-2 rounded-2xl flex items-center h-14" style={{ background: surface2 }}>
+          <Link to="/profile" className="mt-2 rounded-2xl flex items-center h-14 transition hover:opacity-90" style={{ background: surface2 }} aria-label="Open profile">
             <span className="w-[56px] shrink-0 flex justify-center">
               <span className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: soft }}>
                 <Mark className="w-4 h-4"/>
@@ -211,7 +211,7 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
                 <Flame className="w-2.5 h-2.5" strokeWidth={1.5}/> 12 day streak
               </div>
             </div>
-          </div>
+          </Link>
         </div>
 
       </aside>
