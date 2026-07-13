@@ -825,7 +825,7 @@ html[data-pc-resources] .pc-glass-sidebar {
   background-size: 220px 220px;
   mix-blend-mode: overlay;
   opacity: 0.35;
-  animation: pc-grain-drift 14s ease-in-out infinite, pc-grain-flicker 6s ease-in-out infinite;
+  /* static grain — no animation for max performance */
 }
 .pc-mobile-drawer > * { position: relative; z-index: 1; }
 
