@@ -311,19 +311,9 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
 
       {/* ─── desktop sidebar ─── */}
       <aside
-        data-pinned={pinned ? "true" : "false"}
-        className={`pc-glass-sidebar hidden lg:flex fixed top-6 bottom-6 left-6 z-40 group flex-col py-6 rounded-[38px] transition-[width] duration-300 ease-out overflow-hidden ${pinned ? "w-60" : "hover:w-60 w-[80px]"}`}
+        className="pc-glass-sidebar hidden lg:flex fixed top-6 bottom-6 left-6 z-40 group flex-col py-6 rounded-[38px] transition-[width] duration-300 ease-out overflow-hidden w-[80px] hover:w-60"
       >
-        <button
-          onClick={() => setPinned(!pinned)}
-          className="absolute top-3 right-3 z-10 w-7 h-7 rounded-full flex items-center justify-center transition opacity-0 group-hover:opacity-100"
-          style={{ background: surface, border: `1px solid ${border}`, color: muted }}
-          aria-label={pinned ? "Collapse sidebar" : "Expand sidebar"}
-          aria-pressed={pinned}
-          title={pinned ? "Collapse sidebar" : "Keep sidebar open"}
-        >
-          {pinned ? <PanelLeftClose className="w-3.5 h-3.5" strokeWidth={1.5}/> : <PanelLeftOpen className="w-3.5 h-3.5" strokeWidth={1.5}/>}
-        </button>
+
 
 
 
