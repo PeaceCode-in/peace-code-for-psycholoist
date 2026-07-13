@@ -165,6 +165,127 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
   // close drawer on route change
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
+  // ── swipe-to-open / swipe-to-close for the mobile drawer ──
+  // Edge-swipe from the right opens; drag right on drawer closes.
+  const drawerRef = useRef<HTMLDivElement | null>(null);
+  const scrimRef  = useRef<HTMLDivElement | null>(null);
+  const drag = useRef<{ active: boolean; mode: "open" | "close" | null; x0: number; y0: number; dx: number; w: number; locked: boolean; decided: boolean }>({
+    active: false, mode: null, x0: 0, y0: 0, dx: 0, w: 0, locked: false, decided: false,
+  });
+  const [dragging, setDragging] = useState(false); // triggers drawer mount while opening
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const EDGE = 24;         // px from right edge that counts as edge-swipe
+    const AXIS_LOCK = 10;    // px before we lock horizontal vs vertical
+    const THRESHOLD = 0.28;  // fraction of drawer width to trigger open/close
+
+    const setTransform = (px: number, progress: number) => {
+      const d = drawerRef.current, s = scrimRef.current;
+      if (d) d.style.transform = `translate3d(${px}px,0,0)`;
+      if (s) s.style.opacity = String(Math.max(0, Math.min(1, progress)));
+    };
+    const clearTransform = () => {
+      const d = drawerRef.current, s = scrimRef.current;
+      if (d) { d.style.transform = ""; d.style.transition = ""; }
+      if (s) { s.style.opacity = ""; s.style.transition = ""; }
+    };
+    const animateTo = (px: number, progress: number, done: () => void) => {
+      const d = drawerRef.current, s = scrimRef.current;
+      if (d) { d.style.transition = "transform 220ms cubic-bezier(0.22,1,0.36,1)"; d.style.transform = `translate3d(${px}px,0,0)`; }
+      if (s) { s.style.transition = "opacity 220ms ease"; s.style.opacity = String(progress); }
+      window.setTimeout(() => { clearTransform(); done(); }, 230);
+    };
+
+    const onStart = (e: TouchEvent) => {
+      if (window.innerWidth >= 1024) return; // desktop
+      if (drag.current.active) return;
+      const t = e.touches[0]; if (!t) return;
+      const openNow = mobileOpen;
+      const nearRightEdge = t.clientX >= window.innerWidth - EDGE;
+      if (!openNow && !nearRightEdge) return;
+      // Ignore if touch starts inside a horizontally scrollable element (carousels)
+      const el = e.target as HTMLElement | null;
+      if (el?.closest?.("[data-no-swipe]")) return;
+
+      drag.current = {
+        active: true,
+        mode: openNow ? "close" : "open",
+        x0: t.clientX, y0: t.clientY, dx: 0,
+        w: Math.min(window.innerWidth * 0.86, 384),
+        locked: false, decided: false,
+      };
+      if (!openNow) setDragging(true);
+    };
+
+    const onMove = (e: TouchEvent) => {
+      const g = drag.current; if (!g.active) return;
+      const t = e.touches[0]; if (!t) return;
+      const dx = t.clientX - g.x0;
+      const dy = t.clientY - g.y0;
+      if (!g.decided) {
+        if (Math.abs(dx) < AXIS_LOCK && Math.abs(dy) < AXIS_LOCK) return;
+        // horizontal lock only if x dominates and direction matches mode
+        const horiz = Math.abs(dx) > Math.abs(dy) * 1.2;
+        const rightward = dx > 0;
+        const wantRight = g.mode === "close";
+        const wantLeft  = g.mode === "open";
+        if (!horiz || (wantRight && !rightward) || (wantLeft && rightward)) {
+          g.active = false; setDragging(false); return;
+        }
+        g.locked = true; g.decided = true;
+      }
+      if (!g.locked) return;
+      if (e.cancelable) e.preventDefault();
+      let px: number, progress: number;
+      if (g.mode === "open") {
+        // drawer starts fully off-screen (translateX = w) → drag left toward 0
+        px = Math.max(0, g.w + dx); // dx is negative
+        progress = 1 - px / g.w;
+      } else {
+        px = Math.max(0, dx);       // dx is positive
+        progress = 1 - px / g.w;
+      }
+      g.dx = dx;
+      setTransform(px, progress);
+    };
+
+    const onEnd = () => {
+      const g = drag.current; if (!g.active) return;
+      const wasLocked = g.locked;
+      const mode = g.mode;
+      const w = g.w;
+      const travel = Math.abs(g.dx);
+      drag.current.active = false;
+      drag.current.locked = false;
+      drag.current.decided = false;
+
+      if (!wasLocked) { setDragging(false); return; }
+
+      const passed = travel / w >= THRESHOLD;
+      if (mode === "open") {
+        if (passed) { animateTo(0, 1, () => { setMobileOpen(true); setDragging(false); }); }
+        else        { animateTo(w, 0, () => { setDragging(false); }); }
+      } else {
+        if (passed) { animateTo(w, 0, () => { setMobileOpen(false); }); }
+        else        { animateTo(0, 1, () => {}); }
+      }
+    };
+
+    window.addEventListener("touchstart", onStart, { passive: true });
+    window.addEventListener("touchmove",  onMove,  { passive: false });
+    window.addEventListener("touchend",   onEnd,   { passive: true });
+    window.addEventListener("touchcancel",onEnd,   { passive: true });
+    return () => {
+      window.removeEventListener("touchstart", onStart);
+      window.removeEventListener("touchmove",  onMove as EventListener);
+      window.removeEventListener("touchend",   onEnd);
+      window.removeEventListener("touchcancel",onEnd);
+    };
+  }, [mobileOpen]);
+
+
   const isActive = (to?: string) => {
     if (!to) return false;
     if (to === "/") return pathname === "/";
