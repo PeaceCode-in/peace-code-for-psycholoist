@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as MindgymRouteImport } from './routes/mindgym'
 import { Route as CounsellingRouteImport } from './routes/counselling'
 import { Route as CommunityRouteImport } from './routes/community'
@@ -22,6 +23,7 @@ import { Route as ScreeningIndexRouteImport } from './routes/screening.index'
 import { Route as ResourcesIndexRouteImport } from './routes/resources.index'
 import { Route as ProfileIndexRouteImport } from './routes/profile.index'
 import { Route as PeacebotIndexRouteImport } from './routes/peacebot.index'
+import { Route as NotificationsIndexRouteImport } from './routes/notifications.index'
 import { Route as MindgymIndexRouteImport } from './routes/mindgym.index'
 import { Route as JournalIndexRouteImport } from './routes/journal.index'
 import { Route as GratitudeIndexRouteImport } from './routes/gratitude.index'
@@ -78,6 +80,12 @@ import { Route as PeacebotMentalRouteImport } from './routes/peacebot.mental'
 import { Route as PeacebotMemoryRouteImport } from './routes/peacebot.memory'
 import { Route as PeacebotInsightsRouteImport } from './routes/peacebot.insights'
 import { Route as PeacebotAvatarRouteImport } from './routes/peacebot.avatar'
+import { Route as NotificationsSettingsRouteImport } from './routes/notifications.settings'
+import { Route as NotificationsInboxRouteImport } from './routes/notifications.inbox'
+import { Route as NotificationsHistoryRouteImport } from './routes/notifications.history'
+import { Route as NotificationsBookmarksRouteImport } from './routes/notifications.bookmarks'
+import { Route as NotificationsArchiveRouteImport } from './routes/notifications.archive'
+import { Route as NotificationsIdRouteImport } from './routes/notifications.$id'
 import { Route as MindgymStreakRouteImport } from './routes/mindgym.streak'
 import { Route as MindgymPathsRouteImport } from './routes/mindgym.paths'
 import { Route as MindgymLibraryRouteImport } from './routes/mindgym.library'
@@ -158,6 +166,11 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MindgymRoute = MindgymRouteImport.update({
   id: '/mindgym',
   path: '/mindgym',
@@ -207,6 +220,11 @@ const PeacebotIndexRoute = PeacebotIndexRouteImport.update({
   id: '/peacebot/',
   path: '/peacebot/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsIndexRoute = NotificationsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => NotificationsRoute,
 } as any)
 const MindgymIndexRoute = MindgymIndexRouteImport.update({
   id: '/',
@@ -487,6 +505,36 @@ const PeacebotAvatarRoute = PeacebotAvatarRouteImport.update({
   id: '/peacebot/avatar',
   path: '/peacebot/avatar',
   getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsSettingsRoute = NotificationsSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => NotificationsRoute,
+} as any)
+const NotificationsInboxRoute = NotificationsInboxRouteImport.update({
+  id: '/inbox',
+  path: '/inbox',
+  getParentRoute: () => NotificationsRoute,
+} as any)
+const NotificationsHistoryRoute = NotificationsHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => NotificationsRoute,
+} as any)
+const NotificationsBookmarksRoute = NotificationsBookmarksRouteImport.update({
+  id: '/bookmarks',
+  path: '/bookmarks',
+  getParentRoute: () => NotificationsRoute,
+} as any)
+const NotificationsArchiveRoute = NotificationsArchiveRouteImport.update({
+  id: '/archive',
+  path: '/archive',
+  getParentRoute: () => NotificationsRoute,
+} as any)
+const NotificationsIdRoute = NotificationsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => NotificationsRoute,
 } as any)
 const MindgymStreakRoute = MindgymStreakRouteImport.update({
   id: '/streak',
@@ -814,6 +862,7 @@ export interface FileRoutesByFullPath {
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
+  '/notifications': typeof NotificationsRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
   '/search': typeof SearchRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
@@ -853,6 +902,12 @@ export interface FileRoutesByFullPath {
   '/mindgym/library': typeof MindgymLibraryRoute
   '/mindgym/paths': typeof MindgymPathsRoute
   '/mindgym/streak': typeof MindgymStreakRoute
+  '/notifications/$id': typeof NotificationsIdRoute
+  '/notifications/archive': typeof NotificationsArchiveRoute
+  '/notifications/bookmarks': typeof NotificationsBookmarksRoute
+  '/notifications/history': typeof NotificationsHistoryRoute
+  '/notifications/inbox': typeof NotificationsInboxRoute
+  '/notifications/settings': typeof NotificationsSettingsRoute
   '/peacebot/avatar': typeof PeacebotAvatarRoute
   '/peacebot/insights': typeof PeacebotInsightsRoute
   '/peacebot/memory': typeof PeacebotMemoryRoute
@@ -909,6 +964,7 @@ export interface FileRoutesByFullPath {
   '/gratitude/': typeof GratitudeIndexRoute
   '/journal/': typeof JournalIndexRoute
   '/mindgym/': typeof MindgymIndexRoute
+  '/notifications/': typeof NotificationsIndexRoute
   '/peacebot/': typeof PeacebotIndexRoute
   '/profile/': typeof ProfileIndexRoute
   '/resources/': typeof ResourcesIndexRoute
@@ -983,6 +1039,12 @@ export interface FileRoutesByTo {
   '/mindgym/library': typeof MindgymLibraryRoute
   '/mindgym/paths': typeof MindgymPathsRoute
   '/mindgym/streak': typeof MindgymStreakRoute
+  '/notifications/$id': typeof NotificationsIdRoute
+  '/notifications/archive': typeof NotificationsArchiveRoute
+  '/notifications/bookmarks': typeof NotificationsBookmarksRoute
+  '/notifications/history': typeof NotificationsHistoryRoute
+  '/notifications/inbox': typeof NotificationsInboxRoute
+  '/notifications/settings': typeof NotificationsSettingsRoute
   '/peacebot/avatar': typeof PeacebotAvatarRoute
   '/peacebot/insights': typeof PeacebotInsightsRoute
   '/peacebot/memory': typeof PeacebotMemoryRoute
@@ -1039,6 +1101,7 @@ export interface FileRoutesByTo {
   '/gratitude': typeof GratitudeIndexRoute
   '/journal': typeof JournalIndexRoute
   '/mindgym': typeof MindgymIndexRoute
+  '/notifications': typeof NotificationsIndexRoute
   '/peacebot': typeof PeacebotIndexRoute
   '/profile': typeof ProfileIndexRoute
   '/resources': typeof ResourcesIndexRoute
@@ -1080,6 +1143,7 @@ export interface FileRoutesById {
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
+  '/notifications': typeof NotificationsRouteWithChildren
   '/profile': typeof ProfileRouteWithChildren
   '/search': typeof SearchRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
@@ -1119,6 +1183,12 @@ export interface FileRoutesById {
   '/mindgym/library': typeof MindgymLibraryRoute
   '/mindgym/paths': typeof MindgymPathsRoute
   '/mindgym/streak': typeof MindgymStreakRoute
+  '/notifications/$id': typeof NotificationsIdRoute
+  '/notifications/archive': typeof NotificationsArchiveRoute
+  '/notifications/bookmarks': typeof NotificationsBookmarksRoute
+  '/notifications/history': typeof NotificationsHistoryRoute
+  '/notifications/inbox': typeof NotificationsInboxRoute
+  '/notifications/settings': typeof NotificationsSettingsRoute
   '/peacebot/avatar': typeof PeacebotAvatarRoute
   '/peacebot/insights': typeof PeacebotInsightsRoute
   '/peacebot/memory': typeof PeacebotMemoryRoute
@@ -1175,6 +1245,7 @@ export interface FileRoutesById {
   '/gratitude/': typeof GratitudeIndexRoute
   '/journal/': typeof JournalIndexRoute
   '/mindgym/': typeof MindgymIndexRoute
+  '/notifications/': typeof NotificationsIndexRoute
   '/peacebot/': typeof PeacebotIndexRoute
   '/profile/': typeof ProfileIndexRoute
   '/resources/': typeof ResourcesIndexRoute
@@ -1217,6 +1288,7 @@ export interface FileRouteTypes {
     | '/community'
     | '/counselling'
     | '/mindgym'
+    | '/notifications'
     | '/profile'
     | '/search'
     | '/settings'
@@ -1256,6 +1328,12 @@ export interface FileRouteTypes {
     | '/mindgym/library'
     | '/mindgym/paths'
     | '/mindgym/streak'
+    | '/notifications/$id'
+    | '/notifications/archive'
+    | '/notifications/bookmarks'
+    | '/notifications/history'
+    | '/notifications/inbox'
+    | '/notifications/settings'
     | '/peacebot/avatar'
     | '/peacebot/insights'
     | '/peacebot/memory'
@@ -1312,6 +1390,7 @@ export interface FileRouteTypes {
     | '/gratitude/'
     | '/journal/'
     | '/mindgym/'
+    | '/notifications/'
     | '/peacebot/'
     | '/profile/'
     | '/resources/'
@@ -1386,6 +1465,12 @@ export interface FileRouteTypes {
     | '/mindgym/library'
     | '/mindgym/paths'
     | '/mindgym/streak'
+    | '/notifications/$id'
+    | '/notifications/archive'
+    | '/notifications/bookmarks'
+    | '/notifications/history'
+    | '/notifications/inbox'
+    | '/notifications/settings'
     | '/peacebot/avatar'
     | '/peacebot/insights'
     | '/peacebot/memory'
@@ -1442,6 +1527,7 @@ export interface FileRouteTypes {
     | '/gratitude'
     | '/journal'
     | '/mindgym'
+    | '/notifications'
     | '/peacebot'
     | '/profile'
     | '/resources'
@@ -1482,6 +1568,7 @@ export interface FileRouteTypes {
     | '/community'
     | '/counselling'
     | '/mindgym'
+    | '/notifications'
     | '/profile'
     | '/search'
     | '/settings'
@@ -1521,6 +1608,12 @@ export interface FileRouteTypes {
     | '/mindgym/library'
     | '/mindgym/paths'
     | '/mindgym/streak'
+    | '/notifications/$id'
+    | '/notifications/archive'
+    | '/notifications/bookmarks'
+    | '/notifications/history'
+    | '/notifications/inbox'
+    | '/notifications/settings'
     | '/peacebot/avatar'
     | '/peacebot/insights'
     | '/peacebot/memory'
@@ -1577,6 +1670,7 @@ export interface FileRouteTypes {
     | '/gratitude/'
     | '/journal/'
     | '/mindgym/'
+    | '/notifications/'
     | '/peacebot/'
     | '/profile/'
     | '/resources/'
@@ -1618,6 +1712,7 @@ export interface RootRouteChildren {
   CommunityRoute: typeof CommunityRoute
   CounsellingRoute: typeof CounsellingRouteWithChildren
   MindgymRoute: typeof MindgymRouteWithChildren
+  NotificationsRoute: typeof NotificationsRouteWithChildren
   ProfileRoute: typeof ProfileRouteWithChildren
   SearchRoute: typeof SearchRouteWithChildren
   SettingsRoute: typeof SettingsRouteWithChildren
@@ -1709,6 +1804,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mindgym': {
       id: '/mindgym'
       path: '/mindgym'
@@ -1778,6 +1880,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/peacebot/'
       preLoaderRoute: typeof PeacebotIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/notifications/': {
+      id: '/notifications/'
+      path: '/'
+      fullPath: '/notifications/'
+      preLoaderRoute: typeof NotificationsIndexRouteImport
+      parentRoute: typeof NotificationsRoute
     }
     '/mindgym/': {
       id: '/mindgym/'
@@ -2170,6 +2279,48 @@ declare module '@tanstack/react-router' {
       fullPath: '/peacebot/avatar'
       preLoaderRoute: typeof PeacebotAvatarRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/notifications/settings': {
+      id: '/notifications/settings'
+      path: '/settings'
+      fullPath: '/notifications/settings'
+      preLoaderRoute: typeof NotificationsSettingsRouteImport
+      parentRoute: typeof NotificationsRoute
+    }
+    '/notifications/inbox': {
+      id: '/notifications/inbox'
+      path: '/inbox'
+      fullPath: '/notifications/inbox'
+      preLoaderRoute: typeof NotificationsInboxRouteImport
+      parentRoute: typeof NotificationsRoute
+    }
+    '/notifications/history': {
+      id: '/notifications/history'
+      path: '/history'
+      fullPath: '/notifications/history'
+      preLoaderRoute: typeof NotificationsHistoryRouteImport
+      parentRoute: typeof NotificationsRoute
+    }
+    '/notifications/bookmarks': {
+      id: '/notifications/bookmarks'
+      path: '/bookmarks'
+      fullPath: '/notifications/bookmarks'
+      preLoaderRoute: typeof NotificationsBookmarksRouteImport
+      parentRoute: typeof NotificationsRoute
+    }
+    '/notifications/archive': {
+      id: '/notifications/archive'
+      path: '/archive'
+      fullPath: '/notifications/archive'
+      preLoaderRoute: typeof NotificationsArchiveRouteImport
+      parentRoute: typeof NotificationsRoute
+    }
+    '/notifications/$id': {
+      id: '/notifications/$id'
+      path: '/$id'
+      fullPath: '/notifications/$id'
+      preLoaderRoute: typeof NotificationsIdRouteImport
+      parentRoute: typeof NotificationsRoute
     }
     '/mindgym/streak': {
       id: '/mindgym/streak'
@@ -2703,6 +2854,30 @@ const MindgymRouteChildren: MindgymRouteChildren = {
 const MindgymRouteWithChildren =
   MindgymRoute._addFileChildren(MindgymRouteChildren)
 
+interface NotificationsRouteChildren {
+  NotificationsIdRoute: typeof NotificationsIdRoute
+  NotificationsArchiveRoute: typeof NotificationsArchiveRoute
+  NotificationsBookmarksRoute: typeof NotificationsBookmarksRoute
+  NotificationsHistoryRoute: typeof NotificationsHistoryRoute
+  NotificationsInboxRoute: typeof NotificationsInboxRoute
+  NotificationsSettingsRoute: typeof NotificationsSettingsRoute
+  NotificationsIndexRoute: typeof NotificationsIndexRoute
+}
+
+const NotificationsRouteChildren: NotificationsRouteChildren = {
+  NotificationsIdRoute: NotificationsIdRoute,
+  NotificationsArchiveRoute: NotificationsArchiveRoute,
+  NotificationsBookmarksRoute: NotificationsBookmarksRoute,
+  NotificationsHistoryRoute: NotificationsHistoryRoute,
+  NotificationsInboxRoute: NotificationsInboxRoute,
+  NotificationsSettingsRoute: NotificationsSettingsRoute,
+  NotificationsIndexRoute: NotificationsIndexRoute,
+}
+
+const NotificationsRouteWithChildren = NotificationsRoute._addFileChildren(
+  NotificationsRouteChildren,
+)
+
 interface ProfileRouteChildren {
   ProfileAchievementsRoute: typeof ProfileAchievementsRoute
   ProfileActivityRoute: typeof ProfileActivityRoute
@@ -2800,6 +2975,7 @@ const rootRouteChildren: RootRouteChildren = {
   CommunityRoute: CommunityRoute,
   CounsellingRoute: CounsellingRouteWithChildren,
   MindgymRoute: MindgymRouteWithChildren,
+  NotificationsRoute: NotificationsRouteWithChildren,
   ProfileRoute: ProfileRouteWithChildren,
   SearchRoute: SearchRouteWithChildren,
   SettingsRoute: SettingsRouteWithChildren,

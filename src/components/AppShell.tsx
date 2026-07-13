@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import logo from "@/assets/peacecode-logo.png";
 import { loadSettings, applyAppearance, applyAccessibility } from "@/lib/settings-store";
+import { unreadCount as notifUnread } from "@/lib/notifications-store";
 
 // ─── Themeable palette — every value is a CSS variable so light/dark ────
 // can be swapped globally by toggling `.dark` on <html>. Tokens live in
@@ -75,6 +76,7 @@ const navGroups: NavGroup[] = [
     items: [
       { icon: Home, label: "Today", to: "/" },
       { icon: Search, label: "Search", to: "/search" },
+      { icon: Bell, label: "Inbox", to: "/notifications" },
     ],
   },
   {
@@ -115,6 +117,14 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [theme, , toggleTheme] = useTheme();
+  const [unread, setUnread] = useState(0);
+  useEffect(() => {
+    const refresh = () => { try { setUnread(notifUnread()); } catch {} };
+    refresh();
+    window.addEventListener("focus", refresh);
+    window.addEventListener("storage", refresh);
+    return () => { window.removeEventListener("focus", refresh); window.removeEventListener("storage", refresh); };
+  }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -254,10 +264,14 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
               <button onClick={toggleTheme} className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}`, color: muted }} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>
                 {theme === "dark" ? <Sun className="w-3.5 h-3.5" strokeWidth={1.5}/> : <Moon className="w-3.5 h-3.5" strokeWidth={1.5}/>}
               </button>
-              <button className="relative w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }} aria-label="notifications">
+              <Link to="/notifications" className="relative w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }} aria-label={`notifications${unread ? `, ${unread} unread` : ""}`}>
                 <Bell className="w-3.5 h-3.5 opacity-70" strokeWidth={1.5}/>
-                <span className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full" style={{ background: primary }}/>
-              </button>
+                {unread > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-[16px] px-1 rounded-full text-[9px] font-medium flex items-center justify-center" style={{ background: primary, color: "white" }}>
+                    {unread > 99 ? "99+" : unread}
+                  </span>
+                )}
+              </Link>
               <button onClick={() => setMobileOpen(true)} className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }} aria-label="open navigation">
                 <Menu className="w-4 h-4 opacity-70"/>
               </button>
