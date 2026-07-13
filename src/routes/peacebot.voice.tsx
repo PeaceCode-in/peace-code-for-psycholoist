@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, Mic, Square, Play, Pause, Volume2 } from "lucide-react";
-import { palette } from "@/components/AppShell";
+import { AppShell, palette } from "@/components/AppShell";
 import { newConv, upsertConv, addMsg, STUDENT_CONTEXT, loadPrefs, loadMems } from "@/lib/peacebot-store";
 import { peacebotReply } from "@/lib/peacebot-ai.functions";
 
@@ -92,11 +92,9 @@ function VoicePage() {
   const interrupt = () => { speechSynthesis.cancel(); setSpeaking(false); };
 
   return (
-    <div className="fixed inset-0 flex flex-col" style={{ background: bg, color: ink }}>
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute inset-0 blur-3xl opacity-40" style={{ background: `radial-gradient(circle at 50% 50%, ${soft}, transparent 60%)` }}/>
-      </div>
-      <header className="relative z-10 flex items-center justify-between px-6 h-16" style={{ borderBottom: `1px solid ${border}`, background: "var(--pc-header)" }}>
+    <AppShell>
+      <div className="h-[100dvh] flex flex-col" style={{ color: ink }}>
+      <header className="relative z-10 flex items-center justify-between px-6 h-16 rounded-2xl mt-2 mx-2">
         <Link to="/peacebot" className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface, border: `1px solid ${border}` }}><ArrowLeft className="w-4 h-4"/></Link>
         <div className="font-serif text-[16px]">voice mode</div>
         <div className="text-[10px] opacity-50">natural conversation</div>
@@ -150,6 +148,7 @@ function VoicePage() {
           <button onClick={() => nav({ to: "/peacebot/c/$id", params: { id: convRef.current ?? "" } })} className="underline">open as text conversation →</button>
         </div>
       </div>
-    </div>
+      </div>
+    </AppShell>
   );
 }
