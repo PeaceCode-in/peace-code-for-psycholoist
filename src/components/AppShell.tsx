@@ -240,10 +240,10 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
                 <div className="text-[7.5px] tracking-[0.3em] uppercase mt-1 opacity-50 truncate">a soft place</div>
               </div>
             </Link>
-            <div className="hidden xs:flex items-center gap-2 rounded-full px-3 py-1.5 mx-1 min-w-0" style={{ background: surface, border: `1px solid ${border}` }}>
+            <Link to="/search" className="hidden xs:flex items-center gap-2 rounded-full px-3 py-1.5 mx-1 min-w-0" style={{ background: surface, border: `1px solid ${border}` }} aria-label="Open search">
               <Search className="w-3 h-3 opacity-40 shrink-0"/>
-              <input placeholder="search…" className="bg-transparent outline-none text-[11px] w-full placeholder:opacity-40" aria-label="search"/>
-            </div>
+              <span className="text-[11px] opacity-40 truncate">search…</span>
+            </Link>
             <div className="flex items-center gap-1.5 shrink-0">
               <div className="flex items-center gap-1 px-2 py-1 rounded-full text-[10px]" style={{ background: surface2, color: primary }}>
                 <Flame className="w-3 h-3" strokeWidth={1.5}/> 12
