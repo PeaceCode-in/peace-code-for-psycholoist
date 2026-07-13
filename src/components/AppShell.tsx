@@ -385,14 +385,6 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
         </nav>
 
         <div className="shrink-0 mt-4 mx-3 pt-3 flex flex-col gap-1" style={{ borderTop: `1px solid ${border}` }}>
-          <button onClick={toggleTheme} className="flex items-center h-10 rounded-2xl transition" style={{ color: muted }} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>
-            <span className="w-[56px] shrink-0 flex justify-center">
-              {theme === "dark" ? <Sun className="w-[19px] h-[19px]" strokeWidth={1.4}/> : <Moon className="w-[19px] h-[19px]" strokeWidth={1.4}/>}
-            </span>
-            <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">
-              {theme === "dark" ? "Light mode" : "Dark mode"}
-            </span>
-          </button>
           <Link to="/settings" className="flex items-center h-10 rounded-2xl transition" style={{ color: muted }} aria-label="Settings">
             <span className="w-[56px] shrink-0 flex justify-center"><Settings className="w-[19px] h-[19px]" strokeWidth={1.4}/></span>
             <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">Settings</span>
