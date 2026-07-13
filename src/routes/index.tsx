@@ -49,6 +49,7 @@ function useDashboardData() {
       const hw = counselling.listHomework();
       const bSess = buddies.listSessions();
       const scrSess = screening.loadSessions();
+      const pbConvs = peacebot.loadConvs().sort((a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0));
       setD({
         journal: {
           entries: jEntries,
@@ -56,7 +57,8 @@ function useDashboardData() {
           weekTrend: journal.weekMoodTrend(jEntries),
           top: journal.topEmotions(jEntries).slice(0, 3),
           last: jEntries[0],
-          weekCount: jEntries.filter(e => Date.now() - new Date(e.updatedAt || e.createdAt).getTime() < 7 * 864e5).length,
+          draft: jEntries.find(e => e.status === "draft"),
+          weekCount: jEntries.filter(e => e.status === "saved" && Date.now() - new Date(e.updatedAt || e.createdAt).getTime() < 7 * 864e5).length,
         },
         gratitude: {
           entries: gEntries,
@@ -67,6 +69,7 @@ function useDashboardData() {
         },
         breathe: {
           sessions: bSessions,
+          last: bSessions[0],
           streak: breathe.computeStreak(bSessions),
           today: bSessions.filter(s => breathe.dayKey(s.completedAt) === breathe.dayKey(new Date())).length,
         },
@@ -88,7 +91,11 @@ function useDashboardData() {
         },
         screening: {
           last: scrSess.sort((a, b) => (b.completedAt ?? 0) - (a.completedAt ?? 0))[0],
+          inProgress: scrSess.find(s => s.status === "in_progress"),
           overall: screening.overallWellness(scrSess),
+        },
+        peacebot: {
+          lastConv: pbConvs[0],
         },
       });
     } catch {
