@@ -123,28 +123,8 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
   useTheme();
   const [unread, setUnread] = useState(0);
 
-  // ── persisted sidebar: pinned (expanded) + last active route ──
-  const SIDEBAR_KEY = "peacecode.sidebar.v1";
-  const [pinned, setPinnedState] = useState(false);
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem(SIDEBAR_KEY);
-      if (raw) {
-        const s = JSON.parse(raw) as { pinned?: boolean };
-        if (typeof s.pinned === "boolean") setPinnedState(s.pinned);
-      }
-    } catch {}
-  }, []);
-  const writeSidebar = (patch: { pinned?: boolean; lastPath?: string }) => {
-    try {
-      const raw = localStorage.getItem(SIDEBAR_KEY);
-      const cur = raw ? JSON.parse(raw) : {};
-      localStorage.setItem(SIDEBAR_KEY, JSON.stringify({ ...cur, ...patch }));
-    } catch {}
-  };
-  const setPinned = (v: boolean) => { setPinnedState(v); writeSidebar({ pinned: v }); };
-  // remember last active route across refreshes
-  useEffect(() => { writeSidebar({ lastPath: pathname }); }, [pathname]);
+  // Sidebar: hover-to-expand only (no persistence, no pinning).
+
 
   useEffect(() => {
     const refresh = () => { try { setUnread(notifUnread()); } catch {} };
