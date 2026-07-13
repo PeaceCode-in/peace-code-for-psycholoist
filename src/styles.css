@@ -443,30 +443,30 @@ body { overflow-y: visible; }
 
 /* ============================================================
    Resources — Liquid Glass (iOS 26) over sky-clouds backdrop
-   Activated by the /resources layout via html[data-pc-resources]
+   Activated by the /resources layout via :is(html[data-pc-resources],html[data-pc-screening])
    ============================================================ */
-html[data-pc-resources] body { background: #cfe6f5; }
+:is(html[data-pc-resources],html[data-pc-screening]) body { background: #cfe6f5; }
 
 /* Dim AppShell's aurora so the sky backdrop reads */
-html[data-pc-resources] .fixed.inset-0.pointer-events-none.z-0 > div { opacity: 0 !important; }
+:is(html[data-pc-resources],html[data-pc-screening]) .fixed.inset-0.pointer-events-none.z-0 > div { opacity: 0 !important; }
 
 /* Lift page content above the fixed backdrop */
-html[data-pc-resources] main { position: relative; z-index: 2; }
+:is(html[data-pc-resources],html[data-pc-screening]) main { position: relative; z-index: 2; }
 
 /* Ink tuned for a light sky background */
-html[data-pc-resources] main { --pc-ink: #0f2540; --pc-muted: rgba(15,37,64,0.62); }
-html[data-pc-resources] main { color: #0f2540; }
+:is(html[data-pc-resources],html[data-pc-screening]) main { --pc-ink: #0f2540; --pc-muted: rgba(15,37,64,0.62); }
+:is(html[data-pc-resources],html[data-pc-screening]) main { color: #0f2540; }
 
 /* Frosted glass — applied to every rounded surface, search bar, pills, inputs */
 .pc-glass-card,
-html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main .rounded-xl:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main .rounded-full:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main [class*="rounded-[2"]:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main input:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main textarea:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main select:not(.no-glass):not(.pc-solid) {
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-full:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main [class*="rounded-[2"]:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main input:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main textarea:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main select:not(.no-glass):not(.pc-solid) {
   background: rgba(255, 255, 255, 0.11) !important;
   backdrop-filter: blur(25px) saturate(160%);
   border: 1px solid rgba(255, 255, 255, 0.3) !important;
@@ -479,8 +479,8 @@ html[data-pc-resources] main select:not(.no-glass):not(.pc-solid) {
 }
 
 /* Top light seam */
-html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid)::before,
-html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid)::before,
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl:not(.no-glass):not(.pc-solid)::before,
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid)::before,
 .pc-glass-card::before {
   content: "";
   position: absolute;
@@ -492,8 +492,8 @@ html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid)::before,
 }
 
 /* Left highlight edge */
-html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid)::after,
-html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid)::after,
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl:not(.no-glass):not(.pc-solid)::after,
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid)::after,
 .pc-glass-card::after {
   content: "";
   position: absolute;
@@ -504,19 +504,19 @@ html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid)::after,
 }
 
 /* Ensure clipped children don't bleed through the pseudo edges */
-html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid) {
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid) {
   overflow: hidden;
 }
 
 /* ---- Glass hover/focus: lift, glow, shimmer sweep ---- */
-html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main .rounded-xl:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main .rounded-full:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main input:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main textarea:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main select:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-full:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main input:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main textarea:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main select:not(.no-glass):not(.pc-solid),
 .pc-glass-card {
   transition:
     transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -528,12 +528,12 @@ html[data-pc-resources] main select:not(.no-glass):not(.pc-solid),
 
 /* No double-glass: inputs/textareas/selects nested inside a glass surface stay
    transparent so only the outer container reads as frosted glass. */
-html[data-pc-resources] main .rounded-2xl input,
-html[data-pc-resources] main .rounded-3xl input,
-html[data-pc-resources] main .rounded-xl input,
-html[data-pc-resources] main .rounded-2xl textarea,
-html[data-pc-resources] main .rounded-3xl textarea,
-html[data-pc-resources] main .rounded-xl textarea {
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl input,
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl input,
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-xl input,
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl textarea,
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl textarea,
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-xl textarea {
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
@@ -541,28 +541,28 @@ html[data-pc-resources] main .rounded-xl textarea {
 }
 
 /* Text visibility on liquid glass — dark ink for form controls & placeholders */
-html[data-pc-resources] main input,
-html[data-pc-resources] main textarea,
-html[data-pc-resources] main select {
+:is(html[data-pc-resources],html[data-pc-screening]) main input,
+:is(html[data-pc-resources],html[data-pc-screening]) main textarea,
+:is(html[data-pc-resources],html[data-pc-screening]) main select {
   color: #0f2540 !important;
 }
-html[data-pc-resources] main input::placeholder,
-html[data-pc-resources] main textarea::placeholder {
+:is(html[data-pc-resources],html[data-pc-screening]) main input::placeholder,
+:is(html[data-pc-resources],html[data-pc-screening]) main textarea::placeholder {
   color: rgba(15, 37, 64, 0.5) !important;
 }
 
 
 /* Hover / focus lift + soft outer glow (GPU-only: transform + shadow) */
-html[data-pc-resources] main a:hover > .rounded-2xl:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main a:hover > .rounded-3xl:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main a:focus-visible > .rounded-2xl:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main a:focus-visible > .rounded-3xl:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main button.rounded-2xl:hover:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main button.rounded-3xl:hover:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main button.rounded-2xl:focus-visible:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main button.rounded-3xl:focus-visible:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid):hover,
-html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid):hover,
+:is(html[data-pc-resources],html[data-pc-screening]) main a:hover > .rounded-2xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main a:hover > .rounded-3xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main a:focus-visible > .rounded-2xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main a:focus-visible > .rounded-3xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main button.rounded-2xl:hover:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main button.rounded-3xl:hover:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main button.rounded-2xl:focus-visible:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main button.rounded-3xl:focus-visible:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl:not(.no-glass):not(.pc-solid):hover,
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid):hover,
 .pc-glass-card:hover,
 .pc-glass-card:focus-within {
   transform: translateY(-3px);
@@ -584,22 +584,22 @@ html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid):hover,
   100% { transform: translateX(220%) skewX(-18deg); opacity: 0; }
 }
 
-html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid),
-html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid),
 .pc-glass-card {
   /* dedicated shimmer element via a shared sibling pseudo */
 }
-html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid) > .pc-shimmer,
-html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid) > .pc-shimmer,
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl:not(.no-glass):not(.pc-solid) > .pc-shimmer,
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid) > .pc-shimmer,
 .pc-glass-card > .pc-shimmer { display: none; }
 
 /* Use ::before as shimmer overlay on hover (replaces the top seam only while hovering) */
-html[data-pc-resources] main a:hover > .rounded-2xl:not(.no-glass):not(.pc-solid)::before,
-html[data-pc-resources] main a:hover > .rounded-3xl:not(.no-glass):not(.pc-solid)::before,
-html[data-pc-resources] main button.rounded-2xl:hover:not(.no-glass):not(.pc-solid)::before,
-html[data-pc-resources] main button.rounded-3xl:hover:not(.no-glass):not(.pc-solid)::before,
-html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid):hover::before,
-html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid):hover::before,
+:is(html[data-pc-resources],html[data-pc-screening]) main a:hover > .rounded-2xl:not(.no-glass):not(.pc-solid)::before,
+:is(html[data-pc-resources],html[data-pc-screening]) main a:hover > .rounded-3xl:not(.no-glass):not(.pc-solid)::before,
+:is(html[data-pc-resources],html[data-pc-screening]) main button.rounded-2xl:hover:not(.no-glass):not(.pc-solid)::before,
+:is(html[data-pc-resources],html[data-pc-screening]) main button.rounded-3xl:hover:not(.no-glass):not(.pc-solid)::before,
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl:not(.no-glass):not(.pc-solid):hover::before,
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid):hover::before,
 .pc-glass-card:hover::before {
   height: 100%;
   background: linear-gradient(
@@ -615,7 +615,7 @@ html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid):hover::b
 }
 
 /* Buttons: subtle inner glow on press */
-html[data-pc-resources] main button:active:not(.no-glass):not(.pc-solid) {
+:is(html[data-pc-resources],html[data-pc-screening]) main button:active:not(.no-glass):not(.pc-solid) {
   transform: translateY(-1px) scale(0.995);
   box-shadow:
     0 10px 24px -12px rgba(30, 80, 140, 0.35),
@@ -623,7 +623,7 @@ html[data-pc-resources] main button:active:not(.no-glass):not(.pc-solid) {
 }
 
 /* Focus ring for keyboard users on glass inputs/buttons */
-html[data-pc-resources] main :focus-visible {
+:is(html[data-pc-resources],html[data-pc-screening]) main :focus-visible {
   outline: none;
   box-shadow:
     0 0 0 3px rgba(120, 180, 240, 0.45),
@@ -633,7 +633,7 @@ html[data-pc-resources] main :focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html[data-pc-resources] main *,
+  :is(html[data-pc-resources],html[data-pc-screening]) main *,
   .pc-glass-card,
   .pc-glass-card::before {
     transition: none !important;
@@ -642,13 +642,13 @@ html[data-pc-resources] main :focus-visible {
 }
 
 /* Inputs: readable placeholders on glass */
-html[data-pc-resources] main input::placeholder,
-html[data-pc-resources] main textarea::placeholder {
+:is(html[data-pc-resources],html[data-pc-screening]) main input::placeholder,
+:is(html[data-pc-resources],html[data-pc-screening]) main textarea::placeholder {
   color: rgba(15,37,64,0.5);
 }
 
 /* Neutralize muted-token overrides */
-html[data-pc-resources] main [style*="var(--pc-muted)"] { color: rgba(15,37,64,0.65) !important; }
+:is(html[data-pc-resources],html[data-pc-screening]) main [style*="var(--pc-muted)"] { color: rgba(15,37,64,0.65) !important; }
 
 
 /* ============================================================
@@ -701,7 +701,7 @@ html[data-pc-resources] main [style*="var(--pc-muted)"] { color: rgba(15,37,64,0
 .pc-glass-sidebar > * { position: relative; z-index: 3; }
 
 /* Darker sky in /resources: adjust glass tint for legibility */
-html[data-pc-resources] .pc-glass-sidebar {
+:is(html[data-pc-resources],html[data-pc-screening]) .pc-glass-sidebar {
   background:
     linear-gradient(180deg,
       rgba(255,255,255,0.28) 0%,
@@ -858,13 +858,13 @@ html[data-pc-resources] .pc-glass-sidebar {
   .pc-glass-sidebar::after,
   .pc-mobile-drawer,
   .pc-mobile-drawer::after,
-  html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid):hover,
-  html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid):hover {
+  :is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl:not(.no-glass):not(.pc-solid):hover,
+  :is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid):hover {
     transform: none !important;
   }
   /* Replace shimmer sweep with a soft fade */
-  html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid):hover::before,
-  html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid):hover::before {
+  :is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl:not(.no-glass):not(.pc-solid):hover::before,
+  :is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid):hover::before {
     animation: none !important;
     height: 1px !important;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent) !important;
