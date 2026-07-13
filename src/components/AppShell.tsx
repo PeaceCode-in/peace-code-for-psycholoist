@@ -195,10 +195,10 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
               {theme === "dark" ? "Light mode" : "Dark mode"}
             </span>
           </button>
-          <button className="flex items-center h-10 rounded-2xl transition" style={{ color: muted }} aria-label="Settings">
+          <Link to="/settings" className="flex items-center h-10 rounded-2xl transition" style={{ color: muted }} aria-label="Settings">
             <span className="w-[56px] shrink-0 flex justify-center"><Settings className="w-[19px] h-[19px]" strokeWidth={1.4}/></span>
             <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">Settings</span>
-          </button>
+          </Link>
           <div className="mt-2 rounded-2xl flex items-center h-14" style={{ background: surface2 }}>
             <span className="w-[56px] shrink-0 flex justify-center">
               <span className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: soft }}>
