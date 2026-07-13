@@ -8,7 +8,8 @@ import type { ChangeKind } from "@/lib/product-hub-store";
 
 const { border, muted, ink, surface2, primary, soft, surface } = palette;
 
-const KIND_META: Record<ChangeKind, { icon: React.ElementType; label: string; hue: string }> = {
+import type { LucideIcon } from "lucide-react";
+const KIND_META: Record<ChangeKind, { icon: LucideIcon; label: string; hue: string }> = {
   feature:  { icon: Sparkles, label: "New",         hue: "#7fa5d8" },
   ui:       { icon: Palette,  label: "Interface",   hue: "#c9a0dc" },
   perf:     { icon: Zap,      label: "Performance", hue: "#e88a68" },
