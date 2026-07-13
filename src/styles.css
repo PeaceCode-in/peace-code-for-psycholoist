@@ -683,3 +683,168 @@ html[data-pc-resources] .pc-glass-sidebar {
       rgba(255,255,255,0.20) 100%);
   border-color: rgba(255,255,255,0.45);
 }
+
+/* ============================================================
+   Sidebar: animated grain + premium item interactions
+   ============================================================ */
+
+/* Living grain — two subtle drift animations run at low opacity */
+@keyframes pc-grain-drift {
+  0%   { transform: translate3d(0, 0, 0); }
+  25%  { transform: translate3d(-6px, 4px, 0); }
+  50%  { transform: translate3d(4px, -3px, 0); }
+  75%  { transform: translate3d(-3px, -5px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes pc-grain-flicker {
+  0%, 100% { opacity: 0.42; }
+  50%      { opacity: 0.55; }
+}
+
+.pc-glass-sidebar::after {
+  animation:
+    pc-grain-drift 14s ease-in-out infinite,
+    pc-grain-flicker 6s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Nav items — premium lift + soft glow, GPU-only transforms */
+.pc-nav-item {
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 220ms ease,
+    box-shadow 220ms ease,
+    color 220ms ease;
+  will-change: transform;
+}
+.pc-nav-item:hover,
+.pc-nav-item:focus-visible {
+  outline: none;
+  transform: translateX(2px);
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--pc-ink);
+  box-shadow:
+    0 10px 24px -14px rgba(30, 60, 120, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+.dark .pc-nav-item:hover,
+.dark .pc-nav-item:focus-visible {
+  background: rgba(255, 255, 255, 0.10);
+  box-shadow:
+    0 10px 24px -14px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.10);
+}
+/* Icon micro-motion */
+.pc-nav-item .pc-nav-icon {
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), filter 220ms ease;
+}
+.pc-nav-item:hover .pc-nav-icon,
+.pc-nav-item:focus-visible .pc-nav-icon {
+  transform: scale(1.12) rotate(-2deg);
+  filter: drop-shadow(0 0 8px rgba(120, 170, 240, 0.55));
+}
+/* Smooth label reveal (slides from -4px while parent group is hovered) */
+.pc-nav-label {
+  transform: translateX(-4px);
+  transition: opacity 260ms ease 60ms, transform 260ms cubic-bezier(0.22, 1, 0.36, 1) 60ms;
+}
+.group:hover .pc-nav-label,
+.pc-nav-item:focus-visible .pc-nav-label {
+  transform: translateX(0);
+}
+
+/* ============================================================
+   Mobile: frosted glass slide-in drawer
+   ============================================================ */
+@keyframes pc-drawer-in {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+@keyframes pc-scrim-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.pc-mobile-scrim {
+  background: rgba(15, 30, 55, 0.35);
+  backdrop-filter: blur(6px);
+  animation: pc-scrim-in 220ms ease-out both;
+}
+.pc-mobile-drawer {
+  background:
+    linear-gradient(180deg,
+      rgba(255,255,255,0.55) 0%,
+      rgba(255,255,255,0.30) 45%,
+      rgba(255,255,255,0.45) 100%);
+  backdrop-filter: blur(30px) saturate(180%);
+  border-left: 1px solid rgba(255,255,255,0.55);
+  box-shadow:
+    -30px 0 60px -20px rgba(20, 40, 80, 0.35),
+    inset 1px 0 0 rgba(255,255,255,0.75);
+  animation: pc-drawer-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  isolation: isolate;
+}
+.dark .pc-mobile-drawer {
+  background:
+    linear-gradient(180deg,
+      rgba(20, 24, 40, 0.72) 0%,
+      rgba(20, 24, 40, 0.55) 45%,
+      rgba(20, 24, 40, 0.68) 100%);
+  border-left-color: rgba(255,255,255,0.10);
+}
+.pc-mobile-drawer::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.12  0 0 0 0 0.20  0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  mix-blend-mode: overlay;
+  opacity: 0.35;
+  animation: pc-grain-drift 14s ease-in-out infinite, pc-grain-flicker 6s ease-in-out infinite;
+}
+.pc-mobile-drawer > * { position: relative; z-index: 1; }
+
+/* Touch-friendly hit targets inside the drawer */
+.pc-mobile-drawer .pc-nav-item { min-height: 48px; }
+.pc-mobile-drawer .pc-nav-item:active {
+  transform: scale(0.98);
+  background: rgba(255,255,255,0.65);
+}
+.dark .pc-mobile-drawer .pc-nav-item:active { background: rgba(255,255,255,0.14); }
+
+/* ============================================================
+   prefers-reduced-motion — fade instead of animate
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  /* Kill animations globally; keep opacity transitions */
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-property: opacity, background-color, color, border-color !important;
+    transition-duration: 200ms !important;
+  }
+  /* Neutralize any transforms used only for motion */
+  .pc-nav-item:hover,
+  .pc-nav-item:focus-visible,
+  .pc-nav-item:hover .pc-nav-icon,
+  .pc-nav-item:focus-visible .pc-nav-icon,
+  .pc-nav-label,
+  .group:hover .pc-nav-label,
+  .pc-glass-sidebar::after,
+  .pc-mobile-drawer,
+  .pc-mobile-drawer::after,
+  html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid):hover,
+  html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid):hover {
+    transform: none !important;
+  }
+  /* Replace shimmer sweep with a soft fade */
+  html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid):hover::before,
+  html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid):hover::before {
+    animation: none !important;
+    height: 1px !important;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent) !important;
+    opacity: 1;
+  }
+}

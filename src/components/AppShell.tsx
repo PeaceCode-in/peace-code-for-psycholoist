@@ -193,18 +193,18 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
               {group.items.map((item) => {
                 const Icon = item.icon;
                 const active = isActive(item.to);
-                const cls = "relative flex items-center h-11 rounded-2xl transition";
+                const cls = "pc-nav-item relative flex items-center h-11 rounded-2xl";
                 const style = active ? { background: surface2, color: ink } : { color: muted };
                 const inner = (
                   <>
                     <span className="w-[56px] shrink-0 flex justify-center">
-                      <Icon className="w-[19px] h-[19px]" strokeWidth={1.4} />
+                      <Icon className="pc-nav-icon w-[19px] h-[19px]" strokeWidth={1.4} />
                     </span>
-                    <span className="text-[13px] tracking-wide whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">{item.label}</span>
+                    <span className="pc-nav-label text-[13px] tracking-wide whitespace-nowrap opacity-0 group-hover:opacity-100 -ml-1">{item.label}</span>
                   </>
                 );
                 return item.to ? (
-                  <Link key={item.label} to={item.to} className={cls} style={style}>{inner}</Link>
+                  <Link key={item.label} to={item.to} className={cls} style={style} aria-label={item.label}>{inner}</Link>
                 ) : (
                   <button key={item.label} className={cls} style={style} aria-label={item.label}>{inner}</button>
                 );
@@ -287,10 +287,9 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
       {/* mobile drawer */}
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 z-50" role="dialog" aria-modal="true">
-          <div className="absolute inset-0" style={{ background: "var(--pc-scrim)" }} onClick={() => setMobileOpen(false)} />
+          <div className="pc-mobile-scrim absolute inset-0" onClick={() => setMobileOpen(false)} />
 
-          <div className="absolute top-0 right-0 bottom-0 w-[86%] max-w-sm p-5 flex flex-col overflow-y-auto"
-               style={{ background: surface, borderLeft: `1px solid ${border}` }}>
+          <div className="pc-mobile-drawer absolute top-0 right-0 bottom-0 w-[86%] max-w-sm p-5 flex flex-col overflow-y-auto overscroll-contain">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-2"><Mark className="w-7 h-7"/>
                 <div>
@@ -298,7 +297,7 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
                   <div className="text-[8px] tracking-[0.3em] uppercase opacity-50 mt-1">a soft place</div>
                 </div>
               </div>
-              <button onClick={() => setMobileOpen(false)} className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: surface2 }} aria-label="close navigation">
+              <button onClick={() => setMobileOpen(false)} className="w-11 h-11 rounded-full flex items-center justify-center active:scale-95 transition-transform" style={{ background: "rgba(255,255,255,0.55)", border: `1px solid rgba(255,255,255,0.6)` }} aria-label="close navigation">
                 <X className="w-4 h-4"/>
               </button>
             </div>
@@ -310,15 +309,15 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
                     {group.items.map((item) => {
                       const Icon = item.icon;
                       const active = isActive(item.to);
-                      const cls = "flex items-center gap-3 h-11 px-3 rounded-2xl text-[13px]";
-                      const style = active ? { background: surface2, color: ink } : { color: muted };
+                      const cls = "pc-nav-item flex items-center gap-3 h-12 px-3 rounded-2xl text-[14px]";
+                      const style = active ? { background: "rgba(255,255,255,0.6)", color: ink } : { color: muted };
                       return item.to ? (
                         <Link key={item.label} to={item.to} className={cls} style={style}>
-                          <Icon className="w-4 h-4" strokeWidth={1.5}/> {item.label}
+                          <Icon className="pc-nav-icon w-4 h-4" strokeWidth={1.5}/> <span className="pc-nav-label opacity-100">{item.label}</span>
                         </Link>
                       ) : (
                         <button key={item.label} className={cls} style={style}>
-                          <Icon className="w-4 h-4" strokeWidth={1.5}/> {item.label}
+                          <Icon className="pc-nav-icon w-4 h-4" strokeWidth={1.5}/> <span className="pc-nav-label opacity-100">{item.label}</span>
                         </button>
                       );
                     })}
@@ -326,11 +325,11 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
                 </div>
               ))}
             </nav>
-            <Link to="/settings" className="mt-6 flex items-center gap-3 h-11 px-3 rounded-2xl text-[13px]" style={{ background: surface2, color: ink }}>
-              <Settings className="w-4 h-4" strokeWidth={1.5}/> Settings
+            <Link to="/settings" className="pc-nav-item mt-6 flex items-center gap-3 h-12 px-3 rounded-2xl text-[14px]" style={{ background: "rgba(255,255,255,0.55)", color: ink }}>
+              <Settings className="pc-nav-icon w-4 h-4" strokeWidth={1.5}/> Settings
             </Link>
-            <button onClick={toggleTheme} className="mt-2 flex items-center gap-3 h-11 px-3 rounded-2xl text-[13px]" style={{ background: surface2, color: ink }} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>
-              {theme === "dark" ? <Sun className="w-4 h-4" strokeWidth={1.5}/> : <Moon className="w-4 h-4" strokeWidth={1.5}/>}
+            <button onClick={toggleTheme} className="pc-nav-item mt-2 flex items-center gap-3 h-12 px-3 rounded-2xl text-[14px]" style={{ background: "rgba(255,255,255,0.55)", color: ink }} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>
+              {theme === "dark" ? <Sun className="pc-nav-icon w-4 h-4" strokeWidth={1.5}/> : <Moon className="pc-nav-icon w-4 h-4" strokeWidth={1.5}/>}
               {theme === "dark" ? "Light mode" : "Dark mode"}
             </button>
           </div>
