@@ -48,9 +48,9 @@ function ScreeningHome() {
 
         {/* hero */}
         <section className="grid lg:grid-cols-[minmax(0,1fr)_360px] gap-6 mb-10">
-          <div className="rounded-[28px] p-8 lg:p-10 relative overflow-hidden" style={{ background: surface, border: `1px solid ${border}` }}>
+          <div className="rounded-[28px] p-8 lg:p-10 relative overflow-hidden flex" style={{ background: surface, border: `1px solid ${border}` }}>
             <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full opacity-40 blur-3xl" style={{ background: "radial-gradient(circle,#D5C9F7,transparent 70%)" }} />
-            <div className="relative">
+            <div className="relative flex flex-col justify-center w-full">
               <div className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.3em] uppercase px-2.5 py-1 rounded-full mb-4" style={{ background: surface2, color: primary }}>
                 <ClipboardList className="w-3 h-3" strokeWidth={1.5} /> Screening
               </div>
