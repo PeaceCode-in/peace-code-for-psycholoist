@@ -5,7 +5,7 @@ import {
   Pin, Bookmark, Copy, Trash2, Edit3, Volume2, Languages, Reply, MoreHorizontal,
   Sparkles, Wind, PenLine, ClipboardList, Heart, Brain, Target, Star, Archive,
 } from "lucide-react";
-import { palette } from "@/components/AppShell";
+import { AppShell, palette } from "@/components/AppShell";
 import {
   getConv, upsertConv, addMsg, patchMsg, removeMsg, newConv, loadPrefs, loadMems,
   STUDENT_CONTEXT, type Conversation, type Msg, type Attachment,
@@ -156,15 +156,10 @@ function ConversationPage() {
   const bubbleRadius = loadPrefs().bubble === "square" ? "rounded-md" : loadPrefs().bubble === "flat" ? "rounded-lg" : "rounded-3xl";
 
   return (
-    <div className="fixed inset-0 flex flex-col" style={{ background: bg, color: ink }}>
-      {/* aurora */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 -left-40 w-[480px] h-[480px] rounded-full opacity-40 blur-3xl" style={{ background: "radial-gradient(circle,var(--pc-aurora-a),transparent 70%)" }}/>
-        <div className="absolute -bottom-40 -right-40 w-[520px] h-[520px] rounded-full opacity-30 blur-3xl" style={{ background: "radial-gradient(circle,var(--pc-aurora-b),transparent 70%)" }}/>
-      </div>
-
+    <AppShell>
+      <div className="h-[100dvh] flex flex-col" style={{ color: ink }}>
       {/* top bar */}
-      <header className="relative z-10 flex items-center justify-between px-4 sm:px-6 h-16 backdrop-blur-xl" style={{ background: "var(--pc-header)", borderBottom: `1px solid ${border}` }}>
+      <header className="relative z-10 flex items-center justify-between px-4 sm:px-6 h-16 rounded-2xl mt-2 mx-2">
         <div className="flex items-center gap-3 min-w-0">
           <Link to="/peacebot" className="w-9 h-9 rounded-full flex items-center justify-center transition hover:opacity-80" style={{ background: surface, border: `1px solid ${border}` }} aria-label="back">
             <ArrowLeft className="w-4 h-4"/>
