@@ -204,6 +204,7 @@ import { Route as CounsellingSessionAidRouteImport } from './routes/counselling.
 import { Route as CounsellingExpertIdRouteImport } from './routes/counselling.expert.$id'
 import { Route as CounsellingBookIdRouteImport } from './routes/counselling.book.$id'
 import { Route as CounsellingApptAidRouteImport } from './routes/counselling.appt.$aid'
+import { Route as CommunityCirclesSlugRouteImport } from './routes/community.circles.$slug'
 import { Route as BuddiesSafetyIdRouteImport } from './routes/buddies.safety.$id'
 import { Route as BuddiesRequestIdRouteImport } from './routes/buddies.request.$id'
 import { Route as BuddiesGuidelinesIdRouteImport } from './routes/buddies.guidelines.$id'
@@ -1186,6 +1187,11 @@ const CounsellingApptAidRoute = CounsellingApptAidRouteImport.update({
   path: '/appt/$aid',
   getParentRoute: () => CounsellingRoute,
 } as any)
+const CommunityCirclesSlugRoute = CommunityCirclesSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => CommunityCirclesRoute,
+} as any)
 const BuddiesSafetyIdRoute = BuddiesSafetyIdRouteImport.update({
   id: '/buddies/safety/$id',
   path: '/buddies/safety/$id',
@@ -1245,7 +1251,7 @@ export interface FileRoutesByFullPath {
   '/buddies/history': typeof BuddiesHistoryRoute
   '/buddies/psychologists': typeof BuddiesPsychologistsRoute
   '/buddies/settings': typeof BuddiesSettingsRoute
-  '/community/circles': typeof CommunityCirclesRoute
+  '/community/circles': typeof CommunityCirclesRouteWithChildren
   '/counselling/assessments': typeof CounsellingAssessmentsRoute
   '/counselling/billing': typeof CounsellingBillingRoute
   '/counselling/documents': typeof CounsellingDocumentsRoute
@@ -1384,6 +1390,7 @@ export interface FileRoutesByFullPath {
   '/buddies/guidelines/$id': typeof BuddiesGuidelinesIdRoute
   '/buddies/request/$id': typeof BuddiesRequestIdRoute
   '/buddies/safety/$id': typeof BuddiesSafetyIdRoute
+  '/community/circles/$slug': typeof CommunityCirclesSlugRoute
   '/counselling/appt/$aid': typeof CounsellingApptAidRoute
   '/counselling/book/$id': typeof CounsellingBookIdRoute
   '/counselling/expert/$id': typeof CounsellingExpertIdRoute
@@ -1432,7 +1439,7 @@ export interface FileRoutesByTo {
   '/buddies/history': typeof BuddiesHistoryRoute
   '/buddies/psychologists': typeof BuddiesPsychologistsRoute
   '/buddies/settings': typeof BuddiesSettingsRoute
-  '/community/circles': typeof CommunityCirclesRoute
+  '/community/circles': typeof CommunityCirclesRouteWithChildren
   '/counselling/assessments': typeof CounsellingAssessmentsRoute
   '/counselling/billing': typeof CounsellingBillingRoute
   '/counselling/documents': typeof CounsellingDocumentsRoute
@@ -1570,6 +1577,7 @@ export interface FileRoutesByTo {
   '/buddies/guidelines/$id': typeof BuddiesGuidelinesIdRoute
   '/buddies/request/$id': typeof BuddiesRequestIdRoute
   '/buddies/safety/$id': typeof BuddiesSafetyIdRoute
+  '/community/circles/$slug': typeof CommunityCirclesSlugRoute
   '/counselling/appt/$aid': typeof CounsellingApptAidRoute
   '/counselling/book/$id': typeof CounsellingBookIdRoute
   '/counselling/expert/$id': typeof CounsellingExpertIdRoute
@@ -1635,7 +1643,7 @@ export interface FileRoutesById {
   '/buddies/history': typeof BuddiesHistoryRoute
   '/buddies/psychologists': typeof BuddiesPsychologistsRoute
   '/buddies/settings': typeof BuddiesSettingsRoute
-  '/community/circles': typeof CommunityCirclesRoute
+  '/community/circles': typeof CommunityCirclesRouteWithChildren
   '/counselling/assessments': typeof CounsellingAssessmentsRoute
   '/counselling/billing': typeof CounsellingBillingRoute
   '/counselling/documents': typeof CounsellingDocumentsRoute
@@ -1774,6 +1782,7 @@ export interface FileRoutesById {
   '/buddies/guidelines/$id': typeof BuddiesGuidelinesIdRoute
   '/buddies/request/$id': typeof BuddiesRequestIdRoute
   '/buddies/safety/$id': typeof BuddiesSafetyIdRoute
+  '/community/circles/$slug': typeof CommunityCirclesSlugRoute
   '/counselling/appt/$aid': typeof CounsellingApptAidRoute
   '/counselling/book/$id': typeof CounsellingBookIdRoute
   '/counselling/expert/$id': typeof CounsellingExpertIdRoute
@@ -1979,6 +1988,7 @@ export interface FileRouteTypes {
     | '/buddies/guidelines/$id'
     | '/buddies/request/$id'
     | '/buddies/safety/$id'
+    | '/community/circles/$slug'
     | '/counselling/appt/$aid'
     | '/counselling/book/$id'
     | '/counselling/expert/$id'
@@ -2165,6 +2175,7 @@ export interface FileRouteTypes {
     | '/buddies/guidelines/$id'
     | '/buddies/request/$id'
     | '/buddies/safety/$id'
+    | '/community/circles/$slug'
     | '/counselling/appt/$aid'
     | '/counselling/book/$id'
     | '/counselling/expert/$id'
@@ -2368,6 +2379,7 @@ export interface FileRouteTypes {
     | '/buddies/guidelines/$id'
     | '/buddies/request/$id'
     | '/buddies/safety/$id'
+    | '/community/circles/$slug'
     | '/counselling/appt/$aid'
     | '/counselling/book/$id'
     | '/counselling/expert/$id'
@@ -3818,6 +3830,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CounsellingApptAidRouteImport
       parentRoute: typeof CounsellingRoute
     }
+    '/community/circles/$slug': {
+      id: '/community/circles/$slug'
+      path: '/$slug'
+      fullPath: '/community/circles/$slug'
+      preLoaderRoute: typeof CommunityCirclesSlugRouteImport
+      parentRoute: typeof CommunityCirclesRoute
+    }
     '/buddies/safety/$id': {
       id: '/buddies/safety/$id'
       path: '/buddies/safety/$id'
@@ -3876,13 +3895,24 @@ const BreatheRouteChildren: BreatheRouteChildren = {
 const BreatheRouteWithChildren =
   BreatheRoute._addFileChildren(BreatheRouteChildren)
 
+interface CommunityCirclesRouteChildren {
+  CommunityCirclesSlugRoute: typeof CommunityCirclesSlugRoute
+}
+
+const CommunityCirclesRouteChildren: CommunityCirclesRouteChildren = {
+  CommunityCirclesSlugRoute: CommunityCirclesSlugRoute,
+}
+
+const CommunityCirclesRouteWithChildren =
+  CommunityCirclesRoute._addFileChildren(CommunityCirclesRouteChildren)
+
 interface CommunityRouteChildren {
-  CommunityCirclesRoute: typeof CommunityCirclesRoute
+  CommunityCirclesRoute: typeof CommunityCirclesRouteWithChildren
   CommunityIndexRoute: typeof CommunityIndexRoute
 }
 
 const CommunityRouteChildren: CommunityRouteChildren = {
-  CommunityCirclesRoute: CommunityCirclesRoute,
+  CommunityCirclesRoute: CommunityCirclesRouteWithChildren,
   CommunityIndexRoute: CommunityIndexRoute,
 }
 
