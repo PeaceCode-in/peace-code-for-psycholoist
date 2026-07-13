@@ -100,6 +100,10 @@ import { Route as JournalVoiceRouteImport } from './routes/journal.voice'
 import { Route as JournalMemoriesRouteImport } from './routes/journal.memories'
 import { Route as JournalIdRouteImport } from './routes/journal.$id'
 import { Route as HubWhatsNewRouteImport } from './routes/hub.whats-new'
+import { Route as HubRoadmapRouteImport } from './routes/hub.roadmap'
+import { Route as HubFeatureRequestsRouteImport } from './routes/hub.feature-requests'
+import { Route as HubBetaRouteImport } from './routes/hub.beta'
+import { Route as HubAnnouncementsRouteImport } from './routes/hub.announcements'
 import { Route as GratitudeWallRouteImport } from './routes/gratitude.wall'
 import { Route as GratitudeTreeRouteImport } from './routes/gratitude.tree'
 import { Route as GratitudeHistoryRouteImport } from './routes/gratitude.history'
@@ -171,6 +175,8 @@ import { Route as MindgymShareSessionRouteImport } from './routes/mindgym.share.
 import { Route as MindgymResultsSidRouteImport } from './routes/mindgym.results.$sid'
 import { Route as MindgymPathSlugRouteImport } from './routes/mindgym.path.$slug'
 import { Route as MindgymExerciseIdRouteImport } from './routes/mindgym.exercise.$id'
+import { Route as HubFeatureRequestsIdRouteImport } from './routes/hub.feature-requests.$id'
+import { Route as HubChangelogVersionRouteImport } from './routes/hub.changelog.$version'
 import { Route as EventsOrganizerOidRouteImport } from './routes/events.organizer.$oid'
 import { Route as EventsIdTimelineRouteImport } from './routes/events.$id.timeline'
 import { Route as EventsIdRsvpRouteImport } from './routes/events.$id.rsvp'
@@ -646,6 +652,26 @@ const HubWhatsNewRoute = HubWhatsNewRouteImport.update({
   path: '/whats-new',
   getParentRoute: () => HubRoute,
 } as any)
+const HubRoadmapRoute = HubRoadmapRouteImport.update({
+  id: '/roadmap',
+  path: '/roadmap',
+  getParentRoute: () => HubRoute,
+} as any)
+const HubFeatureRequestsRoute = HubFeatureRequestsRouteImport.update({
+  id: '/feature-requests',
+  path: '/feature-requests',
+  getParentRoute: () => HubRoute,
+} as any)
+const HubBetaRoute = HubBetaRouteImport.update({
+  id: '/beta',
+  path: '/beta',
+  getParentRoute: () => HubRoute,
+} as any)
+const HubAnnouncementsRoute = HubAnnouncementsRouteImport.update({
+  id: '/announcements',
+  path: '/announcements',
+  getParentRoute: () => HubRoute,
+} as any)
 const GratitudeWallRoute = GratitudeWallRouteImport.update({
   id: '/gratitude/wall',
   path: '/gratitude/wall',
@@ -1001,6 +1027,16 @@ const MindgymExerciseIdRoute = MindgymExerciseIdRouteImport.update({
   path: '/exercise/$id',
   getParentRoute: () => MindgymRoute,
 } as any)
+const HubFeatureRequestsIdRoute = HubFeatureRequestsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => HubFeatureRequestsRoute,
+} as any)
+const HubChangelogVersionRoute = HubChangelogVersionRouteImport.update({
+  id: '/changelog/$version',
+  path: '/changelog/$version',
+  getParentRoute: () => HubRoute,
+} as any)
 const EventsOrganizerOidRoute = EventsOrganizerOidRouteImport.update({
   id: '/organizer/$oid',
   path: '/organizer/$oid',
@@ -1162,6 +1198,10 @@ export interface FileRoutesByFullPath {
   '/gratitude/history': typeof GratitudeHistoryRoute
   '/gratitude/tree': typeof GratitudeTreeRoute
   '/gratitude/wall': typeof GratitudeWallRoute
+  '/hub/announcements': typeof HubAnnouncementsRoute
+  '/hub/beta': typeof HubBetaRoute
+  '/hub/feature-requests': typeof HubFeatureRequestsRouteWithChildren
+  '/hub/roadmap': typeof HubRoadmapRoute
   '/hub/whats-new': typeof HubWhatsNewRoute
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
@@ -1261,6 +1301,8 @@ export interface FileRoutesByFullPath {
   '/events/$id/rsvp': typeof EventsIdRsvpRoute
   '/events/$id/timeline': typeof EventsIdTimelineRoute
   '/events/organizer/$oid': typeof EventsOrganizerOidRoute
+  '/hub/changelog/$version': typeof HubChangelogVersionRoute
+  '/hub/feature-requests/$id': typeof HubFeatureRequestsIdRoute
   '/mindgym/exercise/$id': typeof MindgymExerciseIdRoute
   '/mindgym/path/$slug': typeof MindgymPathSlugRoute
   '/mindgym/results/$sid': typeof MindgymResultsSidRoute
@@ -1335,6 +1377,10 @@ export interface FileRoutesByTo {
   '/gratitude/history': typeof GratitudeHistoryRoute
   '/gratitude/tree': typeof GratitudeTreeRoute
   '/gratitude/wall': typeof GratitudeWallRoute
+  '/hub/announcements': typeof HubAnnouncementsRoute
+  '/hub/beta': typeof HubBetaRoute
+  '/hub/feature-requests': typeof HubFeatureRequestsRouteWithChildren
+  '/hub/roadmap': typeof HubRoadmapRoute
   '/hub/whats-new': typeof HubWhatsNewRoute
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
@@ -1434,6 +1480,8 @@ export interface FileRoutesByTo {
   '/events/$id/rsvp': typeof EventsIdRsvpRoute
   '/events/$id/timeline': typeof EventsIdTimelineRoute
   '/events/organizer/$oid': typeof EventsOrganizerOidRoute
+  '/hub/changelog/$version': typeof HubChangelogVersionRoute
+  '/hub/feature-requests/$id': typeof HubFeatureRequestsIdRoute
   '/mindgym/exercise/$id': typeof MindgymExerciseIdRoute
   '/mindgym/path/$slug': typeof MindgymPathSlugRoute
   '/mindgym/results/$sid': typeof MindgymResultsSidRoute
@@ -1519,6 +1567,10 @@ export interface FileRoutesById {
   '/gratitude/history': typeof GratitudeHistoryRoute
   '/gratitude/tree': typeof GratitudeTreeRoute
   '/gratitude/wall': typeof GratitudeWallRoute
+  '/hub/announcements': typeof HubAnnouncementsRoute
+  '/hub/beta': typeof HubBetaRoute
+  '/hub/feature-requests': typeof HubFeatureRequestsRouteWithChildren
+  '/hub/roadmap': typeof HubRoadmapRoute
   '/hub/whats-new': typeof HubWhatsNewRoute
   '/journal/$id': typeof JournalIdRoute
   '/journal/memories': typeof JournalMemoriesRoute
@@ -1618,6 +1670,8 @@ export interface FileRoutesById {
   '/events/$id/rsvp': typeof EventsIdRsvpRoute
   '/events/$id/timeline': typeof EventsIdTimelineRoute
   '/events/organizer/$oid': typeof EventsOrganizerOidRoute
+  '/hub/changelog/$version': typeof HubChangelogVersionRoute
+  '/hub/feature-requests/$id': typeof HubFeatureRequestsIdRoute
   '/mindgym/exercise/$id': typeof MindgymExerciseIdRoute
   '/mindgym/path/$slug': typeof MindgymPathSlugRoute
   '/mindgym/results/$sid': typeof MindgymResultsSidRoute
@@ -1704,6 +1758,10 @@ export interface FileRouteTypes {
     | '/gratitude/history'
     | '/gratitude/tree'
     | '/gratitude/wall'
+    | '/hub/announcements'
+    | '/hub/beta'
+    | '/hub/feature-requests'
+    | '/hub/roadmap'
     | '/hub/whats-new'
     | '/journal/$id'
     | '/journal/memories'
@@ -1803,6 +1861,8 @@ export interface FileRouteTypes {
     | '/events/$id/rsvp'
     | '/events/$id/timeline'
     | '/events/organizer/$oid'
+    | '/hub/changelog/$version'
+    | '/hub/feature-requests/$id'
     | '/mindgym/exercise/$id'
     | '/mindgym/path/$slug'
     | '/mindgym/results/$sid'
@@ -1877,6 +1937,10 @@ export interface FileRouteTypes {
     | '/gratitude/history'
     | '/gratitude/tree'
     | '/gratitude/wall'
+    | '/hub/announcements'
+    | '/hub/beta'
+    | '/hub/feature-requests'
+    | '/hub/roadmap'
     | '/hub/whats-new'
     | '/journal/$id'
     | '/journal/memories'
@@ -1976,6 +2040,8 @@ export interface FileRouteTypes {
     | '/events/$id/rsvp'
     | '/events/$id/timeline'
     | '/events/organizer/$oid'
+    | '/hub/changelog/$version'
+    | '/hub/feature-requests/$id'
     | '/mindgym/exercise/$id'
     | '/mindgym/path/$slug'
     | '/mindgym/results/$sid'
@@ -2060,6 +2126,10 @@ export interface FileRouteTypes {
     | '/gratitude/history'
     | '/gratitude/tree'
     | '/gratitude/wall'
+    | '/hub/announcements'
+    | '/hub/beta'
+    | '/hub/feature-requests'
+    | '/hub/roadmap'
     | '/hub/whats-new'
     | '/journal/$id'
     | '/journal/memories'
@@ -2159,6 +2229,8 @@ export interface FileRouteTypes {
     | '/events/$id/rsvp'
     | '/events/$id/timeline'
     | '/events/organizer/$oid'
+    | '/hub/changelog/$version'
+    | '/hub/feature-requests/$id'
     | '/mindgym/exercise/$id'
     | '/mindgym/path/$slug'
     | '/mindgym/results/$sid'
@@ -2895,6 +2967,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HubWhatsNewRouteImport
       parentRoute: typeof HubRoute
     }
+    '/hub/roadmap': {
+      id: '/hub/roadmap'
+      path: '/roadmap'
+      fullPath: '/hub/roadmap'
+      preLoaderRoute: typeof HubRoadmapRouteImport
+      parentRoute: typeof HubRoute
+    }
+    '/hub/feature-requests': {
+      id: '/hub/feature-requests'
+      path: '/feature-requests'
+      fullPath: '/hub/feature-requests'
+      preLoaderRoute: typeof HubFeatureRequestsRouteImport
+      parentRoute: typeof HubRoute
+    }
+    '/hub/beta': {
+      id: '/hub/beta'
+      path: '/beta'
+      fullPath: '/hub/beta'
+      preLoaderRoute: typeof HubBetaRouteImport
+      parentRoute: typeof HubRoute
+    }
+    '/hub/announcements': {
+      id: '/hub/announcements'
+      path: '/announcements'
+      fullPath: '/hub/announcements'
+      preLoaderRoute: typeof HubAnnouncementsRouteImport
+      parentRoute: typeof HubRoute
+    }
     '/gratitude/wall': {
       id: '/gratitude/wall'
       path: '/gratitude/wall'
@@ -3392,6 +3492,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MindgymExerciseIdRouteImport
       parentRoute: typeof MindgymRoute
     }
+    '/hub/feature-requests/$id': {
+      id: '/hub/feature-requests/$id'
+      path: '/$id'
+      fullPath: '/hub/feature-requests/$id'
+      preLoaderRoute: typeof HubFeatureRequestsIdRouteImport
+      parentRoute: typeof HubFeatureRequestsRoute
+    }
+    '/hub/changelog/$version': {
+      id: '/hub/changelog/$version'
+      path: '/changelog/$version'
+      fullPath: '/hub/changelog/$version'
+      preLoaderRoute: typeof HubChangelogVersionRouteImport
+      parentRoute: typeof HubRoute
+    }
     '/events/organizer/$oid': {
       id: '/events/organizer/$oid'
       path: '/organizer/$oid'
@@ -3679,14 +3793,35 @@ const EventsRouteChildren: EventsRouteChildren = {
 const EventsRouteWithChildren =
   EventsRoute._addFileChildren(EventsRouteChildren)
 
+interface HubFeatureRequestsRouteChildren {
+  HubFeatureRequestsIdRoute: typeof HubFeatureRequestsIdRoute
+}
+
+const HubFeatureRequestsRouteChildren: HubFeatureRequestsRouteChildren = {
+  HubFeatureRequestsIdRoute: HubFeatureRequestsIdRoute,
+}
+
+const HubFeatureRequestsRouteWithChildren =
+  HubFeatureRequestsRoute._addFileChildren(HubFeatureRequestsRouteChildren)
+
 interface HubRouteChildren {
+  HubAnnouncementsRoute: typeof HubAnnouncementsRoute
+  HubBetaRoute: typeof HubBetaRoute
+  HubFeatureRequestsRoute: typeof HubFeatureRequestsRouteWithChildren
+  HubRoadmapRoute: typeof HubRoadmapRoute
   HubWhatsNewRoute: typeof HubWhatsNewRoute
   HubIndexRoute: typeof HubIndexRoute
+  HubChangelogVersionRoute: typeof HubChangelogVersionRoute
 }
 
 const HubRouteChildren: HubRouteChildren = {
+  HubAnnouncementsRoute: HubAnnouncementsRoute,
+  HubBetaRoute: HubBetaRoute,
+  HubFeatureRequestsRoute: HubFeatureRequestsRouteWithChildren,
+  HubRoadmapRoute: HubRoadmapRoute,
   HubWhatsNewRoute: HubWhatsNewRoute,
   HubIndexRoute: HubIndexRoute,
+  HubChangelogVersionRoute: HubChangelogVersionRoute,
 }
 
 const HubRouteWithChildren = HubRoute._addFileChildren(HubRouteChildren)
