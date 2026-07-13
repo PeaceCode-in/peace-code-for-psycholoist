@@ -509,13 +509,110 @@ html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid) {
   overflow: hidden;
 }
 
-/* Interactive lift */
-html[data-pc-resources] main a .rounded-2xl:hover,
-html[data-pc-resources] main a .rounded-3xl:hover,
-html[data-pc-resources] main button.rounded-2xl:hover,
-html[data-pc-resources] main button.rounded-3xl:hover {
-  background: rgba(255,255,255,0.2) !important;
-  border-color: rgba(255,255,255,0.45) !important;
+/* ---- Glass hover/focus: lift, glow, shimmer sweep ---- */
+html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main .rounded-xl:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main .rounded-full:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main input:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main textarea:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main select:not(.no-glass):not(.pc-solid),
+.pc-glass-card {
+  transition:
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 200ms ease,
+    background-color 200ms ease;
+  will-change: transform;
+}
+
+/* Hover / focus lift + soft outer glow (GPU-only: transform + shadow) */
+html[data-pc-resources] main a:hover > .rounded-2xl:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main a:hover > .rounded-3xl:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main a:focus-visible > .rounded-2xl:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main a:focus-visible > .rounded-3xl:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main button.rounded-2xl:hover:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main button.rounded-3xl:hover:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main button.rounded-2xl:focus-visible:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main button.rounded-3xl:focus-visible:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid):hover,
+html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid):hover,
+.pc-glass-card:hover,
+.pc-glass-card:focus-within {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.18) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  box-shadow:
+    0 22px 60px -18px rgba(30, 80, 140, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 0 26px 12px rgba(255, 255, 255, 0.22) !important;
+}
+
+/* Shimmer sweep on hover — uses ::before which we already own for the top seam.
+   The seam widens into a diagonal light band that translates across the card. */
+@keyframes pc-glass-shimmer {
+  0%   { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translateX(220%) skewX(-18deg); opacity: 0; }
+}
+
+html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid),
+html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid),
+.pc-glass-card {
+  /* dedicated shimmer element via a shared sibling pseudo */
+}
+html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid) > .pc-shimmer,
+html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid) > .pc-shimmer,
+.pc-glass-card > .pc-shimmer { display: none; }
+
+/* Use ::before as shimmer overlay on hover (replaces the top seam only while hovering) */
+html[data-pc-resources] main a:hover > .rounded-2xl:not(.no-glass):not(.pc-solid)::before,
+html[data-pc-resources] main a:hover > .rounded-3xl:not(.no-glass):not(.pc-solid)::before,
+html[data-pc-resources] main button.rounded-2xl:hover:not(.no-glass):not(.pc-solid)::before,
+html[data-pc-resources] main button.rounded-3xl:hover:not(.no-glass):not(.pc-solid)::before,
+html[data-pc-resources] main .rounded-2xl:not(.no-glass):not(.pc-solid):hover::before,
+html[data-pc-resources] main .rounded-3xl:not(.no-glass):not(.pc-solid):hover::before,
+.pc-glass-card:hover::before {
+  height: 100%;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    transparent 38%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 62%,
+    transparent 100%
+  );
+  animation: pc-glass-shimmer 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: forwards;
+}
+
+/* Buttons: subtle inner glow on press */
+html[data-pc-resources] main button:active:not(.no-glass):not(.pc-solid) {
+  transform: translateY(-1px) scale(0.995);
+  box-shadow:
+    0 10px 24px -12px rgba(30, 80, 140, 0.35),
+    inset 0 0 22px 8px rgba(255, 255, 255, 0.28) !important;
+}
+
+/* Focus ring for keyboard users on glass inputs/buttons */
+html[data-pc-resources] main :focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(120, 180, 240, 0.45),
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 0 22px 11px rgba(255, 255, 255, 0.22) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-pc-resources] main *,
+  .pc-glass-card,
+  .pc-glass-card::before {
+    transition: none !important;
+    animation: none !important;
+  }
 }
 
 /* Inputs: readable placeholders on glass */
@@ -526,3 +623,4 @@ html[data-pc-resources] main textarea::placeholder {
 
 /* Neutralize muted-token overrides */
 html[data-pc-resources] main [style*="var(--pc-muted)"] { color: rgba(15,37,64,0.65) !important; }
+
