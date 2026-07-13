@@ -3,7 +3,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import {
   BookOpen, Moon, Sun, Settings, Bell, Flame, Users, Wind, Search,
   Heart, PenLine, Bot, CalendarCheck, UserCheck, ClipboardList, Target, Activity, Brain,
-  Menu, X, Home, LifeBuoy,
+  Menu, X, Home, LifeBuoy, CalendarDays,
 } from "lucide-react";
 
 import logo from "@/assets/peacecode-logo.png";
@@ -104,6 +104,7 @@ const navGroups: NavGroup[] = [
     label: "Community & Resources",
     items: [
       { icon: Users, label: "Community", to: "/community" },
+      { icon: CalendarDays, label: "Events", to: "/events" },
       { icon: BookOpen, label: "Resources", to: "/resources" },
       { icon: LifeBuoy, label: "Emergency", to: "/emergency" },
     ],
