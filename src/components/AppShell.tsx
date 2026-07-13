@@ -172,9 +172,9 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
 
       {/* ─── desktop sidebar ─── */}
       <aside
-        className="hidden lg:flex fixed top-6 bottom-6 left-6 z-40 group flex-col py-6 rounded-[38px] backdrop-blur-2xl transition-[width] duration-300 ease-out hover:w-60 w-[80px] overflow-hidden"
-        style={{ background: "var(--pc-shell)", border: `1px solid ${border}`, boxShadow: "0 30px 60px -30px rgba(0,0,0,0.28)" }}
+        className="pc-glass-sidebar hidden lg:flex fixed top-6 bottom-6 left-6 z-40 group flex-col py-6 rounded-[38px] transition-[width] duration-300 ease-out hover:w-60 w-[80px] overflow-hidden"
       >
+
 
         <div className="flex items-center h-12 mb-8">
           <div className="w-[80px] shrink-0 flex justify-center"><Mark className="w-9 h-9" /></div>
