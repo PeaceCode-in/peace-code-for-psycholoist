@@ -467,14 +467,15 @@ body { overflow-y: visible; }
 :is(html[data-pc-resources],html[data-pc-screening]) main input:not(.no-glass):not(.pc-solid),
 :is(html[data-pc-resources],html[data-pc-screening]) main textarea:not(.no-glass):not(.pc-solid),
 :is(html[data-pc-resources],html[data-pc-screening]) main select:not(.no-glass):not(.pc-solid) {
-  background: rgba(255, 255, 255, 0.11) !important;
-  backdrop-filter: blur(25px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  background: rgba(255, 255, 255, 0.22) !important;
+  backdrop-filter: blur(30px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.38) !important;
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
-    inset 0 0 22px 11px rgba(255, 255, 255, 0.18) !important;
+    0 14px 40px rgba(20, 40, 80, 0.14),
+    0 2px 8px rgba(20, 40, 80, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 0 24px 10px rgba(255, 255, 255, 0.14) !important;
   position: relative;
 }
 
