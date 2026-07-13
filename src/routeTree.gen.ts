@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as MindgymRouteImport } from './routes/mindgym'
 import { Route as CounsellingRouteImport } from './routes/counselling'
 import { Route as CommunityRouteImport } from './routes/community'
@@ -17,6 +18,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as ScreeningIndexRouteImport } from './routes/screening.index'
 import { Route as ResourcesIndexRouteImport } from './routes/resources.index'
+import { Route as ProfileIndexRouteImport } from './routes/profile.index'
 import { Route as PeacebotIndexRouteImport } from './routes/peacebot.index'
 import { Route as MindgymIndexRouteImport } from './routes/mindgym.index'
 import { Route as JournalIndexRouteImport } from './routes/journal.index'
@@ -54,6 +56,16 @@ import { Route as ResourcesDownloadsRouteImport } from './routes/resources.downl
 import { Route as ResourcesCollectionsRouteImport } from './routes/resources.collections'
 import { Route as ResourcesCategoriesRouteImport } from './routes/resources.categories'
 import { Route as ResourcesAchievementsRouteImport } from './routes/resources.achievements'
+import { Route as ProfileThemesRouteImport } from './routes/profile.themes'
+import { Route as ProfileStatsRouteImport } from './routes/profile.stats'
+import { Route as ProfilePrivacyRouteImport } from './routes/profile.privacy'
+import { Route as ProfileJourneyRouteImport } from './routes/profile.journey'
+import { Route as ProfileGardenRouteImport } from './routes/profile.garden'
+import { Route as ProfileFriendsRouteImport } from './routes/profile.friends'
+import { Route as ProfileEditRouteImport } from './routes/profile.edit'
+import { Route as ProfileBookmarksRouteImport } from './routes/profile.bookmarks'
+import { Route as ProfileActivityRouteImport } from './routes/profile.activity'
+import { Route as ProfileAchievementsRouteImport } from './routes/profile.achievements'
 import { Route as PeacebotVoiceRouteImport } from './routes/peacebot.voice'
 import { Route as PeacebotToolsRouteImport } from './routes/peacebot.tools'
 import { Route as PeacebotSettingsRouteImport } from './routes/peacebot.settings'
@@ -132,6 +144,11 @@ const SettingsRoute = SettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MindgymRoute = MindgymRouteImport.update({
   id: '/mindgym',
   path: '/mindgym',
@@ -166,6 +183,11 @@ const ResourcesIndexRoute = ResourcesIndexRouteImport.update({
   id: '/resources/',
   path: '/resources/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileIndexRoute = ProfileIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProfileRoute,
 } as any)
 const PeacebotIndexRoute = PeacebotIndexRouteImport.update({
   id: '/peacebot/',
@@ -351,6 +373,56 @@ const ResourcesAchievementsRoute = ResourcesAchievementsRouteImport.update({
   id: '/resources/achievements',
   path: '/resources/achievements',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileThemesRoute = ProfileThemesRouteImport.update({
+  id: '/themes',
+  path: '/themes',
+  getParentRoute: () => ProfileRoute,
+} as any)
+const ProfileStatsRoute = ProfileStatsRouteImport.update({
+  id: '/stats',
+  path: '/stats',
+  getParentRoute: () => ProfileRoute,
+} as any)
+const ProfilePrivacyRoute = ProfilePrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => ProfileRoute,
+} as any)
+const ProfileJourneyRoute = ProfileJourneyRouteImport.update({
+  id: '/journey',
+  path: '/journey',
+  getParentRoute: () => ProfileRoute,
+} as any)
+const ProfileGardenRoute = ProfileGardenRouteImport.update({
+  id: '/garden',
+  path: '/garden',
+  getParentRoute: () => ProfileRoute,
+} as any)
+const ProfileFriendsRoute = ProfileFriendsRouteImport.update({
+  id: '/friends',
+  path: '/friends',
+  getParentRoute: () => ProfileRoute,
+} as any)
+const ProfileEditRoute = ProfileEditRouteImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => ProfileRoute,
+} as any)
+const ProfileBookmarksRoute = ProfileBookmarksRouteImport.update({
+  id: '/bookmarks',
+  path: '/bookmarks',
+  getParentRoute: () => ProfileRoute,
+} as any)
+const ProfileActivityRoute = ProfileActivityRouteImport.update({
+  id: '/activity',
+  path: '/activity',
+  getParentRoute: () => ProfileRoute,
+} as any)
+const ProfileAchievementsRoute = ProfileAchievementsRouteImport.update({
+  id: '/achievements',
+  path: '/achievements',
+  getParentRoute: () => ProfileRoute,
 } as any)
 const PeacebotVoiceRoute = PeacebotVoiceRouteImport.update({
   id: '/peacebot/voice',
@@ -718,6 +790,7 @@ export interface FileRoutesByFullPath {
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
+  '/profile': typeof ProfileRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
@@ -763,6 +836,16 @@ export interface FileRoutesByFullPath {
   '/peacebot/settings': typeof PeacebotSettingsRoute
   '/peacebot/tools': typeof PeacebotToolsRoute
   '/peacebot/voice': typeof PeacebotVoiceRoute
+  '/profile/achievements': typeof ProfileAchievementsRoute
+  '/profile/activity': typeof ProfileActivityRoute
+  '/profile/bookmarks': typeof ProfileBookmarksRoute
+  '/profile/edit': typeof ProfileEditRoute
+  '/profile/friends': typeof ProfileFriendsRoute
+  '/profile/garden': typeof ProfileGardenRoute
+  '/profile/journey': typeof ProfileJourneyRoute
+  '/profile/privacy': typeof ProfilePrivacyRoute
+  '/profile/stats': typeof ProfileStatsRoute
+  '/profile/themes': typeof ProfileThemesRoute
   '/resources/achievements': typeof ResourcesAchievementsRoute
   '/resources/categories': typeof ResourcesCategoriesRoute
   '/resources/collections': typeof ResourcesCollectionsRoute
@@ -800,6 +883,7 @@ export interface FileRoutesByFullPath {
   '/journal/': typeof JournalIndexRoute
   '/mindgym/': typeof MindgymIndexRoute
   '/peacebot/': typeof PeacebotIndexRoute
+  '/profile/': typeof ProfileIndexRoute
   '/resources/': typeof ResourcesIndexRoute
   '/screening/': typeof ScreeningIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -879,6 +963,16 @@ export interface FileRoutesByTo {
   '/peacebot/settings': typeof PeacebotSettingsRoute
   '/peacebot/tools': typeof PeacebotToolsRoute
   '/peacebot/voice': typeof PeacebotVoiceRoute
+  '/profile/achievements': typeof ProfileAchievementsRoute
+  '/profile/activity': typeof ProfileActivityRoute
+  '/profile/bookmarks': typeof ProfileBookmarksRoute
+  '/profile/edit': typeof ProfileEditRoute
+  '/profile/friends': typeof ProfileFriendsRoute
+  '/profile/garden': typeof ProfileGardenRoute
+  '/profile/journey': typeof ProfileJourneyRoute
+  '/profile/privacy': typeof ProfilePrivacyRoute
+  '/profile/stats': typeof ProfileStatsRoute
+  '/profile/themes': typeof ProfileThemesRoute
   '/resources/achievements': typeof ResourcesAchievementsRoute
   '/resources/categories': typeof ResourcesCategoriesRoute
   '/resources/collections': typeof ResourcesCollectionsRoute
@@ -916,6 +1010,7 @@ export interface FileRoutesByTo {
   '/journal': typeof JournalIndexRoute
   '/mindgym': typeof MindgymIndexRoute
   '/peacebot': typeof PeacebotIndexRoute
+  '/profile': typeof ProfileIndexRoute
   '/resources': typeof ResourcesIndexRoute
   '/screening': typeof ScreeningIndexRoute
   '/settings': typeof SettingsIndexRoute
@@ -954,6 +1049,7 @@ export interface FileRoutesById {
   '/community': typeof CommunityRoute
   '/counselling': typeof CounsellingRouteWithChildren
   '/mindgym': typeof MindgymRouteWithChildren
+  '/profile': typeof ProfileRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
   '/api/chat': typeof ApiChatRoute
   '/breathe/stats': typeof BreatheStatsRoute
@@ -999,6 +1095,16 @@ export interface FileRoutesById {
   '/peacebot/settings': typeof PeacebotSettingsRoute
   '/peacebot/tools': typeof PeacebotToolsRoute
   '/peacebot/voice': typeof PeacebotVoiceRoute
+  '/profile/achievements': typeof ProfileAchievementsRoute
+  '/profile/activity': typeof ProfileActivityRoute
+  '/profile/bookmarks': typeof ProfileBookmarksRoute
+  '/profile/edit': typeof ProfileEditRoute
+  '/profile/friends': typeof ProfileFriendsRoute
+  '/profile/garden': typeof ProfileGardenRoute
+  '/profile/journey': typeof ProfileJourneyRoute
+  '/profile/privacy': typeof ProfilePrivacyRoute
+  '/profile/stats': typeof ProfileStatsRoute
+  '/profile/themes': typeof ProfileThemesRoute
   '/resources/achievements': typeof ResourcesAchievementsRoute
   '/resources/categories': typeof ResourcesCategoriesRoute
   '/resources/collections': typeof ResourcesCollectionsRoute
@@ -1036,6 +1142,7 @@ export interface FileRoutesById {
   '/journal/': typeof JournalIndexRoute
   '/mindgym/': typeof MindgymIndexRoute
   '/peacebot/': typeof PeacebotIndexRoute
+  '/profile/': typeof ProfileIndexRoute
   '/resources/': typeof ResourcesIndexRoute
   '/screening/': typeof ScreeningIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -1075,6 +1182,7 @@ export interface FileRouteTypes {
     | '/community'
     | '/counselling'
     | '/mindgym'
+    | '/profile'
     | '/settings'
     | '/api/chat'
     | '/breathe/stats'
@@ -1120,6 +1228,16 @@ export interface FileRouteTypes {
     | '/peacebot/settings'
     | '/peacebot/tools'
     | '/peacebot/voice'
+    | '/profile/achievements'
+    | '/profile/activity'
+    | '/profile/bookmarks'
+    | '/profile/edit'
+    | '/profile/friends'
+    | '/profile/garden'
+    | '/profile/journey'
+    | '/profile/privacy'
+    | '/profile/stats'
+    | '/profile/themes'
     | '/resources/achievements'
     | '/resources/categories'
     | '/resources/collections'
@@ -1157,6 +1275,7 @@ export interface FileRouteTypes {
     | '/journal/'
     | '/mindgym/'
     | '/peacebot/'
+    | '/profile/'
     | '/resources/'
     | '/screening/'
     | '/settings/'
@@ -1236,6 +1355,16 @@ export interface FileRouteTypes {
     | '/peacebot/settings'
     | '/peacebot/tools'
     | '/peacebot/voice'
+    | '/profile/achievements'
+    | '/profile/activity'
+    | '/profile/bookmarks'
+    | '/profile/edit'
+    | '/profile/friends'
+    | '/profile/garden'
+    | '/profile/journey'
+    | '/profile/privacy'
+    | '/profile/stats'
+    | '/profile/themes'
     | '/resources/achievements'
     | '/resources/categories'
     | '/resources/collections'
@@ -1273,6 +1402,7 @@ export interface FileRouteTypes {
     | '/journal'
     | '/mindgym'
     | '/peacebot'
+    | '/profile'
     | '/resources'
     | '/screening'
     | '/settings'
@@ -1310,6 +1440,7 @@ export interface FileRouteTypes {
     | '/community'
     | '/counselling'
     | '/mindgym'
+    | '/profile'
     | '/settings'
     | '/api/chat'
     | '/breathe/stats'
@@ -1355,6 +1486,16 @@ export interface FileRouteTypes {
     | '/peacebot/settings'
     | '/peacebot/tools'
     | '/peacebot/voice'
+    | '/profile/achievements'
+    | '/profile/activity'
+    | '/profile/bookmarks'
+    | '/profile/edit'
+    | '/profile/friends'
+    | '/profile/garden'
+    | '/profile/journey'
+    | '/profile/privacy'
+    | '/profile/stats'
+    | '/profile/themes'
     | '/resources/achievements'
     | '/resources/categories'
     | '/resources/collections'
@@ -1392,6 +1533,7 @@ export interface FileRouteTypes {
     | '/journal/'
     | '/mindgym/'
     | '/peacebot/'
+    | '/profile/'
     | '/resources/'
     | '/screening/'
     | '/settings/'
@@ -1430,6 +1572,7 @@ export interface RootRouteChildren {
   CommunityRoute: typeof CommunityRoute
   CounsellingRoute: typeof CounsellingRouteWithChildren
   MindgymRoute: typeof MindgymRouteWithChildren
+  ProfileRoute: typeof ProfileRouteWithChildren
   SettingsRoute: typeof SettingsRouteWithChildren
   ApiChatRoute: typeof ApiChatRoute
   BreatheStatsRoute: typeof BreatheStatsRoute
@@ -1505,6 +1648,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mindgym': {
       id: '/mindgym'
       path: '/mindgym'
@@ -1553,6 +1703,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/resources/'
       preLoaderRoute: typeof ResourcesIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/profile/': {
+      id: '/profile/'
+      path: '/'
+      fullPath: '/profile/'
+      preLoaderRoute: typeof ProfileIndexRouteImport
+      parentRoute: typeof ProfileRoute
     }
     '/peacebot/': {
       id: '/peacebot/'
@@ -1812,6 +1969,76 @@ declare module '@tanstack/react-router' {
       fullPath: '/resources/achievements'
       preLoaderRoute: typeof ResourcesAchievementsRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/profile/themes': {
+      id: '/profile/themes'
+      path: '/themes'
+      fullPath: '/profile/themes'
+      preLoaderRoute: typeof ProfileThemesRouteImport
+      parentRoute: typeof ProfileRoute
+    }
+    '/profile/stats': {
+      id: '/profile/stats'
+      path: '/stats'
+      fullPath: '/profile/stats'
+      preLoaderRoute: typeof ProfileStatsRouteImport
+      parentRoute: typeof ProfileRoute
+    }
+    '/profile/privacy': {
+      id: '/profile/privacy'
+      path: '/privacy'
+      fullPath: '/profile/privacy'
+      preLoaderRoute: typeof ProfilePrivacyRouteImport
+      parentRoute: typeof ProfileRoute
+    }
+    '/profile/journey': {
+      id: '/profile/journey'
+      path: '/journey'
+      fullPath: '/profile/journey'
+      preLoaderRoute: typeof ProfileJourneyRouteImport
+      parentRoute: typeof ProfileRoute
+    }
+    '/profile/garden': {
+      id: '/profile/garden'
+      path: '/garden'
+      fullPath: '/profile/garden'
+      preLoaderRoute: typeof ProfileGardenRouteImport
+      parentRoute: typeof ProfileRoute
+    }
+    '/profile/friends': {
+      id: '/profile/friends'
+      path: '/friends'
+      fullPath: '/profile/friends'
+      preLoaderRoute: typeof ProfileFriendsRouteImport
+      parentRoute: typeof ProfileRoute
+    }
+    '/profile/edit': {
+      id: '/profile/edit'
+      path: '/edit'
+      fullPath: '/profile/edit'
+      preLoaderRoute: typeof ProfileEditRouteImport
+      parentRoute: typeof ProfileRoute
+    }
+    '/profile/bookmarks': {
+      id: '/profile/bookmarks'
+      path: '/bookmarks'
+      fullPath: '/profile/bookmarks'
+      preLoaderRoute: typeof ProfileBookmarksRouteImport
+      parentRoute: typeof ProfileRoute
+    }
+    '/profile/activity': {
+      id: '/profile/activity'
+      path: '/activity'
+      fullPath: '/profile/activity'
+      preLoaderRoute: typeof ProfileActivityRouteImport
+      parentRoute: typeof ProfileRoute
+    }
+    '/profile/achievements': {
+      id: '/profile/achievements'
+      path: '/achievements'
+      fullPath: '/profile/achievements'
+      preLoaderRoute: typeof ProfileAchievementsRouteImport
+      parentRoute: typeof ProfileRoute
     }
     '/peacebot/voice': {
       id: '/peacebot/voice'
@@ -2401,6 +2628,37 @@ const MindgymRouteChildren: MindgymRouteChildren = {
 const MindgymRouteWithChildren =
   MindgymRoute._addFileChildren(MindgymRouteChildren)
 
+interface ProfileRouteChildren {
+  ProfileAchievementsRoute: typeof ProfileAchievementsRoute
+  ProfileActivityRoute: typeof ProfileActivityRoute
+  ProfileBookmarksRoute: typeof ProfileBookmarksRoute
+  ProfileEditRoute: typeof ProfileEditRoute
+  ProfileFriendsRoute: typeof ProfileFriendsRoute
+  ProfileGardenRoute: typeof ProfileGardenRoute
+  ProfileJourneyRoute: typeof ProfileJourneyRoute
+  ProfilePrivacyRoute: typeof ProfilePrivacyRoute
+  ProfileStatsRoute: typeof ProfileStatsRoute
+  ProfileThemesRoute: typeof ProfileThemesRoute
+  ProfileIndexRoute: typeof ProfileIndexRoute
+}
+
+const ProfileRouteChildren: ProfileRouteChildren = {
+  ProfileAchievementsRoute: ProfileAchievementsRoute,
+  ProfileActivityRoute: ProfileActivityRoute,
+  ProfileBookmarksRoute: ProfileBookmarksRoute,
+  ProfileEditRoute: ProfileEditRoute,
+  ProfileFriendsRoute: ProfileFriendsRoute,
+  ProfileGardenRoute: ProfileGardenRoute,
+  ProfileJourneyRoute: ProfileJourneyRoute,
+  ProfilePrivacyRoute: ProfilePrivacyRoute,
+  ProfileStatsRoute: ProfileStatsRoute,
+  ProfileThemesRoute: ProfileThemesRoute,
+  ProfileIndexRoute: ProfileIndexRoute,
+}
+
+const ProfileRouteWithChildren =
+  ProfileRoute._addFileChildren(ProfileRouteChildren)
+
 interface SettingsRouteChildren {
   SettingsAboutRoute: typeof SettingsAboutRoute
   SettingsAccessibilityRoute: typeof SettingsAccessibilityRoute
@@ -2452,6 +2710,7 @@ const rootRouteChildren: RootRouteChildren = {
   CommunityRoute: CommunityRoute,
   CounsellingRoute: CounsellingRouteWithChildren,
   MindgymRoute: MindgymRouteWithChildren,
+  ProfileRoute: ProfileRouteWithChildren,
   SettingsRoute: SettingsRouteWithChildren,
   ApiChatRoute: ApiChatRoute,
   BreatheStatsRoute: BreatheStatsRoute,
