@@ -135,6 +135,20 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
     window.addEventListener("scroll", onScroll);
     // Apply persisted appearance/accessibility once per mount.
     try { const s = loadSettings(); applyAppearance(s); applyAccessibility(s); } catch {}
+    // Adaptive perf tier for grain/animation cost.
+    // Uses deviceMemory, hardwareConcurrency, and the Save-Data hint.
+    try {
+      const nav = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean; effectiveType?: string } };
+      const mem = nav.deviceMemory ?? 8;
+      const cores = nav.hardwareConcurrency ?? 8;
+      const saveData = nav.connection?.saveData === true;
+      const slowNet = /(^2g$|^slow-2g$|^3g$)/.test(nav.connection?.effectiveType ?? "");
+      const tier = (saveData || slowNet || mem <= 2 || cores <= 2)
+        ? "low"
+        : (mem <= 4 || cores <= 4) ? "med" : "high";
+      document.documentElement.setAttribute("data-pc-perf", tier);
+    } catch {}
+
     // Global ⌘K / Ctrl+K → Search Center
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && (e.key === "k" || e.key === "K")) {

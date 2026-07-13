@@ -848,3 +848,35 @@ html[data-pc-resources] .pc-glass-sidebar {
     opacity: 1;
   }
 }
+
+/* ============================================================
+   Adaptive grain — low-end devices get lighter, slower noise
+   Set by AppShell via <html data-pc-perf="low|med|high">.
+   • low  → static grain at reduced opacity, no drift/flicker
+   • med  → slower drift, no flicker, mid opacity
+   • high → default (unchanged)
+   Also respects the Save-Data hint via prefers-reduced-data.
+   ============================================================ */
+html[data-pc-perf="med"] .pc-glass-sidebar::after,
+html[data-pc-perf="med"] .pc-mobile-drawer::after {
+  animation: pc-grain-drift 28s ease-in-out infinite !important;
+  opacity: 0.28 !important;
+  will-change: auto;
+}
+html[data-pc-perf="low"] .pc-glass-sidebar::after,
+html[data-pc-perf="low"] .pc-mobile-drawer::after {
+  animation: none !important;
+  opacity: 0.18 !important;
+  background-size: 260px 260px;
+  will-change: auto;
+  mix-blend-mode: normal;
+}
+@media (prefers-reduced-data: reduce) {
+  .pc-glass-sidebar::after,
+  .pc-mobile-drawer::after {
+    animation: none !important;
+    opacity: 0.2 !important;
+    will-change: auto;
+  }
+}
+
