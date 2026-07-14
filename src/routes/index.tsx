@@ -6,6 +6,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowUpRight, ChevronRight } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
+import { currentDisplayName } from "@/lib/auth-store";
 
 import * as journal from "@/lib/journal-store";
 import * as gratitude from "@/lib/gratitude-store";
