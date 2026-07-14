@@ -207,6 +207,41 @@ export const LANGS = ["English","Hindi","Tamil","Bengali","Kannada","Malayalam",
 // ─── Mock psychologists ──────────────────────────────────────────
 export const EXPERTS: Expert[] = [
   {
+    id: "e_nisha", name: "Nisha Kundu", title: "Counseling Psychologist & Mental Health Coach",
+    license: "RCI Registered", qualification: "MA Counseling Psychology, IGNOU · PG Diploma in Guidance & Counseling, Jamia Millia Islamia",
+    experienceYears: 2, sessions: 180, rating: 4.9, reviewsCount: 42,
+    languages: ["English","Hindi"], gender: "she/her",
+    ageGroups: ["18-24","25-34"],
+    specializations: ["Anxiety","Stress","Self Harm","Confidence","Career","Relationships","Loneliness"],
+    therapyTypes: ["CBT","Mindfulness","Solution Focused","Supportive Therapy","Positive Psychology"],
+    modes: ["video","audio","chat"],
+    fees: 1100, responseMin: 15, online: true, emergency: true, collegePartner: true, verified: true,
+    bio: "Founder of The Antar Journey. I sit with students the way I wish someone had sat with me — patiently, without a script.",
+    approach: "Warm and grounded. We start with what's loudest in your head today, then work outward. No lectures, no forced homework.",
+    education: [
+      "PG Diploma in Guidance & Counseling, Jamia Millia Islamia, 2022–2024",
+      "MA Counseling Psychology, Indira Gandhi National Open University, 2019–2022 (Grade A)",
+      "PG Diploma in Mental Health, IGNOU (Grade A)",
+    ],
+    certificates: [
+      "Founder — The Antar Journey (2025–Present)",
+      "PGT Psychology — Notre Dame School, Delhi",
+      "Mental Health Coach — JK Life Skill Academy (2024–2026)",
+    ],
+    reviews: [
+      { by: "DU · 2nd year", rating: 5, text: "She actually listens. First session I didn't feel rushed.", when: "1 week ago" },
+      { by: "Jamia · MA student", rating: 5, text: "Helped me through a really dark month. Gentle but honest.", when: "3 weeks ago" },
+      { by: "IP University · 3rd year", rating: 5, text: "The Antar Journey sessions feel like coming home.", when: "1 month ago" },
+    ],
+    faqs: [
+      { q: "What is The Antar Journey?", a: "It's my practice — a slow, honest space for students and young adults navigating mental health without judgment." },
+      { q: "Do you work with self-harm concerns?", a: "Yes. We go carefully, and safety planning comes first." },
+    ],
+    cancellationPolicy: "Free cancellation up to 4 hours before the session.",
+    successStories: ["A first-year student came in unable to attend classes due to panic. Over 8 sessions we rebuilt her mornings — she's now back on campus and mentoring a junior."],
+    weekly: { Mon:["11am","4pm","7pm"], Tue:["11am","6pm"], Wed:["4pm","7pm"], Thu:["11am","4pm","7pm"], Fri:["11am","6pm"], Sat:["10am","12pm"], Sun:[] },
+  },
+  {
     id: "e_arya", name: "Dr. Arya Menon", title: "Clinical Psychologist",
     license: "RCI CRR A-38214", qualification: "M.Phil Clinical Psychology, NIMHANS",
     experienceYears: 9, sessions: 1240, rating: 4.9, reviewsCount: 214,
