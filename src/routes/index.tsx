@@ -95,9 +95,10 @@ function DashboardInner() {
   const trend = useMemo(() => makeTrend(peace), [peace]);
 
   return (
-    <main className="relative z-10 mx-auto w-full max-w-[1180px] px-5 sm:px-8 lg:px-12">
+    <div className="relative z-10 w-full max-w-[1240px] px-5 sm:px-8 lg:px-10 lg:pr-24">
       {/* ── Masthead ─────────────────────────────────────────────── */}
-      <section className="pt-10 sm:pt-16 pb-10 sm:pb-14">
+      <section className="pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-12">
+
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-6">
           <div className="min-w-0">
             <div className="text-[10px] tracking-[0.36em] uppercase" style={{ color: "var(--pc-muted)" }}>
@@ -209,7 +210,7 @@ function DashboardInner() {
         <span>Softly — that's how growth happens.</span>
         <span>PeaceCode · 2026</span>
       </footer>
-    </main>
+    </div>
   );
 }
 
