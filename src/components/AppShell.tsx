@@ -356,25 +356,20 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
           ))}
         </nav>
 
-        <div className="shrink-0 mt-4 mx-3 pt-3 flex flex-col gap-1" style={{ borderTop: `1px solid ${border}` }}>
-          <Link to="/settings" className="flex items-center h-10 rounded-2xl transition" style={{ color: "#0f2540" }} aria-label="Settings">
-            <span className="w-[56px] shrink-0 flex justify-center"><Settings className="w-[19px] h-[19px]" strokeWidth={1.4}/></span>
-            <span className="text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 -ml-1">Settings</span>
-          </Link>
-          <Link to="/profile" className="mt-2 rounded-2xl flex items-center h-14 transition hover:opacity-90" style={{ background: surface2 }} aria-label="Open profile">
+        <div className="shrink-0 mt-4 mx-3 pt-3" style={{ borderTop: `1px solid ${border}` }}>
+          <div className="flex items-center h-11 rounded-2xl" style={{ color: "#0f2540" }} aria-label="Current streak">
             <span className="w-[56px] shrink-0 flex justify-center">
-              <span className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: soft }}>
-                <Mark className="w-4 h-4"/>
+              <span className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: soft, color: primary }}>
+                <Flame className="w-4 h-4" strokeWidth={1.6}/>
               </span>
             </span>
-            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 whitespace-nowrap min-w-0 -ml-1">
-              <div className="font-serif text-[13px] leading-none">Keya</div>
-              <div className="flex items-center gap-1 mt-1 text-[9px]" style={{ color: primary }}>
-                <Flame className="w-2.5 h-2.5" strokeWidth={1.5}/> 12 day streak
-              </div>
+            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 whitespace-nowrap -ml-1">
+              <div className="text-[12.5px] leading-none">12 day streak</div>
+              <div className="text-[9px] tracking-[0.25em] uppercase opacity-50 mt-1">keep going</div>
             </div>
-          </Link>
+          </div>
         </div>
+
 
       </aside>
 
