@@ -1012,3 +1012,84 @@ html[data-pc-bg="noir"] input::placeholder { color: var(--pc-muted) !important; 
   from { opacity: 0; transform: translateY(-6px) scale(0.97); }
   to   { opacity: 1; transform: translateY(0)    scale(1); }
 }
+
+/* ============================================================
+   Live-appearance controls — density, radius, motion, glass, card style
+   These read attributes set by src/lib/settings-store.ts::applyAppearance
+   so the toggles in /settings/appearance produce visible changes everywhere.
+   ============================================================ */
+
+/* Corner radius — global override for common Tailwind radii */
+html[style*="--pc-radius-scale"] .rounded-2xl,
+html[style*="--pc-radius-scale"] .rounded-3xl {
+  border-radius: var(--pc-radius-scale) !important;
+}
+html[style*="--pc-radius-scale"] .rounded-xl {
+  border-radius: calc(var(--pc-radius-scale) * 0.75) !important;
+}
+
+/* Interface density — scales vertical rhythm of the main content column */
+html[data-density="compact"]      main { --pc-density: 0.78; }
+html[data-density="comfortable"]  main { --pc-density: 1;    }
+html[data-density="spacious"]     main { --pc-density: 1.28; }
+html[data-density] main { padding-top: calc(var(--pc-density,1) * 1rem); padding-bottom: calc(var(--pc-density,1) * 1rem); }
+html[data-density] main .space-y-4  > * + * { margin-top: calc(var(--pc-density,1) * 1rem)   !important; }
+html[data-density] main .space-y-6  > * + * { margin-top: calc(var(--pc-density,1) * 1.5rem) !important; }
+html[data-density] main .space-y-8  > * + * { margin-top: calc(var(--pc-density,1) * 2rem)   !important; }
+html[data-density] main .gap-3 { gap: calc(var(--pc-density,1) * 0.75rem) !important; }
+html[data-density] main .gap-4 { gap: calc(var(--pc-density,1) * 1rem)    !important; }
+html[data-density] main .gap-6 { gap: calc(var(--pc-density,1) * 1.5rem)  !important; }
+html[data-density] main .py-4 { padding-top: calc(var(--pc-density,1) * 1rem) !important; padding-bottom: calc(var(--pc-density,1) * 1rem) !important; }
+html[data-density] main .py-5 { padding-top: calc(var(--pc-density,1) * 1.25rem) !important; padding-bottom: calc(var(--pc-density,1) * 1.25rem) !important; }
+html[data-density] main .py-8 { padding-top: calc(var(--pc-density,1) * 2rem) !important; padding-bottom: calc(var(--pc-density,1) * 2rem) !important; }
+
+/* Reduce motion — kill all transitions/animations */
+html[data-motion="reduced"] *,
+html[data-motion="reduced"] *::before,
+html[data-motion="reduced"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Glass effects OFF — strip blur + saturate everywhere */
+html[data-glass="off"] *,
+html[data-glass="off"] *::before,
+html[data-glass="off"] *::after {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+html[data-glass="off"] .pc-glass-sidebar,
+html[data-glass="off"] .pc-glass-card {
+  background: var(--pc-surface, #fff) !important;
+}
+
+/* Card style — flat / outlined / elevated (default) */
+html[data-card-style="flat"] main .rounded-2xl,
+html[data-card-style="flat"] main .rounded-3xl,
+html[data-card-style="flat"] .pc-glass-card {
+  box-shadow: none !important;
+}
+html[data-card-style="outlined"] main .rounded-2xl,
+html[data-card-style="outlined"] main .rounded-3xl,
+html[data-card-style="outlined"] .pc-glass-card {
+  box-shadow: none !important;
+  background: transparent !important;
+  border: 1px solid rgba(20,30,60,0.14) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+html[data-card-style="elevated"] main .rounded-2xl,
+html[data-card-style="elevated"] main .rounded-3xl {
+  box-shadow: 0 10px 30px -14px rgba(20,30,60,0.14);
+}
+
+/* Chart style — expose as a CSS var chart components can pick up */
+html[data-chart-style="smooth"]  { --pc-chart-tension: 0.55; --pc-chart-dash: 0;    }
+html[data-chart-style="sharp"]   { --pc-chart-tension: 0;    --pc-chart-dash: 0;    }
+html[data-chart-style="dotted"]  { --pc-chart-tension: 0.4;  --pc-chart-dash: 4 6;  }
+html[data-chart-style] svg path.pc-chart-line,
+html[data-chart-style] svg polyline.pc-chart-line {
+  stroke-dasharray: var(--pc-chart-dash) !important;
+}
