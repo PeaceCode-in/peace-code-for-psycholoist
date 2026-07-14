@@ -92,6 +92,17 @@ export function startSession(email: string): void {
 export function loadSession(): Session | null { return readJSON<Session | null>(SESSION_KEY, null); }
 export function endSession(): void { if (typeof window !== "undefined") localStorage.removeItem(SESSION_KEY); }
 
+/** Current signed-in student's display name, or a graceful guest fallback. */
+export function currentDisplayName(): { full: string; first: string; isGuest: boolean } {
+  const s = loadSession();
+  if (s) {
+    const u = findUser(s.email);
+    const full = (u?.fullName ?? "").trim();
+    if (full) return { full, first: full.split(/\s+/)[0], isGuest: false };
+  }
+  return { full: "Guest Student", first: "Guest", isGuest: true };
+}
+
 export function loadDraft(): SignupDraft { return readJSON<SignupDraft>(DRAFT_KEY, {}); }
 export function saveDraft(d: SignupDraft): void { writeJSON(DRAFT_KEY, d); }
 export function clearDraft(): void { if (typeof window !== "undefined") localStorage.removeItem(DRAFT_KEY); }
