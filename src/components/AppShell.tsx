@@ -460,9 +460,10 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
       )}
 
       {/* content */}
-      <main className="relative z-10 lg:pl-[120px] lg:pr-6">
+      <main className="relative z-10 lg:pl-[108px] lg:pr-6 lg:pt-4">
         {children}
       </main>
+
 
 
       {/* ─── floating Emergency button (global, calm not scary) ─── */}
