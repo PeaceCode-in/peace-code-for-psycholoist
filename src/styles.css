@@ -460,13 +460,13 @@ body { overflow-y: visible; }
 
 /* Frosted glass — almost invisible white, with a hairline border and a very soft shadow */
 .pc-glass-card,
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-2xl:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-3xl:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-xl:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-full:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main [class*="rounded-[1"]:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main [class*="rounded-[2"]:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main [class*="rounded-[3"]:not(.no-glass):not(.pc-solid) {
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-full:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main [class*="rounded-[1"]:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main [class*="rounded-[2"]:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main [class*="rounded-[3"]:not(.no-glass):not(.pc-solid) {
   background: rgba(255, 255, 255, 0.32) !important;
   backdrop-filter: blur(32px) saturate(115%);
   border: 1px solid rgba(255, 255, 255, 0.42) !important;
@@ -477,8 +477,8 @@ body { overflow-y: visible; }
 }
 
 /* Top light seam */
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-2xl:not(.no-glass):not(.pc-solid)::before,
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-3xl:not(.no-glass):not(.pc-solid)::before,
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl:not(.no-glass):not(.pc-solid)::before,
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid)::before,
 .pc-glass-card::before {
   content: "";
   position: absolute;
@@ -490,8 +490,8 @@ body { overflow-y: visible; }
 }
 
 /* Left highlight edge */
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-2xl:not(.no-glass):not(.pc-solid)::after,
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-3xl:not(.no-glass):not(.pc-solid)::after,
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl:not(.no-glass):not(.pc-solid)::after,
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid)::after,
 .pc-glass-card::after {
   content: "";
   position: absolute;
@@ -502,19 +502,19 @@ body { overflow-y: visible; }
 }
 
 /* Ensure clipped children don't bleed through the pseudo edges */
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-2xl:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-3xl:not(.no-glass):not(.pc-solid) {
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid) {
   overflow: hidden;
 }
 
 /* Transitions */
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-2xl:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-3xl:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-xl:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-full:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main input:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main textarea:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main select:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-full:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main input:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main textarea:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main select:not(.no-glass):not(.pc-solid),
 .pc-glass-card {
   transition:
     background-color 200ms ease,
@@ -524,9 +524,9 @@ body { overflow-y: visible; }
 }
 
 /* Inputs stay transparent — the surrounding container carries the glass */
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) input,
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) textarea,
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) select {
+:is(html[data-pc-resources],html[data-pc-screening]) input,
+:is(html[data-pc-resources],html[data-pc-screening]) textarea,
+:is(html[data-pc-resources],html[data-pc-screening]) select {
   background: transparent !important;
   background-color: transparent !important;
   border: 0 !important;
@@ -534,24 +534,24 @@ body { overflow-y: visible; }
   backdrop-filter: none !important;
   color: #15233F !important;
 }
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) input::placeholder,
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) textarea::placeholder {
+:is(html[data-pc-resources],html[data-pc-screening]) input::placeholder,
+:is(html[data-pc-resources],html[data-pc-screening]) textarea::placeholder {
   color: #8B98AD !important;
 }
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) select option {
+:is(html[data-pc-resources],html[data-pc-screening]) select option {
   background: #ffffff !important;
   color: #15233F !important;
 }
 
 /* Hover: brighten glass slightly — no lift, no scale */
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main a:hover > .rounded-2xl:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main a:hover > .rounded-3xl:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main a:focus-visible > .rounded-2xl:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main a:focus-visible > .rounded-3xl:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main button.rounded-2xl:hover:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main button.rounded-3xl:hover:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-2xl:not(.no-glass):not(.pc-solid):hover,
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-3xl:not(.no-glass):not(.pc-solid):hover,
+:is(html[data-pc-resources],html[data-pc-screening]) main a:hover > .rounded-2xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main a:hover > .rounded-3xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main a:focus-visible > .rounded-2xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main a:focus-visible > .rounded-3xl:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main button.rounded-2xl:hover:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main button.rounded-3xl:hover:not(.no-glass):not(.pc-solid),
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl:not(.no-glass):not(.pc-solid):hover,
+:is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid):hover,
 .pc-glass-card:hover,
 .pc-glass-card:focus-within {
   background: rgba(255, 255, 255, 0.42) !important;
@@ -563,7 +563,7 @@ body { overflow-y: visible; }
 }
 
 /* Focus ring for keyboard users */
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main :focus-visible {
+:is(html[data-pc-resources],html[data-pc-screening]) main :focus-visible {
   outline: none;
   box-shadow:
     0 0 0 3px rgba(141, 175, 247, 0.35),
@@ -572,7 +572,7 @@ body { overflow-y: visible; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main *,
+  :is(html[data-pc-resources],html[data-pc-screening]) main *,
   .pc-glass-card,
   .pc-glass-card::before {
     transition: none !important;
@@ -581,7 +581,7 @@ body { overflow-y: visible; }
 }
 
 /* Muted-token override for the desaturated palette */
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main [style*="var(--pc-muted)"] { color: #5C6D86 !important; }
+:is(html[data-pc-resources],html[data-pc-screening]) main [style*="var(--pc-muted)"] { color: #5C6D86 !important; }
 
 
 
@@ -626,7 +626,7 @@ body { overflow-y: visible; }
 
 .pc-glass-sidebar > * { position: relative; z-index: 3; }
 
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) .pc-glass-sidebar {
+:is(html[data-pc-resources],html[data-pc-screening]) .pc-glass-sidebar {
   background:
     radial-gradient(120% 60% at 50% 0%, rgba(255,255,255,0.38), rgba(255,255,255,0.22) 60%, rgba(255,255,255,0.18) 100%);
   border-color: rgba(255,255,255,0.32);
@@ -781,13 +781,13 @@ body { overflow-y: visible; }
   .pc-glass-sidebar::after,
   .pc-mobile-drawer,
   .pc-mobile-drawer::after,
-  :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-2xl:not(.no-glass):not(.pc-solid):hover,
-  :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-3xl:not(.no-glass):not(.pc-solid):hover {
+  :is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl:not(.no-glass):not(.pc-solid):hover,
+  :is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid):hover {
     transform: none !important;
   }
   /* Replace shimmer sweep with a soft fade */
-  :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-2xl:not(.no-glass):not(.pc-solid):hover::before,
-  :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-3xl:not(.no-glass):not(.pc-solid):hover::before {
+  :is(html[data-pc-resources],html[data-pc-screening]) main .rounded-2xl:not(.no-glass):not(.pc-solid):hover::before,
+  :is(html[data-pc-resources],html[data-pc-screening]) main .rounded-3xl:not(.no-glass):not(.pc-solid):hover::before {
     animation: none !important;
     height: 1px !important;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent) !important;
