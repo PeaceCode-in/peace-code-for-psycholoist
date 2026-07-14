@@ -152,7 +152,7 @@ function NotificationsHome() {
             </Panel>
 
             <Panel className="md:col-span-1" >
-              <div className="text-[10.5px] tracking-[0.28em] uppercase" style={{ color: muted }}>Good morning, Keya</div>
+              <div className="text-[10.5px] tracking-[0.28em] uppercase" style={{ color: muted }}>Good morning, {currentDisplayName().first}</div>
               <div className="font-serif text-[18px] mt-2 leading-snug" style={{ color: ink }}>Here's what today holds.</div>
               {summary.length === 0 ? (
                 <p className="text-[13px] mt-2" style={{ color: muted }}>Nothing pressing — a good day to breathe slow.</p>
