@@ -63,6 +63,8 @@ function DashboardInner() {
   const data = useData();
   const mg = useMindGym();
   useEffect(() => { ensureBootstrapped(); }, []);
+  const [who, setWho] = useState(() => ({ full: "Guest Student", first: "Guest", isGuest: true }));
+  useEffect(() => { setWho(currentDisplayName()); }, []);
 
   const now = new Date();
   const hour = now.getHours();
