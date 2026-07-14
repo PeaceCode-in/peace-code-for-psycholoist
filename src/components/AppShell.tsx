@@ -564,9 +564,9 @@ function TopBarActions({ unread, compact = false }: { unread: number; compact?: 
           >
             {/* Profile header */}
             <Link to="/profile" onClick={() => setOpen(false)} className="flex items-center gap-3 px-4 py-3.5 transition hover:bg-white/40">
-              <span className="w-11 h-11 rounded-full flex items-center justify-center font-serif text-[16px]" style={{ background: "linear-gradient(135deg, var(--pc-soft), #ffffff)" }}>K</span>
+              <span className="w-11 h-11 rounded-full flex items-center justify-center font-serif text-[16px]" style={{ background: "linear-gradient(135deg, var(--pc-soft), #ffffff)" }}>{initial}</span>
               <div className="min-w-0 flex-1">
-                <div className="font-serif text-[15px] leading-tight truncate">Keya</div>
+                <div className="font-serif text-[15px] leading-tight truncate">{who.first}</div>
                 <div className="flex items-center gap-1 mt-0.5 text-[10.5px]" style={{ color: "var(--pc-primary)" }}>
                   <Flame className="w-3 h-3" strokeWidth={1.6}/> 12 day streak
                 </div>
