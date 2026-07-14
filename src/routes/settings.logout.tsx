@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { palette } from "@/components/AppShell";
 import { LogOut, X } from "lucide-react";
+import { endSession } from "@/lib/auth-store";
 
 export const Route = createFileRoute("/settings/logout")({
   head: () => ({ meta: [{ title: "Sign out — PeaceCode" }] }),
@@ -11,8 +12,17 @@ const { surface, surface2, border, ink, muted, primary } = palette;
 
 function LogoutSheet() {
   const nav = useNavigate();
-  const doLogout = () => { try { sessionStorage.clear(); } catch {} alert("Signed out on this device."); nav({ to: "/settings" }); };
-  const doAll = () => { try { sessionStorage.clear(); } catch {} alert("Signed out everywhere."); nav({ to: "/settings" }); };
+  const doLogout = () => {
+    try { sessionStorage.clear(); } catch {}
+    endSession();
+    nav({ to: "/auth", replace: true });
+  };
+  const doAll = () => {
+    try { sessionStorage.clear(); } catch {}
+    endSession();
+    nav({ to: "/auth", replace: true });
+  };
+
 
   return (
     <main className="min-h-[70vh] flex items-center justify-center px-5 py-12">
