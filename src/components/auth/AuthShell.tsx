@@ -159,7 +159,7 @@ export function AuthShell({
             </svg>
 
             <div className="relative px-7 sm:px-9 py-8 sm:py-10 flex flex-col gap-6">
-              <Link to="/" className="flex flex-col items-center gap-3">
+              <div className="flex flex-col items-center gap-3 select-none">
                 <span className="pc-logo-wrap">
                   <img
                     src={wordmark.url}
@@ -169,7 +169,7 @@ export function AuthShell({
                   />
                 </span>
                 <div className="h-px w-16" style={{ background: `linear-gradient(90deg, transparent, ${ACCENT_SOFT}, transparent)` }} />
-              </Link>
+              </div>
 
               <div className="flex flex-col items-center gap-2.5">
                 {eyebrow && (
