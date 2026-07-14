@@ -298,7 +298,7 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
 
 
   return (
-    <div className="min-h-screen w-full font-sans" style={{ background: bg, color: ink }}>
+    <div className="min-h-screen w-full font-sans" style={{ background: "transparent", color: ink }}>
       {/* Global frosted-glass backdrop — sky-clouds + blur + tone + grain. */}
       <GlassFX />
       {/* constant, calm aurora — same on every page, themeable */}
