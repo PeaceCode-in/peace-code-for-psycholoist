@@ -53,7 +53,7 @@ function EmailEntry() {
           onKeyDown={(e) => e.key === "Enter" && onContinue()}
         />
         {error && (
-          <div className="mt-2 text-[12px]" style={{ color: "#b23a48" }}>{error}</div>
+          <div className="mt-2 text-[12px]" style={{ color: "#a24a30" }}>{error}</div>
         )}
       </div>
 
@@ -68,7 +68,7 @@ function EmailEntry() {
         </span>
       </PrimaryButton>
 
-      <Link to="/" className="text-center text-[12.5px] -mt-2" style={{ color: "#3a5a86" }}>
+      <Link to="/" className="text-center text-[12.5px] -mt-2" style={{ color: "#7d5a44" }}>
         Skip for now
       </Link>
     </AuthShell>

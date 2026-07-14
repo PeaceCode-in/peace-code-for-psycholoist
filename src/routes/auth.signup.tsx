@@ -158,14 +158,14 @@ function SignupFlow() {
                 onClick={() => setConcern(c.id)}
                 className="text-left rounded-2xl px-4 py-3.5 transition"
                 style={{
-                  background: active ? "rgba(28,79,138,0.10)" : "rgba(255,255,255,0.55)",
-                  border: `1px solid ${active ? "#1c4f8a" : "rgba(255,255,255,0.85)"}`,
-                  color: "#0d2547",
+                  background: active ? "rgba(176,106,60,0.12)" : "rgba(255,255,255,0.55)",
+                  border: `1px solid ${active ? "#8a4a26" : "rgba(255,255,255,0.85)"}`,
+                  color: "#2b1d14",
                 }}
               >
                 <div className="flex items-start justify-between gap-2">
                   <span className="text-[13px] font-semibold leading-snug">{c.label}</span>
-                  {active && <Check className="w-4 h-4 shrink-0" style={{ color: "#1c4f8a" }} />}
+                  {active && <Check className="w-4 h-4 shrink-0" style={{ color: "#8a4a26" }} />}
                 </div>
               </button>
             );
@@ -179,7 +179,7 @@ function SignupFlow() {
             <FieldLabel hint="At least 8 characters. Mix words that mean something to you.">Create a password</FieldLabel>
             <div className="relative">
               <GlassInput icon={<Lock className="w-4 h-4" strokeWidth={1.7} />} type={showPw ? "text" : "password"} placeholder="••••••••" value={password} onChange={(e) => { setPassword(e.target.value); if (error) setError(null); }} />
-              <button type="button" onClick={() => setShowPw((s) => !s)} className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg flex items-center justify-center hover:bg-white/60 transition" style={{ color: "#1c4f8a" }} aria-label="Toggle password visibility">
+              <button type="button" onClick={() => setShowPw((s) => !s)} className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg flex items-center justify-center hover:bg-white/60 transition" style={{ color: "#8a4a26" }} aria-label="Toggle password visibility">
                 {showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
@@ -191,14 +191,14 @@ function SignupFlow() {
         </>
       )}
 
-      {error && <div className="text-[12px]" style={{ color: "#b23a48" }}>{error}</div>}
+      {error && <div className="text-[12px]" style={{ color: "#a24a30" }}>{error}</div>}
 
       <div className="flex items-center gap-2.5">
         <button
           type="button"
           onClick={back}
           className="h-[52px] px-5 rounded-2xl flex items-center gap-2 text-[13.5px] transition hover:bg-white/60"
-          style={{ background: "rgba(255,255,255,0.4)", border: "1px solid rgba(255,255,255,0.75)", color: "#0d2547" }}
+          style={{ background: "rgba(255,255,255,0.4)", border: "1px solid rgba(255,255,255,0.75)", color: "#2b1d14" }}
         >
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
@@ -212,7 +212,7 @@ function SignupFlow() {
         </div>
       </div>
 
-      <Link to="/auth" className="text-center text-[12.5px] -mt-2" style={{ color: "#3a5a86" }}>
+      <Link to="/auth" className="text-center text-[12.5px] -mt-2" style={{ color: "#7d5a44" }}>
         Use a different email
       </Link>
     </AuthShell>

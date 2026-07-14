@@ -71,18 +71,18 @@ function LoginPage() {
             type="button"
             onClick={() => setShow((s) => !s)}
             className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg flex items-center justify-center hover:bg-white/60 transition"
-            style={{ color: "#1c4f8a" }}
+            style={{ color: "#8a4a26" }}
             aria-label={show ? "Hide password" : "Show password"}
           >
             {show ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
           </button>
         </div>
-        {error && <div className="mt-2 text-[12px]" style={{ color: "#b23a48" }}>{error}</div>}
+        {error && <div className="mt-2 text-[12px]" style={{ color: "#a24a30" }}>{error}</div>}
       </div>
 
       <div className="flex items-center justify-between text-[12.5px]">
-        <Link to="/auth" className="hover:underline" style={{ color: "#3a5a86" }}>Not you? Use a different email</Link>
-        <button type="button" className="hover:underline" style={{ color: "#1c4f8a" }} onClick={() => alert("Reach out at care@peacecode.in — we'll gently help you back in.")}>
+        <Link to="/auth" className="hover:underline" style={{ color: "#7d5a44" }}>Not you? Use a different email</Link>
+        <button type="button" className="hover:underline" style={{ color: "#8a4a26" }} onClick={() => alert("Reach out at care@peacecode.in — we'll gently help you back in.")}>
           Forgot password?
         </button>
       </div>
