@@ -180,12 +180,10 @@ function load<T>(k: string, d: T): T {
 function save<T>(k: string, v: T) { if (typeof window === "undefined") return; try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
 const uid = (p: string) => `${p}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`;
 
-import nishaKunduPhoto from "@/assets/nisha-kundu.jpg.asset.json";
-
-// Real profile photos for verified psychologists (override the generated avatar).
-export const PHOTO_OVERRIDES: Record<string, string> = {
-  e_nisha: nishaKunduPhoto.url,
-};
+// Profile photo overrides for verified psychologists. Kept empty on the
+// deployed build so no `.asset.json` CDN URLs (Lovable-preview-only) leak
+// into the Netlify build and render as broken images.
+export const PHOTO_OVERRIDES: Record<string, string> = {};
 
 export const photoFor = (id: string) =>
   PHOTO_OVERRIDES[id] ??
