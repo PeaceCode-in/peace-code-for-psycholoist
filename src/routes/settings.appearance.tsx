@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SettingsShell, Section, Row, Toggle, Segmented, Select } from "@/components/settings/primitives";
-import { useSettings, ACCENTS, type AccentKey, type ThemeMode, type Density, type CardStyle, type ChartStyle } from "@/lib/settings-store";
+import { useSettings, ACCENTS, BG_THEMES, type AccentKey, type BgThemeKey, type ThemeMode, type Density, type CardStyle, type ChartStyle } from "@/lib/settings-store";
 import { palette } from "@/components/AppShell";
 import { Check } from "lucide-react";
 
