@@ -1,8 +1,10 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { CheckCircle2, ShieldCheck, AlertCircle } from "lucide-react";
-import wordmark from "@/assets/peacecode-wordmark.png.asset.json";
-import skyBg from "@/assets/auth-sky-cranes.jpg.asset.json";
+import wordmarkUrl from "@/assets/img/peacecode-wordmark.png";
+import skyBgUrl from "@/assets/img/auth-sky-cranes.jpg";
+const wordmark = { url: wordmarkUrl };
+const skyBg = { url: skyBgUrl };
 
 /**
  * AuthShell — single-viewport frosted glass card centered on a full-bleed

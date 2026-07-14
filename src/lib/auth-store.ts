@@ -90,7 +90,12 @@ export function startSession(email: string): void {
   writeJSON(SESSION_KEY, { email: email.trim().toLowerCase(), startedAt: Date.now() } satisfies Session);
 }
 export function loadSession(): Session | null { return readJSON<Session | null>(SESSION_KEY, null); }
-export function endSession(): void { if (typeof window !== "undefined") localStorage.removeItem(SESSION_KEY); }
+export function endSession(): void {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem("pc.auth.guest");
+  }
+}
 
 /** Current signed-in student's display name, or a graceful guest fallback. */
 export function currentDisplayName(): { full: string; first: string; isGuest: boolean } {

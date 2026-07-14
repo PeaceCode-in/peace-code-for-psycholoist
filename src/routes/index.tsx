@@ -2,11 +2,11 @@
 // Editorial, product-grade wellness overview. One unified surface, not a card grid.
 // Inspired by Apple Health, Linear, Notion Calendar, Arc, Things 3.
 
-import { createFileRoute, Link, useHydrated } from "@tanstack/react-router";
+import { createFileRoute, Link, useHydrated, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowUpRight, ChevronRight } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
-import { currentDisplayName } from "@/lib/auth-store";
+import { currentDisplayName, loadSession } from "@/lib/auth-store";
 
 import * as journal from "@/lib/journal-store";
 import * as gratitude from "@/lib/gratitude-store";
@@ -25,8 +25,21 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "Your wellness, told softly from top to bottom." },
     ],
   }),
-  component: () => (<AppShell><DashboardInner /></AppShell>),
+  component: () => (<AuthGate><AppShell><DashboardInner /></AppShell></AuthGate>),
 });
+
+function AuthGate({ children }: { children: React.ReactNode }) {
+  const nav = useNavigate();
+  const [ok, setOk] = useState(false);
+  useEffect(() => {
+    const session = loadSession();
+    const guest = typeof window !== "undefined" && localStorage.getItem("pc.auth.guest") === "1";
+    if (!session && !guest) { nav({ to: "/auth" }); return; }
+    setOk(true);
+  }, [nav]);
+  if (!ok) return null;
+  return <>{children}</>;
+}
 
 // ─── data ────────────────────────────────────────────────────────────
 function useData() {

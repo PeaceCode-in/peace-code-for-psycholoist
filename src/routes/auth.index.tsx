@@ -69,7 +69,12 @@ function EmailEntry() {
 
       <button
         type="button"
-        onClick={() => { endSession(); resetProfile(); nav({ to: "/" }); }}
+        onClick={() => {
+          endSession();
+          resetProfile();
+          if (typeof window !== "undefined") localStorage.setItem("pc.auth.guest", "1");
+          nav({ to: "/" });
+        }}
         className="text-center text-[12.5px] -mt-2 hover:underline transition"
         style={{ color: "#7d5a44" }}
       >
