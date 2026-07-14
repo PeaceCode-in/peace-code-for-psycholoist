@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ArrowRight, Eye, EyeOff, Lock, Mail } from "lucide-react";
-import { AuthShell, FieldLabel, GlassInput, PrimaryButton } from "@/components/auth/AuthShell";
+import { AuthShell, FieldLabel, GlassInput, InlineFeedback, PrimaryButton } from "@/components/auth/AuthShell";
 import { findUser, loadDraft, startSession, verifyPassword } from "@/lib/auth-store";
 
 export const Route = createFileRoute("/auth/login")({
@@ -14,6 +14,7 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [name, setName] = useState("there");
 
@@ -27,12 +28,14 @@ function LoginPage() {
 
   const submit = () => {
     setError(null);
+    setSuccess(null);
     if (!password) { setError("Please enter your password."); return; }
     setBusy(true);
     setTimeout(() => {
       if (verifyPassword(email, password)) {
         startSession(email);
-        nav({ to: "/" });
+        setSuccess("Welcome back. Taking you home…");
+        setTimeout(() => nav({ to: "/" }), 700);
       } else {
         setError("That password doesn't match. Try again, gently.");
         setBusy(false);
@@ -71,25 +74,26 @@ function LoginPage() {
             type="button"
             onClick={() => setShow((s) => !s)}
             className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg flex items-center justify-center hover:bg-white/60 transition"
-            style={{ color: "#8a4a26" }}
+            style={{ color: "#1e3a8a" }}
             aria-label={show ? "Hide password" : "Show password"}
           >
             {show ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
           </button>
         </div>
-        {error && <div className="mt-2 text-[12px]" style={{ color: "#a24a30" }}>{error}</div>}
+        {error && <InlineFeedback kind="error">{error}</InlineFeedback>}
+        {success && <InlineFeedback kind="success">{success}</InlineFeedback>}
       </div>
 
       <div className="flex items-center justify-between text-[12.5px]">
-        <Link to="/auth" className="hover:underline" style={{ color: "#7d5a44" }}>Not you? Use a different email</Link>
-        <button type="button" className="hover:underline" style={{ color: "#8a4a26" }} onClick={() => alert("Reach out at care@peacecode.in — we'll gently help you back in.")}>
+        <Link to="/auth" className="hover:underline" style={{ color: "#5a4030" }}>Not you? Use a different email</Link>
+        <button type="button" className="hover:underline" style={{ color: "#1e3a8a" }} onClick={() => setError("Reach out at care@peacecode.in — we'll gently help you back in.")}>
           Forgot password?
         </button>
       </div>
 
       <PrimaryButton onClick={submit} disabled={busy}>
         <span className="inline-flex items-center justify-center gap-2">
-          {busy ? "Signing in…" : "Sign in"} <ArrowRight className="w-4 h-4" />
+          {busy ? (success ? "Signed in ✓" : "Signing in…") : "Sign in"} <ArrowRight className="w-4 h-4" />
         </span>
       </PrimaryButton>
     </AuthShell>
