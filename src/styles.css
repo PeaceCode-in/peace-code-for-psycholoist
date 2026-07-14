@@ -854,19 +854,39 @@ html[data-pc-bg] body {
   color: var(--pc-ink);
   transition: background-color 400ms ease, color 400ms ease;
 }
+/* Coarse grain — creates depth and film-like texture */
 html[data-pc-bg] body::before {
+  content: "";
+  position: fixed; inset: -20px;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='3' stitchTiles='stitch' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0.06  0 0 0 0 0.08  0 0 0 0 0.14  0 0 0 0.95 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 360px 360px;
+  mix-blend-mode: multiply;
+  opacity: 0.16;
+}
+/* Fine grain — a sharper micro-layer over the top */
+html[data-pc-bg] body::after {
   content: "";
   position: fixed; inset: 0;
   pointer-events: none;
   z-index: 0;
-  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.10  0 0 0 0 0.12  0 0 0 0 0.16  0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 320px 320px;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.4' numOctaves='2' stitchTiles='stitch' seed='9'/%3E%3CfeColorMatrix values='0 0 0 0 0.10  0 0 0 0 0.10  0 0 0 0 0.14  0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
   mix-blend-mode: multiply;
-  opacity: 0.045;
+  opacity: 0.09;
 }
-html[data-pc-bg][data-theme="dark"] body::before {
+html[data-pc-bg][data-theme="dark"] body::before,
+html[data-pc-bg="midnight"] body::before,
+html[data-pc-bg="noir"] body::before {
   mix-blend-mode: overlay;
-  opacity: 0.08;
+  opacity: 0.22;
+}
+html[data-pc-bg][data-theme="dark"] body::after,
+html[data-pc-bg="midnight"] body::after,
+html[data-pc-bg="noir"] body::after {
+  mix-blend-mode: overlay;
+  opacity: 0.14;
 }
 
 /* Daylight — soft haze */
@@ -973,6 +993,61 @@ html[data-pc-bg="noir"] body {
   --pc-ink: #F5EEDD; --pc-muted: #B8AC90; --pc-border: rgba(201,168,76,0.20);
   --pc-primary: #C9A84C; --pc-soft: #E6D28A;
   --pc-surface: rgba(255,255,255,0.05); --pc-surface2: rgba(201,168,76,0.10);
+}
+
+/* Lilac Haze — pink to indigo (grainy dream) */
+html[data-pc-bg="lilac"] body {
+  background:
+    radial-gradient(55% 45% at 12% 15%, #F3E8FF 0%, transparent 65%),
+    radial-gradient(60% 50% at 85% 25%, #D8C4FF 0%, transparent 60%),
+    radial-gradient(70% 60% at 88% 90%, #4B2FB8 0%, transparent 55%),
+    radial-gradient(70% 60% at 15% 85%, #7A5CFF 0%, transparent 55%),
+    linear-gradient(140deg, #F5E4FF 0%, #C8AEFF 45%, #5A3ED9 100%);
+  --pc-ink: #1E1447; --pc-muted: #4A3A7A; --pc-border: rgba(60,30,140,0.16);
+}
+
+/* Fresh Mint — cool celadon paper */
+html[data-pc-bg="mint"] body {
+  background:
+    radial-gradient(55% 45% at 15% 12%, #E7F7EE 0%, transparent 65%),
+    radial-gradient(60% 50% at 85% 20%, #D0EEDB 0%, transparent 65%),
+    radial-gradient(70% 60% at 80% 90%, #A6DFB8 0%, transparent 60%),
+    linear-gradient(180deg, #F5FBF6 0%, #DFF1E4 100%);
+  --pc-ink: #10331E; --pc-muted: #4E7059; --pc-border: rgba(20,70,40,0.14);
+}
+
+/* Sakura — cherry blossom */
+html[data-pc-bg="sakura"] body {
+  background:
+    radial-gradient(55% 45% at 15% 12%, #FFEEF3 0%, transparent 65%),
+    radial-gradient(60% 50% at 85% 20%, #FFD3E0 0%, transparent 65%),
+    radial-gradient(70% 60% at 80% 90%, #F6B5CA 0%, transparent 60%),
+    radial-gradient(60% 55% at 20% 90%, #FFF7FA 0%, transparent 70%),
+    linear-gradient(160deg, #FFF5F8 0%, #FFDDE7 100%);
+  --pc-ink: #3F1226; --pc-muted: #8A4A65; --pc-border: rgba(120,30,60,0.14);
+}
+
+/* Ember — charcoal with warm ember glow (dark) */
+html[data-pc-bg="ember"] body {
+  background:
+    radial-gradient(55% 45% at 18% 12%, #4A2416 0%, transparent 55%),
+    radial-gradient(50% 40% at 85% 22%, #7A2E1A 0%, transparent 55%),
+    radial-gradient(70% 60% at 82% 92%, #2A1108 0%, transparent 60%),
+    linear-gradient(160deg, #1A0F0A 0%, #26160E 55%, #120904 100%);
+  --pc-ink: #F7E6DA; --pc-muted: #C69984; --pc-border: rgba(232,93,58,0.22);
+  --pc-primary: #E85D3A; --pc-soft: #F0916E;
+  --pc-surface: rgba(255,255,255,0.05); --pc-surface2: rgba(232,93,58,0.10);
+}
+
+/* Graphite — slate paper (dark) */
+html[data-pc-bg="graphite"] body {
+  background:
+    radial-gradient(55% 45% at 18% 12%, #232833 0%, transparent 60%),
+    radial-gradient(55% 45% at 85% 22%, #2E3648 0%, transparent 60%),
+    radial-gradient(70% 60% at 80% 92%, #14171E 0%, transparent 60%),
+    linear-gradient(160deg, #0F1116 0%, #191D25 60%, #0F1116 100%);
+  --pc-ink: #E6ECF5; --pc-muted: #9AA6BC; --pc-border: rgba(255,255,255,0.09);
+  --pc-surface: rgba(255,255,255,0.05); --pc-surface2: rgba(255,255,255,0.08);
 }
 
 /* Ensure page content sits above the grain layer — only when not already
