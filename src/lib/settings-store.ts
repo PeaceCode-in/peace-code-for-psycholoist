@@ -27,7 +27,8 @@ export const ACCENTS: Record<AccentKey, { name: string; primary: string; soft: s
 export type BgThemeKey =
   | "daylight" | "aurora"  | "dusk"    | "midnight"
   | "sage"     | "noir"    | "iris"    | "linen"
-  | "ocean"    | "sunrise";
+  | "ocean"    | "sunrise" | "lilac"   | "mint"
+  | "ember"    | "graphite"| "sakura";
 export const BG_THEMES: Record<BgThemeKey, { name: string; tone: "light" | "dark"; swatch: string[]; blurb: string }> = {
   daylight: { name: "Daylight",   tone: "light", swatch: ["#F7FAFF","#EAF3FF","#FFF5EE","#DDEEFF"], blurb: "Soft morning haze, our house default." },
   aurora:   { name: "Aurora",     tone: "light", swatch: ["#E9E4FF","#FCE7F3","#DDF1FF","#FFF1D6"], blurb: "Iridescent lavender and pink — Apple-like." },
@@ -37,6 +38,11 @@ export const BG_THEMES: Record<BgThemeKey, { name: string; tone: "light" | "dark
   ocean:    { name: "Ocean",      tone: "light", swatch: ["#D9EEF3","#B8D9E6","#95BFD1","#EAF6F8"], blurb: "Sea glass — cool teal on foam." },
   sunrise:  { name: "Sunrise",    tone: "light", swatch: ["#FFE4C7","#FFC8B4","#F6A69B","#FDEFD9"], blurb: "First light. Warm coral fade." },
   iris:     { name: "Iridescent", tone: "light", swatch: ["#C9F0F2","#E9D8FF","#FFE0EF","#F0F7FF"], blurb: "Vapor chrome — Y2K meets glass." },
+  lilac:    { name: "Lilac Haze", tone: "light", swatch: ["#F3E8FF","#C7B4FF","#7A5CFF","#1E1447"], blurb: "Grainy pink to indigo — reference dream." },
+  mint:     { name: "Fresh Mint", tone: "light", swatch: ["#E7F7EE","#CDEFD9","#A6DFB8","#F5FBF6"], blurb: "Cool, clean, ever-so-slightly minty." },
+  sakura:   { name: "Sakura",     tone: "light", swatch: ["#FFEEF3","#FFD3E0","#F6B5CA","#FFF7FA"], blurb: "Cherry blossom — spring editorial." },
+  ember:    { name: "Ember",      tone: "dark",  swatch: ["#1A0F0A","#3A1810","#7A2E1A","#E85D3A"], blurb: "Charcoal with warm ember glow." },
+  graphite: { name: "Graphite",   tone: "dark",  swatch: ["#0F1116","#1A1D24","#2A3040","#8A9BB4"], blurb: "Slate paper — quiet, dense, focused." },
   midnight: { name: "Midnight",   tone: "dark",  swatch: ["#0B1020","#1B2140","#3A2E6B","#12203E"], blurb: "Deep navy with lavender aurora." },
   noir:     { name: "Noir Gold",  tone: "dark",  swatch: ["#0D0D0D","#1A1A1A","#3A2E1C","#C9A84C"], blurb: "Charcoal with a whisper of gold." },
 };
