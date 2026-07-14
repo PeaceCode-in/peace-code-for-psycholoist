@@ -462,9 +462,10 @@ export function AppShell({ children, showHeader = true }: { children: ReactNode;
       )}
 
       {/* content */}
-      <main className="relative z-10 lg:pl-[108px] lg:pr-6 lg:pt-4">
+      <main className="relative z-10 lg:pl-[108px] lg:pr-6 lg:pt-4 mx-auto w-full max-w-[1440px]">
         {children}
       </main>
+
 
 
 
