@@ -180,7 +180,15 @@ function load<T>(k: string, d: T): T {
 function save<T>(k: string, v: T) { if (typeof window === "undefined") return; try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
 const uid = (p: string) => `${p}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`;
 
+import nishaKunduPhoto from "@/assets/nisha-kundu.jpg.asset.json";
+
+// Real profile photos for verified psychologists (override the generated avatar).
+export const PHOTO_OVERRIDES: Record<string, string> = {
+  e_nisha: nishaKunduPhoto.url,
+};
+
 export const photoFor = (id: string) =>
+  PHOTO_OVERRIDES[id] ??
   `https://api.dicebear.com/7.x/notionists/svg?seed=${encodeURIComponent(id)}&backgroundColor=c7d9ff,dbe4ff,ffe1d6,e6f0ff,f2e7ff`;
 
 // ─── Specialization + therapy catalogs ───────────────────────────
