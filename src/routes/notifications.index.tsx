@@ -7,6 +7,7 @@ import {
   loadAll, markAllRead, type Notif, CATEGORY_META, type NotifCategory, timeAgo,
 } from "@/lib/notifications-store";
 import { Icon, NotifRow, SectionLabel, Panel, Pill, PriorityDot } from "@/components/notifications/primitives";
+import { currentDisplayName } from "@/lib/auth-store";
 
 const { surface, surface2, border, ink, muted, primary, soft } = palette;
 
