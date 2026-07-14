@@ -4,15 +4,12 @@ import { useEffect } from "react";
  * Global backdrop hook.
  *
  * The actual look — gradients, grain, ink tokens — lives in `src/styles.css`
- * under `html[data-pc-bg="<theme>"]`. This component only:
- *   1. Marks the document as glass-enabled (activates the shared CSS scope).
- *   2. Ensures a background theme attribute exists on first paint so the
- *      body doesn't flash white before settings-store applies.
+ * under `html[data-pc-bg="<theme>"]`. This component only ensures a
+ * background theme attribute exists before settings-store applies.
  */
 export function GlassFX() {
   useEffect(() => {
     const root = document.documentElement;
-    root.setAttribute("data-pc-glass", "");
     if (!root.getAttribute("data-pc-bg")) {
       try {
         const raw = localStorage.getItem("peacecode.settings.v1");
