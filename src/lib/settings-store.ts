@@ -20,6 +20,27 @@ export const ACCENTS: Record<AccentKey, { name: string; primary: string; soft: s
   amber:    { name: "Amber", primary: "#B08444", soft: "#EDD9B4", ring: "#D4B27B" },
 };
 
+// ─── Premium background themes ─────────────────────────────────
+// Grainy, gradient canvases. Selected value persists to localStorage and
+// applies globally by setting `html[data-pc-bg]`. Actual gradients + text
+// tokens live in src/styles.css under `html[data-pc-bg="X"]`.
+export type BgThemeKey =
+  | "daylight" | "aurora"  | "dusk"    | "midnight"
+  | "sage"     | "noir"    | "iris"    | "linen"
+  | "ocean"    | "sunrise";
+export const BG_THEMES: Record<BgThemeKey, { name: string; tone: "light" | "dark"; swatch: string[]; blurb: string }> = {
+  daylight: { name: "Daylight",   tone: "light", swatch: ["#F7FAFF","#EAF3FF","#FFF5EE","#DDEEFF"], blurb: "Soft morning haze, our house default." },
+  aurora:   { name: "Aurora",     tone: "light", swatch: ["#E9E4FF","#FCE7F3","#DDF1FF","#FFF1D6"], blurb: "Iridescent lavender and pink — Apple-like." },
+  dusk:     { name: "Dusk",       tone: "light", swatch: ["#FFE7D6","#F8CAD7","#E9D6F5","#FFF2E6"], blurb: "Warm sunset peach with a rose whisper." },
+  sage:     { name: "Sage Paper", tone: "light", swatch: ["#F1EFE6","#DDE7D6","#C7D6B8","#F7F4EB"], blurb: "Muted sage on warm paper. Very quiet." },
+  linen:    { name: "Linen",      tone: "light", swatch: ["#FAF6F0","#F0E8DA","#E6D8C1","#FBF7EF"], blurb: "Cream and warm sand. Editorial calm." },
+  ocean:    { name: "Ocean",      tone: "light", swatch: ["#D9EEF3","#B8D9E6","#95BFD1","#EAF6F8"], blurb: "Sea glass — cool teal on foam." },
+  sunrise:  { name: "Sunrise",    tone: "light", swatch: ["#FFE4C7","#FFC8B4","#F6A69B","#FDEFD9"], blurb: "First light. Warm coral fade." },
+  iris:     { name: "Iridescent", tone: "light", swatch: ["#C9F0F2","#E9D8FF","#FFE0EF","#F0F7FF"], blurb: "Vapor chrome — Y2K meets glass." },
+  midnight: { name: "Midnight",   tone: "dark",  swatch: ["#0B1020","#1B2140","#3A2E6B","#12203E"], blurb: "Deep navy with lavender aurora." },
+  noir:     { name: "Noir Gold",  tone: "dark",  swatch: ["#0D0D0D","#1A1A1A","#3A2E1C","#C9A84C"], blurb: "Charcoal with a whisper of gold." },
+};
+
 export interface Settings {
   profile: {
     fullName: string;
