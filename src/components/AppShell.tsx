@@ -513,6 +513,8 @@ function TopBarActions({ unread, compact = false }: { unread: number; compact?: 
 
   const btnSize = compact ? "w-9 h-9" : "w-10 h-10";
   const iconCls = compact ? "w-3.5 h-3.5" : "w-4 h-4";
+  const who = currentDisplayName();
+  const initial = (who.first?.[0] ?? "G").toUpperCase();
   const chrome: React.CSSProperties = {
     background: "rgba(255,255,255,0.42)",
     border: "1px solid rgba(255,255,255,0.55)",
