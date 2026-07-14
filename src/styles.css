@@ -445,19 +445,20 @@ body { overflow-y: visible; }
    Resources — Liquid Glass (iOS 26) over sky-clouds backdrop
    Activated by the /resources layout via :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass])
    ============================================================ */
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) body { background: #cfe6f5; }
+/* Matte page background — no photograph, no sky image. */
+:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) body { background: #F8FAFD; }
 
-/* Dim AppShell's aurora so the sky backdrop reads */
+/* Dim AppShell's aurora so the matte backdrop reads */
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) .fixed.inset-0.pointer-events-none.z-0 > div { opacity: 0 !important; }
 
 /* Lift page content above the fixed backdrop */
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main { position: relative; z-index: 2; }
 
-/* Ink tuned for a light sky background */
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main { --pc-ink: #0f2540; --pc-muted: rgba(15,37,64,0.62); }
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main { color: #0f2540; }
+/* Ink tuned for a soft matte background — desaturated, near-white */
+:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main { --pc-ink: #15233F; --pc-muted: #5C6D86; }
+:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main { color: #15233F; }
 
-/* Frosted glass — applied to every rounded surface, search bar, pills, inputs */
+/* Frosted glass — almost invisible white, with a hairline border and a very soft shadow */
 .pc-glass-card,
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-2xl:not(.no-glass):not(.pc-solid),
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-3xl:not(.no-glass):not(.pc-solid),
@@ -466,15 +467,12 @@ body { overflow-y: visible; }
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main [class*="rounded-[1"]:not(.no-glass):not(.pc-solid),
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main [class*="rounded-[2"]:not(.no-glass):not(.pc-solid),
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main [class*="rounded-[3"]:not(.no-glass):not(.pc-solid) {
-  background: rgba(255, 255, 255, 0.22) !important;
-  backdrop-filter: blur(30px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.38) !important;
+  background: rgba(255, 255, 255, 0.32) !important;
+  backdrop-filter: blur(32px) saturate(115%);
+  border: 1px solid rgba(255, 255, 255, 0.42) !important;
   box-shadow:
-    0 14px 40px rgba(20, 40, 80, 0.14),
-    0 2px 8px rgba(20, 40, 80, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.14),
-    inset 0 0 24px 10px rgba(255, 255, 255, 0.14) !important;
+    0 10px 30px rgba(18, 25, 38, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55) !important;
   position: relative;
 }
 
@@ -486,7 +484,7 @@ body { overflow-y: visible; }
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.65), transparent);
   pointer-events: none;
   border-radius: inherit;
 }
@@ -499,7 +497,7 @@ body { overflow-y: visible; }
   position: absolute;
   top: 0; left: 0;
   width: 1px; height: 100%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.8), transparent, rgba(255,255,255,0.3));
+  background: linear-gradient(180deg, rgba(255,255,255,0.55), transparent);
   pointer-events: none;
 }
 
@@ -509,7 +507,7 @@ body { overflow-y: visible; }
   overflow: hidden;
 }
 
-/* ---- Glass hover/focus: lift, glow, shimmer sweep ---- */
+/* Transitions */
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-2xl:not(.no-glass):not(.pc-solid),
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-3xl:not(.no-glass):not(.pc-solid),
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-xl:not(.no-glass):not(.pc-solid),
@@ -519,15 +517,13 @@ body { overflow-y: visible; }
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main select:not(.no-glass):not(.pc-solid),
 .pc-glass-card {
   transition:
-    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 200ms ease,
     border-color 200ms ease,
-    background-color 200ms ease;
-  will-change: transform;
+    box-shadow 200ms ease,
+    backdrop-filter 200ms ease;
 }
 
-/* No double-glass: every input / textarea / select stays fully transparent —
-   the surrounding container carries the frosted glass frame. */
+/* Inputs stay transparent — the surrounding container carries the glass */
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) input,
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) textarea,
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) select {
@@ -536,89 +532,43 @@ body { overflow-y: visible; }
   border: 0 !important;
   box-shadow: none !important;
   backdrop-filter: none !important;
-  color: #0f2540 !important;
+  color: #15233F !important;
 }
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) input::placeholder,
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) textarea::placeholder {
-  color: rgba(15, 37, 64, 0.6) !important;
+  color: #8B98AD !important;
 }
-/* Native <option> renders outside our glass layer — give the dropdown menu a
-   solid, readable surface so the selected/hover row is legible. */
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) select option {
   background: #ffffff !important;
-  color: #0f2540 !important;
+  color: #15233F !important;
 }
 
-
-/* Hover / focus lift + soft outer glow (GPU-only: transform + shadow) */
+/* Hover: brighten glass slightly — no lift, no scale */
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main a:hover > .rounded-2xl:not(.no-glass):not(.pc-solid),
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main a:hover > .rounded-3xl:not(.no-glass):not(.pc-solid),
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main a:focus-visible > .rounded-2xl:not(.no-glass):not(.pc-solid),
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main a:focus-visible > .rounded-3xl:not(.no-glass):not(.pc-solid),
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main button.rounded-2xl:hover:not(.no-glass):not(.pc-solid),
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main button.rounded-3xl:hover:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main button.rounded-2xl:focus-visible:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main button.rounded-3xl:focus-visible:not(.no-glass):not(.pc-solid),
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-2xl:not(.no-glass):not(.pc-solid):hover,
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-3xl:not(.no-glass):not(.pc-solid):hover,
 .pc-glass-card:hover,
 .pc-glass-card:focus-within {
-  /* No lift, no scale — only edges become more glassy */
-  background: rgba(255, 255, 255, 0.24) !important;
-  border-color: rgba(255, 255, 255, 0.72) !important;
+  background: rgba(255, 255, 255, 0.42) !important;
+  backdrop-filter: blur(36px) saturate(120%);
+  border-color: rgba(255, 255, 255, 0.55) !important;
   box-shadow:
-    0 14px 40px rgba(20, 40, 80, 0.14),
-    0 2px 8px rgba(20, 40, 80, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.28),
-    inset 0 0 30px 14px rgba(255, 255, 255, 0.28) !important;
+    0 12px 32px rgba(20, 30, 60, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65) !important;
 }
 
-/* Shimmer sweep on hover — uses ::before which we already own for the top seam.
-   The seam widens into a diagonal light band that translates across the card. */
-@keyframes pc-glass-shimmer {
-  0%   { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
-  20%  { opacity: 1; }
-  100% { transform: translateX(220%) skewX(-18deg); opacity: 0; }
-}
-
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-2xl:not(.no-glass):not(.pc-solid),
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-3xl:not(.no-glass):not(.pc-solid),
-.pc-glass-card {
-  /* dedicated shimmer element via a shared sibling pseudo */
-}
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-2xl:not(.no-glass):not(.pc-solid) > .pc-shimmer,
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-3xl:not(.no-glass):not(.pc-solid) > .pc-shimmer,
-.pc-glass-card > .pc-shimmer { display: none; }
-
-/* Use ::before as shimmer overlay on hover (replaces the top seam only while hovering) */
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main a:hover > .rounded-2xl:not(.no-glass):not(.pc-solid)::before,
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main a:hover > .rounded-3xl:not(.no-glass):not(.pc-solid)::before,
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main button.rounded-2xl:hover:not(.no-glass):not(.pc-solid)::before,
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main button.rounded-3xl:hover:not(.no-glass):not(.pc-solid)::before,
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-2xl:not(.no-glass):not(.pc-solid):hover::before,
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main .rounded-3xl:not(.no-glass):not(.pc-solid):hover::before,
-.pc-glass-card:hover::before {
-  /* Shimmer sweep removed — only edges intensify on hover */
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent);
-}
-
-/* Buttons: subtle inner glow on press */
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main button:active:not(.no-glass):not(.pc-solid) {
-  transform: translateY(-1px) scale(0.995);
-  box-shadow:
-    0 10px 24px -12px rgba(30, 80, 140, 0.35),
-    inset 0 0 22px 8px rgba(255, 255, 255, 0.28) !important;
-}
-
-/* Focus ring for keyboard users on glass inputs/buttons */
+/* Focus ring for keyboard users */
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main :focus-visible {
   outline: none;
   box-shadow:
-    0 0 0 3px rgba(120, 180, 240, 0.45),
-    0 8px 32px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    inset 0 0 22px 11px rgba(255, 255, 255, 0.22) !important;
+    0 0 0 3px rgba(141, 175, 247, 0.35),
+    0 10px 30px rgba(18, 25, 38, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -630,49 +580,37 @@ body { overflow-y: visible; }
   }
 }
 
-/* Inputs: readable placeholders on glass */
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main input::placeholder,
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main textarea::placeholder {
-  color: rgba(15,37,64,0.5);
-}
+/* Muted-token override for the desaturated palette */
+:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main [style*="var(--pc-muted)"] { color: #5C6D86 !important; }
 
-/* Neutralize muted-token overrides */
-:is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) main [style*="var(--pc-muted)"] { color: rgba(15,37,64,0.65) !important; }
 
 
 /* ============================================================
    Premium Frosted-Glass Sidebar (global — all routes)
    Layered glass + hairline highlights + fine SVG grain
    ============================================================ */
+/* Premium Frosted-Glass Sidebar — blended, faint, matte */
 .pc-glass-sidebar {
   background:
-    linear-gradient(180deg,
-      rgba(255,255,255,0.42) 0%,
-      rgba(255,255,255,0.22) 45%,
-      rgba(255,255,255,0.32) 100%);
-  backdrop-filter: blur(28px) saturate(180%);
-  border: 1px solid rgba(255,255,255,0.55);
+    radial-gradient(120% 60% at 50% 0%, rgba(255,255,255,0.42), rgba(255,255,255,0.28) 60%, rgba(255,255,255,0.22) 100%);
+  backdrop-filter: blur(32px) saturate(115%);
+  border: 1px solid rgba(255,255,255,0.32);
   box-shadow:
-    0 30px 60px -28px rgba(20, 40, 80, 0.28),
-    0 8px 24px -16px rgba(20, 40, 80, 0.18),
-    inset 0 1px 0 rgba(255,255,255,0.75),
-    inset 0 -1px 0 rgba(255,255,255,0.20),
-    inset 0 0 40px 12px rgba(255,255,255,0.18);
+    0 10px 30px rgba(18, 25, 38, 0.05),
+    inset 0 1px 0 rgba(255,255,255,0.55);
   isolation: isolate;
 }
 
-/* Top light seam */
 .pc-glass-sidebar::before {
   content: "";
   position: absolute;
   top: 0; left: 8%; right: 8%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.75), transparent);
   pointer-events: none;
   z-index: 2;
 }
 
-/* Grainy noise overlay */
 .pc-glass-sidebar::after {
   content: "";
   position: absolute;
@@ -680,24 +618,20 @@ body { overflow-y: visible; }
   pointer-events: none;
   z-index: 1;
   border-radius: inherit;
-  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.12  0 0 0 0 0.20  0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 220px 220px;
-  mix-blend-mode: overlay;
-  opacity: 0.45;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.10  0 0 0 0 0.12  0 0 0 0 0.16  0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 320px 320px;
+  mix-blend-mode: multiply;
+  opacity: 0.05;
 }
 
-/* Keep the sidebar content above grain */
 .pc-glass-sidebar > * { position: relative; z-index: 3; }
 
-/* Darker sky in /resources: adjust glass tint for legibility */
 :is(html[data-pc-resources],html[data-pc-screening],html[data-pc-glass]) .pc-glass-sidebar {
   background:
-    linear-gradient(180deg,
-      rgba(255,255,255,0.28) 0%,
-      rgba(255,255,255,0.12) 45%,
-      rgba(255,255,255,0.20) 100%);
-  border-color: rgba(255,255,255,0.45);
+    radial-gradient(120% 60% at 50% 0%, rgba(255,255,255,0.38), rgba(255,255,255,0.22) 60%, rgba(255,255,255,0.18) 100%);
+  border-color: rgba(255,255,255,0.32);
 }
+
 
 /* ============================================================
    Sidebar: animated grain + premium item interactions
