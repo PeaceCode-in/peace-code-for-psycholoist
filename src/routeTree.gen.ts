@@ -67,6 +67,7 @@ import { Route as IntegrationsIndexRouteImport } from './routes/integrations.ind
 import { Route as HomeworkIndexRouteImport } from './routes/homework.index'
 import { Route as GovernanceIndexRouteImport } from './routes/governance.index'
 import { Route as DocumentsIndexRouteImport } from './routes/documents.index'
+import { Route as CaseConferencesIndexRouteImport } from './routes/case-conferences.index'
 import { Route as CalendarIndexRouteImport } from './routes/calendar.index'
 import { Route as BillingIndexRouteImport } from './routes/billing.index'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
@@ -165,6 +166,9 @@ import { Route as DocumentsIdRouteImport } from './routes/documents.$id'
 import { Route as ComplianceExportRouteImport } from './routes/compliance.export'
 import { Route as ComplianceConsentRouteImport } from './routes/compliance.consent'
 import { Route as ComplianceAuditRouteImport } from './routes/compliance.audit'
+import { Route as CaseConferencesPeerReviewRouteImport } from './routes/case-conferences.peer-review'
+import { Route as CaseConferencesNewRouteImport } from './routes/case-conferences.new'
+import { Route as CaseConferencesCidRouteImport } from './routes/case-conferences.$cid'
 import { Route as CalendarSettingsRouteImport } from './routes/calendar.settings'
 import { Route as CalendarMonthRouteImport } from './routes/calendar.month'
 import { Route as CalendarIntegrationsRouteImport } from './routes/calendar.integrations'
@@ -514,6 +518,11 @@ const DocumentsIndexRoute = DocumentsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => DocumentsRoute,
+} as any)
+const CaseConferencesIndexRoute = CaseConferencesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CaseConferencesRoute,
 } as any)
 const CalendarIndexRoute = CalendarIndexRouteImport.update({
   id: '/calendar/',
@@ -1007,6 +1016,22 @@ const ComplianceAuditRoute = ComplianceAuditRouteImport.update({
   path: '/compliance/audit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CaseConferencesPeerReviewRoute =
+  CaseConferencesPeerReviewRouteImport.update({
+    id: '/peer-review',
+    path: '/peer-review',
+    getParentRoute: () => CaseConferencesRoute,
+  } as any)
+const CaseConferencesNewRoute = CaseConferencesNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => CaseConferencesRoute,
+} as any)
+const CaseConferencesCidRoute = CaseConferencesCidRouteImport.update({
+  id: '/$cid',
+  path: '/$cid',
+  getParentRoute: () => CaseConferencesRoute,
+} as any)
 const CalendarSettingsRoute = CalendarSettingsRouteImport.update({
   id: '/calendar/settings',
   path: '/calendar/settings',
@@ -1319,7 +1344,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRouteWithChildren
   '/availability': typeof AvailabilityRoute
   '/billing': typeof BillingRouteWithChildren
-  '/case-conferences': typeof CaseConferencesRoute
+  '/case-conferences': typeof CaseConferencesRouteWithChildren
   '/copilot': typeof CopilotRoute
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
@@ -1378,6 +1403,9 @@ export interface FileRoutesByFullPath {
   '/calendar/integrations': typeof CalendarIntegrationsRoute
   '/calendar/month': typeof CalendarMonthRoute
   '/calendar/settings': typeof CalendarSettingsRoute
+  '/case-conferences/$cid': typeof CaseConferencesCidRoute
+  '/case-conferences/new': typeof CaseConferencesNewRoute
+  '/case-conferences/peer-review': typeof CaseConferencesPeerReviewRoute
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
@@ -1476,6 +1504,7 @@ export interface FileRoutesByFullPath {
   '/auth/': typeof AuthIndexRoute
   '/billing/': typeof BillingIndexRoute
   '/calendar/': typeof CalendarIndexRoute
+  '/case-conferences/': typeof CaseConferencesIndexRoute
   '/documents/': typeof DocumentsIndexRoute
   '/governance/': typeof GovernanceIndexRoute
   '/homework/': typeof HomeworkIndexRoute
@@ -1533,7 +1562,6 @@ export interface FileRoutesByTo {
   '/alerts': typeof AlertsRoute
   '/analytics': typeof AnalyticsRoute
   '/availability': typeof AvailabilityRoute
-  '/case-conferences': typeof CaseConferencesRoute
   '/copilot': typeof CopilotRoute
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
@@ -1575,6 +1603,9 @@ export interface FileRoutesByTo {
   '/calendar/integrations': typeof CalendarIntegrationsRoute
   '/calendar/month': typeof CalendarMonthRoute
   '/calendar/settings': typeof CalendarSettingsRoute
+  '/case-conferences/$cid': typeof CaseConferencesCidRoute
+  '/case-conferences/new': typeof CaseConferencesNewRoute
+  '/case-conferences/peer-review': typeof CaseConferencesPeerReviewRoute
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
@@ -1671,6 +1702,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthIndexRoute
   '/billing': typeof BillingIndexRoute
   '/calendar': typeof CalendarIndexRoute
+  '/case-conferences': typeof CaseConferencesIndexRoute
   '/documents': typeof DocumentsIndexRoute
   '/governance': typeof GovernanceIndexRoute
   '/homework': typeof HomeworkIndexRoute
@@ -1731,7 +1763,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRouteWithChildren
   '/availability': typeof AvailabilityRoute
   '/billing': typeof BillingRouteWithChildren
-  '/case-conferences': typeof CaseConferencesRoute
+  '/case-conferences': typeof CaseConferencesRouteWithChildren
   '/copilot': typeof CopilotRoute
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
@@ -1790,6 +1822,9 @@ export interface FileRoutesById {
   '/calendar/integrations': typeof CalendarIntegrationsRoute
   '/calendar/month': typeof CalendarMonthRoute
   '/calendar/settings': typeof CalendarSettingsRoute
+  '/case-conferences/$cid': typeof CaseConferencesCidRoute
+  '/case-conferences/new': typeof CaseConferencesNewRoute
+  '/case-conferences/peer-review': typeof CaseConferencesPeerReviewRoute
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
@@ -1888,6 +1923,7 @@ export interface FileRoutesById {
   '/auth/': typeof AuthIndexRoute
   '/billing/': typeof BillingIndexRoute
   '/calendar/': typeof CalendarIndexRoute
+  '/case-conferences/': typeof CaseConferencesIndexRoute
   '/documents/': typeof DocumentsIndexRoute
   '/governance/': typeof GovernanceIndexRoute
   '/homework/': typeof HomeworkIndexRoute
@@ -2009,6 +2045,9 @@ export interface FileRouteTypes {
     | '/calendar/integrations'
     | '/calendar/month'
     | '/calendar/settings'
+    | '/case-conferences/$cid'
+    | '/case-conferences/new'
+    | '/case-conferences/peer-review'
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
@@ -2107,6 +2146,7 @@ export interface FileRouteTypes {
     | '/auth/'
     | '/billing/'
     | '/calendar/'
+    | '/case-conferences/'
     | '/documents/'
     | '/governance/'
     | '/homework/'
@@ -2164,7 +2204,6 @@ export interface FileRouteTypes {
     | '/alerts'
     | '/analytics'
     | '/availability'
-    | '/case-conferences'
     | '/copilot'
     | '/cpd'
     | '/dashboard'
@@ -2206,6 +2245,9 @@ export interface FileRouteTypes {
     | '/calendar/integrations'
     | '/calendar/month'
     | '/calendar/settings'
+    | '/case-conferences/$cid'
+    | '/case-conferences/new'
+    | '/case-conferences/peer-review'
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
@@ -2302,6 +2344,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/billing'
     | '/calendar'
+    | '/case-conferences'
     | '/documents'
     | '/governance'
     | '/homework'
@@ -2420,6 +2463,9 @@ export interface FileRouteTypes {
     | '/calendar/integrations'
     | '/calendar/month'
     | '/calendar/settings'
+    | '/case-conferences/$cid'
+    | '/case-conferences/new'
+    | '/case-conferences/peer-review'
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
@@ -2518,6 +2564,7 @@ export interface FileRouteTypes {
     | '/auth/'
     | '/billing/'
     | '/calendar/'
+    | '/case-conferences/'
     | '/documents/'
     | '/governance/'
     | '/homework/'
@@ -2579,7 +2626,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRouteWithChildren
   AvailabilityRoute: typeof AvailabilityRoute
   BillingRoute: typeof BillingRouteWithChildren
-  CaseConferencesRoute: typeof CaseConferencesRoute
+  CaseConferencesRoute: typeof CaseConferencesRouteWithChildren
   CopilotRoute: typeof CopilotRoute
   CpdRoute: typeof CpdRoute
   DashboardRoute: typeof DashboardRoute
@@ -3044,6 +3091,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/documents/'
       preLoaderRoute: typeof DocumentsIndexRouteImport
       parentRoute: typeof DocumentsRoute
+    }
+    '/case-conferences/': {
+      id: '/case-conferences/'
+      path: '/'
+      fullPath: '/case-conferences/'
+      preLoaderRoute: typeof CaseConferencesIndexRouteImport
+      parentRoute: typeof CaseConferencesRoute
     }
     '/calendar/': {
       id: '/calendar/'
@@ -3731,6 +3785,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComplianceAuditRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/case-conferences/peer-review': {
+      id: '/case-conferences/peer-review'
+      path: '/peer-review'
+      fullPath: '/case-conferences/peer-review'
+      preLoaderRoute: typeof CaseConferencesPeerReviewRouteImport
+      parentRoute: typeof CaseConferencesRoute
+    }
+    '/case-conferences/new': {
+      id: '/case-conferences/new'
+      path: '/new'
+      fullPath: '/case-conferences/new'
+      preLoaderRoute: typeof CaseConferencesNewRouteImport
+      parentRoute: typeof CaseConferencesRoute
+    }
+    '/case-conferences/$cid': {
+      id: '/case-conferences/$cid'
+      path: '/$cid'
+      fullPath: '/case-conferences/$cid'
+      preLoaderRoute: typeof CaseConferencesCidRouteImport
+      parentRoute: typeof CaseConferencesRoute
+    }
     '/calendar/settings': {
       id: '/calendar/settings'
       path: '/calendar/settings'
@@ -4245,6 +4320,24 @@ const BillingRouteChildren: BillingRouteChildren = {
 const BillingRouteWithChildren =
   BillingRoute._addFileChildren(BillingRouteChildren)
 
+interface CaseConferencesRouteChildren {
+  CaseConferencesCidRoute: typeof CaseConferencesCidRoute
+  CaseConferencesNewRoute: typeof CaseConferencesNewRoute
+  CaseConferencesPeerReviewRoute: typeof CaseConferencesPeerReviewRoute
+  CaseConferencesIndexRoute: typeof CaseConferencesIndexRoute
+}
+
+const CaseConferencesRouteChildren: CaseConferencesRouteChildren = {
+  CaseConferencesCidRoute: CaseConferencesCidRoute,
+  CaseConferencesNewRoute: CaseConferencesNewRoute,
+  CaseConferencesPeerReviewRoute: CaseConferencesPeerReviewRoute,
+  CaseConferencesIndexRoute: CaseConferencesIndexRoute,
+}
+
+const CaseConferencesRouteWithChildren = CaseConferencesRoute._addFileChildren(
+  CaseConferencesRouteChildren,
+)
+
 interface DocumentsRouteChildren {
   DocumentsIdRoute: typeof DocumentsIdRoute
   DocumentsNewRoute: typeof DocumentsNewRoute
@@ -4735,7 +4828,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRouteWithChildren,
   AvailabilityRoute: AvailabilityRoute,
   BillingRoute: BillingRouteWithChildren,
-  CaseConferencesRoute: CaseConferencesRoute,
+  CaseConferencesRoute: CaseConferencesRouteWithChildren,
   CopilotRoute: CopilotRoute,
   CpdRoute: CpdRoute,
   DashboardRoute: DashboardRoute,
