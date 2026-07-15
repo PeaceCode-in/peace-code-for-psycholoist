@@ -1226,3 +1226,23 @@ html[data-chart-style] svg path.pc-chart-line,
 html[data-chart-style] svg polyline.pc-chart-line {
   stroke-dasharray: var(--pc-chart-dash) !important;
 }
+
+/* ── Patients module — risk-level semantic tokens ─────────── */
+:root {
+  --pc-risk-stable:   #5F8A6A;
+  --pc-risk-stable-soft: #E1EFE3;
+  --pc-risk-monitor:  #B08444;
+  --pc-risk-monitor-soft: #F5E6C6;
+  --pc-risk-elevated: #C77A5A;
+  --pc-risk-elevated-soft: #F5D9C6;
+  --pc-risk-crisis:   #B0384A;
+  --pc-risk-crisis-soft: #F1C6CE;
+  --pc-status-active: #4B6CB7;
+  --pc-status-waitlist: #B08444;
+  --pc-status-paused: #7B6A70;
+  --pc-status-discharged: #A6B6CC;
+}
+.pc-risk-dot { width: 8px; height: 8px; border-radius: 999px; display: inline-block; }
+.pc-fade-in { animation: pc-fade-in .18s ease-out; }
+@keyframes pc-fade-in { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: none; } }
+

@@ -71,12 +71,21 @@ import { Route as SettingsAvailabilityRouteImport } from './routes/settings.avai
 import { Route as SettingsAppearanceRouteImport } from './routes/settings.appearance'
 import { Route as SettingsAccessibilityRouteImport } from './routes/settings.accessibility'
 import { Route as SettingsAboutRouteImport } from './routes/settings.about'
-import { Route as PatientsIdRouteImport } from './routes/patients.$id'
+import { Route as PatientsNewRouteImport } from './routes/patients.new'
+import { Route as PatientsPidRouteImport } from './routes/patients.$pid'
 import { Route as ComplianceExportRouteImport } from './routes/compliance.export'
 import { Route as ComplianceConsentRouteImport } from './routes/compliance.consent'
 import { Route as ComplianceAuditRouteImport } from './routes/compliance.audit'
 import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
+import { Route as PatientsPidIndexRouteImport } from './routes/patients.$pid.index'
+import { Route as PatientsPidTimelineRouteImport } from './routes/patients.$pid.timeline'
+import { Route as PatientsPidNotesRouteImport } from './routes/patients.$pid.notes'
+import { Route as PatientsPidDocumentsRouteImport } from './routes/patients.$pid.documents'
+import { Route as PatientsPidChartRouteImport } from './routes/patients.$pid.chart'
+import { Route as PatientsPidNotesIndexRouteImport } from './routes/patients.$pid.notes.index'
+import { Route as PatientsPidNotesNewRouteImport } from './routes/patients.$pid.notes.new'
+import { Route as PatientsPidNotesNidRouteImport } from './routes/patients.$pid.notes.$nid'
 
 const WaitlistRoute = WaitlistRouteImport.update({
   id: '/waitlist',
@@ -390,9 +399,14 @@ const SettingsAboutRoute = SettingsAboutRouteImport.update({
   path: '/about',
   getParentRoute: () => SettingsRoute,
 } as any)
-const PatientsIdRoute = PatientsIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
+const PatientsNewRoute = PatientsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => PatientsRoute,
+} as any)
+const PatientsPidRoute = PatientsPidRouteImport.update({
+  id: '/$pid',
+  path: '/$pid',
   getParentRoute: () => PatientsRoute,
 } as any)
 const ComplianceExportRoute = ComplianceExportRouteImport.update({
@@ -419,6 +433,46 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => AuthRoute,
+} as any)
+const PatientsPidIndexRoute = PatientsPidIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PatientsPidRoute,
+} as any)
+const PatientsPidTimelineRoute = PatientsPidTimelineRouteImport.update({
+  id: '/timeline',
+  path: '/timeline',
+  getParentRoute: () => PatientsPidRoute,
+} as any)
+const PatientsPidNotesRoute = PatientsPidNotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
+  getParentRoute: () => PatientsPidRoute,
+} as any)
+const PatientsPidDocumentsRoute = PatientsPidDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => PatientsPidRoute,
+} as any)
+const PatientsPidChartRoute = PatientsPidChartRouteImport.update({
+  id: '/chart',
+  path: '/chart',
+  getParentRoute: () => PatientsPidRoute,
+} as any)
+const PatientsPidNotesIndexRoute = PatientsPidNotesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PatientsPidNotesRoute,
+} as any)
+const PatientsPidNotesNewRoute = PatientsPidNotesNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => PatientsPidNotesRoute,
+} as any)
+const PatientsPidNotesNidRoute = PatientsPidNotesNidRouteImport.update({
+  id: '/$nid',
+  path: '/$nid',
+  getParentRoute: () => PatientsPidNotesRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -462,7 +516,8 @@ export interface FileRoutesByFullPath {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
-  '/patients/$id': typeof PatientsIdRoute
+  '/patients/$pid': typeof PatientsPidRouteWithChildren
+  '/patients/new': typeof PatientsNewRoute
   '/settings/about': typeof SettingsAboutRoute
   '/settings/accessibility': typeof SettingsAccessibilityRoute
   '/settings/appearance': typeof SettingsAppearanceRoute
@@ -490,6 +545,14 @@ export interface FileRoutesByFullPath {
   '/auth/': typeof AuthIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/settings/': typeof SettingsIndexRoute
+  '/patients/$pid/chart': typeof PatientsPidChartRoute
+  '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
+  '/patients/$pid/notes': typeof PatientsPidNotesRouteWithChildren
+  '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
+  '/patients/$pid/': typeof PatientsPidIndexRoute
+  '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
+  '/patients/$pid/notes/new': typeof PatientsPidNotesNewRoute
+  '/patients/$pid/notes/': typeof PatientsPidNotesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -529,7 +592,7 @@ export interface FileRoutesByTo {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
-  '/patients/$id': typeof PatientsIdRoute
+  '/patients/new': typeof PatientsNewRoute
   '/settings/about': typeof SettingsAboutRoute
   '/settings/accessibility': typeof SettingsAccessibilityRoute
   '/settings/appearance': typeof SettingsAppearanceRoute
@@ -557,6 +620,13 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthIndexRoute
   '/patients': typeof PatientsIndexRoute
   '/settings': typeof SettingsIndexRoute
+  '/patients/$pid/chart': typeof PatientsPidChartRoute
+  '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
+  '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
+  '/patients/$pid': typeof PatientsPidIndexRoute
+  '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
+  '/patients/$pid/notes/new': typeof PatientsPidNotesNewRoute
+  '/patients/$pid/notes': typeof PatientsPidNotesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -600,7 +670,8 @@ export interface FileRoutesById {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
-  '/patients/$id': typeof PatientsIdRoute
+  '/patients/$pid': typeof PatientsPidRouteWithChildren
+  '/patients/new': typeof PatientsNewRoute
   '/settings/about': typeof SettingsAboutRoute
   '/settings/accessibility': typeof SettingsAccessibilityRoute
   '/settings/appearance': typeof SettingsAppearanceRoute
@@ -628,6 +699,14 @@ export interface FileRoutesById {
   '/auth/': typeof AuthIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/settings/': typeof SettingsIndexRoute
+  '/patients/$pid/chart': typeof PatientsPidChartRoute
+  '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
+  '/patients/$pid/notes': typeof PatientsPidNotesRouteWithChildren
+  '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
+  '/patients/$pid/': typeof PatientsPidIndexRoute
+  '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
+  '/patients/$pid/notes/new': typeof PatientsPidNotesNewRoute
+  '/patients/$pid/notes/': typeof PatientsPidNotesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -672,7 +751,8 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
-    | '/patients/$id'
+    | '/patients/$pid'
+    | '/patients/new'
     | '/settings/about'
     | '/settings/accessibility'
     | '/settings/appearance'
@@ -700,6 +780,14 @@ export interface FileRouteTypes {
     | '/auth/'
     | '/patients/'
     | '/settings/'
+    | '/patients/$pid/chart'
+    | '/patients/$pid/documents'
+    | '/patients/$pid/notes'
+    | '/patients/$pid/timeline'
+    | '/patients/$pid/'
+    | '/patients/$pid/notes/$nid'
+    | '/patients/$pid/notes/new'
+    | '/patients/$pid/notes/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -739,7 +827,7 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
-    | '/patients/$id'
+    | '/patients/new'
     | '/settings/about'
     | '/settings/accessibility'
     | '/settings/appearance'
@@ -767,6 +855,13 @@ export interface FileRouteTypes {
     | '/auth'
     | '/patients'
     | '/settings'
+    | '/patients/$pid/chart'
+    | '/patients/$pid/documents'
+    | '/patients/$pid/timeline'
+    | '/patients/$pid'
+    | '/patients/$pid/notes/$nid'
+    | '/patients/$pid/notes/new'
+    | '/patients/$pid/notes'
   id:
     | '__root__'
     | '/'
@@ -809,7 +904,8 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
-    | '/patients/$id'
+    | '/patients/$pid'
+    | '/patients/new'
     | '/settings/about'
     | '/settings/accessibility'
     | '/settings/appearance'
@@ -837,6 +933,14 @@ export interface FileRouteTypes {
     | '/auth/'
     | '/patients/'
     | '/settings/'
+    | '/patients/$pid/chart'
+    | '/patients/$pid/documents'
+    | '/patients/$pid/notes'
+    | '/patients/$pid/timeline'
+    | '/patients/$pid/'
+    | '/patients/$pid/notes/$nid'
+    | '/patients/$pid/notes/new'
+    | '/patients/$pid/notes/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1316,11 +1420,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsAboutRouteImport
       parentRoute: typeof SettingsRoute
     }
-    '/patients/$id': {
-      id: '/patients/$id'
-      path: '/$id'
-      fullPath: '/patients/$id'
-      preLoaderRoute: typeof PatientsIdRouteImport
+    '/patients/new': {
+      id: '/patients/new'
+      path: '/new'
+      fullPath: '/patients/new'
+      preLoaderRoute: typeof PatientsNewRouteImport
+      parentRoute: typeof PatientsRoute
+    }
+    '/patients/$pid': {
+      id: '/patients/$pid'
+      path: '/$pid'
+      fullPath: '/patients/$pid'
+      preLoaderRoute: typeof PatientsPidRouteImport
       parentRoute: typeof PatientsRoute
     }
     '/compliance/export': {
@@ -1358,6 +1469,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/patients/$pid/': {
+      id: '/patients/$pid/'
+      path: '/'
+      fullPath: '/patients/$pid/'
+      preLoaderRoute: typeof PatientsPidIndexRouteImport
+      parentRoute: typeof PatientsPidRoute
+    }
+    '/patients/$pid/timeline': {
+      id: '/patients/$pid/timeline'
+      path: '/timeline'
+      fullPath: '/patients/$pid/timeline'
+      preLoaderRoute: typeof PatientsPidTimelineRouteImport
+      parentRoute: typeof PatientsPidRoute
+    }
+    '/patients/$pid/notes': {
+      id: '/patients/$pid/notes'
+      path: '/notes'
+      fullPath: '/patients/$pid/notes'
+      preLoaderRoute: typeof PatientsPidNotesRouteImport
+      parentRoute: typeof PatientsPidRoute
+    }
+    '/patients/$pid/documents': {
+      id: '/patients/$pid/documents'
+      path: '/documents'
+      fullPath: '/patients/$pid/documents'
+      preLoaderRoute: typeof PatientsPidDocumentsRouteImport
+      parentRoute: typeof PatientsPidRoute
+    }
+    '/patients/$pid/chart': {
+      id: '/patients/$pid/chart'
+      path: '/chart'
+      fullPath: '/patients/$pid/chart'
+      preLoaderRoute: typeof PatientsPidChartRouteImport
+      parentRoute: typeof PatientsPidRoute
+    }
+    '/patients/$pid/notes/': {
+      id: '/patients/$pid/notes/'
+      path: '/'
+      fullPath: '/patients/$pid/notes/'
+      preLoaderRoute: typeof PatientsPidNotesIndexRouteImport
+      parentRoute: typeof PatientsPidNotesRoute
+    }
+    '/patients/$pid/notes/new': {
+      id: '/patients/$pid/notes/new'
+      path: '/new'
+      fullPath: '/patients/$pid/notes/new'
+      preLoaderRoute: typeof PatientsPidNotesNewRouteImport
+      parentRoute: typeof PatientsPidNotesRoute
+    }
+    '/patients/$pid/notes/$nid': {
+      id: '/patients/$pid/notes/$nid'
+      path: '/$nid'
+      fullPath: '/patients/$pid/notes/$nid'
+      preLoaderRoute: typeof PatientsPidNotesNidRouteImport
+      parentRoute: typeof PatientsPidNotesRoute
+    }
   }
 }
 
@@ -1375,13 +1542,50 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
+interface PatientsPidNotesRouteChildren {
+  PatientsPidNotesNidRoute: typeof PatientsPidNotesNidRoute
+  PatientsPidNotesNewRoute: typeof PatientsPidNotesNewRoute
+  PatientsPidNotesIndexRoute: typeof PatientsPidNotesIndexRoute
+}
+
+const PatientsPidNotesRouteChildren: PatientsPidNotesRouteChildren = {
+  PatientsPidNotesNidRoute: PatientsPidNotesNidRoute,
+  PatientsPidNotesNewRoute: PatientsPidNotesNewRoute,
+  PatientsPidNotesIndexRoute: PatientsPidNotesIndexRoute,
+}
+
+const PatientsPidNotesRouteWithChildren =
+  PatientsPidNotesRoute._addFileChildren(PatientsPidNotesRouteChildren)
+
+interface PatientsPidRouteChildren {
+  PatientsPidChartRoute: typeof PatientsPidChartRoute
+  PatientsPidDocumentsRoute: typeof PatientsPidDocumentsRoute
+  PatientsPidNotesRoute: typeof PatientsPidNotesRouteWithChildren
+  PatientsPidTimelineRoute: typeof PatientsPidTimelineRoute
+  PatientsPidIndexRoute: typeof PatientsPidIndexRoute
+}
+
+const PatientsPidRouteChildren: PatientsPidRouteChildren = {
+  PatientsPidChartRoute: PatientsPidChartRoute,
+  PatientsPidDocumentsRoute: PatientsPidDocumentsRoute,
+  PatientsPidNotesRoute: PatientsPidNotesRouteWithChildren,
+  PatientsPidTimelineRoute: PatientsPidTimelineRoute,
+  PatientsPidIndexRoute: PatientsPidIndexRoute,
+}
+
+const PatientsPidRouteWithChildren = PatientsPidRoute._addFileChildren(
+  PatientsPidRouteChildren,
+)
+
 interface PatientsRouteChildren {
-  PatientsIdRoute: typeof PatientsIdRoute
+  PatientsPidRoute: typeof PatientsPidRouteWithChildren
+  PatientsNewRoute: typeof PatientsNewRoute
   PatientsIndexRoute: typeof PatientsIndexRoute
 }
 
 const PatientsRouteChildren: PatientsRouteChildren = {
-  PatientsIdRoute: PatientsIdRoute,
+  PatientsPidRoute: PatientsPidRouteWithChildren,
+  PatientsNewRoute: PatientsNewRoute,
   PatientsIndexRoute: PatientsIndexRoute,
 }
 
