@@ -6,7 +6,8 @@ import { palette } from "@/components/practice/palette";
 import { LogOut } from "lucide-react";
 
 export const Route = createFileRoute("/settings/logout")({
-  head: () => ({ meta: [{ title: "Sign out — PeaceCode · Practice" }] }),
+  head: () => ({ meta: [
+      { name: "robots", content: "noindex" },{ title: "Sign out — PeaceCode · Practice" }] }),
   component: LogoutPage,
 });
 

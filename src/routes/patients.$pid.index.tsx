@@ -94,7 +94,7 @@ function OverviewTab() {
           ) : (
             <>
               <p className="text-[13px] mt-1" style={{ color: palette.muted }}>Not scheduled</p>
-              <Button variant="outline" className="mt-3" onClick={() => alert("Booking arrives with the Sessions module.")}>Schedule</Button>
+              <Link to="/calendar" className="mt-3 inline-flex"><Button variant="outline">Schedule</Button></Link>
             </>
           )}
         </Card>

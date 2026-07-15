@@ -3,7 +3,8 @@ import { PageHeader } from "@/components/practice/PageHeader";
 import { Section, Row } from "@/components/settings/primitives";
 
 export const Route = createFileRoute("/settings/telehealth")({
-  head: () => ({ meta: [{ title: "Telehealth — Settings" }] }),
+  head: () => ({ meta: [
+      { name: "robots", content: "noindex" },{ title: "Telehealth — Settings" }] }),
   component: () => (
     <>
       <PageHeader title="Telehealth" description="Video provider, waiting room copy, recording defaults." />

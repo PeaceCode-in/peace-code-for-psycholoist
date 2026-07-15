@@ -1,5 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { Save, ArrowLeft, ShieldAlert, Lock } from "lucide-react";
 import { palette } from "@/components/practice/palette";
 import { Button, Card, Label, SectionLabel, TextArea, Select, TextInput } from "@/components/practice/patients/primitives";
@@ -62,7 +63,7 @@ function NewNote() {
 
   function update<K extends keyof Draft>(key: K, value: Draft[K]) { setDraft((d) => ({ ...d, [key]: value })); }
   function submit() {
-    if (!draft.assessment.trim()) { alert("Please add an assessment before saving."); return; }
+    if (!draft.assessment.trim()) { toast("Add an assessment before saving."); return; }
     createNote({
       patientId: pid,
       sessionDate: new Date(draft.sessionDate).getTime(),

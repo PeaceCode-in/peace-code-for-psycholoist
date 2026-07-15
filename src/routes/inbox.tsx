@@ -18,6 +18,7 @@ import {
 export const Route = createFileRoute("/inbox")({
   head: () => ({
     meta: [
+      { name: "robots", content: "noindex" },
       { title: "Inbox — PeaceCode · Practice" },
       { name: "description", content: "Every alert that needs your attention, in one calm place." },
     ],

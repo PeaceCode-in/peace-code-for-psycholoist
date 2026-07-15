@@ -6,6 +6,7 @@ import { usePractice } from "@/lib/practice-settings-store";
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] as const;
 
 export const Route = createFileRoute("/settings/availability")({
+  head: () => ({ meta: [{ name: "robots", content: "noindex" }] }),
   component: () => {
     const [s, set] = usePractice();
     return (

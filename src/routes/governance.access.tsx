@@ -20,7 +20,7 @@ function AccessGovernance() {
       <GovHeader
         eyebrow="Access governance"
         title="Who sees what."
-        sub="Roles down, data classes across. Filled means full. Half means read. Striped means unlock with reason. Empty means never."
+        sub="Roles down, data classes across. Filled means full. Half means read. Striped means break-glass with reason. Empty means never."
       />
 
       <Panel className="overflow-hidden">

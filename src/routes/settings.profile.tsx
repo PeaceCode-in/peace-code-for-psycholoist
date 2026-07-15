@@ -4,6 +4,7 @@ import { Section, Row, TextField, TextArea } from "@/components/settings/primiti
 import { usePractice } from "@/lib/practice-settings-store";
 
 export const Route = createFileRoute("/settings/profile")({
+  head: () => ({ meta: [{ name: "robots", content: "noindex" }] }),
   component: () => {
     const [s, set] = usePractice();
     return (

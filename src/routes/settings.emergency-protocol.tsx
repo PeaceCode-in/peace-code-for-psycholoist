@@ -3,7 +3,8 @@ import { PageHeader } from "@/components/practice/PageHeader";
 import { Section, Row } from "@/components/settings/primitives";
 
 export const Route = createFileRoute("/settings/emergency-protocol")({
-  head: () => ({ meta: [{ title: "Emergency protocol — Settings" }] }),
+  head: () => ({ meta: [
+      { name: "robots", content: "noindex" },{ title: "Emergency protocol — Settings" }] }),
   component: () => (
     <>
       <PageHeader title="Emergency protocol" description="On-call escalation contact, helplines, safety plan template, SI/HI response script (private)." />

@@ -1,9 +1,10 @@
-// /admin/launch-readiness — internal pre-flight before public launch.
-// Auto-checks what it can from real store state, manual toggles for the rest.
+// /admin/launch-readiness — internal pre-flight, wired to live smoke + audit reports.
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { AppShell } from "@/components/practice/AppShell";
 import { Check, Circle, ShieldCheck } from "lucide-react";
+import smokeReport from "@/lib/smoke-report.json";
+import auditReport from "@/lib/audit-report.json";
 
 export const Route = createFileRoute("/admin/launch-readiness")({
   head: () => ({
@@ -22,7 +23,14 @@ function detect(): Check[] {
   const has = (k: string) => {
     try { return !!localStorage.getItem(k); } catch { return false; }
   };
+  const smoke = smokeReport as { total: number; passed: number; failed: number; partial?: boolean };
+  const audit = auditReport as { totals?: { deadButtons?: number; hardcoded?: number; brokenLinks?: number; missingBoundaries?: number } };
+  const a = audit.totals ?? {};
+  const smokePass = smoke.failed === 0 && !smoke.partial && smoke.total > 0;
+  const auditPass = (a.deadButtons ?? 0) === 0 && (a.brokenLinks ?? 0) === 0 && (a.missingBoundaries ?? 0) === 0;
   return [
+    { id: "smoke",      label: `Smoke test — every top-level route`,          detail: smoke.total ? `${smoke.passed}/${smoke.total} routes clean${smoke.partial ? " (partial)" : ""}. Run: bun run smoke.` : "No smoke report yet. Run: bun run smoke.", auto: true, passing: smokePass },
+    { id: "audit",      label: `Static audit — dead buttons + broken links`,  detail: `${a.deadButtons ?? 0} dead controls · ${a.brokenLinks ?? 0} broken links · ${a.missingBoundaries ?? 0} routes missing boundaries.`, auto: true, passing: auditPass },
     { id: "meta",       label: "All routes have head() metadata",           detail: "Title, description, og:* on every leaf route.",             auto: true,  passing: true },
     { id: "errors",     label: "Error + not-found boundaries wired",         detail: "Every route defines errorComponent and notFoundComponent.", auto: true,  passing: true },
     { id: "seed",       label: "All stores have real seed data",             detail: "No empty demo lists on first load.",                        auto: true,  passing: has("pc.patients.v1") || true },

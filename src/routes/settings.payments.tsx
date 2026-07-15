@@ -3,7 +3,8 @@ import { PageHeader } from "@/components/practice/PageHeader";
 import { Section, Row } from "@/components/settings/primitives";
 
 export const Route = createFileRoute("/settings/payments")({
-  head: () => ({ meta: [{ title: "Payments — Settings" }] }),
+  head: () => ({ meta: [
+      { name: "robots", content: "noindex" },{ title: "Payments — Settings" }] }),
   component: () => (
     <>
       <PageHeader title="Payments" description="Payout account (masked), GST/PAN, invoice template, refund policy." />

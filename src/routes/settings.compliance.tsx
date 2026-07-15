@@ -3,7 +3,8 @@ import { PageHeader } from "@/components/practice/PageHeader";
 import { Section, Row } from "@/components/settings/primitives";
 
 export const Route = createFileRoute("/settings/compliance")({
-  head: () => ({ meta: [{ title: "Compliance — Settings" }] }),
+  head: () => ({ meta: [
+      { name: "robots", content: "noindex" },{ title: "Compliance — Settings" }] }),
   component: () => (
     <>
       <PageHeader title="Compliance" description="DPDP acknowledgement, consent template editor, HIPAA-adjacent toggles, audit log." />

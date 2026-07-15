@@ -10,6 +10,7 @@ import {
 export const Route = createFileRoute("/settings/notifications")({
   head: () => ({
     meta: [
+      { name: "robots", content: "noindex" },
       { title: "Notification Preferences — PeaceCode · Practice" },
       { name: "description", content: "Per-type controls, digest rhythm, quiet hours, and do-not-disturb." },
     ],

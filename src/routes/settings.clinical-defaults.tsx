@@ -3,7 +3,8 @@ import { PageHeader } from "@/components/practice/PageHeader";
 import { Section, Row } from "@/components/settings/primitives";
 
 export const Route = createFileRoute("/settings/clinical-defaults")({
-  head: () => ({ meta: [{ title: "Clinical defaults — Settings" }] }),
+  head: () => ({ meta: [
+      { name: "robots", content: "noindex" },{ title: "Clinical defaults — Settings" }] }),
   component: () => (
     <>
       <PageHeader title="Clinical defaults" description="Note format, auto-assigned assessments, treatment plan and homework templates." />
