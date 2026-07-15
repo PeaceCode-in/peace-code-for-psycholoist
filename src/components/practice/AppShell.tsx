@@ -4,7 +4,7 @@ import {
   LayoutDashboard, CalendarDays, Inbox as InboxIcon, BellRing,
   Users, UserPlus, UsersRound, Share2,
   Video, NotebookPen, ClipboardList, Target, BookOpenCheck, Pill, ShieldAlert, MessagesSquare,
-  Clock, Tag, Wallet, Banknote, FileSignature, Files,
+  Clock, Tag, Wallet, Banknote, FileSignature, Files, Receipt,
   LineChart, Star, Sparkles, Library, GraduationCap,
   Handshake, UserCog, Microscope,
   FileLock2, History, Download,
@@ -15,6 +15,7 @@ import { GlassFX } from "@/components/GlassFX";
 import { INBOX_UNREAD, ALERTS_HIGH } from "@/lib/practice-store";
 import { useTodayRemaining } from "@/lib/sessions-store";
 import { useCriticalFlagCount } from "@/lib/assessments-store";
+import { useOverdueCount } from "@/lib/billing-store";
 import { endSession } from "@/lib/auth-store";
 
 export { palette };
@@ -47,6 +48,7 @@ const NAV: NavSection[] = [
       { title: "Sessions", url: "/sessions", icon: Video },
       { title: "Notes", url: "/notes", icon: NotebookPen },
       { title: "Assessments", url: "/assessments", icon: ClipboardList },
+      { title: "Billing", url: "/billing", icon: Receipt },
       { title: "Treatment Plans", url: "/treatment-plans", icon: Target },
       { title: "Homework", url: "/homework", icon: BookOpenCheck },
       { title: "Prescriptions", url: "/prescriptions", icon: Pill },
@@ -110,11 +112,15 @@ function useIsActive() {
 function NavLinkRow({ item, isActive, compact }: { item: NavItem; isActive: boolean; compact?: boolean }) {
   const liveSessions = useTodayRemaining();
   const criticalFlags = useCriticalFlagCount();
+  const overdue = useOverdueCount();
   const badge = item.url === "/sessions"
     ? (liveSessions > 0 ? liveSessions : undefined)
     : item.url === "/assessments"
       ? (criticalFlags > 0 ? criticalFlags : undefined)
-      : item.badge;
+      : item.url === "/billing"
+        ? (overdue > 0 ? overdue : undefined)
+        : item.badge;
+  const isBilling = item.url === "/billing";
   return (
     <Link
       to={item.url}
@@ -129,7 +135,10 @@ function NavLinkRow({ item, isActive, compact }: { item: NavItem; isActive: bool
       {!compact && typeof badge === "number" && badge > 0 && (
         <span
           className="ml-auto text-[9.5px] tabular-nums px-1.5 min-w-[16px] h-[16px] rounded-full flex items-center justify-center"
-          style={{ background: palette.primary, color: "#fff" }}
+          style={{
+            background: isBilling ? "#F3E4CE" : palette.primary,
+            color: isBilling ? "#B6763A" : "#fff",
+          }}
         >
           {badge}
         </span>
@@ -140,6 +149,7 @@ function NavLinkRow({ item, isActive, compact }: { item: NavItem; isActive: bool
     </Link>
   );
 }
+
 
 function SidebarProfileCard({ collapsed, onDuty, setOnDuty }: { collapsed?: boolean; onDuty: boolean; setOnDuty: (v: boolean) => void }) {
   return (
