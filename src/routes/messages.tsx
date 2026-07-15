@@ -1,9 +1,9 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
-import { getSession } from "@/lib/auth-store";
+import { loadSession } from "@/lib/auth-store";
 
 export const Route = createFileRoute("/messages")({
   beforeLoad: () => {
-    if (typeof window !== "undefined" && !getSession()) {
+    if (typeof window !== "undefined" && !loadSession()) {
       throw redirect({ to: "/auth" });
     }
   },
