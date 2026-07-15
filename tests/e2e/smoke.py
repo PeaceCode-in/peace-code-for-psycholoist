@@ -52,9 +52,8 @@ async def walk() -> dict:
             state["page_errs"].clear(); state["console_errs"].clear(); state["bad_net"].clear()
             entry = {"name": name, "path": path, "ok": False, "detail": ""}
             try:
-                await page.goto(BASE + path, wait_until="domcontentloaded", timeout=15000)
-                try: await page.wait_for_load_state("networkidle", timeout=2500)
-                except: pass
+                await page.goto(BASE + path, wait_until="load", timeout=10000)
+                await page.wait_for_timeout(400)
                 main_present = await page.locator("main").count() > 0
                 main_len = await page.locator("main").first.evaluate("el => el.innerText.length") if main_present else 0
                 dead = await page.evaluate("""() => {
