@@ -15,9 +15,9 @@ export function GlassFX() {
       try {
         const raw = localStorage.getItem("peacecode.settings.v1");
         const parsed = raw ? JSON.parse(raw) : null;
-        root.setAttribute("data-pc-bg", parsed?.appearance?.bgTheme || "daylight");
+        root.setAttribute("data-pc-bg", parsed?.appearance?.bgTheme || "sakura");
       } catch {
-        root.setAttribute("data-pc-bg", "daylight");
+        root.setAttribute("data-pc-bg", "sakura");
       }
     }
   }, []);
