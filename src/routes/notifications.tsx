@@ -1,12 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { StubPage } from "@/components/practice/StubPage";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/notifications")({
-  head: () => ({
-    meta: [
-      { title: "Notifications — PeaceCode · Practice" },
-      { name: "description", content: "All alerts, mentions, and system messages." },
-    ],
-  }),
-  component: () => <StubPage title="Notifications" crumb="Notifications" blurb="All alerts, mentions, and system messages." />,
+  beforeLoad: () => {
+    throw redirect({ to: "/inbox" });
+  },
 });
