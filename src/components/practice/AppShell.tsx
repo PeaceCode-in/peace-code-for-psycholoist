@@ -352,12 +352,12 @@ function Flyout({
       className="h-full flex flex-col py-4 px-3"
       style={{
         width: 240,
-        background: "rgba(255,247,250,0.82)",
-        backdropFilter: "blur(24px) saturate(140%)",
+        background: "rgba(255,247,250,0.96)",
         borderLeft: `1px solid ${palette.border}`,
         borderRight: `1px solid ${palette.border}`,
         borderTopRightRadius: 16,
         borderBottomRightRadius: 16,
+        boxShadow: "10px 0 28px -24px rgba(63,18,38,0.28)",
       }}
     >
       <div className="px-2 pb-3 mb-1 border-b" style={{ borderColor: palette.border }}>
@@ -511,8 +511,9 @@ function DesktopTubeSidebar({
         className="hidden md:flex fixed left-0 top-0 bottom-0 z-40 flex-col items-center"
         style={{
           width: 72,
-          background: "linear-gradient(180deg, #FBEEF2 0%, #F7E4EA 100%)",
+          background: "linear-gradient(180deg, #FFF7FA 0%, #F8E2EA 100%)",
           borderRight: `1px solid ${palette.border}`,
+          boxShadow: "1px 0 0 rgba(255,255,255,0.7) inset",
         }}
         onMouseLeave={scheduleClose}
       >
@@ -522,7 +523,7 @@ function DesktopTubeSidebar({
           className="mt-5 mb-3 w-12 h-12 rounded-2xl flex items-center justify-center transition-transform hover:scale-[1.04]"
           aria-label="PeaceCode Practice"
           style={{
-            background: "rgba(255,255,255,0.55)",
+            background: "rgba(255,255,255,0.78)",
             border: `1px solid ${palette.border}`,
             boxShadow: "0 2px 8px -4px rgba(120,50,80,0.15)",
           }}
@@ -696,8 +697,7 @@ function MobileBottomPill() {
     <nav
       className="md:hidden fixed bottom-3 left-3 right-3 z-40 flex items-center justify-around px-2 h-14 rounded-full"
       style={{
-        background: "rgba(255,255,255,0.86)",
-        backdropFilter: "blur(18px) saturate(140%)",
+        background: "rgba(255,255,255,0.96)",
         border: `1px solid ${palette.border}`,
         boxShadow: "0 6px 24px rgba(30,20,24,0.08)",
       }}
@@ -810,7 +810,7 @@ function TopBar({ crumb, onToggleSidebar, onOpenMobile }: { crumb?: string; onTo
   return (
     <header
       className="sticky top-0 z-30 h-14 shrink-0 flex items-center gap-2 px-3 sm:px-4 border-b"
-      style={{ background: "rgba(255,255,255,0.78)", backdropFilter: "blur(14px) saturate(140%)", borderColor: palette.border }}
+      style={{ background: "rgba(255,255,255,0.96)", borderColor: palette.border, boxShadow: "0 1px 0 rgba(255,255,255,0.75) inset" }}
     >
       <button className="md:hidden p-1.5 -ml-1 rounded-lg" onClick={onOpenMobile} aria-label="Open menu"><Menu className="w-5 h-5" style={{ color: palette.ink }} /></button>
       <button className="hidden md:flex p-1.5 rounded-lg" onClick={onToggleSidebar} aria-label="Toggle sidebar"><Menu className="w-4 h-4" style={{ color: palette.muted }} /></button>
