@@ -106,6 +106,8 @@ function useIsActive() {
 }
 
 function NavLinkRow({ item, isActive, compact }: { item: NavItem; isActive: boolean; compact?: boolean }) {
+  const liveSessions = useTodayRemaining();
+  const badge = item.url === "/sessions" ? (liveSessions > 0 ? liveSessions : undefined) : item.badge;
   return (
     <Link
       to={item.url}
@@ -117,15 +119,15 @@ function NavLinkRow({ item, isActive, compact }: { item: NavItem; isActive: bool
     >
       <item.icon className="h-3.5 w-3.5 shrink-0" strokeWidth={1.8} />
       {!compact && <span className="text-[12.5px] truncate">{item.title}</span>}
-      {!compact && typeof item.badge === "number" && item.badge > 0 && (
+      {!compact && typeof badge === "number" && badge > 0 && (
         <span
           className="ml-auto text-[9.5px] tabular-nums px-1.5 min-w-[16px] h-[16px] rounded-full flex items-center justify-center"
           style={{ background: palette.primary, color: "#fff" }}
         >
-          {item.badge}
+          {badge}
         </span>
       )}
-      {!compact && item.badge === "dot" && (
+      {!compact && badge === "dot" && (
         <span className="ml-auto w-1.5 h-1.5 rounded-full" style={{ background: "#DC3B4A" }} />
       )}
     </Link>
