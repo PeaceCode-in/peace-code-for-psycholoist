@@ -38,6 +38,7 @@ import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CpdRouteImport } from './routes/cpd'
 import { Route as CaseConferencesRouteImport } from './routes/case-conferences'
+import { Route as BillingRouteImport } from './routes/billing'
 import { Route as AvailabilityRouteImport } from './routes/availability'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AssessmentsRouteImport } from './routes/assessments'
@@ -47,6 +48,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as SessionsIndexRouteImport } from './routes/sessions.index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
+import { Route as BillingIndexRouteImport } from './routes/billing.index'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
 import { Route as AssessmentsIndexRouteImport } from './routes/assessments.index'
 import { Route as SettingsTelehealthRouteImport } from './routes/settings.telehealth'
@@ -79,12 +81,19 @@ import { Route as PatientsPidRouteImport } from './routes/patients.$pid'
 import { Route as ComplianceExportRouteImport } from './routes/compliance.export'
 import { Route as ComplianceConsentRouteImport } from './routes/compliance.consent'
 import { Route as ComplianceAuditRouteImport } from './routes/compliance.audit'
+import { Route as BillingServicesRouteImport } from './routes/billing.services'
+import { Route as BillingReportsRouteImport } from './routes/billing.reports'
+import { Route as BillingPaymentsRouteImport } from './routes/billing.payments'
+import { Route as BillingInvoicesRouteImport } from './routes/billing.invoices'
+import { Route as BillingClaimsRouteImport } from './routes/billing.claims'
 import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as AssessmentsLibraryRouteImport } from './routes/assessments.library'
 import { Route as AssessmentsAssignmentsRouteImport } from './routes/assessments.assignments'
 import { Route as SessionsIdIndexRouteImport } from './routes/sessions.$id.index'
 import { Route as PatientsPidIndexRouteImport } from './routes/patients.$pid.index'
+import { Route as BillingInvoicesIndexRouteImport } from './routes/billing.invoices.index'
+import { Route as BillingClaimsIndexRouteImport } from './routes/billing.claims.index'
 import { Route as AssessmentsLibraryIndexRouteImport } from './routes/assessments.library.index'
 import { Route as SessionsDayDateRouteImport } from './routes/sessions.day.$date'
 import { Route as SessionsIdWrapRouteImport } from './routes/sessions.$id.wrap'
@@ -93,7 +102,11 @@ import { Route as PatientsPidTimelineRouteImport } from './routes/patients.$pid.
 import { Route as PatientsPidNotesRouteImport } from './routes/patients.$pid.notes'
 import { Route as PatientsPidDocumentsRouteImport } from './routes/patients.$pid.documents'
 import { Route as PatientsPidChartRouteImport } from './routes/patients.$pid.chart'
+import { Route as PatientsPidBillingRouteImport } from './routes/patients.$pid.billing'
 import { Route as PatientsPidAssessmentsRouteImport } from './routes/patients.$pid.assessments'
+import { Route as BillingInvoicesNewRouteImport } from './routes/billing.invoices.new'
+import { Route as BillingInvoicesIdRouteImport } from './routes/billing.invoices.$id'
+import { Route as BillingClaimsIdRouteImport } from './routes/billing.claims.$id'
 import { Route as AssessmentsTakeAssignmentIdRouteImport } from './routes/assessments.take.$assignmentId'
 import { Route as AssessmentsResultsResultIdRouteImport } from './routes/assessments.results.$resultId'
 import { Route as AssessmentsLibraryInstrumentIdRouteImport } from './routes/assessments.library.$instrumentId'
@@ -246,6 +259,11 @@ const CaseConferencesRoute = CaseConferencesRouteImport.update({
   path: '/case-conferences',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BillingRoute = BillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AvailabilityRoute = AvailabilityRouteImport.update({
   id: '/availability',
   path: '/availability',
@@ -290,6 +308,11 @@ const PatientsIndexRoute = PatientsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => PatientsRoute,
+} as any)
+const BillingIndexRoute = BillingIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BillingRoute,
 } as any)
 const AuthIndexRoute = AuthIndexRouteImport.update({
   id: '/',
@@ -453,6 +476,31 @@ const ComplianceAuditRoute = ComplianceAuditRouteImport.update({
   path: '/compliance/audit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BillingServicesRoute = BillingServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => BillingRoute,
+} as any)
+const BillingReportsRoute = BillingReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => BillingRoute,
+} as any)
+const BillingPaymentsRoute = BillingPaymentsRouteImport.update({
+  id: '/payments',
+  path: '/payments',
+  getParentRoute: () => BillingRoute,
+} as any)
+const BillingInvoicesRoute = BillingInvoicesRouteImport.update({
+  id: '/invoices',
+  path: '/invoices',
+  getParentRoute: () => BillingRoute,
+} as any)
+const BillingClaimsRoute = BillingClaimsRouteImport.update({
+  id: '/claims',
+  path: '/claims',
+  getParentRoute: () => BillingRoute,
+} as any)
 const AuthSignupRoute = AuthSignupRouteImport.update({
   id: '/signup',
   path: '/signup',
@@ -482,6 +530,16 @@ const PatientsPidIndexRoute = PatientsPidIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => PatientsPidRoute,
+} as any)
+const BillingInvoicesIndexRoute = BillingInvoicesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BillingInvoicesRoute,
+} as any)
+const BillingClaimsIndexRoute = BillingClaimsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BillingClaimsRoute,
 } as any)
 const AssessmentsLibraryIndexRoute = AssessmentsLibraryIndexRouteImport.update({
   id: '/',
@@ -523,10 +581,30 @@ const PatientsPidChartRoute = PatientsPidChartRouteImport.update({
   path: '/chart',
   getParentRoute: () => PatientsPidRoute,
 } as any)
+const PatientsPidBillingRoute = PatientsPidBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => PatientsPidRoute,
+} as any)
 const PatientsPidAssessmentsRoute = PatientsPidAssessmentsRouteImport.update({
   id: '/assessments',
   path: '/assessments',
   getParentRoute: () => PatientsPidRoute,
+} as any)
+const BillingInvoicesNewRoute = BillingInvoicesNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => BillingInvoicesRoute,
+} as any)
+const BillingInvoicesIdRoute = BillingInvoicesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => BillingInvoicesRoute,
+} as any)
+const BillingClaimsIdRoute = BillingClaimsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => BillingClaimsRoute,
 } as any)
 const AssessmentsTakeAssignmentIdRoute =
   AssessmentsTakeAssignmentIdRouteImport.update({
@@ -569,6 +647,7 @@ export interface FileRoutesByFullPath {
   '/assessments': typeof AssessmentsRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/availability': typeof AvailabilityRoute
+  '/billing': typeof BillingRouteWithChildren
   '/case-conferences': typeof CaseConferencesRoute
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
@@ -602,6 +681,11 @@ export interface FileRoutesByFullPath {
   '/assessments/library': typeof AssessmentsLibraryRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/billing/claims': typeof BillingClaimsRouteWithChildren
+  '/billing/invoices': typeof BillingInvoicesRouteWithChildren
+  '/billing/payments': typeof BillingPaymentsRoute
+  '/billing/reports': typeof BillingReportsRoute
+  '/billing/services': typeof BillingServicesRoute
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
@@ -634,13 +718,18 @@ export interface FileRoutesByFullPath {
   '/settings/telehealth': typeof SettingsTelehealthRoute
   '/assessments/': typeof AssessmentsIndexRoute
   '/auth/': typeof AuthIndexRoute
+  '/billing/': typeof BillingIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/assessments/library/$instrumentId': typeof AssessmentsLibraryInstrumentIdRoute
   '/assessments/results/$resultId': typeof AssessmentsResultsResultIdRoute
   '/assessments/take/$assignmentId': typeof AssessmentsTakeAssignmentIdRoute
+  '/billing/claims/$id': typeof BillingClaimsIdRoute
+  '/billing/invoices/$id': typeof BillingInvoicesIdRoute
+  '/billing/invoices/new': typeof BillingInvoicesNewRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
+  '/patients/$pid/billing': typeof PatientsPidBillingRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
   '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
   '/patients/$pid/notes': typeof PatientsPidNotesRouteWithChildren
@@ -649,6 +738,8 @@ export interface FileRoutesByFullPath {
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
   '/assessments/library/': typeof AssessmentsLibraryIndexRoute
+  '/billing/claims/': typeof BillingClaimsIndexRoute
+  '/billing/invoices/': typeof BillingInvoicesIndexRoute
   '/patients/$pid/': typeof PatientsPidIndexRoute
   '/sessions/$id/': typeof SessionsIdIndexRoute
   '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
@@ -689,6 +780,9 @@ export interface FileRoutesByTo {
   '/assessments/assignments': typeof AssessmentsAssignmentsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/billing/payments': typeof BillingPaymentsRoute
+  '/billing/reports': typeof BillingReportsRoute
+  '/billing/services': typeof BillingServicesRoute
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
@@ -719,13 +813,18 @@ export interface FileRoutesByTo {
   '/settings/telehealth': typeof SettingsTelehealthRoute
   '/assessments': typeof AssessmentsIndexRoute
   '/auth': typeof AuthIndexRoute
+  '/billing': typeof BillingIndexRoute
   '/patients': typeof PatientsIndexRoute
   '/sessions': typeof SessionsIndexRoute
   '/settings': typeof SettingsIndexRoute
   '/assessments/library/$instrumentId': typeof AssessmentsLibraryInstrumentIdRoute
   '/assessments/results/$resultId': typeof AssessmentsResultsResultIdRoute
   '/assessments/take/$assignmentId': typeof AssessmentsTakeAssignmentIdRoute
+  '/billing/claims/$id': typeof BillingClaimsIdRoute
+  '/billing/invoices/$id': typeof BillingInvoicesIdRoute
+  '/billing/invoices/new': typeof BillingInvoicesNewRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
+  '/patients/$pid/billing': typeof PatientsPidBillingRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
   '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
   '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
@@ -733,6 +832,8 @@ export interface FileRoutesByTo {
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
   '/assessments/library': typeof AssessmentsLibraryIndexRoute
+  '/billing/claims': typeof BillingClaimsIndexRoute
+  '/billing/invoices': typeof BillingInvoicesIndexRoute
   '/patients/$pid': typeof PatientsPidIndexRoute
   '/sessions/$id': typeof SessionsIdIndexRoute
   '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
@@ -747,6 +848,7 @@ export interface FileRoutesById {
   '/assessments': typeof AssessmentsRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/availability': typeof AvailabilityRoute
+  '/billing': typeof BillingRouteWithChildren
   '/case-conferences': typeof CaseConferencesRoute
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
@@ -780,6 +882,11 @@ export interface FileRoutesById {
   '/assessments/library': typeof AssessmentsLibraryRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/billing/claims': typeof BillingClaimsRouteWithChildren
+  '/billing/invoices': typeof BillingInvoicesRouteWithChildren
+  '/billing/payments': typeof BillingPaymentsRoute
+  '/billing/reports': typeof BillingReportsRoute
+  '/billing/services': typeof BillingServicesRoute
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
@@ -812,13 +919,18 @@ export interface FileRoutesById {
   '/settings/telehealth': typeof SettingsTelehealthRoute
   '/assessments/': typeof AssessmentsIndexRoute
   '/auth/': typeof AuthIndexRoute
+  '/billing/': typeof BillingIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/assessments/library/$instrumentId': typeof AssessmentsLibraryInstrumentIdRoute
   '/assessments/results/$resultId': typeof AssessmentsResultsResultIdRoute
   '/assessments/take/$assignmentId': typeof AssessmentsTakeAssignmentIdRoute
+  '/billing/claims/$id': typeof BillingClaimsIdRoute
+  '/billing/invoices/$id': typeof BillingInvoicesIdRoute
+  '/billing/invoices/new': typeof BillingInvoicesNewRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
+  '/patients/$pid/billing': typeof PatientsPidBillingRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
   '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
   '/patients/$pid/notes': typeof PatientsPidNotesRouteWithChildren
@@ -827,6 +939,8 @@ export interface FileRoutesById {
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
   '/assessments/library/': typeof AssessmentsLibraryIndexRoute
+  '/billing/claims/': typeof BillingClaimsIndexRoute
+  '/billing/invoices/': typeof BillingInvoicesIndexRoute
   '/patients/$pid/': typeof PatientsPidIndexRoute
   '/sessions/$id/': typeof SessionsIdIndexRoute
   '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
@@ -842,6 +956,7 @@ export interface FileRouteTypes {
     | '/assessments'
     | '/auth'
     | '/availability'
+    | '/billing'
     | '/case-conferences'
     | '/cpd'
     | '/dashboard'
@@ -875,6 +990,11 @@ export interface FileRouteTypes {
     | '/assessments/library'
     | '/auth/login'
     | '/auth/signup'
+    | '/billing/claims'
+    | '/billing/invoices'
+    | '/billing/payments'
+    | '/billing/reports'
+    | '/billing/services'
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
@@ -907,13 +1027,18 @@ export interface FileRouteTypes {
     | '/settings/telehealth'
     | '/assessments/'
     | '/auth/'
+    | '/billing/'
     | '/patients/'
     | '/sessions/'
     | '/settings/'
     | '/assessments/library/$instrumentId'
     | '/assessments/results/$resultId'
     | '/assessments/take/$assignmentId'
+    | '/billing/claims/$id'
+    | '/billing/invoices/$id'
+    | '/billing/invoices/new'
     | '/patients/$pid/assessments'
+    | '/patients/$pid/billing'
     | '/patients/$pid/chart'
     | '/patients/$pid/documents'
     | '/patients/$pid/notes'
@@ -922,6 +1047,8 @@ export interface FileRouteTypes {
     | '/sessions/$id/wrap'
     | '/sessions/day/$date'
     | '/assessments/library/'
+    | '/billing/claims/'
+    | '/billing/invoices/'
     | '/patients/$pid/'
     | '/sessions/$id/'
     | '/patients/$pid/notes/$nid'
@@ -962,6 +1089,9 @@ export interface FileRouteTypes {
     | '/assessments/assignments'
     | '/auth/login'
     | '/auth/signup'
+    | '/billing/payments'
+    | '/billing/reports'
+    | '/billing/services'
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
@@ -992,13 +1122,18 @@ export interface FileRouteTypes {
     | '/settings/telehealth'
     | '/assessments'
     | '/auth'
+    | '/billing'
     | '/patients'
     | '/sessions'
     | '/settings'
     | '/assessments/library/$instrumentId'
     | '/assessments/results/$resultId'
     | '/assessments/take/$assignmentId'
+    | '/billing/claims/$id'
+    | '/billing/invoices/$id'
+    | '/billing/invoices/new'
     | '/patients/$pid/assessments'
+    | '/patients/$pid/billing'
     | '/patients/$pid/chart'
     | '/patients/$pid/documents'
     | '/patients/$pid/timeline'
@@ -1006,6 +1141,8 @@ export interface FileRouteTypes {
     | '/sessions/$id/wrap'
     | '/sessions/day/$date'
     | '/assessments/library'
+    | '/billing/claims'
+    | '/billing/invoices'
     | '/patients/$pid'
     | '/sessions/$id'
     | '/patients/$pid/notes/$nid'
@@ -1019,6 +1156,7 @@ export interface FileRouteTypes {
     | '/assessments'
     | '/auth'
     | '/availability'
+    | '/billing'
     | '/case-conferences'
     | '/cpd'
     | '/dashboard'
@@ -1052,6 +1190,11 @@ export interface FileRouteTypes {
     | '/assessments/library'
     | '/auth/login'
     | '/auth/signup'
+    | '/billing/claims'
+    | '/billing/invoices'
+    | '/billing/payments'
+    | '/billing/reports'
+    | '/billing/services'
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
@@ -1084,13 +1227,18 @@ export interface FileRouteTypes {
     | '/settings/telehealth'
     | '/assessments/'
     | '/auth/'
+    | '/billing/'
     | '/patients/'
     | '/sessions/'
     | '/settings/'
     | '/assessments/library/$instrumentId'
     | '/assessments/results/$resultId'
     | '/assessments/take/$assignmentId'
+    | '/billing/claims/$id'
+    | '/billing/invoices/$id'
+    | '/billing/invoices/new'
     | '/patients/$pid/assessments'
+    | '/patients/$pid/billing'
     | '/patients/$pid/chart'
     | '/patients/$pid/documents'
     | '/patients/$pid/notes'
@@ -1099,6 +1247,8 @@ export interface FileRouteTypes {
     | '/sessions/$id/wrap'
     | '/sessions/day/$date'
     | '/assessments/library/'
+    | '/billing/claims/'
+    | '/billing/invoices/'
     | '/patients/$pid/'
     | '/sessions/$id/'
     | '/patients/$pid/notes/$nid'
@@ -1113,6 +1263,7 @@ export interface RootRouteChildren {
   AssessmentsRoute: typeof AssessmentsRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
   AvailabilityRoute: typeof AvailabilityRoute
+  BillingRoute: typeof BillingRouteWithChildren
   CaseConferencesRoute: typeof CaseConferencesRoute
   CpdRoute: typeof CpdRoute
   DashboardRoute: typeof DashboardRoute
@@ -1352,6 +1503,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CaseConferencesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/billing': {
+      id: '/billing'
+      path: '/billing'
+      fullPath: '/billing'
+      preLoaderRoute: typeof BillingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/availability': {
       id: '/availability'
       path: '/availability'
@@ -1414,6 +1572,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/patients/'
       preLoaderRoute: typeof PatientsIndexRouteImport
       parentRoute: typeof PatientsRoute
+    }
+    '/billing/': {
+      id: '/billing/'
+      path: '/'
+      fullPath: '/billing/'
+      preLoaderRoute: typeof BillingIndexRouteImport
+      parentRoute: typeof BillingRoute
     }
     '/auth/': {
       id: '/auth/'
@@ -1639,6 +1804,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComplianceAuditRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/billing/services': {
+      id: '/billing/services'
+      path: '/services'
+      fullPath: '/billing/services'
+      preLoaderRoute: typeof BillingServicesRouteImport
+      parentRoute: typeof BillingRoute
+    }
+    '/billing/reports': {
+      id: '/billing/reports'
+      path: '/reports'
+      fullPath: '/billing/reports'
+      preLoaderRoute: typeof BillingReportsRouteImport
+      parentRoute: typeof BillingRoute
+    }
+    '/billing/payments': {
+      id: '/billing/payments'
+      path: '/payments'
+      fullPath: '/billing/payments'
+      preLoaderRoute: typeof BillingPaymentsRouteImport
+      parentRoute: typeof BillingRoute
+    }
+    '/billing/invoices': {
+      id: '/billing/invoices'
+      path: '/invoices'
+      fullPath: '/billing/invoices'
+      preLoaderRoute: typeof BillingInvoicesRouteImport
+      parentRoute: typeof BillingRoute
+    }
+    '/billing/claims': {
+      id: '/billing/claims'
+      path: '/claims'
+      fullPath: '/billing/claims'
+      preLoaderRoute: typeof BillingClaimsRouteImport
+      parentRoute: typeof BillingRoute
+    }
     '/auth/signup': {
       id: '/auth/signup'
       path: '/signup'
@@ -1680,6 +1880,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/patients/$pid/'
       preLoaderRoute: typeof PatientsPidIndexRouteImport
       parentRoute: typeof PatientsPidRoute
+    }
+    '/billing/invoices/': {
+      id: '/billing/invoices/'
+      path: '/'
+      fullPath: '/billing/invoices/'
+      preLoaderRoute: typeof BillingInvoicesIndexRouteImport
+      parentRoute: typeof BillingInvoicesRoute
+    }
+    '/billing/claims/': {
+      id: '/billing/claims/'
+      path: '/'
+      fullPath: '/billing/claims/'
+      preLoaderRoute: typeof BillingClaimsIndexRouteImport
+      parentRoute: typeof BillingClaimsRoute
     }
     '/assessments/library/': {
       id: '/assessments/library/'
@@ -1737,12 +1951,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PatientsPidChartRouteImport
       parentRoute: typeof PatientsPidRoute
     }
+    '/patients/$pid/billing': {
+      id: '/patients/$pid/billing'
+      path: '/billing'
+      fullPath: '/patients/$pid/billing'
+      preLoaderRoute: typeof PatientsPidBillingRouteImport
+      parentRoute: typeof PatientsPidRoute
+    }
     '/patients/$pid/assessments': {
       id: '/patients/$pid/assessments'
       path: '/assessments'
       fullPath: '/patients/$pid/assessments'
       preLoaderRoute: typeof PatientsPidAssessmentsRouteImport
       parentRoute: typeof PatientsPidRoute
+    }
+    '/billing/invoices/new': {
+      id: '/billing/invoices/new'
+      path: '/new'
+      fullPath: '/billing/invoices/new'
+      preLoaderRoute: typeof BillingInvoicesNewRouteImport
+      parentRoute: typeof BillingInvoicesRoute
+    }
+    '/billing/invoices/$id': {
+      id: '/billing/invoices/$id'
+      path: '/$id'
+      fullPath: '/billing/invoices/$id'
+      preLoaderRoute: typeof BillingInvoicesIdRouteImport
+      parentRoute: typeof BillingInvoicesRoute
+    }
+    '/billing/claims/$id': {
+      id: '/billing/claims/$id'
+      path: '/$id'
+      fullPath: '/billing/claims/$id'
+      preLoaderRoute: typeof BillingClaimsIdRouteImport
+      parentRoute: typeof BillingClaimsRoute
     }
     '/assessments/take/$assignmentId': {
       id: '/assessments/take/$assignmentId'
@@ -1836,6 +2078,57 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
+interface BillingClaimsRouteChildren {
+  BillingClaimsIdRoute: typeof BillingClaimsIdRoute
+  BillingClaimsIndexRoute: typeof BillingClaimsIndexRoute
+}
+
+const BillingClaimsRouteChildren: BillingClaimsRouteChildren = {
+  BillingClaimsIdRoute: BillingClaimsIdRoute,
+  BillingClaimsIndexRoute: BillingClaimsIndexRoute,
+}
+
+const BillingClaimsRouteWithChildren = BillingClaimsRoute._addFileChildren(
+  BillingClaimsRouteChildren,
+)
+
+interface BillingInvoicesRouteChildren {
+  BillingInvoicesIdRoute: typeof BillingInvoicesIdRoute
+  BillingInvoicesNewRoute: typeof BillingInvoicesNewRoute
+  BillingInvoicesIndexRoute: typeof BillingInvoicesIndexRoute
+}
+
+const BillingInvoicesRouteChildren: BillingInvoicesRouteChildren = {
+  BillingInvoicesIdRoute: BillingInvoicesIdRoute,
+  BillingInvoicesNewRoute: BillingInvoicesNewRoute,
+  BillingInvoicesIndexRoute: BillingInvoicesIndexRoute,
+}
+
+const BillingInvoicesRouteWithChildren = BillingInvoicesRoute._addFileChildren(
+  BillingInvoicesRouteChildren,
+)
+
+interface BillingRouteChildren {
+  BillingClaimsRoute: typeof BillingClaimsRouteWithChildren
+  BillingInvoicesRoute: typeof BillingInvoicesRouteWithChildren
+  BillingPaymentsRoute: typeof BillingPaymentsRoute
+  BillingReportsRoute: typeof BillingReportsRoute
+  BillingServicesRoute: typeof BillingServicesRoute
+  BillingIndexRoute: typeof BillingIndexRoute
+}
+
+const BillingRouteChildren: BillingRouteChildren = {
+  BillingClaimsRoute: BillingClaimsRouteWithChildren,
+  BillingInvoicesRoute: BillingInvoicesRouteWithChildren,
+  BillingPaymentsRoute: BillingPaymentsRoute,
+  BillingReportsRoute: BillingReportsRoute,
+  BillingServicesRoute: BillingServicesRoute,
+  BillingIndexRoute: BillingIndexRoute,
+}
+
+const BillingRouteWithChildren =
+  BillingRoute._addFileChildren(BillingRouteChildren)
+
 interface PatientsPidNotesRouteChildren {
   PatientsPidNotesNidRoute: typeof PatientsPidNotesNidRoute
   PatientsPidNotesNewRoute: typeof PatientsPidNotesNewRoute
@@ -1853,6 +2146,7 @@ const PatientsPidNotesRouteWithChildren =
 
 interface PatientsPidRouteChildren {
   PatientsPidAssessmentsRoute: typeof PatientsPidAssessmentsRoute
+  PatientsPidBillingRoute: typeof PatientsPidBillingRoute
   PatientsPidChartRoute: typeof PatientsPidChartRoute
   PatientsPidDocumentsRoute: typeof PatientsPidDocumentsRoute
   PatientsPidNotesRoute: typeof PatientsPidNotesRouteWithChildren
@@ -1862,6 +2156,7 @@ interface PatientsPidRouteChildren {
 
 const PatientsPidRouteChildren: PatientsPidRouteChildren = {
   PatientsPidAssessmentsRoute: PatientsPidAssessmentsRoute,
+  PatientsPidBillingRoute: PatientsPidBillingRoute,
   PatientsPidChartRoute: PatientsPidChartRoute,
   PatientsPidDocumentsRoute: PatientsPidDocumentsRoute,
   PatientsPidNotesRoute: PatientsPidNotesRouteWithChildren,
@@ -1988,6 +2283,7 @@ const rootRouteChildren: RootRouteChildren = {
   AssessmentsRoute: AssessmentsRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
   AvailabilityRoute: AvailabilityRoute,
+  BillingRoute: BillingRouteWithChildren,
   CaseConferencesRoute: CaseConferencesRoute,
   CpdRoute: CpdRoute,
   DashboardRoute: DashboardRoute,
