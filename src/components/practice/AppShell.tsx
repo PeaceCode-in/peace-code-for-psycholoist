@@ -843,9 +843,9 @@ function TopBar({ crumb, onToggleSidebar, onOpenMobile }: { crumb?: string; onTo
 }
 
 export function AppShell({ children, crumb }: { children: ReactNode; crumb?: string }) {
-  const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [onDuty, setOnDuty] = useState(true);
+  const [pinned, setPinned] = useSidebarPinned();
   return (
     <>
       <GlassFX />
@@ -853,18 +853,35 @@ export function AppShell({ children, crumb }: { children: ReactNode; crumb?: str
         className="min-h-screen flex w-full"
         style={{ color: palette.ink, fontFamily: "'DM Sans', system-ui, sans-serif", background: "#FBF7F8" }}
       >
-        <DesktopSidebar collapsed={collapsed} onDuty={onDuty} setOnDuty={setOnDuty} />
+        <DesktopTubeSidebar
+          onDuty={onDuty}
+          setOnDuty={setOnDuty}
+          pinned={pinned}
+          setPinned={setPinned}
+        />
         <MobileDrawer open={mobileOpen} onClose={() => setMobileOpen(false)} onDuty={onDuty} setOnDuty={setOnDuty} />
-        <div className="flex-1 flex flex-col min-w-0">
+        <div
+          className="flex-1 flex flex-col min-w-0 transition-[padding] duration-[220ms] ease-out"
+          style={{ paddingLeft: `var(--pc-shell-pad, 0px)` }}
+        >
           <TopBar
             crumb={crumb}
-            onToggleSidebar={() => setCollapsed((v) => !v)}
+            onToggleSidebar={() => setPinned(!pinned)}
             onOpenMobile={() => setMobileOpen(true)}
           />
           <main className="flex-1 min-w-0 pb-20 md:pb-0">{children}</main>
         </div>
         <MobileBottomPill />
       </div>
+      {/* Responsive shell padding: rail is 64px, +240px when pinned. Mobile: 0. */}
+      <style>{`
+        @media (min-width: 768px) {
+          :root { --pc-shell-pad: ${pinned ? 304 : 64}px; }
+        }
+        @media (max-width: 767.98px) {
+          :root { --pc-shell-pad: 0px; }
+        }
+      `}</style>
     </>
   );
 }
