@@ -905,10 +905,10 @@ export function AppShell({ children, crumb }: { children: ReactNode; crumb?: str
         <ShortcutsOverlay />
         <DataHandlingSheet />
       </div>
-      {/* Responsive shell padding: rail is 64px, +240px when pinned. Mobile: 0. */}
+      {/* Responsive shell padding: rail is 72px, +240px when pinned. Mobile: 0. */}
       <style>{`
         @media (min-width: 768px) {
-          :root { --pc-shell-pad: ${pinned ? 304 : 64}px; }
+          :root { --pc-shell-pad: ${pinned ? 312 : 72}px; }
         }
         @media (max-width: 767.98px) {
           :root { --pc-shell-pad: 0px; }
