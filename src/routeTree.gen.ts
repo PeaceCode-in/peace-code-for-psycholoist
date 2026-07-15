@@ -9,17 +9,40 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WaitlistRouteImport } from './routes/waitlist'
+import { Route as TreatmentPlansRouteImport } from './routes/treatment-plans'
+import { Route as TemplatesRouteImport } from './routes/templates'
+import { Route as SupportRouteImport } from './routes/support'
+import { Route as SupervisionRouteImport } from './routes/supervision'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SessionsRouteImport } from './routes/sessions'
+import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ScheduleRouteImport } from './routes/schedule'
-import { Route as ResourcesRouteImport } from './routes/resources'
+import { Route as RiskRouteImport } from './routes/risk'
+import { Route as ReviewsRouteImport } from './routes/reviews'
+import { Route as ResearchRouteImport } from './routes/research'
+import { Route as ReferralsRouteImport } from './routes/referrals'
+import { Route as ProfilePublicRouteImport } from './routes/profile-public'
+import { Route as PrescriptionsRouteImport } from './routes/prescriptions'
+import { Route as PeersRouteImport } from './routes/peers'
+import { Route as PayoutsRouteImport } from './routes/payouts'
+import { Route as PaymentsRouteImport } from './routes/payments'
 import { Route as PatientsRouteImport } from './routes/patients'
+import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as NotesRouteImport } from './routes/notes'
-import { Route as MessagesRouteImport } from './routes/messages'
-import { Route as InsightsRouteImport } from './routes/insights'
+import { Route as LibraryRouteImport } from './routes/library'
+import { Route as InboxRouteImport } from './routes/inbox'
+import { Route as HomeworkRouteImport } from './routes/homework'
+import { Route as GroupsRouteImport } from './routes/groups'
+import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as BillingRouteImport } from './routes/billing'
+import { Route as CpdRouteImport } from './routes/cpd'
+import { Route as CaseConferencesRouteImport } from './routes/case-conferences'
+import { Route as AvailabilityRouteImport } from './routes/availability'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AssessmentsRouteImport } from './routes/assessments'
+import { Route as AnalyticsRouteImport } from './routes/analytics'
+import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
@@ -39,9 +62,37 @@ import { Route as SettingsAvailabilityRouteImport } from './routes/settings.avai
 import { Route as SettingsAppearanceRouteImport } from './routes/settings.appearance'
 import { Route as SettingsAboutRouteImport } from './routes/settings.about'
 import { Route as PatientsIdRouteImport } from './routes/patients.$id'
+import { Route as ComplianceExportRouteImport } from './routes/compliance.export'
+import { Route as ComplianceConsentRouteImport } from './routes/compliance.consent'
+import { Route as ComplianceAuditRouteImport } from './routes/compliance.audit'
 import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
 
+const WaitlistRoute = WaitlistRouteImport.update({
+  id: '/waitlist',
+  path: '/waitlist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TreatmentPlansRoute = TreatmentPlansRouteImport.update({
+  id: '/treatment-plans',
+  path: '/treatment-plans',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TemplatesRoute = TemplatesRouteImport.update({
+  id: '/templates',
+  path: '/templates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupervisionRoute = SupervisionRouteImport.update({
+  id: '/supervision',
+  path: '/supervision',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -52,14 +103,59 @@ const SessionsRoute = SessionsRouteImport.update({
   path: '/sessions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ScheduleRoute = ScheduleRouteImport.update({
   id: '/schedule',
   path: '/schedule',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ResourcesRoute = ResourcesRouteImport.update({
-  id: '/resources',
-  path: '/resources',
+const RiskRoute = RiskRouteImport.update({
+  id: '/risk',
+  path: '/risk',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewsRoute = ReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResearchRoute = ResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReferralsRoute = ReferralsRouteImport.update({
+  id: '/referrals',
+  path: '/referrals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfilePublicRoute = ProfilePublicRouteImport.update({
+  id: '/profile-public',
+  path: '/profile-public',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrescriptionsRoute = PrescriptionsRouteImport.update({
+  id: '/prescriptions',
+  path: '/prescriptions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeersRoute = PeersRouteImport.update({
+  id: '/peers',
+  path: '/peers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PayoutsRoute = PayoutsRouteImport.update({
+  id: '/payouts',
+  path: '/payouts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentsRoute = PaymentsRouteImport.update({
+  id: '/payments',
+  path: '/payments',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PatientsRoute = PatientsRouteImport.update({
@@ -67,19 +163,39 @@ const PatientsRoute = PatientsRouteImport.update({
   path: '/patients',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NotesRoute = NotesRouteImport.update({
   id: '/notes',
   path: '/notes',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MessagesRoute = MessagesRouteImport.update({
-  id: '/messages',
-  path: '/messages',
+const LibraryRoute = LibraryRouteImport.update({
+  id: '/library',
+  path: '/library',
   getParentRoute: () => rootRouteImport,
 } as any)
-const InsightsRoute = InsightsRouteImport.update({
-  id: '/insights',
-  path: '/insights',
+const InboxRoute = InboxRouteImport.update({
+  id: '/inbox',
+  path: '/inbox',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeworkRoute = HomeworkRouteImport.update({
+  id: '/homework',
+  path: '/homework',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GroupsRoute = GroupsRouteImport.update({
+  id: '/groups',
+  path: '/groups',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentsRoute = DocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -87,14 +203,39 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BillingRoute = BillingRouteImport.update({
-  id: '/billing',
-  path: '/billing',
+const CpdRoute = CpdRouteImport.update({
+  id: '/cpd',
+  path: '/cpd',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CaseConferencesRoute = CaseConferencesRouteImport.update({
+  id: '/case-conferences',
+  path: '/case-conferences',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AvailabilityRoute = AvailabilityRouteImport.update({
+  id: '/availability',
+  path: '/availability',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssessmentsRoute = AssessmentsRouteImport.update({
+  id: '/assessments',
+  path: '/assessments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnalyticsRoute = AnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlertsRoute = AlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -192,6 +333,21 @@ const PatientsIdRoute = PatientsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => PatientsRoute,
 } as any)
+const ComplianceExportRoute = ComplianceExportRouteImport.update({
+  id: '/compliance/export',
+  path: '/compliance/export',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComplianceConsentRoute = ComplianceConsentRouteImport.update({
+  id: '/compliance/consent',
+  path: '/compliance/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComplianceAuditRoute = ComplianceAuditRouteImport.update({
+  id: '/compliance/audit',
+  path: '/compliance/audit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthSignupRoute = AuthSignupRouteImport.update({
   id: '/signup',
   path: '/signup',
@@ -205,19 +361,45 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/analytics': typeof AnalyticsRoute
+  '/assessments': typeof AssessmentsRoute
   '/auth': typeof AuthRouteWithChildren
-  '/billing': typeof BillingRoute
+  '/availability': typeof AvailabilityRoute
+  '/case-conferences': typeof CaseConferencesRoute
+  '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
-  '/insights': typeof InsightsRoute
-  '/messages': typeof MessagesRoute
+  '/documents': typeof DocumentsRoute
+  '/groups': typeof GroupsRoute
+  '/homework': typeof HomeworkRoute
+  '/inbox': typeof InboxRoute
+  '/library': typeof LibraryRoute
   '/notes': typeof NotesRoute
+  '/notifications': typeof NotificationsRoute
   '/patients': typeof PatientsRouteWithChildren
-  '/resources': typeof ResourcesRoute
+  '/payments': typeof PaymentsRoute
+  '/payouts': typeof PayoutsRoute
+  '/peers': typeof PeersRoute
+  '/prescriptions': typeof PrescriptionsRoute
+  '/profile-public': typeof ProfilePublicRoute
+  '/referrals': typeof ReferralsRoute
+  '/research': typeof ResearchRoute
+  '/reviews': typeof ReviewsRoute
+  '/risk': typeof RiskRoute
   '/schedule': typeof ScheduleRoute
+  '/services': typeof ServicesRoute
   '/sessions': typeof SessionsRoute
   '/settings': typeof SettingsRouteWithChildren
+  '/supervision': typeof SupervisionRoute
+  '/support': typeof SupportRoute
+  '/templates': typeof TemplatesRoute
+  '/treatment-plans': typeof TreatmentPlansRoute
+  '/waitlist': typeof WaitlistRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/compliance/audit': typeof ComplianceAuditRoute
+  '/compliance/consent': typeof ComplianceConsentRoute
+  '/compliance/export': typeof ComplianceExportRoute
   '/patients/$id': typeof PatientsIdRoute
   '/settings/about': typeof SettingsAboutRoute
   '/settings/appearance': typeof SettingsAppearanceRoute
@@ -239,16 +421,42 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/billing': typeof BillingRoute
+  '/alerts': typeof AlertsRoute
+  '/analytics': typeof AnalyticsRoute
+  '/assessments': typeof AssessmentsRoute
+  '/availability': typeof AvailabilityRoute
+  '/case-conferences': typeof CaseConferencesRoute
+  '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
-  '/insights': typeof InsightsRoute
-  '/messages': typeof MessagesRoute
+  '/documents': typeof DocumentsRoute
+  '/groups': typeof GroupsRoute
+  '/homework': typeof HomeworkRoute
+  '/inbox': typeof InboxRoute
+  '/library': typeof LibraryRoute
   '/notes': typeof NotesRoute
-  '/resources': typeof ResourcesRoute
+  '/notifications': typeof NotificationsRoute
+  '/payments': typeof PaymentsRoute
+  '/payouts': typeof PayoutsRoute
+  '/peers': typeof PeersRoute
+  '/prescriptions': typeof PrescriptionsRoute
+  '/profile-public': typeof ProfilePublicRoute
+  '/referrals': typeof ReferralsRoute
+  '/research': typeof ResearchRoute
+  '/reviews': typeof ReviewsRoute
+  '/risk': typeof RiskRoute
   '/schedule': typeof ScheduleRoute
+  '/services': typeof ServicesRoute
   '/sessions': typeof SessionsRoute
+  '/supervision': typeof SupervisionRoute
+  '/support': typeof SupportRoute
+  '/templates': typeof TemplatesRoute
+  '/treatment-plans': typeof TreatmentPlansRoute
+  '/waitlist': typeof WaitlistRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/compliance/audit': typeof ComplianceAuditRoute
+  '/compliance/consent': typeof ComplianceConsentRoute
+  '/compliance/export': typeof ComplianceExportRoute
   '/patients/$id': typeof PatientsIdRoute
   '/settings/about': typeof SettingsAboutRoute
   '/settings/appearance': typeof SettingsAppearanceRoute
@@ -271,19 +479,45 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/analytics': typeof AnalyticsRoute
+  '/assessments': typeof AssessmentsRoute
   '/auth': typeof AuthRouteWithChildren
-  '/billing': typeof BillingRoute
+  '/availability': typeof AvailabilityRoute
+  '/case-conferences': typeof CaseConferencesRoute
+  '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
-  '/insights': typeof InsightsRoute
-  '/messages': typeof MessagesRoute
+  '/documents': typeof DocumentsRoute
+  '/groups': typeof GroupsRoute
+  '/homework': typeof HomeworkRoute
+  '/inbox': typeof InboxRoute
+  '/library': typeof LibraryRoute
   '/notes': typeof NotesRoute
+  '/notifications': typeof NotificationsRoute
   '/patients': typeof PatientsRouteWithChildren
-  '/resources': typeof ResourcesRoute
+  '/payments': typeof PaymentsRoute
+  '/payouts': typeof PayoutsRoute
+  '/peers': typeof PeersRoute
+  '/prescriptions': typeof PrescriptionsRoute
+  '/profile-public': typeof ProfilePublicRoute
+  '/referrals': typeof ReferralsRoute
+  '/research': typeof ResearchRoute
+  '/reviews': typeof ReviewsRoute
+  '/risk': typeof RiskRoute
   '/schedule': typeof ScheduleRoute
+  '/services': typeof ServicesRoute
   '/sessions': typeof SessionsRoute
   '/settings': typeof SettingsRouteWithChildren
+  '/supervision': typeof SupervisionRoute
+  '/support': typeof SupportRoute
+  '/templates': typeof TemplatesRoute
+  '/treatment-plans': typeof TreatmentPlansRoute
+  '/waitlist': typeof WaitlistRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/compliance/audit': typeof ComplianceAuditRoute
+  '/compliance/consent': typeof ComplianceConsentRoute
+  '/compliance/export': typeof ComplianceExportRoute
   '/patients/$id': typeof PatientsIdRoute
   '/settings/about': typeof SettingsAboutRoute
   '/settings/appearance': typeof SettingsAppearanceRoute
@@ -307,19 +541,45 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/alerts'
+    | '/analytics'
+    | '/assessments'
     | '/auth'
-    | '/billing'
+    | '/availability'
+    | '/case-conferences'
+    | '/cpd'
     | '/dashboard'
-    | '/insights'
-    | '/messages'
+    | '/documents'
+    | '/groups'
+    | '/homework'
+    | '/inbox'
+    | '/library'
     | '/notes'
+    | '/notifications'
     | '/patients'
-    | '/resources'
+    | '/payments'
+    | '/payouts'
+    | '/peers'
+    | '/prescriptions'
+    | '/profile-public'
+    | '/referrals'
+    | '/research'
+    | '/reviews'
+    | '/risk'
     | '/schedule'
+    | '/services'
     | '/sessions'
     | '/settings'
+    | '/supervision'
+    | '/support'
+    | '/templates'
+    | '/treatment-plans'
+    | '/waitlist'
     | '/auth/login'
     | '/auth/signup'
+    | '/compliance/audit'
+    | '/compliance/consent'
+    | '/compliance/export'
     | '/patients/$id'
     | '/settings/about'
     | '/settings/appearance'
@@ -341,16 +601,42 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/billing'
+    | '/alerts'
+    | '/analytics'
+    | '/assessments'
+    | '/availability'
+    | '/case-conferences'
+    | '/cpd'
     | '/dashboard'
-    | '/insights'
-    | '/messages'
+    | '/documents'
+    | '/groups'
+    | '/homework'
+    | '/inbox'
+    | '/library'
     | '/notes'
-    | '/resources'
+    | '/notifications'
+    | '/payments'
+    | '/payouts'
+    | '/peers'
+    | '/prescriptions'
+    | '/profile-public'
+    | '/referrals'
+    | '/research'
+    | '/reviews'
+    | '/risk'
     | '/schedule'
+    | '/services'
     | '/sessions'
+    | '/supervision'
+    | '/support'
+    | '/templates'
+    | '/treatment-plans'
+    | '/waitlist'
     | '/auth/login'
     | '/auth/signup'
+    | '/compliance/audit'
+    | '/compliance/consent'
+    | '/compliance/export'
     | '/patients/$id'
     | '/settings/about'
     | '/settings/appearance'
@@ -372,19 +658,45 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/alerts'
+    | '/analytics'
+    | '/assessments'
     | '/auth'
-    | '/billing'
+    | '/availability'
+    | '/case-conferences'
+    | '/cpd'
     | '/dashboard'
-    | '/insights'
-    | '/messages'
+    | '/documents'
+    | '/groups'
+    | '/homework'
+    | '/inbox'
+    | '/library'
     | '/notes'
+    | '/notifications'
     | '/patients'
-    | '/resources'
+    | '/payments'
+    | '/payouts'
+    | '/peers'
+    | '/prescriptions'
+    | '/profile-public'
+    | '/referrals'
+    | '/research'
+    | '/reviews'
+    | '/risk'
     | '/schedule'
+    | '/services'
     | '/sessions'
     | '/settings'
+    | '/supervision'
+    | '/support'
+    | '/templates'
+    | '/treatment-plans'
+    | '/waitlist'
     | '/auth/login'
     | '/auth/signup'
+    | '/compliance/audit'
+    | '/compliance/consent'
+    | '/compliance/export'
     | '/patients/$id'
     | '/settings/about'
     | '/settings/appearance'
@@ -407,21 +719,82 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AlertsRoute: typeof AlertsRoute
+  AnalyticsRoute: typeof AnalyticsRoute
+  AssessmentsRoute: typeof AssessmentsRoute
   AuthRoute: typeof AuthRouteWithChildren
-  BillingRoute: typeof BillingRoute
+  AvailabilityRoute: typeof AvailabilityRoute
+  CaseConferencesRoute: typeof CaseConferencesRoute
+  CpdRoute: typeof CpdRoute
   DashboardRoute: typeof DashboardRoute
-  InsightsRoute: typeof InsightsRoute
-  MessagesRoute: typeof MessagesRoute
+  DocumentsRoute: typeof DocumentsRoute
+  GroupsRoute: typeof GroupsRoute
+  HomeworkRoute: typeof HomeworkRoute
+  InboxRoute: typeof InboxRoute
+  LibraryRoute: typeof LibraryRoute
   NotesRoute: typeof NotesRoute
+  NotificationsRoute: typeof NotificationsRoute
   PatientsRoute: typeof PatientsRouteWithChildren
-  ResourcesRoute: typeof ResourcesRoute
+  PaymentsRoute: typeof PaymentsRoute
+  PayoutsRoute: typeof PayoutsRoute
+  PeersRoute: typeof PeersRoute
+  PrescriptionsRoute: typeof PrescriptionsRoute
+  ProfilePublicRoute: typeof ProfilePublicRoute
+  ReferralsRoute: typeof ReferralsRoute
+  ResearchRoute: typeof ResearchRoute
+  ReviewsRoute: typeof ReviewsRoute
+  RiskRoute: typeof RiskRoute
   ScheduleRoute: typeof ScheduleRoute
+  ServicesRoute: typeof ServicesRoute
   SessionsRoute: typeof SessionsRoute
   SettingsRoute: typeof SettingsRouteWithChildren
+  SupervisionRoute: typeof SupervisionRoute
+  SupportRoute: typeof SupportRoute
+  TemplatesRoute: typeof TemplatesRoute
+  TreatmentPlansRoute: typeof TreatmentPlansRoute
+  WaitlistRoute: typeof WaitlistRoute
+  ComplianceAuditRoute: typeof ComplianceAuditRoute
+  ComplianceConsentRoute: typeof ComplianceConsentRoute
+  ComplianceExportRoute: typeof ComplianceExportRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/waitlist': {
+      id: '/waitlist'
+      path: '/waitlist'
+      fullPath: '/waitlist'
+      preLoaderRoute: typeof WaitlistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/treatment-plans': {
+      id: '/treatment-plans'
+      path: '/treatment-plans'
+      fullPath: '/treatment-plans'
+      preLoaderRoute: typeof TreatmentPlansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/templates': {
+      id: '/templates'
+      path: '/templates'
+      fullPath: '/templates'
+      preLoaderRoute: typeof TemplatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/supervision': {
+      id: '/supervision'
+      path: '/supervision'
+      fullPath: '/supervision'
+      preLoaderRoute: typeof SupervisionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/settings': {
       id: '/settings'
       path: '/settings'
@@ -436,6 +809,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SessionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/schedule': {
       id: '/schedule'
       path: '/schedule'
@@ -443,11 +823,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ScheduleRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/resources': {
-      id: '/resources'
-      path: '/resources'
-      fullPath: '/resources'
-      preLoaderRoute: typeof ResourcesRouteImport
+    '/risk': {
+      id: '/risk'
+      path: '/risk'
+      fullPath: '/risk'
+      preLoaderRoute: typeof RiskRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reviews': {
+      id: '/reviews'
+      path: '/reviews'
+      fullPath: '/reviews'
+      preLoaderRoute: typeof ReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/research': {
+      id: '/research'
+      path: '/research'
+      fullPath: '/research'
+      preLoaderRoute: typeof ResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/referrals': {
+      id: '/referrals'
+      path: '/referrals'
+      fullPath: '/referrals'
+      preLoaderRoute: typeof ReferralsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile-public': {
+      id: '/profile-public'
+      path: '/profile-public'
+      fullPath: '/profile-public'
+      preLoaderRoute: typeof ProfilePublicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/prescriptions': {
+      id: '/prescriptions'
+      path: '/prescriptions'
+      fullPath: '/prescriptions'
+      preLoaderRoute: typeof PrescriptionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/peers': {
+      id: '/peers'
+      path: '/peers'
+      fullPath: '/peers'
+      preLoaderRoute: typeof PeersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payouts': {
+      id: '/payouts'
+      path: '/payouts'
+      fullPath: '/payouts'
+      preLoaderRoute: typeof PayoutsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payments': {
+      id: '/payments'
+      path: '/payments'
+      fullPath: '/payments'
+      preLoaderRoute: typeof PaymentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/patients': {
@@ -457,6 +893,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PatientsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/notes': {
       id: '/notes'
       path: '/notes'
@@ -464,18 +907,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/messages': {
-      id: '/messages'
-      path: '/messages'
-      fullPath: '/messages'
-      preLoaderRoute: typeof MessagesRouteImport
+    '/library': {
+      id: '/library'
+      path: '/library'
+      fullPath: '/library'
+      preLoaderRoute: typeof LibraryRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/insights': {
-      id: '/insights'
-      path: '/insights'
-      fullPath: '/insights'
-      preLoaderRoute: typeof InsightsRouteImport
+    '/inbox': {
+      id: '/inbox'
+      path: '/inbox'
+      fullPath: '/inbox'
+      preLoaderRoute: typeof InboxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/homework': {
+      id: '/homework'
+      path: '/homework'
+      fullPath: '/homework'
+      preLoaderRoute: typeof HomeworkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/groups': {
+      id: '/groups'
+      path: '/groups'
+      fullPath: '/groups'
+      preLoaderRoute: typeof GroupsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents': {
+      id: '/documents'
+      path: '/documents'
+      fullPath: '/documents'
+      preLoaderRoute: typeof DocumentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -485,11 +949,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/billing': {
-      id: '/billing'
-      path: '/billing'
-      fullPath: '/billing'
-      preLoaderRoute: typeof BillingRouteImport
+    '/cpd': {
+      id: '/cpd'
+      path: '/cpd'
+      fullPath: '/cpd'
+      preLoaderRoute: typeof CpdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/case-conferences': {
+      id: '/case-conferences'
+      path: '/case-conferences'
+      fullPath: '/case-conferences'
+      preLoaderRoute: typeof CaseConferencesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/availability': {
+      id: '/availability'
+      path: '/availability'
+      fullPath: '/availability'
+      preLoaderRoute: typeof AvailabilityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -497,6 +975,27 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assessments': {
+      id: '/assessments'
+      path: '/assessments'
+      fullPath: '/assessments'
+      preLoaderRoute: typeof AssessmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/analytics': {
+      id: '/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alerts': {
+      id: '/alerts'
+      path: '/alerts'
+      fullPath: '/alerts'
+      preLoaderRoute: typeof AlertsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -632,6 +1131,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PatientsIdRouteImport
       parentRoute: typeof PatientsRoute
     }
+    '/compliance/export': {
+      id: '/compliance/export'
+      path: '/compliance/export'
+      fullPath: '/compliance/export'
+      preLoaderRoute: typeof ComplianceExportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compliance/consent': {
+      id: '/compliance/consent'
+      path: '/compliance/consent'
+      fullPath: '/compliance/consent'
+      preLoaderRoute: typeof ComplianceConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compliance/audit': {
+      id: '/compliance/audit'
+      path: '/compliance/audit'
+      fullPath: '/compliance/audit'
+      preLoaderRoute: typeof ComplianceAuditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth/signup': {
       id: '/auth/signup'
       path: '/signup'
@@ -719,17 +1239,43 @@ const SettingsRouteWithChildren = SettingsRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AlertsRoute: AlertsRoute,
+  AnalyticsRoute: AnalyticsRoute,
+  AssessmentsRoute: AssessmentsRoute,
   AuthRoute: AuthRouteWithChildren,
-  BillingRoute: BillingRoute,
+  AvailabilityRoute: AvailabilityRoute,
+  CaseConferencesRoute: CaseConferencesRoute,
+  CpdRoute: CpdRoute,
   DashboardRoute: DashboardRoute,
-  InsightsRoute: InsightsRoute,
-  MessagesRoute: MessagesRoute,
+  DocumentsRoute: DocumentsRoute,
+  GroupsRoute: GroupsRoute,
+  HomeworkRoute: HomeworkRoute,
+  InboxRoute: InboxRoute,
+  LibraryRoute: LibraryRoute,
   NotesRoute: NotesRoute,
+  NotificationsRoute: NotificationsRoute,
   PatientsRoute: PatientsRouteWithChildren,
-  ResourcesRoute: ResourcesRoute,
+  PaymentsRoute: PaymentsRoute,
+  PayoutsRoute: PayoutsRoute,
+  PeersRoute: PeersRoute,
+  PrescriptionsRoute: PrescriptionsRoute,
+  ProfilePublicRoute: ProfilePublicRoute,
+  ReferralsRoute: ReferralsRoute,
+  ResearchRoute: ResearchRoute,
+  ReviewsRoute: ReviewsRoute,
+  RiskRoute: RiskRoute,
   ScheduleRoute: ScheduleRoute,
+  ServicesRoute: ServicesRoute,
   SessionsRoute: SessionsRoute,
   SettingsRoute: SettingsRouteWithChildren,
+  SupervisionRoute: SupervisionRoute,
+  SupportRoute: SupportRoute,
+  TemplatesRoute: TemplatesRoute,
+  TreatmentPlansRoute: TreatmentPlansRoute,
+  WaitlistRoute: WaitlistRoute,
+  ComplianceAuditRoute: ComplianceAuditRoute,
+  ComplianceConsentRoute: ComplianceConsentRoute,
+  ComplianceExportRoute: ComplianceExportRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
