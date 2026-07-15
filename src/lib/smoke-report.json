@@ -1,9 +1,9 @@
 {
-  "startedAt": 1784116180559,
-  "finishedAt": 1784116191854,
+  "startedAt": 1784116499193,
+  "finishedAt": 1784116637887,
   "total": 18,
-  "passed": 4,
-  "failed": 0,
+  "passed": 3,
+  "failed": 15,
   "routes": [
     {
       "name": "home",
@@ -19,16 +19,16 @@
       "path": "/patients",
       "ok": true,
       "detail": "clean",
-      "mainChars": 2041,
+      "mainChars": 2040,
       "deadControls": 0,
-      "consoleErrors": 1
+      "consoleErrors": 0
     },
     {
       "name": "sessions",
       "path": "/calendar",
-      "ok": true,
-      "detail": "clean",
-      "mainChars": 1615,
+      "ok": false,
+      "detail": "empty main (17 chars)",
+      "mainChars": 17,
       "deadControls": 0,
       "consoleErrors": 0
     },
@@ -40,7 +40,93 @@
       "mainChars": 554,
       "deadControls": 0,
       "consoleErrors": 0
+    },
+    {
+      "name": "assessments",
+      "path": "/assessments",
+      "ok": false,
+      "detail": "no <main>",
+      "mainChars": 0,
+      "deadControls": 0,
+      "consoleErrors": 0
+    },
+    {
+      "name": "billing",
+      "path": "/billing",
+      "ok": false,
+      "detail": "nav failed: Page.goto: Timeout 10000ms exceeded.\nCall log:\n  - navigating to \"http://localhost:8080/billing\", waiting until \"load\"\n"
+    },
+    {
+      "name": "calendar",
+      "path": "/calendar",
+      "ok": false,
+      "detail": "nav failed: Page.goto: Timeout 10000ms exceeded.\nCall log:\n  - navigating to \"http://localhost:8080/calendar\", waiting until \"load\"\n"
+    },
+    {
+      "name": "documents",
+      "path": "/documents",
+      "ok": false,
+      "detail": "nav failed: Page.goto: Timeout 10000ms exceeded.\nCall log:\n  - navigating to \"http://localhost:8080/documents\", waiting until \"load\"\n"
+    },
+    {
+      "name": "messaging",
+      "path": "/messaging",
+      "ok": false,
+      "detail": "nav failed: Page.goto: Timeout 10000ms exceeded.\nCall log:\n  - navigating to \"http://localhost:8080/messaging\", waiting until \"load\"\n"
+    },
+    {
+      "name": "reports",
+      "path": "/analytics",
+      "ok": false,
+      "detail": "nav failed: Page.goto: Timeout 10000ms exceeded.\nCall log:\n  - navigating to \"http://localhost:8080/analytics\", waiting until \"load\"\n"
+    },
+    {
+      "name": "team",
+      "path": "/settings/team",
+      "ok": false,
+      "detail": "nav failed: Page.goto: Timeout 10000ms exceeded.\nCall log:\n  - navigating to \"http://localhost:8080/settings/team\", waiting until \"load\"\n"
+    },
+    {
+      "name": "client-portal",
+      "path": "/portal",
+      "ok": false,
+      "detail": "nav failed: Page.goto: Timeout 10000ms exceeded.\nCall log:\n  - navigating to \"http://localhost:8080/portal\", waiting until \"load\"\n"
+    },
+    {
+      "name": "integrations",
+      "path": "/integrations",
+      "ok": false,
+      "detail": "nav failed: Page.goto: Timeout 10000ms exceeded.\nCall log:\n  - navigating to \"http://localhost:8080/integrations\", waiting until \"load\"\n"
+    },
+    {
+      "name": "inbox",
+      "path": "/inbox",
+      "ok": false,
+      "detail": "nav failed: Page.goto: Timeout 10000ms exceeded.\nCall log:\n  - navigating to \"http://localhost:8080/inbox\", waiting until \"load\"\n"
+    },
+    {
+      "name": "copilot",
+      "path": "/copilot",
+      "ok": false,
+      "detail": "nav failed: Page.goto: Timeout 10000ms exceeded.\nCall log:\n  - navigating to \"http://localhost:8080/copilot\", waiting until \"load\"\n"
+    },
+    {
+      "name": "governance",
+      "path": "/governance",
+      "ok": false,
+      "detail": "nav failed: Page.goto: Timeout 10000ms exceeded.\nCall log:\n  - navigating to \"http://localhost:8080/governance\", waiting until \"load\"\n"
+    },
+    {
+      "name": "settings",
+      "path": "/settings",
+      "ok": false,
+      "detail": "nav failed: Page.goto: Timeout 10000ms exceeded.\nCall log:\n  - navigating to \"http://localhost:8080/settings\", waiting until \"load\"\n"
+    },
+    {
+      "name": "admin",
+      "path": "/admin/launch-readiness",
+      "ok": false,
+      "detail": "nav failed: Page.goto: Timeout 10000ms exceeded.\nCall log:\n  - navigating to \"http://localhost:8080/admin/launch-readiness\", waiting until \"load\"\n"
     }
-  ],
-  "partial": true
+  ]
 }
