@@ -10,6 +10,7 @@ import { ContinuityTimeline } from "@/components/viz/ContinuityTimeline";
 import { MoodDeltaChart, type MoodPoint } from "@/components/viz/MoodDeltaChart";
 import { RiskRadial } from "@/components/viz/RiskRadial";
 import { useHydrated } from "@/lib/use-hydrated";
+import { ContinuityBriefCard } from "@/components/practice/copilot/ContinuityBriefCard";
 
 export const Route = createFileRoute("/sessions/$id/")({
   head: () => ({ meta: [{ title: "Session prep — PeaceCode · Practice" }] }),
