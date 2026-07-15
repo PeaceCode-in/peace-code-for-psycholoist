@@ -1,11 +1,21 @@
-// /admin/launch-readiness — internal pre-flight before public launch.
-// Auto-checks what it can from real store state, manual toggles for the rest.
+// /admin/launch-readiness — internal pre-flight, wired to live smoke + audit reports.
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { AppShell } from "@/components/practice/AppShell";
 import { Check, Circle, ShieldCheck } from "lucide-react";
+import smokeReport from "@/lib/smoke-report.json";
+import auditReport from "@/lib/audit-report.json";
 
 export const Route = createFileRoute("/admin/launch-readiness")({
+  head: () => ({
+    meta: [
+      { title: "Launch Readiness — PeaceCode" },
+      { name: "description", content: "Pre-flight checklist before public launch." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+  }),
+  component: LaunchReadiness,
+});
   head: () => ({
     meta: [
       { title: "Launch Readiness — PeaceCode" },
