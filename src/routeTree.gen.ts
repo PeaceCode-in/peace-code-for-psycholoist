@@ -160,8 +160,10 @@ import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as AssessmentsLibraryRouteImport } from './routes/assessments.library'
 import { Route as AssessmentsAssignmentsRouteImport } from './routes/assessments.assignments'
+import { Route as AdminWireUpReportRouteImport } from './routes/admin.wire-up-report'
 import { Route as AdminOnboardingSignalsRouteImport } from './routes/admin.onboarding-signals'
 import { Route as AdminLaunchReadinessRouteImport } from './routes/admin.launch-readiness'
+import { Route as AdminHardcodeReportRouteImport } from './routes/admin.hardcode-report'
 import { Route as SessionsIdIndexRouteImport } from './routes/sessions.$id.index'
 import { Route as PatientsPidIndexRouteImport } from './routes/patients.$pid.index'
 import { Route as BillingInvoicesIndexRouteImport } from './routes/billing.invoices.index'
@@ -950,6 +952,11 @@ const AssessmentsAssignmentsRoute = AssessmentsAssignmentsRouteImport.update({
   path: '/assignments',
   getParentRoute: () => AssessmentsRoute,
 } as any)
+const AdminWireUpReportRoute = AdminWireUpReportRouteImport.update({
+  id: '/admin/wire-up-report',
+  path: '/admin/wire-up-report',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminOnboardingSignalsRoute = AdminOnboardingSignalsRouteImport.update({
   id: '/admin/onboarding-signals',
   path: '/admin/onboarding-signals',
@@ -958,6 +965,11 @@ const AdminOnboardingSignalsRoute = AdminOnboardingSignalsRouteImport.update({
 const AdminLaunchReadinessRoute = AdminLaunchReadinessRouteImport.update({
   id: '/admin/launch-readiness',
   path: '/admin/launch-readiness',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminHardcodeReportRoute = AdminHardcodeReportRouteImport.update({
+  id: '/admin/hardcode-report',
+  path: '/admin/hardcode-report',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SessionsIdIndexRoute = SessionsIdIndexRouteImport.update({
@@ -1159,8 +1171,10 @@ export interface FileRoutesByFullPath {
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
   '/welcome': typeof WelcomeRouteWithChildren
+  '/admin/hardcode-report': typeof AdminHardcodeReportRoute
   '/admin/launch-readiness': typeof AdminLaunchReadinessRoute
   '/admin/onboarding-signals': typeof AdminOnboardingSignalsRoute
+  '/admin/wire-up-report': typeof AdminWireUpReportRoute
   '/assessments/assignments': typeof AssessmentsAssignmentsRoute
   '/assessments/library': typeof AssessmentsLibraryRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
@@ -1331,8 +1345,10 @@ export interface FileRoutesByTo {
   '/templates': typeof TemplatesRoute
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
+  '/admin/hardcode-report': typeof AdminHardcodeReportRoute
   '/admin/launch-readiness': typeof AdminLaunchReadinessRoute
   '/admin/onboarding-signals': typeof AdminOnboardingSignalsRoute
+  '/admin/wire-up-report': typeof AdminWireUpReportRoute
   '/assessments/assignments': typeof AssessmentsAssignmentsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
@@ -1511,8 +1527,10 @@ export interface FileRoutesById {
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
   '/welcome': typeof WelcomeRouteWithChildren
+  '/admin/hardcode-report': typeof AdminHardcodeReportRoute
   '/admin/launch-readiness': typeof AdminLaunchReadinessRoute
   '/admin/onboarding-signals': typeof AdminOnboardingSignalsRoute
+  '/admin/wire-up-report': typeof AdminWireUpReportRoute
   '/assessments/assignments': typeof AssessmentsAssignmentsRoute
   '/assessments/library': typeof AssessmentsLibraryRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
@@ -1698,8 +1716,10 @@ export interface FileRouteTypes {
     | '/treatment-plans'
     | '/waitlist'
     | '/welcome'
+    | '/admin/hardcode-report'
     | '/admin/launch-readiness'
     | '/admin/onboarding-signals'
+    | '/admin/wire-up-report'
     | '/assessments/assignments'
     | '/assessments/library'
     | '/auth/login'
@@ -1870,8 +1890,10 @@ export interface FileRouteTypes {
     | '/templates'
     | '/treatment-plans'
     | '/waitlist'
+    | '/admin/hardcode-report'
     | '/admin/launch-readiness'
     | '/admin/onboarding-signals'
+    | '/admin/wire-up-report'
     | '/assessments/assignments'
     | '/auth/login'
     | '/auth/signup'
@@ -2049,8 +2071,10 @@ export interface FileRouteTypes {
     | '/treatment-plans'
     | '/waitlist'
     | '/welcome'
+    | '/admin/hardcode-report'
     | '/admin/launch-readiness'
     | '/admin/onboarding-signals'
+    | '/admin/wire-up-report'
     | '/assessments/assignments'
     | '/assessments/library'
     | '/auth/login'
@@ -2235,8 +2259,10 @@ export interface RootRouteChildren {
   TreatmentPlansRoute: typeof TreatmentPlansRoute
   WaitlistRoute: typeof WaitlistRoute
   WelcomeRoute: typeof WelcomeRouteWithChildren
+  AdminHardcodeReportRoute: typeof AdminHardcodeReportRoute
   AdminLaunchReadinessRoute: typeof AdminLaunchReadinessRoute
   AdminOnboardingSignalsRoute: typeof AdminOnboardingSignalsRoute
+  AdminWireUpReportRoute: typeof AdminWireUpReportRoute
   CalendarAgendaRoute: typeof CalendarAgendaRoute
   CalendarAvailabilityRoute: typeof CalendarAvailabilityRoute
   CalendarBookingLinkRoute: typeof CalendarBookingLinkRoute
@@ -3310,6 +3336,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AssessmentsAssignmentsRouteImport
       parentRoute: typeof AssessmentsRoute
     }
+    '/admin/wire-up-report': {
+      id: '/admin/wire-up-report'
+      path: '/admin/wire-up-report'
+      fullPath: '/admin/wire-up-report'
+      preLoaderRoute: typeof AdminWireUpReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/onboarding-signals': {
       id: '/admin/onboarding-signals'
       path: '/admin/onboarding-signals'
@@ -3322,6 +3355,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/launch-readiness'
       fullPath: '/admin/launch-readiness'
       preLoaderRoute: typeof AdminLaunchReadinessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/hardcode-report': {
+      id: '/admin/hardcode-report'
+      path: '/admin/hardcode-report'
+      fullPath: '/admin/hardcode-report'
+      preLoaderRoute: typeof AdminHardcodeReportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sessions/$id/': {
@@ -4051,8 +4091,10 @@ const rootRouteChildren: RootRouteChildren = {
   TreatmentPlansRoute: TreatmentPlansRoute,
   WaitlistRoute: WaitlistRoute,
   WelcomeRoute: WelcomeRouteWithChildren,
+  AdminHardcodeReportRoute: AdminHardcodeReportRoute,
   AdminLaunchReadinessRoute: AdminLaunchReadinessRoute,
   AdminOnboardingSignalsRoute: AdminOnboardingSignalsRoute,
+  AdminWireUpReportRoute: AdminWireUpReportRoute,
   CalendarAgendaRoute: CalendarAgendaRoute,
   CalendarAvailabilityRoute: CalendarAvailabilityRoute,
   CalendarBookingLinkRoute: CalendarBookingLinkRoute,
