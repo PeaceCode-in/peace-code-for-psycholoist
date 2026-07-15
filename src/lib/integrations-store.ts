@@ -461,8 +461,10 @@ function seedIfNeeded() {
     },
   };
   const activity: ActivityEvent[] = [];
-  const seedEvents = (slug: string, entries: [number, ActivityEvent["kind"], string, string?, number?, "GET" | "POST" | "PUT" | "DELETE"?][]) => {
-    entries.forEach(([offsetMin, kind, summary, path, status, method], i) => {
+  type SeedEntry = [number, ActivityEvent["kind"], string] | [number, ActivityEvent["kind"], string, string, number, "GET" | "POST" | "PUT" | "DELETE"];
+  const seedEvents = (slug: string, entries: SeedEntry[]) => {
+    entries.forEach((entry, i) => {
+      const [offsetMin, kind, summary, path, status, method] = entry;
       activity.push({ id: `${slug}_${i}_${offsetMin}`, slug, at: now - offsetMin * 60 * 1000, kind, actor: "system", summary, path, status, method });
     });
   };
