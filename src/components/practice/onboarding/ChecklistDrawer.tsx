@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 import { dismissChecklist, dismissChecklistItem, useChecklist, useOnboarding, clearSampleData } from "@/lib/onboarding-store";
 import { X, ListChecks } from "lucide-react";
 import { palette } from "@/components/practice/palette";
+import { useHydrated } from "@/lib/use-hydrated";
 
 export function ChecklistDrawer() {
   const items = useChecklist();
   const s = useOnboarding();
   const [open, setOpen] = useState(false);
+  const hydrated = useHydrated();
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -20,9 +22,10 @@ export function ChecklistDrawer() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  if (s.checklistDismissed) return null;
+  if (hydrated && s.checklistDismissed) return null;
 
-  const done = items.filter((i) => i.done).length;
+  const done = hydrated ? items.filter((i) => i.done).length : 0;
+  const total = hydrated ? items.length : 6;
 
   return (
     <>
@@ -34,10 +37,10 @@ export function ChecklistDrawer() {
       >
         <ListChecks className="h-3.5 w-3.5" style={{ color: palette.primary }} />
         <span>First week</span>
-        <span style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace", fontSize: 10.5, letterSpacing: "0.14em" }}>{done}/{items.length}</span>
+        <span style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace", fontSize: 10.5, letterSpacing: "0.14em" }}>{done}/{total}</span>
       </button>
 
-      {open && (
+      {hydrated && open && (
         <div className="fixed inset-0 z-50" onClick={() => setOpen(false)} style={{ background: "rgba(30,20,24,0.28)", backdropFilter: "blur(6px)" }}>
           <aside
             onClick={(e) => e.stopPropagation()}
@@ -89,7 +92,7 @@ export function ChecklistDrawer() {
               )}
             </ul>
 
-            {s.sampleDataMode && (
+            {hydrated && s.sampleDataMode && (
               <div className="mt-4 rounded-xl p-3 text-[12px] flex items-center justify-between" style={{ background: "rgba(176,86,122,0.06)", border: `1px solid ${palette.border}` }}>
                 <span style={{ color: palette.muted }}>Sample patients active</span>
                 <button onClick={clearSampleData} className="underline underline-offset-2" style={{ color: palette.primary }}>clear</button>
