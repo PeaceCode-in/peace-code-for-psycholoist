@@ -413,6 +413,30 @@ export function useSettings(): [Settings, (patch: (s: Settings) => Settings, act
   return [s, update];
 }
 
+// ─── Tube sidebar pinned state ───────────────────────────────
+const SIDEBAR_PIN_KEY = "peacecode.sidebar.pinned";
+export function loadSidebarPinned(): boolean {
+  if (typeof window === "undefined") return false;
+  try { return window.localStorage.getItem(SIDEBAR_PIN_KEY) === "1"; } catch { return false; }
+}
+export function saveSidebarPinned(v: boolean) {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(SIDEBAR_PIN_KEY, v ? "1" : "0");
+    window.dispatchEvent(new CustomEvent("peacecode-sidebar-pin", { detail: v }));
+  } catch {}
+}
+export function useSidebarPinned(): [boolean, (v: boolean) => void] {
+  const [v, setV] = useState<boolean>(false);
+  useEffect(() => {
+    setV(loadSidebarPinned());
+    const on = (e: Event) => setV(!!(e as CustomEvent<boolean>).detail);
+    window.addEventListener("peacecode-sidebar-pin", on);
+    return () => window.removeEventListener("peacecode-sidebar-pin", on);
+  }, []);
+  return [v, (n: boolean) => { setV(n); saveSidebarPinned(n); }];
+}
+
 // ─── Search index for settings ───────────────────────────────
 export const SETTINGS_INDEX: { label: string; to: string; hint: string; keywords: string[] }[] = [
   { label: "Profile", to: "/settings/profile", hint: "name, college, bio, birthday", keywords: ["profile","name","bio","student","college","photo","birthday","timezone","pronouns","interests","emergency"] },
