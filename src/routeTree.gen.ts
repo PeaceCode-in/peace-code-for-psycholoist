@@ -119,7 +119,9 @@ import { Route as IntegrationsAutomationsRouteImport } from './routes/integratio
 import { Route as IntegrationsSlugRouteImport } from './routes/integrations.$slug'
 import { Route as InboxTasksRouteImport } from './routes/inbox.tasks'
 import { Route as InboxDailyBriefRouteImport } from './routes/inbox.daily-brief'
+import { Route as DocumentsWorksheetsRouteImport } from './routes/documents.worksheets'
 import { Route as DocumentsNewRouteImport } from './routes/documents.new'
+import { Route as DocumentsIdRouteImport } from './routes/documents.$id'
 import { Route as ComplianceExportRouteImport } from './routes/compliance.export'
 import { Route as ComplianceConsentRouteImport } from './routes/compliance.consent'
 import { Route as ComplianceAuditRouteImport } from './routes/compliance.audit'
@@ -148,6 +150,7 @@ import { Route as SessionsDayDateRouteImport } from './routes/sessions.day.$date
 import { Route as SessionsIdWrapRouteImport } from './routes/sessions.$id.wrap'
 import { Route as SessionsIdRoomRouteImport } from './routes/sessions.$id.room'
 import { Route as PortalMessagesThreadIdRouteImport } from './routes/portal.messages.$threadId'
+import { Route as PortalDocumentsTokenRouteImport } from './routes/portal.documents.$token'
 import { Route as PortalAssessmentsIdRouteImport } from './routes/portal.assessments.$id'
 import { Route as PatientsPidTimelineRouteImport } from './routes/patients.$pid.timeline'
 import { Route as PatientsPidNotesRouteImport } from './routes/patients.$pid.notes'
@@ -155,6 +158,7 @@ import { Route as PatientsPidDocumentsRouteImport } from './routes/patients.$pid
 import { Route as PatientsPidChartRouteImport } from './routes/patients.$pid.chart'
 import { Route as PatientsPidBillingRouteImport } from './routes/patients.$pid.billing'
 import { Route as PatientsPidAssessmentsRouteImport } from './routes/patients.$pid.assessments'
+import { Route as DocumentsCertificateIdRouteImport } from './routes/documents.certificate.$id'
 import { Route as CalendarBookSlugRouteImport } from './routes/calendar.book.$slug'
 import { Route as BillingInvoicesNewRouteImport } from './routes/billing.invoices.new'
 import { Route as BillingInvoicesIdRouteImport } from './routes/billing.invoices.$id'
@@ -719,9 +723,19 @@ const InboxDailyBriefRoute = InboxDailyBriefRouteImport.update({
   path: '/daily-brief',
   getParentRoute: () => InboxRoute,
 } as any)
+const DocumentsWorksheetsRoute = DocumentsWorksheetsRouteImport.update({
+  id: '/worksheets',
+  path: '/worksheets',
+  getParentRoute: () => DocumentsRoute,
+} as any)
 const DocumentsNewRoute = DocumentsNewRouteImport.update({
   id: '/new',
   path: '/new',
+  getParentRoute: () => DocumentsRoute,
+} as any)
+const DocumentsIdRoute = DocumentsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
   getParentRoute: () => DocumentsRoute,
 } as any)
 const ComplianceExportRoute = ComplianceExportRouteImport.update({
@@ -864,6 +878,11 @@ const PortalMessagesThreadIdRoute = PortalMessagesThreadIdRouteImport.update({
   path: '/$threadId',
   getParentRoute: () => PortalMessagesRoute,
 } as any)
+const PortalDocumentsTokenRoute = PortalDocumentsTokenRouteImport.update({
+  id: '/$token',
+  path: '/$token',
+  getParentRoute: () => PortalDocumentsRoute,
+} as any)
 const PortalAssessmentsIdRoute = PortalAssessmentsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -898,6 +917,11 @@ const PatientsPidAssessmentsRoute = PatientsPidAssessmentsRouteImport.update({
   id: '/assessments',
   path: '/assessments',
   getParentRoute: () => PatientsPidRoute,
+} as any)
+const DocumentsCertificateIdRoute = DocumentsCertificateIdRouteImport.update({
+  id: '/certificate/$id',
+  path: '/certificate/$id',
+  getParentRoute: () => DocumentsRoute,
 } as any)
 const CalendarBookSlugRoute = CalendarBookSlugRouteImport.update({
   id: '/calendar/book/$slug',
@@ -1019,7 +1043,9 @@ export interface FileRoutesByFullPath {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
+  '/documents/$id': typeof DocumentsIdRoute
   '/documents/new': typeof DocumentsNewRoute
+  '/documents/worksheets': typeof DocumentsWorksheetsRoute
   '/inbox/daily-brief': typeof InboxDailyBriefRoute
   '/inbox/tasks': typeof InboxTasksRoute
   '/integrations/$slug': typeof IntegrationsSlugRoute
@@ -1037,7 +1063,7 @@ export interface FileRoutesByFullPath {
   '/portal/auth': typeof PortalAuthRoute
   '/portal/billing': typeof PortalBillingRoute
   '/portal/crisis': typeof PortalCrisisRoute
-  '/portal/documents': typeof PortalDocumentsRoute
+  '/portal/documents': typeof PortalDocumentsRouteWithChildren
   '/portal/homework': typeof PortalHomeworkRoute
   '/portal/messages': typeof PortalMessagesRouteWithChildren
   '/portal/onboarding': typeof PortalOnboardingRoute
@@ -1097,6 +1123,7 @@ export interface FileRoutesByFullPath {
   '/billing/invoices/$id': typeof BillingInvoicesIdRoute
   '/billing/invoices/new': typeof BillingInvoicesNewRoute
   '/calendar/book/$slug': typeof CalendarBookSlugRoute
+  '/documents/certificate/$id': typeof DocumentsCertificateIdRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/billing': typeof PatientsPidBillingRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
@@ -1104,6 +1131,7 @@ export interface FileRoutesByFullPath {
   '/patients/$pid/notes': typeof PatientsPidNotesRouteWithChildren
   '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
   '/portal/assessments/$id': typeof PortalAssessmentsIdRoute
+  '/portal/documents/$token': typeof PortalDocumentsTokenRoute
   '/portal/messages/$threadId': typeof PortalMessagesThreadIdRoute
   '/sessions/$id/room': typeof SessionsIdRoomRoute
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
@@ -1164,7 +1192,9 @@ export interface FileRoutesByTo {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
+  '/documents/$id': typeof DocumentsIdRoute
   '/documents/new': typeof DocumentsNewRoute
+  '/documents/worksheets': typeof DocumentsWorksheetsRoute
   '/inbox/daily-brief': typeof InboxDailyBriefRoute
   '/inbox/tasks': typeof InboxTasksRoute
   '/integrations/$slug': typeof IntegrationsSlugRoute
@@ -1181,7 +1211,7 @@ export interface FileRoutesByTo {
   '/portal/auth': typeof PortalAuthRoute
   '/portal/billing': typeof PortalBillingRoute
   '/portal/crisis': typeof PortalCrisisRoute
-  '/portal/documents': typeof PortalDocumentsRoute
+  '/portal/documents': typeof PortalDocumentsRouteWithChildren
   '/portal/homework': typeof PortalHomeworkRoute
   '/portal/messages': typeof PortalMessagesRouteWithChildren
   '/portal/onboarding': typeof PortalOnboardingRoute
@@ -1240,12 +1270,14 @@ export interface FileRoutesByTo {
   '/billing/invoices/$id': typeof BillingInvoicesIdRoute
   '/billing/invoices/new': typeof BillingInvoicesNewRoute
   '/calendar/book/$slug': typeof CalendarBookSlugRoute
+  '/documents/certificate/$id': typeof DocumentsCertificateIdRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/billing': typeof PatientsPidBillingRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
   '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
   '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
   '/portal/assessments/$id': typeof PortalAssessmentsIdRoute
+  '/portal/documents/$token': typeof PortalDocumentsTokenRoute
   '/portal/messages/$threadId': typeof PortalMessagesThreadIdRoute
   '/sessions/$id/room': typeof SessionsIdRoomRoute
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
@@ -1321,7 +1353,9 @@ export interface FileRoutesById {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
+  '/documents/$id': typeof DocumentsIdRoute
   '/documents/new': typeof DocumentsNewRoute
+  '/documents/worksheets': typeof DocumentsWorksheetsRoute
   '/inbox/daily-brief': typeof InboxDailyBriefRoute
   '/inbox/tasks': typeof InboxTasksRoute
   '/integrations/$slug': typeof IntegrationsSlugRoute
@@ -1339,7 +1373,7 @@ export interface FileRoutesById {
   '/portal/auth': typeof PortalAuthRoute
   '/portal/billing': typeof PortalBillingRoute
   '/portal/crisis': typeof PortalCrisisRoute
-  '/portal/documents': typeof PortalDocumentsRoute
+  '/portal/documents': typeof PortalDocumentsRouteWithChildren
   '/portal/homework': typeof PortalHomeworkRoute
   '/portal/messages': typeof PortalMessagesRouteWithChildren
   '/portal/onboarding': typeof PortalOnboardingRoute
@@ -1399,6 +1433,7 @@ export interface FileRoutesById {
   '/billing/invoices/$id': typeof BillingInvoicesIdRoute
   '/billing/invoices/new': typeof BillingInvoicesNewRoute
   '/calendar/book/$slug': typeof CalendarBookSlugRoute
+  '/documents/certificate/$id': typeof DocumentsCertificateIdRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/billing': typeof PatientsPidBillingRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
@@ -1406,6 +1441,7 @@ export interface FileRoutesById {
   '/patients/$pid/notes': typeof PatientsPidNotesRouteWithChildren
   '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
   '/portal/assessments/$id': typeof PortalAssessmentsIdRoute
+  '/portal/documents/$token': typeof PortalDocumentsTokenRoute
   '/portal/messages/$threadId': typeof PortalMessagesThreadIdRoute
   '/sessions/$id/room': typeof SessionsIdRoomRoute
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
@@ -1482,7 +1518,9 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
+    | '/documents/$id'
     | '/documents/new'
+    | '/documents/worksheets'
     | '/inbox/daily-brief'
     | '/inbox/tasks'
     | '/integrations/$slug'
@@ -1560,6 +1598,7 @@ export interface FileRouteTypes {
     | '/billing/invoices/$id'
     | '/billing/invoices/new'
     | '/calendar/book/$slug'
+    | '/documents/certificate/$id'
     | '/patients/$pid/assessments'
     | '/patients/$pid/billing'
     | '/patients/$pid/chart'
@@ -1567,6 +1606,7 @@ export interface FileRouteTypes {
     | '/patients/$pid/notes'
     | '/patients/$pid/timeline'
     | '/portal/assessments/$id'
+    | '/portal/documents/$token'
     | '/portal/messages/$threadId'
     | '/sessions/$id/room'
     | '/sessions/$id/wrap'
@@ -1627,7 +1667,9 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
+    | '/documents/$id'
     | '/documents/new'
+    | '/documents/worksheets'
     | '/inbox/daily-brief'
     | '/inbox/tasks'
     | '/integrations/$slug'
@@ -1703,12 +1745,14 @@ export interface FileRouteTypes {
     | '/billing/invoices/$id'
     | '/billing/invoices/new'
     | '/calendar/book/$slug'
+    | '/documents/certificate/$id'
     | '/patients/$pid/assessments'
     | '/patients/$pid/billing'
     | '/patients/$pid/chart'
     | '/patients/$pid/documents'
     | '/patients/$pid/timeline'
     | '/portal/assessments/$id'
+    | '/portal/documents/$token'
     | '/portal/messages/$threadId'
     | '/sessions/$id/room'
     | '/sessions/$id/wrap'
@@ -1783,7 +1827,9 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
+    | '/documents/$id'
     | '/documents/new'
+    | '/documents/worksheets'
     | '/inbox/daily-brief'
     | '/inbox/tasks'
     | '/integrations/$slug'
@@ -1861,6 +1907,7 @@ export interface FileRouteTypes {
     | '/billing/invoices/$id'
     | '/billing/invoices/new'
     | '/calendar/book/$slug'
+    | '/documents/certificate/$id'
     | '/patients/$pid/assessments'
     | '/patients/$pid/billing'
     | '/patients/$pid/chart'
@@ -1868,6 +1915,7 @@ export interface FileRouteTypes {
     | '/patients/$pid/notes'
     | '/patients/$pid/timeline'
     | '/portal/assessments/$id'
+    | '/portal/documents/$token'
     | '/portal/messages/$threadId'
     | '/sessions/$id/room'
     | '/sessions/$id/wrap'
@@ -2710,11 +2758,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InboxDailyBriefRouteImport
       parentRoute: typeof InboxRoute
     }
+    '/documents/worksheets': {
+      id: '/documents/worksheets'
+      path: '/worksheets'
+      fullPath: '/documents/worksheets'
+      preLoaderRoute: typeof DocumentsWorksheetsRouteImport
+      parentRoute: typeof DocumentsRoute
+    }
     '/documents/new': {
       id: '/documents/new'
       path: '/new'
       fullPath: '/documents/new'
       preLoaderRoute: typeof DocumentsNewRouteImport
+      parentRoute: typeof DocumentsRoute
+    }
+    '/documents/$id': {
+      id: '/documents/$id'
+      path: '/$id'
+      fullPath: '/documents/$id'
+      preLoaderRoute: typeof DocumentsIdRouteImport
       parentRoute: typeof DocumentsRoute
     }
     '/compliance/export': {
@@ -2913,6 +2975,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalMessagesThreadIdRouteImport
       parentRoute: typeof PortalMessagesRoute
     }
+    '/portal/documents/$token': {
+      id: '/portal/documents/$token'
+      path: '/$token'
+      fullPath: '/portal/documents/$token'
+      preLoaderRoute: typeof PortalDocumentsTokenRouteImport
+      parentRoute: typeof PortalDocumentsRoute
+    }
     '/portal/assessments/$id': {
       id: '/portal/assessments/$id'
       path: '/$id'
@@ -2961,6 +3030,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/patients/$pid/assessments'
       preLoaderRoute: typeof PatientsPidAssessmentsRouteImport
       parentRoute: typeof PatientsPidRoute
+    }
+    '/documents/certificate/$id': {
+      id: '/documents/certificate/$id'
+      path: '/certificate/$id'
+      fullPath: '/documents/certificate/$id'
+      preLoaderRoute: typeof DocumentsCertificateIdRouteImport
+      parentRoute: typeof DocumentsRoute
     }
     '/calendar/book/$slug': {
       id: '/calendar/book/$slug'
@@ -3141,14 +3217,20 @@ const BillingRouteWithChildren =
   BillingRoute._addFileChildren(BillingRouteChildren)
 
 interface DocumentsRouteChildren {
+  DocumentsIdRoute: typeof DocumentsIdRoute
   DocumentsNewRoute: typeof DocumentsNewRoute
+  DocumentsWorksheetsRoute: typeof DocumentsWorksheetsRoute
   DocumentsIndexRoute: typeof DocumentsIndexRoute
+  DocumentsCertificateIdRoute: typeof DocumentsCertificateIdRoute
   DocumentsTemplatesIdEditRoute: typeof DocumentsTemplatesIdEditRoute
 }
 
 const DocumentsRouteChildren: DocumentsRouteChildren = {
+  DocumentsIdRoute: DocumentsIdRoute,
   DocumentsNewRoute: DocumentsNewRoute,
+  DocumentsWorksheetsRoute: DocumentsWorksheetsRoute,
   DocumentsIndexRoute: DocumentsIndexRoute,
+  DocumentsCertificateIdRoute: DocumentsCertificateIdRoute,
   DocumentsTemplatesIdEditRoute: DocumentsTemplatesIdEditRoute,
 }
 
@@ -3276,6 +3358,18 @@ const PortalAssessmentsRouteChildren: PortalAssessmentsRouteChildren = {
 const PortalAssessmentsRouteWithChildren =
   PortalAssessmentsRoute._addFileChildren(PortalAssessmentsRouteChildren)
 
+interface PortalDocumentsRouteChildren {
+  PortalDocumentsTokenRoute: typeof PortalDocumentsTokenRoute
+}
+
+const PortalDocumentsRouteChildren: PortalDocumentsRouteChildren = {
+  PortalDocumentsTokenRoute: PortalDocumentsTokenRoute,
+}
+
+const PortalDocumentsRouteWithChildren = PortalDocumentsRoute._addFileChildren(
+  PortalDocumentsRouteChildren,
+)
+
 interface PortalMessagesRouteChildren {
   PortalMessagesThreadIdRoute: typeof PortalMessagesThreadIdRoute
 }
@@ -3293,7 +3387,7 @@ interface PortalRouteChildren {
   PortalAuthRoute: typeof PortalAuthRoute
   PortalBillingRoute: typeof PortalBillingRoute
   PortalCrisisRoute: typeof PortalCrisisRoute
-  PortalDocumentsRoute: typeof PortalDocumentsRoute
+  PortalDocumentsRoute: typeof PortalDocumentsRouteWithChildren
   PortalHomeworkRoute: typeof PortalHomeworkRoute
   PortalMessagesRoute: typeof PortalMessagesRouteWithChildren
   PortalOnboardingRoute: typeof PortalOnboardingRoute
@@ -3308,7 +3402,7 @@ const PortalRouteChildren: PortalRouteChildren = {
   PortalAuthRoute: PortalAuthRoute,
   PortalBillingRoute: PortalBillingRoute,
   PortalCrisisRoute: PortalCrisisRoute,
-  PortalDocumentsRoute: PortalDocumentsRoute,
+  PortalDocumentsRoute: PortalDocumentsRouteWithChildren,
   PortalHomeworkRoute: PortalHomeworkRoute,
   PortalMessagesRoute: PortalMessagesRouteWithChildren,
   PortalOnboardingRoute: PortalOnboardingRoute,
