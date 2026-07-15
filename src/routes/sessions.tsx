@@ -1,6 +1,15 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { StubPage } from "@/components/practice/StubPage";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { AppShell } from "@/components/practice/AppShell";
+
 export const Route = createFileRoute("/sessions")({
   head: () => ({ meta: [{ title: "Sessions — PeaceCode · Practice" }] }),
-  component: () => <StubPage title="Sessions" blurb="Session log with join links, no-show tracking, and post-session summaries — landing next." />,
+  component: SessionsLayout,
 });
+
+function SessionsLayout() {
+  return (
+    <AppShell crumb="Sessions">
+      <Outlet />
+    </AppShell>
+  );
+}

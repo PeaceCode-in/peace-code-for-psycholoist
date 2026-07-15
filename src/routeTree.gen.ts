@@ -45,6 +45,7 @@ import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
+import { Route as SessionsIndexRouteImport } from './routes/sessions.index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
 import { Route as SettingsTelehealthRouteImport } from './routes/settings.telehealth'
@@ -71,6 +72,7 @@ import { Route as SettingsAvailabilityRouteImport } from './routes/settings.avai
 import { Route as SettingsAppearanceRouteImport } from './routes/settings.appearance'
 import { Route as SettingsAccessibilityRouteImport } from './routes/settings.accessibility'
 import { Route as SettingsAboutRouteImport } from './routes/settings.about'
+import { Route as SessionsIdRouteImport } from './routes/sessions.$id'
 import { Route as PatientsNewRouteImport } from './routes/patients.new'
 import { Route as PatientsPidRouteImport } from './routes/patients.$pid'
 import { Route as ComplianceExportRouteImport } from './routes/compliance.export'
@@ -78,7 +80,11 @@ import { Route as ComplianceConsentRouteImport } from './routes/compliance.conse
 import { Route as ComplianceAuditRouteImport } from './routes/compliance.audit'
 import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
+import { Route as SessionsIdIndexRouteImport } from './routes/sessions.$id.index'
 import { Route as PatientsPidIndexRouteImport } from './routes/patients.$pid.index'
+import { Route as SessionsDayDateRouteImport } from './routes/sessions.day.$date'
+import { Route as SessionsIdWrapRouteImport } from './routes/sessions.$id.wrap'
+import { Route as SessionsIdRoomRouteImport } from './routes/sessions.$id.room'
 import { Route as PatientsPidTimelineRouteImport } from './routes/patients.$pid.timeline'
 import { Route as PatientsPidNotesRouteImport } from './routes/patients.$pid.notes'
 import { Route as PatientsPidDocumentsRouteImport } from './routes/patients.$pid.documents'
@@ -267,6 +273,11 @@ const SettingsIndexRoute = SettingsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => SettingsRoute,
 } as any)
+const SessionsIndexRoute = SessionsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SessionsRoute,
+} as any)
 const PatientsIndexRoute = PatientsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -399,6 +410,11 @@ const SettingsAboutRoute = SettingsAboutRouteImport.update({
   path: '/about',
   getParentRoute: () => SettingsRoute,
 } as any)
+const SessionsIdRoute = SessionsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => SessionsRoute,
+} as any)
 const PatientsNewRoute = PatientsNewRouteImport.update({
   id: '/new',
   path: '/new',
@@ -434,10 +450,30 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AuthRoute,
 } as any)
+const SessionsIdIndexRoute = SessionsIdIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SessionsIdRoute,
+} as any)
 const PatientsPidIndexRoute = PatientsPidIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => PatientsPidRoute,
+} as any)
+const SessionsDayDateRoute = SessionsDayDateRouteImport.update({
+  id: '/day/$date',
+  path: '/day/$date',
+  getParentRoute: () => SessionsRoute,
+} as any)
+const SessionsIdWrapRoute = SessionsIdWrapRouteImport.update({
+  id: '/wrap',
+  path: '/wrap',
+  getParentRoute: () => SessionsIdRoute,
+} as any)
+const SessionsIdRoomRoute = SessionsIdRoomRouteImport.update({
+  id: '/room',
+  path: '/room',
+  getParentRoute: () => SessionsIdRoute,
 } as any)
 const PatientsPidTimelineRoute = PatientsPidTimelineRouteImport.update({
   id: '/timeline',
@@ -504,7 +540,7 @@ export interface FileRoutesByFullPath {
   '/risk': typeof RiskRoute
   '/schedule': typeof ScheduleRoute
   '/services': typeof ServicesRoute
-  '/sessions': typeof SessionsRoute
+  '/sessions': typeof SessionsRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
   '/supervision': typeof SupervisionRoute
   '/support': typeof SupportRoute
@@ -518,6 +554,7 @@ export interface FileRoutesByFullPath {
   '/compliance/export': typeof ComplianceExportRoute
   '/patients/$pid': typeof PatientsPidRouteWithChildren
   '/patients/new': typeof PatientsNewRoute
+  '/sessions/$id': typeof SessionsIdRouteWithChildren
   '/settings/about': typeof SettingsAboutRoute
   '/settings/accessibility': typeof SettingsAccessibilityRoute
   '/settings/appearance': typeof SettingsAppearanceRoute
@@ -544,12 +581,17 @@ export interface FileRoutesByFullPath {
   '/settings/telehealth': typeof SettingsTelehealthRoute
   '/auth/': typeof AuthIndexRoute
   '/patients/': typeof PatientsIndexRoute
+  '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
   '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
   '/patients/$pid/notes': typeof PatientsPidNotesRouteWithChildren
   '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
+  '/sessions/$id/room': typeof SessionsIdRoomRoute
+  '/sessions/$id/wrap': typeof SessionsIdWrapRoute
+  '/sessions/day/$date': typeof SessionsDayDateRoute
   '/patients/$pid/': typeof PatientsPidIndexRoute
+  '/sessions/$id/': typeof SessionsIdIndexRoute
   '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
   '/patients/$pid/notes/new': typeof PatientsPidNotesNewRoute
   '/patients/$pid/notes/': typeof PatientsPidNotesIndexRoute
@@ -581,7 +623,6 @@ export interface FileRoutesByTo {
   '/risk': typeof RiskRoute
   '/schedule': typeof ScheduleRoute
   '/services': typeof ServicesRoute
-  '/sessions': typeof SessionsRoute
   '/supervision': typeof SupervisionRoute
   '/support': typeof SupportRoute
   '/templates': typeof TemplatesRoute
@@ -619,11 +660,16 @@ export interface FileRoutesByTo {
   '/settings/telehealth': typeof SettingsTelehealthRoute
   '/auth': typeof AuthIndexRoute
   '/patients': typeof PatientsIndexRoute
+  '/sessions': typeof SessionsIndexRoute
   '/settings': typeof SettingsIndexRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
   '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
   '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
+  '/sessions/$id/room': typeof SessionsIdRoomRoute
+  '/sessions/$id/wrap': typeof SessionsIdWrapRoute
+  '/sessions/day/$date': typeof SessionsDayDateRoute
   '/patients/$pid': typeof PatientsPidIndexRoute
+  '/sessions/$id': typeof SessionsIdIndexRoute
   '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
   '/patients/$pid/notes/new': typeof PatientsPidNotesNewRoute
   '/patients/$pid/notes': typeof PatientsPidNotesIndexRoute
@@ -658,7 +704,7 @@ export interface FileRoutesById {
   '/risk': typeof RiskRoute
   '/schedule': typeof ScheduleRoute
   '/services': typeof ServicesRoute
-  '/sessions': typeof SessionsRoute
+  '/sessions': typeof SessionsRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
   '/supervision': typeof SupervisionRoute
   '/support': typeof SupportRoute
@@ -672,6 +718,7 @@ export interface FileRoutesById {
   '/compliance/export': typeof ComplianceExportRoute
   '/patients/$pid': typeof PatientsPidRouteWithChildren
   '/patients/new': typeof PatientsNewRoute
+  '/sessions/$id': typeof SessionsIdRouteWithChildren
   '/settings/about': typeof SettingsAboutRoute
   '/settings/accessibility': typeof SettingsAccessibilityRoute
   '/settings/appearance': typeof SettingsAppearanceRoute
@@ -698,12 +745,17 @@ export interface FileRoutesById {
   '/settings/telehealth': typeof SettingsTelehealthRoute
   '/auth/': typeof AuthIndexRoute
   '/patients/': typeof PatientsIndexRoute
+  '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
   '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
   '/patients/$pid/notes': typeof PatientsPidNotesRouteWithChildren
   '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
+  '/sessions/$id/room': typeof SessionsIdRoomRoute
+  '/sessions/$id/wrap': typeof SessionsIdWrapRoute
+  '/sessions/day/$date': typeof SessionsDayDateRoute
   '/patients/$pid/': typeof PatientsPidIndexRoute
+  '/sessions/$id/': typeof SessionsIdIndexRoute
   '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
   '/patients/$pid/notes/new': typeof PatientsPidNotesNewRoute
   '/patients/$pid/notes/': typeof PatientsPidNotesIndexRoute
@@ -753,6 +805,7 @@ export interface FileRouteTypes {
     | '/compliance/export'
     | '/patients/$pid'
     | '/patients/new'
+    | '/sessions/$id'
     | '/settings/about'
     | '/settings/accessibility'
     | '/settings/appearance'
@@ -779,12 +832,17 @@ export interface FileRouteTypes {
     | '/settings/telehealth'
     | '/auth/'
     | '/patients/'
+    | '/sessions/'
     | '/settings/'
     | '/patients/$pid/chart'
     | '/patients/$pid/documents'
     | '/patients/$pid/notes'
     | '/patients/$pid/timeline'
+    | '/sessions/$id/room'
+    | '/sessions/$id/wrap'
+    | '/sessions/day/$date'
     | '/patients/$pid/'
+    | '/sessions/$id/'
     | '/patients/$pid/notes/$nid'
     | '/patients/$pid/notes/new'
     | '/patients/$pid/notes/'
@@ -816,7 +874,6 @@ export interface FileRouteTypes {
     | '/risk'
     | '/schedule'
     | '/services'
-    | '/sessions'
     | '/supervision'
     | '/support'
     | '/templates'
@@ -854,11 +911,16 @@ export interface FileRouteTypes {
     | '/settings/telehealth'
     | '/auth'
     | '/patients'
+    | '/sessions'
     | '/settings'
     | '/patients/$pid/chart'
     | '/patients/$pid/documents'
     | '/patients/$pid/timeline'
+    | '/sessions/$id/room'
+    | '/sessions/$id/wrap'
+    | '/sessions/day/$date'
     | '/patients/$pid'
+    | '/sessions/$id'
     | '/patients/$pid/notes/$nid'
     | '/patients/$pid/notes/new'
     | '/patients/$pid/notes'
@@ -906,6 +968,7 @@ export interface FileRouteTypes {
     | '/compliance/export'
     | '/patients/$pid'
     | '/patients/new'
+    | '/sessions/$id'
     | '/settings/about'
     | '/settings/accessibility'
     | '/settings/appearance'
@@ -932,12 +995,17 @@ export interface FileRouteTypes {
     | '/settings/telehealth'
     | '/auth/'
     | '/patients/'
+    | '/sessions/'
     | '/settings/'
     | '/patients/$pid/chart'
     | '/patients/$pid/documents'
     | '/patients/$pid/notes'
     | '/patients/$pid/timeline'
+    | '/sessions/$id/room'
+    | '/sessions/$id/wrap'
+    | '/sessions/day/$date'
     | '/patients/$pid/'
+    | '/sessions/$id/'
     | '/patients/$pid/notes/$nid'
     | '/patients/$pid/notes/new'
     | '/patients/$pid/notes/'
@@ -972,7 +1040,7 @@ export interface RootRouteChildren {
   RiskRoute: typeof RiskRoute
   ScheduleRoute: typeof ScheduleRoute
   ServicesRoute: typeof ServicesRoute
-  SessionsRoute: typeof SessionsRoute
+  SessionsRoute: typeof SessionsRouteWithChildren
   SettingsRoute: typeof SettingsRouteWithChildren
   SupervisionRoute: typeof SupervisionRoute
   SupportRoute: typeof SupportRoute
@@ -1238,6 +1306,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsIndexRouteImport
       parentRoute: typeof SettingsRoute
     }
+    '/sessions/': {
+      id: '/sessions/'
+      path: '/'
+      fullPath: '/sessions/'
+      preLoaderRoute: typeof SessionsIndexRouteImport
+      parentRoute: typeof SessionsRoute
+    }
     '/patients/': {
       id: '/patients/'
       path: '/'
@@ -1420,6 +1495,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsAboutRouteImport
       parentRoute: typeof SettingsRoute
     }
+    '/sessions/$id': {
+      id: '/sessions/$id'
+      path: '/$id'
+      fullPath: '/sessions/$id'
+      preLoaderRoute: typeof SessionsIdRouteImport
+      parentRoute: typeof SessionsRoute
+    }
     '/patients/new': {
       id: '/patients/new'
       path: '/new'
@@ -1469,12 +1551,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/sessions/$id/': {
+      id: '/sessions/$id/'
+      path: '/'
+      fullPath: '/sessions/$id/'
+      preLoaderRoute: typeof SessionsIdIndexRouteImport
+      parentRoute: typeof SessionsIdRoute
+    }
     '/patients/$pid/': {
       id: '/patients/$pid/'
       path: '/'
       fullPath: '/patients/$pid/'
       preLoaderRoute: typeof PatientsPidIndexRouteImport
       parentRoute: typeof PatientsPidRoute
+    }
+    '/sessions/day/$date': {
+      id: '/sessions/day/$date'
+      path: '/day/$date'
+      fullPath: '/sessions/day/$date'
+      preLoaderRoute: typeof SessionsDayDateRouteImport
+      parentRoute: typeof SessionsRoute
+    }
+    '/sessions/$id/wrap': {
+      id: '/sessions/$id/wrap'
+      path: '/wrap'
+      fullPath: '/sessions/$id/wrap'
+      preLoaderRoute: typeof SessionsIdWrapRouteImport
+      parentRoute: typeof SessionsIdRoute
+    }
+    '/sessions/$id/room': {
+      id: '/sessions/$id/room'
+      path: '/room'
+      fullPath: '/sessions/$id/room'
+      preLoaderRoute: typeof SessionsIdRoomRouteImport
+      parentRoute: typeof SessionsIdRoute
     }
     '/patients/$pid/timeline': {
       id: '/patients/$pid/timeline'
@@ -1593,6 +1703,38 @@ const PatientsRouteWithChildren = PatientsRoute._addFileChildren(
   PatientsRouteChildren,
 )
 
+interface SessionsIdRouteChildren {
+  SessionsIdRoomRoute: typeof SessionsIdRoomRoute
+  SessionsIdWrapRoute: typeof SessionsIdWrapRoute
+  SessionsIdIndexRoute: typeof SessionsIdIndexRoute
+}
+
+const SessionsIdRouteChildren: SessionsIdRouteChildren = {
+  SessionsIdRoomRoute: SessionsIdRoomRoute,
+  SessionsIdWrapRoute: SessionsIdWrapRoute,
+  SessionsIdIndexRoute: SessionsIdIndexRoute,
+}
+
+const SessionsIdRouteWithChildren = SessionsIdRoute._addFileChildren(
+  SessionsIdRouteChildren,
+)
+
+interface SessionsRouteChildren {
+  SessionsIdRoute: typeof SessionsIdRouteWithChildren
+  SessionsIndexRoute: typeof SessionsIndexRoute
+  SessionsDayDateRoute: typeof SessionsDayDateRoute
+}
+
+const SessionsRouteChildren: SessionsRouteChildren = {
+  SessionsIdRoute: SessionsIdRouteWithChildren,
+  SessionsIndexRoute: SessionsIndexRoute,
+  SessionsDayDateRoute: SessionsDayDateRoute,
+}
+
+const SessionsRouteWithChildren = SessionsRoute._addFileChildren(
+  SessionsRouteChildren,
+)
+
 interface SettingsRouteChildren {
   SettingsAboutRoute: typeof SettingsAboutRoute
   SettingsAccessibilityRoute: typeof SettingsAccessibilityRoute
@@ -1682,7 +1824,7 @@ const rootRouteChildren: RootRouteChildren = {
   RiskRoute: RiskRoute,
   ScheduleRoute: ScheduleRoute,
   ServicesRoute: ServicesRoute,
-  SessionsRoute: SessionsRoute,
+  SessionsRoute: SessionsRouteWithChildren,
   SettingsRoute: SettingsRouteWithChildren,
   SupervisionRoute: SupervisionRoute,
   SupportRoute: SupportRoute,
