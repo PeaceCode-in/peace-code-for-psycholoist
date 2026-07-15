@@ -106,6 +106,9 @@ import { Route as SettingsAppearanceRouteImport } from './routes/settings.appear
 import { Route as SettingsAccessibilityRouteImport } from './routes/settings.accessibility'
 import { Route as SettingsAboutRouteImport } from './routes/settings.about'
 import { Route as SessionsIdRouteImport } from './routes/sessions.$id'
+import { Route as ScheduleRecurringRouteImport } from './routes/schedule.recurring'
+import { Route as ScheduleExportRouteImport } from './routes/schedule.export'
+import { Route as ScheduleAvailabilityRouteImport } from './routes/schedule.availability'
 import { Route as PortalSessionsRouteImport } from './routes/portal.sessions'
 import { Route as PortalProgressRouteImport } from './routes/portal.progress'
 import { Route as PortalProfileRouteImport } from './routes/portal.profile'
@@ -687,6 +690,21 @@ const SessionsIdRoute = SessionsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => SessionsRoute,
 } as any)
+const ScheduleRecurringRoute = ScheduleRecurringRouteImport.update({
+  id: '/recurring',
+  path: '/recurring',
+  getParentRoute: () => ScheduleRoute,
+} as any)
+const ScheduleExportRoute = ScheduleExportRouteImport.update({
+  id: '/export',
+  path: '/export',
+  getParentRoute: () => ScheduleRoute,
+} as any)
+const ScheduleAvailabilityRoute = ScheduleAvailabilityRouteImport.update({
+  id: '/availability',
+  path: '/availability',
+  getParentRoute: () => ScheduleRoute,
+} as any)
 const PortalSessionsRoute = PortalSessionsRouteImport.update({
   id: '/sessions',
   path: '/sessions',
@@ -1267,6 +1285,9 @@ export interface FileRoutesByFullPath {
   '/portal/profile': typeof PortalProfileRoute
   '/portal/progress': typeof PortalProgressRoute
   '/portal/sessions': typeof PortalSessionsRoute
+  '/schedule/availability': typeof ScheduleAvailabilityRoute
+  '/schedule/export': typeof ScheduleExportRoute
+  '/schedule/recurring': typeof ScheduleRecurringRoute
   '/sessions/$id': typeof SessionsIdRouteWithChildren
   '/settings/about': typeof SettingsAboutRoute
   '/settings/accessibility': typeof SettingsAccessibilityRoute
@@ -1441,6 +1462,9 @@ export interface FileRoutesByTo {
   '/portal/profile': typeof PortalProfileRoute
   '/portal/progress': typeof PortalProgressRoute
   '/portal/sessions': typeof PortalSessionsRoute
+  '/schedule/availability': typeof ScheduleAvailabilityRoute
+  '/schedule/export': typeof ScheduleExportRoute
+  '/schedule/recurring': typeof ScheduleRecurringRoute
   '/settings/about': typeof SettingsAboutRoute
   '/settings/accessibility': typeof SettingsAccessibilityRoute
   '/settings/appearance': typeof SettingsAppearanceRoute
@@ -1632,6 +1656,9 @@ export interface FileRoutesById {
   '/portal/profile': typeof PortalProfileRoute
   '/portal/progress': typeof PortalProgressRoute
   '/portal/sessions': typeof PortalSessionsRoute
+  '/schedule/availability': typeof ScheduleAvailabilityRoute
+  '/schedule/export': typeof ScheduleExportRoute
+  '/schedule/recurring': typeof ScheduleRecurringRoute
   '/sessions/$id': typeof SessionsIdRouteWithChildren
   '/settings/about': typeof SettingsAboutRoute
   '/settings/accessibility': typeof SettingsAccessibilityRoute
@@ -1826,6 +1853,9 @@ export interface FileRouteTypes {
     | '/portal/profile'
     | '/portal/progress'
     | '/portal/sessions'
+    | '/schedule/availability'
+    | '/schedule/export'
+    | '/schedule/recurring'
     | '/sessions/$id'
     | '/settings/about'
     | '/settings/accessibility'
@@ -2000,6 +2030,9 @@ export interface FileRouteTypes {
     | '/portal/profile'
     | '/portal/progress'
     | '/portal/sessions'
+    | '/schedule/availability'
+    | '/schedule/export'
+    | '/schedule/recurring'
     | '/settings/about'
     | '/settings/accessibility'
     | '/settings/appearance'
@@ -2190,6 +2223,9 @@ export interface FileRouteTypes {
     | '/portal/profile'
     | '/portal/progress'
     | '/portal/sessions'
+    | '/schedule/availability'
+    | '/schedule/export'
+    | '/schedule/recurring'
     | '/sessions/$id'
     | '/settings/about'
     | '/settings/accessibility'
@@ -3022,6 +3058,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/sessions/$id'
       preLoaderRoute: typeof SessionsIdRouteImport
       parentRoute: typeof SessionsRoute
+    }
+    '/schedule/recurring': {
+      id: '/schedule/recurring'
+      path: '/recurring'
+      fullPath: '/schedule/recurring'
+      preLoaderRoute: typeof ScheduleRecurringRouteImport
+      parentRoute: typeof ScheduleRoute
+    }
+    '/schedule/export': {
+      id: '/schedule/export'
+      path: '/export'
+      fullPath: '/schedule/export'
+      preLoaderRoute: typeof ScheduleExportRouteImport
+      parentRoute: typeof ScheduleRoute
+    }
+    '/schedule/availability': {
+      id: '/schedule/availability'
+      path: '/availability'
+      fullPath: '/schedule/availability'
+      preLoaderRoute: typeof ScheduleAvailabilityRouteImport
+      parentRoute: typeof ScheduleRoute
     }
     '/portal/sessions': {
       id: '/portal/sessions'
@@ -4007,10 +4064,16 @@ const PortalRouteWithChildren =
   PortalRoute._addFileChildren(PortalRouteChildren)
 
 interface ScheduleRouteChildren {
+  ScheduleAvailabilityRoute: typeof ScheduleAvailabilityRoute
+  ScheduleExportRoute: typeof ScheduleExportRoute
+  ScheduleRecurringRoute: typeof ScheduleRecurringRoute
   ScheduleIndexRoute: typeof ScheduleIndexRoute
 }
 
 const ScheduleRouteChildren: ScheduleRouteChildren = {
+  ScheduleAvailabilityRoute: ScheduleAvailabilityRoute,
+  ScheduleExportRoute: ScheduleExportRoute,
+  ScheduleRecurringRoute: ScheduleRecurringRoute,
   ScheduleIndexRoute: ScheduleIndexRoute,
 }
 
