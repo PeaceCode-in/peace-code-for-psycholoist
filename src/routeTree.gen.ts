@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WaitlistRouteImport } from './routes/waitlist'
 import { Route as TreatmentPlansRouteImport } from './routes/treatment-plans'
 import { Route as TemplatesRouteImport } from './routes/templates'
+import { Route as TeamRouteImport } from './routes/team'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as SupervisionRouteImport } from './routes/supervision'
 import { Route as SettingsRouteImport } from './routes/settings'
@@ -143,6 +144,11 @@ const TreatmentPlansRoute = TreatmentPlansRouteImport.update({
 const TemplatesRoute = TemplatesRouteImport.update({
   id: '/templates',
   path: '/templates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeamRoute = TeamRouteImport.update({
+  id: '/team',
+  path: '/team',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SupportRoute = SupportRouteImport.update({
@@ -771,6 +777,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof SettingsRouteWithChildren
   '/supervision': typeof SupervisionRoute
   '/support': typeof SupportRoute
+  '/team': typeof TeamRoute
   '/templates': typeof TemplatesRoute
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
@@ -886,6 +893,7 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/supervision': typeof SupervisionRoute
   '/support': typeof SupportRoute
+  '/team': typeof TeamRoute
   '/templates': typeof TemplatesRoute
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
@@ -1003,6 +1011,7 @@ export interface FileRoutesById {
   '/settings': typeof SettingsRouteWithChildren
   '/supervision': typeof SupervisionRoute
   '/support': typeof SupportRoute
+  '/team': typeof TeamRoute
   '/templates': typeof TemplatesRoute
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
@@ -1127,6 +1136,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/supervision'
     | '/support'
+    | '/team'
     | '/templates'
     | '/treatment-plans'
     | '/waitlist'
@@ -1242,6 +1252,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/supervision'
     | '/support'
+    | '/team'
     | '/templates'
     | '/treatment-plans'
     | '/waitlist'
@@ -1358,6 +1369,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/supervision'
     | '/support'
+    | '/team'
     | '/templates'
     | '/treatment-plans'
     | '/waitlist'
@@ -1481,6 +1493,7 @@ export interface RootRouteChildren {
   SettingsRoute: typeof SettingsRouteWithChildren
   SupervisionRoute: typeof SupervisionRoute
   SupportRoute: typeof SupportRoute
+  TeamRoute: typeof TeamRoute
   TemplatesRoute: typeof TemplatesRoute
   TreatmentPlansRoute: typeof TreatmentPlansRoute
   WaitlistRoute: typeof WaitlistRoute
@@ -1519,6 +1532,13 @@ declare module '@tanstack/react-router' {
       path: '/templates'
       fullPath: '/templates'
       preLoaderRoute: typeof TemplatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/team': {
+      id: '/team'
+      path: '/team'
+      fullPath: '/team'
+      preLoaderRoute: typeof TeamRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/support': {
@@ -2645,6 +2665,7 @@ const rootRouteChildren: RootRouteChildren = {
   SettingsRoute: SettingsRouteWithChildren,
   SupervisionRoute: SupervisionRoute,
   SupportRoute: SupportRoute,
+  TeamRoute: TeamRoute,
   TemplatesRoute: TemplatesRoute,
   TreatmentPlansRoute: TreatmentPlansRoute,
   WaitlistRoute: WaitlistRoute,
