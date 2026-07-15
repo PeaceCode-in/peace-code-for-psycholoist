@@ -57,6 +57,7 @@ import { Route as WelcomeIndexRouteImport } from './routes/welcome.index'
 import { Route as TeamIndexRouteImport } from './routes/team.index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as SessionsIndexRouteImport } from './routes/sessions.index'
+import { Route as ScheduleIndexRouteImport } from './routes/schedule.index'
 import { Route as PortalIndexRouteImport } from './routes/portal.index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
 import { Route as MessagesIndexRouteImport } from './routes/messages.index'
@@ -438,6 +439,11 @@ const SessionsIndexRoute = SessionsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => SessionsRoute,
+} as any)
+const ScheduleIndexRoute = ScheduleIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ScheduleRoute,
 } as any)
 const PortalIndexRoute = PortalIndexRouteImport.update({
   id: '/',
@@ -1188,7 +1194,7 @@ export interface FileRoutesByFullPath {
   '/research': typeof ResearchRoute
   '/reviews': typeof ReviewsRoute
   '/risk': typeof RiskRoute
-  '/schedule': typeof ScheduleRoute
+  '/schedule': typeof ScheduleRouteWithChildren
   '/services': typeof ServicesRoute
   '/sessions': typeof SessionsRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
@@ -1309,6 +1315,7 @@ export interface FileRoutesByFullPath {
   '/messages/': typeof MessagesIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/portal/': typeof PortalIndexRoute
+  '/schedule/': typeof ScheduleIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/team/': typeof TeamIndexRoute
@@ -1370,7 +1377,6 @@ export interface FileRoutesByTo {
   '/research': typeof ResearchRoute
   '/reviews': typeof ReviewsRoute
   '/risk': typeof RiskRoute
-  '/schedule': typeof ScheduleRoute
   '/services': typeof ServicesRoute
   '/supervision': typeof SupervisionRoute
   '/support': typeof SupportRoute
@@ -1482,6 +1488,7 @@ export interface FileRoutesByTo {
   '/messages': typeof MessagesIndexRoute
   '/patients': typeof PatientsIndexRoute
   '/portal': typeof PortalIndexRoute
+  '/schedule': typeof ScheduleIndexRoute
   '/sessions': typeof SessionsIndexRoute
   '/settings': typeof SettingsIndexRoute
   '/team': typeof TeamIndexRoute
@@ -1552,7 +1559,7 @@ export interface FileRoutesById {
   '/research': typeof ResearchRoute
   '/reviews': typeof ReviewsRoute
   '/risk': typeof RiskRoute
-  '/schedule': typeof ScheduleRoute
+  '/schedule': typeof ScheduleRouteWithChildren
   '/services': typeof ServicesRoute
   '/sessions': typeof SessionsRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
@@ -1673,6 +1680,7 @@ export interface FileRoutesById {
   '/messages/': typeof MessagesIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/portal/': typeof PortalIndexRoute
+  '/schedule/': typeof ScheduleIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/team/': typeof TeamIndexRoute
@@ -1866,6 +1874,7 @@ export interface FileRouteTypes {
     | '/messages/'
     | '/patients/'
     | '/portal/'
+    | '/schedule/'
     | '/sessions/'
     | '/settings/'
     | '/team/'
@@ -1927,7 +1936,6 @@ export interface FileRouteTypes {
     | '/research'
     | '/reviews'
     | '/risk'
-    | '/schedule'
     | '/services'
     | '/supervision'
     | '/support'
@@ -2039,6 +2047,7 @@ export interface FileRouteTypes {
     | '/messages'
     | '/patients'
     | '/portal'
+    | '/schedule'
     | '/sessions'
     | '/settings'
     | '/team'
@@ -2229,6 +2238,7 @@ export interface FileRouteTypes {
     | '/messages/'
     | '/patients/'
     | '/portal/'
+    | '/schedule/'
     | '/sessions/'
     | '/settings/'
     | '/team/'
@@ -2300,7 +2310,7 @@ export interface RootRouteChildren {
   ResearchRoute: typeof ResearchRoute
   ReviewsRoute: typeof ReviewsRoute
   RiskRoute: typeof RiskRoute
-  ScheduleRoute: typeof ScheduleRoute
+  ScheduleRoute: typeof ScheduleRouteWithChildren
   ServicesRoute: typeof ServicesRoute
   SessionsRoute: typeof SessionsRouteWithChildren
   SettingsRoute: typeof SettingsRouteWithChildren
@@ -2669,6 +2679,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/sessions/'
       preLoaderRoute: typeof SessionsIndexRouteImport
       parentRoute: typeof SessionsRoute
+    }
+    '/schedule/': {
+      id: '/schedule/'
+      path: '/'
+      fullPath: '/schedule/'
+      preLoaderRoute: typeof ScheduleIndexRouteImport
+      parentRoute: typeof ScheduleRoute
     }
     '/portal/': {
       id: '/portal/'
@@ -3989,6 +4006,18 @@ const PortalRouteChildren: PortalRouteChildren = {
 const PortalRouteWithChildren =
   PortalRoute._addFileChildren(PortalRouteChildren)
 
+interface ScheduleRouteChildren {
+  ScheduleIndexRoute: typeof ScheduleIndexRoute
+}
+
+const ScheduleRouteChildren: ScheduleRouteChildren = {
+  ScheduleIndexRoute: ScheduleIndexRoute,
+}
+
+const ScheduleRouteWithChildren = ScheduleRoute._addFileChildren(
+  ScheduleRouteChildren,
+)
+
 interface SessionsIdRouteChildren {
   SessionsIdRoomRoute: typeof SessionsIdRoomRoute
   SessionsIdWrapRoute: typeof SessionsIdWrapRoute
@@ -4164,7 +4193,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResearchRoute: ResearchRoute,
   ReviewsRoute: ReviewsRoute,
   RiskRoute: RiskRoute,
-  ScheduleRoute: ScheduleRoute,
+  ScheduleRoute: ScheduleRouteWithChildren,
   ServicesRoute: ServicesRoute,
   SessionsRoute: SessionsRouteWithChildren,
   SettingsRoute: SettingsRouteWithChildren,
