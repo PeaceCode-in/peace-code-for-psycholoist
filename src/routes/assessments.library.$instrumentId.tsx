@@ -41,16 +41,17 @@ function InstrumentDetail() {
 
   if (!hydrated) return null;
   if (!inst) throw notFound();
+  const instr = inst;
 
   function duplicate() {
     addCustomInstrument({
-      name: `${inst.name} (copy)`,
-      fullName: inst.fullName,
+      name: `${instr.name} (copy)`,
+      fullName: instr.fullName,
       domain: "custom",
-      items: inst.items.map((it, i) => ({ ...it, id: `c_${i + 1}` })),
-      scoring: inst.scoring,
-      timeToComplete: inst.timeToComplete,
-      frequency: inst.frequency,
+      items: instr.items.map((it, i) => ({ ...it, id: `c_${i + 1}` })),
+      scoring: instr.scoring,
+      timeToComplete: instr.timeToComplete,
+      frequency: instr.frequency,
     });
     toast.success("Duplicated to your custom instruments");
     navigate({ to: "/assessments/library" });
