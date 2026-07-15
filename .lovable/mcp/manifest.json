@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "sdk_version": "0.22.2",
+  "path": "/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "peacecode-practice-mcp",
+      "version": "0.1.0",
+      "title": "PeaceCode Practice"
+    },
+    "tools": [
+      {
+        "name": "about_peacecode",
+        "title": "About PeaceCode",
+        "description": "Returns product overview information about PeaceCode Practice: name, tagline, contact email, and legal/status URLs. Read-only, no user data.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_modules",
+        "title": "List product modules",
+        "description": "Returns the top-level modules available in PeaceCode Practice with a short description of each. Read-only product metadata.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
