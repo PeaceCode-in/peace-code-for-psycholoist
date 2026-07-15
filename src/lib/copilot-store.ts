@@ -126,9 +126,13 @@ function loadStore(): Store {
     const raw = window.localStorage.getItem(KEY);
     if (raw) return { ...defaultStore(), ...JSON.parse(raw) };
   } catch {}
-  const s = seed(defaultStore());
-  save(s);
-  return s;
+  // Assign _s before seeding so re-entrant calls (aliasFor → s()) don't recurse.
+  const base = defaultStore();
+  _s = base;
+  const seeded = seed(base);
+  _s = seeded;
+  save(seeded);
+  return seeded;
 }
 
 function save(s: Store) {
