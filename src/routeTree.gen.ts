@@ -39,6 +39,7 @@ import { Route as IntegrationsRouteImport } from './routes/integrations'
 import { Route as InboxRouteImport } from './routes/inbox'
 import { Route as HomeworkRouteImport } from './routes/homework'
 import { Route as GroupsRouteImport } from './routes/groups'
+import { Route as GovernanceRouteImport } from './routes/governance'
 import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CpdRouteImport } from './routes/cpd'
@@ -59,6 +60,7 @@ import { Route as PortalIndexRouteImport } from './routes/portal.index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
 import { Route as MessagesIndexRouteImport } from './routes/messages.index'
 import { Route as IntegrationsIndexRouteImport } from './routes/integrations.index'
+import { Route as GovernanceIndexRouteImport } from './routes/governance.index'
 import { Route as DocumentsIndexRouteImport } from './routes/documents.index'
 import { Route as CalendarIndexRouteImport } from './routes/calendar.index'
 import { Route as BillingIndexRouteImport } from './routes/billing.index'
@@ -126,6 +128,16 @@ import { Route as IntegrationsAutomationsRouteImport } from './routes/integratio
 import { Route as IntegrationsSlugRouteImport } from './routes/integrations.$slug'
 import { Route as InboxTasksRouteImport } from './routes/inbox.tasks'
 import { Route as InboxDailyBriefRouteImport } from './routes/inbox.daily-brief'
+import { Route as GovernanceRightsRouteImport } from './routes/governance.rights'
+import { Route as GovernanceRetentionRouteImport } from './routes/governance.retention'
+import { Route as GovernanceReportsRouteImport } from './routes/governance.reports'
+import { Route as GovernanceRegulatorViewRouteImport } from './routes/governance.regulator-view'
+import { Route as GovernanceDpoRouteImport } from './routes/governance.dpo'
+import { Route as GovernanceDpaRouteImport } from './routes/governance.dpa'
+import { Route as GovernanceConsentRouteImport } from './routes/governance.consent'
+import { Route as GovernanceBreachRouteImport } from './routes/governance.breach'
+import { Route as GovernanceAuditRouteImport } from './routes/governance.audit'
+import { Route as GovernanceAccessRouteImport } from './routes/governance.access'
 import { Route as DocumentsWorksheetsRouteImport } from './routes/documents.worksheets'
 import { Route as DocumentsNewRouteImport } from './routes/documents.new'
 import { Route as DocumentsIdRouteImport } from './routes/documents.$id'
@@ -330,6 +342,11 @@ const GroupsRoute = GroupsRouteImport.update({
   path: '/groups',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GovernanceRoute = GovernanceRouteImport.update({
+  id: '/governance',
+  path: '/governance',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DocumentsRoute = DocumentsRouteImport.update({
   id: '/documents',
   path: '/documents',
@@ -429,6 +446,11 @@ const IntegrationsIndexRoute = IntegrationsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => IntegrationsRoute,
+} as any)
+const GovernanceIndexRoute = GovernanceIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => GovernanceRoute,
 } as any)
 const DocumentsIndexRoute = DocumentsIndexRouteImport.update({
   id: '/',
@@ -767,6 +789,56 @@ const InboxDailyBriefRoute = InboxDailyBriefRouteImport.update({
   path: '/daily-brief',
   getParentRoute: () => InboxRoute,
 } as any)
+const GovernanceRightsRoute = GovernanceRightsRouteImport.update({
+  id: '/rights',
+  path: '/rights',
+  getParentRoute: () => GovernanceRoute,
+} as any)
+const GovernanceRetentionRoute = GovernanceRetentionRouteImport.update({
+  id: '/retention',
+  path: '/retention',
+  getParentRoute: () => GovernanceRoute,
+} as any)
+const GovernanceReportsRoute = GovernanceReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => GovernanceRoute,
+} as any)
+const GovernanceRegulatorViewRoute = GovernanceRegulatorViewRouteImport.update({
+  id: '/regulator-view',
+  path: '/regulator-view',
+  getParentRoute: () => GovernanceRoute,
+} as any)
+const GovernanceDpoRoute = GovernanceDpoRouteImport.update({
+  id: '/dpo',
+  path: '/dpo',
+  getParentRoute: () => GovernanceRoute,
+} as any)
+const GovernanceDpaRoute = GovernanceDpaRouteImport.update({
+  id: '/dpa',
+  path: '/dpa',
+  getParentRoute: () => GovernanceRoute,
+} as any)
+const GovernanceConsentRoute = GovernanceConsentRouteImport.update({
+  id: '/consent',
+  path: '/consent',
+  getParentRoute: () => GovernanceRoute,
+} as any)
+const GovernanceBreachRoute = GovernanceBreachRouteImport.update({
+  id: '/breach',
+  path: '/breach',
+  getParentRoute: () => GovernanceRoute,
+} as any)
+const GovernanceAuditRoute = GovernanceAuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
+  getParentRoute: () => GovernanceRoute,
+} as any)
+const GovernanceAccessRoute = GovernanceAccessRouteImport.update({
+  id: '/access',
+  path: '/access',
+  getParentRoute: () => GovernanceRoute,
+} as any)
 const DocumentsWorksheetsRoute = DocumentsWorksheetsRouteImport.update({
   id: '/worksheets',
   path: '/worksheets',
@@ -1050,6 +1122,7 @@ export interface FileRoutesByFullPath {
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRouteWithChildren
+  '/governance': typeof GovernanceRouteWithChildren
   '/groups': typeof GroupsRoute
   '/homework': typeof HomeworkRoute
   '/inbox': typeof InboxRouteWithChildren
@@ -1103,6 +1176,16 @@ export interface FileRoutesByFullPath {
   '/documents/$id': typeof DocumentsIdRoute
   '/documents/new': typeof DocumentsNewRoute
   '/documents/worksheets': typeof DocumentsWorksheetsRoute
+  '/governance/access': typeof GovernanceAccessRoute
+  '/governance/audit': typeof GovernanceAuditRoute
+  '/governance/breach': typeof GovernanceBreachRoute
+  '/governance/consent': typeof GovernanceConsentRoute
+  '/governance/dpa': typeof GovernanceDpaRoute
+  '/governance/dpo': typeof GovernanceDpoRoute
+  '/governance/regulator-view': typeof GovernanceRegulatorViewRoute
+  '/governance/reports': typeof GovernanceReportsRoute
+  '/governance/retention': typeof GovernanceRetentionRoute
+  '/governance/rights': typeof GovernanceRightsRoute
   '/inbox/daily-brief': typeof InboxDailyBriefRoute
   '/inbox/tasks': typeof InboxTasksRoute
   '/integrations/$slug': typeof IntegrationsSlugRoute
@@ -1170,6 +1253,7 @@ export interface FileRoutesByFullPath {
   '/billing/': typeof BillingIndexRoute
   '/calendar/': typeof CalendarIndexRoute
   '/documents/': typeof DocumentsIndexRoute
+  '/governance/': typeof GovernanceIndexRoute
   '/integrations/': typeof IntegrationsIndexRoute
   '/messages/': typeof MessagesIndexRoute
   '/patients/': typeof PatientsIndexRoute
@@ -1260,6 +1344,16 @@ export interface FileRoutesByTo {
   '/documents/$id': typeof DocumentsIdRoute
   '/documents/new': typeof DocumentsNewRoute
   '/documents/worksheets': typeof DocumentsWorksheetsRoute
+  '/governance/access': typeof GovernanceAccessRoute
+  '/governance/audit': typeof GovernanceAuditRoute
+  '/governance/breach': typeof GovernanceBreachRoute
+  '/governance/consent': typeof GovernanceConsentRoute
+  '/governance/dpa': typeof GovernanceDpaRoute
+  '/governance/dpo': typeof GovernanceDpoRoute
+  '/governance/regulator-view': typeof GovernanceRegulatorViewRoute
+  '/governance/reports': typeof GovernanceReportsRoute
+  '/governance/retention': typeof GovernanceRetentionRoute
+  '/governance/rights': typeof GovernanceRightsRoute
   '/inbox/daily-brief': typeof InboxDailyBriefRoute
   '/inbox/tasks': typeof InboxTasksRoute
   '/integrations/$slug': typeof IntegrationsSlugRoute
@@ -1325,6 +1419,7 @@ export interface FileRoutesByTo {
   '/billing': typeof BillingIndexRoute
   '/calendar': typeof CalendarIndexRoute
   '/documents': typeof DocumentsIndexRoute
+  '/governance': typeof GovernanceIndexRoute
   '/integrations': typeof IntegrationsIndexRoute
   '/messages': typeof MessagesIndexRoute
   '/patients': typeof PatientsIndexRoute
@@ -1377,6 +1472,7 @@ export interface FileRoutesById {
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRouteWithChildren
+  '/governance': typeof GovernanceRouteWithChildren
   '/groups': typeof GroupsRoute
   '/homework': typeof HomeworkRoute
   '/inbox': typeof InboxRouteWithChildren
@@ -1430,6 +1526,16 @@ export interface FileRoutesById {
   '/documents/$id': typeof DocumentsIdRoute
   '/documents/new': typeof DocumentsNewRoute
   '/documents/worksheets': typeof DocumentsWorksheetsRoute
+  '/governance/access': typeof GovernanceAccessRoute
+  '/governance/audit': typeof GovernanceAuditRoute
+  '/governance/breach': typeof GovernanceBreachRoute
+  '/governance/consent': typeof GovernanceConsentRoute
+  '/governance/dpa': typeof GovernanceDpaRoute
+  '/governance/dpo': typeof GovernanceDpoRoute
+  '/governance/regulator-view': typeof GovernanceRegulatorViewRoute
+  '/governance/reports': typeof GovernanceReportsRoute
+  '/governance/retention': typeof GovernanceRetentionRoute
+  '/governance/rights': typeof GovernanceRightsRoute
   '/inbox/daily-brief': typeof InboxDailyBriefRoute
   '/inbox/tasks': typeof InboxTasksRoute
   '/integrations/$slug': typeof IntegrationsSlugRoute
@@ -1497,6 +1603,7 @@ export interface FileRoutesById {
   '/billing/': typeof BillingIndexRoute
   '/calendar/': typeof CalendarIndexRoute
   '/documents/': typeof DocumentsIndexRoute
+  '/governance/': typeof GovernanceIndexRoute
   '/integrations/': typeof IntegrationsIndexRoute
   '/messages/': typeof MessagesIndexRoute
   '/patients/': typeof PatientsIndexRoute
@@ -1551,6 +1658,7 @@ export interface FileRouteTypes {
     | '/cpd'
     | '/dashboard'
     | '/documents'
+    | '/governance'
     | '/groups'
     | '/homework'
     | '/inbox'
@@ -1604,6 +1712,16 @@ export interface FileRouteTypes {
     | '/documents/$id'
     | '/documents/new'
     | '/documents/worksheets'
+    | '/governance/access'
+    | '/governance/audit'
+    | '/governance/breach'
+    | '/governance/consent'
+    | '/governance/dpa'
+    | '/governance/dpo'
+    | '/governance/regulator-view'
+    | '/governance/reports'
+    | '/governance/retention'
+    | '/governance/rights'
     | '/inbox/daily-brief'
     | '/inbox/tasks'
     | '/integrations/$slug'
@@ -1671,6 +1789,7 @@ export interface FileRouteTypes {
     | '/billing/'
     | '/calendar/'
     | '/documents/'
+    | '/governance/'
     | '/integrations/'
     | '/messages/'
     | '/patients/'
@@ -1761,6 +1880,16 @@ export interface FileRouteTypes {
     | '/documents/$id'
     | '/documents/new'
     | '/documents/worksheets'
+    | '/governance/access'
+    | '/governance/audit'
+    | '/governance/breach'
+    | '/governance/consent'
+    | '/governance/dpa'
+    | '/governance/dpo'
+    | '/governance/regulator-view'
+    | '/governance/reports'
+    | '/governance/retention'
+    | '/governance/rights'
     | '/inbox/daily-brief'
     | '/inbox/tasks'
     | '/integrations/$slug'
@@ -1826,6 +1955,7 @@ export interface FileRouteTypes {
     | '/billing'
     | '/calendar'
     | '/documents'
+    | '/governance'
     | '/integrations'
     | '/messages'
     | '/patients'
@@ -1877,6 +2007,7 @@ export interface FileRouteTypes {
     | '/cpd'
     | '/dashboard'
     | '/documents'
+    | '/governance'
     | '/groups'
     | '/homework'
     | '/inbox'
@@ -1930,6 +2061,16 @@ export interface FileRouteTypes {
     | '/documents/$id'
     | '/documents/new'
     | '/documents/worksheets'
+    | '/governance/access'
+    | '/governance/audit'
+    | '/governance/breach'
+    | '/governance/consent'
+    | '/governance/dpa'
+    | '/governance/dpo'
+    | '/governance/regulator-view'
+    | '/governance/reports'
+    | '/governance/retention'
+    | '/governance/rights'
     | '/inbox/daily-brief'
     | '/inbox/tasks'
     | '/integrations/$slug'
@@ -1997,6 +2138,7 @@ export interface FileRouteTypes {
     | '/billing/'
     | '/calendar/'
     | '/documents/'
+    | '/governance/'
     | '/integrations/'
     | '/messages/'
     | '/patients/'
@@ -2050,6 +2192,7 @@ export interface RootRouteChildren {
   CpdRoute: typeof CpdRoute
   DashboardRoute: typeof DashboardRoute
   DocumentsRoute: typeof DocumentsRouteWithChildren
+  GovernanceRoute: typeof GovernanceRouteWithChildren
   GroupsRoute: typeof GroupsRoute
   HomeworkRoute: typeof HomeworkRoute
   InboxRoute: typeof InboxRouteWithChildren
@@ -2307,6 +2450,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GroupsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/governance': {
+      id: '/governance'
+      path: '/governance'
+      fullPath: '/governance'
+      preLoaderRoute: typeof GovernanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/documents': {
       id: '/documents'
       path: '/documents'
@@ -2446,6 +2596,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/integrations/'
       preLoaderRoute: typeof IntegrationsIndexRouteImport
       parentRoute: typeof IntegrationsRoute
+    }
+    '/governance/': {
+      id: '/governance/'
+      path: '/'
+      fullPath: '/governance/'
+      preLoaderRoute: typeof GovernanceIndexRouteImport
+      parentRoute: typeof GovernanceRoute
     }
     '/documents/': {
       id: '/documents/'
@@ -2915,6 +3072,76 @@ declare module '@tanstack/react-router' {
       fullPath: '/inbox/daily-brief'
       preLoaderRoute: typeof InboxDailyBriefRouteImport
       parentRoute: typeof InboxRoute
+    }
+    '/governance/rights': {
+      id: '/governance/rights'
+      path: '/rights'
+      fullPath: '/governance/rights'
+      preLoaderRoute: typeof GovernanceRightsRouteImport
+      parentRoute: typeof GovernanceRoute
+    }
+    '/governance/retention': {
+      id: '/governance/retention'
+      path: '/retention'
+      fullPath: '/governance/retention'
+      preLoaderRoute: typeof GovernanceRetentionRouteImport
+      parentRoute: typeof GovernanceRoute
+    }
+    '/governance/reports': {
+      id: '/governance/reports'
+      path: '/reports'
+      fullPath: '/governance/reports'
+      preLoaderRoute: typeof GovernanceReportsRouteImport
+      parentRoute: typeof GovernanceRoute
+    }
+    '/governance/regulator-view': {
+      id: '/governance/regulator-view'
+      path: '/regulator-view'
+      fullPath: '/governance/regulator-view'
+      preLoaderRoute: typeof GovernanceRegulatorViewRouteImport
+      parentRoute: typeof GovernanceRoute
+    }
+    '/governance/dpo': {
+      id: '/governance/dpo'
+      path: '/dpo'
+      fullPath: '/governance/dpo'
+      preLoaderRoute: typeof GovernanceDpoRouteImport
+      parentRoute: typeof GovernanceRoute
+    }
+    '/governance/dpa': {
+      id: '/governance/dpa'
+      path: '/dpa'
+      fullPath: '/governance/dpa'
+      preLoaderRoute: typeof GovernanceDpaRouteImport
+      parentRoute: typeof GovernanceRoute
+    }
+    '/governance/consent': {
+      id: '/governance/consent'
+      path: '/consent'
+      fullPath: '/governance/consent'
+      preLoaderRoute: typeof GovernanceConsentRouteImport
+      parentRoute: typeof GovernanceRoute
+    }
+    '/governance/breach': {
+      id: '/governance/breach'
+      path: '/breach'
+      fullPath: '/governance/breach'
+      preLoaderRoute: typeof GovernanceBreachRouteImport
+      parentRoute: typeof GovernanceRoute
+    }
+    '/governance/audit': {
+      id: '/governance/audit'
+      path: '/audit'
+      fullPath: '/governance/audit'
+      preLoaderRoute: typeof GovernanceAuditRouteImport
+      parentRoute: typeof GovernanceRoute
+    }
+    '/governance/access': {
+      id: '/governance/access'
+      path: '/access'
+      fullPath: '/governance/access'
+      preLoaderRoute: typeof GovernanceAccessRouteImport
+      parentRoute: typeof GovernanceRoute
     }
     '/documents/worksheets': {
       id: '/documents/worksheets'
@@ -3410,6 +3637,38 @@ const DocumentsRouteWithChildren = DocumentsRoute._addFileChildren(
   DocumentsRouteChildren,
 )
 
+interface GovernanceRouteChildren {
+  GovernanceAccessRoute: typeof GovernanceAccessRoute
+  GovernanceAuditRoute: typeof GovernanceAuditRoute
+  GovernanceBreachRoute: typeof GovernanceBreachRoute
+  GovernanceConsentRoute: typeof GovernanceConsentRoute
+  GovernanceDpaRoute: typeof GovernanceDpaRoute
+  GovernanceDpoRoute: typeof GovernanceDpoRoute
+  GovernanceRegulatorViewRoute: typeof GovernanceRegulatorViewRoute
+  GovernanceReportsRoute: typeof GovernanceReportsRoute
+  GovernanceRetentionRoute: typeof GovernanceRetentionRoute
+  GovernanceRightsRoute: typeof GovernanceRightsRoute
+  GovernanceIndexRoute: typeof GovernanceIndexRoute
+}
+
+const GovernanceRouteChildren: GovernanceRouteChildren = {
+  GovernanceAccessRoute: GovernanceAccessRoute,
+  GovernanceAuditRoute: GovernanceAuditRoute,
+  GovernanceBreachRoute: GovernanceBreachRoute,
+  GovernanceConsentRoute: GovernanceConsentRoute,
+  GovernanceDpaRoute: GovernanceDpaRoute,
+  GovernanceDpoRoute: GovernanceDpoRoute,
+  GovernanceRegulatorViewRoute: GovernanceRegulatorViewRoute,
+  GovernanceReportsRoute: GovernanceReportsRoute,
+  GovernanceRetentionRoute: GovernanceRetentionRoute,
+  GovernanceRightsRoute: GovernanceRightsRoute,
+  GovernanceIndexRoute: GovernanceIndexRoute,
+}
+
+const GovernanceRouteWithChildren = GovernanceRoute._addFileChildren(
+  GovernanceRouteChildren,
+)
+
 interface InboxRouteChildren {
   InboxDailyBriefRoute: typeof InboxDailyBriefRoute
   InboxTasksRoute: typeof InboxTasksRoute
@@ -3741,6 +4000,7 @@ const rootRouteChildren: RootRouteChildren = {
   CpdRoute: CpdRoute,
   DashboardRoute: DashboardRoute,
   DocumentsRoute: DocumentsRouteWithChildren,
+  GovernanceRoute: GovernanceRouteWithChildren,
   GroupsRoute: GroupsRoute,
   HomeworkRoute: HomeworkRoute,
   InboxRoute: InboxRouteWithChildren,
