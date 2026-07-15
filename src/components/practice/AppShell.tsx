@@ -23,7 +23,8 @@ import { useSidebarPinned } from "@/lib/settings-store";
 
 export { palette };
 
-type NavItem = { title: string; url: string; icon?: React.ComponentType<{ className?: string; strokeWidth?: number }>; badge?: number | "dot" };
+type NavItem = { title: string; url: string; icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; badge?: number | "dot" };
+type FlyoutItem = { title: string; url: string; badge?: number | "dot" };
 
 type Category = {
   key: string;
