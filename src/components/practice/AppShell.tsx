@@ -19,7 +19,7 @@ import { useCriticalFlagCount } from "@/lib/assessments-store";
 import { useOverdueCount } from "@/lib/billing-store";
 import { useUnreadThreadCount } from "@/lib/messages-store";
 import { endSession } from "@/lib/auth-store";
-import { useSidebarPinned } from "@/lib/settings-store";
+import { useSidebarPinned, useSettings } from "@/lib/settings-store";
 import { BellPeek } from "@/components/practice/notifications/BellPeek";
 import { CopilotPill } from "@/components/practice/copilot/CopilotPill";
 import { ChecklistDrawer } from "@/components/practice/onboarding/ChecklistDrawer";
@@ -864,12 +864,14 @@ export function AppShell({ children, crumb }: { children: ReactNode; crumb?: str
   const [mobileOpen, setMobileOpen] = useState(false);
   const [onDuty, setOnDuty] = useState(true);
   const [pinned, setPinned] = useSidebarPinned();
+  // Drive appearance tokens (accent, density, radius, motion) from stored settings.
+  useSettings();
   return (
     <>
       <GlassFX />
       <div
         className="min-h-screen flex w-full"
-        style={{ color: palette.ink, fontFamily: "'DM Sans', system-ui, sans-serif", background: "#FBF7F8" }}
+        style={{ color: "var(--pc-ink, #1E1418)", fontFamily: "'DM Sans', system-ui, sans-serif" }}
       >
         <DesktopTubeSidebar
           onDuty={onDuty}
