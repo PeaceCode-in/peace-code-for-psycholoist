@@ -22,6 +22,7 @@ import { endSession } from "@/lib/auth-store";
 import { useSidebarPinned } from "@/lib/settings-store";
 import { BellPeek } from "@/components/practice/notifications/BellPeek";
 import { CopilotPill } from "@/components/practice/copilot/CopilotPill";
+import { ChecklistDrawer } from "@/components/practice/onboarding/ChecklistDrawer";
 
 export { palette };
 
@@ -846,7 +847,9 @@ function TopBar({ crumb, onToggleSidebar, onOpenMobile }: { crumb?: string; onTo
         <AlertOctagon className="w-3 h-3" /> Emergency
       </button>
 
+      <ChecklistDrawer />
       <BellPeek />
+
 
 
       <QuickAddMenu />
