@@ -25,6 +25,7 @@ import { Route as ResearchRouteImport } from './routes/research'
 import { Route as ReferralsRouteImport } from './routes/referrals'
 import { Route as ProfilePublicRouteImport } from './routes/profile-public'
 import { Route as PrescriptionsRouteImport } from './routes/prescriptions'
+import { Route as PortalRouteImport } from './routes/portal'
 import { Route as PeersRouteImport } from './routes/peers'
 import { Route as PayoutsRouteImport } from './routes/payouts'
 import { Route as PaymentsRouteImport } from './routes/payments'
@@ -50,6 +51,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as TeamIndexRouteImport } from './routes/team.index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as SessionsIndexRouteImport } from './routes/sessions.index'
+import { Route as PortalIndexRouteImport } from './routes/portal.index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
 import { Route as MessagesIndexRouteImport } from './routes/messages.index'
 import { Route as CalendarIndexRouteImport } from './routes/calendar.index'
@@ -90,6 +92,17 @@ import { Route as SettingsAppearanceRouteImport } from './routes/settings.appear
 import { Route as SettingsAccessibilityRouteImport } from './routes/settings.accessibility'
 import { Route as SettingsAboutRouteImport } from './routes/settings.about'
 import { Route as SessionsIdRouteImport } from './routes/sessions.$id'
+import { Route as PortalSessionsRouteImport } from './routes/portal.sessions'
+import { Route as PortalProgressRouteImport } from './routes/portal.progress'
+import { Route as PortalProfileRouteImport } from './routes/portal.profile'
+import { Route as PortalOnboardingRouteImport } from './routes/portal.onboarding'
+import { Route as PortalMessagesRouteImport } from './routes/portal.messages'
+import { Route as PortalHomeworkRouteImport } from './routes/portal.homework'
+import { Route as PortalDocumentsRouteImport } from './routes/portal.documents'
+import { Route as PortalCrisisRouteImport } from './routes/portal.crisis'
+import { Route as PortalBillingRouteImport } from './routes/portal.billing'
+import { Route as PortalAuthRouteImport } from './routes/portal.auth'
+import { Route as PortalAssessmentsRouteImport } from './routes/portal.assessments'
 import { Route as PatientsNewRouteImport } from './routes/patients.new'
 import { Route as PatientsPidRouteImport } from './routes/patients.$pid'
 import { Route as MessagesSettingsRouteImport } from './routes/messages.settings'
@@ -124,6 +137,8 @@ import { Route as AssessmentsLibraryIndexRouteImport } from './routes/assessment
 import { Route as SessionsDayDateRouteImport } from './routes/sessions.day.$date'
 import { Route as SessionsIdWrapRouteImport } from './routes/sessions.$id.wrap'
 import { Route as SessionsIdRoomRouteImport } from './routes/sessions.$id.room'
+import { Route as PortalMessagesThreadIdRouteImport } from './routes/portal.messages.$threadId'
+import { Route as PortalAssessmentsIdRouteImport } from './routes/portal.assessments.$id'
 import { Route as PatientsPidTimelineRouteImport } from './routes/patients.$pid.timeline'
 import { Route as PatientsPidNotesRouteImport } from './routes/patients.$pid.notes'
 import { Route as PatientsPidDocumentsRouteImport } from './routes/patients.$pid.documents'
@@ -219,6 +234,11 @@ const ProfilePublicRoute = ProfilePublicRouteImport.update({
 const PrescriptionsRoute = PrescriptionsRouteImport.update({
   id: '/prescriptions',
   path: '/prescriptions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortalRoute = PortalRouteImport.update({
+  id: '/portal',
+  path: '/portal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PeersRoute = PeersRouteImport.update({
@@ -345,6 +365,11 @@ const SessionsIndexRoute = SessionsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => SessionsRoute,
+} as any)
+const PortalIndexRoute = PortalIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PortalRoute,
 } as any)
 const PatientsIndexRoute = PatientsIndexRouteImport.update({
   id: '/',
@@ -548,6 +573,61 @@ const SessionsIdRoute = SessionsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => SessionsRoute,
 } as any)
+const PortalSessionsRoute = PortalSessionsRouteImport.update({
+  id: '/sessions',
+  path: '/sessions',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalProgressRoute = PortalProgressRouteImport.update({
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalProfileRoute = PortalProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalOnboardingRoute = PortalOnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalMessagesRoute = PortalMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalHomeworkRoute = PortalHomeworkRouteImport.update({
+  id: '/homework',
+  path: '/homework',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalDocumentsRoute = PortalDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalCrisisRoute = PortalCrisisRouteImport.update({
+  id: '/crisis',
+  path: '/crisis',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalBillingRoute = PortalBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalAuthRoute = PortalAuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalAssessmentsRoute = PortalAssessmentsRouteImport.update({
+  id: '/assessments',
+  path: '/assessments',
+  getParentRoute: () => PortalRoute,
+} as any)
 const PatientsNewRoute = PatientsNewRouteImport.update({
   id: '/new',
   path: '/new',
@@ -718,6 +798,16 @@ const SessionsIdRoomRoute = SessionsIdRoomRouteImport.update({
   path: '/room',
   getParentRoute: () => SessionsIdRoute,
 } as any)
+const PortalMessagesThreadIdRoute = PortalMessagesThreadIdRouteImport.update({
+  id: '/$threadId',
+  path: '/$threadId',
+  getParentRoute: () => PortalMessagesRoute,
+} as any)
+const PortalAssessmentsIdRoute = PortalAssessmentsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => PortalAssessmentsRoute,
+} as any)
 const PatientsPidTimelineRoute = PatientsPidTimelineRouteImport.update({
   id: '/timeline',
   path: '/timeline',
@@ -825,6 +915,7 @@ export interface FileRoutesByFullPath {
   '/payments': typeof PaymentsRoute
   '/payouts': typeof PayoutsRoute
   '/peers': typeof PeersRoute
+  '/portal': typeof PortalRouteWithChildren
   '/prescriptions': typeof PrescriptionsRoute
   '/profile-public': typeof ProfilePublicRoute
   '/referrals': typeof ReferralsRoute
@@ -867,6 +958,17 @@ export interface FileRoutesByFullPath {
   '/messages/settings': typeof MessagesSettingsRoute
   '/patients/$pid': typeof PatientsPidRouteWithChildren
   '/patients/new': typeof PatientsNewRoute
+  '/portal/assessments': typeof PortalAssessmentsRouteWithChildren
+  '/portal/auth': typeof PortalAuthRoute
+  '/portal/billing': typeof PortalBillingRoute
+  '/portal/crisis': typeof PortalCrisisRoute
+  '/portal/documents': typeof PortalDocumentsRoute
+  '/portal/homework': typeof PortalHomeworkRoute
+  '/portal/messages': typeof PortalMessagesRouteWithChildren
+  '/portal/onboarding': typeof PortalOnboardingRoute
+  '/portal/profile': typeof PortalProfileRoute
+  '/portal/progress': typeof PortalProgressRoute
+  '/portal/sessions': typeof PortalSessionsRoute
   '/sessions/$id': typeof SessionsIdRouteWithChildren
   '/settings/about': typeof SettingsAboutRoute
   '/settings/accessibility': typeof SettingsAccessibilityRoute
@@ -907,6 +1009,7 @@ export interface FileRoutesByFullPath {
   '/calendar/': typeof CalendarIndexRoute
   '/messages/': typeof MessagesIndexRoute
   '/patients/': typeof PatientsIndexRoute
+  '/portal/': typeof PortalIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/team/': typeof TeamIndexRoute
@@ -923,6 +1026,8 @@ export interface FileRoutesByFullPath {
   '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
   '/patients/$pid/notes': typeof PatientsPidNotesRouteWithChildren
   '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
+  '/portal/assessments/$id': typeof PortalAssessmentsIdRoute
+  '/portal/messages/$threadId': typeof PortalMessagesThreadIdRoute
   '/sessions/$id/room': typeof SessionsIdRoomRoute
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
@@ -988,6 +1093,17 @@ export interface FileRoutesByTo {
   '/messages/compose': typeof MessagesComposeRoute
   '/messages/settings': typeof MessagesSettingsRoute
   '/patients/new': typeof PatientsNewRoute
+  '/portal/assessments': typeof PortalAssessmentsRouteWithChildren
+  '/portal/auth': typeof PortalAuthRoute
+  '/portal/billing': typeof PortalBillingRoute
+  '/portal/crisis': typeof PortalCrisisRoute
+  '/portal/documents': typeof PortalDocumentsRoute
+  '/portal/homework': typeof PortalHomeworkRoute
+  '/portal/messages': typeof PortalMessagesRouteWithChildren
+  '/portal/onboarding': typeof PortalOnboardingRoute
+  '/portal/profile': typeof PortalProfileRoute
+  '/portal/progress': typeof PortalProgressRoute
+  '/portal/sessions': typeof PortalSessionsRoute
   '/settings/about': typeof SettingsAboutRoute
   '/settings/accessibility': typeof SettingsAccessibilityRoute
   '/settings/appearance': typeof SettingsAppearanceRoute
@@ -1027,6 +1143,7 @@ export interface FileRoutesByTo {
   '/calendar': typeof CalendarIndexRoute
   '/messages': typeof MessagesIndexRoute
   '/patients': typeof PatientsIndexRoute
+  '/portal': typeof PortalIndexRoute
   '/sessions': typeof SessionsIndexRoute
   '/settings': typeof SettingsIndexRoute
   '/team': typeof TeamIndexRoute
@@ -1042,6 +1159,8 @@ export interface FileRoutesByTo {
   '/patients/$pid/chart': typeof PatientsPidChartRoute
   '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
   '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
+  '/portal/assessments/$id': typeof PortalAssessmentsIdRoute
+  '/portal/messages/$threadId': typeof PortalMessagesThreadIdRoute
   '/sessions/$id/room': typeof SessionsIdRoomRoute
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
@@ -1078,6 +1197,7 @@ export interface FileRoutesById {
   '/payments': typeof PaymentsRoute
   '/payouts': typeof PayoutsRoute
   '/peers': typeof PeersRoute
+  '/portal': typeof PortalRouteWithChildren
   '/prescriptions': typeof PrescriptionsRoute
   '/profile-public': typeof ProfilePublicRoute
   '/referrals': typeof ReferralsRoute
@@ -1120,6 +1240,17 @@ export interface FileRoutesById {
   '/messages/settings': typeof MessagesSettingsRoute
   '/patients/$pid': typeof PatientsPidRouteWithChildren
   '/patients/new': typeof PatientsNewRoute
+  '/portal/assessments': typeof PortalAssessmentsRouteWithChildren
+  '/portal/auth': typeof PortalAuthRoute
+  '/portal/billing': typeof PortalBillingRoute
+  '/portal/crisis': typeof PortalCrisisRoute
+  '/portal/documents': typeof PortalDocumentsRoute
+  '/portal/homework': typeof PortalHomeworkRoute
+  '/portal/messages': typeof PortalMessagesRouteWithChildren
+  '/portal/onboarding': typeof PortalOnboardingRoute
+  '/portal/profile': typeof PortalProfileRoute
+  '/portal/progress': typeof PortalProgressRoute
+  '/portal/sessions': typeof PortalSessionsRoute
   '/sessions/$id': typeof SessionsIdRouteWithChildren
   '/settings/about': typeof SettingsAboutRoute
   '/settings/accessibility': typeof SettingsAccessibilityRoute
@@ -1160,6 +1291,7 @@ export interface FileRoutesById {
   '/calendar/': typeof CalendarIndexRoute
   '/messages/': typeof MessagesIndexRoute
   '/patients/': typeof PatientsIndexRoute
+  '/portal/': typeof PortalIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/team/': typeof TeamIndexRoute
@@ -1176,6 +1308,8 @@ export interface FileRoutesById {
   '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
   '/patients/$pid/notes': typeof PatientsPidNotesRouteWithChildren
   '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
+  '/portal/assessments/$id': typeof PortalAssessmentsIdRoute
+  '/portal/messages/$threadId': typeof PortalMessagesThreadIdRoute
   '/sessions/$id/room': typeof SessionsIdRoomRoute
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
@@ -1213,6 +1347,7 @@ export interface FileRouteTypes {
     | '/payments'
     | '/payouts'
     | '/peers'
+    | '/portal'
     | '/prescriptions'
     | '/profile-public'
     | '/referrals'
@@ -1255,6 +1390,17 @@ export interface FileRouteTypes {
     | '/messages/settings'
     | '/patients/$pid'
     | '/patients/new'
+    | '/portal/assessments'
+    | '/portal/auth'
+    | '/portal/billing'
+    | '/portal/crisis'
+    | '/portal/documents'
+    | '/portal/homework'
+    | '/portal/messages'
+    | '/portal/onboarding'
+    | '/portal/profile'
+    | '/portal/progress'
+    | '/portal/sessions'
     | '/sessions/$id'
     | '/settings/about'
     | '/settings/accessibility'
@@ -1295,6 +1441,7 @@ export interface FileRouteTypes {
     | '/calendar/'
     | '/messages/'
     | '/patients/'
+    | '/portal/'
     | '/sessions/'
     | '/settings/'
     | '/team/'
@@ -1311,6 +1458,8 @@ export interface FileRouteTypes {
     | '/patients/$pid/documents'
     | '/patients/$pid/notes'
     | '/patients/$pid/timeline'
+    | '/portal/assessments/$id'
+    | '/portal/messages/$threadId'
     | '/sessions/$id/room'
     | '/sessions/$id/wrap'
     | '/sessions/day/$date'
@@ -1376,6 +1525,17 @@ export interface FileRouteTypes {
     | '/messages/compose'
     | '/messages/settings'
     | '/patients/new'
+    | '/portal/assessments'
+    | '/portal/auth'
+    | '/portal/billing'
+    | '/portal/crisis'
+    | '/portal/documents'
+    | '/portal/homework'
+    | '/portal/messages'
+    | '/portal/onboarding'
+    | '/portal/profile'
+    | '/portal/progress'
+    | '/portal/sessions'
     | '/settings/about'
     | '/settings/accessibility'
     | '/settings/appearance'
@@ -1415,6 +1575,7 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/messages'
     | '/patients'
+    | '/portal'
     | '/sessions'
     | '/settings'
     | '/team'
@@ -1430,6 +1591,8 @@ export interface FileRouteTypes {
     | '/patients/$pid/chart'
     | '/patients/$pid/documents'
     | '/patients/$pid/timeline'
+    | '/portal/assessments/$id'
+    | '/portal/messages/$threadId'
     | '/sessions/$id/room'
     | '/sessions/$id/wrap'
     | '/sessions/day/$date'
@@ -1465,6 +1628,7 @@ export interface FileRouteTypes {
     | '/payments'
     | '/payouts'
     | '/peers'
+    | '/portal'
     | '/prescriptions'
     | '/profile-public'
     | '/referrals'
@@ -1507,6 +1671,17 @@ export interface FileRouteTypes {
     | '/messages/settings'
     | '/patients/$pid'
     | '/patients/new'
+    | '/portal/assessments'
+    | '/portal/auth'
+    | '/portal/billing'
+    | '/portal/crisis'
+    | '/portal/documents'
+    | '/portal/homework'
+    | '/portal/messages'
+    | '/portal/onboarding'
+    | '/portal/profile'
+    | '/portal/progress'
+    | '/portal/sessions'
     | '/sessions/$id'
     | '/settings/about'
     | '/settings/accessibility'
@@ -1547,6 +1722,7 @@ export interface FileRouteTypes {
     | '/calendar/'
     | '/messages/'
     | '/patients/'
+    | '/portal/'
     | '/sessions/'
     | '/settings/'
     | '/team/'
@@ -1563,6 +1739,8 @@ export interface FileRouteTypes {
     | '/patients/$pid/documents'
     | '/patients/$pid/notes'
     | '/patients/$pid/timeline'
+    | '/portal/assessments/$id'
+    | '/portal/messages/$threadId'
     | '/sessions/$id/room'
     | '/sessions/$id/wrap'
     | '/sessions/day/$date'
@@ -1599,6 +1777,7 @@ export interface RootRouteChildren {
   PaymentsRoute: typeof PaymentsRoute
   PayoutsRoute: typeof PayoutsRoute
   PeersRoute: typeof PeersRoute
+  PortalRoute: typeof PortalRouteWithChildren
   PrescriptionsRoute: typeof PrescriptionsRoute
   ProfilePublicRoute: typeof ProfilePublicRoute
   ReferralsRoute: typeof ReferralsRoute
@@ -1741,6 +1920,13 @@ declare module '@tanstack/react-router' {
       path: '/prescriptions'
       fullPath: '/prescriptions'
       preLoaderRoute: typeof PrescriptionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portal': {
+      id: '/portal'
+      path: '/portal'
+      fullPath: '/portal'
+      preLoaderRoute: typeof PortalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/peers': {
@@ -1917,6 +2103,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/sessions/'
       preLoaderRoute: typeof SessionsIndexRouteImport
       parentRoute: typeof SessionsRoute
+    }
+    '/portal/': {
+      id: '/portal/'
+      path: '/'
+      fullPath: '/portal/'
+      preLoaderRoute: typeof PortalIndexRouteImport
+      parentRoute: typeof PortalRoute
     }
     '/patients/': {
       id: '/patients/'
@@ -2198,6 +2391,83 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SessionsIdRouteImport
       parentRoute: typeof SessionsRoute
     }
+    '/portal/sessions': {
+      id: '/portal/sessions'
+      path: '/sessions'
+      fullPath: '/portal/sessions'
+      preLoaderRoute: typeof PortalSessionsRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/progress': {
+      id: '/portal/progress'
+      path: '/progress'
+      fullPath: '/portal/progress'
+      preLoaderRoute: typeof PortalProgressRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/profile': {
+      id: '/portal/profile'
+      path: '/profile'
+      fullPath: '/portal/profile'
+      preLoaderRoute: typeof PortalProfileRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/onboarding': {
+      id: '/portal/onboarding'
+      path: '/onboarding'
+      fullPath: '/portal/onboarding'
+      preLoaderRoute: typeof PortalOnboardingRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/messages': {
+      id: '/portal/messages'
+      path: '/messages'
+      fullPath: '/portal/messages'
+      preLoaderRoute: typeof PortalMessagesRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/homework': {
+      id: '/portal/homework'
+      path: '/homework'
+      fullPath: '/portal/homework'
+      preLoaderRoute: typeof PortalHomeworkRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/documents': {
+      id: '/portal/documents'
+      path: '/documents'
+      fullPath: '/portal/documents'
+      preLoaderRoute: typeof PortalDocumentsRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/crisis': {
+      id: '/portal/crisis'
+      path: '/crisis'
+      fullPath: '/portal/crisis'
+      preLoaderRoute: typeof PortalCrisisRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/billing': {
+      id: '/portal/billing'
+      path: '/billing'
+      fullPath: '/portal/billing'
+      preLoaderRoute: typeof PortalBillingRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/auth': {
+      id: '/portal/auth'
+      path: '/auth'
+      fullPath: '/portal/auth'
+      preLoaderRoute: typeof PortalAuthRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/assessments': {
+      id: '/portal/assessments'
+      path: '/assessments'
+      fullPath: '/portal/assessments'
+      preLoaderRoute: typeof PortalAssessmentsRouteImport
+      parentRoute: typeof PortalRoute
+    }
     '/patients/new': {
       id: '/patients/new'
       path: '/new'
@@ -2435,6 +2705,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/sessions/$id/room'
       preLoaderRoute: typeof SessionsIdRoomRouteImport
       parentRoute: typeof SessionsIdRoute
+    }
+    '/portal/messages/$threadId': {
+      id: '/portal/messages/$threadId'
+      path: '/$threadId'
+      fullPath: '/portal/messages/$threadId'
+      preLoaderRoute: typeof PortalMessagesThreadIdRouteImport
+      parentRoute: typeof PortalMessagesRoute
+    }
+    '/portal/assessments/$id': {
+      id: '/portal/assessments/$id'
+      path: '/$id'
+      fullPath: '/portal/assessments/$id'
+      preLoaderRoute: typeof PortalAssessmentsIdRouteImport
+      parentRoute: typeof PortalAssessmentsRoute
     }
     '/patients/$pid/timeline': {
       id: '/patients/$pid/timeline'
@@ -2726,6 +3010,62 @@ const PatientsRouteWithChildren = PatientsRoute._addFileChildren(
   PatientsRouteChildren,
 )
 
+interface PortalAssessmentsRouteChildren {
+  PortalAssessmentsIdRoute: typeof PortalAssessmentsIdRoute
+}
+
+const PortalAssessmentsRouteChildren: PortalAssessmentsRouteChildren = {
+  PortalAssessmentsIdRoute: PortalAssessmentsIdRoute,
+}
+
+const PortalAssessmentsRouteWithChildren =
+  PortalAssessmentsRoute._addFileChildren(PortalAssessmentsRouteChildren)
+
+interface PortalMessagesRouteChildren {
+  PortalMessagesThreadIdRoute: typeof PortalMessagesThreadIdRoute
+}
+
+const PortalMessagesRouteChildren: PortalMessagesRouteChildren = {
+  PortalMessagesThreadIdRoute: PortalMessagesThreadIdRoute,
+}
+
+const PortalMessagesRouteWithChildren = PortalMessagesRoute._addFileChildren(
+  PortalMessagesRouteChildren,
+)
+
+interface PortalRouteChildren {
+  PortalAssessmentsRoute: typeof PortalAssessmentsRouteWithChildren
+  PortalAuthRoute: typeof PortalAuthRoute
+  PortalBillingRoute: typeof PortalBillingRoute
+  PortalCrisisRoute: typeof PortalCrisisRoute
+  PortalDocumentsRoute: typeof PortalDocumentsRoute
+  PortalHomeworkRoute: typeof PortalHomeworkRoute
+  PortalMessagesRoute: typeof PortalMessagesRouteWithChildren
+  PortalOnboardingRoute: typeof PortalOnboardingRoute
+  PortalProfileRoute: typeof PortalProfileRoute
+  PortalProgressRoute: typeof PortalProgressRoute
+  PortalSessionsRoute: typeof PortalSessionsRoute
+  PortalIndexRoute: typeof PortalIndexRoute
+}
+
+const PortalRouteChildren: PortalRouteChildren = {
+  PortalAssessmentsRoute: PortalAssessmentsRouteWithChildren,
+  PortalAuthRoute: PortalAuthRoute,
+  PortalBillingRoute: PortalBillingRoute,
+  PortalCrisisRoute: PortalCrisisRoute,
+  PortalDocumentsRoute: PortalDocumentsRoute,
+  PortalHomeworkRoute: PortalHomeworkRoute,
+  PortalMessagesRoute: PortalMessagesRouteWithChildren,
+  PortalOnboardingRoute: PortalOnboardingRoute,
+  PortalProfileRoute: PortalProfileRoute,
+  PortalProgressRoute: PortalProgressRoute,
+  PortalSessionsRoute: PortalSessionsRoute,
+  PortalIndexRoute: PortalIndexRoute,
+}
+
+const PortalRouteWithChildren =
+  PortalRoute._addFileChildren(PortalRouteChildren)
+
 interface SessionsIdRouteChildren {
   SessionsIdRoomRoute: typeof SessionsIdRoomRoute
   SessionsIdWrapRoute: typeof SessionsIdWrapRoute
@@ -2869,6 +3209,7 @@ const rootRouteChildren: RootRouteChildren = {
   PaymentsRoute: PaymentsRoute,
   PayoutsRoute: PayoutsRoute,
   PeersRoute: PeersRoute,
+  PortalRoute: PortalRouteWithChildren,
   PrescriptionsRoute: PrescriptionsRoute,
   ProfilePublicRoute: ProfilePublicRoute,
   ReferralsRoute: ReferralsRoute,
@@ -2901,3 +3242,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
