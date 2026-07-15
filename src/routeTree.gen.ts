@@ -82,8 +82,13 @@ import { Route as PatientsPidRouteImport } from './routes/patients.$pid'
 import { Route as ComplianceExportRouteImport } from './routes/compliance.export'
 import { Route as ComplianceConsentRouteImport } from './routes/compliance.consent'
 import { Route as ComplianceAuditRouteImport } from './routes/compliance.audit'
+import { Route as CalendarSettingsRouteImport } from './routes/calendar.settings'
 import { Route as CalendarMonthRouteImport } from './routes/calendar.month'
+import { Route as CalendarIntegrationsRouteImport } from './routes/calendar.integrations'
 import { Route as CalendarDayRouteImport } from './routes/calendar.day'
+import { Route as CalendarBookingLinkRouteImport } from './routes/calendar.booking-link'
+import { Route as CalendarAvailabilityRouteImport } from './routes/calendar.availability'
+import { Route as CalendarAgendaRouteImport } from './routes/calendar.agenda'
 import { Route as BillingServicesRouteImport } from './routes/billing.services'
 import { Route as BillingReportsRouteImport } from './routes/billing.reports'
 import { Route as BillingPaymentsRouteImport } from './routes/billing.payments'
@@ -107,6 +112,7 @@ import { Route as PatientsPidDocumentsRouteImport } from './routes/patients.$pid
 import { Route as PatientsPidChartRouteImport } from './routes/patients.$pid.chart'
 import { Route as PatientsPidBillingRouteImport } from './routes/patients.$pid.billing'
 import { Route as PatientsPidAssessmentsRouteImport } from './routes/patients.$pid.assessments'
+import { Route as CalendarBookSlugRouteImport } from './routes/calendar.book.$slug'
 import { Route as BillingInvoicesNewRouteImport } from './routes/billing.invoices.new'
 import { Route as BillingInvoicesIdRouteImport } from './routes/billing.invoices.$id'
 import { Route as BillingClaimsIdRouteImport } from './routes/billing.claims.$id'
@@ -484,14 +490,39 @@ const ComplianceAuditRoute = ComplianceAuditRouteImport.update({
   path: '/compliance/audit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CalendarSettingsRoute = CalendarSettingsRouteImport.update({
+  id: '/calendar/settings',
+  path: '/calendar/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CalendarMonthRoute = CalendarMonthRouteImport.update({
   id: '/calendar/month',
   path: '/calendar/month',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CalendarIntegrationsRoute = CalendarIntegrationsRouteImport.update({
+  id: '/calendar/integrations',
+  path: '/calendar/integrations',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CalendarDayRoute = CalendarDayRouteImport.update({
   id: '/calendar/day',
   path: '/calendar/day',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalendarBookingLinkRoute = CalendarBookingLinkRouteImport.update({
+  id: '/calendar/booking-link',
+  path: '/calendar/booking-link',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalendarAvailabilityRoute = CalendarAvailabilityRouteImport.update({
+  id: '/calendar/availability',
+  path: '/calendar/availability',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalendarAgendaRoute = CalendarAgendaRouteImport.update({
+  id: '/calendar/agenda',
+  path: '/calendar/agenda',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BillingServicesRoute = BillingServicesRouteImport.update({
@@ -609,6 +640,11 @@ const PatientsPidAssessmentsRoute = PatientsPidAssessmentsRouteImport.update({
   path: '/assessments',
   getParentRoute: () => PatientsPidRoute,
 } as any)
+const CalendarBookSlugRoute = CalendarBookSlugRouteImport.update({
+  id: '/calendar/book/$slug',
+  path: '/calendar/book/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BillingInvoicesNewRoute = BillingInvoicesNewRouteImport.update({
   id: '/new',
   path: '/new',
@@ -704,8 +740,13 @@ export interface FileRoutesByFullPath {
   '/billing/payments': typeof BillingPaymentsRoute
   '/billing/reports': typeof BillingReportsRoute
   '/billing/services': typeof BillingServicesRoute
+  '/calendar/agenda': typeof CalendarAgendaRoute
+  '/calendar/availability': typeof CalendarAvailabilityRoute
+  '/calendar/booking-link': typeof CalendarBookingLinkRoute
   '/calendar/day': typeof CalendarDayRoute
+  '/calendar/integrations': typeof CalendarIntegrationsRoute
   '/calendar/month': typeof CalendarMonthRoute
+  '/calendar/settings': typeof CalendarSettingsRoute
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
@@ -749,6 +790,7 @@ export interface FileRoutesByFullPath {
   '/billing/claims/$id': typeof BillingClaimsIdRoute
   '/billing/invoices/$id': typeof BillingInvoicesIdRoute
   '/billing/invoices/new': typeof BillingInvoicesNewRoute
+  '/calendar/book/$slug': typeof CalendarBookSlugRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/billing': typeof PatientsPidBillingRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
@@ -804,8 +846,13 @@ export interface FileRoutesByTo {
   '/billing/payments': typeof BillingPaymentsRoute
   '/billing/reports': typeof BillingReportsRoute
   '/billing/services': typeof BillingServicesRoute
+  '/calendar/agenda': typeof CalendarAgendaRoute
+  '/calendar/availability': typeof CalendarAvailabilityRoute
+  '/calendar/booking-link': typeof CalendarBookingLinkRoute
   '/calendar/day': typeof CalendarDayRoute
+  '/calendar/integrations': typeof CalendarIntegrationsRoute
   '/calendar/month': typeof CalendarMonthRoute
+  '/calendar/settings': typeof CalendarSettingsRoute
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
@@ -847,6 +894,7 @@ export interface FileRoutesByTo {
   '/billing/claims/$id': typeof BillingClaimsIdRoute
   '/billing/invoices/$id': typeof BillingInvoicesIdRoute
   '/billing/invoices/new': typeof BillingInvoicesNewRoute
+  '/calendar/book/$slug': typeof CalendarBookSlugRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/billing': typeof PatientsPidBillingRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
@@ -911,8 +959,13 @@ export interface FileRoutesById {
   '/billing/payments': typeof BillingPaymentsRoute
   '/billing/reports': typeof BillingReportsRoute
   '/billing/services': typeof BillingServicesRoute
+  '/calendar/agenda': typeof CalendarAgendaRoute
+  '/calendar/availability': typeof CalendarAvailabilityRoute
+  '/calendar/booking-link': typeof CalendarBookingLinkRoute
   '/calendar/day': typeof CalendarDayRoute
+  '/calendar/integrations': typeof CalendarIntegrationsRoute
   '/calendar/month': typeof CalendarMonthRoute
+  '/calendar/settings': typeof CalendarSettingsRoute
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
@@ -956,6 +1009,7 @@ export interface FileRoutesById {
   '/billing/claims/$id': typeof BillingClaimsIdRoute
   '/billing/invoices/$id': typeof BillingInvoicesIdRoute
   '/billing/invoices/new': typeof BillingInvoicesNewRoute
+  '/calendar/book/$slug': typeof CalendarBookSlugRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/billing': typeof PatientsPidBillingRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
@@ -1022,8 +1076,13 @@ export interface FileRouteTypes {
     | '/billing/payments'
     | '/billing/reports'
     | '/billing/services'
+    | '/calendar/agenda'
+    | '/calendar/availability'
+    | '/calendar/booking-link'
     | '/calendar/day'
+    | '/calendar/integrations'
     | '/calendar/month'
+    | '/calendar/settings'
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
@@ -1067,6 +1126,7 @@ export interface FileRouteTypes {
     | '/billing/claims/$id'
     | '/billing/invoices/$id'
     | '/billing/invoices/new'
+    | '/calendar/book/$slug'
     | '/patients/$pid/assessments'
     | '/patients/$pid/billing'
     | '/patients/$pid/chart'
@@ -1122,8 +1182,13 @@ export interface FileRouteTypes {
     | '/billing/payments'
     | '/billing/reports'
     | '/billing/services'
+    | '/calendar/agenda'
+    | '/calendar/availability'
+    | '/calendar/booking-link'
     | '/calendar/day'
+    | '/calendar/integrations'
     | '/calendar/month'
+    | '/calendar/settings'
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
@@ -1165,6 +1230,7 @@ export interface FileRouteTypes {
     | '/billing/claims/$id'
     | '/billing/invoices/$id'
     | '/billing/invoices/new'
+    | '/calendar/book/$slug'
     | '/patients/$pid/assessments'
     | '/patients/$pid/billing'
     | '/patients/$pid/chart'
@@ -1228,8 +1294,13 @@ export interface FileRouteTypes {
     | '/billing/payments'
     | '/billing/reports'
     | '/billing/services'
+    | '/calendar/agenda'
+    | '/calendar/availability'
+    | '/calendar/booking-link'
     | '/calendar/day'
+    | '/calendar/integrations'
     | '/calendar/month'
+    | '/calendar/settings'
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
@@ -1273,6 +1344,7 @@ export interface FileRouteTypes {
     | '/billing/claims/$id'
     | '/billing/invoices/$id'
     | '/billing/invoices/new'
+    | '/calendar/book/$slug'
     | '/patients/$pid/assessments'
     | '/patients/$pid/billing'
     | '/patients/$pid/chart'
@@ -1329,12 +1401,18 @@ export interface RootRouteChildren {
   TemplatesRoute: typeof TemplatesRoute
   TreatmentPlansRoute: typeof TreatmentPlansRoute
   WaitlistRoute: typeof WaitlistRoute
+  CalendarAgendaRoute: typeof CalendarAgendaRoute
+  CalendarAvailabilityRoute: typeof CalendarAvailabilityRoute
+  CalendarBookingLinkRoute: typeof CalendarBookingLinkRoute
   CalendarDayRoute: typeof CalendarDayRoute
+  CalendarIntegrationsRoute: typeof CalendarIntegrationsRoute
   CalendarMonthRoute: typeof CalendarMonthRoute
+  CalendarSettingsRoute: typeof CalendarSettingsRoute
   ComplianceAuditRoute: typeof ComplianceAuditRoute
   ComplianceConsentRoute: typeof ComplianceConsentRoute
   ComplianceExportRoute: typeof ComplianceExportRoute
   CalendarIndexRoute: typeof CalendarIndexRoute
+  CalendarBookSlugRoute: typeof CalendarBookSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1850,6 +1928,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComplianceAuditRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/calendar/settings': {
+      id: '/calendar/settings'
+      path: '/calendar/settings'
+      fullPath: '/calendar/settings'
+      preLoaderRoute: typeof CalendarSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/calendar/month': {
       id: '/calendar/month'
       path: '/calendar/month'
@@ -1857,11 +1942,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CalendarMonthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/calendar/integrations': {
+      id: '/calendar/integrations'
+      path: '/calendar/integrations'
+      fullPath: '/calendar/integrations'
+      preLoaderRoute: typeof CalendarIntegrationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/calendar/day': {
       id: '/calendar/day'
       path: '/calendar/day'
       fullPath: '/calendar/day'
       preLoaderRoute: typeof CalendarDayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calendar/booking-link': {
+      id: '/calendar/booking-link'
+      path: '/calendar/booking-link'
+      fullPath: '/calendar/booking-link'
+      preLoaderRoute: typeof CalendarBookingLinkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calendar/availability': {
+      id: '/calendar/availability'
+      path: '/calendar/availability'
+      fullPath: '/calendar/availability'
+      preLoaderRoute: typeof CalendarAvailabilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calendar/agenda': {
+      id: '/calendar/agenda'
+      path: '/calendar/agenda'
+      fullPath: '/calendar/agenda'
+      preLoaderRoute: typeof CalendarAgendaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/billing/services': {
@@ -2024,6 +2137,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/patients/$pid/assessments'
       preLoaderRoute: typeof PatientsPidAssessmentsRouteImport
       parentRoute: typeof PatientsPidRoute
+    }
+    '/calendar/book/$slug': {
+      id: '/calendar/book/$slug'
+      path: '/calendar/book/$slug'
+      fullPath: '/calendar/book/$slug'
+      preLoaderRoute: typeof CalendarBookSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/billing/invoices/new': {
       id: '/billing/invoices/new'
@@ -2373,12 +2493,18 @@ const rootRouteChildren: RootRouteChildren = {
   TemplatesRoute: TemplatesRoute,
   TreatmentPlansRoute: TreatmentPlansRoute,
   WaitlistRoute: WaitlistRoute,
+  CalendarAgendaRoute: CalendarAgendaRoute,
+  CalendarAvailabilityRoute: CalendarAvailabilityRoute,
+  CalendarBookingLinkRoute: CalendarBookingLinkRoute,
   CalendarDayRoute: CalendarDayRoute,
+  CalendarIntegrationsRoute: CalendarIntegrationsRoute,
   CalendarMonthRoute: CalendarMonthRoute,
+  CalendarSettingsRoute: CalendarSettingsRoute,
   ComplianceAuditRoute: ComplianceAuditRoute,
   ComplianceConsentRoute: ComplianceConsentRoute,
   ComplianceExportRoute: ComplianceExportRoute,
   CalendarIndexRoute: CalendarIndexRoute,
+  CalendarBookSlugRoute: CalendarBookSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
