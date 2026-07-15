@@ -82,6 +82,7 @@ import { Route as PatientsPidRouteImport } from './routes/patients.$pid'
 import { Route as ComplianceExportRouteImport } from './routes/compliance.export'
 import { Route as ComplianceConsentRouteImport } from './routes/compliance.consent'
 import { Route as ComplianceAuditRouteImport } from './routes/compliance.audit'
+import { Route as CalendarMonthRouteImport } from './routes/calendar.month'
 import { Route as CalendarDayRouteImport } from './routes/calendar.day'
 import { Route as BillingServicesRouteImport } from './routes/billing.services'
 import { Route as BillingReportsRouteImport } from './routes/billing.reports'
@@ -483,6 +484,11 @@ const ComplianceAuditRoute = ComplianceAuditRouteImport.update({
   path: '/compliance/audit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CalendarMonthRoute = CalendarMonthRouteImport.update({
+  id: '/calendar/month',
+  path: '/calendar/month',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CalendarDayRoute = CalendarDayRouteImport.update({
   id: '/calendar/day',
   path: '/calendar/day',
@@ -699,6 +705,7 @@ export interface FileRoutesByFullPath {
   '/billing/reports': typeof BillingReportsRoute
   '/billing/services': typeof BillingServicesRoute
   '/calendar/day': typeof CalendarDayRoute
+  '/calendar/month': typeof CalendarMonthRoute
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
@@ -798,6 +805,7 @@ export interface FileRoutesByTo {
   '/billing/reports': typeof BillingReportsRoute
   '/billing/services': typeof BillingServicesRoute
   '/calendar/day': typeof CalendarDayRoute
+  '/calendar/month': typeof CalendarMonthRoute
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
@@ -904,6 +912,7 @@ export interface FileRoutesById {
   '/billing/reports': typeof BillingReportsRoute
   '/billing/services': typeof BillingServicesRoute
   '/calendar/day': typeof CalendarDayRoute
+  '/calendar/month': typeof CalendarMonthRoute
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
@@ -1014,6 +1023,7 @@ export interface FileRouteTypes {
     | '/billing/reports'
     | '/billing/services'
     | '/calendar/day'
+    | '/calendar/month'
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
@@ -1113,6 +1123,7 @@ export interface FileRouteTypes {
     | '/billing/reports'
     | '/billing/services'
     | '/calendar/day'
+    | '/calendar/month'
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
@@ -1218,6 +1229,7 @@ export interface FileRouteTypes {
     | '/billing/reports'
     | '/billing/services'
     | '/calendar/day'
+    | '/calendar/month'
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
@@ -1318,6 +1330,7 @@ export interface RootRouteChildren {
   TreatmentPlansRoute: typeof TreatmentPlansRoute
   WaitlistRoute: typeof WaitlistRoute
   CalendarDayRoute: typeof CalendarDayRoute
+  CalendarMonthRoute: typeof CalendarMonthRoute
   ComplianceAuditRoute: typeof ComplianceAuditRoute
   ComplianceConsentRoute: typeof ComplianceConsentRoute
   ComplianceExportRoute: typeof ComplianceExportRoute
@@ -1837,6 +1850,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComplianceAuditRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/calendar/month': {
+      id: '/calendar/month'
+      path: '/calendar/month'
+      fullPath: '/calendar/month'
+      preLoaderRoute: typeof CalendarMonthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/calendar/day': {
       id: '/calendar/day'
       path: '/calendar/day'
@@ -2354,6 +2374,7 @@ const rootRouteChildren: RootRouteChildren = {
   TreatmentPlansRoute: TreatmentPlansRoute,
   WaitlistRoute: WaitlistRoute,
   CalendarDayRoute: CalendarDayRoute,
+  CalendarMonthRoute: CalendarMonthRoute,
   ComplianceAuditRoute: ComplianceAuditRoute,
   ComplianceConsentRoute: ComplianceConsentRoute,
   ComplianceExportRoute: ComplianceExportRoute,
