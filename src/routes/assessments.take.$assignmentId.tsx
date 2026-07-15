@@ -38,13 +38,14 @@ function TakeAssessment() {
   // count-up on summary reveal
   useEffect(() => {
     if (!summary || !scored) return;
+    const target = scored.totalScore;
     const start = performance.now();
     const dur = 900;
     let raf = 0;
     function step(t: number) {
       const p = Math.min(1, (t - start) / dur);
       const eased = 1 - Math.pow(1 - p, 3);
-      setDisplayScore(scored.totalScore * eased);
+      setDisplayScore(target * eased);
       if (p < 1) raf = requestAnimationFrame(step);
     }
     raf = requestAnimationFrame(step);
@@ -53,6 +54,7 @@ function TakeAssessment() {
 
   if (!hydrated) return null;
   if (!assignment || !inst) throw notFound();
+  const asn = assignment;
 
   const progress = summary ? 1 : (idx + Number(responses[item?.id ?? ""] !== undefined) / 2) / total;
 
@@ -67,7 +69,7 @@ function TakeAssessment() {
   }
 
   function submit() {
-    submitResult(assignment.id, responses);
+    submitResult(asn.id, responses);
     // Redirect back to overview for the therapist context
     navigate({ to: "/assessments" });
   }
