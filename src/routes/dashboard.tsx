@@ -396,6 +396,19 @@ function FooterStat({ icon: Icon, label, value, sub, progress }: { icon: React.C
     </div>
   );
 }
+function Avatar({ patient, size = 32 }: { patient: { initials: string; avatar?: string; name: string }; size?: number }) {
+  return (
+    <div
+      className="rounded-full flex items-center justify-center text-white overflow-hidden shrink-0"
+      style={{ width: size, height: size, background: primary, fontSize: size * 0.36 }}
+      aria-label={patient.name}
+    >
+      {patient.avatar
+        ? <img src={patient.avatar} alt="" width={size} height={size} className="w-full h-full object-cover" loading="lazy" />
+        : patient.initials}
+    </div>
+  );
+}
 function PhqSpark({ values }: { values: number[] }) {
   const max = Math.max(...values), min = Math.min(...values);
   const range = max - min || 1;
