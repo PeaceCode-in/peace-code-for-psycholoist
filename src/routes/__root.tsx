@@ -117,7 +117,7 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem('peacecode.theme.v1');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}var r=document.documentElement;if(t==='dark'){r.classList.add('dark');}r.setAttribute('data-theme',t);}catch(e){}`,
+            __html: `try{var r=document.documentElement;var bg='sakura';try{var raw=localStorage.getItem('peacecode.settings.v1');if(raw){var p=JSON.parse(raw);if(p&&p.appearance&&p.appearance.bgTheme)bg=p.appearance.bgTheme;}}catch(_){}r.setAttribute('data-pc-bg',bg);var darkBg={ember:1,graphite:1,midnight:1,noir:1};var t=localStorage.getItem('peacecode.theme.v1');if(!t){t=darkBg[bg]?'dark':(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');}if(t==='dark'){r.classList.add('dark');}r.setAttribute('data-theme',t);}catch(e){}`,
           }}
         />
       </head>
