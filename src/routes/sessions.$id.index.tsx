@@ -100,8 +100,10 @@ function PrepSheet() {
               </h1>
               <p className="text-[12px] mt-0.5" style={{ color: palette.muted }}>
                 {patient.totalSessions + 1}th session · {patient.primaryConcern.split(",")[0].toLowerCase()}
-                {lastPHQ !== undefined && (
-                  <> · last score PHQ-9: <span style={{ color: palette.ink }}>{lastPHQ}</span> {lastPHQ < prevPHQ ? "↓" : lastPHQ > prevPHQ ? "↑" : "→"} from {prevPHQ}</>
+                {typeof lastPHQ === "number" && (
+                  <> · last PHQ-9: <span style={{ color: palette.ink }}>{lastPHQ}</span>
+                    {typeof prevPHQ === "number" && <> {lastPHQ < prevPHQ ? "↓" : lastPHQ > prevPHQ ? "↑" : "→"} from {prevPHQ}</>}
+                  </>
                 )}
               </p>
             </div>
