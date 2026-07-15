@@ -16,15 +16,6 @@ export const Route = createFileRoute("/admin/launch-readiness")({
   }),
   component: LaunchReadiness,
 });
-  head: () => ({
-    meta: [
-      { title: "Launch Readiness — PeaceCode" },
-      { name: "description", content: "Pre-flight checklist before public launch." },
-      { name: "robots", content: "noindex, nofollow" },
-    ],
-  }),
-  component: LaunchReadiness,
-});
 
 type Check = { id: string; label: string; detail: string; auto: boolean; passing: boolean };
 
