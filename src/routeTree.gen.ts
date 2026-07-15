@@ -56,6 +56,7 @@ import { Route as PortalIndexRouteImport } from './routes/portal.index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
 import { Route as MessagesIndexRouteImport } from './routes/messages.index'
 import { Route as IntegrationsIndexRouteImport } from './routes/integrations.index'
+import { Route as DocumentsIndexRouteImport } from './routes/documents.index'
 import { Route as CalendarIndexRouteImport } from './routes/calendar.index'
 import { Route as BillingIndexRouteImport } from './routes/billing.index'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
@@ -118,6 +119,7 @@ import { Route as IntegrationsAutomationsRouteImport } from './routes/integratio
 import { Route as IntegrationsSlugRouteImport } from './routes/integrations.$slug'
 import { Route as InboxTasksRouteImport } from './routes/inbox.tasks'
 import { Route as InboxDailyBriefRouteImport } from './routes/inbox.daily-brief'
+import { Route as DocumentsNewRouteImport } from './routes/documents.new'
 import { Route as ComplianceExportRouteImport } from './routes/compliance.export'
 import { Route as ComplianceConsentRouteImport } from './routes/compliance.consent'
 import { Route as ComplianceAuditRouteImport } from './routes/compliance.audit'
@@ -163,6 +165,7 @@ import { Route as AssessmentsLibraryInstrumentIdRouteImport } from './routes/ass
 import { Route as PatientsPidNotesIndexRouteImport } from './routes/patients.$pid.notes.index'
 import { Route as PatientsPidNotesNewRouteImport } from './routes/patients.$pid.notes.new'
 import { Route as PatientsPidNotesNidRouteImport } from './routes/patients.$pid.notes.$nid'
+import { Route as DocumentsTemplatesIdEditRouteImport } from './routes/documents.templates.$id.edit'
 
 const WaitlistRoute = WaitlistRouteImport.update({
   id: '/waitlist',
@@ -398,6 +401,11 @@ const IntegrationsIndexRoute = IntegrationsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => IntegrationsRoute,
+} as any)
+const DocumentsIndexRoute = DocumentsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DocumentsRoute,
 } as any)
 const CalendarIndexRoute = CalendarIndexRouteImport.update({
   id: '/calendar/',
@@ -711,6 +719,11 @@ const InboxDailyBriefRoute = InboxDailyBriefRouteImport.update({
   path: '/daily-brief',
   getParentRoute: () => InboxRoute,
 } as any)
+const DocumentsNewRoute = DocumentsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => DocumentsRoute,
+} as any)
 const ComplianceExportRoute = ComplianceExportRouteImport.update({
   id: '/compliance/export',
   path: '/compliance/export',
@@ -939,6 +952,12 @@ const PatientsPidNotesNidRoute = PatientsPidNotesNidRouteImport.update({
   path: '/$nid',
   getParentRoute: () => PatientsPidNotesRoute,
 } as any)
+const DocumentsTemplatesIdEditRoute =
+  DocumentsTemplatesIdEditRouteImport.update({
+    id: '/templates/$id/edit',
+    path: '/templates/$id/edit',
+    getParentRoute: () => DocumentsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -951,7 +970,7 @@ export interface FileRoutesByFullPath {
   '/case-conferences': typeof CaseConferencesRoute
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
-  '/documents': typeof DocumentsRoute
+  '/documents': typeof DocumentsRouteWithChildren
   '/groups': typeof GroupsRoute
   '/homework': typeof HomeworkRoute
   '/inbox': typeof InboxRouteWithChildren
@@ -1000,6 +1019,7 @@ export interface FileRoutesByFullPath {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
+  '/documents/new': typeof DocumentsNewRoute
   '/inbox/daily-brief': typeof InboxDailyBriefRoute
   '/inbox/tasks': typeof InboxTasksRoute
   '/integrations/$slug': typeof IntegrationsSlugRoute
@@ -1062,6 +1082,7 @@ export interface FileRoutesByFullPath {
   '/auth/': typeof AuthIndexRoute
   '/billing/': typeof BillingIndexRoute
   '/calendar/': typeof CalendarIndexRoute
+  '/documents/': typeof DocumentsIndexRoute
   '/integrations/': typeof IntegrationsIndexRoute
   '/messages/': typeof MessagesIndexRoute
   '/patients/': typeof PatientsIndexRoute
@@ -1092,6 +1113,7 @@ export interface FileRoutesByFullPath {
   '/billing/invoices/': typeof BillingInvoicesIndexRoute
   '/patients/$pid/': typeof PatientsPidIndexRoute
   '/sessions/$id/': typeof SessionsIdIndexRoute
+  '/documents/templates/$id/edit': typeof DocumentsTemplatesIdEditRoute
   '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
   '/patients/$pid/notes/new': typeof PatientsPidNotesNewRoute
   '/patients/$pid/notes/': typeof PatientsPidNotesIndexRoute
@@ -1104,7 +1126,6 @@ export interface FileRoutesByTo {
   '/case-conferences': typeof CaseConferencesRoute
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
-  '/documents': typeof DocumentsRoute
   '/groups': typeof GroupsRoute
   '/homework': typeof HomeworkRoute
   '/inbox': typeof InboxRouteWithChildren
@@ -1143,6 +1164,7 @@ export interface FileRoutesByTo {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
+  '/documents/new': typeof DocumentsNewRoute
   '/inbox/daily-brief': typeof InboxDailyBriefRoute
   '/inbox/tasks': typeof InboxTasksRoute
   '/integrations/$slug': typeof IntegrationsSlugRoute
@@ -1203,6 +1225,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthIndexRoute
   '/billing': typeof BillingIndexRoute
   '/calendar': typeof CalendarIndexRoute
+  '/documents': typeof DocumentsIndexRoute
   '/integrations': typeof IntegrationsIndexRoute
   '/messages': typeof MessagesIndexRoute
   '/patients': typeof PatientsIndexRoute
@@ -1232,6 +1255,7 @@ export interface FileRoutesByTo {
   '/billing/invoices': typeof BillingInvoicesIndexRoute
   '/patients/$pid': typeof PatientsPidIndexRoute
   '/sessions/$id': typeof SessionsIdIndexRoute
+  '/documents/templates/$id/edit': typeof DocumentsTemplatesIdEditRoute
   '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
   '/patients/$pid/notes/new': typeof PatientsPidNotesNewRoute
   '/patients/$pid/notes': typeof PatientsPidNotesIndexRoute
@@ -1248,7 +1272,7 @@ export interface FileRoutesById {
   '/case-conferences': typeof CaseConferencesRoute
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
-  '/documents': typeof DocumentsRoute
+  '/documents': typeof DocumentsRouteWithChildren
   '/groups': typeof GroupsRoute
   '/homework': typeof HomeworkRoute
   '/inbox': typeof InboxRouteWithChildren
@@ -1297,6 +1321,7 @@ export interface FileRoutesById {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
+  '/documents/new': typeof DocumentsNewRoute
   '/inbox/daily-brief': typeof InboxDailyBriefRoute
   '/inbox/tasks': typeof InboxTasksRoute
   '/integrations/$slug': typeof IntegrationsSlugRoute
@@ -1359,6 +1384,7 @@ export interface FileRoutesById {
   '/auth/': typeof AuthIndexRoute
   '/billing/': typeof BillingIndexRoute
   '/calendar/': typeof CalendarIndexRoute
+  '/documents/': typeof DocumentsIndexRoute
   '/integrations/': typeof IntegrationsIndexRoute
   '/messages/': typeof MessagesIndexRoute
   '/patients/': typeof PatientsIndexRoute
@@ -1389,6 +1415,7 @@ export interface FileRoutesById {
   '/billing/invoices/': typeof BillingInvoicesIndexRoute
   '/patients/$pid/': typeof PatientsPidIndexRoute
   '/sessions/$id/': typeof SessionsIdIndexRoute
+  '/documents/templates/$id/edit': typeof DocumentsTemplatesIdEditRoute
   '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
   '/patients/$pid/notes/new': typeof PatientsPidNotesNewRoute
   '/patients/$pid/notes/': typeof PatientsPidNotesIndexRoute
@@ -1455,6 +1482,7 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
+    | '/documents/new'
     | '/inbox/daily-brief'
     | '/inbox/tasks'
     | '/integrations/$slug'
@@ -1517,6 +1545,7 @@ export interface FileRouteTypes {
     | '/auth/'
     | '/billing/'
     | '/calendar/'
+    | '/documents/'
     | '/integrations/'
     | '/messages/'
     | '/patients/'
@@ -1547,6 +1576,7 @@ export interface FileRouteTypes {
     | '/billing/invoices/'
     | '/patients/$pid/'
     | '/sessions/$id/'
+    | '/documents/templates/$id/edit'
     | '/patients/$pid/notes/$nid'
     | '/patients/$pid/notes/new'
     | '/patients/$pid/notes/'
@@ -1559,7 +1589,6 @@ export interface FileRouteTypes {
     | '/case-conferences'
     | '/cpd'
     | '/dashboard'
-    | '/documents'
     | '/groups'
     | '/homework'
     | '/inbox'
@@ -1598,6 +1627,7 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
+    | '/documents/new'
     | '/inbox/daily-brief'
     | '/inbox/tasks'
     | '/integrations/$slug'
@@ -1658,6 +1688,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/billing'
     | '/calendar'
+    | '/documents'
     | '/integrations'
     | '/messages'
     | '/patients'
@@ -1687,6 +1718,7 @@ export interface FileRouteTypes {
     | '/billing/invoices'
     | '/patients/$pid'
     | '/sessions/$id'
+    | '/documents/templates/$id/edit'
     | '/patients/$pid/notes/$nid'
     | '/patients/$pid/notes/new'
     | '/patients/$pid/notes'
@@ -1751,6 +1783,7 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
+    | '/documents/new'
     | '/inbox/daily-brief'
     | '/inbox/tasks'
     | '/integrations/$slug'
@@ -1813,6 +1846,7 @@ export interface FileRouteTypes {
     | '/auth/'
     | '/billing/'
     | '/calendar/'
+    | '/documents/'
     | '/integrations/'
     | '/messages/'
     | '/patients/'
@@ -1843,6 +1877,7 @@ export interface FileRouteTypes {
     | '/billing/invoices/'
     | '/patients/$pid/'
     | '/sessions/$id/'
+    | '/documents/templates/$id/edit'
     | '/patients/$pid/notes/$nid'
     | '/patients/$pid/notes/new'
     | '/patients/$pid/notes/'
@@ -1859,7 +1894,7 @@ export interface RootRouteChildren {
   CaseConferencesRoute: typeof CaseConferencesRoute
   CpdRoute: typeof CpdRoute
   DashboardRoute: typeof DashboardRoute
-  DocumentsRoute: typeof DocumentsRoute
+  DocumentsRoute: typeof DocumentsRouteWithChildren
   GroupsRoute: typeof GroupsRoute
   HomeworkRoute: typeof HomeworkRoute
   InboxRoute: typeof InboxRouteWithChildren
@@ -2233,6 +2268,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/integrations/'
       preLoaderRoute: typeof IntegrationsIndexRouteImport
       parentRoute: typeof IntegrationsRoute
+    }
+    '/documents/': {
+      id: '/documents/'
+      path: '/'
+      fullPath: '/documents/'
+      preLoaderRoute: typeof DocumentsIndexRouteImport
+      parentRoute: typeof DocumentsRoute
     }
     '/calendar/': {
       id: '/calendar/'
@@ -2668,6 +2710,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InboxDailyBriefRouteImport
       parentRoute: typeof InboxRoute
     }
+    '/documents/new': {
+      id: '/documents/new'
+      path: '/new'
+      fullPath: '/documents/new'
+      preLoaderRoute: typeof DocumentsNewRouteImport
+      parentRoute: typeof DocumentsRoute
+    }
     '/compliance/export': {
       id: '/compliance/export'
       path: '/compliance/export'
@@ -2983,6 +3032,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PatientsPidNotesNidRouteImport
       parentRoute: typeof PatientsPidNotesRoute
     }
+    '/documents/templates/$id/edit': {
+      id: '/documents/templates/$id/edit'
+      path: '/templates/$id/edit'
+      fullPath: '/documents/templates/$id/edit'
+      preLoaderRoute: typeof DocumentsTemplatesIdEditRouteImport
+      parentRoute: typeof DocumentsRoute
+    }
   }
 }
 
@@ -3083,6 +3139,22 @@ const BillingRouteChildren: BillingRouteChildren = {
 
 const BillingRouteWithChildren =
   BillingRoute._addFileChildren(BillingRouteChildren)
+
+interface DocumentsRouteChildren {
+  DocumentsNewRoute: typeof DocumentsNewRoute
+  DocumentsIndexRoute: typeof DocumentsIndexRoute
+  DocumentsTemplatesIdEditRoute: typeof DocumentsTemplatesIdEditRoute
+}
+
+const DocumentsRouteChildren: DocumentsRouteChildren = {
+  DocumentsNewRoute: DocumentsNewRoute,
+  DocumentsIndexRoute: DocumentsIndexRoute,
+  DocumentsTemplatesIdEditRoute: DocumentsTemplatesIdEditRoute,
+}
+
+const DocumentsRouteWithChildren = DocumentsRoute._addFileChildren(
+  DocumentsRouteChildren,
+)
 
 interface InboxRouteChildren {
   InboxDailyBriefRoute: typeof InboxDailyBriefRoute
@@ -3380,7 +3452,7 @@ const rootRouteChildren: RootRouteChildren = {
   CaseConferencesRoute: CaseConferencesRoute,
   CpdRoute: CpdRoute,
   DashboardRoute: DashboardRoute,
-  DocumentsRoute: DocumentsRoute,
+  DocumentsRoute: DocumentsRouteWithChildren,
   GroupsRoute: GroupsRoute,
   HomeworkRoute: HomeworkRoute,
   InboxRoute: InboxRouteWithChildren,
