@@ -4,7 +4,7 @@
 // (locally pseudonymized) for the trust/transparency panel.
 
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { listPatients, getPatient, listNotesForPatient, type Patient } from "./patients-store";
+import { listPatients, getPatient, listNotes } from "./patients-store";
 
 // ─── Types ───────────────────────────────────────────────────
 export type Tone = "formal" | "conversational" | "warm";
