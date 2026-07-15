@@ -6,7 +6,7 @@ import { palette } from "@/components/practice/palette";
 import { useTemplates, createInstance, sendInstance, CATEGORY_META,
   type DeliveryChannel, type Template,
 } from "@/lib/documents-store";
-import { usePatients } from "@/lib/patients-store";
+import { useLivePatients } from "@/lib/patients-store";
 import { CategoryChip, PaperThumbnail } from "@/components/practice/documents/primitives";
 import { ArrowLeft, Send, Eye } from "lucide-react";
 
