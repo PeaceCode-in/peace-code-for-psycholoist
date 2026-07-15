@@ -121,7 +121,7 @@ function DetailSheet({ e, allEvents }: { e: AuditEvent | null; allEvents: AuditE
         {e.requestId && <Row k="Request ID" v={e.requestId} full />}
       </dl>
 
-      {(e.before || e.after) && (
+      {(e.before !== undefined || e.after !== undefined) && (
         <div className="mt-4 rounded-xl p-3" style={{ background: "rgba(30,20,32,0.04)", border: `1px solid ${VAULT.border}` }}>
           <Mono style={{ color: VAULT.muted }}>Before / after</Mono>
           <pre className="mt-2 text-[11.5px] overflow-auto" style={{ color: VAULT.ink, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{JSON.stringify({ before: e.before ?? null, after: e.after ?? null }, null, 2)}</pre>
