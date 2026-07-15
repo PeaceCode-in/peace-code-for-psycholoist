@@ -1,12 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { StubPage } from "@/components/practice/StubPage";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { AppShell } from "@/components/practice/AppShell";
 
 export const Route = createFileRoute("/assessments")({
   head: () => ({
     meta: [
       { title: "Assessments — PeaceCode · Practice" },
-      { name: "description", content: "Administer and score PHQ-9, GAD-7, PCL-5, WHO-5, DASS-21, K10, Y-BOCS, AUDIT, MSSI and custom instruments." },
+      { name: "description", content: "Screeners, trajectories and clinical flags — PHQ-9, GAD-7, PCL-5, WSAS, C-SSRS." },
     ],
   }),
-  component: () => <StubPage title="Assessments" crumb="Assessments" blurb="Administer and score PHQ-9, GAD-7, PCL-5, WHO-5, DASS-21, K10, Y-BOCS, AUDIT, MSSI and custom instruments." />,
+  component: () => <AppShell crumb="Assessments"><Outlet /></AppShell>,
 });
