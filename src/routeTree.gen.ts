@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WelcomeRouteImport } from './routes/welcome'
 import { Route as WaitlistRouteImport } from './routes/waitlist'
 import { Route as TreatmentPlansRouteImport } from './routes/treatment-plans'
 import { Route as TemplatesRouteImport } from './routes/templates'
@@ -50,6 +51,7 @@ import { Route as AssessmentsRouteImport } from './routes/assessments'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WelcomeIndexRouteImport } from './routes/welcome.index'
 import { Route as TeamIndexRouteImport } from './routes/team.index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as SessionsIndexRouteImport } from './routes/sessions.index'
@@ -62,6 +64,9 @@ import { Route as CalendarIndexRouteImport } from './routes/calendar.index'
 import { Route as BillingIndexRouteImport } from './routes/billing.index'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
 import { Route as AssessmentsIndexRouteImport } from './routes/assessments.index'
+import { Route as WelcomeTeamRouteImport } from './routes/welcome.team'
+import { Route as WelcomeLetterRouteImport } from './routes/welcome.letter'
+import { Route as WelcomeCompleteRouteImport } from './routes/welcome.complete'
 import { Route as TeamSupervisionRouteImport } from './routes/team.supervision'
 import { Route as TeamRolesRouteImport } from './routes/team.roles'
 import { Route as TeamReferralsRouteImport } from './routes/team.referrals'
@@ -143,11 +148,13 @@ import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as AssessmentsLibraryRouteImport } from './routes/assessments.library'
 import { Route as AssessmentsAssignmentsRouteImport } from './routes/assessments.assignments'
+import { Route as AdminOnboardingSignalsRouteImport } from './routes/admin.onboarding-signals'
 import { Route as SessionsIdIndexRouteImport } from './routes/sessions.$id.index'
 import { Route as PatientsPidIndexRouteImport } from './routes/patients.$pid.index'
 import { Route as BillingInvoicesIndexRouteImport } from './routes/billing.invoices.index'
 import { Route as BillingClaimsIndexRouteImport } from './routes/billing.claims.index'
 import { Route as AssessmentsLibraryIndexRouteImport } from './routes/assessments.library.index'
+import { Route as WelcomeSetupStepRouteImport } from './routes/welcome.setup.$step'
 import { Route as SessionsDayDateRouteImport } from './routes/sessions.day.$date'
 import { Route as SessionsIdWrapRouteImport } from './routes/sessions.$id.wrap'
 import { Route as SessionsIdRoomRouteImport } from './routes/sessions.$id.room'
@@ -173,6 +180,11 @@ import { Route as PatientsPidNotesNewRouteImport } from './routes/patients.$pid.
 import { Route as PatientsPidNotesNidRouteImport } from './routes/patients.$pid.notes.$nid'
 import { Route as DocumentsTemplatesIdEditRouteImport } from './routes/documents.templates.$id.edit'
 
+const WelcomeRoute = WelcomeRouteImport.update({
+  id: '/welcome',
+  path: '/welcome',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WaitlistRoute = WaitlistRouteImport.update({
   id: '/waitlist',
   path: '/waitlist',
@@ -378,6 +390,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WelcomeIndexRoute = WelcomeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => WelcomeRoute,
+} as any)
 const TeamIndexRoute = TeamIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -437,6 +454,21 @@ const AssessmentsIndexRoute = AssessmentsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AssessmentsRoute,
+} as any)
+const WelcomeTeamRoute = WelcomeTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => WelcomeRoute,
+} as any)
+const WelcomeLetterRoute = WelcomeLetterRouteImport.update({
+  id: '/letter',
+  path: '/letter',
+  getParentRoute: () => WelcomeRoute,
+} as any)
+const WelcomeCompleteRoute = WelcomeCompleteRouteImport.update({
+  id: '/complete',
+  path: '/complete',
+  getParentRoute: () => WelcomeRoute,
 } as any)
 const TeamSupervisionRoute = TeamSupervisionRouteImport.update({
   id: '/supervision',
@@ -845,6 +877,11 @@ const AssessmentsAssignmentsRoute = AssessmentsAssignmentsRouteImport.update({
   path: '/assignments',
   getParentRoute: () => AssessmentsRoute,
 } as any)
+const AdminOnboardingSignalsRoute = AdminOnboardingSignalsRouteImport.update({
+  id: '/admin/onboarding-signals',
+  path: '/admin/onboarding-signals',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SessionsIdIndexRoute = SessionsIdIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -869,6 +906,11 @@ const AssessmentsLibraryIndexRoute = AssessmentsLibraryIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AssessmentsLibraryRoute,
+} as any)
+const WelcomeSetupStepRoute = WelcomeSetupStepRouteImport.update({
+  id: '/setup/$step',
+  path: '/setup/$step',
+  getParentRoute: () => WelcomeRoute,
 } as any)
 const SessionsDayDateRoute = SessionsDayDateRouteImport.update({
   id: '/day/$date',
@@ -1037,6 +1079,8 @@ export interface FileRoutesByFullPath {
   '/templates': typeof TemplatesRoute
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
+  '/welcome': typeof WelcomeRouteWithChildren
+  '/admin/onboarding-signals': typeof AdminOnboardingSignalsRoute
   '/assessments/assignments': typeof AssessmentsAssignmentsRoute
   '/assessments/library': typeof AssessmentsLibraryRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
@@ -1118,6 +1162,9 @@ export interface FileRoutesByFullPath {
   '/team/referrals': typeof TeamReferralsRoute
   '/team/roles': typeof TeamRolesRoute
   '/team/supervision': typeof TeamSupervisionRoute
+  '/welcome/complete': typeof WelcomeCompleteRoute
+  '/welcome/letter': typeof WelcomeLetterRoute
+  '/welcome/team': typeof WelcomeTeamRoute
   '/assessments/': typeof AssessmentsIndexRoute
   '/auth/': typeof AuthIndexRoute
   '/billing/': typeof BillingIndexRoute
@@ -1130,6 +1177,7 @@ export interface FileRoutesByFullPath {
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/team/': typeof TeamIndexRoute
+  '/welcome/': typeof WelcomeIndexRoute
   '/assessments/library/$instrumentId': typeof AssessmentsLibraryInstrumentIdRoute
   '/assessments/results/$resultId': typeof AssessmentsResultsResultIdRoute
   '/assessments/take/$assignmentId': typeof AssessmentsTakeAssignmentIdRoute
@@ -1150,6 +1198,7 @@ export interface FileRoutesByFullPath {
   '/sessions/$id/room': typeof SessionsIdRoomRoute
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
+  '/welcome/setup/$step': typeof WelcomeSetupStepRoute
   '/assessments/library/': typeof AssessmentsLibraryIndexRoute
   '/billing/claims/': typeof BillingClaimsIndexRoute
   '/billing/invoices/': typeof BillingInvoicesIndexRoute
@@ -1191,6 +1240,7 @@ export interface FileRoutesByTo {
   '/templates': typeof TemplatesRoute
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
+  '/admin/onboarding-signals': typeof AdminOnboardingSignalsRoute
   '/assessments/assignments': typeof AssessmentsAssignmentsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
@@ -1267,6 +1317,9 @@ export interface FileRoutesByTo {
   '/team/referrals': typeof TeamReferralsRoute
   '/team/roles': typeof TeamRolesRoute
   '/team/supervision': typeof TeamSupervisionRoute
+  '/welcome/complete': typeof WelcomeCompleteRoute
+  '/welcome/letter': typeof WelcomeLetterRoute
+  '/welcome/team': typeof WelcomeTeamRoute
   '/assessments': typeof AssessmentsIndexRoute
   '/auth': typeof AuthIndexRoute
   '/billing': typeof BillingIndexRoute
@@ -1279,6 +1332,7 @@ export interface FileRoutesByTo {
   '/sessions': typeof SessionsIndexRoute
   '/settings': typeof SettingsIndexRoute
   '/team': typeof TeamIndexRoute
+  '/welcome': typeof WelcomeIndexRoute
   '/assessments/library/$instrumentId': typeof AssessmentsLibraryInstrumentIdRoute
   '/assessments/results/$resultId': typeof AssessmentsResultsResultIdRoute
   '/assessments/take/$assignmentId': typeof AssessmentsTakeAssignmentIdRoute
@@ -1298,6 +1352,7 @@ export interface FileRoutesByTo {
   '/sessions/$id/room': typeof SessionsIdRoomRoute
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
+  '/welcome/setup/$step': typeof WelcomeSetupStepRoute
   '/assessments/library': typeof AssessmentsLibraryIndexRoute
   '/billing/claims': typeof BillingClaimsIndexRoute
   '/billing/invoices': typeof BillingInvoicesIndexRoute
@@ -1351,6 +1406,8 @@ export interface FileRoutesById {
   '/templates': typeof TemplatesRoute
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
+  '/welcome': typeof WelcomeRouteWithChildren
+  '/admin/onboarding-signals': typeof AdminOnboardingSignalsRoute
   '/assessments/assignments': typeof AssessmentsAssignmentsRoute
   '/assessments/library': typeof AssessmentsLibraryRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
@@ -1432,6 +1489,9 @@ export interface FileRoutesById {
   '/team/referrals': typeof TeamReferralsRoute
   '/team/roles': typeof TeamRolesRoute
   '/team/supervision': typeof TeamSupervisionRoute
+  '/welcome/complete': typeof WelcomeCompleteRoute
+  '/welcome/letter': typeof WelcomeLetterRoute
+  '/welcome/team': typeof WelcomeTeamRoute
   '/assessments/': typeof AssessmentsIndexRoute
   '/auth/': typeof AuthIndexRoute
   '/billing/': typeof BillingIndexRoute
@@ -1444,6 +1504,7 @@ export interface FileRoutesById {
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
   '/team/': typeof TeamIndexRoute
+  '/welcome/': typeof WelcomeIndexRoute
   '/assessments/library/$instrumentId': typeof AssessmentsLibraryInstrumentIdRoute
   '/assessments/results/$resultId': typeof AssessmentsResultsResultIdRoute
   '/assessments/take/$assignmentId': typeof AssessmentsTakeAssignmentIdRoute
@@ -1464,6 +1525,7 @@ export interface FileRoutesById {
   '/sessions/$id/room': typeof SessionsIdRoomRoute
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
+  '/welcome/setup/$step': typeof WelcomeSetupStepRoute
   '/assessments/library/': typeof AssessmentsLibraryIndexRoute
   '/billing/claims/': typeof BillingClaimsIndexRoute
   '/billing/invoices/': typeof BillingInvoicesIndexRoute
@@ -1518,6 +1580,8 @@ export interface FileRouteTypes {
     | '/templates'
     | '/treatment-plans'
     | '/waitlist'
+    | '/welcome'
+    | '/admin/onboarding-signals'
     | '/assessments/assignments'
     | '/assessments/library'
     | '/auth/login'
@@ -1599,6 +1663,9 @@ export interface FileRouteTypes {
     | '/team/referrals'
     | '/team/roles'
     | '/team/supervision'
+    | '/welcome/complete'
+    | '/welcome/letter'
+    | '/welcome/team'
     | '/assessments/'
     | '/auth/'
     | '/billing/'
@@ -1611,6 +1678,7 @@ export interface FileRouteTypes {
     | '/sessions/'
     | '/settings/'
     | '/team/'
+    | '/welcome/'
     | '/assessments/library/$instrumentId'
     | '/assessments/results/$resultId'
     | '/assessments/take/$assignmentId'
@@ -1631,6 +1699,7 @@ export interface FileRouteTypes {
     | '/sessions/$id/room'
     | '/sessions/$id/wrap'
     | '/sessions/day/$date'
+    | '/welcome/setup/$step'
     | '/assessments/library/'
     | '/billing/claims/'
     | '/billing/invoices/'
@@ -1672,6 +1741,7 @@ export interface FileRouteTypes {
     | '/templates'
     | '/treatment-plans'
     | '/waitlist'
+    | '/admin/onboarding-signals'
     | '/assessments/assignments'
     | '/auth/login'
     | '/auth/signup'
@@ -1748,6 +1818,9 @@ export interface FileRouteTypes {
     | '/team/referrals'
     | '/team/roles'
     | '/team/supervision'
+    | '/welcome/complete'
+    | '/welcome/letter'
+    | '/welcome/team'
     | '/assessments'
     | '/auth'
     | '/billing'
@@ -1760,6 +1833,7 @@ export interface FileRouteTypes {
     | '/sessions'
     | '/settings'
     | '/team'
+    | '/welcome'
     | '/assessments/library/$instrumentId'
     | '/assessments/results/$resultId'
     | '/assessments/take/$assignmentId'
@@ -1779,6 +1853,7 @@ export interface FileRouteTypes {
     | '/sessions/$id/room'
     | '/sessions/$id/wrap'
     | '/sessions/day/$date'
+    | '/welcome/setup/$step'
     | '/assessments/library'
     | '/billing/claims'
     | '/billing/invoices'
@@ -1831,6 +1906,8 @@ export interface FileRouteTypes {
     | '/templates'
     | '/treatment-plans'
     | '/waitlist'
+    | '/welcome'
+    | '/admin/onboarding-signals'
     | '/assessments/assignments'
     | '/assessments/library'
     | '/auth/login'
@@ -1912,6 +1989,9 @@ export interface FileRouteTypes {
     | '/team/referrals'
     | '/team/roles'
     | '/team/supervision'
+    | '/welcome/complete'
+    | '/welcome/letter'
+    | '/welcome/team'
     | '/assessments/'
     | '/auth/'
     | '/billing/'
@@ -1924,6 +2004,7 @@ export interface FileRouteTypes {
     | '/sessions/'
     | '/settings/'
     | '/team/'
+    | '/welcome/'
     | '/assessments/library/$instrumentId'
     | '/assessments/results/$resultId'
     | '/assessments/take/$assignmentId'
@@ -1944,6 +2025,7 @@ export interface FileRouteTypes {
     | '/sessions/$id/room'
     | '/sessions/$id/wrap'
     | '/sessions/day/$date'
+    | '/welcome/setup/$step'
     | '/assessments/library/'
     | '/billing/claims/'
     | '/billing/invoices/'
@@ -1997,6 +2079,8 @@ export interface RootRouteChildren {
   TemplatesRoute: typeof TemplatesRoute
   TreatmentPlansRoute: typeof TreatmentPlansRoute
   WaitlistRoute: typeof WaitlistRoute
+  WelcomeRoute: typeof WelcomeRouteWithChildren
+  AdminOnboardingSignalsRoute: typeof AdminOnboardingSignalsRoute
   CalendarAgendaRoute: typeof CalendarAgendaRoute
   CalendarAvailabilityRoute: typeof CalendarAvailabilityRoute
   CalendarBookingLinkRoute: typeof CalendarBookingLinkRoute
@@ -2013,6 +2097,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/welcome': {
+      id: '/welcome'
+      path: '/welcome'
+      fullPath: '/welcome'
+      preLoaderRoute: typeof WelcomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/waitlist': {
       id: '/waitlist'
       path: '/waitlist'
@@ -2300,6 +2391,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/welcome/': {
+      id: '/welcome/'
+      path: '/'
+      fullPath: '/welcome/'
+      preLoaderRoute: typeof WelcomeIndexRouteImport
+      parentRoute: typeof WelcomeRoute
+    }
     '/team/': {
       id: '/team/'
       path: '/'
@@ -2383,6 +2481,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/assessments/'
       preLoaderRoute: typeof AssessmentsIndexRouteImport
       parentRoute: typeof AssessmentsRoute
+    }
+    '/welcome/team': {
+      id: '/welcome/team'
+      path: '/team'
+      fullPath: '/welcome/team'
+      preLoaderRoute: typeof WelcomeTeamRouteImport
+      parentRoute: typeof WelcomeRoute
+    }
+    '/welcome/letter': {
+      id: '/welcome/letter'
+      path: '/letter'
+      fullPath: '/welcome/letter'
+      preLoaderRoute: typeof WelcomeLetterRouteImport
+      parentRoute: typeof WelcomeRoute
+    }
+    '/welcome/complete': {
+      id: '/welcome/complete'
+      path: '/complete'
+      fullPath: '/welcome/complete'
+      preLoaderRoute: typeof WelcomeCompleteRouteImport
+      parentRoute: typeof WelcomeRoute
     }
     '/team/supervision': {
       id: '/team/supervision'
@@ -2951,6 +3070,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AssessmentsAssignmentsRouteImport
       parentRoute: typeof AssessmentsRoute
     }
+    '/admin/onboarding-signals': {
+      id: '/admin/onboarding-signals'
+      path: '/admin/onboarding-signals'
+      fullPath: '/admin/onboarding-signals'
+      preLoaderRoute: typeof AdminOnboardingSignalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sessions/$id/': {
       id: '/sessions/$id/'
       path: '/'
@@ -2985,6 +3111,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/assessments/library/'
       preLoaderRoute: typeof AssessmentsLibraryIndexRouteImport
       parentRoute: typeof AssessmentsLibraryRoute
+    }
+    '/welcome/setup/$step': {
+      id: '/welcome/setup/$step'
+      path: '/setup/$step'
+      fullPath: '/welcome/setup/$step'
+      preLoaderRoute: typeof WelcomeSetupStepRouteImport
+      parentRoute: typeof WelcomeRoute
     }
     '/sessions/day/$date': {
       id: '/sessions/day/$date'
@@ -3576,6 +3709,25 @@ const TeamRouteChildren: TeamRouteChildren = {
 
 const TeamRouteWithChildren = TeamRoute._addFileChildren(TeamRouteChildren)
 
+interface WelcomeRouteChildren {
+  WelcomeCompleteRoute: typeof WelcomeCompleteRoute
+  WelcomeLetterRoute: typeof WelcomeLetterRoute
+  WelcomeTeamRoute: typeof WelcomeTeamRoute
+  WelcomeIndexRoute: typeof WelcomeIndexRoute
+  WelcomeSetupStepRoute: typeof WelcomeSetupStepRoute
+}
+
+const WelcomeRouteChildren: WelcomeRouteChildren = {
+  WelcomeCompleteRoute: WelcomeCompleteRoute,
+  WelcomeLetterRoute: WelcomeLetterRoute,
+  WelcomeTeamRoute: WelcomeTeamRoute,
+  WelcomeIndexRoute: WelcomeIndexRoute,
+  WelcomeSetupStepRoute: WelcomeSetupStepRoute,
+}
+
+const WelcomeRouteWithChildren =
+  WelcomeRoute._addFileChildren(WelcomeRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AlertsRoute: AlertsRoute,
@@ -3618,6 +3770,8 @@ const rootRouteChildren: RootRouteChildren = {
   TemplatesRoute: TemplatesRoute,
   TreatmentPlansRoute: TreatmentPlansRoute,
   WaitlistRoute: WaitlistRoute,
+  WelcomeRoute: WelcomeRouteWithChildren,
+  AdminOnboardingSignalsRoute: AdminOnboardingSignalsRoute,
   CalendarAgendaRoute: CalendarAgendaRoute,
   CalendarAvailabilityRoute: CalendarAvailabilityRoute,
   CalendarBookingLinkRoute: CalendarBookingLinkRoute,
