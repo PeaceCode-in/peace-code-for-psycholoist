@@ -9,16 +9,66 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SessionsRouteImport } from './routes/sessions'
+import { Route as ScheduleRouteImport } from './routes/schedule'
+import { Route as ResourcesRouteImport } from './routes/resources'
+import { Route as PatientsRouteImport } from './routes/patients'
+import { Route as NotesRouteImport } from './routes/notes'
+import { Route as MessagesRouteImport } from './routes/messages'
+import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as BillingRouteImport } from './routes/billing'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PatientsIndexRouteImport } from './routes/patients.index'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
+import { Route as PatientsIdRouteImport } from './routes/patients.$id'
 import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
 
+const SessionsRoute = SessionsRouteImport.update({
+  id: '/sessions',
+  path: '/sessions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScheduleRoute = ScheduleRouteImport.update({
+  id: '/schedule',
+  path: '/schedule',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PatientsRoute = PatientsRouteImport.update({
+  id: '/patients',
+  path: '/patients',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotesRoute = NotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MessagesRoute = MessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsRoute = InsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BillingRoute = BillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -31,10 +81,20 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PatientsIndexRoute = PatientsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PatientsRoute,
+} as any)
 const AuthIndexRoute = AuthIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthRoute,
+} as any)
+const PatientsIdRoute = PatientsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => PatientsRoute,
 } as any)
 const AuthSignupRoute = AuthSignupRouteImport.update({
   id: '/signup',
@@ -50,61 +110,188 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteWithChildren
+  '/billing': typeof BillingRoute
   '/dashboard': typeof DashboardRoute
+  '/insights': typeof InsightsRoute
+  '/messages': typeof MessagesRoute
+  '/notes': typeof NotesRoute
+  '/patients': typeof PatientsRouteWithChildren
+  '/resources': typeof ResourcesRoute
+  '/schedule': typeof ScheduleRoute
+  '/sessions': typeof SessionsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/patients/$id': typeof PatientsIdRoute
   '/auth/': typeof AuthIndexRoute
+  '/patients/': typeof PatientsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/billing': typeof BillingRoute
   '/dashboard': typeof DashboardRoute
+  '/insights': typeof InsightsRoute
+  '/messages': typeof MessagesRoute
+  '/notes': typeof NotesRoute
+  '/resources': typeof ResourcesRoute
+  '/schedule': typeof ScheduleRoute
+  '/sessions': typeof SessionsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/patients/$id': typeof PatientsIdRoute
   '/auth': typeof AuthIndexRoute
+  '/patients': typeof PatientsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteWithChildren
+  '/billing': typeof BillingRoute
   '/dashboard': typeof DashboardRoute
+  '/insights': typeof InsightsRoute
+  '/messages': typeof MessagesRoute
+  '/notes': typeof NotesRoute
+  '/patients': typeof PatientsRouteWithChildren
+  '/resources': typeof ResourcesRoute
+  '/schedule': typeof ScheduleRoute
+  '/sessions': typeof SessionsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/patients/$id': typeof PatientsIdRoute
   '/auth/': typeof AuthIndexRoute
+  '/patients/': typeof PatientsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/auth'
+    | '/billing'
     | '/dashboard'
+    | '/insights'
+    | '/messages'
+    | '/notes'
+    | '/patients'
+    | '/resources'
+    | '/schedule'
+    | '/sessions'
     | '/auth/login'
     | '/auth/signup'
+    | '/patients/$id'
     | '/auth/'
+    | '/patients/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/auth/login' | '/auth/signup' | '/auth'
+  to:
+    | '/'
+    | '/billing'
+    | '/dashboard'
+    | '/insights'
+    | '/messages'
+    | '/notes'
+    | '/resources'
+    | '/schedule'
+    | '/sessions'
+    | '/auth/login'
+    | '/auth/signup'
+    | '/patients/$id'
+    | '/auth'
+    | '/patients'
   id:
     | '__root__'
     | '/'
     | '/auth'
+    | '/billing'
     | '/dashboard'
+    | '/insights'
+    | '/messages'
+    | '/notes'
+    | '/patients'
+    | '/resources'
+    | '/schedule'
+    | '/sessions'
     | '/auth/login'
     | '/auth/signup'
+    | '/patients/$id'
     | '/auth/'
+    | '/patients/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRouteWithChildren
+  BillingRoute: typeof BillingRoute
   DashboardRoute: typeof DashboardRoute
+  InsightsRoute: typeof InsightsRoute
+  MessagesRoute: typeof MessagesRoute
+  NotesRoute: typeof NotesRoute
+  PatientsRoute: typeof PatientsRouteWithChildren
+  ResourcesRoute: typeof ResourcesRoute
+  ScheduleRoute: typeof ScheduleRoute
+  SessionsRoute: typeof SessionsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sessions': {
+      id: '/sessions'
+      path: '/sessions'
+      fullPath: '/sessions'
+      preLoaderRoute: typeof SessionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/schedule': {
+      id: '/schedule'
+      path: '/schedule'
+      fullPath: '/schedule'
+      preLoaderRoute: typeof ScheduleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/patients': {
+      id: '/patients'
+      path: '/patients'
+      fullPath: '/patients'
+      preLoaderRoute: typeof PatientsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notes': {
+      id: '/notes'
+      path: '/notes'
+      fullPath: '/notes'
+      preLoaderRoute: typeof NotesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/messages': {
+      id: '/messages'
+      path: '/messages'
+      fullPath: '/messages'
+      preLoaderRoute: typeof MessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights': {
+      id: '/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof InsightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/billing': {
+      id: '/billing'
+      path: '/billing'
+      fullPath: '/billing'
+      preLoaderRoute: typeof BillingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -121,12 +308,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/patients/': {
+      id: '/patients/'
+      path: '/'
+      fullPath: '/patients/'
+      preLoaderRoute: typeof PatientsIndexRouteImport
+      parentRoute: typeof PatientsRoute
+    }
     '/auth/': {
       id: '/auth/'
       path: '/'
       fullPath: '/auth/'
       preLoaderRoute: typeof AuthIndexRouteImport
       parentRoute: typeof AuthRoute
+    }
+    '/patients/$id': {
+      id: '/patients/$id'
+      path: '/$id'
+      fullPath: '/patients/$id'
+      preLoaderRoute: typeof PatientsIdRouteImport
+      parentRoute: typeof PatientsRoute
     }
     '/auth/signup': {
       id: '/auth/signup'
@@ -159,10 +360,32 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
+interface PatientsRouteChildren {
+  PatientsIdRoute: typeof PatientsIdRoute
+  PatientsIndexRoute: typeof PatientsIndexRoute
+}
+
+const PatientsRouteChildren: PatientsRouteChildren = {
+  PatientsIdRoute: PatientsIdRoute,
+  PatientsIndexRoute: PatientsIndexRoute,
+}
+
+const PatientsRouteWithChildren = PatientsRoute._addFileChildren(
+  PatientsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRouteWithChildren,
+  BillingRoute: BillingRoute,
   DashboardRoute: DashboardRoute,
+  InsightsRoute: InsightsRoute,
+  MessagesRoute: MessagesRoute,
+  NotesRoute: NotesRoute,
+  PatientsRoute: PatientsRouteWithChildren,
+  ResourcesRoute: ResourcesRoute,
+  ScheduleRoute: ScheduleRoute,
+  SessionsRoute: SessionsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
