@@ -466,7 +466,7 @@ export function generateSoapDraft(input: {
   duration?: number;
 }): Draft {
   const p = getPatient(input.patientId);
-  const prior = listNotesForPatient(input.patientId).slice(0, 3);
+  const prior = listNotes(input.patientId).slice(0, 3);
   const name = p?.preferredName ?? p?.fullName?.split(" ")[0] ?? aliasFor(input.patientId);
   const lastConcern = p?.primaryConcern ?? "presenting concern";
   const tone = s().settings.tone;
