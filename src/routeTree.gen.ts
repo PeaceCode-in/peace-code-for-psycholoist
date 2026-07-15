@@ -47,6 +47,7 @@ import { Route as AssessmentsRouteImport } from './routes/assessments'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TeamIndexRouteImport } from './routes/team.index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as SessionsIndexRouteImport } from './routes/sessions.index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
@@ -55,6 +56,15 @@ import { Route as CalendarIndexRouteImport } from './routes/calendar.index'
 import { Route as BillingIndexRouteImport } from './routes/billing.index'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
 import { Route as AssessmentsIndexRouteImport } from './routes/assessments.index'
+import { Route as TeamSupervisionRouteImport } from './routes/team.supervision'
+import { Route as TeamRolesRouteImport } from './routes/team.roles'
+import { Route as TeamReferralsRouteImport } from './routes/team.referrals'
+import { Route as TeamInviteRouteImport } from './routes/team.invite'
+import { Route as TeamHandoffsRouteImport } from './routes/team.handoffs'
+import { Route as TeamCoverageRouteImport } from './routes/team.coverage'
+import { Route as TeamAuditRouteImport } from './routes/team.audit'
+import { Route as TeamAnalyticsRouteImport } from './routes/team.analytics'
+import { Route as TeamIdRouteImport } from './routes/team.$id'
 import { Route as SettingsTelehealthRouteImport } from './routes/settings.telehealth'
 import { Route as SettingsTeamRouteImport } from './routes/settings.team'
 import { Route as SettingsSupportRouteImport } from './routes/settings.support'
@@ -321,6 +331,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TeamIndexRoute = TeamIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TeamRoute,
+} as any)
 const SettingsIndexRoute = SettingsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -360,6 +375,51 @@ const AssessmentsIndexRoute = AssessmentsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AssessmentsRoute,
+} as any)
+const TeamSupervisionRoute = TeamSupervisionRouteImport.update({
+  id: '/supervision',
+  path: '/supervision',
+  getParentRoute: () => TeamRoute,
+} as any)
+const TeamRolesRoute = TeamRolesRouteImport.update({
+  id: '/roles',
+  path: '/roles',
+  getParentRoute: () => TeamRoute,
+} as any)
+const TeamReferralsRoute = TeamReferralsRouteImport.update({
+  id: '/referrals',
+  path: '/referrals',
+  getParentRoute: () => TeamRoute,
+} as any)
+const TeamInviteRoute = TeamInviteRouteImport.update({
+  id: '/invite',
+  path: '/invite',
+  getParentRoute: () => TeamRoute,
+} as any)
+const TeamHandoffsRoute = TeamHandoffsRouteImport.update({
+  id: '/handoffs',
+  path: '/handoffs',
+  getParentRoute: () => TeamRoute,
+} as any)
+const TeamCoverageRoute = TeamCoverageRouteImport.update({
+  id: '/coverage',
+  path: '/coverage',
+  getParentRoute: () => TeamRoute,
+} as any)
+const TeamAuditRoute = TeamAuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
+  getParentRoute: () => TeamRoute,
+} as any)
+const TeamAnalyticsRoute = TeamAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => TeamRoute,
+} as any)
+const TeamIdRoute = TeamIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => TeamRoute,
 } as any)
 const SettingsTelehealthRoute = SettingsTelehealthRouteImport.update({
   id: '/telehealth',
@@ -777,7 +837,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof SettingsRouteWithChildren
   '/supervision': typeof SupervisionRoute
   '/support': typeof SupportRoute
-  '/team': typeof TeamRoute
+  '/team': typeof TeamRouteWithChildren
   '/templates': typeof TemplatesRoute
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
@@ -832,6 +892,15 @@ export interface FileRoutesByFullPath {
   '/settings/support': typeof SettingsSupportRoute
   '/settings/team': typeof SettingsTeamRoute
   '/settings/telehealth': typeof SettingsTelehealthRoute
+  '/team/$id': typeof TeamIdRoute
+  '/team/analytics': typeof TeamAnalyticsRoute
+  '/team/audit': typeof TeamAuditRoute
+  '/team/coverage': typeof TeamCoverageRoute
+  '/team/handoffs': typeof TeamHandoffsRoute
+  '/team/invite': typeof TeamInviteRoute
+  '/team/referrals': typeof TeamReferralsRoute
+  '/team/roles': typeof TeamRolesRoute
+  '/team/supervision': typeof TeamSupervisionRoute
   '/assessments/': typeof AssessmentsIndexRoute
   '/auth/': typeof AuthIndexRoute
   '/billing/': typeof BillingIndexRoute
@@ -840,6 +909,7 @@ export interface FileRoutesByFullPath {
   '/patients/': typeof PatientsIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
+  '/team/': typeof TeamIndexRoute
   '/assessments/library/$instrumentId': typeof AssessmentsLibraryInstrumentIdRoute
   '/assessments/results/$resultId': typeof AssessmentsResultsResultIdRoute
   '/assessments/take/$assignmentId': typeof AssessmentsTakeAssignmentIdRoute
@@ -893,7 +963,6 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/supervision': typeof SupervisionRoute
   '/support': typeof SupportRoute
-  '/team': typeof TeamRoute
   '/templates': typeof TemplatesRoute
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
@@ -943,6 +1012,15 @@ export interface FileRoutesByTo {
   '/settings/support': typeof SettingsSupportRoute
   '/settings/team': typeof SettingsTeamRoute
   '/settings/telehealth': typeof SettingsTelehealthRoute
+  '/team/$id': typeof TeamIdRoute
+  '/team/analytics': typeof TeamAnalyticsRoute
+  '/team/audit': typeof TeamAuditRoute
+  '/team/coverage': typeof TeamCoverageRoute
+  '/team/handoffs': typeof TeamHandoffsRoute
+  '/team/invite': typeof TeamInviteRoute
+  '/team/referrals': typeof TeamReferralsRoute
+  '/team/roles': typeof TeamRolesRoute
+  '/team/supervision': typeof TeamSupervisionRoute
   '/assessments': typeof AssessmentsIndexRoute
   '/auth': typeof AuthIndexRoute
   '/billing': typeof BillingIndexRoute
@@ -951,6 +1029,7 @@ export interface FileRoutesByTo {
   '/patients': typeof PatientsIndexRoute
   '/sessions': typeof SessionsIndexRoute
   '/settings': typeof SettingsIndexRoute
+  '/team': typeof TeamIndexRoute
   '/assessments/library/$instrumentId': typeof AssessmentsLibraryInstrumentIdRoute
   '/assessments/results/$resultId': typeof AssessmentsResultsResultIdRoute
   '/assessments/take/$assignmentId': typeof AssessmentsTakeAssignmentIdRoute
@@ -1011,7 +1090,7 @@ export interface FileRoutesById {
   '/settings': typeof SettingsRouteWithChildren
   '/supervision': typeof SupervisionRoute
   '/support': typeof SupportRoute
-  '/team': typeof TeamRoute
+  '/team': typeof TeamRouteWithChildren
   '/templates': typeof TemplatesRoute
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
@@ -1066,6 +1145,15 @@ export interface FileRoutesById {
   '/settings/support': typeof SettingsSupportRoute
   '/settings/team': typeof SettingsTeamRoute
   '/settings/telehealth': typeof SettingsTelehealthRoute
+  '/team/$id': typeof TeamIdRoute
+  '/team/analytics': typeof TeamAnalyticsRoute
+  '/team/audit': typeof TeamAuditRoute
+  '/team/coverage': typeof TeamCoverageRoute
+  '/team/handoffs': typeof TeamHandoffsRoute
+  '/team/invite': typeof TeamInviteRoute
+  '/team/referrals': typeof TeamReferralsRoute
+  '/team/roles': typeof TeamRolesRoute
+  '/team/supervision': typeof TeamSupervisionRoute
   '/assessments/': typeof AssessmentsIndexRoute
   '/auth/': typeof AuthIndexRoute
   '/billing/': typeof BillingIndexRoute
@@ -1074,6 +1162,7 @@ export interface FileRoutesById {
   '/patients/': typeof PatientsIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
+  '/team/': typeof TeamIndexRoute
   '/assessments/library/$instrumentId': typeof AssessmentsLibraryInstrumentIdRoute
   '/assessments/results/$resultId': typeof AssessmentsResultsResultIdRoute
   '/assessments/take/$assignmentId': typeof AssessmentsTakeAssignmentIdRoute
@@ -1191,6 +1280,15 @@ export interface FileRouteTypes {
     | '/settings/support'
     | '/settings/team'
     | '/settings/telehealth'
+    | '/team/$id'
+    | '/team/analytics'
+    | '/team/audit'
+    | '/team/coverage'
+    | '/team/handoffs'
+    | '/team/invite'
+    | '/team/referrals'
+    | '/team/roles'
+    | '/team/supervision'
     | '/assessments/'
     | '/auth/'
     | '/billing/'
@@ -1199,6 +1297,7 @@ export interface FileRouteTypes {
     | '/patients/'
     | '/sessions/'
     | '/settings/'
+    | '/team/'
     | '/assessments/library/$instrumentId'
     | '/assessments/results/$resultId'
     | '/assessments/take/$assignmentId'
@@ -1252,7 +1351,6 @@ export interface FileRouteTypes {
     | '/services'
     | '/supervision'
     | '/support'
-    | '/team'
     | '/templates'
     | '/treatment-plans'
     | '/waitlist'
@@ -1302,6 +1400,15 @@ export interface FileRouteTypes {
     | '/settings/support'
     | '/settings/team'
     | '/settings/telehealth'
+    | '/team/$id'
+    | '/team/analytics'
+    | '/team/audit'
+    | '/team/coverage'
+    | '/team/handoffs'
+    | '/team/invite'
+    | '/team/referrals'
+    | '/team/roles'
+    | '/team/supervision'
     | '/assessments'
     | '/auth'
     | '/billing'
@@ -1310,6 +1417,7 @@ export interface FileRouteTypes {
     | '/patients'
     | '/sessions'
     | '/settings'
+    | '/team'
     | '/assessments/library/$instrumentId'
     | '/assessments/results/$resultId'
     | '/assessments/take/$assignmentId'
@@ -1424,6 +1532,15 @@ export interface FileRouteTypes {
     | '/settings/support'
     | '/settings/team'
     | '/settings/telehealth'
+    | '/team/$id'
+    | '/team/analytics'
+    | '/team/audit'
+    | '/team/coverage'
+    | '/team/handoffs'
+    | '/team/invite'
+    | '/team/referrals'
+    | '/team/roles'
+    | '/team/supervision'
     | '/assessments/'
     | '/auth/'
     | '/billing/'
@@ -1432,6 +1549,7 @@ export interface FileRouteTypes {
     | '/patients/'
     | '/sessions/'
     | '/settings/'
+    | '/team/'
     | '/assessments/library/$instrumentId'
     | '/assessments/results/$resultId'
     | '/assessments/take/$assignmentId'
@@ -1493,7 +1611,7 @@ export interface RootRouteChildren {
   SettingsRoute: typeof SettingsRouteWithChildren
   SupervisionRoute: typeof SupervisionRoute
   SupportRoute: typeof SupportRoute
-  TeamRoute: typeof TeamRoute
+  TeamRoute: typeof TeamRouteWithChildren
   TemplatesRoute: typeof TemplatesRoute
   TreatmentPlansRoute: typeof TreatmentPlansRoute
   WaitlistRoute: typeof WaitlistRoute
@@ -1779,6 +1897,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/team/': {
+      id: '/team/'
+      path: '/'
+      fullPath: '/team/'
+      preLoaderRoute: typeof TeamIndexRouteImport
+      parentRoute: typeof TeamRoute
+    }
     '/settings/': {
       id: '/settings/'
       path: '/'
@@ -1834,6 +1959,69 @@ declare module '@tanstack/react-router' {
       fullPath: '/assessments/'
       preLoaderRoute: typeof AssessmentsIndexRouteImport
       parentRoute: typeof AssessmentsRoute
+    }
+    '/team/supervision': {
+      id: '/team/supervision'
+      path: '/supervision'
+      fullPath: '/team/supervision'
+      preLoaderRoute: typeof TeamSupervisionRouteImport
+      parentRoute: typeof TeamRoute
+    }
+    '/team/roles': {
+      id: '/team/roles'
+      path: '/roles'
+      fullPath: '/team/roles'
+      preLoaderRoute: typeof TeamRolesRouteImport
+      parentRoute: typeof TeamRoute
+    }
+    '/team/referrals': {
+      id: '/team/referrals'
+      path: '/referrals'
+      fullPath: '/team/referrals'
+      preLoaderRoute: typeof TeamReferralsRouteImport
+      parentRoute: typeof TeamRoute
+    }
+    '/team/invite': {
+      id: '/team/invite'
+      path: '/invite'
+      fullPath: '/team/invite'
+      preLoaderRoute: typeof TeamInviteRouteImport
+      parentRoute: typeof TeamRoute
+    }
+    '/team/handoffs': {
+      id: '/team/handoffs'
+      path: '/handoffs'
+      fullPath: '/team/handoffs'
+      preLoaderRoute: typeof TeamHandoffsRouteImport
+      parentRoute: typeof TeamRoute
+    }
+    '/team/coverage': {
+      id: '/team/coverage'
+      path: '/coverage'
+      fullPath: '/team/coverage'
+      preLoaderRoute: typeof TeamCoverageRouteImport
+      parentRoute: typeof TeamRoute
+    }
+    '/team/audit': {
+      id: '/team/audit'
+      path: '/audit'
+      fullPath: '/team/audit'
+      preLoaderRoute: typeof TeamAuditRouteImport
+      parentRoute: typeof TeamRoute
+    }
+    '/team/analytics': {
+      id: '/team/analytics'
+      path: '/analytics'
+      fullPath: '/team/analytics'
+      preLoaderRoute: typeof TeamAnalyticsRouteImport
+      parentRoute: typeof TeamRoute
+    }
+    '/team/$id': {
+      id: '/team/$id'
+      path: '/$id'
+      fullPath: '/team/$id'
+      preLoaderRoute: typeof TeamIdRouteImport
+      parentRoute: typeof TeamRoute
     }
     '/settings/telehealth': {
       id: '/settings/telehealth'
@@ -2630,6 +2818,34 @@ const SettingsRouteWithChildren = SettingsRoute._addFileChildren(
   SettingsRouteChildren,
 )
 
+interface TeamRouteChildren {
+  TeamIdRoute: typeof TeamIdRoute
+  TeamAnalyticsRoute: typeof TeamAnalyticsRoute
+  TeamAuditRoute: typeof TeamAuditRoute
+  TeamCoverageRoute: typeof TeamCoverageRoute
+  TeamHandoffsRoute: typeof TeamHandoffsRoute
+  TeamInviteRoute: typeof TeamInviteRoute
+  TeamReferralsRoute: typeof TeamReferralsRoute
+  TeamRolesRoute: typeof TeamRolesRoute
+  TeamSupervisionRoute: typeof TeamSupervisionRoute
+  TeamIndexRoute: typeof TeamIndexRoute
+}
+
+const TeamRouteChildren: TeamRouteChildren = {
+  TeamIdRoute: TeamIdRoute,
+  TeamAnalyticsRoute: TeamAnalyticsRoute,
+  TeamAuditRoute: TeamAuditRoute,
+  TeamCoverageRoute: TeamCoverageRoute,
+  TeamHandoffsRoute: TeamHandoffsRoute,
+  TeamInviteRoute: TeamInviteRoute,
+  TeamReferralsRoute: TeamReferralsRoute,
+  TeamRolesRoute: TeamRolesRoute,
+  TeamSupervisionRoute: TeamSupervisionRoute,
+  TeamIndexRoute: TeamIndexRoute,
+}
+
+const TeamRouteWithChildren = TeamRoute._addFileChildren(TeamRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AlertsRoute: AlertsRoute,
@@ -2665,7 +2881,7 @@ const rootRouteChildren: RootRouteChildren = {
   SettingsRoute: SettingsRouteWithChildren,
   SupervisionRoute: SupervisionRoute,
   SupportRoute: SupportRoute,
-  TeamRoute: TeamRoute,
+  TeamRoute: TeamRouteWithChildren,
   TemplatesRoute: TemplatesRoute,
   TreatmentPlansRoute: TreatmentPlansRoute,
   WaitlistRoute: WaitlistRoute,
