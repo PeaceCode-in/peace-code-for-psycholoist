@@ -1,10 +1,24 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Mail, Lock } from "lucide-react";
+import { Mail, Lock, UserRound } from "lucide-react";
 import {
   AuthShell, FieldLabel, GlassInput, PrimaryButton, InlineFeedback,
 } from "@/components/auth/AuthShell";
 import { isRegistered, verifyPassword, startSession } from "@/lib/auth-store";
+
+function skipAsGuest(nav: ReturnType<typeof useNavigate>) {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("pc.auth.guest", "1");
+    // Mint a lightweight guest session so downstream code sees a signed-in shape.
+    localStorage.setItem(
+      "pc.auth.session.v1",
+      JSON.stringify({ email: "guest@peacecode.local", startedAt: Date.now() }),
+    );
+  }
+  const params = new URLSearchParams(window.location.search);
+  const redirect = params.get("redirect");
+  nav({ to: (redirect && redirect.startsWith("/")) ? redirect : "/dashboard" });
+}
 
 export const Route = createFileRoute("/auth/login")({
   head: () => ({ meta: [{ title: "Sign in — PeaceCode · Practice" }] }),
