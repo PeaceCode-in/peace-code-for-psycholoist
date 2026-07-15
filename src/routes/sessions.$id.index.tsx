@@ -43,8 +43,9 @@ function PrepSheet() {
 
   const patient = session ? getPatient(session.patientId) : undefined;
   const notes = useLiveNotes(patient?.id ?? "");
-  const lastPHQ = 12; // placeholder aggregation from notes; kept static & real-sounding
-  const prevPHQ = 15;
+  const traj = useLivePatientTrajectory(patient?.id ?? "", "phq9");
+  const lastPHQ = traj[traj.length - 1]?.totalScore;
+  const prevPHQ = traj[traj.length - 2]?.totalScore;
 
   // Agenda editor
   const [agenda, setAgenda] = useState<string>((session?.agenda ?? []).join("\n"));
