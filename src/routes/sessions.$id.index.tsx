@@ -110,6 +110,9 @@ function PrepSheet() {
             </div>
           </header>
 
+          {/* Continuity brief — letterpress card from Copilot */}
+          <ContinuityBriefCard patientId={patient.id} />
+
           {/* Continuity card */}
           <Glass>
             <SectionLabel>Continuity — last 3 sessions</SectionLabel>
