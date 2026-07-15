@@ -510,19 +510,27 @@ function DesktopTubeSidebar({
       <aside
         className="hidden md:flex fixed left-0 top-0 bottom-0 z-40 flex-col items-center"
         style={{
-          width: 64,
-          background: palette.surface,
+          width: 72,
+          background: "linear-gradient(180deg, #FBEEF2 0%, #F7E4EA 100%)",
           borderRight: `1px solid ${palette.border}`,
         }}
         onMouseLeave={scheduleClose}
       >
         {/* Logo */}
-        <Link to="/dashboard" className="mt-6 mb-4 w-10 h-10 rounded-xl flex items-center justify-center" aria-label="PeaceCode Practice">
-          <span
-            className="w-6 h-6 rounded-full"
-            style={{ background: palette.primary, boxShadow: `0 0 0 4px ${palette.soft}` }}
-          />
+        <Link
+          to="/dashboard"
+          className="mt-5 mb-3 w-12 h-12 rounded-2xl flex items-center justify-center transition-transform hover:scale-[1.04]"
+          aria-label="PeaceCode Practice"
+          style={{
+            background: "rgba(255,255,255,0.55)",
+            border: `1px solid ${palette.border}`,
+            boxShadow: "0 2px 8px -4px rgba(120,50,80,0.15)",
+          }}
+        >
+          <img src={peacecodeLogo} alt="PeaceCode" className="w-7 h-7 object-contain" style={{ filter: `drop-shadow(0 1px 0 rgba(255,255,255,0.6))` }} />
         </Link>
+        <div className="w-8 h-px mb-2" style={{ background: `linear-gradient(90deg, transparent, ${palette.border}, transparent)` }} />
+
 
         {/* Category icons */}
         <div
