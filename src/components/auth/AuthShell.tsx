@@ -113,7 +113,7 @@ export function AuthShell({
         }}
       >
         <ShieldCheck className="w-3.5 h-3.5" strokeWidth={1.7} />
-        <span className="tracking-[0.22em] uppercase">private · for students</span>
+        <span className="tracking-[0.22em] uppercase">private · for verified psychologists</span>
       </div>
 
       {/* Frosted glass card */}

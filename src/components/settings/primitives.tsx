@@ -2,7 +2,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { ChevronRight, Search, ArrowLeft } from "lucide-react";
 import { useMemo, useState, type ReactNode } from "react";
-import { palette } from "@/components/AppShell";
+import { palette } from "@/components/practice/palette";
 import { SETTINGS_INDEX } from "@/lib/settings-store";
 
 const { surface, surface2, border, ink, muted, primary } = palette;
