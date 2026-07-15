@@ -864,12 +864,14 @@ export function AppShell({ children, crumb }: { children: ReactNode; crumb?: str
   const [mobileOpen, setMobileOpen] = useState(false);
   const [onDuty, setOnDuty] = useState(true);
   const [pinned, setPinned] = useSidebarPinned();
+  // Drive appearance tokens (accent, density, radius, motion) from stored settings.
+  useSettings();
   return (
     <>
       <GlassFX />
       <div
         className="min-h-screen flex w-full"
-        style={{ color: palette.ink, fontFamily: "'DM Sans', system-ui, sans-serif", background: "#FBF7F8" }}
+        style={{ color: "var(--pc-ink, #1E1418)", fontFamily: "'DM Sans', system-ui, sans-serif" }}
       >
         <DesktopTubeSidebar
           onDuty={onDuty}
