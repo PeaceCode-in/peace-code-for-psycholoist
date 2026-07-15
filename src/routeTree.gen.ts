@@ -39,6 +39,7 @@ import { Route as IntegrationsRouteImport } from './routes/integrations'
 import { Route as InboxRouteImport } from './routes/inbox'
 import { Route as HomeworkRouteImport } from './routes/homework'
 import { Route as GroupsRouteImport } from './routes/groups'
+import { Route as GovernanceRouteImport } from './routes/governance'
 import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CpdRouteImport } from './routes/cpd'
@@ -328,6 +329,11 @@ const HomeworkRoute = HomeworkRouteImport.update({
 const GroupsRoute = GroupsRouteImport.update({
   id: '/groups',
   path: '/groups',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GovernanceRoute = GovernanceRouteImport.update({
+  id: '/governance',
+  path: '/governance',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DocumentsRoute = DocumentsRouteImport.update({
@@ -1050,6 +1056,7 @@ export interface FileRoutesByFullPath {
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRouteWithChildren
+  '/governance': typeof GovernanceRoute
   '/groups': typeof GroupsRoute
   '/homework': typeof HomeworkRoute
   '/inbox': typeof InboxRouteWithChildren
@@ -1218,6 +1225,7 @@ export interface FileRoutesByTo {
   '/copilot': typeof CopilotRoute
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
+  '/governance': typeof GovernanceRoute
   '/groups': typeof GroupsRoute
   '/homework': typeof HomeworkRoute
   '/inbox': typeof InboxRouteWithChildren
@@ -1377,6 +1385,7 @@ export interface FileRoutesById {
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRouteWithChildren
+  '/governance': typeof GovernanceRoute
   '/groups': typeof GroupsRoute
   '/homework': typeof HomeworkRoute
   '/inbox': typeof InboxRouteWithChildren
@@ -1551,6 +1560,7 @@ export interface FileRouteTypes {
     | '/cpd'
     | '/dashboard'
     | '/documents'
+    | '/governance'
     | '/groups'
     | '/homework'
     | '/inbox'
@@ -1719,6 +1729,7 @@ export interface FileRouteTypes {
     | '/copilot'
     | '/cpd'
     | '/dashboard'
+    | '/governance'
     | '/groups'
     | '/homework'
     | '/inbox'
@@ -1877,6 +1888,7 @@ export interface FileRouteTypes {
     | '/cpd'
     | '/dashboard'
     | '/documents'
+    | '/governance'
     | '/groups'
     | '/homework'
     | '/inbox'
@@ -2050,6 +2062,7 @@ export interface RootRouteChildren {
   CpdRoute: typeof CpdRoute
   DashboardRoute: typeof DashboardRoute
   DocumentsRoute: typeof DocumentsRouteWithChildren
+  GovernanceRoute: typeof GovernanceRoute
   GroupsRoute: typeof GroupsRoute
   HomeworkRoute: typeof HomeworkRoute
   InboxRoute: typeof InboxRouteWithChildren
@@ -2305,6 +2318,13 @@ declare module '@tanstack/react-router' {
       path: '/groups'
       fullPath: '/groups'
       preLoaderRoute: typeof GroupsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/governance': {
+      id: '/governance'
+      path: '/governance'
+      fullPath: '/governance'
+      preLoaderRoute: typeof GovernanceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/documents': {
@@ -3741,6 +3761,7 @@ const rootRouteChildren: RootRouteChildren = {
   CpdRoute: CpdRoute,
   DashboardRoute: DashboardRoute,
   DocumentsRoute: DocumentsRouteWithChildren,
+  GovernanceRoute: GovernanceRoute,
   GroupsRoute: GroupsRoute,
   HomeworkRoute: HomeworkRoute,
   InboxRoute: InboxRouteWithChildren,
