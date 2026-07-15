@@ -122,7 +122,7 @@ const CATEGORIES: Category[] = [
 // Legacy section view for the mobile drawer only.
 const NAV: { label: string; items: NavItem[] }[] = CATEGORIES.map((c) => ({
   label: c.label,
-  items: c.items.map((it) => ({ ...it, icon: it.icon ?? c.icon })),
+  items: c.items.map((it) => ({ title: it.title, url: it.url, badge: it.badge, icon: c.icon })),
 }));
 
 // Flat list used by mobile bottom pill nav — 5 most important.
