@@ -10,6 +10,7 @@ const TABS: Array<{ key: string; label: string; path: (id: string) => string; ma
   { key: "overview", label: "Overview", path: (id) => `/patients/${id}`, match: (p, id) => p === `/patients/${id}` },
   { key: "chart", label: "Chart", path: (id) => `/patients/${id}/chart`, match: (p, id) => p.startsWith(`/patients/${id}/chart`) },
   { key: "notes", label: "Notes", path: (id) => `/patients/${id}/notes`, match: (p, id) => p.startsWith(`/patients/${id}/notes`) },
+  { key: "assessments", label: "Assessments", path: (id) => `/patients/${id}/assessments`, match: (p, id) => p.startsWith(`/patients/${id}/assessments`) },
   { key: "timeline", label: "Timeline", path: (id) => `/patients/${id}/timeline`, match: (p, id) => p.startsWith(`/patients/${id}/timeline`) },
   { key: "documents", label: "Documents", path: (id) => `/patients/${id}/documents`, match: (p, id) => p.startsWith(`/patients/${id}/documents`) },
 ];
