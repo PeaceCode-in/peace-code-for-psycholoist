@@ -41,6 +41,7 @@ import { Route as GroupsRouteImport } from './routes/groups'
 import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CpdRouteImport } from './routes/cpd'
+import { Route as CopilotRouteImport } from './routes/copilot'
 import { Route as CaseConferencesRouteImport } from './routes/case-conferences'
 import { Route as BillingRouteImport } from './routes/billing'
 import { Route as AvailabilityRouteImport } from './routes/availability'
@@ -329,6 +330,11 @@ const DashboardRoute = DashboardRouteImport.update({
 const CpdRoute = CpdRouteImport.update({
   id: '/cpd',
   path: '/cpd',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CopilotRoute = CopilotRouteImport.update({
+  id: '/copilot',
+  path: '/copilot',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CaseConferencesRoute = CaseConferencesRouteImport.update({
@@ -992,6 +998,7 @@ export interface FileRoutesByFullPath {
   '/availability': typeof AvailabilityRoute
   '/billing': typeof BillingRouteWithChildren
   '/case-conferences': typeof CaseConferencesRoute
+  '/copilot': typeof CopilotRoute
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRouteWithChildren
@@ -1152,6 +1159,7 @@ export interface FileRoutesByTo {
   '/analytics': typeof AnalyticsRoute
   '/availability': typeof AvailabilityRoute
   '/case-conferences': typeof CaseConferencesRoute
+  '/copilot': typeof CopilotRoute
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
   '/groups': typeof GroupsRoute
@@ -1302,6 +1310,7 @@ export interface FileRoutesById {
   '/availability': typeof AvailabilityRoute
   '/billing': typeof BillingRouteWithChildren
   '/case-conferences': typeof CaseConferencesRoute
+  '/copilot': typeof CopilotRoute
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRouteWithChildren
@@ -1467,6 +1476,7 @@ export interface FileRouteTypes {
     | '/availability'
     | '/billing'
     | '/case-conferences'
+    | '/copilot'
     | '/cpd'
     | '/dashboard'
     | '/documents'
@@ -1627,6 +1637,7 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/availability'
     | '/case-conferences'
+    | '/copilot'
     | '/cpd'
     | '/dashboard'
     | '/groups'
@@ -1776,6 +1787,7 @@ export interface FileRouteTypes {
     | '/availability'
     | '/billing'
     | '/case-conferences'
+    | '/copilot'
     | '/cpd'
     | '/dashboard'
     | '/documents'
@@ -1940,6 +1952,7 @@ export interface RootRouteChildren {
   AvailabilityRoute: typeof AvailabilityRoute
   BillingRoute: typeof BillingRouteWithChildren
   CaseConferencesRoute: typeof CaseConferencesRoute
+  CopilotRoute: typeof CopilotRoute
   CpdRoute: typeof CpdRoute
   DashboardRoute: typeof DashboardRoute
   DocumentsRoute: typeof DocumentsRouteWithChildren
@@ -2210,6 +2223,13 @@ declare module '@tanstack/react-router' {
       path: '/cpd'
       fullPath: '/cpd'
       preLoaderRoute: typeof CpdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/copilot': {
+      id: '/copilot'
+      path: '/copilot'
+      fullPath: '/copilot'
+      preLoaderRoute: typeof CopilotRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/case-conferences': {
@@ -3544,6 +3564,7 @@ const rootRouteChildren: RootRouteChildren = {
   AvailabilityRoute: AvailabilityRoute,
   BillingRoute: BillingRouteWithChildren,
   CaseConferencesRoute: CaseConferencesRoute,
+  CopilotRoute: CopilotRoute,
   CpdRoute: CpdRoute,
   DashboardRoute: DashboardRoute,
   DocumentsRoute: DocumentsRouteWithChildren,
