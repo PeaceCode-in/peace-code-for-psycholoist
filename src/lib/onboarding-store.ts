@@ -93,16 +93,17 @@ export function markStep(step: StepId, status: "done" | "skipped", dwellMs = 0) 
   mutate((s) => ({
     ...s,
     progress: { ...s.progress, [step]: { status, ms: dwellMs, at: Date.now() } },
-    signalLog: [...s.signalLog, { step, action: status === "done" ? "complete" : "skip", at: Date.now(), dwellMs }].slice(-200),
+    signalLog: [...s.signalLog, { step, action: (status === "done" ? "complete" : "skip") as "complete" | "skip", at: Date.now(), dwellMs }].slice(-200),
   }));
 }
 export function enterStep(step: StepId) {
   mutate((s) => ({
     ...s,
     currentStep: step,
-    signalLog: [...s.signalLog, { step, action: "enter", at: Date.now() }].slice(-200),
+    signalLog: [...s.signalLog, { step, action: "enter" as const, at: Date.now() }].slice(-200),
   }));
 }
+
 export function completeOnboarding() {
   mutate((s) => ({ ...s, completedAt: Date.now() }));
 }
