@@ -25,12 +25,12 @@ function InstrumentDetail() {
 
   // Population norms — derived from seeded results
   const norms = useMemo(() => {
+    if (!inst) return null;
     const scores = results.filter((r) => r.instrumentId === instrumentId).map((r) => r.totalScore);
     if (!scores.length) return null;
     const sorted = [...scores].sort((a, b) => a - b);
     const median = sorted[Math.floor(sorted.length / 2)];
     const bands = new Map<string, number>();
-    if (!inst) return null;
     inst.scoring.ranges.forEach((b) => bands.set(b.label, 0));
     results.filter((r) => r.instrumentId === instrumentId).forEach((r) => {
       const band = inst.scoring.ranges.find((b) => r.totalScore >= b.min && r.totalScore <= b.max);
