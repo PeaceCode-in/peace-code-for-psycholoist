@@ -205,14 +205,12 @@ html.dark, html[data-theme="dark"] { color-scheme: dark; }
 
 @utility glass {
   background: color-mix(in oklab, white 68%, transparent);
-  backdrop-filter: blur(24px) saturate(160%);
   border: 1px solid color-mix(in oklab, white 55%, transparent);
   box-shadow: var(--shadow-glass);
 }
 
 @utility glass-strong {
   background: color-mix(in oklab, white 82%, transparent);
-  backdrop-filter: blur(30px) saturate(180%);
   border: 1px solid color-mix(in oklab, white 65%, transparent);
   box-shadow: var(--shadow-glass);
 }
@@ -848,7 +846,6 @@ html[data-pc-perf="low"] .pc-mobile-drawer::after {
 
 html[data-pc-bg] body {
   min-height: 100vh;
-  background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
   color: var(--pc-ink);
@@ -860,21 +857,13 @@ html[data-pc-bg] body::before {
   position: fixed; inset: -20px;
   pointer-events: none;
   z-index: 0;
-  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='3' stitchTiles='stitch' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0.06  0 0 0 0 0.08  0 0 0 0 0.14  0 0 0 0.95 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 360px 360px;
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0));
   mix-blend-mode: multiply;
-  opacity: 0.16;
+  opacity: 0.18;
 }
 /* Fine grain — a sharper micro-layer over the top */
 html[data-pc-bg] body::after {
-  content: "";
-  position: fixed; inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.4' numOctaves='2' stitchTiles='stitch' seed='9'/%3E%3CfeColorMatrix values='0 0 0 0 0.10  0 0 0 0 0.10  0 0 0 0 0.14  0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
-  mix-blend-mode: multiply;
-  opacity: 0.09;
+  content: none;
 }
 html[data-pc-bg][data-theme="dark"] body::before,
 html[data-pc-bg="midnight"] body::before,
