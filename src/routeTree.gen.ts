@@ -47,19 +47,29 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
+import { Route as SettingsTelehealthRouteImport } from './routes/settings.telehealth'
 import { Route as SettingsTeamRouteImport } from './routes/settings.team'
+import { Route as SettingsSupportRouteImport } from './routes/settings.support'
 import { Route as SettingsServicesRouteImport } from './routes/settings.services'
 import { Route as SettingsSecurityRouteImport } from './routes/settings.security'
 import { Route as SettingsProfileRouteImport } from './routes/settings.profile'
 import { Route as SettingsPrivacyRouteImport } from './routes/settings.privacy'
 import { Route as SettingsPracticeRouteImport } from './routes/settings.practice'
 import { Route as SettingsPayoutsRouteImport } from './routes/settings.payouts'
+import { Route as SettingsPaymentsRouteImport } from './routes/settings.payments'
 import { Route as SettingsNotificationsRouteImport } from './routes/settings.notifications'
+import { Route as SettingsLogoutRouteImport } from './routes/settings.logout'
 import { Route as SettingsIntegrationsRouteImport } from './routes/settings.integrations'
+import { Route as SettingsEmergencyProtocolRouteImport } from './routes/settings.emergency-protocol'
+import { Route as SettingsDeleteRouteImport } from './routes/settings.delete'
+import { Route as SettingsDataRouteImport } from './routes/settings.data'
 import { Route as SettingsDangerRouteImport } from './routes/settings.danger'
 import { Route as SettingsCredentialsRouteImport } from './routes/settings.credentials'
+import { Route as SettingsComplianceRouteImport } from './routes/settings.compliance'
+import { Route as SettingsClinicalDefaultsRouteImport } from './routes/settings.clinical-defaults'
 import { Route as SettingsAvailabilityRouteImport } from './routes/settings.availability'
 import { Route as SettingsAppearanceRouteImport } from './routes/settings.appearance'
+import { Route as SettingsAccessibilityRouteImport } from './routes/settings.accessibility'
 import { Route as SettingsAboutRouteImport } from './routes/settings.about'
 import { Route as PatientsIdRouteImport } from './routes/patients.$id'
 import { Route as ComplianceExportRouteImport } from './routes/compliance.export'
@@ -258,9 +268,19 @@ const AuthIndexRoute = AuthIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthRoute,
 } as any)
+const SettingsTelehealthRoute = SettingsTelehealthRouteImport.update({
+  id: '/telehealth',
+  path: '/telehealth',
+  getParentRoute: () => SettingsRoute,
+} as any)
 const SettingsTeamRoute = SettingsTeamRouteImport.update({
   id: '/team',
   path: '/team',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsSupportRoute = SettingsSupportRouteImport.update({
+  id: '/support',
+  path: '/support',
   getParentRoute: () => SettingsRoute,
 } as any)
 const SettingsServicesRoute = SettingsServicesRouteImport.update({
@@ -293,14 +313,40 @@ const SettingsPayoutsRoute = SettingsPayoutsRouteImport.update({
   path: '/payouts',
   getParentRoute: () => SettingsRoute,
 } as any)
+const SettingsPaymentsRoute = SettingsPaymentsRouteImport.update({
+  id: '/payments',
+  path: '/payments',
+  getParentRoute: () => SettingsRoute,
+} as any)
 const SettingsNotificationsRoute = SettingsNotificationsRouteImport.update({
   id: '/notifications',
   path: '/notifications',
   getParentRoute: () => SettingsRoute,
 } as any)
+const SettingsLogoutRoute = SettingsLogoutRouteImport.update({
+  id: '/logout',
+  path: '/logout',
+  getParentRoute: () => SettingsRoute,
+} as any)
 const SettingsIntegrationsRoute = SettingsIntegrationsRouteImport.update({
   id: '/integrations',
   path: '/integrations',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsEmergencyProtocolRoute =
+  SettingsEmergencyProtocolRouteImport.update({
+    id: '/emergency-protocol',
+    path: '/emergency-protocol',
+    getParentRoute: () => SettingsRoute,
+  } as any)
+const SettingsDeleteRoute = SettingsDeleteRouteImport.update({
+  id: '/delete',
+  path: '/delete',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsDataRoute = SettingsDataRouteImport.update({
+  id: '/data',
+  path: '/data',
   getParentRoute: () => SettingsRoute,
 } as any)
 const SettingsDangerRoute = SettingsDangerRouteImport.update({
@@ -313,6 +359,17 @@ const SettingsCredentialsRoute = SettingsCredentialsRouteImport.update({
   path: '/credentials',
   getParentRoute: () => SettingsRoute,
 } as any)
+const SettingsComplianceRoute = SettingsComplianceRouteImport.update({
+  id: '/compliance',
+  path: '/compliance',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsClinicalDefaultsRoute =
+  SettingsClinicalDefaultsRouteImport.update({
+    id: '/clinical-defaults',
+    path: '/clinical-defaults',
+    getParentRoute: () => SettingsRoute,
+  } as any)
 const SettingsAvailabilityRoute = SettingsAvailabilityRouteImport.update({
   id: '/availability',
   path: '/availability',
@@ -321,6 +378,11 @@ const SettingsAvailabilityRoute = SettingsAvailabilityRouteImport.update({
 const SettingsAppearanceRoute = SettingsAppearanceRouteImport.update({
   id: '/appearance',
   path: '/appearance',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsAccessibilityRoute = SettingsAccessibilityRouteImport.update({
+  id: '/accessibility',
+  path: '/accessibility',
   getParentRoute: () => SettingsRoute,
 } as any)
 const SettingsAboutRoute = SettingsAboutRouteImport.update({
@@ -402,19 +464,29 @@ export interface FileRoutesByFullPath {
   '/compliance/export': typeof ComplianceExportRoute
   '/patients/$id': typeof PatientsIdRoute
   '/settings/about': typeof SettingsAboutRoute
+  '/settings/accessibility': typeof SettingsAccessibilityRoute
   '/settings/appearance': typeof SettingsAppearanceRoute
   '/settings/availability': typeof SettingsAvailabilityRoute
+  '/settings/clinical-defaults': typeof SettingsClinicalDefaultsRoute
+  '/settings/compliance': typeof SettingsComplianceRoute
   '/settings/credentials': typeof SettingsCredentialsRoute
   '/settings/danger': typeof SettingsDangerRoute
+  '/settings/data': typeof SettingsDataRoute
+  '/settings/delete': typeof SettingsDeleteRoute
+  '/settings/emergency-protocol': typeof SettingsEmergencyProtocolRoute
   '/settings/integrations': typeof SettingsIntegrationsRoute
+  '/settings/logout': typeof SettingsLogoutRoute
   '/settings/notifications': typeof SettingsNotificationsRoute
+  '/settings/payments': typeof SettingsPaymentsRoute
   '/settings/payouts': typeof SettingsPayoutsRoute
   '/settings/practice': typeof SettingsPracticeRoute
   '/settings/privacy': typeof SettingsPrivacyRoute
   '/settings/profile': typeof SettingsProfileRoute
   '/settings/security': typeof SettingsSecurityRoute
   '/settings/services': typeof SettingsServicesRoute
+  '/settings/support': typeof SettingsSupportRoute
   '/settings/team': typeof SettingsTeamRoute
+  '/settings/telehealth': typeof SettingsTelehealthRoute
   '/auth/': typeof AuthIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -459,19 +531,29 @@ export interface FileRoutesByTo {
   '/compliance/export': typeof ComplianceExportRoute
   '/patients/$id': typeof PatientsIdRoute
   '/settings/about': typeof SettingsAboutRoute
+  '/settings/accessibility': typeof SettingsAccessibilityRoute
   '/settings/appearance': typeof SettingsAppearanceRoute
   '/settings/availability': typeof SettingsAvailabilityRoute
+  '/settings/clinical-defaults': typeof SettingsClinicalDefaultsRoute
+  '/settings/compliance': typeof SettingsComplianceRoute
   '/settings/credentials': typeof SettingsCredentialsRoute
   '/settings/danger': typeof SettingsDangerRoute
+  '/settings/data': typeof SettingsDataRoute
+  '/settings/delete': typeof SettingsDeleteRoute
+  '/settings/emergency-protocol': typeof SettingsEmergencyProtocolRoute
   '/settings/integrations': typeof SettingsIntegrationsRoute
+  '/settings/logout': typeof SettingsLogoutRoute
   '/settings/notifications': typeof SettingsNotificationsRoute
+  '/settings/payments': typeof SettingsPaymentsRoute
   '/settings/payouts': typeof SettingsPayoutsRoute
   '/settings/practice': typeof SettingsPracticeRoute
   '/settings/privacy': typeof SettingsPrivacyRoute
   '/settings/profile': typeof SettingsProfileRoute
   '/settings/security': typeof SettingsSecurityRoute
   '/settings/services': typeof SettingsServicesRoute
+  '/settings/support': typeof SettingsSupportRoute
   '/settings/team': typeof SettingsTeamRoute
+  '/settings/telehealth': typeof SettingsTelehealthRoute
   '/auth': typeof AuthIndexRoute
   '/patients': typeof PatientsIndexRoute
   '/settings': typeof SettingsIndexRoute
@@ -520,19 +602,29 @@ export interface FileRoutesById {
   '/compliance/export': typeof ComplianceExportRoute
   '/patients/$id': typeof PatientsIdRoute
   '/settings/about': typeof SettingsAboutRoute
+  '/settings/accessibility': typeof SettingsAccessibilityRoute
   '/settings/appearance': typeof SettingsAppearanceRoute
   '/settings/availability': typeof SettingsAvailabilityRoute
+  '/settings/clinical-defaults': typeof SettingsClinicalDefaultsRoute
+  '/settings/compliance': typeof SettingsComplianceRoute
   '/settings/credentials': typeof SettingsCredentialsRoute
   '/settings/danger': typeof SettingsDangerRoute
+  '/settings/data': typeof SettingsDataRoute
+  '/settings/delete': typeof SettingsDeleteRoute
+  '/settings/emergency-protocol': typeof SettingsEmergencyProtocolRoute
   '/settings/integrations': typeof SettingsIntegrationsRoute
+  '/settings/logout': typeof SettingsLogoutRoute
   '/settings/notifications': typeof SettingsNotificationsRoute
+  '/settings/payments': typeof SettingsPaymentsRoute
   '/settings/payouts': typeof SettingsPayoutsRoute
   '/settings/practice': typeof SettingsPracticeRoute
   '/settings/privacy': typeof SettingsPrivacyRoute
   '/settings/profile': typeof SettingsProfileRoute
   '/settings/security': typeof SettingsSecurityRoute
   '/settings/services': typeof SettingsServicesRoute
+  '/settings/support': typeof SettingsSupportRoute
   '/settings/team': typeof SettingsTeamRoute
+  '/settings/telehealth': typeof SettingsTelehealthRoute
   '/auth/': typeof AuthIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -582,19 +674,29 @@ export interface FileRouteTypes {
     | '/compliance/export'
     | '/patients/$id'
     | '/settings/about'
+    | '/settings/accessibility'
     | '/settings/appearance'
     | '/settings/availability'
+    | '/settings/clinical-defaults'
+    | '/settings/compliance'
     | '/settings/credentials'
     | '/settings/danger'
+    | '/settings/data'
+    | '/settings/delete'
+    | '/settings/emergency-protocol'
     | '/settings/integrations'
+    | '/settings/logout'
     | '/settings/notifications'
+    | '/settings/payments'
     | '/settings/payouts'
     | '/settings/practice'
     | '/settings/privacy'
     | '/settings/profile'
     | '/settings/security'
     | '/settings/services'
+    | '/settings/support'
     | '/settings/team'
+    | '/settings/telehealth'
     | '/auth/'
     | '/patients/'
     | '/settings/'
@@ -639,19 +741,29 @@ export interface FileRouteTypes {
     | '/compliance/export'
     | '/patients/$id'
     | '/settings/about'
+    | '/settings/accessibility'
     | '/settings/appearance'
     | '/settings/availability'
+    | '/settings/clinical-defaults'
+    | '/settings/compliance'
     | '/settings/credentials'
     | '/settings/danger'
+    | '/settings/data'
+    | '/settings/delete'
+    | '/settings/emergency-protocol'
     | '/settings/integrations'
+    | '/settings/logout'
     | '/settings/notifications'
+    | '/settings/payments'
     | '/settings/payouts'
     | '/settings/practice'
     | '/settings/privacy'
     | '/settings/profile'
     | '/settings/security'
     | '/settings/services'
+    | '/settings/support'
     | '/settings/team'
+    | '/settings/telehealth'
     | '/auth'
     | '/patients'
     | '/settings'
@@ -699,19 +811,29 @@ export interface FileRouteTypes {
     | '/compliance/export'
     | '/patients/$id'
     | '/settings/about'
+    | '/settings/accessibility'
     | '/settings/appearance'
     | '/settings/availability'
+    | '/settings/clinical-defaults'
+    | '/settings/compliance'
     | '/settings/credentials'
     | '/settings/danger'
+    | '/settings/data'
+    | '/settings/delete'
+    | '/settings/emergency-protocol'
     | '/settings/integrations'
+    | '/settings/logout'
     | '/settings/notifications'
+    | '/settings/payments'
     | '/settings/payouts'
     | '/settings/practice'
     | '/settings/privacy'
     | '/settings/profile'
     | '/settings/security'
     | '/settings/services'
+    | '/settings/support'
     | '/settings/team'
+    | '/settings/telehealth'
     | '/auth/'
     | '/patients/'
     | '/settings/'
@@ -1026,11 +1148,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthIndexRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/settings/telehealth': {
+      id: '/settings/telehealth'
+      path: '/telehealth'
+      fullPath: '/settings/telehealth'
+      preLoaderRoute: typeof SettingsTelehealthRouteImport
+      parentRoute: typeof SettingsRoute
+    }
     '/settings/team': {
       id: '/settings/team'
       path: '/team'
       fullPath: '/settings/team'
       preLoaderRoute: typeof SettingsTeamRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/support': {
+      id: '/settings/support'
+      path: '/support'
+      fullPath: '/settings/support'
+      preLoaderRoute: typeof SettingsSupportRouteImport
       parentRoute: typeof SettingsRoute
     }
     '/settings/services': {
@@ -1075,6 +1211,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsPayoutsRouteImport
       parentRoute: typeof SettingsRoute
     }
+    '/settings/payments': {
+      id: '/settings/payments'
+      path: '/payments'
+      fullPath: '/settings/payments'
+      preLoaderRoute: typeof SettingsPaymentsRouteImport
+      parentRoute: typeof SettingsRoute
+    }
     '/settings/notifications': {
       id: '/settings/notifications'
       path: '/notifications'
@@ -1082,11 +1225,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsNotificationsRouteImport
       parentRoute: typeof SettingsRoute
     }
+    '/settings/logout': {
+      id: '/settings/logout'
+      path: '/logout'
+      fullPath: '/settings/logout'
+      preLoaderRoute: typeof SettingsLogoutRouteImport
+      parentRoute: typeof SettingsRoute
+    }
     '/settings/integrations': {
       id: '/settings/integrations'
       path: '/integrations'
       fullPath: '/settings/integrations'
       preLoaderRoute: typeof SettingsIntegrationsRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/emergency-protocol': {
+      id: '/settings/emergency-protocol'
+      path: '/emergency-protocol'
+      fullPath: '/settings/emergency-protocol'
+      preLoaderRoute: typeof SettingsEmergencyProtocolRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/delete': {
+      id: '/settings/delete'
+      path: '/delete'
+      fullPath: '/settings/delete'
+      preLoaderRoute: typeof SettingsDeleteRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/data': {
+      id: '/settings/data'
+      path: '/data'
+      fullPath: '/settings/data'
+      preLoaderRoute: typeof SettingsDataRouteImport
       parentRoute: typeof SettingsRoute
     }
     '/settings/danger': {
@@ -1103,6 +1274,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsCredentialsRouteImport
       parentRoute: typeof SettingsRoute
     }
+    '/settings/compliance': {
+      id: '/settings/compliance'
+      path: '/compliance'
+      fullPath: '/settings/compliance'
+      preLoaderRoute: typeof SettingsComplianceRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/clinical-defaults': {
+      id: '/settings/clinical-defaults'
+      path: '/clinical-defaults'
+      fullPath: '/settings/clinical-defaults'
+      preLoaderRoute: typeof SettingsClinicalDefaultsRouteImport
+      parentRoute: typeof SettingsRoute
+    }
     '/settings/availability': {
       id: '/settings/availability'
       path: '/availability'
@@ -1115,6 +1300,13 @@ declare module '@tanstack/react-router' {
       path: '/appearance'
       fullPath: '/settings/appearance'
       preLoaderRoute: typeof SettingsAppearanceRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/accessibility': {
+      id: '/settings/accessibility'
+      path: '/accessibility'
+      fullPath: '/settings/accessibility'
+      preLoaderRoute: typeof SettingsAccessibilityRouteImport
       parentRoute: typeof SettingsRoute
     }
     '/settings/about': {
@@ -1199,37 +1391,57 @@ const PatientsRouteWithChildren = PatientsRoute._addFileChildren(
 
 interface SettingsRouteChildren {
   SettingsAboutRoute: typeof SettingsAboutRoute
+  SettingsAccessibilityRoute: typeof SettingsAccessibilityRoute
   SettingsAppearanceRoute: typeof SettingsAppearanceRoute
   SettingsAvailabilityRoute: typeof SettingsAvailabilityRoute
+  SettingsClinicalDefaultsRoute: typeof SettingsClinicalDefaultsRoute
+  SettingsComplianceRoute: typeof SettingsComplianceRoute
   SettingsCredentialsRoute: typeof SettingsCredentialsRoute
   SettingsDangerRoute: typeof SettingsDangerRoute
+  SettingsDataRoute: typeof SettingsDataRoute
+  SettingsDeleteRoute: typeof SettingsDeleteRoute
+  SettingsEmergencyProtocolRoute: typeof SettingsEmergencyProtocolRoute
   SettingsIntegrationsRoute: typeof SettingsIntegrationsRoute
+  SettingsLogoutRoute: typeof SettingsLogoutRoute
   SettingsNotificationsRoute: typeof SettingsNotificationsRoute
+  SettingsPaymentsRoute: typeof SettingsPaymentsRoute
   SettingsPayoutsRoute: typeof SettingsPayoutsRoute
   SettingsPracticeRoute: typeof SettingsPracticeRoute
   SettingsPrivacyRoute: typeof SettingsPrivacyRoute
   SettingsProfileRoute: typeof SettingsProfileRoute
   SettingsSecurityRoute: typeof SettingsSecurityRoute
   SettingsServicesRoute: typeof SettingsServicesRoute
+  SettingsSupportRoute: typeof SettingsSupportRoute
   SettingsTeamRoute: typeof SettingsTeamRoute
+  SettingsTelehealthRoute: typeof SettingsTelehealthRoute
   SettingsIndexRoute: typeof SettingsIndexRoute
 }
 
 const SettingsRouteChildren: SettingsRouteChildren = {
   SettingsAboutRoute: SettingsAboutRoute,
+  SettingsAccessibilityRoute: SettingsAccessibilityRoute,
   SettingsAppearanceRoute: SettingsAppearanceRoute,
   SettingsAvailabilityRoute: SettingsAvailabilityRoute,
+  SettingsClinicalDefaultsRoute: SettingsClinicalDefaultsRoute,
+  SettingsComplianceRoute: SettingsComplianceRoute,
   SettingsCredentialsRoute: SettingsCredentialsRoute,
   SettingsDangerRoute: SettingsDangerRoute,
+  SettingsDataRoute: SettingsDataRoute,
+  SettingsDeleteRoute: SettingsDeleteRoute,
+  SettingsEmergencyProtocolRoute: SettingsEmergencyProtocolRoute,
   SettingsIntegrationsRoute: SettingsIntegrationsRoute,
+  SettingsLogoutRoute: SettingsLogoutRoute,
   SettingsNotificationsRoute: SettingsNotificationsRoute,
+  SettingsPaymentsRoute: SettingsPaymentsRoute,
   SettingsPayoutsRoute: SettingsPayoutsRoute,
   SettingsPracticeRoute: SettingsPracticeRoute,
   SettingsPrivacyRoute: SettingsPrivacyRoute,
   SettingsProfileRoute: SettingsProfileRoute,
   SettingsSecurityRoute: SettingsSecurityRoute,
   SettingsServicesRoute: SettingsServicesRoute,
+  SettingsSupportRoute: SettingsSupportRoute,
   SettingsTeamRoute: SettingsTeamRoute,
+  SettingsTelehealthRoute: SettingsTelehealthRoute,
   SettingsIndexRoute: SettingsIndexRoute,
 }
 
