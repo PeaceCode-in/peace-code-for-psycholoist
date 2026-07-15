@@ -19,7 +19,7 @@ import { useCriticalFlagCount } from "@/lib/assessments-store";
 import { useOverdueCount } from "@/lib/billing-store";
 import { useUnreadThreadCount } from "@/lib/messages-store";
 import { endSession } from "@/lib/auth-store";
-import { useSidebarPinned } from "@/lib/settings-store";
+import { useSidebarPinned, useSettings } from "@/lib/settings-store";
 import { BellPeek } from "@/components/practice/notifications/BellPeek";
 import { CopilotPill } from "@/components/practice/copilot/CopilotPill";
 import { ChecklistDrawer } from "@/components/practice/onboarding/ChecklistDrawer";
