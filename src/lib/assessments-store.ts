@@ -560,7 +560,14 @@ function seed(): StoreShape {
         // C-SSRS critical for latest
         if (p.trend === "critical" && instId === "cssrs" && i === n - 1) { responses["css_1"] = 1; responses["css_2"] = 1; responses["css_3"] = 1; }
 
-        const scored = computeSeverity(instId, responses);
+        // Inline scoring — cannot call computeSeverity() here because it
+        // reads store state, and store state is still being seeded.
+        const totalScore = Object.values(responses).reduce((a, b) => a + (Number(b) || 0), 0);
+        const band = inst.scoring.ranges.find((r) => totalScore >= r.min && totalScore <= r.max) ?? inst.scoring.ranges[inst.scoring.ranges.length - 1];
+        const threshold = inst.scoring.criticalThreshold ?? 1;
+        const criticalFlags: string[] = [];
+        (inst.scoring.criticalItems ?? []).forEach((iid) => { if ((responses[iid] ?? 0) >= threshold) criticalFlags.push(iid); });
+        const scored = { totalScore, severity: band.severity, band, criticalFlags };
         const asn: AssessmentAssignment = {
           id: uid("asn"),
           patientId: p.id,
