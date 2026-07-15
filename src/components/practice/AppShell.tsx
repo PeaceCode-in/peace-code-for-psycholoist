@@ -13,6 +13,7 @@ import {
 import { palette } from "./palette";
 import { GlassFX } from "@/components/GlassFX";
 import { INBOX_UNREAD, ALERTS_HIGH } from "@/lib/practice-store";
+import { useTodayRemaining } from "@/lib/sessions-store";
 import { endSession } from "@/lib/auth-store";
 
 export { palette };
