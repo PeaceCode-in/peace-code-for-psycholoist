@@ -71,12 +71,13 @@ function ExportPage() {
           <button onClick={copyUrl} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-[11.5px]" style={{ background: palette.ink, color: "#fff" }}>
             {copied ? <><Check className="w-3.5 h-3.5" /> Copied</> : <><Copy className="w-3.5 h-3.5" /> Copy</>}
           </button>
+        </div>
         <p className="text-[11px] mt-2" style={{ color: palette.muted }}>
-          Note: in this preview build the feed is served locally per browser. For a live cross-device feed, connect Google Calendar or Outlook under Availability → Integrations.
+          Note: in this preview build the feed is served locally per browser. Use the download below for a working file.
         </p>
       </div>
 
-      </div>
+
 
       <div className="rounded-2xl border p-6 mb-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
         <div className="flex items-center gap-2 mb-3">
