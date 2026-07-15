@@ -23,82 +23,106 @@ import { useSidebarPinned } from "@/lib/settings-store";
 
 export { palette };
 
-type NavItem = { title: string; url: string; icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; badge?: number | "dot" };
-type NavSection = { label: string; items: NavItem[] };
+type NavItem = { title: string; url: string; icon?: React.ComponentType<{ className?: string; strokeWidth?: number }>; badge?: number | "dot" };
 
-const NAV: NavSection[] = [
+type Category = {
+  key: string;
+  label: string;
+  meta: string;
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
+  items: NavItem[];
+};
+
+// Seven category tubes. Every existing route lives inside one of these.
+const CATEGORIES: Category[] = [
   {
-    label: "Today",
+    key: "today", label: "Today", meta: "4 views", icon: LayoutDashboard,
     items: [
-      { title: "Home", url: "/dashboard", icon: LayoutDashboard },
-      { title: "Schedule", url: "/schedule", icon: CalendarDays },
-      { title: "Inbox", url: "/inbox", icon: InboxIcon, badge: INBOX_UNREAD },
-      { title: "Alerts", url: "/alerts", icon: BellRing, badge: ALERTS_HIGH ? "dot" : undefined },
+      { title: "Overview", url: "/dashboard" },
+      { title: "Schedule", url: "/schedule" },
+      { title: "Inbox", url: "/inbox", badge: INBOX_UNREAD },
+      { title: "Alerts", url: "/alerts", badge: ALERTS_HIGH ? "dot" : undefined },
     ],
   },
   {
-    label: "Clients",
+    key: "patients", label: "Patients", meta: "4 lists", icon: Users,
     items: [
-      { title: "Patients", url: "/patients", icon: Users },
-      { title: "Waitlist", url: "/waitlist", icon: UserPlus },
-      { title: "Groups", url: "/groups", icon: UsersRound },
-      { title: "Referrals", url: "/referrals", icon: Share2 },
+      { title: "All Patients", url: "/patients" },
+      { title: "Waitlist", url: "/waitlist" },
+      { title: "Groups", url: "/groups" },
+      { title: "Referrals", url: "/referrals" },
     ],
   },
   {
-    label: "Clinical",
+    key: "calendar", label: "Calendar", meta: "6 views", icon: CalendarDays,
     items: [
-      { title: "Sessions", url: "/sessions", icon: Video },
-      { title: "Calendar", url: "/calendar", icon: CalendarDays },
-      { title: "Notes", url: "/notes", icon: NotebookPen },
-      { title: "Assessments", url: "/assessments", icon: ClipboardList },
-      { title: "Billing", url: "/billing", icon: Receipt },
-      { title: "Treatment Plans", url: "/treatment-plans", icon: Target },
-      { title: "Homework", url: "/homework", icon: BookOpenCheck },
-      { title: "Prescriptions", url: "/prescriptions", icon: Pill },
-      { title: "Risk & Safety", url: "/risk", icon: ShieldAlert },
-      { title: "Case Conferences", url: "/case-conferences", icon: MessagesSquare },
+      { title: "Week", url: "/calendar" },
+      { title: "Day", url: "/calendar/day" },
+      { title: "Month", url: "/calendar/month" },
+      { title: "Agenda", url: "/calendar/agenda" },
+      { title: "Availability", url: "/calendar/availability" },
+      { title: "Booking Link", url: "/calendar/booking-link" },
     ],
   },
   {
-    label: "Practice",
+    key: "clinical", label: "Clinical", meta: "8 tools", icon: Stethoscope,
     items: [
-      { title: "Messages", url: "/messages", icon: Mail },
-      { title: "Availability", url: "/availability", icon: Clock },
-      { title: "Services & Pricing", url: "/services", icon: Tag },
-      { title: "Payments", url: "/payments", icon: Wallet },
-      { title: "Payouts", url: "/payouts", icon: Banknote },
-      { title: "Documents", url: "/documents", icon: FileSignature },
-      { title: "Templates", url: "/templates", icon: Files },
+      { title: "Sessions", url: "/sessions" },
+      { title: "Assessments", url: "/assessments" },
+      { title: "Notes", url: "/notes" },
+      { title: "Treatment Plans", url: "/treatment-plans" },
+      { title: "Homework", url: "/homework" },
+      { title: "Prescriptions", url: "/prescriptions" },
+      { title: "Risk & Safety", url: "/risk" },
+      { title: "Case Conferences", url: "/case-conferences" },
     ],
   },
   {
-    label: "Growth",
+    key: "practice", label: "Practice", meta: "10 tools", icon: Receipt,
     items: [
-      { title: "Analytics", url: "/analytics", icon: LineChart },
-      { title: "Reviews", url: "/reviews", icon: Star },
-      { title: "Marketing Profile", url: "/profile-public", icon: Sparkles },
-      { title: "Content Library", url: "/library", icon: Library },
-      { title: "CPD & Supervision", url: "/cpd", icon: GraduationCap },
+      { title: "Messages", url: "/messages" },
+      { title: "Billing", url: "/billing" },
+      { title: "Invoices", url: "/billing/invoices" },
+      { title: "Claims", url: "/billing/claims" },
+      { title: "Payments", url: "/payments" },
+      { title: "Payouts", url: "/payouts" },
+      { title: "Reports", url: "/billing/reports" },
+      { title: "Documents", url: "/documents" },
+      { title: "Templates", url: "/templates" },
+      { title: "Services & Pricing", url: "/services" },
     ],
   },
   {
-    label: "Collaborate",
+    key: "growth", label: "Growth", meta: "8 tools", icon: Sparkles,
     items: [
-      { title: "Peer Network", url: "/peers", icon: Handshake },
-      { title: "Supervision", url: "/supervision", icon: UserCog },
-      { title: "Research", url: "/research", icon: Microscope },
+      { title: "Analytics", url: "/analytics" },
+      { title: "Reviews", url: "/reviews" },
+      { title: "Marketing Profile", url: "/profile-public" },
+      { title: "Content Library", url: "/library" },
+      { title: "CPD & Supervision", url: "/cpd" },
+      { title: "Peer Network", url: "/peers" },
+      { title: "Supervision", url: "/supervision" },
+      { title: "Research", url: "/research" },
     ],
   },
   {
-    label: "Compliance",
+    key: "settings", label: "Settings", meta: "7 pages", icon: SettingsIcon,
     items: [
-      { title: "Consent & DPDP", url: "/compliance/consent", icon: FileLock2 },
-      { title: "Audit Log", url: "/compliance/audit", icon: History },
-      { title: "Data Export", url: "/compliance/export", icon: Download },
+      { title: "Settings", url: "/settings" },
+      { title: "Notifications", url: "/notifications" },
+      { title: "Help & Support", url: "/support" },
+      { title: "Consent & DPDP", url: "/compliance/consent" },
+      { title: "Audit Log", url: "/compliance/audit" },
+      { title: "Data Export", url: "/compliance/export" },
     ],
   },
 ];
+
+// Legacy section view for the mobile drawer only.
+const NAV: { label: string; items: NavItem[] }[] = CATEGORIES.map((c) => ({
+  label: c.label,
+  items: c.items.map((it) => ({ ...it, icon: it.icon ?? c.icon })),
+}));
 
 // Flat list used by mobile bottom pill nav — 5 most important.
 const MOBILE_PILL: NavItem[] = [
