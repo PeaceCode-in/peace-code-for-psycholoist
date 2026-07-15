@@ -39,12 +39,13 @@ type Category = {
 // Seven category tubes. Every existing route lives inside one of these.
 const CATEGORIES: Category[] = [
   {
-    key: "today", label: "Today", meta: "4 views", icon: LayoutDashboard,
+    key: "today", label: "Today", meta: "5 views", icon: LayoutDashboard,
     items: [
       { title: "Overview", url: "/dashboard" },
       { title: "Schedule", url: "/schedule" },
       { title: "Inbox", url: "/inbox", badge: INBOX_UNREAD },
       { title: "Alerts", url: "/alerts", badge: ALERTS_HIGH ? "dot" : undefined },
+      { title: "Copilot", url: "/copilot" },
     ],
   },
   {
