@@ -23,6 +23,8 @@ import { useSidebarPinned } from "@/lib/settings-store";
 import { BellPeek } from "@/components/practice/notifications/BellPeek";
 import { CopilotPill } from "@/components/practice/copilot/CopilotPill";
 import { ChecklistDrawer } from "@/components/practice/onboarding/ChecklistDrawer";
+import { ShortcutsOverlay } from "@/components/practice/polish/ShortcutsOverlay";
+import { DataHandlingSheet } from "@/components/practice/polish/DataHandlingSheet";
 
 export { palette };
 
@@ -889,6 +891,8 @@ export function AppShell({ children, crumb }: { children: ReactNode; crumb?: str
         </div>
         <MobileBottomPill />
         <CopilotPill />
+        <ShortcutsOverlay />
+        <DataHandlingSheet />
       </div>
       {/* Responsive shell padding: rail is 64px, +240px when pinned. Mobile: 0. */}
       <style>{`

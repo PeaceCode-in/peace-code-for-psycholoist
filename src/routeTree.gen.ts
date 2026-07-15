@@ -161,6 +161,7 @@ import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as AssessmentsLibraryRouteImport } from './routes/assessments.library'
 import { Route as AssessmentsAssignmentsRouteImport } from './routes/assessments.assignments'
 import { Route as AdminOnboardingSignalsRouteImport } from './routes/admin.onboarding-signals'
+import { Route as AdminLaunchReadinessRouteImport } from './routes/admin.launch-readiness'
 import { Route as SessionsIdIndexRouteImport } from './routes/sessions.$id.index'
 import { Route as PatientsPidIndexRouteImport } from './routes/patients.$pid.index'
 import { Route as BillingInvoicesIndexRouteImport } from './routes/billing.invoices.index'
@@ -954,6 +955,11 @@ const AdminOnboardingSignalsRoute = AdminOnboardingSignalsRouteImport.update({
   path: '/admin/onboarding-signals',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminLaunchReadinessRoute = AdminLaunchReadinessRouteImport.update({
+  id: '/admin/launch-readiness',
+  path: '/admin/launch-readiness',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SessionsIdIndexRoute = SessionsIdIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -1153,6 +1159,7 @@ export interface FileRoutesByFullPath {
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
   '/welcome': typeof WelcomeRouteWithChildren
+  '/admin/launch-readiness': typeof AdminLaunchReadinessRoute
   '/admin/onboarding-signals': typeof AdminOnboardingSignalsRoute
   '/assessments/assignments': typeof AssessmentsAssignmentsRoute
   '/assessments/library': typeof AssessmentsLibraryRouteWithChildren
@@ -1324,6 +1331,7 @@ export interface FileRoutesByTo {
   '/templates': typeof TemplatesRoute
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
+  '/admin/launch-readiness': typeof AdminLaunchReadinessRoute
   '/admin/onboarding-signals': typeof AdminOnboardingSignalsRoute
   '/assessments/assignments': typeof AssessmentsAssignmentsRoute
   '/auth/login': typeof AuthLoginRoute
@@ -1503,6 +1511,7 @@ export interface FileRoutesById {
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
   '/welcome': typeof WelcomeRouteWithChildren
+  '/admin/launch-readiness': typeof AdminLaunchReadinessRoute
   '/admin/onboarding-signals': typeof AdminOnboardingSignalsRoute
   '/assessments/assignments': typeof AssessmentsAssignmentsRoute
   '/assessments/library': typeof AssessmentsLibraryRouteWithChildren
@@ -1689,6 +1698,7 @@ export interface FileRouteTypes {
     | '/treatment-plans'
     | '/waitlist'
     | '/welcome'
+    | '/admin/launch-readiness'
     | '/admin/onboarding-signals'
     | '/assessments/assignments'
     | '/assessments/library'
@@ -1860,6 +1870,7 @@ export interface FileRouteTypes {
     | '/templates'
     | '/treatment-plans'
     | '/waitlist'
+    | '/admin/launch-readiness'
     | '/admin/onboarding-signals'
     | '/assessments/assignments'
     | '/auth/login'
@@ -2038,6 +2049,7 @@ export interface FileRouteTypes {
     | '/treatment-plans'
     | '/waitlist'
     | '/welcome'
+    | '/admin/launch-readiness'
     | '/admin/onboarding-signals'
     | '/assessments/assignments'
     | '/assessments/library'
@@ -2223,6 +2235,7 @@ export interface RootRouteChildren {
   TreatmentPlansRoute: typeof TreatmentPlansRoute
   WaitlistRoute: typeof WaitlistRoute
   WelcomeRoute: typeof WelcomeRouteWithChildren
+  AdminLaunchReadinessRoute: typeof AdminLaunchReadinessRoute
   AdminOnboardingSignalsRoute: typeof AdminOnboardingSignalsRoute
   CalendarAgendaRoute: typeof CalendarAgendaRoute
   CalendarAvailabilityRoute: typeof CalendarAvailabilityRoute
@@ -3304,6 +3317,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminOnboardingSignalsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/launch-readiness': {
+      id: '/admin/launch-readiness'
+      path: '/admin/launch-readiness'
+      fullPath: '/admin/launch-readiness'
+      preLoaderRoute: typeof AdminLaunchReadinessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sessions/$id/': {
       id: '/sessions/$id/'
       path: '/'
@@ -4031,6 +4051,7 @@ const rootRouteChildren: RootRouteChildren = {
   TreatmentPlansRoute: TreatmentPlansRoute,
   WaitlistRoute: WaitlistRoute,
   WelcomeRoute: WelcomeRouteWithChildren,
+  AdminLaunchReadinessRoute: AdminLaunchReadinessRoute,
   AdminOnboardingSignalsRoute: AdminOnboardingSignalsRoute,
   CalendarAgendaRoute: CalendarAgendaRoute,
   CalendarAvailabilityRoute: CalendarAvailabilityRoute,
