@@ -121,9 +121,10 @@ const CATEGORIES: Category[] = [
     ],
   },
   {
-    key: "settings", label: "Settings", meta: "7 pages", icon: SettingsIcon,
+    key: "settings", label: "Settings", meta: "8 pages", icon: SettingsIcon,
     items: [
       { title: "Settings", url: "/settings" },
+      { title: "Integrations", url: "/integrations" },
       { title: "Notifications", url: "/notifications" },
       { title: "Help & Support", url: "/support" },
       { title: "Consent & DPDP", url: "/compliance/consent" },
