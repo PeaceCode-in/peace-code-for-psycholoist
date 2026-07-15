@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { palette } from "@/components/practice/palette";
+import { useHydrated } from "@/lib/use-hydrated";
 import {
   useRecent, useUnreadCount, useHasUrgent, relTime, markRead, markAllRead,
   type Notification, type NotifSeverity,
@@ -30,9 +31,12 @@ export function BellPeek() {
   const [open, setOpen] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
-  const unread = useUnreadCount();
-  const urgent = useHasUrgent();
+  const hydrated = useHydrated();
+  const rawUnread = useUnreadCount();
+  const rawUrgent = useHasUrgent();
   const recent = useRecent(5);
+  const unread = hydrated ? rawUnread : 0;
+  const urgent = hydrated ? rawUrgent : false;
 
   // outside click
   useEffect(() => {
