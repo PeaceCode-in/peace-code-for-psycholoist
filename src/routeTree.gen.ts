@@ -60,6 +60,7 @@ import { Route as SessionsIndexRouteImport } from './routes/sessions.index'
 import { Route as ScheduleIndexRouteImport } from './routes/schedule.index'
 import { Route as PortalIndexRouteImport } from './routes/portal.index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
+import { Route as NotesIndexRouteImport } from './routes/notes.index'
 import { Route as MessagesIndexRouteImport } from './routes/messages.index'
 import { Route as IntegrationsIndexRouteImport } from './routes/integrations.index'
 import { Route as GovernanceIndexRouteImport } from './routes/governance.index'
@@ -122,6 +123,11 @@ import { Route as PortalAuthRouteImport } from './routes/portal.auth'
 import { Route as PortalAssessmentsRouteImport } from './routes/portal.assessments'
 import { Route as PatientsNewRouteImport } from './routes/patients.new'
 import { Route as PatientsPidRouteImport } from './routes/patients.$pid'
+import { Route as NotesTemplatesRouteImport } from './routes/notes.templates'
+import { Route as NotesNewRouteImport } from './routes/notes.new'
+import { Route as NotesDraftsRouteImport } from './routes/notes.drafts'
+import { Route as NotesBulkRouteImport } from './routes/notes.bulk'
+import { Route as NotesNidRouteImport } from './routes/notes.$nid'
 import { Route as MessagesSettingsRouteImport } from './routes/messages.settings'
 import { Route as MessagesComposeRouteImport } from './routes/messages.compose'
 import { Route as MessagesCannedRouteImport } from './routes/messages.canned'
@@ -189,6 +195,7 @@ import { Route as PatientsPidDocumentsRouteImport } from './routes/patients.$pid
 import { Route as PatientsPidChartRouteImport } from './routes/patients.$pid.chart'
 import { Route as PatientsPidBillingRouteImport } from './routes/patients.$pid.billing'
 import { Route as PatientsPidAssessmentsRouteImport } from './routes/patients.$pid.assessments'
+import { Route as NotesNidAmendRouteImport } from './routes/notes.$nid.amend'
 import { Route as DocumentsCertificateIdRouteImport } from './routes/documents.certificate.$id'
 import { Route as CalendarBookSlugRouteImport } from './routes/calendar.book.$slug'
 import { Route as BillingInvoicesNewRouteImport } from './routes/billing.invoices.new'
@@ -457,6 +464,11 @@ const PatientsIndexRoute = PatientsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => PatientsRoute,
+} as any)
+const NotesIndexRoute = NotesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => NotesRoute,
 } as any)
 const MessagesIndexRoute = MessagesIndexRouteImport.update({
   id: '/',
@@ -769,6 +781,31 @@ const PatientsPidRoute = PatientsPidRouteImport.update({
   id: '/$pid',
   path: '/$pid',
   getParentRoute: () => PatientsRoute,
+} as any)
+const NotesTemplatesRoute = NotesTemplatesRouteImport.update({
+  id: '/templates',
+  path: '/templates',
+  getParentRoute: () => NotesRoute,
+} as any)
+const NotesNewRoute = NotesNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => NotesRoute,
+} as any)
+const NotesDraftsRoute = NotesDraftsRouteImport.update({
+  id: '/drafts',
+  path: '/drafts',
+  getParentRoute: () => NotesRoute,
+} as any)
+const NotesBulkRoute = NotesBulkRouteImport.update({
+  id: '/bulk',
+  path: '/bulk',
+  getParentRoute: () => NotesRoute,
+} as any)
+const NotesNidRoute = NotesNidRouteImport.update({
+  id: '/$nid',
+  path: '/$nid',
+  getParentRoute: () => NotesRoute,
 } as any)
 const MessagesSettingsRoute = MessagesSettingsRouteImport.update({
   id: '/settings',
@@ -1107,6 +1144,11 @@ const PatientsPidAssessmentsRoute = PatientsPidAssessmentsRouteImport.update({
   path: '/assessments',
   getParentRoute: () => PatientsPidRoute,
 } as any)
+const NotesNidAmendRoute = NotesNidAmendRouteImport.update({
+  id: '/amend',
+  path: '/amend',
+  getParentRoute: () => NotesNidRoute,
+} as any)
 const DocumentsCertificateIdRoute = DocumentsCertificateIdRouteImport.update({
   id: '/certificate/$id',
   path: '/certificate/$id',
@@ -1199,7 +1241,7 @@ export interface FileRoutesByFullPath {
   '/library': typeof LibraryRoute
   '/mcp': typeof McpRoute
   '/messages': typeof MessagesRouteWithChildren
-  '/notes': typeof NotesRoute
+  '/notes': typeof NotesRouteWithChildren
   '/notifications': typeof NotificationsRoute
   '/patients': typeof PatientsRouteWithChildren
   '/payments': typeof PaymentsRoute
@@ -1272,6 +1314,11 @@ export interface FileRoutesByFullPath {
   '/messages/canned': typeof MessagesCannedRoute
   '/messages/compose': typeof MessagesComposeRoute
   '/messages/settings': typeof MessagesSettingsRoute
+  '/notes/$nid': typeof NotesNidRouteWithChildren
+  '/notes/bulk': typeof NotesBulkRoute
+  '/notes/drafts': typeof NotesDraftsRoute
+  '/notes/new': typeof NotesNewRoute
+  '/notes/templates': typeof NotesTemplatesRoute
   '/patients/$pid': typeof PatientsPidRouteWithChildren
   '/patients/new': typeof PatientsNewRoute
   '/portal/assessments': typeof PortalAssessmentsRouteWithChildren
@@ -1334,6 +1381,7 @@ export interface FileRoutesByFullPath {
   '/governance/': typeof GovernanceIndexRoute
   '/integrations/': typeof IntegrationsIndexRoute
   '/messages/': typeof MessagesIndexRoute
+  '/notes/': typeof NotesIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/portal/': typeof PortalIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
@@ -1350,6 +1398,7 @@ export interface FileRoutesByFullPath {
   '/billing/invoices/new': typeof BillingInvoicesNewRoute
   '/calendar/book/$slug': typeof CalendarBookSlugRoute
   '/documents/certificate/$id': typeof DocumentsCertificateIdRoute
+  '/notes/$nid/amend': typeof NotesNidAmendRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/billing': typeof PatientsPidBillingRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
@@ -1387,7 +1436,6 @@ export interface FileRoutesByTo {
   '/inbox': typeof InboxRouteWithChildren
   '/library': typeof LibraryRoute
   '/mcp': typeof McpRoute
-  '/notes': typeof NotesRoute
   '/notifications': typeof NotificationsRoute
   '/payments': typeof PaymentsRoute
   '/payouts': typeof PayoutsRoute
@@ -1450,6 +1498,11 @@ export interface FileRoutesByTo {
   '/messages/canned': typeof MessagesCannedRoute
   '/messages/compose': typeof MessagesComposeRoute
   '/messages/settings': typeof MessagesSettingsRoute
+  '/notes/$nid': typeof NotesNidRouteWithChildren
+  '/notes/bulk': typeof NotesBulkRoute
+  '/notes/drafts': typeof NotesDraftsRoute
+  '/notes/new': typeof NotesNewRoute
+  '/notes/templates': typeof NotesTemplatesRoute
   '/patients/new': typeof PatientsNewRoute
   '/portal/assessments': typeof PortalAssessmentsRouteWithChildren
   '/portal/auth': typeof PortalAuthRoute
@@ -1510,6 +1563,7 @@ export interface FileRoutesByTo {
   '/governance': typeof GovernanceIndexRoute
   '/integrations': typeof IntegrationsIndexRoute
   '/messages': typeof MessagesIndexRoute
+  '/notes': typeof NotesIndexRoute
   '/patients': typeof PatientsIndexRoute
   '/portal': typeof PortalIndexRoute
   '/schedule': typeof ScheduleIndexRoute
@@ -1526,6 +1580,7 @@ export interface FileRoutesByTo {
   '/billing/invoices/new': typeof BillingInvoicesNewRoute
   '/calendar/book/$slug': typeof CalendarBookSlugRoute
   '/documents/certificate/$id': typeof DocumentsCertificateIdRoute
+  '/notes/$nid/amend': typeof NotesNidAmendRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/billing': typeof PatientsPidBillingRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
@@ -1570,7 +1625,7 @@ export interface FileRoutesById {
   '/library': typeof LibraryRoute
   '/mcp': typeof McpRoute
   '/messages': typeof MessagesRouteWithChildren
-  '/notes': typeof NotesRoute
+  '/notes': typeof NotesRouteWithChildren
   '/notifications': typeof NotificationsRoute
   '/patients': typeof PatientsRouteWithChildren
   '/payments': typeof PaymentsRoute
@@ -1643,6 +1698,11 @@ export interface FileRoutesById {
   '/messages/canned': typeof MessagesCannedRoute
   '/messages/compose': typeof MessagesComposeRoute
   '/messages/settings': typeof MessagesSettingsRoute
+  '/notes/$nid': typeof NotesNidRouteWithChildren
+  '/notes/bulk': typeof NotesBulkRoute
+  '/notes/drafts': typeof NotesDraftsRoute
+  '/notes/new': typeof NotesNewRoute
+  '/notes/templates': typeof NotesTemplatesRoute
   '/patients/$pid': typeof PatientsPidRouteWithChildren
   '/patients/new': typeof PatientsNewRoute
   '/portal/assessments': typeof PortalAssessmentsRouteWithChildren
@@ -1705,6 +1765,7 @@ export interface FileRoutesById {
   '/governance/': typeof GovernanceIndexRoute
   '/integrations/': typeof IntegrationsIndexRoute
   '/messages/': typeof MessagesIndexRoute
+  '/notes/': typeof NotesIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/portal/': typeof PortalIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
@@ -1721,6 +1782,7 @@ export interface FileRoutesById {
   '/billing/invoices/new': typeof BillingInvoicesNewRoute
   '/calendar/book/$slug': typeof CalendarBookSlugRoute
   '/documents/certificate/$id': typeof DocumentsCertificateIdRoute
+  '/notes/$nid/amend': typeof NotesNidAmendRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/billing': typeof PatientsPidBillingRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
@@ -1840,6 +1902,11 @@ export interface FileRouteTypes {
     | '/messages/canned'
     | '/messages/compose'
     | '/messages/settings'
+    | '/notes/$nid'
+    | '/notes/bulk'
+    | '/notes/drafts'
+    | '/notes/new'
+    | '/notes/templates'
     | '/patients/$pid'
     | '/patients/new'
     | '/portal/assessments'
@@ -1902,6 +1969,7 @@ export interface FileRouteTypes {
     | '/governance/'
     | '/integrations/'
     | '/messages/'
+    | '/notes/'
     | '/patients/'
     | '/portal/'
     | '/schedule/'
@@ -1918,6 +1986,7 @@ export interface FileRouteTypes {
     | '/billing/invoices/new'
     | '/calendar/book/$slug'
     | '/documents/certificate/$id'
+    | '/notes/$nid/amend'
     | '/patients/$pid/assessments'
     | '/patients/$pid/billing'
     | '/patients/$pid/chart'
@@ -1955,7 +2024,6 @@ export interface FileRouteTypes {
     | '/inbox'
     | '/library'
     | '/mcp'
-    | '/notes'
     | '/notifications'
     | '/payments'
     | '/payouts'
@@ -2018,6 +2086,11 @@ export interface FileRouteTypes {
     | '/messages/canned'
     | '/messages/compose'
     | '/messages/settings'
+    | '/notes/$nid'
+    | '/notes/bulk'
+    | '/notes/drafts'
+    | '/notes/new'
+    | '/notes/templates'
     | '/patients/new'
     | '/portal/assessments'
     | '/portal/auth'
@@ -2078,6 +2151,7 @@ export interface FileRouteTypes {
     | '/governance'
     | '/integrations'
     | '/messages'
+    | '/notes'
     | '/patients'
     | '/portal'
     | '/schedule'
@@ -2094,6 +2168,7 @@ export interface FileRouteTypes {
     | '/billing/invoices/new'
     | '/calendar/book/$slug'
     | '/documents/certificate/$id'
+    | '/notes/$nid/amend'
     | '/patients/$pid/assessments'
     | '/patients/$pid/billing'
     | '/patients/$pid/chart'
@@ -2210,6 +2285,11 @@ export interface FileRouteTypes {
     | '/messages/canned'
     | '/messages/compose'
     | '/messages/settings'
+    | '/notes/$nid'
+    | '/notes/bulk'
+    | '/notes/drafts'
+    | '/notes/new'
+    | '/notes/templates'
     | '/patients/$pid'
     | '/patients/new'
     | '/portal/assessments'
@@ -2272,6 +2352,7 @@ export interface FileRouteTypes {
     | '/governance/'
     | '/integrations/'
     | '/messages/'
+    | '/notes/'
     | '/patients/'
     | '/portal/'
     | '/schedule/'
@@ -2288,6 +2369,7 @@ export interface FileRouteTypes {
     | '/billing/invoices/new'
     | '/calendar/book/$slug'
     | '/documents/certificate/$id'
+    | '/notes/$nid/amend'
     | '/patients/$pid/assessments'
     | '/patients/$pid/billing'
     | '/patients/$pid/chart'
@@ -2333,7 +2415,7 @@ export interface RootRouteChildren {
   LibraryRoute: typeof LibraryRoute
   McpRoute: typeof McpRoute
   MessagesRoute: typeof MessagesRouteWithChildren
-  NotesRoute: typeof NotesRoute
+  NotesRoute: typeof NotesRouteWithChildren
   NotificationsRoute: typeof NotificationsRoute
   PatientsRoute: typeof PatientsRouteWithChildren
   PaymentsRoute: typeof PaymentsRoute
@@ -2736,6 +2818,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/patients/'
       preLoaderRoute: typeof PatientsIndexRouteImport
       parentRoute: typeof PatientsRoute
+    }
+    '/notes/': {
+      id: '/notes/'
+      path: '/'
+      fullPath: '/notes/'
+      preLoaderRoute: typeof NotesIndexRouteImport
+      parentRoute: typeof NotesRoute
     }
     '/messages/': {
       id: '/messages/'
@@ -3170,6 +3259,41 @@ declare module '@tanstack/react-router' {
       fullPath: '/patients/$pid'
       preLoaderRoute: typeof PatientsPidRouteImport
       parentRoute: typeof PatientsRoute
+    }
+    '/notes/templates': {
+      id: '/notes/templates'
+      path: '/templates'
+      fullPath: '/notes/templates'
+      preLoaderRoute: typeof NotesTemplatesRouteImport
+      parentRoute: typeof NotesRoute
+    }
+    '/notes/new': {
+      id: '/notes/new'
+      path: '/new'
+      fullPath: '/notes/new'
+      preLoaderRoute: typeof NotesNewRouteImport
+      parentRoute: typeof NotesRoute
+    }
+    '/notes/drafts': {
+      id: '/notes/drafts'
+      path: '/drafts'
+      fullPath: '/notes/drafts'
+      preLoaderRoute: typeof NotesDraftsRouteImport
+      parentRoute: typeof NotesRoute
+    }
+    '/notes/bulk': {
+      id: '/notes/bulk'
+      path: '/bulk'
+      fullPath: '/notes/bulk'
+      preLoaderRoute: typeof NotesBulkRouteImport
+      parentRoute: typeof NotesRoute
+    }
+    '/notes/$nid': {
+      id: '/notes/$nid'
+      path: '/$nid'
+      fullPath: '/notes/$nid'
+      preLoaderRoute: typeof NotesNidRouteImport
+      parentRoute: typeof NotesRoute
     }
     '/messages/settings': {
       id: '/messages/settings'
@@ -3640,6 +3764,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PatientsPidAssessmentsRouteImport
       parentRoute: typeof PatientsPidRoute
     }
+    '/notes/$nid/amend': {
+      id: '/notes/$nid/amend'
+      path: '/amend'
+      fullPath: '/notes/$nid/amend'
+      preLoaderRoute: typeof NotesNidAmendRouteImport
+      parentRoute: typeof NotesNidRoute
+    }
     '/documents/certificate/$id': {
       id: '/documents/certificate/$id'
       path: '/certificate/$id'
@@ -3939,6 +4070,38 @@ const MessagesRouteChildren: MessagesRouteChildren = {
 const MessagesRouteWithChildren = MessagesRoute._addFileChildren(
   MessagesRouteChildren,
 )
+
+interface NotesNidRouteChildren {
+  NotesNidAmendRoute: typeof NotesNidAmendRoute
+}
+
+const NotesNidRouteChildren: NotesNidRouteChildren = {
+  NotesNidAmendRoute: NotesNidAmendRoute,
+}
+
+const NotesNidRouteWithChildren = NotesNidRoute._addFileChildren(
+  NotesNidRouteChildren,
+)
+
+interface NotesRouteChildren {
+  NotesNidRoute: typeof NotesNidRouteWithChildren
+  NotesBulkRoute: typeof NotesBulkRoute
+  NotesDraftsRoute: typeof NotesDraftsRoute
+  NotesNewRoute: typeof NotesNewRoute
+  NotesTemplatesRoute: typeof NotesTemplatesRoute
+  NotesIndexRoute: typeof NotesIndexRoute
+}
+
+const NotesRouteChildren: NotesRouteChildren = {
+  NotesNidRoute: NotesNidRouteWithChildren,
+  NotesBulkRoute: NotesBulkRoute,
+  NotesDraftsRoute: NotesDraftsRoute,
+  NotesNewRoute: NotesNewRoute,
+  NotesTemplatesRoute: NotesTemplatesRoute,
+  NotesIndexRoute: NotesIndexRoute,
+}
+
+const NotesRouteWithChildren = NotesRoute._addFileChildren(NotesRouteChildren)
 
 interface PatientsPidNotesRouteChildren {
   PatientsPidNotesNidRoute: typeof PatientsPidNotesNidRoute
@@ -4243,7 +4406,7 @@ const rootRouteChildren: RootRouteChildren = {
   LibraryRoute: LibraryRoute,
   McpRoute: McpRoute,
   MessagesRoute: MessagesRouteWithChildren,
-  NotesRoute: NotesRoute,
+  NotesRoute: NotesRouteWithChildren,
   NotificationsRoute: NotificationsRoute,
   PatientsRoute: PatientsRouteWithChildren,
   PaymentsRoute: PaymentsRoute,
