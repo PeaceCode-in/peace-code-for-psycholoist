@@ -12,6 +12,7 @@ import {
   Stethoscope, PanelLeftClose, PanelLeftOpen,
 } from "lucide-react";
 import { palette } from "./palette";
+import peacecodeLogo from "@/assets/peacecode-logo.png";
 import { GlassFX } from "@/components/GlassFX";
 import { INBOX_UNREAD, ALERTS_HIGH } from "@/lib/practice-store";
 import { useTodayRemaining } from "@/lib/sessions-store";
@@ -509,19 +510,27 @@ function DesktopTubeSidebar({
       <aside
         className="hidden md:flex fixed left-0 top-0 bottom-0 z-40 flex-col items-center"
         style={{
-          width: 64,
-          background: palette.surface,
+          width: 72,
+          background: "linear-gradient(180deg, #FBEEF2 0%, #F7E4EA 100%)",
           borderRight: `1px solid ${palette.border}`,
         }}
         onMouseLeave={scheduleClose}
       >
         {/* Logo */}
-        <Link to="/dashboard" className="mt-6 mb-4 w-10 h-10 rounded-xl flex items-center justify-center" aria-label="PeaceCode Practice">
-          <span
-            className="w-6 h-6 rounded-full"
-            style={{ background: palette.primary, boxShadow: `0 0 0 4px ${palette.soft}` }}
-          />
+        <Link
+          to="/dashboard"
+          className="mt-5 mb-3 w-12 h-12 rounded-2xl flex items-center justify-center transition-transform hover:scale-[1.04]"
+          aria-label="PeaceCode Practice"
+          style={{
+            background: "rgba(255,255,255,0.55)",
+            border: `1px solid ${palette.border}`,
+            boxShadow: "0 2px 8px -4px rgba(120,50,80,0.15)",
+          }}
+        >
+          <img src={peacecodeLogo} alt="PeaceCode" className="w-7 h-7 object-contain" style={{ filter: `drop-shadow(0 1px 0 rgba(255,255,255,0.6))` }} />
         </Link>
+        <div className="w-8 h-px mb-2" style={{ background: `linear-gradient(90deg, transparent, ${palette.border}, transparent)` }} />
+
 
         {/* Category icons */}
         <div
@@ -598,7 +607,7 @@ function DesktopTubeSidebar({
       {/* Flyout — opacity + clip-path only, no translate/scale */}
       <div
         className="hidden md:block fixed top-0 bottom-0 z-30 pointer-events-none"
-        style={{ left: 64 }}
+        style={{ left: 72 }}
       >
         <div
           onKeyDown={onFlyoutKeyDown}
@@ -648,7 +657,7 @@ function MobileDrawer({ open, onClose, onDuty, setOnDuty }: { open: boolean; onC
       >
         <div className="p-3 flex items-center justify-between border-b" style={{ borderColor: palette.border }}>
           <div className="flex items-center gap-2">
-            <span className="w-7 h-7 rounded-lg flex items-center justify-center text-white text-[13px]" style={{ background: palette.primary, fontFamily: "'Fraunces', serif" }}>P</span>
+            <span className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "rgba(255,255,255,0.7)", border: `1px solid ${palette.border}` }}><img src={peacecodeLogo} alt="" className="w-5 h-5 object-contain" /></span>
             <span style={{ fontFamily: "'Fraunces', serif", color: palette.ink }} className="text-[14px]">PeaceCode <span style={{ color: palette.muted }}>· Practice</span></span>
           </div>
           <button onClick={onClose} className="p-1.5 rounded-full" style={{ color: palette.muted }}><X className="w-4 h-4" /></button>
@@ -896,10 +905,10 @@ export function AppShell({ children, crumb }: { children: ReactNode; crumb?: str
         <ShortcutsOverlay />
         <DataHandlingSheet />
       </div>
-      {/* Responsive shell padding: rail is 64px, +240px when pinned. Mobile: 0. */}
+      {/* Responsive shell padding: rail is 72px, +240px when pinned. Mobile: 0. */}
       <style>{`
         @media (min-width: 768px) {
-          :root { --pc-shell-pad: ${pinned ? 304 : 64}px; }
+          :root { --pc-shell-pad: ${pinned ? 312 : 72}px; }
         }
         @media (max-width: 767.98px) {
           :root { --pc-shell-pad: 0px; }
