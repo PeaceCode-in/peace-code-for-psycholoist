@@ -21,6 +21,7 @@ import { useUnreadThreadCount } from "@/lib/messages-store";
 import { endSession } from "@/lib/auth-store";
 import { useSidebarPinned } from "@/lib/settings-store";
 import { BellPeek } from "@/components/practice/notifications/BellPeek";
+import { CopilotPill } from "@/components/practice/copilot/CopilotPill";
 
 export { palette };
 
