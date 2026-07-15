@@ -107,6 +107,20 @@ const CATEGORIES: Category[] = [
     ],
   },
   {
+    key: "team", label: "Team", meta: "9 tools", icon: UsersRound,
+    items: [
+      { title: "Roster", url: "/team" },
+      { title: "Roles & permissions", url: "/team/roles" },
+      { title: "Supervision", url: "/team/supervision" },
+      { title: "Handoffs", url: "/team/handoffs" },
+      { title: "Internal referrals", url: "/team/referrals" },
+      { title: "Coverage & OOO", url: "/team/coverage" },
+      { title: "Team analytics", url: "/team/analytics" },
+      { title: "Audit trail", url: "/team/audit" },
+      { title: "Invite member", url: "/team/invite" },
+    ],
+  },
+  {
     key: "settings", label: "Settings", meta: "7 pages", icon: SettingsIcon,
     items: [
       { title: "Settings", url: "/settings" },
