@@ -13,7 +13,7 @@ import {
 import { palette } from "./palette";
 import { GlassFX } from "@/components/GlassFX";
 import { INBOX_UNREAD, ALERTS_HIGH } from "@/lib/practice-store";
-import { clearSession } from "@/lib/auth-store";
+import { endSession } from "@/lib/auth-store";
 
 export { palette };
 
@@ -184,7 +184,7 @@ function DesktopSidebar({ collapsed, onDuty, setOnDuty }: { collapsed: boolean; 
   const width = collapsed ? "w-[64px]" : "w-[248px]";
 
   const signOut = () => {
-    clearSession();
+    endSession();
     navigate({ to: "/auth" });
   };
 
@@ -305,7 +305,7 @@ function MobileDrawer({ open, onClose, onDuty, setOnDuty }: { open: boolean; onC
             <NavLinkRow item={{ title: "Notifications", url: "/notifications", icon: Bell }} isActive={isActive("/notifications")} />
             <NavLinkRow item={{ title: "Help & Support", url: "/support", icon: LifeBuoy }} isActive={isActive("/support")} />
             <NavLinkRow item={{ title: "Settings", url: "/settings", icon: SettingsIcon }} isActive={isActive("/settings")} />
-            <button onClick={() => { clearSession(); navigate({ to: "/auth" }); }} className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg" style={{ color: palette.muted }}>
+            <button onClick={() => { endSession(); navigate({ to: "/auth" }); }} className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg" style={{ color: palette.muted }}>
               <LogOut className="h-3.5 w-3.5" strokeWidth={1.8} /><span className="text-[12.5px]">Sign out</span>
             </button>
           </div>
