@@ -20,7 +20,7 @@ export const Route = createFileRoute("/documents/new")({
 
 function SendFlow() {
   const templates = useTemplates();
-  const patients = usePatients();
+  const patients = useLivePatients();
   const search = Route.useSearch();
   const navigate = useNavigate();
 
