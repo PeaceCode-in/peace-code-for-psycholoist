@@ -607,7 +607,7 @@ function DesktopTubeSidebar({
       {/* Flyout — opacity + clip-path only, no translate/scale */}
       <div
         className="hidden md:block fixed top-0 bottom-0 z-30 pointer-events-none"
-        style={{ left: 64 }}
+        style={{ left: 72 }}
       >
         <div
           onKeyDown={onFlyoutKeyDown}
