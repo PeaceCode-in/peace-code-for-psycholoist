@@ -20,6 +20,7 @@ import { useOverdueCount } from "@/lib/billing-store";
 import { useUnreadThreadCount } from "@/lib/messages-store";
 import { endSession } from "@/lib/auth-store";
 import { useSidebarPinned } from "@/lib/settings-store";
+import { BellPeek } from "@/components/practice/notifications/BellPeek";
 
 export { palette };
 
@@ -842,15 +843,8 @@ function TopBar({ crumb, onToggleSidebar, onOpenMobile }: { crumb?: string; onTo
         <AlertOctagon className="w-3 h-3" /> Emergency
       </button>
 
-      <Link
-        to="/notifications"
-        className="w-8 h-8 rounded-full flex items-center justify-center relative"
-        style={{ background: palette.surface2, border: `1px solid ${palette.border}`, color: palette.ink }}
-        aria-label="Notifications"
-      >
-        <Bell className="w-3.5 h-3.5" />
-        <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full" style={{ background: palette.primary }} />
-      </Link>
+      <BellPeek />
+
 
       <QuickAddMenu />
       <EmergencyDialog open={emergency} onClose={() => setEmergency(false)} />

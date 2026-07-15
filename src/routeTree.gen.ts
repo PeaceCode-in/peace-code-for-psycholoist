@@ -116,6 +116,8 @@ import { Route as IntegrationsWebhooksRouteImport } from './routes/integrations.
 import { Route as IntegrationsTokensRouteImport } from './routes/integrations.tokens'
 import { Route as IntegrationsAutomationsRouteImport } from './routes/integrations.automations'
 import { Route as IntegrationsSlugRouteImport } from './routes/integrations.$slug'
+import { Route as InboxTasksRouteImport } from './routes/inbox.tasks'
+import { Route as InboxDailyBriefRouteImport } from './routes/inbox.daily-brief'
 import { Route as ComplianceExportRouteImport } from './routes/compliance.export'
 import { Route as ComplianceConsentRouteImport } from './routes/compliance.consent'
 import { Route as ComplianceAuditRouteImport } from './routes/compliance.audit'
@@ -699,6 +701,16 @@ const IntegrationsSlugRoute = IntegrationsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => IntegrationsRoute,
 } as any)
+const InboxTasksRoute = InboxTasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => InboxRoute,
+} as any)
+const InboxDailyBriefRoute = InboxDailyBriefRouteImport.update({
+  id: '/daily-brief',
+  path: '/daily-brief',
+  getParentRoute: () => InboxRoute,
+} as any)
 const ComplianceExportRoute = ComplianceExportRouteImport.update({
   id: '/compliance/export',
   path: '/compliance/export',
@@ -942,7 +954,7 @@ export interface FileRoutesByFullPath {
   '/documents': typeof DocumentsRoute
   '/groups': typeof GroupsRoute
   '/homework': typeof HomeworkRoute
-  '/inbox': typeof InboxRoute
+  '/inbox': typeof InboxRouteWithChildren
   '/integrations': typeof IntegrationsRouteWithChildren
   '/library': typeof LibraryRoute
   '/messages': typeof MessagesRouteWithChildren
@@ -988,6 +1000,8 @@ export interface FileRoutesByFullPath {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
+  '/inbox/daily-brief': typeof InboxDailyBriefRoute
+  '/inbox/tasks': typeof InboxTasksRoute
   '/integrations/$slug': typeof IntegrationsSlugRoute
   '/integrations/automations': typeof IntegrationsAutomationsRoute
   '/integrations/tokens': typeof IntegrationsTokensRoute
@@ -1093,7 +1107,7 @@ export interface FileRoutesByTo {
   '/documents': typeof DocumentsRoute
   '/groups': typeof GroupsRoute
   '/homework': typeof HomeworkRoute
-  '/inbox': typeof InboxRoute
+  '/inbox': typeof InboxRouteWithChildren
   '/library': typeof LibraryRoute
   '/notes': typeof NotesRoute
   '/notifications': typeof NotificationsRoute
@@ -1129,6 +1143,8 @@ export interface FileRoutesByTo {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
+  '/inbox/daily-brief': typeof InboxDailyBriefRoute
+  '/inbox/tasks': typeof InboxTasksRoute
   '/integrations/$slug': typeof IntegrationsSlugRoute
   '/integrations/automations': typeof IntegrationsAutomationsRoute
   '/integrations/tokens': typeof IntegrationsTokensRoute
@@ -1235,7 +1251,7 @@ export interface FileRoutesById {
   '/documents': typeof DocumentsRoute
   '/groups': typeof GroupsRoute
   '/homework': typeof HomeworkRoute
-  '/inbox': typeof InboxRoute
+  '/inbox': typeof InboxRouteWithChildren
   '/integrations': typeof IntegrationsRouteWithChildren
   '/library': typeof LibraryRoute
   '/messages': typeof MessagesRouteWithChildren
@@ -1281,6 +1297,8 @@ export interface FileRoutesById {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
+  '/inbox/daily-brief': typeof InboxDailyBriefRoute
+  '/inbox/tasks': typeof InboxTasksRoute
   '/integrations/$slug': typeof IntegrationsSlugRoute
   '/integrations/automations': typeof IntegrationsAutomationsRoute
   '/integrations/tokens': typeof IntegrationsTokensRoute
@@ -1437,6 +1455,8 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
+    | '/inbox/daily-brief'
+    | '/inbox/tasks'
     | '/integrations/$slug'
     | '/integrations/automations'
     | '/integrations/tokens'
@@ -1578,6 +1598,8 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
+    | '/inbox/daily-brief'
+    | '/inbox/tasks'
     | '/integrations/$slug'
     | '/integrations/automations'
     | '/integrations/tokens'
@@ -1729,6 +1751,8 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
+    | '/inbox/daily-brief'
+    | '/inbox/tasks'
     | '/integrations/$slug'
     | '/integrations/automations'
     | '/integrations/tokens'
@@ -1838,7 +1862,7 @@ export interface RootRouteChildren {
   DocumentsRoute: typeof DocumentsRoute
   GroupsRoute: typeof GroupsRoute
   HomeworkRoute: typeof HomeworkRoute
-  InboxRoute: typeof InboxRoute
+  InboxRoute: typeof InboxRouteWithChildren
   IntegrationsRoute: typeof IntegrationsRouteWithChildren
   LibraryRoute: typeof LibraryRoute
   MessagesRoute: typeof MessagesRouteWithChildren
@@ -2630,6 +2654,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IntegrationsSlugRouteImport
       parentRoute: typeof IntegrationsRoute
     }
+    '/inbox/tasks': {
+      id: '/inbox/tasks'
+      path: '/tasks'
+      fullPath: '/inbox/tasks'
+      preLoaderRoute: typeof InboxTasksRouteImport
+      parentRoute: typeof InboxRoute
+    }
+    '/inbox/daily-brief': {
+      id: '/inbox/daily-brief'
+      path: '/daily-brief'
+      fullPath: '/inbox/daily-brief'
+      preLoaderRoute: typeof InboxDailyBriefRouteImport
+      parentRoute: typeof InboxRoute
+    }
     '/compliance/export': {
       id: '/compliance/export'
       path: '/compliance/export'
@@ -3046,6 +3084,18 @@ const BillingRouteChildren: BillingRouteChildren = {
 const BillingRouteWithChildren =
   BillingRoute._addFileChildren(BillingRouteChildren)
 
+interface InboxRouteChildren {
+  InboxDailyBriefRoute: typeof InboxDailyBriefRoute
+  InboxTasksRoute: typeof InboxTasksRoute
+}
+
+const InboxRouteChildren: InboxRouteChildren = {
+  InboxDailyBriefRoute: InboxDailyBriefRoute,
+  InboxTasksRoute: InboxTasksRoute,
+}
+
+const InboxRouteWithChildren = InboxRoute._addFileChildren(InboxRouteChildren)
+
 interface IntegrationsRouteChildren {
   IntegrationsSlugRoute: typeof IntegrationsSlugRoute
   IntegrationsAutomationsRoute: typeof IntegrationsAutomationsRoute
@@ -3333,7 +3383,7 @@ const rootRouteChildren: RootRouteChildren = {
   DocumentsRoute: DocumentsRoute,
   GroupsRoute: GroupsRoute,
   HomeworkRoute: HomeworkRoute,
-  InboxRoute: InboxRoute,
+  InboxRoute: InboxRouteWithChildren,
   IntegrationsRoute: IntegrationsRouteWithChildren,
   LibraryRoute: LibraryRoute,
   MessagesRoute: MessagesRouteWithChildren,
