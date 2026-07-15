@@ -34,6 +34,7 @@ import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as NotesRouteImport } from './routes/notes'
 import { Route as MessagesRouteImport } from './routes/messages'
 import { Route as LibraryRouteImport } from './routes/library'
+import { Route as IntegrationsRouteImport } from './routes/integrations'
 import { Route as InboxRouteImport } from './routes/inbox'
 import { Route as HomeworkRouteImport } from './routes/homework'
 import { Route as GroupsRouteImport } from './routes/groups'
@@ -54,6 +55,7 @@ import { Route as SessionsIndexRouteImport } from './routes/sessions.index'
 import { Route as PortalIndexRouteImport } from './routes/portal.index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
 import { Route as MessagesIndexRouteImport } from './routes/messages.index'
+import { Route as IntegrationsIndexRouteImport } from './routes/integrations.index'
 import { Route as CalendarIndexRouteImport } from './routes/calendar.index'
 import { Route as BillingIndexRouteImport } from './routes/billing.index'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
@@ -110,6 +112,10 @@ import { Route as MessagesComposeRouteImport } from './routes/messages.compose'
 import { Route as MessagesCannedRouteImport } from './routes/messages.canned'
 import { Route as MessagesAuditRouteImport } from './routes/messages.audit'
 import { Route as MessagesThreadIdRouteImport } from './routes/messages.$threadId'
+import { Route as IntegrationsWebhooksRouteImport } from './routes/integrations.webhooks'
+import { Route as IntegrationsTokensRouteImport } from './routes/integrations.tokens'
+import { Route as IntegrationsAutomationsRouteImport } from './routes/integrations.automations'
+import { Route as IntegrationsSlugRouteImport } from './routes/integrations.$slug'
 import { Route as ComplianceExportRouteImport } from './routes/compliance.export'
 import { Route as ComplianceConsentRouteImport } from './routes/compliance.consent'
 import { Route as ComplianceAuditRouteImport } from './routes/compliance.audit'
@@ -281,6 +287,11 @@ const LibraryRoute = LibraryRouteImport.update({
   path: '/library',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IntegrationsRoute = IntegrationsRouteImport.update({
+  id: '/integrations',
+  path: '/integrations',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InboxRoute = InboxRouteImport.update({
   id: '/inbox',
   path: '/inbox',
@@ -380,6 +391,11 @@ const MessagesIndexRoute = MessagesIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => MessagesRoute,
+} as any)
+const IntegrationsIndexRoute = IntegrationsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => IntegrationsRoute,
 } as any)
 const CalendarIndexRoute = CalendarIndexRouteImport.update({
   id: '/calendar/',
@@ -663,6 +679,26 @@ const MessagesThreadIdRoute = MessagesThreadIdRouteImport.update({
   path: '/$threadId',
   getParentRoute: () => MessagesRoute,
 } as any)
+const IntegrationsWebhooksRoute = IntegrationsWebhooksRouteImport.update({
+  id: '/webhooks',
+  path: '/webhooks',
+  getParentRoute: () => IntegrationsRoute,
+} as any)
+const IntegrationsTokensRoute = IntegrationsTokensRouteImport.update({
+  id: '/tokens',
+  path: '/tokens',
+  getParentRoute: () => IntegrationsRoute,
+} as any)
+const IntegrationsAutomationsRoute = IntegrationsAutomationsRouteImport.update({
+  id: '/automations',
+  path: '/automations',
+  getParentRoute: () => IntegrationsRoute,
+} as any)
+const IntegrationsSlugRoute = IntegrationsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => IntegrationsRoute,
+} as any)
 const ComplianceExportRoute = ComplianceExportRouteImport.update({
   id: '/compliance/export',
   path: '/compliance/export',
@@ -907,6 +943,7 @@ export interface FileRoutesByFullPath {
   '/groups': typeof GroupsRoute
   '/homework': typeof HomeworkRoute
   '/inbox': typeof InboxRoute
+  '/integrations': typeof IntegrationsRouteWithChildren
   '/library': typeof LibraryRoute
   '/messages': typeof MessagesRouteWithChildren
   '/notes': typeof NotesRoute
@@ -951,6 +988,10 @@ export interface FileRoutesByFullPath {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
+  '/integrations/$slug': typeof IntegrationsSlugRoute
+  '/integrations/automations': typeof IntegrationsAutomationsRoute
+  '/integrations/tokens': typeof IntegrationsTokensRoute
+  '/integrations/webhooks': typeof IntegrationsWebhooksRoute
   '/messages/$threadId': typeof MessagesThreadIdRoute
   '/messages/audit': typeof MessagesAuditRoute
   '/messages/canned': typeof MessagesCannedRoute
@@ -1007,6 +1048,7 @@ export interface FileRoutesByFullPath {
   '/auth/': typeof AuthIndexRoute
   '/billing/': typeof BillingIndexRoute
   '/calendar/': typeof CalendarIndexRoute
+  '/integrations/': typeof IntegrationsIndexRoute
   '/messages/': typeof MessagesIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/portal/': typeof PortalIndexRoute
@@ -1087,6 +1129,10 @@ export interface FileRoutesByTo {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
+  '/integrations/$slug': typeof IntegrationsSlugRoute
+  '/integrations/automations': typeof IntegrationsAutomationsRoute
+  '/integrations/tokens': typeof IntegrationsTokensRoute
+  '/integrations/webhooks': typeof IntegrationsWebhooksRoute
   '/messages/$threadId': typeof MessagesThreadIdRoute
   '/messages/audit': typeof MessagesAuditRoute
   '/messages/canned': typeof MessagesCannedRoute
@@ -1141,6 +1187,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthIndexRoute
   '/billing': typeof BillingIndexRoute
   '/calendar': typeof CalendarIndexRoute
+  '/integrations': typeof IntegrationsIndexRoute
   '/messages': typeof MessagesIndexRoute
   '/patients': typeof PatientsIndexRoute
   '/portal': typeof PortalIndexRoute
@@ -1189,6 +1236,7 @@ export interface FileRoutesById {
   '/groups': typeof GroupsRoute
   '/homework': typeof HomeworkRoute
   '/inbox': typeof InboxRoute
+  '/integrations': typeof IntegrationsRouteWithChildren
   '/library': typeof LibraryRoute
   '/messages': typeof MessagesRouteWithChildren
   '/notes': typeof NotesRoute
@@ -1233,6 +1281,10 @@ export interface FileRoutesById {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
+  '/integrations/$slug': typeof IntegrationsSlugRoute
+  '/integrations/automations': typeof IntegrationsAutomationsRoute
+  '/integrations/tokens': typeof IntegrationsTokensRoute
+  '/integrations/webhooks': typeof IntegrationsWebhooksRoute
   '/messages/$threadId': typeof MessagesThreadIdRoute
   '/messages/audit': typeof MessagesAuditRoute
   '/messages/canned': typeof MessagesCannedRoute
@@ -1289,6 +1341,7 @@ export interface FileRoutesById {
   '/auth/': typeof AuthIndexRoute
   '/billing/': typeof BillingIndexRoute
   '/calendar/': typeof CalendarIndexRoute
+  '/integrations/': typeof IntegrationsIndexRoute
   '/messages/': typeof MessagesIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/portal/': typeof PortalIndexRoute
@@ -1339,6 +1392,7 @@ export interface FileRouteTypes {
     | '/groups'
     | '/homework'
     | '/inbox'
+    | '/integrations'
     | '/library'
     | '/messages'
     | '/notes'
@@ -1383,6 +1437,10 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
+    | '/integrations/$slug'
+    | '/integrations/automations'
+    | '/integrations/tokens'
+    | '/integrations/webhooks'
     | '/messages/$threadId'
     | '/messages/audit'
     | '/messages/canned'
@@ -1439,6 +1497,7 @@ export interface FileRouteTypes {
     | '/auth/'
     | '/billing/'
     | '/calendar/'
+    | '/integrations/'
     | '/messages/'
     | '/patients/'
     | '/portal/'
@@ -1519,6 +1578,10 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
+    | '/integrations/$slug'
+    | '/integrations/automations'
+    | '/integrations/tokens'
+    | '/integrations/webhooks'
     | '/messages/$threadId'
     | '/messages/audit'
     | '/messages/canned'
@@ -1573,6 +1636,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/billing'
     | '/calendar'
+    | '/integrations'
     | '/messages'
     | '/patients'
     | '/portal'
@@ -1620,6 +1684,7 @@ export interface FileRouteTypes {
     | '/groups'
     | '/homework'
     | '/inbox'
+    | '/integrations'
     | '/library'
     | '/messages'
     | '/notes'
@@ -1664,6 +1729,10 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
+    | '/integrations/$slug'
+    | '/integrations/automations'
+    | '/integrations/tokens'
+    | '/integrations/webhooks'
     | '/messages/$threadId'
     | '/messages/audit'
     | '/messages/canned'
@@ -1720,6 +1789,7 @@ export interface FileRouteTypes {
     | '/auth/'
     | '/billing/'
     | '/calendar/'
+    | '/integrations/'
     | '/messages/'
     | '/patients/'
     | '/portal/'
@@ -1769,6 +1839,7 @@ export interface RootRouteChildren {
   GroupsRoute: typeof GroupsRoute
   HomeworkRoute: typeof HomeworkRoute
   InboxRoute: typeof InboxRoute
+  IntegrationsRoute: typeof IntegrationsRouteWithChildren
   LibraryRoute: typeof LibraryRoute
   MessagesRoute: typeof MessagesRouteWithChildren
   NotesRoute: typeof NotesRoute
@@ -1985,6 +2056,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LibraryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/integrations': {
+      id: '/integrations'
+      path: '/integrations'
+      fullPath: '/integrations'
+      preLoaderRoute: typeof IntegrationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/inbox': {
       id: '/inbox'
       path: '/inbox'
@@ -2124,6 +2202,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/messages/'
       preLoaderRoute: typeof MessagesIndexRouteImport
       parentRoute: typeof MessagesRoute
+    }
+    '/integrations/': {
+      id: '/integrations/'
+      path: '/'
+      fullPath: '/integrations/'
+      preLoaderRoute: typeof IntegrationsIndexRouteImport
+      parentRoute: typeof IntegrationsRoute
     }
     '/calendar/': {
       id: '/calendar/'
@@ -2516,6 +2601,34 @@ declare module '@tanstack/react-router' {
       fullPath: '/messages/$threadId'
       preLoaderRoute: typeof MessagesThreadIdRouteImport
       parentRoute: typeof MessagesRoute
+    }
+    '/integrations/webhooks': {
+      id: '/integrations/webhooks'
+      path: '/webhooks'
+      fullPath: '/integrations/webhooks'
+      preLoaderRoute: typeof IntegrationsWebhooksRouteImport
+      parentRoute: typeof IntegrationsRoute
+    }
+    '/integrations/tokens': {
+      id: '/integrations/tokens'
+      path: '/tokens'
+      fullPath: '/integrations/tokens'
+      preLoaderRoute: typeof IntegrationsTokensRouteImport
+      parentRoute: typeof IntegrationsRoute
+    }
+    '/integrations/automations': {
+      id: '/integrations/automations'
+      path: '/automations'
+      fullPath: '/integrations/automations'
+      preLoaderRoute: typeof IntegrationsAutomationsRouteImport
+      parentRoute: typeof IntegrationsRoute
+    }
+    '/integrations/$slug': {
+      id: '/integrations/$slug'
+      path: '/$slug'
+      fullPath: '/integrations/$slug'
+      preLoaderRoute: typeof IntegrationsSlugRouteImport
+      parentRoute: typeof IntegrationsRoute
     }
     '/compliance/export': {
       id: '/compliance/export'
@@ -2933,6 +3046,26 @@ const BillingRouteChildren: BillingRouteChildren = {
 const BillingRouteWithChildren =
   BillingRoute._addFileChildren(BillingRouteChildren)
 
+interface IntegrationsRouteChildren {
+  IntegrationsSlugRoute: typeof IntegrationsSlugRoute
+  IntegrationsAutomationsRoute: typeof IntegrationsAutomationsRoute
+  IntegrationsTokensRoute: typeof IntegrationsTokensRoute
+  IntegrationsWebhooksRoute: typeof IntegrationsWebhooksRoute
+  IntegrationsIndexRoute: typeof IntegrationsIndexRoute
+}
+
+const IntegrationsRouteChildren: IntegrationsRouteChildren = {
+  IntegrationsSlugRoute: IntegrationsSlugRoute,
+  IntegrationsAutomationsRoute: IntegrationsAutomationsRoute,
+  IntegrationsTokensRoute: IntegrationsTokensRoute,
+  IntegrationsWebhooksRoute: IntegrationsWebhooksRoute,
+  IntegrationsIndexRoute: IntegrationsIndexRoute,
+}
+
+const IntegrationsRouteWithChildren = IntegrationsRoute._addFileChildren(
+  IntegrationsRouteChildren,
+)
+
 interface MessagesRouteChildren {
   MessagesThreadIdRoute: typeof MessagesThreadIdRoute
   MessagesAuditRoute: typeof MessagesAuditRoute
@@ -3201,6 +3334,7 @@ const rootRouteChildren: RootRouteChildren = {
   GroupsRoute: GroupsRoute,
   HomeworkRoute: HomeworkRoute,
   InboxRoute: InboxRoute,
+  IntegrationsRoute: IntegrationsRouteWithChildren,
   LibraryRoute: LibraryRoute,
   MessagesRoute: MessagesRouteWithChildren,
   NotesRoute: NotesRoute,
