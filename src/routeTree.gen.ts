@@ -48,6 +48,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as SessionsIndexRouteImport } from './routes/sessions.index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
+import { Route as CalendarIndexRouteImport } from './routes/calendar.index'
 import { Route as BillingIndexRouteImport } from './routes/billing.index'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
 import { Route as AssessmentsIndexRouteImport } from './routes/assessments.index'
@@ -308,6 +309,11 @@ const PatientsIndexRoute = PatientsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => PatientsRoute,
+} as any)
+const CalendarIndexRoute = CalendarIndexRouteImport.update({
+  id: '/calendar/',
+  path: '/calendar/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const BillingIndexRoute = BillingIndexRouteImport.update({
   id: '/',
@@ -719,6 +725,7 @@ export interface FileRoutesByFullPath {
   '/assessments/': typeof AssessmentsIndexRoute
   '/auth/': typeof AuthIndexRoute
   '/billing/': typeof BillingIndexRoute
+  '/calendar/': typeof CalendarIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -814,6 +821,7 @@ export interface FileRoutesByTo {
   '/assessments': typeof AssessmentsIndexRoute
   '/auth': typeof AuthIndexRoute
   '/billing': typeof BillingIndexRoute
+  '/calendar': typeof CalendarIndexRoute
   '/patients': typeof PatientsIndexRoute
   '/sessions': typeof SessionsIndexRoute
   '/settings': typeof SettingsIndexRoute
@@ -920,6 +928,7 @@ export interface FileRoutesById {
   '/assessments/': typeof AssessmentsIndexRoute
   '/auth/': typeof AuthIndexRoute
   '/billing/': typeof BillingIndexRoute
+  '/calendar/': typeof CalendarIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -1028,6 +1037,7 @@ export interface FileRouteTypes {
     | '/assessments/'
     | '/auth/'
     | '/billing/'
+    | '/calendar/'
     | '/patients/'
     | '/sessions/'
     | '/settings/'
@@ -1123,6 +1133,7 @@ export interface FileRouteTypes {
     | '/assessments'
     | '/auth'
     | '/billing'
+    | '/calendar'
     | '/patients'
     | '/sessions'
     | '/settings'
@@ -1228,6 +1239,7 @@ export interface FileRouteTypes {
     | '/assessments/'
     | '/auth/'
     | '/billing/'
+    | '/calendar/'
     | '/patients/'
     | '/sessions/'
     | '/settings/'
@@ -1296,6 +1308,7 @@ export interface RootRouteChildren {
   ComplianceAuditRoute: typeof ComplianceAuditRoute
   ComplianceConsentRoute: typeof ComplianceConsentRoute
   ComplianceExportRoute: typeof ComplianceExportRoute
+  CalendarIndexRoute: typeof CalendarIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1572,6 +1585,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/patients/'
       preLoaderRoute: typeof PatientsIndexRouteImport
       parentRoute: typeof PatientsRoute
+    }
+    '/calendar/': {
+      id: '/calendar/'
+      path: '/calendar'
+      fullPath: '/calendar/'
+      preLoaderRoute: typeof CalendarIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/billing/': {
       id: '/billing/'
@@ -2316,6 +2336,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComplianceAuditRoute: ComplianceAuditRoute,
   ComplianceConsentRoute: ComplianceConsentRoute,
   ComplianceExportRoute: ComplianceExportRoute,
+  CalendarIndexRoute: CalendarIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
