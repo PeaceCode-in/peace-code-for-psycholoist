@@ -159,10 +159,10 @@ function Dashboard() {
                   </div>
                   <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: dot }} title={`Risk: ${risk}`} />
                 </div>
-                <PhqSpark values={p.phq9Trend ?? [10, 10, 10]} />
+                <PhqSpark values={p.phq9} />
                 <div className="mt-2 flex items-center justify-between text-[10px]" style={{ color: muted }}>
                   <span>PHQ-9 · 6w</span>
-                  <span>{p.homeworkOverdue ? "Homework overdue" : p.nextSession ? `Next ${fmtDate(p.nextSession)}` : "No follow-up"}</span>
+                  <span>{p.homework.status === "overdue" ? "Homework overdue" : p.nextSession ? `Next ${fmtDate(p.nextSession)}` : "No follow-up"}</span>
                 </div>
                 <button className="mt-2 w-full text-[11px] py-1 rounded-full" style={{ background: "#fff", color: ink, border: `1px solid ${border}` }}>
                   Send check-in
