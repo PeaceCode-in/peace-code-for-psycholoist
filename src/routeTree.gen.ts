@@ -30,6 +30,7 @@ import { Route as PaymentsRouteImport } from './routes/payments'
 import { Route as PatientsRouteImport } from './routes/patients'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as NotesRouteImport } from './routes/notes'
+import { Route as MessagesRouteImport } from './routes/messages'
 import { Route as LibraryRouteImport } from './routes/library'
 import { Route as InboxRouteImport } from './routes/inbox'
 import { Route as HomeworkRouteImport } from './routes/homework'
@@ -48,6 +49,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as SessionsIndexRouteImport } from './routes/sessions.index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
+import { Route as MessagesIndexRouteImport } from './routes/messages.index'
 import { Route as CalendarIndexRouteImport } from './routes/calendar.index'
 import { Route as BillingIndexRouteImport } from './routes/billing.index'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
@@ -79,6 +81,11 @@ import { Route as SettingsAboutRouteImport } from './routes/settings.about'
 import { Route as SessionsIdRouteImport } from './routes/sessions.$id'
 import { Route as PatientsNewRouteImport } from './routes/patients.new'
 import { Route as PatientsPidRouteImport } from './routes/patients.$pid'
+import { Route as MessagesSettingsRouteImport } from './routes/messages.settings'
+import { Route as MessagesComposeRouteImport } from './routes/messages.compose'
+import { Route as MessagesCannedRouteImport } from './routes/messages.canned'
+import { Route as MessagesAuditRouteImport } from './routes/messages.audit'
+import { Route as MessagesThreadIdRouteImport } from './routes/messages.$threadId'
 import { Route as ComplianceExportRouteImport } from './routes/compliance.export'
 import { Route as ComplianceConsentRouteImport } from './routes/compliance.consent'
 import { Route as ComplianceAuditRouteImport } from './routes/compliance.audit'
@@ -228,6 +235,11 @@ const NotesRoute = NotesRouteImport.update({
   path: '/notes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MessagesRoute = MessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LibraryRoute = LibraryRouteImport.update({
   id: '/library',
   path: '/library',
@@ -317,6 +329,11 @@ const PatientsIndexRoute = PatientsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => PatientsRoute,
+} as any)
+const MessagesIndexRoute = MessagesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MessagesRoute,
 } as any)
 const CalendarIndexRoute = CalendarIndexRouteImport.update({
   id: '/calendar/',
@@ -474,6 +491,31 @@ const PatientsPidRoute = PatientsPidRouteImport.update({
   id: '/$pid',
   path: '/$pid',
   getParentRoute: () => PatientsRoute,
+} as any)
+const MessagesSettingsRoute = MessagesSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => MessagesRoute,
+} as any)
+const MessagesComposeRoute = MessagesComposeRouteImport.update({
+  id: '/compose',
+  path: '/compose',
+  getParentRoute: () => MessagesRoute,
+} as any)
+const MessagesCannedRoute = MessagesCannedRouteImport.update({
+  id: '/canned',
+  path: '/canned',
+  getParentRoute: () => MessagesRoute,
+} as any)
+const MessagesAuditRoute = MessagesAuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
+  getParentRoute: () => MessagesRoute,
+} as any)
+const MessagesThreadIdRoute = MessagesThreadIdRouteImport.update({
+  id: '/$threadId',
+  path: '/$threadId',
+  getParentRoute: () => MessagesRoute,
 } as any)
 const ComplianceExportRoute = ComplianceExportRouteImport.update({
   id: '/compliance/export',
@@ -710,6 +752,7 @@ export interface FileRoutesByFullPath {
   '/homework': typeof HomeworkRoute
   '/inbox': typeof InboxRoute
   '/library': typeof LibraryRoute
+  '/messages': typeof MessagesRouteWithChildren
   '/notes': typeof NotesRoute
   '/notifications': typeof NotificationsRoute
   '/patients': typeof PatientsRouteWithChildren
@@ -750,6 +793,11 @@ export interface FileRoutesByFullPath {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
+  '/messages/$threadId': typeof MessagesThreadIdRoute
+  '/messages/audit': typeof MessagesAuditRoute
+  '/messages/canned': typeof MessagesCannedRoute
+  '/messages/compose': typeof MessagesComposeRoute
+  '/messages/settings': typeof MessagesSettingsRoute
   '/patients/$pid': typeof PatientsPidRouteWithChildren
   '/patients/new': typeof PatientsNewRoute
   '/sessions/$id': typeof SessionsIdRouteWithChildren
@@ -781,6 +829,7 @@ export interface FileRoutesByFullPath {
   '/auth/': typeof AuthIndexRoute
   '/billing/': typeof BillingIndexRoute
   '/calendar/': typeof CalendarIndexRoute
+  '/messages/': typeof MessagesIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -856,6 +905,11 @@ export interface FileRoutesByTo {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
+  '/messages/$threadId': typeof MessagesThreadIdRoute
+  '/messages/audit': typeof MessagesAuditRoute
+  '/messages/canned': typeof MessagesCannedRoute
+  '/messages/compose': typeof MessagesComposeRoute
+  '/messages/settings': typeof MessagesSettingsRoute
   '/patients/new': typeof PatientsNewRoute
   '/settings/about': typeof SettingsAboutRoute
   '/settings/accessibility': typeof SettingsAccessibilityRoute
@@ -885,6 +939,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthIndexRoute
   '/billing': typeof BillingIndexRoute
   '/calendar': typeof CalendarIndexRoute
+  '/messages': typeof MessagesIndexRoute
   '/patients': typeof PatientsIndexRoute
   '/sessions': typeof SessionsIndexRoute
   '/settings': typeof SettingsIndexRoute
@@ -929,6 +984,7 @@ export interface FileRoutesById {
   '/homework': typeof HomeworkRoute
   '/inbox': typeof InboxRoute
   '/library': typeof LibraryRoute
+  '/messages': typeof MessagesRouteWithChildren
   '/notes': typeof NotesRoute
   '/notifications': typeof NotificationsRoute
   '/patients': typeof PatientsRouteWithChildren
@@ -969,6 +1025,11 @@ export interface FileRoutesById {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
+  '/messages/$threadId': typeof MessagesThreadIdRoute
+  '/messages/audit': typeof MessagesAuditRoute
+  '/messages/canned': typeof MessagesCannedRoute
+  '/messages/compose': typeof MessagesComposeRoute
+  '/messages/settings': typeof MessagesSettingsRoute
   '/patients/$pid': typeof PatientsPidRouteWithChildren
   '/patients/new': typeof PatientsNewRoute
   '/sessions/$id': typeof SessionsIdRouteWithChildren
@@ -1000,6 +1061,7 @@ export interface FileRoutesById {
   '/auth/': typeof AuthIndexRoute
   '/billing/': typeof BillingIndexRoute
   '/calendar/': typeof CalendarIndexRoute
+  '/messages/': typeof MessagesIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -1046,6 +1108,7 @@ export interface FileRouteTypes {
     | '/homework'
     | '/inbox'
     | '/library'
+    | '/messages'
     | '/notes'
     | '/notifications'
     | '/patients'
@@ -1086,6 +1149,11 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
+    | '/messages/$threadId'
+    | '/messages/audit'
+    | '/messages/canned'
+    | '/messages/compose'
+    | '/messages/settings'
     | '/patients/$pid'
     | '/patients/new'
     | '/sessions/$id'
@@ -1117,6 +1185,7 @@ export interface FileRouteTypes {
     | '/auth/'
     | '/billing/'
     | '/calendar/'
+    | '/messages/'
     | '/patients/'
     | '/sessions/'
     | '/settings/'
@@ -1192,6 +1261,11 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
+    | '/messages/$threadId'
+    | '/messages/audit'
+    | '/messages/canned'
+    | '/messages/compose'
+    | '/messages/settings'
     | '/patients/new'
     | '/settings/about'
     | '/settings/accessibility'
@@ -1221,6 +1295,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/billing'
     | '/calendar'
+    | '/messages'
     | '/patients'
     | '/sessions'
     | '/settings'
@@ -1264,6 +1339,7 @@ export interface FileRouteTypes {
     | '/homework'
     | '/inbox'
     | '/library'
+    | '/messages'
     | '/notes'
     | '/notifications'
     | '/patients'
@@ -1304,6 +1380,11 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
+    | '/messages/$threadId'
+    | '/messages/audit'
+    | '/messages/canned'
+    | '/messages/compose'
+    | '/messages/settings'
     | '/patients/$pid'
     | '/patients/new'
     | '/sessions/$id'
@@ -1335,6 +1416,7 @@ export interface FileRouteTypes {
     | '/auth/'
     | '/billing/'
     | '/calendar/'
+    | '/messages/'
     | '/patients/'
     | '/sessions/'
     | '/settings/'
@@ -1380,6 +1462,7 @@ export interface RootRouteChildren {
   HomeworkRoute: typeof HomeworkRoute
   InboxRoute: typeof InboxRoute
   LibraryRoute: typeof LibraryRoute
+  MessagesRoute: typeof MessagesRouteWithChildren
   NotesRoute: typeof NotesRoute
   NotificationsRoute: typeof NotificationsRoute
   PatientsRoute: typeof PatientsRouteWithChildren
@@ -1564,6 +1647,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/messages': {
+      id: '/messages'
+      path: '/messages'
+      fullPath: '/messages'
+      preLoaderRoute: typeof MessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/library': {
       id: '/library'
       path: '/library'
@@ -1689,6 +1779,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/patients/'
       preLoaderRoute: typeof PatientsIndexRouteImport
       parentRoute: typeof PatientsRoute
+    }
+    '/messages/': {
+      id: '/messages/'
+      path: '/'
+      fullPath: '/messages/'
+      preLoaderRoute: typeof MessagesIndexRouteImport
+      parentRoute: typeof MessagesRoute
     }
     '/calendar/': {
       id: '/calendar/'
@@ -1906,6 +2003,41 @@ declare module '@tanstack/react-router' {
       fullPath: '/patients/$pid'
       preLoaderRoute: typeof PatientsPidRouteImport
       parentRoute: typeof PatientsRoute
+    }
+    '/messages/settings': {
+      id: '/messages/settings'
+      path: '/settings'
+      fullPath: '/messages/settings'
+      preLoaderRoute: typeof MessagesSettingsRouteImport
+      parentRoute: typeof MessagesRoute
+    }
+    '/messages/compose': {
+      id: '/messages/compose'
+      path: '/compose'
+      fullPath: '/messages/compose'
+      preLoaderRoute: typeof MessagesComposeRouteImport
+      parentRoute: typeof MessagesRoute
+    }
+    '/messages/canned': {
+      id: '/messages/canned'
+      path: '/canned'
+      fullPath: '/messages/canned'
+      preLoaderRoute: typeof MessagesCannedRouteImport
+      parentRoute: typeof MessagesRoute
+    }
+    '/messages/audit': {
+      id: '/messages/audit'
+      path: '/audit'
+      fullPath: '/messages/audit'
+      preLoaderRoute: typeof MessagesAuditRouteImport
+      parentRoute: typeof MessagesRoute
+    }
+    '/messages/$threadId': {
+      id: '/messages/$threadId'
+      path: '/$threadId'
+      fullPath: '/messages/$threadId'
+      preLoaderRoute: typeof MessagesThreadIdRouteImport
+      parentRoute: typeof MessagesRoute
     }
     '/compliance/export': {
       id: '/compliance/export'
@@ -2309,6 +2441,28 @@ const BillingRouteChildren: BillingRouteChildren = {
 const BillingRouteWithChildren =
   BillingRoute._addFileChildren(BillingRouteChildren)
 
+interface MessagesRouteChildren {
+  MessagesThreadIdRoute: typeof MessagesThreadIdRoute
+  MessagesAuditRoute: typeof MessagesAuditRoute
+  MessagesCannedRoute: typeof MessagesCannedRoute
+  MessagesComposeRoute: typeof MessagesComposeRoute
+  MessagesSettingsRoute: typeof MessagesSettingsRoute
+  MessagesIndexRoute: typeof MessagesIndexRoute
+}
+
+const MessagesRouteChildren: MessagesRouteChildren = {
+  MessagesThreadIdRoute: MessagesThreadIdRoute,
+  MessagesAuditRoute: MessagesAuditRoute,
+  MessagesCannedRoute: MessagesCannedRoute,
+  MessagesComposeRoute: MessagesComposeRoute,
+  MessagesSettingsRoute: MessagesSettingsRoute,
+  MessagesIndexRoute: MessagesIndexRoute,
+}
+
+const MessagesRouteWithChildren = MessagesRoute._addFileChildren(
+  MessagesRouteChildren,
+)
+
 interface PatientsPidNotesRouteChildren {
   PatientsPidNotesNidRoute: typeof PatientsPidNotesNidRoute
   PatientsPidNotesNewRoute: typeof PatientsPidNotesNewRoute
@@ -2472,6 +2626,7 @@ const rootRouteChildren: RootRouteChildren = {
   HomeworkRoute: HomeworkRoute,
   InboxRoute: InboxRoute,
   LibraryRoute: LibraryRoute,
+  MessagesRoute: MessagesRouteWithChildren,
   NotesRoute: NotesRoute,
   NotificationsRoute: NotificationsRoute,
   PatientsRoute: PatientsRouteWithChildren,

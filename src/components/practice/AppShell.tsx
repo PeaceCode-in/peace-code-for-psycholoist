@@ -4,7 +4,7 @@ import {
   LayoutDashboard, CalendarDays, Inbox as InboxIcon, BellRing,
   Users, UserPlus, UsersRound, Share2,
   Video, NotebookPen, ClipboardList, Target, BookOpenCheck, Pill, ShieldAlert, MessagesSquare,
-  Clock, Tag, Wallet, Banknote, FileSignature, Files, Receipt,
+  Clock, Tag, Wallet, Banknote, FileSignature, Files, Receipt, Mail,
   LineChart, Star, Sparkles, Library, GraduationCap,
   Handshake, UserCog, Microscope,
   FileLock2, History, Download,
@@ -16,6 +16,7 @@ import { INBOX_UNREAD, ALERTS_HIGH } from "@/lib/practice-store";
 import { useTodayRemaining } from "@/lib/sessions-store";
 import { useCriticalFlagCount } from "@/lib/assessments-store";
 import { useOverdueCount } from "@/lib/billing-store";
+import { useUnreadThreadCount } from "@/lib/messages-store";
 import { endSession } from "@/lib/auth-store";
 
 export { palette };
@@ -60,6 +61,7 @@ const NAV: NavSection[] = [
   {
     label: "Practice",
     items: [
+      { title: "Messages", url: "/messages", icon: Mail },
       { title: "Availability", url: "/availability", icon: Clock },
       { title: "Services & Pricing", url: "/services", icon: Tag },
       { title: "Payments", url: "/payments", icon: Wallet },
@@ -114,13 +116,16 @@ function NavLinkRow({ item, isActive, compact }: { item: NavItem; isActive: bool
   const liveSessions = useTodayRemaining();
   const criticalFlags = useCriticalFlagCount();
   const overdue = useOverdueCount();
+  const msgUnread = useUnreadThreadCount();
   const badge = item.url === "/sessions"
     ? (liveSessions > 0 ? liveSessions : undefined)
     : item.url === "/assessments"
       ? (criticalFlags > 0 ? criticalFlags : undefined)
       : item.url === "/billing"
         ? (overdue > 0 ? overdue : undefined)
-        : item.badge;
+        : item.url === "/messages"
+          ? (msgUnread > 0 ? "dot" as const : undefined)
+          : item.badge;
   const isBilling = item.url === "/billing";
   return (
     <Link
