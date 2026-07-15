@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useState, useRef, useEffect, useCallback, type ReactNode, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import {
   LayoutDashboard, CalendarDays, Inbox as InboxIcon, BellRing,
@@ -9,6 +9,7 @@ import {
   Handshake, UserCog, Microscope,
   FileLock2, History, Download,
   Search, Bell, Plus, LifeBuoy, Settings as SettingsIcon, LogOut, Menu, ShieldCheck, ChevronDown, AlertOctagon, X,
+  Stethoscope, PanelLeftClose, PanelLeftOpen,
 } from "lucide-react";
 import { palette } from "./palette";
 import { GlassFX } from "@/components/GlassFX";
@@ -18,85 +19,111 @@ import { useCriticalFlagCount } from "@/lib/assessments-store";
 import { useOverdueCount } from "@/lib/billing-store";
 import { useUnreadThreadCount } from "@/lib/messages-store";
 import { endSession } from "@/lib/auth-store";
+import { useSidebarPinned } from "@/lib/settings-store";
 
 export { palette };
 
 type NavItem = { title: string; url: string; icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; badge?: number | "dot" };
-type NavSection = { label: string; items: NavItem[] };
+type FlyoutItem = { title: string; url: string; badge?: number | "dot" };
 
-const NAV: NavSection[] = [
+type Category = {
+  key: string;
+  label: string;
+  meta: string;
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
+  items: FlyoutItem[];
+};
+
+// Seven category tubes. Every existing route lives inside one of these.
+const CATEGORIES: Category[] = [
   {
-    label: "Today",
+    key: "today", label: "Today", meta: "4 views", icon: LayoutDashboard,
     items: [
-      { title: "Home", url: "/dashboard", icon: LayoutDashboard },
-      { title: "Schedule", url: "/schedule", icon: CalendarDays },
-      { title: "Inbox", url: "/inbox", icon: InboxIcon, badge: INBOX_UNREAD },
-      { title: "Alerts", url: "/alerts", icon: BellRing, badge: ALERTS_HIGH ? "dot" : undefined },
+      { title: "Overview", url: "/dashboard" },
+      { title: "Schedule", url: "/schedule" },
+      { title: "Inbox", url: "/inbox", badge: INBOX_UNREAD },
+      { title: "Alerts", url: "/alerts", badge: ALERTS_HIGH ? "dot" : undefined },
     ],
   },
   {
-    label: "Clients",
+    key: "patients", label: "Patients", meta: "4 lists", icon: Users,
     items: [
-      { title: "Patients", url: "/patients", icon: Users },
-      { title: "Waitlist", url: "/waitlist", icon: UserPlus },
-      { title: "Groups", url: "/groups", icon: UsersRound },
-      { title: "Referrals", url: "/referrals", icon: Share2 },
+      { title: "All Patients", url: "/patients" },
+      { title: "Waitlist", url: "/waitlist" },
+      { title: "Groups", url: "/groups" },
+      { title: "Referrals", url: "/referrals" },
     ],
   },
   {
-    label: "Clinical",
+    key: "calendar", label: "Calendar", meta: "6 views", icon: CalendarDays,
     items: [
-      { title: "Sessions", url: "/sessions", icon: Video },
-      { title: "Calendar", url: "/calendar", icon: CalendarDays },
-      { title: "Notes", url: "/notes", icon: NotebookPen },
-      { title: "Assessments", url: "/assessments", icon: ClipboardList },
-      { title: "Billing", url: "/billing", icon: Receipt },
-      { title: "Treatment Plans", url: "/treatment-plans", icon: Target },
-      { title: "Homework", url: "/homework", icon: BookOpenCheck },
-      { title: "Prescriptions", url: "/prescriptions", icon: Pill },
-      { title: "Risk & Safety", url: "/risk", icon: ShieldAlert },
-      { title: "Case Conferences", url: "/case-conferences", icon: MessagesSquare },
+      { title: "Week", url: "/calendar" },
+      { title: "Day", url: "/calendar/day" },
+      { title: "Month", url: "/calendar/month" },
+      { title: "Agenda", url: "/calendar/agenda" },
+      { title: "Availability", url: "/calendar/availability" },
+      { title: "Booking Link", url: "/calendar/booking-link" },
     ],
   },
   {
-    label: "Practice",
+    key: "clinical", label: "Clinical", meta: "8 tools", icon: Stethoscope,
     items: [
-      { title: "Messages", url: "/messages", icon: Mail },
-      { title: "Availability", url: "/availability", icon: Clock },
-      { title: "Services & Pricing", url: "/services", icon: Tag },
-      { title: "Payments", url: "/payments", icon: Wallet },
-      { title: "Payouts", url: "/payouts", icon: Banknote },
-      { title: "Documents", url: "/documents", icon: FileSignature },
-      { title: "Templates", url: "/templates", icon: Files },
+      { title: "Sessions", url: "/sessions" },
+      { title: "Assessments", url: "/assessments" },
+      { title: "Notes", url: "/notes" },
+      { title: "Treatment Plans", url: "/treatment-plans" },
+      { title: "Homework", url: "/homework" },
+      { title: "Prescriptions", url: "/prescriptions" },
+      { title: "Risk & Safety", url: "/risk" },
+      { title: "Case Conferences", url: "/case-conferences" },
     ],
   },
   {
-    label: "Growth",
+    key: "practice", label: "Practice", meta: "10 tools", icon: Receipt,
     items: [
-      { title: "Analytics", url: "/analytics", icon: LineChart },
-      { title: "Reviews", url: "/reviews", icon: Star },
-      { title: "Marketing Profile", url: "/profile-public", icon: Sparkles },
-      { title: "Content Library", url: "/library", icon: Library },
-      { title: "CPD & Supervision", url: "/cpd", icon: GraduationCap },
+      { title: "Messages", url: "/messages" },
+      { title: "Billing", url: "/billing" },
+      { title: "Invoices", url: "/billing/invoices" },
+      { title: "Claims", url: "/billing/claims" },
+      { title: "Payments", url: "/payments" },
+      { title: "Payouts", url: "/payouts" },
+      { title: "Reports", url: "/billing/reports" },
+      { title: "Documents", url: "/documents" },
+      { title: "Templates", url: "/templates" },
+      { title: "Services & Pricing", url: "/services" },
     ],
   },
   {
-    label: "Collaborate",
+    key: "growth", label: "Growth", meta: "8 tools", icon: Sparkles,
     items: [
-      { title: "Peer Network", url: "/peers", icon: Handshake },
-      { title: "Supervision", url: "/supervision", icon: UserCog },
-      { title: "Research", url: "/research", icon: Microscope },
+      { title: "Analytics", url: "/analytics" },
+      { title: "Reviews", url: "/reviews" },
+      { title: "Marketing Profile", url: "/profile-public" },
+      { title: "Content Library", url: "/library" },
+      { title: "CPD & Supervision", url: "/cpd" },
+      { title: "Peer Network", url: "/peers" },
+      { title: "Supervision", url: "/supervision" },
+      { title: "Research", url: "/research" },
     ],
   },
   {
-    label: "Compliance",
+    key: "settings", label: "Settings", meta: "7 pages", icon: SettingsIcon,
     items: [
-      { title: "Consent & DPDP", url: "/compliance/consent", icon: FileLock2 },
-      { title: "Audit Log", url: "/compliance/audit", icon: History },
-      { title: "Data Export", url: "/compliance/export", icon: Download },
+      { title: "Settings", url: "/settings" },
+      { title: "Notifications", url: "/notifications" },
+      { title: "Help & Support", url: "/support" },
+      { title: "Consent & DPDP", url: "/compliance/consent" },
+      { title: "Audit Log", url: "/compliance/audit" },
+      { title: "Data Export", url: "/compliance/export" },
     ],
   },
 ];
+
+// Legacy section view for the mobile drawer only.
+const NAV: { label: string; items: NavItem[] }[] = CATEGORIES.map((c) => ({
+  label: c.label,
+  items: c.items.map((it) => ({ title: it.title, url: it.url, badge: it.badge, icon: c.icon })),
+}));
 
 // Flat list used by mobile bottom pill nav — 5 most important.
 const MOBILE_PILL: NavItem[] = [
@@ -203,94 +230,385 @@ function SidebarProfileCard({ collapsed, onDuty, setOnDuty }: { collapsed?: bool
   );
 }
 
-function DesktopSidebar({ collapsed, onDuty, setOnDuty }: { collapsed: boolean; onDuty: boolean; setOnDuty: (v: boolean) => void }) {
-  const isActive = useIsActive();
-  const navigate = useNavigate();
-  const width = collapsed ? "w-[64px]" : "w-[248px]";
+// ─── Tube sidebar (two-layer: rail + flyout) ───────────────────────────
+function useActiveCategoryKey(): string | null {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  for (const c of CATEGORIES) {
+    for (const it of c.items) {
+      if (pathname === it.url || pathname.startsWith(it.url + "/")) return c.key;
+    }
+  }
+  // Fallbacks by prefix so patient/session detail pages still light up.
+  if (pathname.startsWith("/patients")) return "patients";
+  if (pathname.startsWith("/sessions")) return "clinical";
+  if (pathname.startsWith("/notes")) return "clinical";
+  if (pathname.startsWith("/assessments")) return "clinical";
+  if (pathname.startsWith("/calendar")) return "calendar";
+  if (pathname.startsWith("/billing")) return "practice";
+  if (pathname.startsWith("/messages")) return "practice";
+  if (pathname.startsWith("/settings")) return "settings";
+  if (pathname.startsWith("/compliance")) return "settings";
+  if (pathname === "/dashboard" || pathname === "/schedule" || pathname === "/inbox" || pathname === "/alerts") return "today";
+  return null;
+}
 
-  const signOut = () => {
-    endSession();
-    navigate({ to: "/auth" });
+function RailButton({
+  category, active, hovered, onEnter, onFocus, onClick, refCb,
+}: {
+  category: Category;
+  active: boolean;
+  hovered: boolean;
+  onEnter: () => void;
+  onFocus: () => void;
+  onClick: () => void;
+  refCb: (el: HTMLButtonElement | null) => void;
+}) {
+  const Icon = category.icon;
+  const showRose = active || hovered;
+  return (
+    <div className="relative w-full flex items-center justify-center" onMouseEnter={onEnter}>
+      {/* active rose bar */}
+      <span
+        aria-hidden
+        className="absolute left-0 top-1/2 -translate-y-1/2 w-[2px] rounded-r-full transition-all duration-150"
+        style={{
+          height: active ? 20 : 0,
+          background: palette.primary,
+          opacity: active ? 1 : 0,
+        }}
+      />
+      <button
+        ref={refCb}
+        onFocus={onFocus}
+        onClick={onClick}
+        aria-label={category.label}
+        className="w-10 h-10 rounded-xl flex items-center justify-center transition-colors outline-none focus-visible:ring-2"
+        style={{
+          background: hovered && !active ? palette.soft : active ? palette.soft : "transparent",
+          color: showRose ? palette.primary : palette.muted,
+        }}
+      >
+        <Icon className="w-[18px] h-[18px]" strokeWidth={1.8} />
+      </button>
+    </div>
+  );
+}
+
+function Flyout({
+  category, activeUrl, panelRef, onMouseEnter, onMouseLeave, onNavigate, firstItemRefCb,
+}: {
+  category: Category;
+  activeUrl: string | null;
+  panelRef: (el: HTMLDivElement | null) => void;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+  onNavigate: () => void;
+  firstItemRefCb: (el: HTMLAnchorElement | null) => void;
+}) {
+  const liveSessions = useTodayRemaining();
+  const criticalFlags = useCriticalFlagCount();
+  const overdue = useOverdueCount();
+  const msgUnread = useUnreadThreadCount();
+
+  const badgeFor = (url: string, base?: number | "dot"): number | "dot" | undefined => {
+    if (url === "/sessions" && liveSessions > 0) return liveSessions;
+    if (url === "/assessments" && criticalFlags > 0) return criticalFlags;
+    if (url === "/billing" && overdue > 0) return overdue;
+    if (url === "/messages" && msgUnread > 0) return "dot";
+    return base;
   };
 
   return (
-    <aside
-      className={`${width} shrink-0 hidden md:flex flex-col transition-[width] duration-200`}
-      style={{ minHeight: "100dvh" }}
+    <div
+      ref={panelRef}
+      role="menu"
+      aria-label={category.label}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      className="h-full flex flex-col py-4 px-3"
+      style={{
+        width: 240,
+        background: "rgba(255,247,250,0.82)",
+        backdropFilter: "blur(24px) saturate(140%)",
+        borderLeft: `1px solid ${palette.border}`,
+        borderRight: `1px solid ${palette.border}`,
+        borderTopRightRadius: 16,
+        borderBottomRightRadius: 16,
+      }}
     >
-      {/* Floating glass tube */}
-      <div
-        className="m-3 flex-1 flex flex-col rounded-2xl overflow-hidden"
-        style={{
-          background: "rgba(255,255,255,0.7)",
-          backdropFilter: "blur(18px) saturate(140%)",
-          border: `1px solid ${palette.border}`,
-        }}
-      >
-        {/* Header: profile card */}
-        <div className="p-3">
-          <Link to="/dashboard" className="flex items-center gap-2 px-1.5 pb-3 select-none">
-            <span
-              className="w-7 h-7 rounded-lg flex items-center justify-center text-white text-[13px]"
-              style={{ background: palette.primary, fontFamily: "'Fraunces', serif" }}
-            >
-              P
-            </span>
-            {!collapsed && (
-              <span style={{ fontFamily: "'Fraunces', serif", color: palette.ink }} className="text-[14px] tracking-tight">
-                PeaceCode <span style={{ color: palette.muted }}>· Practice</span>
-              </span>
-            )}
-          </Link>
-          <SidebarProfileCard collapsed={collapsed} onDuty={onDuty} setOnDuty={setOnDuty} />
+      <div className="px-2 pb-3 mb-1 border-b" style={{ borderColor: palette.border }}>
+        <div style={{ fontFamily: "'Fraunces', serif", color: palette.ink, fontSize: 15, lineHeight: 1.2 }}>
+          {category.label}
         </div>
-
-        {/* Nav — scrollable, hover-reveal scrollbar */}
-        <nav
-          className="flex-1 overflow-y-auto px-3 pb-2 hover-scroll"
-          style={{ scrollbarGutter: "stable" }}
+        <div
+          className="mt-1 uppercase"
+          style={{ fontFamily: "'DM Mono', ui-monospace, monospace", fontSize: 10.5, letterSpacing: "0.14em", color: palette.muted }}
         >
-          {NAV.map((section) => (
-            <div key={section.label} className="mt-3 first:mt-0">
-              {!collapsed && (
-                <div
-                  className="text-[9.5px] tracking-[0.24em] uppercase px-2.5 pb-1"
-                  style={{ color: palette.muted, opacity: 0.75 }}
-                >
-                  {section.label}
-                </div>
+          {category.meta}
+        </div>
+      </div>
+      <nav className="flex-1 overflow-y-auto space-y-[2px] pr-1">
+        {category.items.map((it, i) => {
+          const active = activeUrl === it.url;
+          const badge = badgeFor(it.url, it.badge);
+          const isBilling = it.url === "/billing";
+          return (
+            <Link
+              key={it.url}
+              ref={i === 0 ? firstItemRefCb : undefined}
+              to={it.url}
+              role="menuitem"
+              onClick={onNavigate}
+              className="relative flex items-center h-9 pl-3 pr-2 rounded-lg text-[13.5px] transition-colors outline-none focus-visible:ring-2"
+              style={{
+                color: active ? palette.primary : palette.ink,
+                background: active ? "transparent" : "transparent",
+                fontWeight: active ? 500 : 400,
+              }}
+              onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = palette.soft; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+            >
+              {active && (
+                <span
+                  aria-hidden
+                  className="absolute left-0 top-1/2 -translate-y-1/2 h-4 w-[2px] rounded-r-full"
+                  style={{ background: palette.primary }}
+                />
               )}
-              <div className="space-y-0.5">
-                {section.items.map((it) => (
-                  <NavLinkRow key={it.url} item={it} isActive={isActive(it.url)} compact={collapsed} />
-                ))}
-              </div>
+              <span className="flex-1 truncate">{it.title}</span>
+              {typeof badge === "number" && badge > 0 && (
+                <span
+                  className="ml-2 text-[9.5px] tabular-nums px-1.5 min-w-[16px] h-[16px] rounded-full flex items-center justify-center"
+                  style={{
+                    background: isBilling ? "#F3E4CE" : palette.primary,
+                    color: isBilling ? "#B6763A" : "#fff",
+                  }}
+                >
+                  {badge}
+                </span>
+              )}
+              {badge === "dot" && (
+                <span className="ml-2 w-1.5 h-1.5 rounded-full" style={{ background: palette.primary }} />
+              )}
+            </Link>
+          );
+        })}
+      </nav>
+    </div>
+  );
+}
+
+function DesktopTubeSidebar({
+  onDuty, setOnDuty, pinned, setPinned,
+}: {
+  onDuty: boolean; setOnDuty: (v: boolean) => void;
+  pinned: boolean; setPinned: (v: boolean) => void;
+}) {
+  const navigate = useNavigate();
+  const activeKey = useActiveCategoryKey();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  const [hoverKey, setHoverKey] = useState<string | null>(null);
+  const closeTimer = useRef<number | null>(null);
+  const openTimer = useRef<number | null>(null);
+
+  const railRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  const firstItemRef = useRef<HTMLAnchorElement | null>(null);
+
+  const clearTimers = () => {
+    if (closeTimer.current) { window.clearTimeout(closeTimer.current); closeTimer.current = null; }
+    if (openTimer.current) { window.clearTimeout(openTimer.current); openTimer.current = null; }
+  };
+
+  const scheduleOpen = (key: string) => {
+    clearTimers();
+    openTimer.current = window.setTimeout(() => setHoverKey(key), 60);
+  };
+  const scheduleClose = () => {
+    clearTimers();
+    closeTimer.current = window.setTimeout(() => setHoverKey(null), 120);
+  };
+  const cancelClose = () => {
+    if (closeTimer.current) { window.clearTimeout(closeTimer.current); closeTimer.current = null; }
+  };
+
+  useEffect(() => () => clearTimers(), []);
+
+  const visibleKey = pinned ? (activeKey ?? hoverKey ?? "today") : hoverKey;
+  const visibleCategory = visibleKey ? CATEGORIES.find((c) => c.key === visibleKey) ?? null : null;
+
+  const signOut = () => { endSession(); navigate({ to: "/auth" }); };
+
+  const goToCategory = (c: Category) => {
+    setHoverKey(c.key);
+    navigate({ to: c.items[0].url });
+    if (!pinned) setPinned(true);
+  };
+
+  const onRailKeyDown = useCallback((e: ReactKeyboardEvent<HTMLDivElement>, idx: number) => {
+    const keys = CATEGORIES.map((c) => c.key);
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      const next = keys[(idx + 1) % keys.length];
+      railRefs.current[next]?.focus();
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      const next = keys[(idx - 1 + keys.length) % keys.length];
+      railRefs.current[next]?.focus();
+    } else if (e.key === "ArrowRight" || e.key === "Enter") {
+      e.preventDefault();
+      const c = CATEGORIES[idx];
+      setHoverKey(c.key);
+      // wait for panel to render
+      window.setTimeout(() => firstItemRef.current?.focus(), 0);
+    } else if (e.key === "Escape") {
+      setHoverKey(null);
+    }
+  }, []);
+
+  const onFlyoutKeyDown = useCallback((e: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (!visibleCategory) return;
+    const items = Array.from(panelRef.current?.querySelectorAll<HTMLAnchorElement>('[role="menuitem"]') ?? []);
+    const idx = items.findIndex((el) => el === document.activeElement);
+    if (e.key === "ArrowDown") { e.preventDefault(); items[(idx + 1) % items.length]?.focus(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); items[(idx - 1 + items.length) % items.length]?.focus(); }
+    else if (e.key === "ArrowLeft" || e.key === "Escape") {
+      e.preventDefault();
+      setHoverKey(null);
+      railRefs.current[visibleCategory.key]?.focus();
+    }
+  }, [visibleCategory]);
+
+  return (
+    <>
+      {/* Rail — always visible */}
+      <aside
+        className="hidden md:flex fixed left-0 top-0 bottom-0 z-40 flex-col items-center"
+        style={{
+          width: 64,
+          background: palette.surface,
+          borderRight: `1px solid ${palette.border}`,
+        }}
+        onMouseLeave={scheduleClose}
+      >
+        {/* Logo */}
+        <Link to="/dashboard" className="mt-6 mb-4 w-10 h-10 rounded-xl flex items-center justify-center" aria-label="PeaceCode Practice">
+          <span
+            className="w-6 h-6 rounded-full"
+            style={{ background: palette.primary, boxShadow: `0 0 0 4px ${palette.soft}` }}
+          />
+        </Link>
+
+        {/* Category icons */}
+        <div
+          className="flex-1 w-full flex flex-col items-center gap-1 pt-2"
+          onKeyDown={(e) => {
+            const idx = CATEGORIES.findIndex((c) => c.key === (document.activeElement as HTMLElement)?.getAttribute("data-rail-key"));
+            if (idx >= 0) onRailKeyDown(e, idx);
+          }}
+        >
+          {CATEGORIES.map((c) => (
+            <div key={c.key} data-rail-slot={c.key}>
+              <button
+                data-rail-key={c.key}
+                ref={(el) => { railRefs.current[c.key] = el; }}
+                onMouseEnter={() => scheduleOpen(c.key)}
+                onFocus={() => setHoverKey(c.key)}
+                onClick={() => goToCategory(c)}
+                aria-label={c.label}
+                aria-current={activeKey === c.key ? "page" : undefined}
+                className="relative w-10 h-10 rounded-xl flex items-center justify-center transition-colors outline-none focus-visible:ring-2"
+                style={{
+                  background: (hoverKey === c.key || activeKey === c.key) ? palette.soft : "transparent",
+                  color: (hoverKey === c.key || activeKey === c.key) ? palette.primary : palette.muted,
+                }}
+              >
+                {activeKey === c.key && (
+                  <span
+                    aria-hidden
+                    className="absolute -left-3 top-1/2 -translate-y-1/2 h-5 w-[2px] rounded-r-full"
+                    style={{ background: palette.primary }}
+                  />
+                )}
+                <c.icon className="w-[18px] h-[18px]" strokeWidth={1.8} />
+              </button>
             </div>
           ))}
-        </nav>
+        </div>
 
-        {/* Bottom pinned */}
-        <div className="p-3 border-t space-y-0.5" style={{ borderColor: palette.border }}>
-          <NavLinkRow item={{ title: "Notifications", url: "/notifications", icon: Bell }} isActive={isActive("/notifications")} compact={collapsed} />
-          <NavLinkRow item={{ title: "Help & Support", url: "/support", icon: LifeBuoy }} isActive={isActive("/support")} compact={collapsed} />
-          <NavLinkRow item={{ title: "Settings", url: "/settings", icon: SettingsIcon }} isActive={isActive("/settings")} compact={collapsed} />
+        {/* Bottom: pin toggle + avatar */}
+        <div className="mb-4 flex flex-col items-center gap-2">
+          <button
+            onClick={() => setPinned(!pinned)}
+            aria-label={pinned ? "Unpin sidebar" : "Pin sidebar"}
+            aria-pressed={pinned}
+            className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors"
+            style={{
+              background: pinned ? palette.soft : "transparent",
+              color: pinned ? palette.primary : palette.muted,
+            }}
+          >
+            {pinned ? <PanelLeftClose className="w-[15px] h-[15px]" strokeWidth={1.8} />
+                    : <PanelLeftOpen className="w-[15px] h-[15px]" strokeWidth={1.8} />}
+          </button>
+          <button
+            onClick={() => { setHoverKey("settings"); if (!pinned) setPinned(true); }}
+            aria-label="Open settings"
+            className="w-8 h-8 rounded-full flex items-center justify-center text-white text-[11px]"
+            style={{ background: palette.primary }}
+            title="Dr. Sharma"
+          >
+            DS
+          </button>
           <button
             onClick={signOut}
-            className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg transition-colors"
+            aria-label="Sign out"
+            className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors"
             style={{ color: palette.muted }}
           >
-            <LogOut className="h-3.5 w-3.5 shrink-0" strokeWidth={1.8} />
-            {!collapsed && <span className="text-[12.5px]">Sign out</span>}
+            <LogOut className="w-[15px] h-[15px]" strokeWidth={1.8} />
           </button>
+        </div>
+      </aside>
+
+      {/* Flyout — opacity + clip-path only, no translate/scale */}
+      <div
+        className="hidden md:block fixed top-0 bottom-0 z-30 pointer-events-none"
+        style={{ left: 64 }}
+      >
+        <div
+          onKeyDown={onFlyoutKeyDown}
+          onMouseEnter={cancelClose}
+          onMouseLeave={scheduleClose}
+          className="h-full transition-[opacity,clip-path] ease-out"
+          style={{
+            width: 240,
+            opacity: visibleCategory ? 1 : 0,
+            clipPath: visibleCategory ? "inset(0 0 0 0)" : "inset(0 100% 0 0)",
+            transitionDuration: "160ms",
+            pointerEvents: visibleCategory ? "auto" : "none",
+          }}
+        >
+          {visibleCategory && (
+            <Flyout
+              category={visibleCategory}
+              activeUrl={pathname}
+              panelRef={(el) => { panelRef.current = el; }}
+              firstItemRefCb={(el) => { firstItemRef.current = el; }}
+              onMouseEnter={cancelClose}
+              onMouseLeave={scheduleClose}
+              onNavigate={() => { if (!pinned) scheduleClose(); }}
+            />
+          )}
         </div>
       </div>
 
-      <style>{`
-        .hover-scroll::-webkit-scrollbar { width: 6px; }
-        .hover-scroll::-webkit-scrollbar-thumb { background: transparent; border-radius: 999px; }
-        .hover-scroll:hover::-webkit-scrollbar-thumb { background: ${palette.border}; }
-      `}</style>
-    </aside>
+      {/* Hidden helper: keep on-duty state reachable (surfaced in settings flyout later) */}
+      <div className="sr-only" aria-hidden>
+        <SidebarProfileCard onDuty={onDuty} setOnDuty={setOnDuty} />
+      </div>
+    </>
   );
 }
 
@@ -525,9 +843,9 @@ function TopBar({ crumb, onToggleSidebar, onOpenMobile }: { crumb?: string; onTo
 }
 
 export function AppShell({ children, crumb }: { children: ReactNode; crumb?: string }) {
-  const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [onDuty, setOnDuty] = useState(true);
+  const [pinned, setPinned] = useSidebarPinned();
   return (
     <>
       <GlassFX />
@@ -535,18 +853,35 @@ export function AppShell({ children, crumb }: { children: ReactNode; crumb?: str
         className="min-h-screen flex w-full"
         style={{ color: palette.ink, fontFamily: "'DM Sans', system-ui, sans-serif", background: "#FBF7F8" }}
       >
-        <DesktopSidebar collapsed={collapsed} onDuty={onDuty} setOnDuty={setOnDuty} />
+        <DesktopTubeSidebar
+          onDuty={onDuty}
+          setOnDuty={setOnDuty}
+          pinned={pinned}
+          setPinned={setPinned}
+        />
         <MobileDrawer open={mobileOpen} onClose={() => setMobileOpen(false)} onDuty={onDuty} setOnDuty={setOnDuty} />
-        <div className="flex-1 flex flex-col min-w-0">
+        <div
+          className="flex-1 flex flex-col min-w-0 transition-[padding] duration-[220ms] ease-out"
+          style={{ paddingLeft: `var(--pc-shell-pad, 0px)` }}
+        >
           <TopBar
             crumb={crumb}
-            onToggleSidebar={() => setCollapsed((v) => !v)}
+            onToggleSidebar={() => setPinned(!pinned)}
             onOpenMobile={() => setMobileOpen(true)}
           />
           <main className="flex-1 min-w-0 pb-20 md:pb-0">{children}</main>
         </div>
         <MobileBottomPill />
       </div>
+      {/* Responsive shell padding: rail is 64px, +240px when pinned. Mobile: 0. */}
+      <style>{`
+        @media (min-width: 768px) {
+          :root { --pc-shell-pad: ${pinned ? 304 : 64}px; }
+        }
+        @media (max-width: 767.98px) {
+          :root { --pc-shell-pad: 0px; }
+        }
+      `}</style>
     </>
   );
 }
