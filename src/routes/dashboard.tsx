@@ -90,7 +90,7 @@ function Dashboard() {
                 <div key={s.id} className="py-3 flex items-center gap-3 group">
                   <div className="text-[12px] tabular-nums w-14 shrink-0" style={{ color: ink }}>{fmtTime(s.startsAt)}</div>
                   <span className="w-1 h-8 rounded-full" style={{ background: s.modality === "video" ? primary : s.modality === "in-person" ? "#8CB9A6" : "#C9A66B" }} />
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center text-[11px] text-white shrink-0" style={{ background: primary }}>{p?.initials}</div>
+                  {p && <Avatar patient={p} size={36} />}
                   <div className="min-w-0 flex-1">
                     <div className="text-[13px] truncate" style={{ color: ink }}>{p?.name}</div>
                     <div className="text-[11px] flex items-center gap-1.5" style={{ color: muted }}>
@@ -235,7 +235,7 @@ function Dashboard() {
               const p = getPatient(m.patientId);
               return (
                 <div key={m.id} className="py-2.5 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-[11px] text-white shrink-0" style={{ background: primary }}>{p?.initials}</div>
+                  {p && <Avatar patient={p} size={32} />}
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
                       <span className="text-[12.5px]" style={{ color: ink }}>{p?.name}</span>
@@ -278,7 +278,7 @@ function Dashboard() {
               return (
                 <div key={n.id} className="rounded-xl p-3" style={{ background: surface2, border: `1px solid ${border}` }}>
                   <div className="flex items-center gap-2 mb-1.5">
-                    <div className="w-6 h-6 rounded-full flex items-center justify-center text-[9.5px] text-white" style={{ background: primary }}>{p?.initials}</div>
+                    {p && <Avatar patient={p} size={24} />}
                     <div className="text-[11.5px]" style={{ color: ink }}>{p?.name}</div>
                     <span className="text-[9.5px] px-1.5 py-0.5 rounded ml-auto" style={{ background: surface, color: muted }}>{n.format}</span>
                   </div>
