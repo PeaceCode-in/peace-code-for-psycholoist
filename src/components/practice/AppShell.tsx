@@ -436,7 +436,7 @@ function DesktopTubeSidebar({
   const closeTimer = useRef<number | null>(null);
   const openTimer = useRef<number | null>(null);
 
-  const railRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const railRefs = useRef<Record<string, HTMLElement | null>>({});
   const panelRef = useRef<HTMLDivElement | null>(null);
   const firstItemRef = useRef<HTMLAnchorElement | null>(null);
 
@@ -463,12 +463,6 @@ function DesktopTubeSidebar({
   const visibleCategory = visibleKey ? CATEGORIES.find((c) => c.key === visibleKey) ?? null : null;
 
   const signOut = () => { endSession(); navigate({ to: "/auth" }); };
-
-  const goToCategory = (c: Category) => {
-    setHoverKey(c.key);
-    navigate({ to: c.items[0].url });
-    if (!pinned) setPinned(true);
-  };
 
   const onRailKeyDown = useCallback((e: ReactKeyboardEvent<HTMLDivElement>, idx: number) => {
     const keys = CATEGORIES.map((c) => c.key);
@@ -543,12 +537,13 @@ function DesktopTubeSidebar({
         >
           {CATEGORIES.map((c) => (
             <div key={c.key} data-rail-slot={c.key}>
-              <button
+              <Link
+                to={c.items[0].url}
                 data-rail-key={c.key}
                 ref={(el) => { railRefs.current[c.key] = el; }}
                 onMouseEnter={() => scheduleOpen(c.key)}
                 onFocus={() => setHoverKey(c.key)}
-                onClick={() => goToCategory(c)}
+                onClick={() => { setHoverKey(c.key); if (!pinned) setPinned(true); }}
                 aria-label={c.label}
                 aria-current={activeKey === c.key ? "page" : undefined}
                 className="relative w-10 h-10 rounded-xl flex items-center justify-center transition-colors outline-none focus-visible:ring-2"
@@ -565,7 +560,7 @@ function DesktopTubeSidebar({
                   />
                 )}
                 <c.icon className="w-[18px] h-[18px]" strokeWidth={1.8} />
-              </button>
+              </Link>
             </div>
           ))}
         </div>
