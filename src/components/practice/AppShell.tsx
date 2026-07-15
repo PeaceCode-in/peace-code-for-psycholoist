@@ -12,6 +12,7 @@ import {
   Stethoscope, PanelLeftClose, PanelLeftOpen,
 } from "lucide-react";
 import { palette } from "./palette";
+import peacecodeLogo from "@/assets/peacecode-logo.png";
 import { GlassFX } from "@/components/GlassFX";
 import { INBOX_UNREAD, ALERTS_HIGH } from "@/lib/practice-store";
 import { useTodayRemaining } from "@/lib/sessions-store";
