@@ -8,6 +8,12 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { mcpPlugin } from "@lovable.dev/mcp-js/stacks/tanstack/vite";
 
 export default defineConfig({
+  nitro: {
+    // Netlify needs the Nitro Netlify adapter so the hydrated client bundle
+    // and the server handler are emitted in the layout Netlify serves.
+    // Lovable preview/publish still forces its own Cloudflare layout internally.
+    preset: "netlify",
+  },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
