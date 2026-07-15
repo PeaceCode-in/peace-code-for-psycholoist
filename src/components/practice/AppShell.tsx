@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useState, useRef, useEffect, useCallback, type ReactNode, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import {
   LayoutDashboard, CalendarDays, Inbox as InboxIcon, BellRing,
@@ -9,6 +9,7 @@ import {
   Handshake, UserCog, Microscope,
   FileLock2, History, Download,
   Search, Bell, Plus, LifeBuoy, Settings as SettingsIcon, LogOut, Menu, ShieldCheck, ChevronDown, AlertOctagon, X,
+  Stethoscope, PanelLeftClose, PanelLeftOpen,
 } from "lucide-react";
 import { palette } from "./palette";
 import { GlassFX } from "@/components/GlassFX";
