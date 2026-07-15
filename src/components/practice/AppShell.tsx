@@ -108,7 +108,12 @@ function useIsActive() {
 
 function NavLinkRow({ item, isActive, compact }: { item: NavItem; isActive: boolean; compact?: boolean }) {
   const liveSessions = useTodayRemaining();
-  const badge = item.url === "/sessions" ? (liveSessions > 0 ? liveSessions : undefined) : item.badge;
+  const criticalFlags = useCriticalFlagCount();
+  const badge = item.url === "/sessions"
+    ? (liveSessions > 0 ? liveSessions : undefined)
+    : item.url === "/assessments"
+      ? (criticalFlags > 0 ? criticalFlags : undefined)
+      : item.badge;
   return (
     <Link
       to={item.url}
