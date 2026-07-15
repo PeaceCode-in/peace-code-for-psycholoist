@@ -1,0 +1,46 @@
+{
+  "startedAt": 1784116180559,
+  "finishedAt": 1784116191854,
+  "total": 18,
+  "passed": 4,
+  "failed": 0,
+  "routes": [
+    {
+      "name": "home",
+      "path": "/dashboard",
+      "ok": true,
+      "detail": "clean",
+      "mainChars": 3059,
+      "deadControls": 0,
+      "consoleErrors": 0
+    },
+    {
+      "name": "patients",
+      "path": "/patients",
+      "ok": true,
+      "detail": "clean",
+      "mainChars": 2041,
+      "deadControls": 0,
+      "consoleErrors": 1
+    },
+    {
+      "name": "sessions",
+      "path": "/calendar",
+      "ok": true,
+      "detail": "clean",
+      "mainChars": 1615,
+      "deadControls": 0,
+      "consoleErrors": 0
+    },
+    {
+      "name": "telehealth",
+      "path": "/settings/telehealth",
+      "ok": true,
+      "detail": "clean",
+      "mainChars": 554,
+      "deadControls": 0,
+      "consoleErrors": 0
+    }
+  ],
+  "partial": true
+}
