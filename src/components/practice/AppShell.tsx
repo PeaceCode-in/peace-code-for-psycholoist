@@ -846,7 +846,9 @@ function TopBar({ crumb, onToggleSidebar, onOpenMobile }: { crumb?: string; onTo
         <AlertOctagon className="w-3 h-3" /> Emergency
       </button>
 
+      <ChecklistDrawer />
       <BellPeek />
+
 
 
       <QuickAddMenu />
