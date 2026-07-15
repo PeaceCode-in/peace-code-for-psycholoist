@@ -430,91 +430,25 @@ function DesktopTubeSidebar({
 }) {
   const navigate = useNavigate();
   const activeKey = useActiveCategoryKey();
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-
-  const [hoverKey, setHoverKey] = useState<string | null>(null);
-  const closeTimer = useRef<number | null>(null);
-  const openTimer = useRef<number | null>(null);
-
-  const railRefs = useRef<Record<string, HTMLElement | null>>({});
-  const panelRef = useRef<HTMLDivElement | null>(null);
-  const firstItemRef = useRef<HTMLAnchorElement | null>(null);
-
-  const clearTimers = () => {
-    if (closeTimer.current) { window.clearTimeout(closeTimer.current); closeTimer.current = null; }
-    if (openTimer.current) { window.clearTimeout(openTimer.current); openTimer.current = null; }
-  };
-
-  const scheduleOpen = (key: string) => {
-    clearTimers();
-    openTimer.current = window.setTimeout(() => setHoverKey(key), 60);
-  };
-  const scheduleClose = () => {
-    clearTimers();
-    closeTimer.current = window.setTimeout(() => setHoverKey(null), 120);
-  };
-  const cancelClose = () => {
-    if (closeTimer.current) { window.clearTimeout(closeTimer.current); closeTimer.current = null; }
-  };
-
-  useEffect(() => () => clearTimers(), []);
-
-  const visibleKey = pinned ? (activeKey ?? hoverKey ?? "today") : hoverKey;
-  const visibleCategory = visibleKey ? CATEGORIES.find((c) => c.key === visibleKey) ?? null : null;
+  const isActive = useIsActive();
 
   const signOut = () => { endSession(); navigate({ to: "/auth" }); };
 
-  const onRailKeyDown = useCallback((e: ReactKeyboardEvent<HTMLDivElement>, idx: number) => {
-    const keys = CATEGORIES.map((c) => c.key);
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      const next = keys[(idx + 1) % keys.length];
-      railRefs.current[next]?.focus();
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      const next = keys[(idx - 1 + keys.length) % keys.length];
-      railRefs.current[next]?.focus();
-    } else if (e.key === "ArrowRight" || e.key === "Enter") {
-      e.preventDefault();
-      const c = CATEGORIES[idx];
-      setHoverKey(c.key);
-      // wait for panel to render
-      window.setTimeout(() => firstItemRef.current?.focus(), 0);
-    } else if (e.key === "Escape") {
-      setHoverKey(null);
-    }
-  }, []);
-
-  const onFlyoutKeyDown = useCallback((e: ReactKeyboardEvent<HTMLDivElement>) => {
-    if (!visibleCategory) return;
-    const items = Array.from(panelRef.current?.querySelectorAll<HTMLAnchorElement>('[role="menuitem"]') ?? []);
-    const idx = items.findIndex((el) => el === document.activeElement);
-    if (e.key === "ArrowDown") { e.preventDefault(); items[(idx + 1) % items.length]?.focus(); }
-    else if (e.key === "ArrowUp") { e.preventDefault(); items[(idx - 1 + items.length) % items.length]?.focus(); }
-    else if (e.key === "ArrowLeft" || e.key === "Escape") {
-      e.preventDefault();
-      setHoverKey(null);
-      railRefs.current[visibleCategory.key]?.focus();
-    }
-  }, [visibleCategory]);
-
   return (
-    <>
-      {/* Rail — always visible */}
-      <aside
-        className="hidden md:flex fixed left-0 top-0 bottom-0 z-40 flex-col items-center"
-        style={{
-          width: 72,
-          background: "linear-gradient(180deg, #FFF7FA 0%, #F8E2EA 100%)",
-          borderRight: `1px solid ${palette.border}`,
-          boxShadow: "1px 0 0 rgba(255,255,255,0.7) inset",
-        }}
-        onMouseLeave={scheduleClose}
-      >
-        {/* Logo */}
+    <aside
+      className="hidden md:flex fixed left-0 top-0 bottom-0 z-40 flex-col transition-[width] duration-150 ease-out"
+      style={{
+        width: pinned ? 288 : 72,
+        background: "linear-gradient(180deg, #FFF9FB 0%, #F8E3EB 100%)",
+        borderRight: `1px solid ${palette.border}`,
+        boxShadow: "1px 0 0 rgba(255,255,255,0.75) inset, 14px 0 32px -30px rgba(63,18,38,0.24)",
+      }}
+    >
+      <div className="h-full flex flex-col p-3">
+        <div className={pinned ? "flex items-center gap-3 px-1.5 pt-1 pb-3" : "flex items-center justify-center pt-2 pb-3"}>
         <Link
           to="/dashboard"
-          className="mt-5 mb-3 w-12 h-12 rounded-2xl flex items-center justify-center transition-transform hover:scale-[1.04]"
+            className="w-12 h-12 rounded-2xl flex items-center justify-center transition-transform hover:scale-[1.04] shrink-0"
           aria-label="PeaceCode Practice"
           style={{
             background: "rgba(255,255,255,0.78)",
@@ -524,35 +458,62 @@ function DesktopTubeSidebar({
         >
           <img src={peacecodeLogo} alt="PeaceCode" className="w-7 h-7 object-contain" style={{ filter: `drop-shadow(0 1px 0 rgba(255,255,255,0.6))` }} />
         </Link>
-        <div className="w-8 h-px mb-2" style={{ background: `linear-gradient(90deg, transparent, ${palette.border}, transparent)` }} />
+          {pinned && (
+            <div className="min-w-0">
+              <div className="text-[15px] leading-tight" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>PeaceCode</div>
+              <div className="text-[10.5px] uppercase tracking-[0.18em]" style={{ color: palette.muted, fontFamily: "'DM Mono', monospace" }}>Practice</div>
+            </div>
+          )}
+        </div>
 
+        <div className={pinned ? "h-px mb-3" : "w-8 h-px mx-auto mb-3"} style={{ background: `linear-gradient(90deg, transparent, ${palette.border}, transparent)` }} />
 
-        {/* Category icons */}
-        <div
-          className="flex-1 w-full flex flex-col items-center gap-1 pt-2"
-          onKeyDown={(e) => {
-            const idx = CATEGORIES.findIndex((c) => c.key === (document.activeElement as HTMLElement)?.getAttribute("data-rail-key"));
-            if (idx >= 0) onRailKeyDown(e, idx);
-          }}
-        >
-          {CATEGORIES.map((c) => (
-            <div key={c.key} data-rail-slot={c.key}>
+        <nav className={pinned ? "flex-1 overflow-y-auto pr-1 space-y-4" : "flex-1 flex flex-col items-center gap-1"} aria-label="Practice navigation">
+          {pinned ? CATEGORIES.map((c) => (
+            <section key={c.key}>
+              <div className="px-2 mb-1 flex items-center gap-2 text-[10px] uppercase tracking-[0.18em]" style={{ color: palette.muted, fontFamily: "'DM Mono', monospace" }}>
+                <c.icon className="w-3 h-3" strokeWidth={1.8} /> {c.label}
+              </div>
+              <div className="space-y-0.5">
+                {c.items.map((it) => {
+                  const active = isActive(it.url);
+                  return (
+                    <Link
+                      key={it.url}
+                      to={it.url}
+                      className="relative flex items-center h-9 gap-2.5 px-3 rounded-xl text-[13px] transition-colors outline-none focus-visible:ring-2"
+                      style={{
+                        background: active ? "rgba(255,255,255,0.72)" : "transparent",
+                        color: active ? palette.ink : palette.muted,
+                        border: active ? `1px solid ${palette.border}` : "1px solid transparent",
+                      }}
+                    >
+                      <span className="flex-1 truncate">{it.title}</span>
+                      {typeof it.badge === "number" && it.badge > 0 && (
+                        <span className="text-[9.5px] tabular-nums px-1.5 min-w-[16px] h-[16px] rounded-full flex items-center justify-center" style={{ background: palette.primary, color: "#fff" }}>{it.badge}</span>
+                      )}
+                      {it.badge === "dot" && <span className="w-1.5 h-1.5 rounded-full" style={{ background: palette.primary }} />}
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+          )) : CATEGORIES.map((c) => {
+            const active = activeKey === c.key;
+            return (
               <Link
+                key={c.key}
                 to={c.items[0].url}
                 data-rail-key={c.key}
-                ref={(el) => { railRefs.current[c.key] = el; }}
-                onMouseEnter={() => scheduleOpen(c.key)}
-                onFocus={() => setHoverKey(c.key)}
-                onClick={() => { setHoverKey(c.key); if (!pinned) setPinned(true); }}
                 aria-label={c.label}
-                aria-current={activeKey === c.key ? "page" : undefined}
+                aria-current={active ? "page" : undefined}
                 className="relative w-10 h-10 rounded-xl flex items-center justify-center transition-colors outline-none focus-visible:ring-2"
                 style={{
-                  background: (hoverKey === c.key || activeKey === c.key) ? palette.soft : "transparent",
-                  color: (hoverKey === c.key || activeKey === c.key) ? palette.primary : palette.muted,
+                  background: active ? palette.soft : "transparent",
+                  color: active ? palette.primary : palette.muted,
                 }}
               >
-                {activeKey === c.key && (
+                {active && (
                   <span
                     aria-hidden
                     className="absolute -left-3 top-1/2 -translate-y-1/2 h-5 w-[2px] rounded-r-full"
@@ -561,82 +522,50 @@ function DesktopTubeSidebar({
                 )}
                 <c.icon className="w-[18px] h-[18px]" strokeWidth={1.8} />
               </Link>
-            </div>
-          ))}
-        </div>
+            );
+          })}
+        </nav>
 
-        {/* Bottom: pin toggle + avatar */}
-        <div className="mb-4 flex flex-col items-center gap-2">
+        <div className={pinned ? "mt-3 pt-3 border-t space-y-2" : "mt-3 pt-3 border-t flex flex-col items-center gap-2"} style={{ borderColor: palette.border }}>
+          {pinned && <SidebarProfileCard onDuty={onDuty} setOnDuty={setOnDuty} />}
           <button
             onClick={() => setPinned(!pinned)}
-            aria-label={pinned ? "Unpin sidebar" : "Pin sidebar"}
+            aria-label={pinned ? "Collapse sidebar" : "Expand sidebar"}
             aria-pressed={pinned}
-            className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors"
+            className={pinned ? "w-full h-9 rounded-xl flex items-center justify-center gap-2 text-[12px] transition-colors" : "w-9 h-9 rounded-lg flex items-center justify-center transition-colors"}
             style={{
-              background: pinned ? palette.soft : "transparent",
-              color: pinned ? palette.primary : palette.muted,
+              background: pinned ? "rgba(255,255,255,0.62)" : palette.soft,
+              border: pinned ? `1px solid ${palette.border}` : "1px solid transparent",
+              color: pinned ? palette.ink : palette.primary,
             }}
           >
             {pinned ? <PanelLeftClose className="w-[15px] h-[15px]" strokeWidth={1.8} />
                     : <PanelLeftOpen className="w-[15px] h-[15px]" strokeWidth={1.8} />}
+            {pinned && <span>Collapse</span>}
           </button>
-          <button
-            onClick={() => { setHoverKey("settings"); if (!pinned) setPinned(true); }}
+
+          <Link
+            to="/settings"
             aria-label="Open settings"
-            className="w-8 h-8 rounded-full flex items-center justify-center text-white text-[11px]"
-            style={{ background: palette.primary }}
+            className={pinned ? "w-full h-9 rounded-xl flex items-center justify-center gap-2 text-[12px] transition-colors" : "w-8 h-8 rounded-full flex items-center justify-center text-white text-[11px]"}
+            style={pinned ? { color: palette.muted } : { background: palette.primary }}
             title="Dr. Sharma"
           >
-            DS
-          </button>
+            {pinned ? <><SettingsIcon className="w-[15px] h-[15px]" strokeWidth={1.8} /> Settings</> : "DS"}
+          </Link>
+
           <button
             onClick={signOut}
             aria-label="Sign out"
-            className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors"
+            className={pinned ? "w-full h-9 rounded-xl flex items-center justify-center gap-2 text-[12px] transition-colors" : "w-9 h-9 rounded-lg flex items-center justify-center transition-colors"}
             style={{ color: palette.muted }}
           >
             <LogOut className="w-[15px] h-[15px]" strokeWidth={1.8} />
+            {pinned && <span>Sign out</span>}
           </button>
         </div>
-      </aside>
-
-      {/* Flyout — opacity + clip-path only, no translate/scale */}
-      <div
-        className="hidden md:block fixed top-0 bottom-0 z-30 pointer-events-none"
-        style={{ left: 72 }}
-      >
-        <div
-          onKeyDown={onFlyoutKeyDown}
-          onMouseEnter={cancelClose}
-          onMouseLeave={scheduleClose}
-          className="h-full transition-[opacity,clip-path] ease-out"
-          style={{
-            width: 240,
-            opacity: visibleCategory ? 1 : 0,
-            clipPath: visibleCategory ? "inset(0 0 0 0)" : "inset(0 100% 0 0)",
-            transitionDuration: "160ms",
-            pointerEvents: visibleCategory ? "auto" : "none",
-          }}
-        >
-          {visibleCategory && (
-            <Flyout
-              category={visibleCategory}
-              activeUrl={pathname}
-              panelRef={(el) => { panelRef.current = el; }}
-              firstItemRefCb={(el) => { firstItemRef.current = el; }}
-              onMouseEnter={cancelClose}
-              onMouseLeave={scheduleClose}
-              onNavigate={() => { if (!pinned) scheduleClose(); }}
-            />
-          )}
-        </div>
       </div>
-
-      {/* Hidden helper: keep on-duty state reachable (surfaced in settings flyout later) */}
-      <div className="sr-only" aria-hidden>
-        <SidebarProfileCard onDuty={onDuty} setOnDuty={setOnDuty} />
-      </div>
-    </>
+    </aside>
   );
 }
 
