@@ -89,6 +89,7 @@ import { Route as SettingsDeleteRouteImport } from './routes/settings.delete'
 import { Route as SettingsDataRouteImport } from './routes/settings.data'
 import { Route as SettingsDangerRouteImport } from './routes/settings.danger'
 import { Route as SettingsCredentialsRouteImport } from './routes/settings.credentials'
+import { Route as SettingsCopilotRouteImport } from './routes/settings.copilot'
 import { Route as SettingsComplianceRouteImport } from './routes/settings.compliance'
 import { Route as SettingsClinicalDefaultsRouteImport } from './routes/settings.clinical-defaults'
 import { Route as SettingsAvailabilityRouteImport } from './routes/settings.availability'
@@ -571,6 +572,11 @@ const SettingsDangerRoute = SettingsDangerRouteImport.update({
 const SettingsCredentialsRoute = SettingsCredentialsRouteImport.update({
   id: '/credentials',
   path: '/credentials',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsCopilotRoute = SettingsCopilotRouteImport.update({
+  id: '/copilot',
+  path: '/copilot',
   getParentRoute: () => SettingsRoute,
 } as any)
 const SettingsComplianceRoute = SettingsComplianceRouteImport.update({
@@ -1084,6 +1090,7 @@ export interface FileRoutesByFullPath {
   '/settings/availability': typeof SettingsAvailabilityRoute
   '/settings/clinical-defaults': typeof SettingsClinicalDefaultsRoute
   '/settings/compliance': typeof SettingsComplianceRoute
+  '/settings/copilot': typeof SettingsCopilotRoute
   '/settings/credentials': typeof SettingsCredentialsRoute
   '/settings/danger': typeof SettingsDangerRoute
   '/settings/data': typeof SettingsDataRoute
@@ -1232,6 +1239,7 @@ export interface FileRoutesByTo {
   '/settings/availability': typeof SettingsAvailabilityRoute
   '/settings/clinical-defaults': typeof SettingsClinicalDefaultsRoute
   '/settings/compliance': typeof SettingsComplianceRoute
+  '/settings/copilot': typeof SettingsCopilotRoute
   '/settings/credentials': typeof SettingsCredentialsRoute
   '/settings/danger': typeof SettingsDangerRoute
   '/settings/data': typeof SettingsDataRoute
@@ -1396,6 +1404,7 @@ export interface FileRoutesById {
   '/settings/availability': typeof SettingsAvailabilityRoute
   '/settings/clinical-defaults': typeof SettingsClinicalDefaultsRoute
   '/settings/compliance': typeof SettingsComplianceRoute
+  '/settings/copilot': typeof SettingsCopilotRoute
   '/settings/credentials': typeof SettingsCredentialsRoute
   '/settings/danger': typeof SettingsDangerRoute
   '/settings/data': typeof SettingsDataRoute
@@ -1562,6 +1571,7 @@ export interface FileRouteTypes {
     | '/settings/availability'
     | '/settings/clinical-defaults'
     | '/settings/compliance'
+    | '/settings/copilot'
     | '/settings/credentials'
     | '/settings/danger'
     | '/settings/data'
@@ -1710,6 +1720,7 @@ export interface FileRouteTypes {
     | '/settings/availability'
     | '/settings/clinical-defaults'
     | '/settings/compliance'
+    | '/settings/copilot'
     | '/settings/credentials'
     | '/settings/danger'
     | '/settings/data'
@@ -1873,6 +1884,7 @@ export interface FileRouteTypes {
     | '/settings/availability'
     | '/settings/clinical-defaults'
     | '/settings/compliance'
+    | '/settings/copilot'
     | '/settings/credentials'
     | '/settings/danger'
     | '/settings/data'
@@ -2559,6 +2571,13 @@ declare module '@tanstack/react-router' {
       path: '/credentials'
       fullPath: '/settings/credentials'
       preLoaderRoute: typeof SettingsCredentialsRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/copilot': {
+      id: '/settings/copilot'
+      path: '/copilot'
+      fullPath: '/settings/copilot'
+      preLoaderRoute: typeof SettingsCopilotRouteImport
       parentRoute: typeof SettingsRoute
     }
     '/settings/compliance': {
@@ -3474,6 +3493,7 @@ interface SettingsRouteChildren {
   SettingsAvailabilityRoute: typeof SettingsAvailabilityRoute
   SettingsClinicalDefaultsRoute: typeof SettingsClinicalDefaultsRoute
   SettingsComplianceRoute: typeof SettingsComplianceRoute
+  SettingsCopilotRoute: typeof SettingsCopilotRoute
   SettingsCredentialsRoute: typeof SettingsCredentialsRoute
   SettingsDangerRoute: typeof SettingsDangerRoute
   SettingsDataRoute: typeof SettingsDataRoute
@@ -3502,6 +3522,7 @@ const SettingsRouteChildren: SettingsRouteChildren = {
   SettingsAvailabilityRoute: SettingsAvailabilityRoute,
   SettingsClinicalDefaultsRoute: SettingsClinicalDefaultsRoute,
   SettingsComplianceRoute: SettingsComplianceRoute,
+  SettingsCopilotRoute: SettingsCopilotRoute,
   SettingsCredentialsRoute: SettingsCredentialsRoute,
   SettingsDangerRoute: SettingsDangerRoute,
   SettingsDataRoute: SettingsDataRoute,
