@@ -46,6 +46,7 @@ const NAV: NavSection[] = [
     label: "Clinical",
     items: [
       { title: "Sessions", url: "/sessions", icon: Video },
+      { title: "Calendar", url: "/calendar", icon: CalendarDays },
       { title: "Notes", url: "/notes", icon: NotebookPen },
       { title: "Assessments", url: "/assessments", icon: ClipboardList },
       { title: "Billing", url: "/billing", icon: Receipt },
