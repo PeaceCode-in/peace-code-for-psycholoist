@@ -5,6 +5,7 @@ import { palette } from "@/components/practice/palette";
 import { useLiveSession, completeSession } from "@/lib/sessions-store";
 import { getPatient, createNote, avatarUrl } from "@/lib/patients-store";
 import { useHydrated } from "@/lib/use-hydrated";
+import { SoapDraftInline } from "@/components/practice/copilot/SoapDraftInline";
 
 export const Route = createFileRoute("/sessions/$id/wrap")({
   head: () => ({ meta: [{ title: "Wrap-up — PeaceCode · Practice" }] }),
