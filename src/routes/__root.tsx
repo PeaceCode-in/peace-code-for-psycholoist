@@ -77,17 +77,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PeaceCode — Your Personal Wellness Companion" },
+      { title: "PeaceCode · Practice — Clinical dashboard for psychologists" },
       {
         name: "description",
         content:
-          "PeaceCode is India's most beautiful AI-powered student mental wellness ecosystem — calm, intelligent, and made for Gen Z.",
+          "PeaceCode · Practice is the clinical dashboard for verified psychologists — schedule, patient roster, clinical notes, billing, and outcomes in one calm workspace.",
       },
       { name: "author", content: "PeaceCode" },
-      { property: "og:title", content: "PeaceCode — Student Wellness, Reimagined" },
+      { property: "og:title", content: "PeaceCode · Practice — for psychologists" },
       {
         property: "og:description",
-        content: "An emotionally intelligent, AI-powered wellness companion for college students.",
+        content: "The calm, clinical workspace for verified psychologists.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

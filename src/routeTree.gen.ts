@@ -24,6 +24,20 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
+import { Route as SettingsTeamRouteImport } from './routes/settings.team'
+import { Route as SettingsServicesRouteImport } from './routes/settings.services'
+import { Route as SettingsSecurityRouteImport } from './routes/settings.security'
+import { Route as SettingsProfileRouteImport } from './routes/settings.profile'
+import { Route as SettingsPrivacyRouteImport } from './routes/settings.privacy'
+import { Route as SettingsPracticeRouteImport } from './routes/settings.practice'
+import { Route as SettingsPayoutsRouteImport } from './routes/settings.payouts'
+import { Route as SettingsNotificationsRouteImport } from './routes/settings.notifications'
+import { Route as SettingsIntegrationsRouteImport } from './routes/settings.integrations'
+import { Route as SettingsDangerRouteImport } from './routes/settings.danger'
+import { Route as SettingsCredentialsRouteImport } from './routes/settings.credentials'
+import { Route as SettingsAvailabilityRouteImport } from './routes/settings.availability'
+import { Route as SettingsAppearanceRouteImport } from './routes/settings.appearance'
+import { Route as SettingsAboutRouteImport } from './routes/settings.about'
 import { Route as PatientsIdRouteImport } from './routes/patients.$id'
 import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
@@ -103,6 +117,76 @@ const AuthIndexRoute = AuthIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthRoute,
 } as any)
+const SettingsTeamRoute = SettingsTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsServicesRoute = SettingsServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsSecurityRoute = SettingsSecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsProfileRoute = SettingsProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsPrivacyRoute = SettingsPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsPracticeRoute = SettingsPracticeRouteImport.update({
+  id: '/practice',
+  path: '/practice',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsPayoutsRoute = SettingsPayoutsRouteImport.update({
+  id: '/payouts',
+  path: '/payouts',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsNotificationsRoute = SettingsNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsIntegrationsRoute = SettingsIntegrationsRouteImport.update({
+  id: '/integrations',
+  path: '/integrations',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsDangerRoute = SettingsDangerRouteImport.update({
+  id: '/danger',
+  path: '/danger',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsCredentialsRoute = SettingsCredentialsRouteImport.update({
+  id: '/credentials',
+  path: '/credentials',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsAvailabilityRoute = SettingsAvailabilityRouteImport.update({
+  id: '/availability',
+  path: '/availability',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsAppearanceRoute = SettingsAppearanceRouteImport.update({
+  id: '/appearance',
+  path: '/appearance',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsAboutRoute = SettingsAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => SettingsRoute,
+} as any)
 const PatientsIdRoute = PatientsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -135,6 +219,20 @@ export interface FileRoutesByFullPath {
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
   '/patients/$id': typeof PatientsIdRoute
+  '/settings/about': typeof SettingsAboutRoute
+  '/settings/appearance': typeof SettingsAppearanceRoute
+  '/settings/availability': typeof SettingsAvailabilityRoute
+  '/settings/credentials': typeof SettingsCredentialsRoute
+  '/settings/danger': typeof SettingsDangerRoute
+  '/settings/integrations': typeof SettingsIntegrationsRoute
+  '/settings/notifications': typeof SettingsNotificationsRoute
+  '/settings/payouts': typeof SettingsPayoutsRoute
+  '/settings/practice': typeof SettingsPracticeRoute
+  '/settings/privacy': typeof SettingsPrivacyRoute
+  '/settings/profile': typeof SettingsProfileRoute
+  '/settings/security': typeof SettingsSecurityRoute
+  '/settings/services': typeof SettingsServicesRoute
+  '/settings/team': typeof SettingsTeamRoute
   '/auth/': typeof AuthIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -152,6 +250,20 @@ export interface FileRoutesByTo {
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
   '/patients/$id': typeof PatientsIdRoute
+  '/settings/about': typeof SettingsAboutRoute
+  '/settings/appearance': typeof SettingsAppearanceRoute
+  '/settings/availability': typeof SettingsAvailabilityRoute
+  '/settings/credentials': typeof SettingsCredentialsRoute
+  '/settings/danger': typeof SettingsDangerRoute
+  '/settings/integrations': typeof SettingsIntegrationsRoute
+  '/settings/notifications': typeof SettingsNotificationsRoute
+  '/settings/payouts': typeof SettingsPayoutsRoute
+  '/settings/practice': typeof SettingsPracticeRoute
+  '/settings/privacy': typeof SettingsPrivacyRoute
+  '/settings/profile': typeof SettingsProfileRoute
+  '/settings/security': typeof SettingsSecurityRoute
+  '/settings/services': typeof SettingsServicesRoute
+  '/settings/team': typeof SettingsTeamRoute
   '/auth': typeof AuthIndexRoute
   '/patients': typeof PatientsIndexRoute
   '/settings': typeof SettingsIndexRoute
@@ -173,6 +285,20 @@ export interface FileRoutesById {
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
   '/patients/$id': typeof PatientsIdRoute
+  '/settings/about': typeof SettingsAboutRoute
+  '/settings/appearance': typeof SettingsAppearanceRoute
+  '/settings/availability': typeof SettingsAvailabilityRoute
+  '/settings/credentials': typeof SettingsCredentialsRoute
+  '/settings/danger': typeof SettingsDangerRoute
+  '/settings/integrations': typeof SettingsIntegrationsRoute
+  '/settings/notifications': typeof SettingsNotificationsRoute
+  '/settings/payouts': typeof SettingsPayoutsRoute
+  '/settings/practice': typeof SettingsPracticeRoute
+  '/settings/privacy': typeof SettingsPrivacyRoute
+  '/settings/profile': typeof SettingsProfileRoute
+  '/settings/security': typeof SettingsSecurityRoute
+  '/settings/services': typeof SettingsServicesRoute
+  '/settings/team': typeof SettingsTeamRoute
   '/auth/': typeof AuthIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -195,6 +321,20 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/signup'
     | '/patients/$id'
+    | '/settings/about'
+    | '/settings/appearance'
+    | '/settings/availability'
+    | '/settings/credentials'
+    | '/settings/danger'
+    | '/settings/integrations'
+    | '/settings/notifications'
+    | '/settings/payouts'
+    | '/settings/practice'
+    | '/settings/privacy'
+    | '/settings/profile'
+    | '/settings/security'
+    | '/settings/services'
+    | '/settings/team'
     | '/auth/'
     | '/patients/'
     | '/settings/'
@@ -212,6 +352,20 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/signup'
     | '/patients/$id'
+    | '/settings/about'
+    | '/settings/appearance'
+    | '/settings/availability'
+    | '/settings/credentials'
+    | '/settings/danger'
+    | '/settings/integrations'
+    | '/settings/notifications'
+    | '/settings/payouts'
+    | '/settings/practice'
+    | '/settings/privacy'
+    | '/settings/profile'
+    | '/settings/security'
+    | '/settings/services'
+    | '/settings/team'
     | '/auth'
     | '/patients'
     | '/settings'
@@ -232,6 +386,20 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/signup'
     | '/patients/$id'
+    | '/settings/about'
+    | '/settings/appearance'
+    | '/settings/availability'
+    | '/settings/credentials'
+    | '/settings/danger'
+    | '/settings/integrations'
+    | '/settings/notifications'
+    | '/settings/payouts'
+    | '/settings/practice'
+    | '/settings/privacy'
+    | '/settings/profile'
+    | '/settings/security'
+    | '/settings/services'
+    | '/settings/team'
     | '/auth/'
     | '/patients/'
     | '/settings/'
@@ -359,6 +527,104 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthIndexRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/settings/team': {
+      id: '/settings/team'
+      path: '/team'
+      fullPath: '/settings/team'
+      preLoaderRoute: typeof SettingsTeamRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/services': {
+      id: '/settings/services'
+      path: '/services'
+      fullPath: '/settings/services'
+      preLoaderRoute: typeof SettingsServicesRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/security': {
+      id: '/settings/security'
+      path: '/security'
+      fullPath: '/settings/security'
+      preLoaderRoute: typeof SettingsSecurityRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/profile': {
+      id: '/settings/profile'
+      path: '/profile'
+      fullPath: '/settings/profile'
+      preLoaderRoute: typeof SettingsProfileRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/privacy': {
+      id: '/settings/privacy'
+      path: '/privacy'
+      fullPath: '/settings/privacy'
+      preLoaderRoute: typeof SettingsPrivacyRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/practice': {
+      id: '/settings/practice'
+      path: '/practice'
+      fullPath: '/settings/practice'
+      preLoaderRoute: typeof SettingsPracticeRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/payouts': {
+      id: '/settings/payouts'
+      path: '/payouts'
+      fullPath: '/settings/payouts'
+      preLoaderRoute: typeof SettingsPayoutsRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/notifications': {
+      id: '/settings/notifications'
+      path: '/notifications'
+      fullPath: '/settings/notifications'
+      preLoaderRoute: typeof SettingsNotificationsRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/integrations': {
+      id: '/settings/integrations'
+      path: '/integrations'
+      fullPath: '/settings/integrations'
+      preLoaderRoute: typeof SettingsIntegrationsRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/danger': {
+      id: '/settings/danger'
+      path: '/danger'
+      fullPath: '/settings/danger'
+      preLoaderRoute: typeof SettingsDangerRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/credentials': {
+      id: '/settings/credentials'
+      path: '/credentials'
+      fullPath: '/settings/credentials'
+      preLoaderRoute: typeof SettingsCredentialsRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/availability': {
+      id: '/settings/availability'
+      path: '/availability'
+      fullPath: '/settings/availability'
+      preLoaderRoute: typeof SettingsAvailabilityRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/appearance': {
+      id: '/settings/appearance'
+      path: '/appearance'
+      fullPath: '/settings/appearance'
+      preLoaderRoute: typeof SettingsAppearanceRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/about': {
+      id: '/settings/about'
+      path: '/about'
+      fullPath: '/settings/about'
+      preLoaderRoute: typeof SettingsAboutRouteImport
+      parentRoute: typeof SettingsRoute
+    }
     '/patients/$id': {
       id: '/patients/$id'
       path: '/$id'
@@ -412,10 +678,38 @@ const PatientsRouteWithChildren = PatientsRoute._addFileChildren(
 )
 
 interface SettingsRouteChildren {
+  SettingsAboutRoute: typeof SettingsAboutRoute
+  SettingsAppearanceRoute: typeof SettingsAppearanceRoute
+  SettingsAvailabilityRoute: typeof SettingsAvailabilityRoute
+  SettingsCredentialsRoute: typeof SettingsCredentialsRoute
+  SettingsDangerRoute: typeof SettingsDangerRoute
+  SettingsIntegrationsRoute: typeof SettingsIntegrationsRoute
+  SettingsNotificationsRoute: typeof SettingsNotificationsRoute
+  SettingsPayoutsRoute: typeof SettingsPayoutsRoute
+  SettingsPracticeRoute: typeof SettingsPracticeRoute
+  SettingsPrivacyRoute: typeof SettingsPrivacyRoute
+  SettingsProfileRoute: typeof SettingsProfileRoute
+  SettingsSecurityRoute: typeof SettingsSecurityRoute
+  SettingsServicesRoute: typeof SettingsServicesRoute
+  SettingsTeamRoute: typeof SettingsTeamRoute
   SettingsIndexRoute: typeof SettingsIndexRoute
 }
 
 const SettingsRouteChildren: SettingsRouteChildren = {
+  SettingsAboutRoute: SettingsAboutRoute,
+  SettingsAppearanceRoute: SettingsAppearanceRoute,
+  SettingsAvailabilityRoute: SettingsAvailabilityRoute,
+  SettingsCredentialsRoute: SettingsCredentialsRoute,
+  SettingsDangerRoute: SettingsDangerRoute,
+  SettingsIntegrationsRoute: SettingsIntegrationsRoute,
+  SettingsNotificationsRoute: SettingsNotificationsRoute,
+  SettingsPayoutsRoute: SettingsPayoutsRoute,
+  SettingsPracticeRoute: SettingsPracticeRoute,
+  SettingsPrivacyRoute: SettingsPrivacyRoute,
+  SettingsProfileRoute: SettingsProfileRoute,
+  SettingsSecurityRoute: SettingsSecurityRoute,
+  SettingsServicesRoute: SettingsServicesRoute,
+  SettingsTeamRoute: SettingsTeamRoute,
   SettingsIndexRoute: SettingsIndexRoute,
 }
 
