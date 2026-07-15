@@ -98,6 +98,7 @@ function NoteEditor() {
   }
 
   function exportPdf() {
+    if (!note) return;
     if (note.status === "draft") { window.alert("Only signed notes can be exported to PDF."); return; }
     markExported(note.id);
     const win = window.open("", "_blank");
@@ -105,6 +106,7 @@ function NoteEditor() {
     const html = renderPdfHtml(note, sections, patient?.fullName ?? "Unknown patient");
     win.document.write(html); win.document.close(); setTimeout(() => win.print(), 250);
   }
+
 
   return (
     <div className="max-w-[1400px] mx-auto px-5 sm:px-8 pb-24">
