@@ -85,7 +85,10 @@ async def walk() -> dict:
             except Exception as e:
                 entry["detail"] = f"nav failed: {e}"
             results.append(entry)
-            print(f"[{'PASS' if entry['ok'] else 'FAIL'}] {name:14s} {path:30s} {entry['detail']}")
+            print(f"[{'PASS' if entry['ok'] else 'FAIL'}] {name:14s} {path:30s} {entry['detail']}", flush=True)
+            # write incrementally so partial results survive a timeout
+            OUT.parent.mkdir(parents=True, exist_ok=True)
+            OUT.write_text(json.dumps({"startedAt": started, "finishedAt": int(time.time()*1000), "total": len(ROUTES), "passed": sum(1 for r in results if r["ok"]), "failed": sum(1 for r in results if not r["ok"]), "routes": results, "partial": len(results) < len(ROUTES)}, indent=2))
         await browser.close()
 
     passed = sum(1 for r in results if r["ok"])
