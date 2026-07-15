@@ -58,11 +58,13 @@ import { Route as TeamIndexRouteImport } from './routes/team.index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as SessionsIndexRouteImport } from './routes/sessions.index'
 import { Route as ScheduleIndexRouteImport } from './routes/schedule.index'
+import { Route as PrescriptionsIndexRouteImport } from './routes/prescriptions.index'
 import { Route as PortalIndexRouteImport } from './routes/portal.index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
 import { Route as NotesIndexRouteImport } from './routes/notes.index'
 import { Route as MessagesIndexRouteImport } from './routes/messages.index'
 import { Route as IntegrationsIndexRouteImport } from './routes/integrations.index'
+import { Route as HomeworkIndexRouteImport } from './routes/homework.index'
 import { Route as GovernanceIndexRouteImport } from './routes/governance.index'
 import { Route as DocumentsIndexRouteImport } from './routes/documents.index'
 import { Route as CalendarIndexRouteImport } from './routes/calendar.index'
@@ -110,6 +112,10 @@ import { Route as SessionsIdRouteImport } from './routes/sessions.$id'
 import { Route as ScheduleRecurringRouteImport } from './routes/schedule.recurring'
 import { Route as ScheduleExportRouteImport } from './routes/schedule.export'
 import { Route as ScheduleAvailabilityRouteImport } from './routes/schedule.availability'
+import { Route as PrescriptionsReviewsRouteImport } from './routes/prescriptions.reviews'
+import { Route as PrescriptionsRefillsRouteImport } from './routes/prescriptions.refills'
+import { Route as PrescriptionsNewRouteImport } from './routes/prescriptions.new'
+import { Route as PrescriptionsFormularyRouteImport } from './routes/prescriptions.formulary'
 import { Route as PortalSessionsRouteImport } from './routes/portal.sessions'
 import { Route as PortalProgressRouteImport } from './routes/portal.progress'
 import { Route as PortalProfileRouteImport } from './routes/portal.profile'
@@ -139,6 +145,10 @@ import { Route as IntegrationsAutomationsRouteImport } from './routes/integratio
 import { Route as IntegrationsSlugRouteImport } from './routes/integrations.$slug'
 import { Route as InboxTasksRouteImport } from './routes/inbox.tasks'
 import { Route as InboxDailyBriefRouteImport } from './routes/inbox.daily-brief'
+import { Route as HomeworkLibraryRouteImport } from './routes/homework.library'
+import { Route as HomeworkComplianceRouteImport } from './routes/homework.compliance'
+import { Route as HomeworkAssignRouteImport } from './routes/homework.assign'
+import { Route as HomeworkHidRouteImport } from './routes/homework.$hid'
 import { Route as GovernanceRightsRouteImport } from './routes/governance.rights'
 import { Route as GovernanceRetentionRouteImport } from './routes/governance.retention'
 import { Route as GovernanceReportsRouteImport } from './routes/governance.reports'
@@ -186,6 +196,10 @@ import { Route as WelcomeSetupStepRouteImport } from './routes/welcome.setup.$st
 import { Route as SessionsDayDateRouteImport } from './routes/sessions.day.$date'
 import { Route as SessionsIdWrapRouteImport } from './routes/sessions.$id.wrap'
 import { Route as SessionsIdRoomRouteImport } from './routes/sessions.$id.room'
+import { Route as PrescriptionsPatientPidRouteImport } from './routes/prescriptions.patient.$pid'
+import { Route as PrescriptionsMidTitrateRouteImport } from './routes/prescriptions.$mid.titrate'
+import { Route as PrescriptionsMidLetterRouteImport } from './routes/prescriptions.$mid.letter'
+import { Route as PrescriptionsMidDiscontinueRouteImport } from './routes/prescriptions.$mid.discontinue'
 import { Route as PortalMessagesThreadIdRouteImport } from './routes/portal.messages.$threadId'
 import { Route as PortalDocumentsTokenRouteImport } from './routes/portal.documents.$token'
 import { Route as PortalAssessmentsIdRouteImport } from './routes/portal.assessments.$id'
@@ -196,6 +210,7 @@ import { Route as PatientsPidChartRouteImport } from './routes/patients.$pid.cha
 import { Route as PatientsPidBillingRouteImport } from './routes/patients.$pid.billing'
 import { Route as PatientsPidAssessmentsRouteImport } from './routes/patients.$pid.assessments'
 import { Route as NotesNidAmendRouteImport } from './routes/notes.$nid.amend'
+import { Route as HomeworkLibraryNewRouteImport } from './routes/homework.library.new'
 import { Route as DocumentsCertificateIdRouteImport } from './routes/documents.certificate.$id'
 import { Route as CalendarBookSlugRouteImport } from './routes/calendar.book.$slug'
 import { Route as BillingInvoicesNewRouteImport } from './routes/billing.invoices.new'
@@ -455,6 +470,11 @@ const ScheduleIndexRoute = ScheduleIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ScheduleRoute,
 } as any)
+const PrescriptionsIndexRoute = PrescriptionsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PrescriptionsRoute,
+} as any)
 const PortalIndexRoute = PortalIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -479,6 +499,11 @@ const IntegrationsIndexRoute = IntegrationsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => IntegrationsRoute,
+} as any)
+const HomeworkIndexRoute = HomeworkIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => HomeworkRoute,
 } as any)
 const GovernanceIndexRoute = GovernanceIndexRouteImport.update({
   id: '/',
@@ -717,6 +742,26 @@ const ScheduleAvailabilityRoute = ScheduleAvailabilityRouteImport.update({
   path: '/availability',
   getParentRoute: () => ScheduleRoute,
 } as any)
+const PrescriptionsReviewsRoute = PrescriptionsReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => PrescriptionsRoute,
+} as any)
+const PrescriptionsRefillsRoute = PrescriptionsRefillsRouteImport.update({
+  id: '/refills',
+  path: '/refills',
+  getParentRoute: () => PrescriptionsRoute,
+} as any)
+const PrescriptionsNewRoute = PrescriptionsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => PrescriptionsRoute,
+} as any)
+const PrescriptionsFormularyRoute = PrescriptionsFormularyRouteImport.update({
+  id: '/formulary',
+  path: '/formulary',
+  getParentRoute: () => PrescriptionsRoute,
+} as any)
 const PortalSessionsRoute = PortalSessionsRouteImport.update({
   id: '/sessions',
   path: '/sessions',
@@ -861,6 +906,26 @@ const InboxDailyBriefRoute = InboxDailyBriefRouteImport.update({
   id: '/daily-brief',
   path: '/daily-brief',
   getParentRoute: () => InboxRoute,
+} as any)
+const HomeworkLibraryRoute = HomeworkLibraryRouteImport.update({
+  id: '/library',
+  path: '/library',
+  getParentRoute: () => HomeworkRoute,
+} as any)
+const HomeworkComplianceRoute = HomeworkComplianceRouteImport.update({
+  id: '/compliance',
+  path: '/compliance',
+  getParentRoute: () => HomeworkRoute,
+} as any)
+const HomeworkAssignRoute = HomeworkAssignRouteImport.update({
+  id: '/assign',
+  path: '/assign',
+  getParentRoute: () => HomeworkRoute,
+} as any)
+const HomeworkHidRoute = HomeworkHidRouteImport.update({
+  id: '/$hid',
+  path: '/$hid',
+  getParentRoute: () => HomeworkRoute,
 } as any)
 const GovernanceRightsRoute = GovernanceRightsRouteImport.update({
   id: '/rights',
@@ -1099,6 +1164,27 @@ const SessionsIdRoomRoute = SessionsIdRoomRouteImport.update({
   path: '/room',
   getParentRoute: () => SessionsIdRoute,
 } as any)
+const PrescriptionsPatientPidRoute = PrescriptionsPatientPidRouteImport.update({
+  id: '/patient/$pid',
+  path: '/patient/$pid',
+  getParentRoute: () => PrescriptionsRoute,
+} as any)
+const PrescriptionsMidTitrateRoute = PrescriptionsMidTitrateRouteImport.update({
+  id: '/$mid/titrate',
+  path: '/$mid/titrate',
+  getParentRoute: () => PrescriptionsRoute,
+} as any)
+const PrescriptionsMidLetterRoute = PrescriptionsMidLetterRouteImport.update({
+  id: '/$mid/letter',
+  path: '/$mid/letter',
+  getParentRoute: () => PrescriptionsRoute,
+} as any)
+const PrescriptionsMidDiscontinueRoute =
+  PrescriptionsMidDiscontinueRouteImport.update({
+    id: '/$mid/discontinue',
+    path: '/$mid/discontinue',
+    getParentRoute: () => PrescriptionsRoute,
+  } as any)
 const PortalMessagesThreadIdRoute = PortalMessagesThreadIdRouteImport.update({
   id: '/$threadId',
   path: '/$threadId',
@@ -1148,6 +1234,11 @@ const NotesNidAmendRoute = NotesNidAmendRouteImport.update({
   id: '/amend',
   path: '/amend',
   getParentRoute: () => NotesNidRoute,
+} as any)
+const HomeworkLibraryNewRoute = HomeworkLibraryNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => HomeworkLibraryRoute,
 } as any)
 const DocumentsCertificateIdRoute = DocumentsCertificateIdRouteImport.update({
   id: '/certificate/$id',
@@ -1235,7 +1326,7 @@ export interface FileRoutesByFullPath {
   '/documents': typeof DocumentsRouteWithChildren
   '/governance': typeof GovernanceRouteWithChildren
   '/groups': typeof GroupsRoute
-  '/homework': typeof HomeworkRoute
+  '/homework': typeof HomeworkRouteWithChildren
   '/inbox': typeof InboxRouteWithChildren
   '/integrations': typeof IntegrationsRouteWithChildren
   '/library': typeof LibraryRoute
@@ -1248,7 +1339,7 @@ export interface FileRoutesByFullPath {
   '/payouts': typeof PayoutsRoute
   '/peers': typeof PeersRoute
   '/portal': typeof PortalRouteWithChildren
-  '/prescriptions': typeof PrescriptionsRoute
+  '/prescriptions': typeof PrescriptionsRouteWithChildren
   '/profile-public': typeof ProfilePublicRoute
   '/referrals': typeof ReferralsRoute
   '/research': typeof ResearchRoute
@@ -1303,6 +1394,10 @@ export interface FileRoutesByFullPath {
   '/governance/reports': typeof GovernanceReportsRoute
   '/governance/retention': typeof GovernanceRetentionRoute
   '/governance/rights': typeof GovernanceRightsRoute
+  '/homework/$hid': typeof HomeworkHidRoute
+  '/homework/assign': typeof HomeworkAssignRoute
+  '/homework/compliance': typeof HomeworkComplianceRoute
+  '/homework/library': typeof HomeworkLibraryRouteWithChildren
   '/inbox/daily-brief': typeof InboxDailyBriefRoute
   '/inbox/tasks': typeof InboxTasksRoute
   '/integrations/$slug': typeof IntegrationsSlugRoute
@@ -1332,6 +1427,10 @@ export interface FileRoutesByFullPath {
   '/portal/profile': typeof PortalProfileRoute
   '/portal/progress': typeof PortalProgressRoute
   '/portal/sessions': typeof PortalSessionsRoute
+  '/prescriptions/formulary': typeof PrescriptionsFormularyRoute
+  '/prescriptions/new': typeof PrescriptionsNewRoute
+  '/prescriptions/refills': typeof PrescriptionsRefillsRoute
+  '/prescriptions/reviews': typeof PrescriptionsReviewsRoute
   '/schedule/availability': typeof ScheduleAvailabilityRoute
   '/schedule/export': typeof ScheduleExportRoute
   '/schedule/recurring': typeof ScheduleRecurringRoute
@@ -1379,11 +1478,13 @@ export interface FileRoutesByFullPath {
   '/calendar/': typeof CalendarIndexRoute
   '/documents/': typeof DocumentsIndexRoute
   '/governance/': typeof GovernanceIndexRoute
+  '/homework/': typeof HomeworkIndexRoute
   '/integrations/': typeof IntegrationsIndexRoute
   '/messages/': typeof MessagesIndexRoute
   '/notes/': typeof NotesIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/portal/': typeof PortalIndexRoute
+  '/prescriptions/': typeof PrescriptionsIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -1398,6 +1499,7 @@ export interface FileRoutesByFullPath {
   '/billing/invoices/new': typeof BillingInvoicesNewRoute
   '/calendar/book/$slug': typeof CalendarBookSlugRoute
   '/documents/certificate/$id': typeof DocumentsCertificateIdRoute
+  '/homework/library/new': typeof HomeworkLibraryNewRoute
   '/notes/$nid/amend': typeof NotesNidAmendRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/billing': typeof PatientsPidBillingRoute
@@ -1408,6 +1510,10 @@ export interface FileRoutesByFullPath {
   '/portal/assessments/$id': typeof PortalAssessmentsIdRoute
   '/portal/documents/$token': typeof PortalDocumentsTokenRoute
   '/portal/messages/$threadId': typeof PortalMessagesThreadIdRoute
+  '/prescriptions/$mid/discontinue': typeof PrescriptionsMidDiscontinueRoute
+  '/prescriptions/$mid/letter': typeof PrescriptionsMidLetterRoute
+  '/prescriptions/$mid/titrate': typeof PrescriptionsMidTitrateRoute
+  '/prescriptions/patient/$pid': typeof PrescriptionsPatientPidRoute
   '/sessions/$id/room': typeof SessionsIdRoomRoute
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
@@ -1432,7 +1538,6 @@ export interface FileRoutesByTo {
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
   '/groups': typeof GroupsRoute
-  '/homework': typeof HomeworkRoute
   '/inbox': typeof InboxRouteWithChildren
   '/library': typeof LibraryRoute
   '/mcp': typeof McpRoute
@@ -1440,7 +1545,6 @@ export interface FileRoutesByTo {
   '/payments': typeof PaymentsRoute
   '/payouts': typeof PayoutsRoute
   '/peers': typeof PeersRoute
-  '/prescriptions': typeof PrescriptionsRoute
   '/profile-public': typeof ProfilePublicRoute
   '/referrals': typeof ReferralsRoute
   '/research': typeof ResearchRoute
@@ -1487,6 +1591,10 @@ export interface FileRoutesByTo {
   '/governance/reports': typeof GovernanceReportsRoute
   '/governance/retention': typeof GovernanceRetentionRoute
   '/governance/rights': typeof GovernanceRightsRoute
+  '/homework/$hid': typeof HomeworkHidRoute
+  '/homework/assign': typeof HomeworkAssignRoute
+  '/homework/compliance': typeof HomeworkComplianceRoute
+  '/homework/library': typeof HomeworkLibraryRouteWithChildren
   '/inbox/daily-brief': typeof InboxDailyBriefRoute
   '/inbox/tasks': typeof InboxTasksRoute
   '/integrations/$slug': typeof IntegrationsSlugRoute
@@ -1515,6 +1623,10 @@ export interface FileRoutesByTo {
   '/portal/profile': typeof PortalProfileRoute
   '/portal/progress': typeof PortalProgressRoute
   '/portal/sessions': typeof PortalSessionsRoute
+  '/prescriptions/formulary': typeof PrescriptionsFormularyRoute
+  '/prescriptions/new': typeof PrescriptionsNewRoute
+  '/prescriptions/refills': typeof PrescriptionsRefillsRoute
+  '/prescriptions/reviews': typeof PrescriptionsReviewsRoute
   '/schedule/availability': typeof ScheduleAvailabilityRoute
   '/schedule/export': typeof ScheduleExportRoute
   '/schedule/recurring': typeof ScheduleRecurringRoute
@@ -1561,11 +1673,13 @@ export interface FileRoutesByTo {
   '/calendar': typeof CalendarIndexRoute
   '/documents': typeof DocumentsIndexRoute
   '/governance': typeof GovernanceIndexRoute
+  '/homework': typeof HomeworkIndexRoute
   '/integrations': typeof IntegrationsIndexRoute
   '/messages': typeof MessagesIndexRoute
   '/notes': typeof NotesIndexRoute
   '/patients': typeof PatientsIndexRoute
   '/portal': typeof PortalIndexRoute
+  '/prescriptions': typeof PrescriptionsIndexRoute
   '/schedule': typeof ScheduleIndexRoute
   '/sessions': typeof SessionsIndexRoute
   '/settings': typeof SettingsIndexRoute
@@ -1580,6 +1694,7 @@ export interface FileRoutesByTo {
   '/billing/invoices/new': typeof BillingInvoicesNewRoute
   '/calendar/book/$slug': typeof CalendarBookSlugRoute
   '/documents/certificate/$id': typeof DocumentsCertificateIdRoute
+  '/homework/library/new': typeof HomeworkLibraryNewRoute
   '/notes/$nid/amend': typeof NotesNidAmendRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/billing': typeof PatientsPidBillingRoute
@@ -1589,6 +1704,10 @@ export interface FileRoutesByTo {
   '/portal/assessments/$id': typeof PortalAssessmentsIdRoute
   '/portal/documents/$token': typeof PortalDocumentsTokenRoute
   '/portal/messages/$threadId': typeof PortalMessagesThreadIdRoute
+  '/prescriptions/$mid/discontinue': typeof PrescriptionsMidDiscontinueRoute
+  '/prescriptions/$mid/letter': typeof PrescriptionsMidLetterRoute
+  '/prescriptions/$mid/titrate': typeof PrescriptionsMidTitrateRoute
+  '/prescriptions/patient/$pid': typeof PrescriptionsPatientPidRoute
   '/sessions/$id/room': typeof SessionsIdRoomRoute
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
@@ -1619,7 +1738,7 @@ export interface FileRoutesById {
   '/documents': typeof DocumentsRouteWithChildren
   '/governance': typeof GovernanceRouteWithChildren
   '/groups': typeof GroupsRoute
-  '/homework': typeof HomeworkRoute
+  '/homework': typeof HomeworkRouteWithChildren
   '/inbox': typeof InboxRouteWithChildren
   '/integrations': typeof IntegrationsRouteWithChildren
   '/library': typeof LibraryRoute
@@ -1632,7 +1751,7 @@ export interface FileRoutesById {
   '/payouts': typeof PayoutsRoute
   '/peers': typeof PeersRoute
   '/portal': typeof PortalRouteWithChildren
-  '/prescriptions': typeof PrescriptionsRoute
+  '/prescriptions': typeof PrescriptionsRouteWithChildren
   '/profile-public': typeof ProfilePublicRoute
   '/referrals': typeof ReferralsRoute
   '/research': typeof ResearchRoute
@@ -1687,6 +1806,10 @@ export interface FileRoutesById {
   '/governance/reports': typeof GovernanceReportsRoute
   '/governance/retention': typeof GovernanceRetentionRoute
   '/governance/rights': typeof GovernanceRightsRoute
+  '/homework/$hid': typeof HomeworkHidRoute
+  '/homework/assign': typeof HomeworkAssignRoute
+  '/homework/compliance': typeof HomeworkComplianceRoute
+  '/homework/library': typeof HomeworkLibraryRouteWithChildren
   '/inbox/daily-brief': typeof InboxDailyBriefRoute
   '/inbox/tasks': typeof InboxTasksRoute
   '/integrations/$slug': typeof IntegrationsSlugRoute
@@ -1716,6 +1839,10 @@ export interface FileRoutesById {
   '/portal/profile': typeof PortalProfileRoute
   '/portal/progress': typeof PortalProgressRoute
   '/portal/sessions': typeof PortalSessionsRoute
+  '/prescriptions/formulary': typeof PrescriptionsFormularyRoute
+  '/prescriptions/new': typeof PrescriptionsNewRoute
+  '/prescriptions/refills': typeof PrescriptionsRefillsRoute
+  '/prescriptions/reviews': typeof PrescriptionsReviewsRoute
   '/schedule/availability': typeof ScheduleAvailabilityRoute
   '/schedule/export': typeof ScheduleExportRoute
   '/schedule/recurring': typeof ScheduleRecurringRoute
@@ -1763,11 +1890,13 @@ export interface FileRoutesById {
   '/calendar/': typeof CalendarIndexRoute
   '/documents/': typeof DocumentsIndexRoute
   '/governance/': typeof GovernanceIndexRoute
+  '/homework/': typeof HomeworkIndexRoute
   '/integrations/': typeof IntegrationsIndexRoute
   '/messages/': typeof MessagesIndexRoute
   '/notes/': typeof NotesIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/portal/': typeof PortalIndexRoute
+  '/prescriptions/': typeof PrescriptionsIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -1782,6 +1911,7 @@ export interface FileRoutesById {
   '/billing/invoices/new': typeof BillingInvoicesNewRoute
   '/calendar/book/$slug': typeof CalendarBookSlugRoute
   '/documents/certificate/$id': typeof DocumentsCertificateIdRoute
+  '/homework/library/new': typeof HomeworkLibraryNewRoute
   '/notes/$nid/amend': typeof NotesNidAmendRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/billing': typeof PatientsPidBillingRoute
@@ -1792,6 +1922,10 @@ export interface FileRoutesById {
   '/portal/assessments/$id': typeof PortalAssessmentsIdRoute
   '/portal/documents/$token': typeof PortalDocumentsTokenRoute
   '/portal/messages/$threadId': typeof PortalMessagesThreadIdRoute
+  '/prescriptions/$mid/discontinue': typeof PrescriptionsMidDiscontinueRoute
+  '/prescriptions/$mid/letter': typeof PrescriptionsMidLetterRoute
+  '/prescriptions/$mid/titrate': typeof PrescriptionsMidTitrateRoute
+  '/prescriptions/patient/$pid': typeof PrescriptionsPatientPidRoute
   '/sessions/$id/room': typeof SessionsIdRoomRoute
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
@@ -1891,6 +2025,10 @@ export interface FileRouteTypes {
     | '/governance/reports'
     | '/governance/retention'
     | '/governance/rights'
+    | '/homework/$hid'
+    | '/homework/assign'
+    | '/homework/compliance'
+    | '/homework/library'
     | '/inbox/daily-brief'
     | '/inbox/tasks'
     | '/integrations/$slug'
@@ -1920,6 +2058,10 @@ export interface FileRouteTypes {
     | '/portal/profile'
     | '/portal/progress'
     | '/portal/sessions'
+    | '/prescriptions/formulary'
+    | '/prescriptions/new'
+    | '/prescriptions/refills'
+    | '/prescriptions/reviews'
     | '/schedule/availability'
     | '/schedule/export'
     | '/schedule/recurring'
@@ -1967,11 +2109,13 @@ export interface FileRouteTypes {
     | '/calendar/'
     | '/documents/'
     | '/governance/'
+    | '/homework/'
     | '/integrations/'
     | '/messages/'
     | '/notes/'
     | '/patients/'
     | '/portal/'
+    | '/prescriptions/'
     | '/schedule/'
     | '/sessions/'
     | '/settings/'
@@ -1986,6 +2130,7 @@ export interface FileRouteTypes {
     | '/billing/invoices/new'
     | '/calendar/book/$slug'
     | '/documents/certificate/$id'
+    | '/homework/library/new'
     | '/notes/$nid/amend'
     | '/patients/$pid/assessments'
     | '/patients/$pid/billing'
@@ -1996,6 +2141,10 @@ export interface FileRouteTypes {
     | '/portal/assessments/$id'
     | '/portal/documents/$token'
     | '/portal/messages/$threadId'
+    | '/prescriptions/$mid/discontinue'
+    | '/prescriptions/$mid/letter'
+    | '/prescriptions/$mid/titrate'
+    | '/prescriptions/patient/$pid'
     | '/sessions/$id/room'
     | '/sessions/$id/wrap'
     | '/sessions/day/$date'
@@ -2020,7 +2169,6 @@ export interface FileRouteTypes {
     | '/cpd'
     | '/dashboard'
     | '/groups'
-    | '/homework'
     | '/inbox'
     | '/library'
     | '/mcp'
@@ -2028,7 +2176,6 @@ export interface FileRouteTypes {
     | '/payments'
     | '/payouts'
     | '/peers'
-    | '/prescriptions'
     | '/profile-public'
     | '/referrals'
     | '/research'
@@ -2075,6 +2222,10 @@ export interface FileRouteTypes {
     | '/governance/reports'
     | '/governance/retention'
     | '/governance/rights'
+    | '/homework/$hid'
+    | '/homework/assign'
+    | '/homework/compliance'
+    | '/homework/library'
     | '/inbox/daily-brief'
     | '/inbox/tasks'
     | '/integrations/$slug'
@@ -2103,6 +2254,10 @@ export interface FileRouteTypes {
     | '/portal/profile'
     | '/portal/progress'
     | '/portal/sessions'
+    | '/prescriptions/formulary'
+    | '/prescriptions/new'
+    | '/prescriptions/refills'
+    | '/prescriptions/reviews'
     | '/schedule/availability'
     | '/schedule/export'
     | '/schedule/recurring'
@@ -2149,11 +2304,13 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/documents'
     | '/governance'
+    | '/homework'
     | '/integrations'
     | '/messages'
     | '/notes'
     | '/patients'
     | '/portal'
+    | '/prescriptions'
     | '/schedule'
     | '/sessions'
     | '/settings'
@@ -2168,6 +2325,7 @@ export interface FileRouteTypes {
     | '/billing/invoices/new'
     | '/calendar/book/$slug'
     | '/documents/certificate/$id'
+    | '/homework/library/new'
     | '/notes/$nid/amend'
     | '/patients/$pid/assessments'
     | '/patients/$pid/billing'
@@ -2177,6 +2335,10 @@ export interface FileRouteTypes {
     | '/portal/assessments/$id'
     | '/portal/documents/$token'
     | '/portal/messages/$threadId'
+    | '/prescriptions/$mid/discontinue'
+    | '/prescriptions/$mid/letter'
+    | '/prescriptions/$mid/titrate'
+    | '/prescriptions/patient/$pid'
     | '/sessions/$id/room'
     | '/sessions/$id/wrap'
     | '/sessions/day/$date'
@@ -2274,6 +2436,10 @@ export interface FileRouteTypes {
     | '/governance/reports'
     | '/governance/retention'
     | '/governance/rights'
+    | '/homework/$hid'
+    | '/homework/assign'
+    | '/homework/compliance'
+    | '/homework/library'
     | '/inbox/daily-brief'
     | '/inbox/tasks'
     | '/integrations/$slug'
@@ -2303,6 +2469,10 @@ export interface FileRouteTypes {
     | '/portal/profile'
     | '/portal/progress'
     | '/portal/sessions'
+    | '/prescriptions/formulary'
+    | '/prescriptions/new'
+    | '/prescriptions/refills'
+    | '/prescriptions/reviews'
     | '/schedule/availability'
     | '/schedule/export'
     | '/schedule/recurring'
@@ -2350,11 +2520,13 @@ export interface FileRouteTypes {
     | '/calendar/'
     | '/documents/'
     | '/governance/'
+    | '/homework/'
     | '/integrations/'
     | '/messages/'
     | '/notes/'
     | '/patients/'
     | '/portal/'
+    | '/prescriptions/'
     | '/schedule/'
     | '/sessions/'
     | '/settings/'
@@ -2369,6 +2541,7 @@ export interface FileRouteTypes {
     | '/billing/invoices/new'
     | '/calendar/book/$slug'
     | '/documents/certificate/$id'
+    | '/homework/library/new'
     | '/notes/$nid/amend'
     | '/patients/$pid/assessments'
     | '/patients/$pid/billing'
@@ -2379,6 +2552,10 @@ export interface FileRouteTypes {
     | '/portal/assessments/$id'
     | '/portal/documents/$token'
     | '/portal/messages/$threadId'
+    | '/prescriptions/$mid/discontinue'
+    | '/prescriptions/$mid/letter'
+    | '/prescriptions/$mid/titrate'
+    | '/prescriptions/patient/$pid'
     | '/sessions/$id/room'
     | '/sessions/$id/wrap'
     | '/sessions/day/$date'
@@ -2409,7 +2586,7 @@ export interface RootRouteChildren {
   DocumentsRoute: typeof DocumentsRouteWithChildren
   GovernanceRoute: typeof GovernanceRouteWithChildren
   GroupsRoute: typeof GroupsRoute
-  HomeworkRoute: typeof HomeworkRoute
+  HomeworkRoute: typeof HomeworkRouteWithChildren
   InboxRoute: typeof InboxRouteWithChildren
   IntegrationsRoute: typeof IntegrationsRouteWithChildren
   LibraryRoute: typeof LibraryRoute
@@ -2422,7 +2599,7 @@ export interface RootRouteChildren {
   PayoutsRoute: typeof PayoutsRoute
   PeersRoute: typeof PeersRoute
   PortalRoute: typeof PortalRouteWithChildren
-  PrescriptionsRoute: typeof PrescriptionsRoute
+  PrescriptionsRoute: typeof PrescriptionsRouteWithChildren
   ProfilePublicRoute: typeof ProfilePublicRoute
   ReferralsRoute: typeof ReferralsRoute
   ResearchRoute: typeof ResearchRoute
@@ -2805,6 +2982,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ScheduleIndexRouteImport
       parentRoute: typeof ScheduleRoute
     }
+    '/prescriptions/': {
+      id: '/prescriptions/'
+      path: '/'
+      fullPath: '/prescriptions/'
+      preLoaderRoute: typeof PrescriptionsIndexRouteImport
+      parentRoute: typeof PrescriptionsRoute
+    }
     '/portal/': {
       id: '/portal/'
       path: '/'
@@ -2839,6 +3023,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/integrations/'
       preLoaderRoute: typeof IntegrationsIndexRouteImport
       parentRoute: typeof IntegrationsRoute
+    }
+    '/homework/': {
+      id: '/homework/'
+      path: '/'
+      fullPath: '/homework/'
+      preLoaderRoute: typeof HomeworkIndexRouteImport
+      parentRoute: typeof HomeworkRoute
     }
     '/governance/': {
       id: '/governance/'
@@ -3169,6 +3360,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ScheduleAvailabilityRouteImport
       parentRoute: typeof ScheduleRoute
     }
+    '/prescriptions/reviews': {
+      id: '/prescriptions/reviews'
+      path: '/reviews'
+      fullPath: '/prescriptions/reviews'
+      preLoaderRoute: typeof PrescriptionsReviewsRouteImport
+      parentRoute: typeof PrescriptionsRoute
+    }
+    '/prescriptions/refills': {
+      id: '/prescriptions/refills'
+      path: '/refills'
+      fullPath: '/prescriptions/refills'
+      preLoaderRoute: typeof PrescriptionsRefillsRouteImport
+      parentRoute: typeof PrescriptionsRoute
+    }
+    '/prescriptions/new': {
+      id: '/prescriptions/new'
+      path: '/new'
+      fullPath: '/prescriptions/new'
+      preLoaderRoute: typeof PrescriptionsNewRouteImport
+      parentRoute: typeof PrescriptionsRoute
+    }
+    '/prescriptions/formulary': {
+      id: '/prescriptions/formulary'
+      path: '/formulary'
+      fullPath: '/prescriptions/formulary'
+      preLoaderRoute: typeof PrescriptionsFormularyRouteImport
+      parentRoute: typeof PrescriptionsRoute
+    }
     '/portal/sessions': {
       id: '/portal/sessions'
       path: '/sessions'
@@ -3371,6 +3590,34 @@ declare module '@tanstack/react-router' {
       fullPath: '/inbox/daily-brief'
       preLoaderRoute: typeof InboxDailyBriefRouteImport
       parentRoute: typeof InboxRoute
+    }
+    '/homework/library': {
+      id: '/homework/library'
+      path: '/library'
+      fullPath: '/homework/library'
+      preLoaderRoute: typeof HomeworkLibraryRouteImport
+      parentRoute: typeof HomeworkRoute
+    }
+    '/homework/compliance': {
+      id: '/homework/compliance'
+      path: '/compliance'
+      fullPath: '/homework/compliance'
+      preLoaderRoute: typeof HomeworkComplianceRouteImport
+      parentRoute: typeof HomeworkRoute
+    }
+    '/homework/assign': {
+      id: '/homework/assign'
+      path: '/assign'
+      fullPath: '/homework/assign'
+      preLoaderRoute: typeof HomeworkAssignRouteImport
+      parentRoute: typeof HomeworkRoute
+    }
+    '/homework/$hid': {
+      id: '/homework/$hid'
+      path: '/$hid'
+      fullPath: '/homework/$hid'
+      preLoaderRoute: typeof HomeworkHidRouteImport
+      parentRoute: typeof HomeworkRoute
     }
     '/governance/rights': {
       id: '/governance/rights'
@@ -3701,6 +3948,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SessionsIdRoomRouteImport
       parentRoute: typeof SessionsIdRoute
     }
+    '/prescriptions/patient/$pid': {
+      id: '/prescriptions/patient/$pid'
+      path: '/patient/$pid'
+      fullPath: '/prescriptions/patient/$pid'
+      preLoaderRoute: typeof PrescriptionsPatientPidRouteImport
+      parentRoute: typeof PrescriptionsRoute
+    }
+    '/prescriptions/$mid/titrate': {
+      id: '/prescriptions/$mid/titrate'
+      path: '/$mid/titrate'
+      fullPath: '/prescriptions/$mid/titrate'
+      preLoaderRoute: typeof PrescriptionsMidTitrateRouteImport
+      parentRoute: typeof PrescriptionsRoute
+    }
+    '/prescriptions/$mid/letter': {
+      id: '/prescriptions/$mid/letter'
+      path: '/$mid/letter'
+      fullPath: '/prescriptions/$mid/letter'
+      preLoaderRoute: typeof PrescriptionsMidLetterRouteImport
+      parentRoute: typeof PrescriptionsRoute
+    }
+    '/prescriptions/$mid/discontinue': {
+      id: '/prescriptions/$mid/discontinue'
+      path: '/$mid/discontinue'
+      fullPath: '/prescriptions/$mid/discontinue'
+      preLoaderRoute: typeof PrescriptionsMidDiscontinueRouteImport
+      parentRoute: typeof PrescriptionsRoute
+    }
     '/portal/messages/$threadId': {
       id: '/portal/messages/$threadId'
       path: '/$threadId'
@@ -3770,6 +4045,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/notes/$nid/amend'
       preLoaderRoute: typeof NotesNidAmendRouteImport
       parentRoute: typeof NotesNidRoute
+    }
+    '/homework/library/new': {
+      id: '/homework/library/new'
+      path: '/new'
+      fullPath: '/homework/library/new'
+      preLoaderRoute: typeof HomeworkLibraryNewRouteImport
+      parentRoute: typeof HomeworkLibraryRoute
     }
     '/documents/certificate/$id': {
       id: '/documents/certificate/$id'
@@ -4017,6 +4299,38 @@ const GovernanceRouteWithChildren = GovernanceRoute._addFileChildren(
   GovernanceRouteChildren,
 )
 
+interface HomeworkLibraryRouteChildren {
+  HomeworkLibraryNewRoute: typeof HomeworkLibraryNewRoute
+}
+
+const HomeworkLibraryRouteChildren: HomeworkLibraryRouteChildren = {
+  HomeworkLibraryNewRoute: HomeworkLibraryNewRoute,
+}
+
+const HomeworkLibraryRouteWithChildren = HomeworkLibraryRoute._addFileChildren(
+  HomeworkLibraryRouteChildren,
+)
+
+interface HomeworkRouteChildren {
+  HomeworkHidRoute: typeof HomeworkHidRoute
+  HomeworkAssignRoute: typeof HomeworkAssignRoute
+  HomeworkComplianceRoute: typeof HomeworkComplianceRoute
+  HomeworkLibraryRoute: typeof HomeworkLibraryRouteWithChildren
+  HomeworkIndexRoute: typeof HomeworkIndexRoute
+}
+
+const HomeworkRouteChildren: HomeworkRouteChildren = {
+  HomeworkHidRoute: HomeworkHidRoute,
+  HomeworkAssignRoute: HomeworkAssignRoute,
+  HomeworkComplianceRoute: HomeworkComplianceRoute,
+  HomeworkLibraryRoute: HomeworkLibraryRouteWithChildren,
+  HomeworkIndexRoute: HomeworkIndexRoute,
+}
+
+const HomeworkRouteWithChildren = HomeworkRoute._addFileChildren(
+  HomeworkRouteChildren,
+)
+
 interface InboxRouteChildren {
   InboxDailyBriefRoute: typeof InboxDailyBriefRoute
   InboxTasksRoute: typeof InboxTasksRoute
@@ -4226,6 +4540,34 @@ const PortalRouteChildren: PortalRouteChildren = {
 const PortalRouteWithChildren =
   PortalRoute._addFileChildren(PortalRouteChildren)
 
+interface PrescriptionsRouteChildren {
+  PrescriptionsFormularyRoute: typeof PrescriptionsFormularyRoute
+  PrescriptionsNewRoute: typeof PrescriptionsNewRoute
+  PrescriptionsRefillsRoute: typeof PrescriptionsRefillsRoute
+  PrescriptionsReviewsRoute: typeof PrescriptionsReviewsRoute
+  PrescriptionsIndexRoute: typeof PrescriptionsIndexRoute
+  PrescriptionsMidDiscontinueRoute: typeof PrescriptionsMidDiscontinueRoute
+  PrescriptionsMidLetterRoute: typeof PrescriptionsMidLetterRoute
+  PrescriptionsMidTitrateRoute: typeof PrescriptionsMidTitrateRoute
+  PrescriptionsPatientPidRoute: typeof PrescriptionsPatientPidRoute
+}
+
+const PrescriptionsRouteChildren: PrescriptionsRouteChildren = {
+  PrescriptionsFormularyRoute: PrescriptionsFormularyRoute,
+  PrescriptionsNewRoute: PrescriptionsNewRoute,
+  PrescriptionsRefillsRoute: PrescriptionsRefillsRoute,
+  PrescriptionsReviewsRoute: PrescriptionsReviewsRoute,
+  PrescriptionsIndexRoute: PrescriptionsIndexRoute,
+  PrescriptionsMidDiscontinueRoute: PrescriptionsMidDiscontinueRoute,
+  PrescriptionsMidLetterRoute: PrescriptionsMidLetterRoute,
+  PrescriptionsMidTitrateRoute: PrescriptionsMidTitrateRoute,
+  PrescriptionsPatientPidRoute: PrescriptionsPatientPidRoute,
+}
+
+const PrescriptionsRouteWithChildren = PrescriptionsRoute._addFileChildren(
+  PrescriptionsRouteChildren,
+)
+
 interface ScheduleRouteChildren {
   ScheduleAvailabilityRoute: typeof ScheduleAvailabilityRoute
   ScheduleExportRoute: typeof ScheduleExportRoute
@@ -4400,7 +4742,7 @@ const rootRouteChildren: RootRouteChildren = {
   DocumentsRoute: DocumentsRouteWithChildren,
   GovernanceRoute: GovernanceRouteWithChildren,
   GroupsRoute: GroupsRoute,
-  HomeworkRoute: HomeworkRoute,
+  HomeworkRoute: HomeworkRouteWithChildren,
   InboxRoute: InboxRouteWithChildren,
   IntegrationsRoute: IntegrationsRouteWithChildren,
   LibraryRoute: LibraryRoute,
@@ -4413,7 +4755,7 @@ const rootRouteChildren: RootRouteChildren = {
   PayoutsRoute: PayoutsRoute,
   PeersRoute: PeersRoute,
   PortalRoute: PortalRouteWithChildren,
-  PrescriptionsRoute: PrescriptionsRoute,
+  PrescriptionsRoute: PrescriptionsRouteWithChildren,
   ProfilePublicRoute: ProfilePublicRoute,
   ReferralsRoute: ReferralsRoute,
   ResearchRoute: ResearchRoute,
