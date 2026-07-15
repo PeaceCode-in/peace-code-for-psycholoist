@@ -5,6 +5,7 @@ import { CalendarClock, Clock, Wallet, Paperclip, ArrowLeft, Video, Users as Use
 import { palette } from "@/components/practice/palette";
 import { useLiveSession, MODALITY_META, updateSession } from "@/lib/sessions-store";
 import { getPatient, useLiveNotes, avatarUrl } from "@/lib/patients-store";
+import { useLivePatientTrajectory } from "@/lib/assessments-store";
 import { ContinuityTimeline } from "@/components/viz/ContinuityTimeline";
 import { MoodDeltaChart, type MoodPoint } from "@/components/viz/MoodDeltaChart";
 import { RiskRadial } from "@/components/viz/RiskRadial";
@@ -43,8 +44,9 @@ function PrepSheet() {
 
   const patient = session ? getPatient(session.patientId) : undefined;
   const notes = useLiveNotes(patient?.id ?? "");
-  const lastPHQ = 12; // placeholder aggregation from notes; kept static & real-sounding
-  const prevPHQ = 15;
+  const traj = useLivePatientTrajectory(patient?.id ?? "", "phq9");
+  const lastPHQ = traj[traj.length - 1]?.totalScore;
+  const prevPHQ = traj[traj.length - 2]?.totalScore;
 
   // Agenda editor
   const [agenda, setAgenda] = useState<string>((session?.agenda ?? []).join("\n"));
@@ -98,8 +100,10 @@ function PrepSheet() {
               </h1>
               <p className="text-[12px] mt-0.5" style={{ color: palette.muted }}>
                 {patient.totalSessions + 1}th session · {patient.primaryConcern.split(",")[0].toLowerCase()}
-                {lastPHQ !== undefined && (
-                  <> · last score PHQ-9: <span style={{ color: palette.ink }}>{lastPHQ}</span> {lastPHQ < prevPHQ ? "↓" : lastPHQ > prevPHQ ? "↑" : "→"} from {prevPHQ}</>
+                {typeof lastPHQ === "number" && (
+                  <> · last PHQ-9: <span style={{ color: palette.ink }}>{lastPHQ}</span>
+                    {typeof prevPHQ === "number" && <> {lastPHQ < prevPHQ ? "↓" : lastPHQ > prevPHQ ? "↑" : "→"} from {prevPHQ}</>}
+                  </>
                 )}
               </p>
             </div>

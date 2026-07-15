@@ -48,6 +48,7 @@ import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as SessionsIndexRouteImport } from './routes/sessions.index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
+import { Route as AssessmentsIndexRouteImport } from './routes/assessments.index'
 import { Route as SettingsTelehealthRouteImport } from './routes/settings.telehealth'
 import { Route as SettingsTeamRouteImport } from './routes/settings.team'
 import { Route as SettingsSupportRouteImport } from './routes/settings.support'
@@ -80,8 +81,11 @@ import { Route as ComplianceConsentRouteImport } from './routes/compliance.conse
 import { Route as ComplianceAuditRouteImport } from './routes/compliance.audit'
 import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
+import { Route as AssessmentsLibraryRouteImport } from './routes/assessments.library'
+import { Route as AssessmentsAssignmentsRouteImport } from './routes/assessments.assignments'
 import { Route as SessionsIdIndexRouteImport } from './routes/sessions.$id.index'
 import { Route as PatientsPidIndexRouteImport } from './routes/patients.$pid.index'
+import { Route as AssessmentsLibraryIndexRouteImport } from './routes/assessments.library.index'
 import { Route as SessionsDayDateRouteImport } from './routes/sessions.day.$date'
 import { Route as SessionsIdWrapRouteImport } from './routes/sessions.$id.wrap'
 import { Route as SessionsIdRoomRouteImport } from './routes/sessions.$id.room'
@@ -89,6 +93,10 @@ import { Route as PatientsPidTimelineRouteImport } from './routes/patients.$pid.
 import { Route as PatientsPidNotesRouteImport } from './routes/patients.$pid.notes'
 import { Route as PatientsPidDocumentsRouteImport } from './routes/patients.$pid.documents'
 import { Route as PatientsPidChartRouteImport } from './routes/patients.$pid.chart'
+import { Route as PatientsPidAssessmentsRouteImport } from './routes/patients.$pid.assessments'
+import { Route as AssessmentsTakeAssignmentIdRouteImport } from './routes/assessments.take.$assignmentId'
+import { Route as AssessmentsResultsResultIdRouteImport } from './routes/assessments.results.$resultId'
+import { Route as AssessmentsLibraryInstrumentIdRouteImport } from './routes/assessments.library.$instrumentId'
 import { Route as PatientsPidNotesIndexRouteImport } from './routes/patients.$pid.notes.index'
 import { Route as PatientsPidNotesNewRouteImport } from './routes/patients.$pid.notes.new'
 import { Route as PatientsPidNotesNidRouteImport } from './routes/patients.$pid.notes.$nid'
@@ -288,6 +296,11 @@ const AuthIndexRoute = AuthIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthRoute,
 } as any)
+const AssessmentsIndexRoute = AssessmentsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AssessmentsRoute,
+} as any)
 const SettingsTelehealthRoute = SettingsTelehealthRouteImport.update({
   id: '/telehealth',
   path: '/telehealth',
@@ -450,6 +463,16 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AuthRoute,
 } as any)
+const AssessmentsLibraryRoute = AssessmentsLibraryRouteImport.update({
+  id: '/library',
+  path: '/library',
+  getParentRoute: () => AssessmentsRoute,
+} as any)
+const AssessmentsAssignmentsRoute = AssessmentsAssignmentsRouteImport.update({
+  id: '/assignments',
+  path: '/assignments',
+  getParentRoute: () => AssessmentsRoute,
+} as any)
 const SessionsIdIndexRoute = SessionsIdIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -459,6 +482,11 @@ const PatientsPidIndexRoute = PatientsPidIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => PatientsPidRoute,
+} as any)
+const AssessmentsLibraryIndexRoute = AssessmentsLibraryIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AssessmentsLibraryRoute,
 } as any)
 const SessionsDayDateRoute = SessionsDayDateRouteImport.update({
   id: '/day/$date',
@@ -495,6 +523,29 @@ const PatientsPidChartRoute = PatientsPidChartRouteImport.update({
   path: '/chart',
   getParentRoute: () => PatientsPidRoute,
 } as any)
+const PatientsPidAssessmentsRoute = PatientsPidAssessmentsRouteImport.update({
+  id: '/assessments',
+  path: '/assessments',
+  getParentRoute: () => PatientsPidRoute,
+} as any)
+const AssessmentsTakeAssignmentIdRoute =
+  AssessmentsTakeAssignmentIdRouteImport.update({
+    id: '/take/$assignmentId',
+    path: '/take/$assignmentId',
+    getParentRoute: () => AssessmentsRoute,
+  } as any)
+const AssessmentsResultsResultIdRoute =
+  AssessmentsResultsResultIdRouteImport.update({
+    id: '/results/$resultId',
+    path: '/results/$resultId',
+    getParentRoute: () => AssessmentsRoute,
+  } as any)
+const AssessmentsLibraryInstrumentIdRoute =
+  AssessmentsLibraryInstrumentIdRouteImport.update({
+    id: '/$instrumentId',
+    path: '/$instrumentId',
+    getParentRoute: () => AssessmentsLibraryRoute,
+  } as any)
 const PatientsPidNotesIndexRoute = PatientsPidNotesIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -515,7 +566,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/alerts': typeof AlertsRoute
   '/analytics': typeof AnalyticsRoute
-  '/assessments': typeof AssessmentsRoute
+  '/assessments': typeof AssessmentsRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/availability': typeof AvailabilityRoute
   '/case-conferences': typeof CaseConferencesRoute
@@ -547,6 +598,8 @@ export interface FileRoutesByFullPath {
   '/templates': typeof TemplatesRoute
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
+  '/assessments/assignments': typeof AssessmentsAssignmentsRoute
+  '/assessments/library': typeof AssessmentsLibraryRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
   '/compliance/audit': typeof ComplianceAuditRoute
@@ -579,10 +632,15 @@ export interface FileRoutesByFullPath {
   '/settings/support': typeof SettingsSupportRoute
   '/settings/team': typeof SettingsTeamRoute
   '/settings/telehealth': typeof SettingsTelehealthRoute
+  '/assessments/': typeof AssessmentsIndexRoute
   '/auth/': typeof AuthIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
+  '/assessments/library/$instrumentId': typeof AssessmentsLibraryInstrumentIdRoute
+  '/assessments/results/$resultId': typeof AssessmentsResultsResultIdRoute
+  '/assessments/take/$assignmentId': typeof AssessmentsTakeAssignmentIdRoute
+  '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
   '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
   '/patients/$pid/notes': typeof PatientsPidNotesRouteWithChildren
@@ -590,6 +648,7 @@ export interface FileRoutesByFullPath {
   '/sessions/$id/room': typeof SessionsIdRoomRoute
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
+  '/assessments/library/': typeof AssessmentsLibraryIndexRoute
   '/patients/$pid/': typeof PatientsPidIndexRoute
   '/sessions/$id/': typeof SessionsIdIndexRoute
   '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
@@ -600,7 +659,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/alerts': typeof AlertsRoute
   '/analytics': typeof AnalyticsRoute
-  '/assessments': typeof AssessmentsRoute
   '/availability': typeof AvailabilityRoute
   '/case-conferences': typeof CaseConferencesRoute
   '/cpd': typeof CpdRoute
@@ -628,6 +686,7 @@ export interface FileRoutesByTo {
   '/templates': typeof TemplatesRoute
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
+  '/assessments/assignments': typeof AssessmentsAssignmentsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
   '/compliance/audit': typeof ComplianceAuditRoute
@@ -658,16 +717,22 @@ export interface FileRoutesByTo {
   '/settings/support': typeof SettingsSupportRoute
   '/settings/team': typeof SettingsTeamRoute
   '/settings/telehealth': typeof SettingsTelehealthRoute
+  '/assessments': typeof AssessmentsIndexRoute
   '/auth': typeof AuthIndexRoute
   '/patients': typeof PatientsIndexRoute
   '/sessions': typeof SessionsIndexRoute
   '/settings': typeof SettingsIndexRoute
+  '/assessments/library/$instrumentId': typeof AssessmentsLibraryInstrumentIdRoute
+  '/assessments/results/$resultId': typeof AssessmentsResultsResultIdRoute
+  '/assessments/take/$assignmentId': typeof AssessmentsTakeAssignmentIdRoute
+  '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
   '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
   '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
   '/sessions/$id/room': typeof SessionsIdRoomRoute
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
+  '/assessments/library': typeof AssessmentsLibraryIndexRoute
   '/patients/$pid': typeof PatientsPidIndexRoute
   '/sessions/$id': typeof SessionsIdIndexRoute
   '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
@@ -679,7 +744,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/alerts': typeof AlertsRoute
   '/analytics': typeof AnalyticsRoute
-  '/assessments': typeof AssessmentsRoute
+  '/assessments': typeof AssessmentsRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/availability': typeof AvailabilityRoute
   '/case-conferences': typeof CaseConferencesRoute
@@ -711,6 +776,8 @@ export interface FileRoutesById {
   '/templates': typeof TemplatesRoute
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
+  '/assessments/assignments': typeof AssessmentsAssignmentsRoute
+  '/assessments/library': typeof AssessmentsLibraryRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
   '/compliance/audit': typeof ComplianceAuditRoute
@@ -743,10 +810,15 @@ export interface FileRoutesById {
   '/settings/support': typeof SettingsSupportRoute
   '/settings/team': typeof SettingsTeamRoute
   '/settings/telehealth': typeof SettingsTelehealthRoute
+  '/assessments/': typeof AssessmentsIndexRoute
   '/auth/': typeof AuthIndexRoute
   '/patients/': typeof PatientsIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
+  '/assessments/library/$instrumentId': typeof AssessmentsLibraryInstrumentIdRoute
+  '/assessments/results/$resultId': typeof AssessmentsResultsResultIdRoute
+  '/assessments/take/$assignmentId': typeof AssessmentsTakeAssignmentIdRoute
+  '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
   '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
   '/patients/$pid/notes': typeof PatientsPidNotesRouteWithChildren
@@ -754,6 +826,7 @@ export interface FileRoutesById {
   '/sessions/$id/room': typeof SessionsIdRoomRoute
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
+  '/assessments/library/': typeof AssessmentsLibraryIndexRoute
   '/patients/$pid/': typeof PatientsPidIndexRoute
   '/sessions/$id/': typeof SessionsIdIndexRoute
   '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
@@ -798,6 +871,8 @@ export interface FileRouteTypes {
     | '/templates'
     | '/treatment-plans'
     | '/waitlist'
+    | '/assessments/assignments'
+    | '/assessments/library'
     | '/auth/login'
     | '/auth/signup'
     | '/compliance/audit'
@@ -830,10 +905,15 @@ export interface FileRouteTypes {
     | '/settings/support'
     | '/settings/team'
     | '/settings/telehealth'
+    | '/assessments/'
     | '/auth/'
     | '/patients/'
     | '/sessions/'
     | '/settings/'
+    | '/assessments/library/$instrumentId'
+    | '/assessments/results/$resultId'
+    | '/assessments/take/$assignmentId'
+    | '/patients/$pid/assessments'
     | '/patients/$pid/chart'
     | '/patients/$pid/documents'
     | '/patients/$pid/notes'
@@ -841,6 +921,7 @@ export interface FileRouteTypes {
     | '/sessions/$id/room'
     | '/sessions/$id/wrap'
     | '/sessions/day/$date'
+    | '/assessments/library/'
     | '/patients/$pid/'
     | '/sessions/$id/'
     | '/patients/$pid/notes/$nid'
@@ -851,7 +932,6 @@ export interface FileRouteTypes {
     | '/'
     | '/alerts'
     | '/analytics'
-    | '/assessments'
     | '/availability'
     | '/case-conferences'
     | '/cpd'
@@ -879,6 +959,7 @@ export interface FileRouteTypes {
     | '/templates'
     | '/treatment-plans'
     | '/waitlist'
+    | '/assessments/assignments'
     | '/auth/login'
     | '/auth/signup'
     | '/compliance/audit'
@@ -909,16 +990,22 @@ export interface FileRouteTypes {
     | '/settings/support'
     | '/settings/team'
     | '/settings/telehealth'
+    | '/assessments'
     | '/auth'
     | '/patients'
     | '/sessions'
     | '/settings'
+    | '/assessments/library/$instrumentId'
+    | '/assessments/results/$resultId'
+    | '/assessments/take/$assignmentId'
+    | '/patients/$pid/assessments'
     | '/patients/$pid/chart'
     | '/patients/$pid/documents'
     | '/patients/$pid/timeline'
     | '/sessions/$id/room'
     | '/sessions/$id/wrap'
     | '/sessions/day/$date'
+    | '/assessments/library'
     | '/patients/$pid'
     | '/sessions/$id'
     | '/patients/$pid/notes/$nid'
@@ -961,6 +1048,8 @@ export interface FileRouteTypes {
     | '/templates'
     | '/treatment-plans'
     | '/waitlist'
+    | '/assessments/assignments'
+    | '/assessments/library'
     | '/auth/login'
     | '/auth/signup'
     | '/compliance/audit'
@@ -993,10 +1082,15 @@ export interface FileRouteTypes {
     | '/settings/support'
     | '/settings/team'
     | '/settings/telehealth'
+    | '/assessments/'
     | '/auth/'
     | '/patients/'
     | '/sessions/'
     | '/settings/'
+    | '/assessments/library/$instrumentId'
+    | '/assessments/results/$resultId'
+    | '/assessments/take/$assignmentId'
+    | '/patients/$pid/assessments'
     | '/patients/$pid/chart'
     | '/patients/$pid/documents'
     | '/patients/$pid/notes'
@@ -1004,6 +1098,7 @@ export interface FileRouteTypes {
     | '/sessions/$id/room'
     | '/sessions/$id/wrap'
     | '/sessions/day/$date'
+    | '/assessments/library/'
     | '/patients/$pid/'
     | '/sessions/$id/'
     | '/patients/$pid/notes/$nid'
@@ -1015,7 +1110,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AlertsRoute: typeof AlertsRoute
   AnalyticsRoute: typeof AnalyticsRoute
-  AssessmentsRoute: typeof AssessmentsRoute
+  AssessmentsRoute: typeof AssessmentsRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
   AvailabilityRoute: typeof AvailabilityRoute
   CaseConferencesRoute: typeof CaseConferencesRoute
@@ -1327,6 +1422,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthIndexRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/assessments/': {
+      id: '/assessments/'
+      path: '/'
+      fullPath: '/assessments/'
+      preLoaderRoute: typeof AssessmentsIndexRouteImport
+      parentRoute: typeof AssessmentsRoute
+    }
     '/settings/telehealth': {
       id: '/settings/telehealth'
       path: '/telehealth'
@@ -1551,6 +1653,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/assessments/library': {
+      id: '/assessments/library'
+      path: '/library'
+      fullPath: '/assessments/library'
+      preLoaderRoute: typeof AssessmentsLibraryRouteImport
+      parentRoute: typeof AssessmentsRoute
+    }
+    '/assessments/assignments': {
+      id: '/assessments/assignments'
+      path: '/assignments'
+      fullPath: '/assessments/assignments'
+      preLoaderRoute: typeof AssessmentsAssignmentsRouteImport
+      parentRoute: typeof AssessmentsRoute
+    }
     '/sessions/$id/': {
       id: '/sessions/$id/'
       path: '/'
@@ -1564,6 +1680,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/patients/$pid/'
       preLoaderRoute: typeof PatientsPidIndexRouteImport
       parentRoute: typeof PatientsPidRoute
+    }
+    '/assessments/library/': {
+      id: '/assessments/library/'
+      path: '/'
+      fullPath: '/assessments/library/'
+      preLoaderRoute: typeof AssessmentsLibraryIndexRouteImport
+      parentRoute: typeof AssessmentsLibraryRoute
     }
     '/sessions/day/$date': {
       id: '/sessions/day/$date'
@@ -1614,6 +1737,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PatientsPidChartRouteImport
       parentRoute: typeof PatientsPidRoute
     }
+    '/patients/$pid/assessments': {
+      id: '/patients/$pid/assessments'
+      path: '/assessments'
+      fullPath: '/patients/$pid/assessments'
+      preLoaderRoute: typeof PatientsPidAssessmentsRouteImport
+      parentRoute: typeof PatientsPidRoute
+    }
+    '/assessments/take/$assignmentId': {
+      id: '/assessments/take/$assignmentId'
+      path: '/take/$assignmentId'
+      fullPath: '/assessments/take/$assignmentId'
+      preLoaderRoute: typeof AssessmentsTakeAssignmentIdRouteImport
+      parentRoute: typeof AssessmentsRoute
+    }
+    '/assessments/results/$resultId': {
+      id: '/assessments/results/$resultId'
+      path: '/results/$resultId'
+      fullPath: '/assessments/results/$resultId'
+      preLoaderRoute: typeof AssessmentsResultsResultIdRouteImport
+      parentRoute: typeof AssessmentsRoute
+    }
+    '/assessments/library/$instrumentId': {
+      id: '/assessments/library/$instrumentId'
+      path: '/$instrumentId'
+      fullPath: '/assessments/library/$instrumentId'
+      preLoaderRoute: typeof AssessmentsLibraryInstrumentIdRouteImport
+      parentRoute: typeof AssessmentsLibraryRoute
+    }
     '/patients/$pid/notes/': {
       id: '/patients/$pid/notes/'
       path: '/'
@@ -1637,6 +1788,39 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AssessmentsLibraryRouteChildren {
+  AssessmentsLibraryInstrumentIdRoute: typeof AssessmentsLibraryInstrumentIdRoute
+  AssessmentsLibraryIndexRoute: typeof AssessmentsLibraryIndexRoute
+}
+
+const AssessmentsLibraryRouteChildren: AssessmentsLibraryRouteChildren = {
+  AssessmentsLibraryInstrumentIdRoute: AssessmentsLibraryInstrumentIdRoute,
+  AssessmentsLibraryIndexRoute: AssessmentsLibraryIndexRoute,
+}
+
+const AssessmentsLibraryRouteWithChildren =
+  AssessmentsLibraryRoute._addFileChildren(AssessmentsLibraryRouteChildren)
+
+interface AssessmentsRouteChildren {
+  AssessmentsAssignmentsRoute: typeof AssessmentsAssignmentsRoute
+  AssessmentsLibraryRoute: typeof AssessmentsLibraryRouteWithChildren
+  AssessmentsIndexRoute: typeof AssessmentsIndexRoute
+  AssessmentsResultsResultIdRoute: typeof AssessmentsResultsResultIdRoute
+  AssessmentsTakeAssignmentIdRoute: typeof AssessmentsTakeAssignmentIdRoute
+}
+
+const AssessmentsRouteChildren: AssessmentsRouteChildren = {
+  AssessmentsAssignmentsRoute: AssessmentsAssignmentsRoute,
+  AssessmentsLibraryRoute: AssessmentsLibraryRouteWithChildren,
+  AssessmentsIndexRoute: AssessmentsIndexRoute,
+  AssessmentsResultsResultIdRoute: AssessmentsResultsResultIdRoute,
+  AssessmentsTakeAssignmentIdRoute: AssessmentsTakeAssignmentIdRoute,
+}
+
+const AssessmentsRouteWithChildren = AssessmentsRoute._addFileChildren(
+  AssessmentsRouteChildren,
+)
 
 interface AuthRouteChildren {
   AuthLoginRoute: typeof AuthLoginRoute
@@ -1668,6 +1852,7 @@ const PatientsPidNotesRouteWithChildren =
   PatientsPidNotesRoute._addFileChildren(PatientsPidNotesRouteChildren)
 
 interface PatientsPidRouteChildren {
+  PatientsPidAssessmentsRoute: typeof PatientsPidAssessmentsRoute
   PatientsPidChartRoute: typeof PatientsPidChartRoute
   PatientsPidDocumentsRoute: typeof PatientsPidDocumentsRoute
   PatientsPidNotesRoute: typeof PatientsPidNotesRouteWithChildren
@@ -1676,6 +1861,7 @@ interface PatientsPidRouteChildren {
 }
 
 const PatientsPidRouteChildren: PatientsPidRouteChildren = {
+  PatientsPidAssessmentsRoute: PatientsPidAssessmentsRoute,
   PatientsPidChartRoute: PatientsPidChartRoute,
   PatientsPidDocumentsRoute: PatientsPidDocumentsRoute,
   PatientsPidNotesRoute: PatientsPidNotesRouteWithChildren,
@@ -1799,7 +1985,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AlertsRoute: AlertsRoute,
   AnalyticsRoute: AnalyticsRoute,
-  AssessmentsRoute: AssessmentsRoute,
+  AssessmentsRoute: AssessmentsRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
   AvailabilityRoute: AvailabilityRoute,
   CaseConferencesRoute: CaseConferencesRoute,
