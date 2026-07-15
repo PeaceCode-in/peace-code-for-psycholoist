@@ -31,7 +31,7 @@ type Category = {
   label: string;
   meta: string;
   icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
-  items: NavItem[];
+  items: FlyoutItem[];
 };
 
 // Seven category tubes. Every existing route lives inside one of these.
