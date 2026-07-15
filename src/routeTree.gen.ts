@@ -30,6 +30,7 @@ import { Route as PaymentsRouteImport } from './routes/payments'
 import { Route as PatientsRouteImport } from './routes/patients'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as NotesRouteImport } from './routes/notes'
+import { Route as MessagesRouteImport } from './routes/messages'
 import { Route as LibraryRouteImport } from './routes/library'
 import { Route as InboxRouteImport } from './routes/inbox'
 import { Route as HomeworkRouteImport } from './routes/homework'
@@ -226,6 +227,11 @@ const NotificationsRoute = NotificationsRouteImport.update({
 const NotesRoute = NotesRouteImport.update({
   id: '/notes',
   path: '/notes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MessagesRoute = MessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LibraryRoute = LibraryRouteImport.update({
@@ -710,6 +716,7 @@ export interface FileRoutesByFullPath {
   '/homework': typeof HomeworkRoute
   '/inbox': typeof InboxRoute
   '/library': typeof LibraryRoute
+  '/messages': typeof MessagesRoute
   '/notes': typeof NotesRoute
   '/notifications': typeof NotificationsRoute
   '/patients': typeof PatientsRouteWithChildren
@@ -822,6 +829,7 @@ export interface FileRoutesByTo {
   '/homework': typeof HomeworkRoute
   '/inbox': typeof InboxRoute
   '/library': typeof LibraryRoute
+  '/messages': typeof MessagesRoute
   '/notes': typeof NotesRoute
   '/notifications': typeof NotificationsRoute
   '/payments': typeof PaymentsRoute
@@ -929,6 +937,7 @@ export interface FileRoutesById {
   '/homework': typeof HomeworkRoute
   '/inbox': typeof InboxRoute
   '/library': typeof LibraryRoute
+  '/messages': typeof MessagesRoute
   '/notes': typeof NotesRoute
   '/notifications': typeof NotificationsRoute
   '/patients': typeof PatientsRouteWithChildren
@@ -1046,6 +1055,7 @@ export interface FileRouteTypes {
     | '/homework'
     | '/inbox'
     | '/library'
+    | '/messages'
     | '/notes'
     | '/notifications'
     | '/patients'
@@ -1158,6 +1168,7 @@ export interface FileRouteTypes {
     | '/homework'
     | '/inbox'
     | '/library'
+    | '/messages'
     | '/notes'
     | '/notifications'
     | '/payments'
@@ -1264,6 +1275,7 @@ export interface FileRouteTypes {
     | '/homework'
     | '/inbox'
     | '/library'
+    | '/messages'
     | '/notes'
     | '/notifications'
     | '/patients'
@@ -1380,6 +1392,7 @@ export interface RootRouteChildren {
   HomeworkRoute: typeof HomeworkRoute
   InboxRoute: typeof InboxRoute
   LibraryRoute: typeof LibraryRoute
+  MessagesRoute: typeof MessagesRoute
   NotesRoute: typeof NotesRoute
   NotificationsRoute: typeof NotificationsRoute
   PatientsRoute: typeof PatientsRouteWithChildren
@@ -1562,6 +1575,13 @@ declare module '@tanstack/react-router' {
       path: '/notes'
       fullPath: '/notes'
       preLoaderRoute: typeof NotesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/messages': {
+      id: '/messages'
+      path: '/messages'
+      fullPath: '/messages'
+      preLoaderRoute: typeof MessagesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/library': {
@@ -2472,6 +2492,7 @@ const rootRouteChildren: RootRouteChildren = {
   HomeworkRoute: HomeworkRoute,
   InboxRoute: InboxRoute,
   LibraryRoute: LibraryRoute,
+  MessagesRoute: MessagesRoute,
   NotesRoute: NotesRoute,
   NotificationsRoute: NotificationsRoute,
   PatientsRoute: PatientsRouteWithChildren,
