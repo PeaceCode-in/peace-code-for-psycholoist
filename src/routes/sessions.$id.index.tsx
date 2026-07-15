@@ -5,6 +5,7 @@ import { CalendarClock, Clock, Wallet, Paperclip, ArrowLeft, Video, Users as Use
 import { palette } from "@/components/practice/palette";
 import { useLiveSession, MODALITY_META, updateSession } from "@/lib/sessions-store";
 import { getPatient, useLiveNotes, avatarUrl } from "@/lib/patients-store";
+import { useLivePatientTrajectory } from "@/lib/assessments-store";
 import { ContinuityTimeline } from "@/components/viz/ContinuityTimeline";
 import { MoodDeltaChart, type MoodPoint } from "@/components/viz/MoodDeltaChart";
 import { RiskRadial } from "@/components/viz/RiskRadial";
