@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "sonner";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { AppShell } from "@/components/practice/AppShell";
 import { palette } from "@/components/practice/palette";
@@ -87,7 +88,7 @@ function DocumentDetail() {
               <button onClick={() => {
                 const url = `${window.location.origin}/portal/documents/${inst.token}`;
                 navigator.clipboard.writeText(url);
-                alert(`Signing link copied:\n${url}`);
+                toast("Signing link copied to clipboard.");
               }} className="h-9 px-3 rounded-full text-[12px] flex items-center gap-1.5"
                 style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}>
                 <ExternalLink className="w-3.5 h-3.5" /> Copy signing link

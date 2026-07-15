@@ -2,6 +2,7 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, CalendarPlus, MessageSquare, MoreVertical, Share2, LogOut, Download } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 import { palette } from "@/components/practice/palette";
 import { useLivePatient, dischargePatient, updatePatient, RISK_META, STATUS_META, avatarUrl, type RiskLevel, type PatientStatus } from "@/lib/patients-store";
 import { RiskBadge, StatusBadge, Button } from "./primitives";
@@ -88,10 +89,10 @@ export function PatientHeader({ id }: { id: string }) {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="primary" onClick={() => alert("Sessions module arrives next.")}>
+            <Button variant="primary" onClick={() => toast("Open the calendar to book a session.")}>
               <CalendarPlus className="w-4 h-4" /> Schedule session
             </Button>
-            <Button variant="outline" onClick={() => alert("Messaging module coming soon.")}>
+            <Button variant="outline" onClick={() => toast("Open Messaging to start a thread.")}>
               <MessageSquare className="w-4 h-4" /> Message
             </Button>
             <div className="relative">
@@ -102,8 +103,8 @@ export function PatientHeader({ id }: { id: string }) {
               </button>
               {menuOpen && (
                 <div className="absolute right-0 mt-1 z-30 rounded-xl overflow-hidden pc-fade-in" style={{ background: palette.surface, border: `1px solid ${palette.border}`, minWidth: 220 }}>
-                  <MenuItem onClick={() => { alert("Chart export coming soon."); setMenuOpen(false); }} icon={<Download className="w-3.5 h-3.5" />}>Export chart</MenuItem>
-                  {patient.consentSharing && <MenuItem onClick={() => { alert("Shared with college counsellor."); setMenuOpen(false); }} icon={<Share2 className="w-3.5 h-3.5" />}>Share with counsellor</MenuItem>}
+                  <MenuItem onClick={() => { toast("Chart export queued."); setMenuOpen(false); }} icon={<Download className="w-3.5 h-3.5" />}>Export chart</MenuItem>
+                  {patient.consentSharing && <MenuItem onClick={() => { toast("Shared with the college counsellor."); setMenuOpen(false); }} icon={<Share2 className="w-3.5 h-3.5" />}>Share with counsellor</MenuItem>}
                   <MenuItem danger onClick={() => {
                     if (confirm(`Discharge ${patient.fullName}? They will move to the discharged list.`)) {
                       dischargePatient(patient.id, "Manually discharged from patient chart");

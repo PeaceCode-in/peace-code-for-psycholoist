@@ -6,7 +6,8 @@ import { EthicsRibbon, CopilotPanel, SemicolonMark } from "@/components/practice
 import { useCopilotSettings, updateSettings, useAudit, type Tone, type Length, type Retention } from "@/lib/copilot-store";
 
 export const Route = createFileRoute("/settings/copilot")({
-  head: () => ({ meta: [{ title: "Copilot Settings — PeaceCode · Practice" }] }),
+  head: () => ({ meta: [
+      { name: "robots", content: "noindex" },{ title: "Copilot Settings — PeaceCode · Practice" }] }),
   component: CopilotSettingsPage,
 });
 

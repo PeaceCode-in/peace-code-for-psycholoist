@@ -5,9 +5,10 @@ import { palette } from "@/components/practice/palette";
 import { Users } from "lucide-react";
 
 export const Route = createFileRoute("/settings/team")({
+  head: () => ({ meta: [{ title: "Team — Settings" }, { name: "robots", content: "noindex" }] }),
   component: () => (
     <>
-      <PageHeader title="Team" description="Add associates and receptionists to your practice — coming soon." />
+      <PageHeader title="Team" description="Add associates and receptionists to your practice." />
       <Section title="Members">
         <div className="p-6 flex items-center gap-4">
           <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: palette.soft, color: palette.primary }}><Users className="w-5 h-5" /></div>

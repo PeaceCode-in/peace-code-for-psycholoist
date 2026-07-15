@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { toast } from "sonner";
 import { useState } from "react";
 import { palette } from "@/components/practice/palette";
 import { useLiveInvoices, sendReminder, INVOICE_STATUS_META, type InvoiceStatus } from "@/lib/billing-store";
@@ -97,7 +98,7 @@ function InvoiceList() {
               <span className="text-right"><CurrencyNumber value={inv.balance} size="sm" animate={false} muted={inv.balance === 0} /></span>
               <span><StatusPill status={inv.status} /></span>
               <button
-                onClick={(e) => { e.preventDefault(); if (inv.balance > 0) { sendReminder(inv.id); alert("Reminder sent."); } }}
+                onClick={(e) => { e.preventDefault(); if (inv.balance > 0) { sendReminder(inv.id); toast("Reminder sent."); } }}
                 className="opacity-0 group-hover:opacity-100 transition-opacity p-1"
                 style={{ color: palette.muted }} title="Send reminder">
                 <MailPlus className="w-3.5 h-3.5" />

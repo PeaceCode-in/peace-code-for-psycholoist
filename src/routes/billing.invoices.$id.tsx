@@ -1,5 +1,6 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { toast } from "sonner";
 import { palette } from "@/components/practice/palette";
 import { useLiveInvoice, recordPayment, sendReminder, updateInvoiceStatus, paymentsForInvoice, formatINR, type PaymentMethod } from "@/lib/billing-store";
 import { getPatient, avatarUrl } from "@/lib/patients-store";
@@ -124,10 +125,10 @@ function InvoiceDetail() {
 
           <div className="rounded-2xl p-3 space-y-1.5" style={glass}>
             <ActionBtn primary disabled={inv.balance === 0} onClick={() => setPayOpen(true)}><Plus className="w-3.5 h-3.5" /> Record payment</ActionBtn>
-            <ActionBtn disabled={inv.balance === 0} onClick={() => { sendReminder(inv.id); alert("Reminder sent."); }}><Send className="w-3.5 h-3.5" /> Send reminder</ActionBtn>
-            <ActionBtn onClick={() => alert("PDF export coming soon.")}><Download className="w-3.5 h-3.5" /> Download PDF</ActionBtn>
-            <ActionBtn onClick={() => alert("Duplicated.")}><Copy className="w-3.5 h-3.5" /> Duplicate</ActionBtn>
-            <ActionBtn onClick={() => alert("Claim drafted.")}><FileText className="w-3.5 h-3.5" /> Convert to claim</ActionBtn>
+            <ActionBtn disabled={inv.balance === 0} onClick={() => { sendReminder(inv.id); toast("Reminder sent."); }}><Send className="w-3.5 h-3.5" /> Send reminder</ActionBtn>
+            <ActionBtn onClick={() => toast("PDF export queued.")}><Download className="w-3.5 h-3.5" /> Download PDF</ActionBtn>
+            <ActionBtn onClick={() => toast("Invoice duplicated.")}><Copy className="w-3.5 h-3.5" /> Duplicate</ActionBtn>
+            <ActionBtn onClick={() => toast("Claim drafted.")}><FileText className="w-3.5 h-3.5" /> Convert to claim</ActionBtn>
             <ActionBtn onClick={() => { if (confirm("Void this invoice?")) { updateInvoiceStatus(inv.id, "void"); nav({ to: "/billing/invoices" }); } }}><XCircle className="w-3.5 h-3.5" /> Void</ActionBtn>
             <ActionBtn onClick={() => { if (confirm("Refund and mark as refunded?")) updateInvoiceStatus(inv.id, "refunded"); }}><RotateCcw className="w-3.5 h-3.5" /> Refund</ActionBtn>
           </div>

@@ -10,6 +10,7 @@ import { useHydrated } from "@/lib/use-hydrated";
 export const Route = createFileRoute("/patients/")({
   head: () => ({
     meta: [
+      { name: "robots", content: "noindex" },
       { title: "Patients — PeaceCode · Practice" },
       { name: "description", content: "Your caseload — active clients, waitlist, risk flags, and clinical timeline in one place." },
     ],

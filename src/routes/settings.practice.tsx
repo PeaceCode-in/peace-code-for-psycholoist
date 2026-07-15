@@ -4,6 +4,7 @@ import { Section, Row, TextField, Toggle } from "@/components/settings/primitive
 import { usePractice } from "@/lib/practice-settings-store";
 
 export const Route = createFileRoute("/settings/practice")({
+  head: () => ({ meta: [{ name: "robots", content: "noindex" }] }),
   component: () => {
     const [s, set] = usePractice();
     return (

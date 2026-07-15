@@ -5,6 +5,7 @@ import { usePractice } from "@/lib/practice-settings-store";
 import { endSession } from "@/lib/auth-store";
 
 export const Route = createFileRoute("/settings/security")({
+  head: () => ({ meta: [{ name: "robots", content: "noindex" }] }),
   component: () => {
     const [s, set] = usePractice();
     const nav = useNavigate();

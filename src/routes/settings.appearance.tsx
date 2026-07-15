@@ -4,6 +4,7 @@ import { Section, Row, Segmented, Toggle, Chip } from "@/components/settings/pri
 import { useSettings, ACCENTS, BG_THEMES, type AccentKey, type BgThemeKey } from "@/lib/settings-store";
 
 export const Route = createFileRoute("/settings/appearance")({
+  head: () => ({ meta: [{ name: "robots", content: "noindex" }] }),
   component: () => {
     const [s, setS] = useSettings();
     return (

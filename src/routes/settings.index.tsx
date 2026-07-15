@@ -6,6 +6,7 @@ import { ChevronRight } from "lucide-react";
 export const Route = createFileRoute("/settings/")({
   head: () => ({
     meta: [
+      { name: "robots", content: "noindex" },
       { title: "Settings — PeaceCode · Practice" },
       { name: "description", content: "Configure your clinical profile, availability, payments, compliance, and preferences." },
     ],

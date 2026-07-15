@@ -7,7 +7,8 @@ import { Button, Card, Label, SectionLabel, TextArea, TextInput, Select, RiskBad
 import { createPatient, type Pronouns, type RiskLevel } from "@/lib/patients-store";
 
 export const Route = createFileRoute("/patients/new")({
-  head: () => ({ meta: [{ title: "Add patient — PeaceCode · Practice" }, { name: "description", content: "Intake form for a new client — identity, context, risk, emergency contact and consent." }] }),
+  head: () => ({ meta: [
+      { name: "robots", content: "noindex" },{ title: "Add patient — PeaceCode · Practice" }, { name: "description", content: "Intake form for a new client — identity, context, risk, emergency contact and consent." }] }),
   component: NewPatient,
 });
 

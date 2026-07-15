@@ -3,7 +3,8 @@ import { PageHeader } from "@/components/practice/PageHeader";
 import { Section, Row } from "@/components/settings/primitives";
 
 export const Route = createFileRoute("/settings/support")({
-  head: () => ({ meta: [{ title: "Support — Settings" }] }),
+  head: () => ({ meta: [
+      { name: "robots", content: "noindex" },{ title: "Support — Settings" }] }),
   component: () => (
     <>
       <PageHeader title="Support" description="Contact PeaceCode, submit bug, feature request." />

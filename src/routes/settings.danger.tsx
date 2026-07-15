@@ -4,6 +4,7 @@ import { Section, Row, DangerButton } from "@/components/settings/primitives";
 import { endSession } from "@/lib/auth-store";
 
 export const Route = createFileRoute("/settings/danger")({
+  head: () => ({ meta: [{ name: "robots", content: "noindex" }] }),
   component: () => {
     const nav = useNavigate();
     return (

@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/practice/PageHeader";
 import { Section, Row } from "@/components/settings/primitives";
 
 export const Route = createFileRoute("/settings/about")({
+  head: () => ({ meta: [{ name: "robots", content: "noindex" }] }),
   component: () => (
     <>
       <PageHeader title="About" description="Version and legal." />

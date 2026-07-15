@@ -6,6 +6,7 @@ import { ShieldCheck, ShieldAlert } from "lucide-react";
 import { palette } from "@/components/practice/palette";
 
 export const Route = createFileRoute("/settings/credentials")({
+  head: () => ({ meta: [{ name: "robots", content: "noindex" }] }),
   component: () => {
     const [s, set] = usePractice();
     const verified = s.credentials.verified;

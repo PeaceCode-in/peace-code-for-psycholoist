@@ -5,6 +5,7 @@ import { usePractice } from "@/lib/practice-settings-store";
 import { palette } from "@/components/practice/palette";
 
 export const Route = createFileRoute("/settings/services")({
+  head: () => ({ meta: [{ name: "robots", content: "noindex" }] }),
   component: () => {
     const [s, set] = usePractice();
     return (

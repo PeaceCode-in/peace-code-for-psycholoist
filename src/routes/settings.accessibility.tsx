@@ -3,7 +3,8 @@ import { PageHeader } from "@/components/practice/PageHeader";
 import { Section, Row } from "@/components/settings/primitives";
 
 export const Route = createFileRoute("/settings/accessibility")({
-  head: () => ({ meta: [{ title: "Accessibility — Settings" }] }),
+  head: () => ({ meta: [
+      { name: "robots", content: "noindex" },{ title: "Accessibility — Settings" }] }),
   component: () => (
     <>
       <PageHeader title="Accessibility" description="Font size, contrast, reduced motion, screen reader tags." />

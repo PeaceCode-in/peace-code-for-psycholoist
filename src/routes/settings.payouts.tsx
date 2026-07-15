@@ -4,6 +4,7 @@ import { Section, Row, TextField, Segmented } from "@/components/settings/primit
 import { usePractice } from "@/lib/practice-settings-store";
 
 export const Route = createFileRoute("/settings/payouts")({
+  head: () => ({ meta: [{ name: "robots", content: "noindex" }] }),
   component: () => {
     const [s, set] = usePractice();
     return (
