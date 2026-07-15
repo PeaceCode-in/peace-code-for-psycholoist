@@ -83,6 +83,8 @@ import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as SessionsIdIndexRouteImport } from './routes/sessions.$id.index'
 import { Route as PatientsPidIndexRouteImport } from './routes/patients.$pid.index'
 import { Route as SessionsDayDateRouteImport } from './routes/sessions.day.$date'
+import { Route as SessionsIdWrapRouteImport } from './routes/sessions.$id.wrap'
+import { Route as SessionsIdRoomRouteImport } from './routes/sessions.$id.room'
 import { Route as PatientsPidTimelineRouteImport } from './routes/patients.$pid.timeline'
 import { Route as PatientsPidNotesRouteImport } from './routes/patients.$pid.notes'
 import { Route as PatientsPidDocumentsRouteImport } from './routes/patients.$pid.documents'
@@ -463,6 +465,16 @@ const SessionsDayDateRoute = SessionsDayDateRouteImport.update({
   path: '/day/$date',
   getParentRoute: () => SessionsRoute,
 } as any)
+const SessionsIdWrapRoute = SessionsIdWrapRouteImport.update({
+  id: '/wrap',
+  path: '/wrap',
+  getParentRoute: () => SessionsIdRoute,
+} as any)
+const SessionsIdRoomRoute = SessionsIdRoomRouteImport.update({
+  id: '/room',
+  path: '/room',
+  getParentRoute: () => SessionsIdRoute,
+} as any)
 const PatientsPidTimelineRoute = PatientsPidTimelineRouteImport.update({
   id: '/timeline',
   path: '/timeline',
@@ -575,6 +587,8 @@ export interface FileRoutesByFullPath {
   '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
   '/patients/$pid/notes': typeof PatientsPidNotesRouteWithChildren
   '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
+  '/sessions/$id/room': typeof SessionsIdRoomRoute
+  '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
   '/patients/$pid/': typeof PatientsPidIndexRoute
   '/sessions/$id/': typeof SessionsIdIndexRoute
@@ -651,6 +665,8 @@ export interface FileRoutesByTo {
   '/patients/$pid/chart': typeof PatientsPidChartRoute
   '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
   '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
+  '/sessions/$id/room': typeof SessionsIdRoomRoute
+  '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
   '/patients/$pid': typeof PatientsPidIndexRoute
   '/sessions/$id': typeof SessionsIdIndexRoute
@@ -735,6 +751,8 @@ export interface FileRoutesById {
   '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
   '/patients/$pid/notes': typeof PatientsPidNotesRouteWithChildren
   '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
+  '/sessions/$id/room': typeof SessionsIdRoomRoute
+  '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
   '/patients/$pid/': typeof PatientsPidIndexRoute
   '/sessions/$id/': typeof SessionsIdIndexRoute
@@ -820,6 +838,8 @@ export interface FileRouteTypes {
     | '/patients/$pid/documents'
     | '/patients/$pid/notes'
     | '/patients/$pid/timeline'
+    | '/sessions/$id/room'
+    | '/sessions/$id/wrap'
     | '/sessions/day/$date'
     | '/patients/$pid/'
     | '/sessions/$id/'
@@ -896,6 +916,8 @@ export interface FileRouteTypes {
     | '/patients/$pid/chart'
     | '/patients/$pid/documents'
     | '/patients/$pid/timeline'
+    | '/sessions/$id/room'
+    | '/sessions/$id/wrap'
     | '/sessions/day/$date'
     | '/patients/$pid'
     | '/sessions/$id'
@@ -979,6 +1001,8 @@ export interface FileRouteTypes {
     | '/patients/$pid/documents'
     | '/patients/$pid/notes'
     | '/patients/$pid/timeline'
+    | '/sessions/$id/room'
+    | '/sessions/$id/wrap'
     | '/sessions/day/$date'
     | '/patients/$pid/'
     | '/sessions/$id/'
@@ -1548,6 +1572,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SessionsDayDateRouteImport
       parentRoute: typeof SessionsRoute
     }
+    '/sessions/$id/wrap': {
+      id: '/sessions/$id/wrap'
+      path: '/wrap'
+      fullPath: '/sessions/$id/wrap'
+      preLoaderRoute: typeof SessionsIdWrapRouteImport
+      parentRoute: typeof SessionsIdRoute
+    }
+    '/sessions/$id/room': {
+      id: '/sessions/$id/room'
+      path: '/room'
+      fullPath: '/sessions/$id/room'
+      preLoaderRoute: typeof SessionsIdRoomRouteImport
+      parentRoute: typeof SessionsIdRoute
+    }
     '/patients/$pid/timeline': {
       id: '/patients/$pid/timeline'
       path: '/timeline'
@@ -1666,10 +1704,14 @@ const PatientsRouteWithChildren = PatientsRoute._addFileChildren(
 )
 
 interface SessionsIdRouteChildren {
+  SessionsIdRoomRoute: typeof SessionsIdRoomRoute
+  SessionsIdWrapRoute: typeof SessionsIdWrapRoute
   SessionsIdIndexRoute: typeof SessionsIdIndexRoute
 }
 
 const SessionsIdRouteChildren: SessionsIdRouteChildren = {
+  SessionsIdRoomRoute: SessionsIdRoomRoute,
+  SessionsIdWrapRoute: SessionsIdWrapRoute,
   SessionsIdIndexRoute: SessionsIdIndexRoute,
 }
 
