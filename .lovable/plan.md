@@ -1,112 +1,83 @@
-# PeaceCode · Practice — Shell, Home, Settings (Pass 1)
+# Therapist ↔ Student Parity Pass
 
-Rebuild this remixed project into the therapist-facing app. Keep design tokens (Sakura + Rose, Fraunces + DM Sans, glass, grain) but shift to a dense, clinical Linear × Notion × Airbnb-Host tone. Student surfaces get removed; every new sidebar link routes to a working stub so nav is clean end-to-end.
+Two workstreams. Part B (theme engine) is self-contained and low-risk, so it ships first and unblocks the "feels like the same PeaceCode" check. Part A (real audit + module sweep) is high-risk touch-everything work and needs the audit tool built *before* any edits so we measure progress against ground truth, not vibes.
 
-## Scope for this pass
+## Order of operations
 
-1. Rebrand shell + auth (add license number to signup).
-2. Build `AppShell` for therapists (sidebar + top bar).
-3. Home dashboard `/dashboard` (compact briefing header + dense data cards).
-4. Full `/settings/*` tree.
-5. Stub routes for every sidebar link so nothing 404s.
-6. Delete student routes.
+```text
+Wave 0 — Foundations (no visible change, unblocks everything)
+Wave 1 — Theme engine port (Part B) — visible, isolated
+Wave 2 — Real audit tool + first report snapshot (Part A infra)
+Wave 3 — Module sweep, in the 18-step order you listed
+Wave 4 — Re-run audit until both reports read zero
+```
 
-## Route map (all new therapist routes live at these paths)
+Each wave is a separate turn. Trying to land all four in one shot means the build breaks somewhere in the middle of Wave 3 and neither of us can tell which module did it.
 
-Auth (kept, rebranded):
-- `/auth`, `/auth/login`, `/auth/signup` — copy: "Sign in to your practice", signup adds `licenseNumber`, `credentials` (e.g. M.Phil Clinical Psych, RCI reg #), `specializations[]`.
+## Wave 0 — Foundations
 
-Main app (all under `AppShell`):
-- `/dashboard` — Home (built out this pass)
-- `/schedule` — stub "Today & upcoming sessions"
-- `/patients` — stub list
-- `/patients/$id` — stub profile
-- `/sessions` — stub session log
-- `/notes` — stub clinical notes
-- `/messages` — stub inbox
-- `/billing` — stub invoices + payouts
-- `/resources` — stub library to share with patients
-- `/insights` — stub analytics
-- `/settings` — layout with `<Outlet />`
-  - `/settings` (index) → profile
-  - `/settings/profile` — name, photo, headline, bio
-  - `/settings/credentials` — license #, RCI/APA reg, degrees, verification status
-  - `/settings/practice` — clinic name, address, timezone, languages, modalities
-  - `/settings/availability` — weekly hours, buffer, session length
-  - `/settings/services` — session types & pricing
-  - `/settings/payouts` — bank / UPI, tax info
-  - `/settings/appearance` — theme (Sakura default), accent (Rose default), density
-  - `/settings/notifications` — email/SMS/push
-  - `/settings/privacy` — data retention, patient data export
-  - `/settings/security` — password, 2FA, active sessions
-  - `/settings/team` — placeholder for future multi-therapist practice
-  - `/settings/integrations` — Google Calendar, Zoom, Meet
-  - `/settings/danger` — deactivate / delete
-  - `/settings/about` — version, legal
+- Confirm `src/lib/formatters.ts`, `src/lib/enums.ts`, `src/lib/constants.ts` cover every case the sweep will need. Add missing helpers up front (e.g. `formatPhone`, `formatLicense`, `SAMPLE_EMAIL_DOMAINS` allowlist) so the sweep never blocks on "no helper exists yet."
+- Rename `formatters.ts` re-exports so both `src/lib/format.ts` (your spec) and the existing `formatters.ts` resolve — one canonical file, one shim.
+- Add `usePractice()` selectors for clinician name, credentials, clinic address, GST, license — every field the sweep will replace.
 
-## AppShell design
+## Wave 1 — Theme engine port (Part B, standalone)
 
-Left sidebar (`w-60`, collapsible to `w-14`):
-- Brand: "PeaceCode · Practice" in Fraunces
-- Sections: **Today** (Dashboard, Schedule, Messages), **Clinical** (Patients, Sessions, Notes), **Business** (Billing, Insights, Resources), **Account** (Settings)
-- Active state uses rose accent underline, not filled pill
-- Bottom: therapist avatar + name + license verified badge
+Port the student system verbatim, renamed for the practice namespace:
 
-Top bar (`h-14`):
-- Left: `SidebarTrigger` + breadcrumb
-- Center: command search (`⌘K` visual only, non-functional this pass)
-- Right: "Available/Away" status toggle · notifications bell · quick-add menu
+- `src/lib/practice-settings-store.ts` (already exists) → replace shape with the student's `settings-store.ts` shape. 15 `bgTheme` presets, 7 `accent` presets, all appearance + a11y controls listed in the brief. Storage key `peacecode.practice.settings.v1`. Same `applyAppearance()` / `applyAccessibility()` / `useSettings()` API.
+- `src/components/GlassFX.tsx` — copy the student version, mount once in `AppShell` root, includes the pre-hydration inline script that reads `bgTheme` and sets `html[data-pc-bg]` before React boots (no flash).
+- `src/styles.css` — port the full `[data-pc-bg="..."]` block (15 gradient stacks + grain layer), the 7 accent blocks setting `--pc-primary` / `--pc-soft` / `--pc-aurora-b`, the `data-density` / `data-motion` / `data-glass` / `data-card-style` / `data-chart-style` rules.
+- `src/routes/settings.appearance.tsx` — rebuild to match student layout: live canvas preview, swatch tiles for the 15 bg themes and 7 accents, typography sliders, density picker, a11y section.
+- Defaults for new therapist accounts: `bgTheme: "sakura"`, `accent: "rose"`, `theme: "light"`.
 
-Uses `SidebarProvider` from shadcn per house rules.
+Ship criterion for Wave 1: opening the therapist app in a fresh browser lands on Sakura + Rose, matches the student home visually side-by-side, and every swatch in `/settings/appearance` changes the canvas live.
 
-## Home `/dashboard` layout
+## Wave 2 — Real audit infrastructure (Part A infra only)
 
-Compact briefing header (no orb, no giant hero):
-- Row: greeting ("Good morning, Dr. Sharma") + today's date + weather-of-practice line ("6 sessions · 2 new intakes · ₹18,400 booked")
-- No breathing animation.
+- `scripts/audit.ts` — real static-analysis sweep. Uses `ts-morph` (already an option) or the TypeScript compiler API + `fast-glob` over `src/**/*.{ts,tsx}`.
+  - **Hardcode scan** — matches: `toLocaleString(`, `Intl.NumberFormat`, `Intl.DateTimeFormat`, `.toLocaleDateString`, `.toLocaleTimeString`, raw `₹`/`$` in JSX text, raw status literals (`"scheduled"|"completed"|"cancelled"|"paid"|"overdue"|"draft"|"signed"`) outside `enums.ts`, hardcoded email patterns (`test@|example@|demo@|@example\.`), hardcoded phone/GST/license patterns, date strings matching `/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},\s+\d{4}/`.
+  - **Dead-button scan** — AST walk: for each JSX `<button>`, `<Button>`, `role="button"`, or element with a click handler, verify presence of one of `onClick`, `onSubmit`, `href`, `to`, `type="submit"`. Elements failing all four get flagged.
+  - **Broken-link scan** — for each `<Link to="...">` and `router.navigate({ to: "..." })`, verify the target route file exists under `src/routes/` and required params are supplied by the call site.
+  - **Loader-boundary scan** — for each `createFileRoute(...)({ loader: ... })`, verify both `errorComponent` and `notFoundComponent` are present. Verify `__root.tsx` sets `notFoundComponent`.
+- Writes `src/lib/audit-report.json` with `{ generatedAt, hardcode: [...], deadButtons: [...], brokenLinks: [...], missingBoundaries: [...] }`.
+- Wire into `package.json` as `bun run audit`, and add a `prebuild` hook so it runs before every `bun run build`.
+- Rewrite `/admin/wire-up-report` and `/admin/hardcode-report` to import the JSON directly. No more hand-written rows.
 
-Below, a 12-col grid, above-the-fold dense:
-1. **Today's schedule** (col-span-8) — timeline strip of next 6 sessions with patient initials, time, modality (video/in-person), status chip, join button.
-2. **Alerts** (col-span-4) — flagged risk assessments, missed sessions, pending intake forms. Rose-tinted priority chips.
-3. **Patients needing follow-up** (col-span-5) — 5 most-overdue, last-session date, quick "Message" / "Reschedule".
-4. **Revenue this month** (col-span-4) — sparkline + booked vs completed vs pending payout.
-5. **Recent notes** (col-span-3) — last 4 clinical notes with patient initials + date.
-6. **Weekly load** (col-span-6) — small bar chart Mon–Sun, filled vs open slots.
-7. **New intake requests** (col-span-6) — 3 pending requests with "Accept / Decline".
+Ship criterion for Wave 2: `bun run audit` completes, JSON exists on disk, both admin pages render the *real* counts. Expect the numbers to be ugly — that's the point.
 
-All data is **local mock** via new `src/lib/practice-store.ts` (seeded fixtures — same pattern as `buddies-store`). No backend this pass.
+## Wave 3 — Module sweep
 
-## Settings tree
+Modules in your listed order (Sessions → Patients → … → Admin). Per module:
 
-- `/settings` uses `AppShell` with a **secondary left rail** inside the content area listing all sub-pages (like Linear's settings). Each sub-page is a dense form using the same primitives from `src/components/settings/primitives.tsx` (kept & reused).
-- Every sub-page renders real controls with local state persisted to `settings-store` (extended with therapist keys: `practice`, `credentials`, `availability`, `services`, `payouts`, `integrations`).
-- Appearance defaults stay Sakura + Rose.
+1. Read the module's routes + store + components.
+2. Replace every hit the audit flagged in that module's files.
+3. Re-run `bun run audit`. Confirm that module's row drops to zero.
+4. Move on.
 
-## Deletions (whole files under `src/routes/`)
+Dead buttons: wire them, remove them, or convert to a documented `<PlannedControl reason="..."/>` primitive that the audit whitelists. No `alert()`, no `console.log`-only handlers, no "Coming soon" toasts.
 
-`emergency.*`, `breathe.*`, `gratitude.*`, `journal.*`, `mindgym.*`, `peacebot.*`, `buddies.*`, `community.*`, `resources.*`, `screening.*`, `hub.*`, `focus.*`, `search.*`, `notifications.*`, `profile.*`, `counselling.*`, old `settings.*`, old `index.tsx`. Also delete their `src/lib/*-store.ts` and `src/components/**` counterparts they own. Keep: `settings-store`, `auth-store`, `notifications-store` (repurpose), `profile-store` (repurpose), shared `AppShell` (rewrite for therapist), `settings/primitives`, `GlassFX`, `AuthShell`, error/hydration/monitoring helpers.
+Broken links get either fixed params or the target route file created.
 
-New `src/routes/index.tsx` → redirects: if session → `/dashboard`, else → `/auth`.
+Every route with a loader gets `errorComponent` + `notFoundComponent` (small shared `<RouteError/>` and `<RouteNotFound/>` primitives to keep bundle size honest).
+
+## Wave 4 — Zero out
+
+- Re-run audit. Fix stragglers (there will be some — every real sweep uncovers 20–30 things the pattern list missed).
+- `bun run typecheck` clean, `bun run build` clean.
+- Both admin pages show zero.
 
 ## Technical notes
 
-- Router: TanStack file-based routes, dot-separated. `settings.tsx` layout with `<Outlet />` + `settings.index.tsx` + `settings.profile.tsx` etc.
-- New `src/components/practice/AppShell.tsx` (separate from student `AppShell.tsx` we're deleting — cleaner than in-place edit given scope).
-- New `src/components/practice/SettingsRail.tsx` for the settings sub-nav.
-- New `src/lib/practice-store.ts` with seeded fixtures: patients, sessions, notes, intakes, revenue.
-- Extend `settings-store.ts` with therapist keys; keep `sakura` + `rose` as defaults.
-- Update `__root.tsx` head: title "PeaceCode · Practice — Clinical dashboard for psychologists", description shifts to clinician tone.
-- No new npm packages needed.
-- No backend / Lovable Cloud in this pass — everything is local mock. When you're ready to wire the Spring Boot backend, we swap `practice-store` calls for fetch.
+- `ts-morph` is heavier than raw TS compiler API but 5× faster to author scan rules in; using it for `scripts/audit.ts` only, not in the app bundle.
+- The audit script is Node-only and never imported by app code, so it doesn't affect the Cloudflare Worker runtime.
+- Storage key namespace stays separate: student = `peacecode.settings.v1`, therapist = `peacecode.practice.settings.v1`. Same *shape*, different key, so a user logged into both doesn't cross-contaminate.
+- Grain layer uses the same SVG-noise `data:` URL as student to keep the visual identical.
+- Fraunces + DM Sans are already loaded in `__root.tsx` — no font work needed.
 
-## Out of scope (later prompts)
+## What I need from you before I start
 
-- Actual patient CRUD, session player, notes editor, billing engine, calendar sync, video calling, role-gated `/auth` redirect between student & therapist subdomains, backend wiring.
+1. **Confirm the wave order.** If you want everything in one turn I'll do it, but I'll warn upfront that the build will likely break mid-sweep and the recovery cycle costs more turns than doing it in four.
+2. **Confirm `ts-morph` is OK as a devDependency** for the audit script. Alternative is hand-rolled regex, which is faster to write but misses more.
+3. **Confirm `<PlannedControl>` primitive is acceptable** for buttons that legitimately belong in the UI but aren't wired yet (e.g. "Export to insurance clearinghouse" on Billing when no clearinghouse is connected). The alternative is deleting them, which erodes the product surface.
 
-## Deliverable
-
-After this pass: you can sign up as a therapist, land on `/dashboard` with a dense briefing, click every sidebar item and see a stub page, and open every settings sub-page with working local persistence. Zero 404s, zero console errors.
-
----
-
-Confirm and I'll build it. This is a large single-pass rebuild (~40 file writes + ~30 deletions) — if you want it split into two prompts (Pass 1a = delete + shell + stubs, Pass 1b = home + settings), say so and I'll shrink accordingly.
+Once you green-light, I start with Wave 1 (theme engine) since it's the visible, low-risk half and gives you something to look at while Waves 2–4 run.
