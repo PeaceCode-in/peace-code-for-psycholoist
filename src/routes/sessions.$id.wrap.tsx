@@ -5,6 +5,7 @@ import { palette } from "@/components/practice/palette";
 import { useLiveSession, completeSession } from "@/lib/sessions-store";
 import { getPatient, createNote, avatarUrl } from "@/lib/patients-store";
 import { useHydrated } from "@/lib/use-hydrated";
+import { SoapDraftInline } from "@/components/practice/copilot/SoapDraftInline";
 
 export const Route = createFileRoute("/sessions/$id/wrap")({
   head: () => ({ meta: [{ title: "Wrap-up — PeaceCode · Practice" }] }),
@@ -72,8 +73,17 @@ function WrapView() {
           <FeelingArcs value={feeling} onChange={setFeeling} />
         </section>
 
+        {/* 2a. Copilot SOAP draft — optional */}
+        <section className="mt-10">
+          <SoapDraftInline
+            patientId={patient.id}
+            sessionId={session.id}
+            onRatified={({ S, O, A, P }) => { setS(S); setO(O); setA(A); setP(P); }}
+          />
+        </section>
+
         {/* 2. SOAP */}
-        <section className="mt-10 grid sm:grid-cols-2 gap-5">
+        <section className="mt-8 grid sm:grid-cols-2 gap-5">
           {[
             { label: "Subjective", val: subjective, set: setS, ph: "What the client shared…" },
             { label: "Objective",  val: objective,  set: setO, ph: "What you observed…" },

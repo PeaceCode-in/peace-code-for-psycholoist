@@ -41,6 +41,7 @@ import { Route as GroupsRouteImport } from './routes/groups'
 import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CpdRouteImport } from './routes/cpd'
+import { Route as CopilotRouteImport } from './routes/copilot'
 import { Route as CaseConferencesRouteImport } from './routes/case-conferences'
 import { Route as BillingRouteImport } from './routes/billing'
 import { Route as AvailabilityRouteImport } from './routes/availability'
@@ -88,6 +89,7 @@ import { Route as SettingsDeleteRouteImport } from './routes/settings.delete'
 import { Route as SettingsDataRouteImport } from './routes/settings.data'
 import { Route as SettingsDangerRouteImport } from './routes/settings.danger'
 import { Route as SettingsCredentialsRouteImport } from './routes/settings.credentials'
+import { Route as SettingsCopilotRouteImport } from './routes/settings.copilot'
 import { Route as SettingsComplianceRouteImport } from './routes/settings.compliance'
 import { Route as SettingsClinicalDefaultsRouteImport } from './routes/settings.clinical-defaults'
 import { Route as SettingsAvailabilityRouteImport } from './routes/settings.availability'
@@ -331,6 +333,11 @@ const CpdRoute = CpdRouteImport.update({
   path: '/cpd',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CopilotRoute = CopilotRouteImport.update({
+  id: '/copilot',
+  path: '/copilot',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CaseConferencesRoute = CaseConferencesRouteImport.update({
   id: '/case-conferences',
   path: '/case-conferences',
@@ -565,6 +572,11 @@ const SettingsDangerRoute = SettingsDangerRouteImport.update({
 const SettingsCredentialsRoute = SettingsCredentialsRouteImport.update({
   id: '/credentials',
   path: '/credentials',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsCopilotRoute = SettingsCopilotRouteImport.update({
+  id: '/copilot',
+  path: '/copilot',
   getParentRoute: () => SettingsRoute,
 } as any)
 const SettingsComplianceRoute = SettingsComplianceRouteImport.update({
@@ -992,6 +1004,7 @@ export interface FileRoutesByFullPath {
   '/availability': typeof AvailabilityRoute
   '/billing': typeof BillingRouteWithChildren
   '/case-conferences': typeof CaseConferencesRoute
+  '/copilot': typeof CopilotRoute
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRouteWithChildren
@@ -1077,6 +1090,7 @@ export interface FileRoutesByFullPath {
   '/settings/availability': typeof SettingsAvailabilityRoute
   '/settings/clinical-defaults': typeof SettingsClinicalDefaultsRoute
   '/settings/compliance': typeof SettingsComplianceRoute
+  '/settings/copilot': typeof SettingsCopilotRoute
   '/settings/credentials': typeof SettingsCredentialsRoute
   '/settings/danger': typeof SettingsDangerRoute
   '/settings/data': typeof SettingsDataRoute
@@ -1152,6 +1166,7 @@ export interface FileRoutesByTo {
   '/analytics': typeof AnalyticsRoute
   '/availability': typeof AvailabilityRoute
   '/case-conferences': typeof CaseConferencesRoute
+  '/copilot': typeof CopilotRoute
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
   '/groups': typeof GroupsRoute
@@ -1224,6 +1239,7 @@ export interface FileRoutesByTo {
   '/settings/availability': typeof SettingsAvailabilityRoute
   '/settings/clinical-defaults': typeof SettingsClinicalDefaultsRoute
   '/settings/compliance': typeof SettingsComplianceRoute
+  '/settings/copilot': typeof SettingsCopilotRoute
   '/settings/credentials': typeof SettingsCredentialsRoute
   '/settings/danger': typeof SettingsDangerRoute
   '/settings/data': typeof SettingsDataRoute
@@ -1302,6 +1318,7 @@ export interface FileRoutesById {
   '/availability': typeof AvailabilityRoute
   '/billing': typeof BillingRouteWithChildren
   '/case-conferences': typeof CaseConferencesRoute
+  '/copilot': typeof CopilotRoute
   '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRouteWithChildren
@@ -1387,6 +1404,7 @@ export interface FileRoutesById {
   '/settings/availability': typeof SettingsAvailabilityRoute
   '/settings/clinical-defaults': typeof SettingsClinicalDefaultsRoute
   '/settings/compliance': typeof SettingsComplianceRoute
+  '/settings/copilot': typeof SettingsCopilotRoute
   '/settings/credentials': typeof SettingsCredentialsRoute
   '/settings/danger': typeof SettingsDangerRoute
   '/settings/data': typeof SettingsDataRoute
@@ -1467,6 +1485,7 @@ export interface FileRouteTypes {
     | '/availability'
     | '/billing'
     | '/case-conferences'
+    | '/copilot'
     | '/cpd'
     | '/dashboard'
     | '/documents'
@@ -1552,6 +1571,7 @@ export interface FileRouteTypes {
     | '/settings/availability'
     | '/settings/clinical-defaults'
     | '/settings/compliance'
+    | '/settings/copilot'
     | '/settings/credentials'
     | '/settings/danger'
     | '/settings/data'
@@ -1627,6 +1647,7 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/availability'
     | '/case-conferences'
+    | '/copilot'
     | '/cpd'
     | '/dashboard'
     | '/groups'
@@ -1699,6 +1720,7 @@ export interface FileRouteTypes {
     | '/settings/availability'
     | '/settings/clinical-defaults'
     | '/settings/compliance'
+    | '/settings/copilot'
     | '/settings/credentials'
     | '/settings/danger'
     | '/settings/data'
@@ -1776,6 +1798,7 @@ export interface FileRouteTypes {
     | '/availability'
     | '/billing'
     | '/case-conferences'
+    | '/copilot'
     | '/cpd'
     | '/dashboard'
     | '/documents'
@@ -1861,6 +1884,7 @@ export interface FileRouteTypes {
     | '/settings/availability'
     | '/settings/clinical-defaults'
     | '/settings/compliance'
+    | '/settings/copilot'
     | '/settings/credentials'
     | '/settings/danger'
     | '/settings/data'
@@ -1940,6 +1964,7 @@ export interface RootRouteChildren {
   AvailabilityRoute: typeof AvailabilityRoute
   BillingRoute: typeof BillingRouteWithChildren
   CaseConferencesRoute: typeof CaseConferencesRoute
+  CopilotRoute: typeof CopilotRoute
   CpdRoute: typeof CpdRoute
   DashboardRoute: typeof DashboardRoute
   DocumentsRoute: typeof DocumentsRouteWithChildren
@@ -2210,6 +2235,13 @@ declare module '@tanstack/react-router' {
       path: '/cpd'
       fullPath: '/cpd'
       preLoaderRoute: typeof CpdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/copilot': {
+      id: '/copilot'
+      path: '/copilot'
+      fullPath: '/copilot'
+      preLoaderRoute: typeof CopilotRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/case-conferences': {
@@ -2539,6 +2571,13 @@ declare module '@tanstack/react-router' {
       path: '/credentials'
       fullPath: '/settings/credentials'
       preLoaderRoute: typeof SettingsCredentialsRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/copilot': {
+      id: '/settings/copilot'
+      path: '/copilot'
+      fullPath: '/settings/copilot'
+      preLoaderRoute: typeof SettingsCopilotRouteImport
       parentRoute: typeof SettingsRoute
     }
     '/settings/compliance': {
@@ -3454,6 +3493,7 @@ interface SettingsRouteChildren {
   SettingsAvailabilityRoute: typeof SettingsAvailabilityRoute
   SettingsClinicalDefaultsRoute: typeof SettingsClinicalDefaultsRoute
   SettingsComplianceRoute: typeof SettingsComplianceRoute
+  SettingsCopilotRoute: typeof SettingsCopilotRoute
   SettingsCredentialsRoute: typeof SettingsCredentialsRoute
   SettingsDangerRoute: typeof SettingsDangerRoute
   SettingsDataRoute: typeof SettingsDataRoute
@@ -3482,6 +3522,7 @@ const SettingsRouteChildren: SettingsRouteChildren = {
   SettingsAvailabilityRoute: SettingsAvailabilityRoute,
   SettingsClinicalDefaultsRoute: SettingsClinicalDefaultsRoute,
   SettingsComplianceRoute: SettingsComplianceRoute,
+  SettingsCopilotRoute: SettingsCopilotRoute,
   SettingsCredentialsRoute: SettingsCredentialsRoute,
   SettingsDangerRoute: SettingsDangerRoute,
   SettingsDataRoute: SettingsDataRoute,
@@ -3544,6 +3585,7 @@ const rootRouteChildren: RootRouteChildren = {
   AvailabilityRoute: AvailabilityRoute,
   BillingRoute: BillingRouteWithChildren,
   CaseConferencesRoute: CaseConferencesRoute,
+  CopilotRoute: CopilotRoute,
   CpdRoute: CpdRoute,
   DashboardRoute: DashboardRoute,
   DocumentsRoute: DocumentsRouteWithChildren,
@@ -3592,3 +3634,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

@@ -21,6 +21,7 @@ import { useUnreadThreadCount } from "@/lib/messages-store";
 import { endSession } from "@/lib/auth-store";
 import { useSidebarPinned } from "@/lib/settings-store";
 import { BellPeek } from "@/components/practice/notifications/BellPeek";
+import { CopilotPill } from "@/components/practice/copilot/CopilotPill";
 
 export { palette };
 
@@ -38,12 +39,13 @@ type Category = {
 // Seven category tubes. Every existing route lives inside one of these.
 const CATEGORIES: Category[] = [
   {
-    key: "today", label: "Today", meta: "4 views", icon: LayoutDashboard,
+    key: "today", label: "Today", meta: "5 views", icon: LayoutDashboard,
     items: [
       { title: "Overview", url: "/dashboard" },
       { title: "Schedule", url: "/schedule" },
       { title: "Inbox", url: "/inbox", badge: INBOX_UNREAD },
       { title: "Alerts", url: "/alerts", badge: ALERTS_HIGH ? "dot" : undefined },
+      { title: "Copilot", url: "/copilot" },
     ],
   },
   {
@@ -122,9 +124,10 @@ const CATEGORIES: Category[] = [
     ],
   },
   {
-    key: "settings", label: "Settings", meta: "8 pages", icon: SettingsIcon,
+    key: "settings", label: "Settings", meta: "9 pages", icon: SettingsIcon,
     items: [
       { title: "Settings", url: "/settings" },
+      { title: "Copilot", url: "/settings/copilot" },
       { title: "Integrations", url: "/integrations" },
       { title: "Notifications", url: "/notifications" },
       { title: "Help & Support", url: "/support" },
@@ -882,6 +885,7 @@ export function AppShell({ children, crumb }: { children: ReactNode; crumb?: str
           <main className="flex-1 min-w-0 pb-20 md:pb-0">{children}</main>
         </div>
         <MobileBottomPill />
+        <CopilotPill />
       </div>
       {/* Responsive shell padding: rail is 64px, +240px when pinned. Mobile: 0. */}
       <style>{`
