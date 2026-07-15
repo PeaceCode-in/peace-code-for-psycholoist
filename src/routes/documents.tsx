@@ -1,12 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { StubPage } from "@/components/practice/StubPage";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/documents")({
   head: () => ({
     meta: [
-      { title: "Documents & consents — PeaceCode · Practice" },
-      { name: "description", content: "Signed intake forms, informed consents, and clinical documents." },
+      { title: "Documents — PeaceCode · Practice" },
+      { name: "description", content: "Intake, consent, treatment agreements, and clinical worksheets — created, sent, signed, stored." },
     ],
   }),
-  component: () => <StubPage title="Documents & consents" crumb="Documents" blurb="Signed intake forms, informed consents, and clinical documents." />,
+  component: () => <Outlet />,
 });
