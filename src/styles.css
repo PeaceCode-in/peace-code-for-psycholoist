@@ -1246,3 +1246,58 @@ html[data-chart-style] svg polyline.pc-chart-line {
 .pc-fade-in { animation: pc-fade-in .18s ease-out; }
 @keyframes pc-fade-in { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: none; } }
 
+/* ── Polish pass — motion + typography spec ─────────────────
+   Entrances: 220ms ease-out-expo. Exits: 180ms ease-in.
+   Micro-interactions: 150ms ease-out. Page transitions: 300ms.
+*/
+:root {
+  --pc-ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --pc-ease-in:      cubic-bezier(0.4, 0, 1, 1);
+  --pc-dur-enter:    220ms;
+  --pc-dur-exit:     180ms;
+  --pc-dur-micro:    150ms;
+  --pc-dur-page:     300ms;
+}
+
+/* Typography spec — tracking + line-height rules. */
+main h1, main h2, main h3,
+[style*="Fraunces"] {
+  letter-spacing: -0.02em;
+}
+main p, main li { line-height: 1.55; }
+body { line-height: 1.4; }
+kbd, code, .pc-mono,
+[style*="DM Mono"] {
+  font-family: "DM Mono", ui-monospace, SFMono-Regular, monospace;
+  letter-spacing: 0;
+}
+.pc-mono-upper { letter-spacing: 0.02em; text-transform: uppercase; }
+
+/* Cap weights at 600 — restraint. */
+main :is(h1,h2,h3,h4,h5,h6,strong,b),
+main .font-bold, main .font-extrabold, main .font-black {
+  font-weight: 600 !important;
+}
+
+/* Calm focus ring — soft accent glow, never Chrome's default blue. */
+*:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 22%, transparent),
+              0 0 0 1px color-mix(in oklab, var(--primary) 55%, transparent);
+  border-radius: 8px;
+  transition: box-shadow var(--pc-dur-micro) ease-out;
+}
+
+/* Reduced motion — flatten every animation to a plain opacity fade. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 120ms !important;
+    transition-timing-function: ease-out !important;
+    scroll-behavior: auto !important;
+  }
+  .pc-fade-in { animation: none !important; }
+}
+
+
