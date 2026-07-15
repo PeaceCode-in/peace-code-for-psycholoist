@@ -90,7 +90,7 @@ function Dashboard() {
                 <div key={s.id} className="py-3 flex items-center gap-3 group">
                   <div className="text-[12px] tabular-nums w-14 shrink-0" style={{ color: ink }}>{fmtTime(s.startsAt)}</div>
                   <span className="w-1 h-8 rounded-full" style={{ background: s.modality === "video" ? primary : s.modality === "in-person" ? "#8CB9A6" : "#C9A66B" }} />
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center text-[11px] text-white shrink-0" style={{ background: primary }}>{p?.initials}</div>
+                  {p && <Avatar patient={p} size={36} />}
                   <div className="min-w-0 flex-1">
                     <div className="text-[13px] truncate" style={{ color: ink }}>{p?.name}</div>
                     <div className="text-[11px] flex items-center gap-1.5" style={{ color: muted }}>
@@ -139,7 +139,7 @@ function Dashboard() {
       {/* ── Row 3 — Patient pulse grid ───────────────────────── */}
       <section className="rounded-2xl p-5" style={cardStyle}>
         <SectionHead title="Patient pulse" hint="Need attention this week" to="/patients" />
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="mt-4 flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3 overflow-x-auto sm:overflow-visible snap-x snap-mandatory -mx-5 sm:mx-0 px-5 sm:px-0 pb-2 sm:pb-0">
           {PATIENTS.slice(0, 8).map((p) => {
             const risk = p.riskLevel;
             const dot = risk === "high" ? "#DC3B4A" : risk === "elevated" ? "#E08A3C" : risk === "moderate" ? "#C9A66B" : "#8CB9A6";
@@ -148,26 +148,27 @@ function Dashboard() {
                 key={p.id}
                 to="/patients/$id"
                 params={{ id: p.id }}
-                className="rounded-xl p-3 hover:shadow-sm transition-all"
+                className="rounded-xl p-3 hover:shadow-sm transition-all snap-start shrink-0 w-[240px] sm:w-auto"
                 style={{ background: surface2, border: `1px solid ${border}` }}
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-7 h-7 rounded-full flex items-center justify-center text-[10.5px] text-white" style={{ background: primary }}>{p.initials}</div>
+                  <Avatar patient={p} size={28} />
                   <div className="min-w-0 flex-1">
                     <div className="text-[12px]" style={{ color: ink }}>{p.name}</div>
                     <div className="text-[10px] truncate" style={{ color: muted }}>{p.primaryConcern}</div>
                   </div>
-                  <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: dot }} title={`Risk: ${risk}`} />
+                  <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: dot }} title={`Risk: ${risk}`} aria-label={`Risk ${risk}`} />
                 </div>
-                <PhqSpark values={p.phq9Trend ?? [10, 10, 10]} />
+                <PhqSpark values={p.phq9} />
                 <div className="mt-2 flex items-center justify-between text-[10px]" style={{ color: muted }}>
                   <span>PHQ-9 · 6w</span>
-                  <span>{p.homeworkOverdue ? "Homework overdue" : p.nextSession ? `Next ${fmtDate(p.nextSession)}` : "No follow-up"}</span>
+                  <span>{p.homework.status === "overdue" ? "Homework overdue" : p.nextSession ? `Next ${fmtDate(p.nextSession)}` : "No follow-up"}</span>
                 </div>
                 <button className="mt-2 w-full text-[11px] py-1 rounded-full" style={{ background: "#fff", color: ink, border: `1px solid ${border}` }}>
                   Send check-in
                 </button>
               </Link>
+
             );
           })}
         </div>
@@ -234,7 +235,7 @@ function Dashboard() {
               const p = getPatient(m.patientId);
               return (
                 <div key={m.id} className="py-2.5 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-[11px] text-white shrink-0" style={{ background: primary }}>{p?.initials}</div>
+                  {p && <Avatar patient={p} size={32} />}
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
                       <span className="text-[12.5px]" style={{ color: ink }}>{p?.name}</span>
@@ -277,7 +278,7 @@ function Dashboard() {
               return (
                 <div key={n.id} className="rounded-xl p-3" style={{ background: surface2, border: `1px solid ${border}` }}>
                   <div className="flex items-center gap-2 mb-1.5">
-                    <div className="w-6 h-6 rounded-full flex items-center justify-center text-[9.5px] text-white" style={{ background: primary }}>{p?.initials}</div>
+                    {p && <Avatar patient={p} size={24} />}
                     <div className="text-[11.5px]" style={{ color: ink }}>{p?.name}</div>
                     <span className="text-[9.5px] px-1.5 py-0.5 rounded ml-auto" style={{ background: surface, color: muted }}>{n.format}</span>
                   </div>
@@ -392,6 +393,19 @@ function FooterStat({ icon: Icon, label, value, sub, progress }: { icon: React.C
         </div>
       )}
       {sub && <div className="text-[10.5px] mt-1" style={{ color: muted }}>{sub}</div>}
+    </div>
+  );
+}
+function Avatar({ patient, size = 32 }: { patient: { initials: string; avatar?: string; name: string }; size?: number }) {
+  return (
+    <div
+      className="rounded-full flex items-center justify-center text-white overflow-hidden shrink-0"
+      style={{ width: size, height: size, background: primary, fontSize: size * 0.36 }}
+      aria-label={patient.name}
+    >
+      {patient.avatar
+        ? <img src={patient.avatar} alt="" width={size} height={size} className="w-full h-full object-cover" loading="lazy" />
+        : patient.initials}
     </div>
   );
 }
