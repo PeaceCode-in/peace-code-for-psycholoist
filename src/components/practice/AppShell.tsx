@@ -262,6 +262,7 @@ function useActiveCategoryKey(): string | null {
   if (pathname.startsWith("/messages")) return "practice";
   if (pathname.startsWith("/settings")) return "settings";
   if (pathname.startsWith("/compliance")) return "settings";
+  if (pathname.startsWith("/team")) return "team";
   if (pathname === "/dashboard" || pathname === "/schedule" || pathname === "/inbox" || pathname === "/alerts") return "today";
   return null;
 }
