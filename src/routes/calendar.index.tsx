@@ -316,13 +316,13 @@ function DayColumn({ date, startHour, hours, windows, blackouts, sessions, now }
               boxShadow: isPulsing ? `0 0 0 2px ${palette.primary}80` : "none",
               zIndex: isDragging ? 20 : 5,
             }}
-            title={`${patient?.name ?? "Session"} · ${s.service}`}
+            title={`${patient?.fullName ?? "Session"} · ${s.service}`}
           >
             <div className="text-[10.5px]" style={{ color, fontFamily: "'DM Mono', monospace" }}>
               {start.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })} · {s.durationMin}m
             </div>
             <div className="text-[12px] leading-tight truncate mt-0.5" style={{ color: palette.ink, fontFamily: "'Fraunces', serif" }}>
-              {patient?.name ?? "Client"}
+              {patient?.preferredName ?? patient?.fullName ?? "Client"}
             </div>
             <div className="text-[10.5px] truncate" style={{ color: palette.muted }}>{s.service} · {MODALITY_META[s.modality].label}</div>
             {/* Resize handle */}
