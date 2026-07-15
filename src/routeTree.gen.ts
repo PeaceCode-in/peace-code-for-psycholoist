@@ -34,6 +34,7 @@ import { Route as PatientsRouteImport } from './routes/patients'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as NotesRouteImport } from './routes/notes'
 import { Route as MessagesRouteImport } from './routes/messages'
+import { Route as McpRouteImport } from './routes/mcp'
 import { Route as LibraryRouteImport } from './routes/library'
 import { Route as IntegrationsRouteImport } from './routes/integrations'
 import { Route as InboxRouteImport } from './routes/inbox'
@@ -164,6 +165,8 @@ import { Route as AdminWireUpReportRouteImport } from './routes/admin.wire-up-re
 import { Route as AdminOnboardingSignalsRouteImport } from './routes/admin.onboarding-signals'
 import { Route as AdminLaunchReadinessRouteImport } from './routes/admin.launch-readiness'
 import { Route as AdminHardcodeReportRouteImport } from './routes/admin.hardcode-report'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as SessionsIdIndexRouteImport } from './routes/sessions.$id.index'
 import { Route as PatientsPidIndexRouteImport } from './routes/patients.$pid.index'
 import { Route as BillingInvoicesIndexRouteImport } from './routes/billing.invoices.index'
@@ -190,6 +193,7 @@ import { Route as BillingClaimsIdRouteImport } from './routes/billing.claims.$id
 import { Route as AssessmentsTakeAssignmentIdRouteImport } from './routes/assessments.take.$assignmentId'
 import { Route as AssessmentsResultsResultIdRouteImport } from './routes/assessments.results.$resultId'
 import { Route as AssessmentsLibraryInstrumentIdRouteImport } from './routes/assessments.library.$instrumentId'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as PatientsPidNotesIndexRouteImport } from './routes/patients.$pid.notes.index'
 import { Route as PatientsPidNotesNewRouteImport } from './routes/patients.$pid.notes.new'
 import { Route as PatientsPidNotesNidRouteImport } from './routes/patients.$pid.notes.$nid'
@@ -318,6 +322,11 @@ const NotesRoute = NotesRouteImport.update({
 const MessagesRoute = MessagesRouteImport.update({
   id: '/messages',
   path: '/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LibraryRoute = LibraryRouteImport.update({
@@ -972,6 +981,18 @@ const AdminHardcodeReportRoute = AdminHardcodeReportRouteImport.update({
   path: '/admin/hardcode-report',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const SessionsIdIndexRoute = SessionsIdIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -1105,6 +1126,12 @@ const AssessmentsLibraryInstrumentIdRoute =
     path: '/$instrumentId',
     getParentRoute: () => AssessmentsLibraryRoute,
   } as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const PatientsPidNotesIndexRoute = PatientsPidNotesIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -1146,6 +1173,7 @@ export interface FileRoutesByFullPath {
   '/inbox': typeof InboxRouteWithChildren
   '/integrations': typeof IntegrationsRouteWithChildren
   '/library': typeof LibraryRoute
+  '/mcp': typeof McpRoute
   '/messages': typeof MessagesRouteWithChildren
   '/notes': typeof NotesRoute
   '/notifications': typeof NotificationsRoute
@@ -1171,6 +1199,8 @@ export interface FileRoutesByFullPath {
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
   '/welcome': typeof WelcomeRouteWithChildren
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/hardcode-report': typeof AdminHardcodeReportRoute
   '/admin/launch-readiness': typeof AdminLaunchReadinessRoute
   '/admin/onboarding-signals': typeof AdminOnboardingSignalsRoute
@@ -1283,6 +1313,7 @@ export interface FileRoutesByFullPath {
   '/settings/': typeof SettingsIndexRoute
   '/team/': typeof TeamIndexRoute
   '/welcome/': typeof WelcomeIndexRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/assessments/library/$instrumentId': typeof AssessmentsLibraryInstrumentIdRoute
   '/assessments/results/$resultId': typeof AssessmentsResultsResultIdRoute
   '/assessments/take/$assignmentId': typeof AssessmentsTakeAssignmentIdRoute
@@ -1327,6 +1358,7 @@ export interface FileRoutesByTo {
   '/homework': typeof HomeworkRoute
   '/inbox': typeof InboxRouteWithChildren
   '/library': typeof LibraryRoute
+  '/mcp': typeof McpRoute
   '/notes': typeof NotesRoute
   '/notifications': typeof NotificationsRoute
   '/payments': typeof PaymentsRoute
@@ -1345,6 +1377,8 @@ export interface FileRoutesByTo {
   '/templates': typeof TemplatesRoute
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/hardcode-report': typeof AdminHardcodeReportRoute
   '/admin/launch-readiness': typeof AdminLaunchReadinessRoute
   '/admin/onboarding-signals': typeof AdminOnboardingSignalsRoute
@@ -1452,6 +1486,7 @@ export interface FileRoutesByTo {
   '/settings': typeof SettingsIndexRoute
   '/team': typeof TeamIndexRoute
   '/welcome': typeof WelcomeIndexRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/assessments/library/$instrumentId': typeof AssessmentsLibraryInstrumentIdRoute
   '/assessments/results/$resultId': typeof AssessmentsResultsResultIdRoute
   '/assessments/take/$assignmentId': typeof AssessmentsTakeAssignmentIdRoute
@@ -1502,6 +1537,7 @@ export interface FileRoutesById {
   '/inbox': typeof InboxRouteWithChildren
   '/integrations': typeof IntegrationsRouteWithChildren
   '/library': typeof LibraryRoute
+  '/mcp': typeof McpRoute
   '/messages': typeof MessagesRouteWithChildren
   '/notes': typeof NotesRoute
   '/notifications': typeof NotificationsRoute
@@ -1527,6 +1563,8 @@ export interface FileRoutesById {
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
   '/welcome': typeof WelcomeRouteWithChildren
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/hardcode-report': typeof AdminHardcodeReportRoute
   '/admin/launch-readiness': typeof AdminLaunchReadinessRoute
   '/admin/onboarding-signals': typeof AdminOnboardingSignalsRoute
@@ -1639,6 +1677,7 @@ export interface FileRoutesById {
   '/settings/': typeof SettingsIndexRoute
   '/team/': typeof TeamIndexRoute
   '/welcome/': typeof WelcomeIndexRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/assessments/library/$instrumentId': typeof AssessmentsLibraryInstrumentIdRoute
   '/assessments/results/$resultId': typeof AssessmentsResultsResultIdRoute
   '/assessments/take/$assignmentId': typeof AssessmentsTakeAssignmentIdRoute
@@ -1691,6 +1730,7 @@ export interface FileRouteTypes {
     | '/inbox'
     | '/integrations'
     | '/library'
+    | '/mcp'
     | '/messages'
     | '/notes'
     | '/notifications'
@@ -1716,6 +1756,8 @@ export interface FileRouteTypes {
     | '/treatment-plans'
     | '/waitlist'
     | '/welcome'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/admin/hardcode-report'
     | '/admin/launch-readiness'
     | '/admin/onboarding-signals'
@@ -1828,6 +1870,7 @@ export interface FileRouteTypes {
     | '/settings/'
     | '/team/'
     | '/welcome/'
+    | '/.mcp/invoke-tool/$tool'
     | '/assessments/library/$instrumentId'
     | '/assessments/results/$resultId'
     | '/assessments/take/$assignmentId'
@@ -1872,6 +1915,7 @@ export interface FileRouteTypes {
     | '/homework'
     | '/inbox'
     | '/library'
+    | '/mcp'
     | '/notes'
     | '/notifications'
     | '/payments'
@@ -1890,6 +1934,8 @@ export interface FileRouteTypes {
     | '/templates'
     | '/treatment-plans'
     | '/waitlist'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/admin/hardcode-report'
     | '/admin/launch-readiness'
     | '/admin/onboarding-signals'
@@ -1997,6 +2043,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/team'
     | '/welcome'
+    | '/.mcp/invoke-tool/$tool'
     | '/assessments/library/$instrumentId'
     | '/assessments/results/$resultId'
     | '/assessments/take/$assignmentId'
@@ -2046,6 +2093,7 @@ export interface FileRouteTypes {
     | '/inbox'
     | '/integrations'
     | '/library'
+    | '/mcp'
     | '/messages'
     | '/notes'
     | '/notifications'
@@ -2071,6 +2119,8 @@ export interface FileRouteTypes {
     | '/treatment-plans'
     | '/waitlist'
     | '/welcome'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/admin/hardcode-report'
     | '/admin/launch-readiness'
     | '/admin/onboarding-signals'
@@ -2183,6 +2233,7 @@ export interface FileRouteTypes {
     | '/settings/'
     | '/team/'
     | '/welcome/'
+    | '/.mcp/invoke-tool/$tool'
     | '/assessments/library/$instrumentId'
     | '/assessments/results/$resultId'
     | '/assessments/take/$assignmentId'
@@ -2234,6 +2285,7 @@ export interface RootRouteChildren {
   InboxRoute: typeof InboxRouteWithChildren
   IntegrationsRoute: typeof IntegrationsRouteWithChildren
   LibraryRoute: typeof LibraryRoute
+  McpRoute: typeof McpRoute
   MessagesRoute: typeof MessagesRouteWithChildren
   NotesRoute: typeof NotesRoute
   NotificationsRoute: typeof NotificationsRoute
@@ -2259,6 +2311,8 @@ export interface RootRouteChildren {
   TreatmentPlansRoute: typeof TreatmentPlansRoute
   WaitlistRoute: typeof WaitlistRoute
   WelcomeRoute: typeof WelcomeRouteWithChildren
+  Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
+  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   AdminHardcodeReportRoute: typeof AdminHardcodeReportRoute
   AdminLaunchReadinessRoute: typeof AdminLaunchReadinessRoute
   AdminOnboardingSignalsRoute: typeof AdminOnboardingSignalsRoute
@@ -2274,6 +2328,7 @@ export interface RootRouteChildren {
   ComplianceConsentRoute: typeof ComplianceConsentRoute
   ComplianceExportRoute: typeof ComplianceExportRoute
   CalendarIndexRoute: typeof CalendarIndexRoute
+  Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   CalendarBookSlugRoute: typeof CalendarBookSlugRoute
 }
 
@@ -2452,6 +2507,13 @@ declare module '@tanstack/react-router' {
       path: '/messages'
       fullPath: '/messages'
       preLoaderRoute: typeof MessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/library': {
@@ -3364,6 +3426,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminHardcodeReportRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sessions/$id/': {
       id: '/sessions/$id/'
       path: '/'
@@ -3545,6 +3621,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/assessments/library/$instrumentId'
       preLoaderRoute: typeof AssessmentsLibraryInstrumentIdRouteImport
       parentRoute: typeof AssessmentsLibraryRoute
+    }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/patients/$pid/notes/': {
       id: '/patients/$pid/notes/'
@@ -4066,6 +4149,7 @@ const rootRouteChildren: RootRouteChildren = {
   InboxRoute: InboxRouteWithChildren,
   IntegrationsRoute: IntegrationsRouteWithChildren,
   LibraryRoute: LibraryRoute,
+  McpRoute: McpRoute,
   MessagesRoute: MessagesRouteWithChildren,
   NotesRoute: NotesRoute,
   NotificationsRoute: NotificationsRoute,
@@ -4091,6 +4175,9 @@ const rootRouteChildren: RootRouteChildren = {
   TreatmentPlansRoute: TreatmentPlansRoute,
   WaitlistRoute: WaitlistRoute,
   WelcomeRoute: WelcomeRouteWithChildren,
+  Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
+  Char91DotwellKnownChar93OauthProtectedResourceRoute:
+    Char91DotwellKnownChar93OauthProtectedResourceRoute,
   AdminHardcodeReportRoute: AdminHardcodeReportRoute,
   AdminLaunchReadinessRoute: AdminLaunchReadinessRoute,
   AdminOnboardingSignalsRoute: AdminOnboardingSignalsRoute,
@@ -4106,6 +4193,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComplianceConsentRoute: ComplianceConsentRoute,
   ComplianceExportRoute: ComplianceExportRoute,
   CalendarIndexRoute: CalendarIndexRoute,
+  Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   CalendarBookSlugRoute: CalendarBookSlugRoute,
 }
 export const routeTree = rootRouteImport
