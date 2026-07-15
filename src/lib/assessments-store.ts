@@ -70,8 +70,17 @@ const KEY = "peacecode.therapist.assessments.v1";
 
 // ─── Bus ─────────────────────────────────────────────────────
 const listeners = new Set<() => void>();
-function emit() { listeners.forEach((fn) => fn()); }
+function emit() { snapCache = {}; listeners.forEach((fn) => fn()); }
 function subscribe(fn: () => void) { listeners.add(fn); return () => { listeners.delete(fn); }; }
+
+// Snapshot cache — useSyncExternalStore requires stable references between
+// emits. Compute once per key, invalidate on emit().
+let snapCache: Record<string, unknown> = {};
+function snap<T>(key: string, compute: () => T): T {
+  if (!(key in snapCache)) snapCache[key] = compute();
+  return snapCache[key] as T;
+}
+
 
 function isBrowser() { return typeof window !== "undefined" && typeof localStorage !== "undefined"; }
 function load(): StoreShape {
@@ -450,13 +459,13 @@ export function addCustomInstrument(input: Omit<Instrument, "builtIn" | "id"> & 
 
 // ─── Hooks ───────────────────────────────────────────────────
 export function useLiveInstruments(): Instrument[] {
-  return useSyncExternalStore(subscribe, () => listInstruments(), () => listInstruments());
+  return useSyncExternalStore(subscribe, () => snap("instruments", listInstruments), () => snap("instruments:ssr", listInstruments));
 }
 export function useLiveResults(): AssessmentResult[] {
-  return useSyncExternalStore(subscribe, () => listResults(), () => listResults());
+  return useSyncExternalStore(subscribe, () => snap("results", listResults), () => snap("results:ssr", listResults));
 }
 export function useLiveAssignments(): AssessmentAssignment[] {
-  return useSyncExternalStore(subscribe, () => listAssignments(), () => listAssignments());
+  return useSyncExternalStore(subscribe, () => snap("assignments", listAssignments), () => snap("assignments:ssr", listAssignments));
 }
 export function useLiveResult(id: string): AssessmentResult | undefined {
   const [x, setX] = useState<AssessmentResult | undefined>(() => getResult(id));
@@ -477,6 +486,7 @@ export function useLivePatientTrajectory(patientId: string, instrumentId?: Instr
   useEffect(() => { setX(getPatientTrajectory(patientId, instrumentId)); return subscribe(() => setX(getPatientTrajectory(patientId, instrumentId))); }, [key]);
   return x;
 }
+
 
 // ─── Seed ────────────────────────────────────────────────────
 function seed(): StoreShape {
@@ -550,7 +560,14 @@ function seed(): StoreShape {
         // C-SSRS critical for latest
         if (p.trend === "critical" && instId === "cssrs" && i === n - 1) { responses["css_1"] = 1; responses["css_2"] = 1; responses["css_3"] = 1; }
 
-        const scored = computeSeverity(instId, responses);
+        // Inline scoring — cannot call computeSeverity() here because it
+        // reads store state, and store state is still being seeded.
+        const totalScore = Object.values(responses).reduce((a, b) => a + (Number(b) || 0), 0);
+        const band = inst.scoring.ranges.find((r) => totalScore >= r.min && totalScore <= r.max) ?? inst.scoring.ranges[inst.scoring.ranges.length - 1];
+        const threshold = inst.scoring.criticalThreshold ?? 1;
+        const criticalFlags: string[] = [];
+        (inst.scoring.criticalItems ?? []).forEach((iid) => { if ((responses[iid] ?? 0) >= threshold) criticalFlags.push(iid); });
+        const scored = { totalScore, severity: band.severity, band, criticalFlags };
         const asn: AssessmentAssignment = {
           id: uid("asn"),
           patientId: p.id,
