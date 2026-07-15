@@ -139,7 +139,7 @@ function Dashboard() {
       {/* ── Row 3 — Patient pulse grid ───────────────────────── */}
       <section className="rounded-2xl p-5" style={cardStyle}>
         <SectionHead title="Patient pulse" hint="Need attention this week" to="/patients" />
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="mt-4 flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3 overflow-x-auto sm:overflow-visible snap-x snap-mandatory -mx-5 sm:mx-0 px-5 sm:px-0 pb-2 sm:pb-0">
           {PATIENTS.slice(0, 8).map((p) => {
             const risk = p.riskLevel;
             const dot = risk === "high" ? "#DC3B4A" : risk === "elevated" ? "#E08A3C" : risk === "moderate" ? "#C9A66B" : "#8CB9A6";
@@ -148,16 +148,16 @@ function Dashboard() {
                 key={p.id}
                 to="/patients/$id"
                 params={{ id: p.id }}
-                className="rounded-xl p-3 hover:shadow-sm transition-all"
+                className="rounded-xl p-3 hover:shadow-sm transition-all snap-start shrink-0 w-[240px] sm:w-auto"
                 style={{ background: surface2, border: `1px solid ${border}` }}
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-7 h-7 rounded-full flex items-center justify-center text-[10.5px] text-white" style={{ background: primary }}>{p.initials}</div>
+                  <Avatar patient={p} size={28} />
                   <div className="min-w-0 flex-1">
                     <div className="text-[12px]" style={{ color: ink }}>{p.name}</div>
                     <div className="text-[10px] truncate" style={{ color: muted }}>{p.primaryConcern}</div>
                   </div>
-                  <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: dot }} title={`Risk: ${risk}`} />
+                  <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: dot }} title={`Risk: ${risk}`} aria-label={`Risk ${risk}`} />
                 </div>
                 <PhqSpark values={p.phq9} />
                 <div className="mt-2 flex items-center justify-between text-[10px]" style={{ color: muted }}>
@@ -168,6 +168,7 @@ function Dashboard() {
                   Send check-in
                 </button>
               </Link>
+
             );
           })}
         </div>
