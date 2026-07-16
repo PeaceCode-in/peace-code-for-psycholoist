@@ -27,7 +27,7 @@ function emit() { listeners.forEach((l) => l()); }
 const EMPTY: Group[] = [];
 let cache: Group[] | null = null;
 function read(): Group[] {
-  if (typeof window === "undefined") return [];
+  if (typeof window === "undefined") return EMPTY;
   if (cache) return cache;
   try { const raw = window.localStorage.getItem(KEY); if (raw) { cache = JSON.parse(raw) as Group[]; return cache; } } catch { /* noop */ }
   const seed = seedGroups();
