@@ -128,7 +128,7 @@ function NoteEditor() {
                   <div className="flex justify-between"><span style={{ color: palette.muted }}>Risk</span><span className="capitalize">{patient.risk}</span></div>
                   <div className="flex justify-between"><span style={{ color: palette.muted }}>Sessions</span><span>{patient.totalSessions}</span></div>
                 </div>
-                <Link to="/patients/$patientId" params={{ patientId: patient.id }} className="mt-4 inline-block text-[11.5px] underline" style={{ color: palette.ink }}>
+                <Link to="/patients/$pid" params={{ pid: patient.id }} className="mt-4 inline-block text-[11.5px] underline" style={{ color: palette.ink }}>
                   Open chart →
                 </Link>
               </>

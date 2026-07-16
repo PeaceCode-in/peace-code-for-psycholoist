@@ -146,8 +146,8 @@ function Dashboard() {
             return (
               <Link
                 key={p.id}
-                to="/patients/$id"
-                params={{ id: p.id }}
+                to="/patients/$pid"
+                params={{ pid: p.id }}
                 className="rounded-xl p-3 hover:shadow-sm transition-all snap-start shrink-0 w-[240px] sm:w-auto"
                 style={{ background: surface2, border: `1px solid ${border}` }}
               >

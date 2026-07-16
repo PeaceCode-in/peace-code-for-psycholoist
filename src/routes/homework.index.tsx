@@ -127,7 +127,7 @@ function PatientRow({ pid, items }: { pid: string; items: ReturnType<typeof useL
   const active = items.filter((x) => x.status === "assigned" || x.status === "in_progress").length;
   const dueLabel = new Date(nextDue).toLocaleDateString("en-IN", { day: "2-digit", month: "short" });
   return (
-    <Link to="/patients/$patientId" params={{ patientId: pid }} className="block rounded-2xl border p-5 hover:shadow-sm transition-shadow" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+    <Link to="/patients/$pid" params={{ pid: pid }} className="block rounded-2xl border p-5 hover:shadow-sm transition-shadow" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
       <div className="flex items-center gap-6">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">

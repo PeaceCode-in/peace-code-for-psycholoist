@@ -40,7 +40,7 @@ function Compliance() {
           const p = getPatient(pid);
           const risk = comp.rate < 40;
           return (
-            <Link key={pid} to="/patients/$patientId" params={{ patientId: pid }} className="grid grid-cols-[1.4fr_1fr_1fr_1fr_1fr] items-center px-4 py-3 border-b text-[13px] hover:bg-white/60" style={{ borderColor: palette.border, color: palette.ink }}>
+            <Link key={pid} to="/patients/$pid" params={{ pid: pid }} className="grid grid-cols-[1.4fr_1fr_1fr_1fr_1fr] items-center px-4 py-3 border-b text-[13px] hover:bg-white/60" style={{ borderColor: palette.border, color: palette.ink }}>
               <div className="flex items-center gap-2">
                 <span style={{ fontFamily: "'Fraunces', serif" }}>{p?.fullName ?? "Unknown"}</span>
                 {comp.ghost && <span className="text-[9.5px] inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full" style={{ background: "#F6DCE3", color: "#8A2E4E" }}><Eye className="h-2.5 w-2.5" /> Ghost</span>}
