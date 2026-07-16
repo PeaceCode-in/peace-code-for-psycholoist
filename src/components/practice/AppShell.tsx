@@ -654,18 +654,31 @@ function MobileDrawer({ open, onClose, onDuty, setOnDuty }: { open: boolean; onC
   const navigate = useNavigate();
   if (!open) return null;
   return (
-    <div className="md:hidden fixed inset-0 z-50 flex">
-      <div className="absolute inset-0 bg-black/30" onClick={onClose} />
+    <div className="md:hidden fixed inset-0 z-[60] flex">
+      <div
+        className="absolute inset-0 transition-opacity duration-200"
+        style={{ background: "rgba(30,20,24,0.32)", backdropFilter: "blur(3px)", WebkitBackdropFilter: "blur(3px)" }}
+        onClick={onClose}
+      />
       <aside
-        className="relative w-[86%] max-w-[320px] h-full flex flex-col"
-        style={{ background: "#fff", borderRight: `1px solid ${palette.border}` }}
+        className="pc-sidebar relative w-[86%] max-w-[320px] h-full flex flex-col animate-in slide-in-from-left duration-200"
+        style={{
+          background: "linear-gradient(180deg, rgba(255,249,251,0.98) 0%, rgba(248,227,235,0.98) 100%)",
+          backdropFilter: "blur(18px)",
+          WebkitBackdropFilter: "blur(18px)",
+          boxShadow: "18px 0 40px -20px rgba(63,18,38,0.28)",
+        }}
       >
-        <div className="p-3 flex items-center justify-between border-b" style={{ borderColor: palette.border }}>
-          <div className="flex items-center gap-2">
-            <span className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "rgba(255,255,255,0.7)", border: `1px solid ${palette.border}` }}><img src={peacecodeLogo} alt="" className="w-5 h-5 object-contain" /></span>
-            <span style={{ fontFamily: "'Fraunces', serif", color: palette.ink }} className="text-[14px]">PeaceCode <span style={{ color: palette.primary }}>· Psychologist</span></span>
-          </div>
-          <button onClick={onClose} className="p-1.5 rounded-full" style={{ color: palette.muted }}><X className="w-4 h-4" /></button>
+        <div className="h-14 px-3 flex items-center justify-between shrink-0" style={{ borderBottom: `1px solid ${palette.border}` }}>
+          <Link to="/dashboard" onClick={onClose} className="flex items-center gap-2 min-w-0">
+            <img src={peacecodeLogo} alt="" className="w-8 h-8 object-contain shrink-0" style={{ background: "transparent", filter: "drop-shadow(0 2px 4px rgba(120,50,80,0.18))" }} />
+            <span className="min-w-0 truncate" style={{ fontFamily: "'Fraunces', serif", color: palette.ink, fontSize: 15 }}>
+              PeaceCode <span style={{ color: palette.primary, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", fontFamily: "'DM Mono', monospace" }}>· Psychologist</span>
+            </span>
+          </Link>
+          <button onClick={onClose} aria-label="Close menu" className="w-8 h-8 rounded-lg flex items-center justify-center transition-all hover:bg-white/70 active:scale-95" style={{ color: palette.ink }}>
+            <X className="w-4 h-4" />
+          </button>
         </div>
         <div className="p-3">
           <SidebarProfileCard onDuty={onDuty} setOnDuty={setOnDuty} />
