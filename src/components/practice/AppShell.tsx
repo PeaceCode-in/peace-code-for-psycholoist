@@ -809,8 +809,6 @@ function EmergencyDialog({ open, onClose }: { open: boolean; onClose: () => void
 
 function TopBar({ crumb, onToggleSidebar, onOpenMobile, pinned }: { crumb?: string; onToggleSidebar: () => void; onOpenMobile: () => void; pinned: boolean }) {
   const [emergency, setEmergency] = useState(false);
-  const scopes = ["All", "Patients", "Notes", "Sessions", "Documents"];
-  const [scope, setScope] = useState(scopes[0]);
   return (
     <header
       className="pc-topbar sticky top-0 z-30 h-14 shrink-0 flex items-center gap-2 px-3 sm:px-4"
