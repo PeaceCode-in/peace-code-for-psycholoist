@@ -306,30 +306,41 @@ function DayColumn({ date, startHour, hours, windows, blackouts, sessions, now }
         const patient = getPatient(s.patientId);
         const isPulsing = pulseId === s.id;
         const isDragging = ghost?.id === s.id;
+        const renderedHeight = isDragging ? ghost!.height : height;
+        const showMeta = renderedHeight >= 62;
+        const showName = renderedHeight >= 34;
+        const timeStr = start.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit", hour12: false });
         return (
           <div
             key={s.id}
             onPointerDown={(e) => onDragStart(e, s, "move")}
             onDoubleClick={() => window.location.assign(`/sessions/${s.id}`)}
-            className="absolute left-1 right-1 rounded-[12px] px-2 py-1.5 cursor-grab active:cursor-grabbing select-none transition-all duration-[180ms]"
+            className="absolute left-1 right-1 rounded-[10px] px-2 py-1 cursor-grab active:cursor-grabbing select-none overflow-hidden transition-all duration-[180ms]"
             style={{
               top: isDragging ? ghost!.top : top,
-              height: isDragging ? ghost!.height : height,
-              background: `${color}23`,
-              border: `1px solid ${color}66`,
+              height: renderedHeight,
+              background: `${color}1F`,
+              borderLeft: `2px solid ${color}`,
               opacity: isDragging ? 0.6 : 1,
               boxShadow: isPulsing ? `0 0 0 2px ${palette.primary}80` : "none",
               zIndex: isDragging ? 20 : 5,
             }}
-            title={`${patient?.fullName ?? "Session"} · ${s.service}`}
+            title={`${patient?.fullName ?? "Session"} · ${s.service} · ${MODALITY_META[s.modality].label} · ${s.durationMin}m`}
           >
-            <div className="text-[10.5px]" style={{ color, fontFamily: "'DM Mono', monospace" }}>
-              {start.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })} · {s.durationMin}m
+            <div className="flex items-baseline gap-1.5 min-w-0">
+              <span className="text-[10px] tabular-nums shrink-0" style={{ color, fontFamily: "'DM Mono', monospace" }}>{timeStr}</span>
+              <span className="text-[9.5px] shrink-0" style={{ color: `${color}CC`, fontFamily: "'DM Mono', monospace" }}>{s.durationMin}m</span>
             </div>
-            <div className="text-[12px] leading-tight truncate mt-0.5" style={{ color: palette.ink, fontFamily: "'Fraunces', serif" }}>
-              {patient?.preferredName ?? patient?.fullName ?? "Client"}
-            </div>
-            <div className="text-[10.5px] truncate" style={{ color: palette.muted }}>{s.service} · {MODALITY_META[s.modality].label}</div>
+            {showName && (
+              <div className="text-[12px] leading-[1.15] truncate mt-0.5" style={{ color: palette.ink, fontFamily: "'Fraunces', serif" }}>
+                {patient?.preferredName ?? patient?.fullName ?? "Client"}
+              </div>
+            )}
+            {showMeta && (
+              <div className="text-[10px] leading-tight truncate mt-0.5" style={{ color: palette.muted }}>
+                {MODALITY_META[s.modality].label}
+              </div>
+            )}
             {/* Resize handle */}
             <div
               onPointerDown={(e) => { e.stopPropagation(); onDragStart(e, s, "resize"); }}
