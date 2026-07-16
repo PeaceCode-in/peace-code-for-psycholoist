@@ -43,7 +43,7 @@ type Category = {
 // Sidebar shows unique destinations only. Sub-tabs (calendar views, billing
 // tabs, team tabs, notes tabs, governance tabs) live inside the destination
 // page and are intentionally NOT duplicated here.
-const CATEGORIES: Category[] = [
+export const CATEGORIES: Category[] = [
   {
     key: "today", label: "Today", meta: "5 views", icon: LayoutDashboard,
     items: [
