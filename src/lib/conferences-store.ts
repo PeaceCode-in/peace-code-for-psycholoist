@@ -325,17 +325,20 @@ export function draftCaseSummary(patientId: string | undefined, anonymized: bool
 }
 
 // ─── Hooks ───────────────────────────────────────────────────
-function useSync<T>(select: () => T, ssrDefault: T): T {
-  return useSyncExternalStore(subscribe, select, () => ssrDefault);
+function useRoot(): Root {
+  return useSyncExternalStore(subscribe, read, () => serverRoot);
 }
 export function useLiveConferences(): Conference[] {
-  return useSync(listConferences, [] as Conference[]);
+  const r = useRoot();
+  return useMemo(() => r.conferences.slice().sort((a, b) => b.scheduledAt - a.scheduledAt), [r]);
 }
 export function useLiveConference(id: string): Conference | undefined {
-  return useSync(() => getConferenceSilent(id), undefined);
+  const r = useRoot();
+  return useMemo(() => r.conferences.find((x) => x.id === id), [r, id]);
 }
 export function useLiveAudit(cid?: string): ConfAudit[] {
-  return useSync(() => listAudit(cid), [] as ConfAudit[]);
+  const r = useRoot();
+  return useMemo(() => cid ? r.audit.filter((x) => x.conferenceId === cid) : r.audit, [r, cid]);
 }
 
 // ─── Seed ────────────────────────────────────────────────────
