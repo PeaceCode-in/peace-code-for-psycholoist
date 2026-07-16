@@ -40,7 +40,9 @@ type Category = {
   items: FlyoutItem[];
 };
 
-// Seven category tubes. Every existing route lives inside one of these.
+// Sidebar shows unique destinations only. Sub-tabs (calendar views, billing
+// tabs, team tabs, notes tabs, governance tabs) live inside the destination
+// page and are intentionally NOT duplicated here.
 const CATEGORIES: Category[] = [
   {
     key: "today", label: "Today", meta: "5 views", icon: LayoutDashboard,
@@ -75,69 +77,53 @@ const CATEGORIES: Category[] = [
     ],
   },
   {
-    key: "calendar", label: "Calendar", meta: "6 views", icon: CalendarDays,
+    key: "calendar", label: "Calendar", meta: "3 tools", icon: CalendarDays,
     items: [
-      { title: "Week", url: "/calendar" },
-      { title: "Day", url: "/calendar/day" },
-      { title: "Month", url: "/calendar/month" },
-      { title: "Agenda", url: "/calendar/agenda" },
+      // Calendar page has its own Week / Day / Month / Agenda view switcher.
+      { title: "Calendar", url: "/calendar" },
       { title: "Availability", url: "/calendar/availability" },
       { title: "Booking Link", url: "/calendar/booking-link" },
     ],
   },
   {
-    key: "practice", label: "Practice", meta: "10 tools", icon: Receipt,
+    key: "practice", label: "Practice", meta: "4 tools", icon: Receipt,
     items: [
+      // Billing has its own tab bar (Overview/Invoices/Claims/Payments/Services/Reports).
       { title: "Messages", url: "/messages" },
       { title: "Billing", url: "/billing" },
-      { title: "Invoices", url: "/billing/invoices" },
-      { title: "Claims", url: "/billing/claims" },
-      { title: "Payments", url: "/billing/payments" },
-      { title: "Payouts", url: "/settings/payouts" },
-      { title: "Reports", url: "/billing/reports" },
       { title: "Documents", url: "/documents" },
-      { title: "Templates", url: "/notes/templates" },
       { title: "Services & Pricing", url: "/settings/services" },
     ],
   },
   {
-    key: "growth", label: "Growth", meta: "8 tools", icon: Sparkles,
+    key: "growth", label: "Growth", meta: "7 tools", icon: Sparkles,
     items: [
       { title: "Analytics", url: "/analytics" },
       { title: "Reviews", url: "/reviews" },
       { title: "Marketing Profile", url: "/profile-public" },
       { title: "Content Library", url: "/library" },
-      { title: "CPD & Supervision", url: "/cpd" },
+      { title: "CPD", url: "/cpd" },
       { title: "Peer Network", url: "/peers" },
-      { title: "Supervision", url: "/supervision" },
       { title: "Research", url: "/research" },
     ],
   },
   {
-    key: "team", label: "Team", meta: "9 tools", icon: UsersRound,
+    key: "team", label: "Team", meta: "1 hub", icon: UsersRound,
     items: [
-      { title: "Roster", url: "/team" },
-      { title: "Roles & permissions", url: "/team/roles" },
-      { title: "Supervision", url: "/team/supervision" },
-      { title: "Handoffs", url: "/team/handoffs" },
-      { title: "Internal referrals", url: "/team/referrals" },
-      { title: "Coverage & OOO", url: "/team/coverage" },
-      { title: "Team analytics", url: "/team/analytics" },
-      { title: "Audit trail", url: "/team/audit" },
-      { title: "Invite member", url: "/team/invite" },
+      // Team page has its own tab bar (Roster/Roles/Supervision/Handoffs/Referrals/Coverage/Analytics/Audit/Invite).
+      { title: "Team", url: "/team" },
     ],
   },
   {
-    key: "settings", label: "Settings", meta: "9 pages", icon: SettingsIcon,
+    key: "settings", label: "Settings", meta: "5 pages", icon: SettingsIcon,
     items: [
+      // Governance page has its own tab bar for Consent/Audit/Retention/etc.
       { title: "Settings", url: "/settings" },
       { title: "Copilot", url: "/settings/copilot" },
       { title: "Integrations", url: "/integrations" },
       { title: "Notifications", url: "/notifications" },
+      { title: "Governance", url: "/governance" },
       { title: "Help & Support", url: "/settings/support" },
-      { title: "Consent & DPDP", url: "/governance/consent" },
-      { title: "Audit Log", url: "/governance/audit" },
-      { title: "Data Export", url: "/governance/reports" },
     ],
   },
 ];
