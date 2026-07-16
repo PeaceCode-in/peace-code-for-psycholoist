@@ -70,6 +70,7 @@ import { Route as IntegrationsIndexRouteImport } from './routes/integrations.ind
 import { Route as HomeworkIndexRouteImport } from './routes/homework.index'
 import { Route as GovernanceIndexRouteImport } from './routes/governance.index'
 import { Route as DocumentsIndexRouteImport } from './routes/documents.index'
+import { Route as CpdIndexRouteImport } from './routes/cpd.index'
 import { Route as CaseConferencesIndexRouteImport } from './routes/case-conferences.index'
 import { Route as CalendarIndexRouteImport } from './routes/calendar.index'
 import { Route as BillingIndexRouteImport } from './routes/billing.index'
@@ -171,6 +172,8 @@ import { Route as GovernanceAccessRouteImport } from './routes/governance.access
 import { Route as DocumentsWorksheetsRouteImport } from './routes/documents.worksheets'
 import { Route as DocumentsNewRouteImport } from './routes/documents.new'
 import { Route as DocumentsIdRouteImport } from './routes/documents.$id'
+import { Route as CpdLogRouteImport } from './routes/cpd.log'
+import { Route as CpdEidRouteImport } from './routes/cpd.$eid'
 import { Route as ComplianceExportRouteImport } from './routes/compliance.export'
 import { Route as ComplianceConsentRouteImport } from './routes/compliance.consent'
 import { Route as ComplianceAuditRouteImport } from './routes/compliance.audit'
@@ -543,6 +546,11 @@ const DocumentsIndexRoute = DocumentsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => DocumentsRoute,
+} as any)
+const CpdIndexRoute = CpdIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CpdRoute,
 } as any)
 const CaseConferencesIndexRoute = CaseConferencesIndexRouteImport.update({
   id: '/',
@@ -1051,6 +1059,16 @@ const DocumentsIdRoute = DocumentsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => DocumentsRoute,
 } as any)
+const CpdLogRoute = CpdLogRouteImport.update({
+  id: '/log',
+  path: '/log',
+  getParentRoute: () => CpdRoute,
+} as any)
+const CpdEidRoute = CpdEidRouteImport.update({
+  id: '/$eid',
+  path: '/$eid',
+  getParentRoute: () => CpdRoute,
+} as any)
 const ComplianceExportRoute = ComplianceExportRouteImport.update({
   id: '/compliance/export',
   path: '/compliance/export',
@@ -1406,7 +1424,7 @@ export interface FileRoutesByFullPath {
   '/billing': typeof BillingRouteWithChildren
   '/case-conferences': typeof CaseConferencesRouteWithChildren
   '/copilot': typeof CopilotRoute
-  '/cpd': typeof CpdRoute
+  '/cpd': typeof CpdRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRouteWithChildren
   '/governance': typeof GovernanceRouteWithChildren
@@ -1470,6 +1488,8 @@ export interface FileRoutesByFullPath {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
+  '/cpd/$eid': typeof CpdEidRoute
+  '/cpd/log': typeof CpdLogRoute
   '/documents/$id': typeof DocumentsIdRoute
   '/documents/new': typeof DocumentsNewRoute
   '/documents/worksheets': typeof DocumentsWorksheetsRoute
@@ -1571,6 +1591,7 @@ export interface FileRoutesByFullPath {
   '/billing/': typeof BillingIndexRoute
   '/calendar/': typeof CalendarIndexRoute
   '/case-conferences/': typeof CaseConferencesIndexRoute
+  '/cpd/': typeof CpdIndexRoute
   '/documents/': typeof DocumentsIndexRoute
   '/governance/': typeof GovernanceIndexRoute
   '/homework/': typeof HomeworkIndexRoute
@@ -1633,7 +1654,6 @@ export interface FileRoutesByTo {
   '/analytics': typeof AnalyticsRoute
   '/availability': typeof AvailabilityRoute
   '/copilot': typeof CopilotRoute
-  '/cpd': typeof CpdRoute
   '/dashboard': typeof DashboardRoute
   '/groups': typeof GroupsRoute
   '/inbox': typeof InboxRouteWithChildren
@@ -1678,6 +1698,8 @@ export interface FileRoutesByTo {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
+  '/cpd/$eid': typeof CpdEidRoute
+  '/cpd/log': typeof CpdLogRoute
   '/documents/$id': typeof DocumentsIdRoute
   '/documents/new': typeof DocumentsNewRoute
   '/documents/worksheets': typeof DocumentsWorksheetsRoute
@@ -1777,6 +1799,7 @@ export interface FileRoutesByTo {
   '/billing': typeof BillingIndexRoute
   '/calendar': typeof CalendarIndexRoute
   '/case-conferences': typeof CaseConferencesIndexRoute
+  '/cpd': typeof CpdIndexRoute
   '/documents': typeof DocumentsIndexRoute
   '/governance': typeof GovernanceIndexRoute
   '/homework': typeof HomeworkIndexRoute
@@ -1843,7 +1866,7 @@ export interface FileRoutesById {
   '/billing': typeof BillingRouteWithChildren
   '/case-conferences': typeof CaseConferencesRouteWithChildren
   '/copilot': typeof CopilotRoute
-  '/cpd': typeof CpdRoute
+  '/cpd': typeof CpdRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRouteWithChildren
   '/governance': typeof GovernanceRouteWithChildren
@@ -1907,6 +1930,8 @@ export interface FileRoutesById {
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
+  '/cpd/$eid': typeof CpdEidRoute
+  '/cpd/log': typeof CpdLogRoute
   '/documents/$id': typeof DocumentsIdRoute
   '/documents/new': typeof DocumentsNewRoute
   '/documents/worksheets': typeof DocumentsWorksheetsRoute
@@ -2008,6 +2033,7 @@ export interface FileRoutesById {
   '/billing/': typeof BillingIndexRoute
   '/calendar/': typeof CalendarIndexRoute
   '/case-conferences/': typeof CaseConferencesIndexRoute
+  '/cpd/': typeof CpdIndexRoute
   '/documents/': typeof DocumentsIndexRoute
   '/governance/': typeof GovernanceIndexRoute
   '/homework/': typeof HomeworkIndexRoute
@@ -2140,6 +2166,8 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
+    | '/cpd/$eid'
+    | '/cpd/log'
     | '/documents/$id'
     | '/documents/new'
     | '/documents/worksheets'
@@ -2241,6 +2269,7 @@ export interface FileRouteTypes {
     | '/billing/'
     | '/calendar/'
     | '/case-conferences/'
+    | '/cpd/'
     | '/documents/'
     | '/governance/'
     | '/homework/'
@@ -2303,7 +2332,6 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/availability'
     | '/copilot'
-    | '/cpd'
     | '/dashboard'
     | '/groups'
     | '/inbox'
@@ -2348,6 +2376,8 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
+    | '/cpd/$eid'
+    | '/cpd/log'
     | '/documents/$id'
     | '/documents/new'
     | '/documents/worksheets'
@@ -2447,6 +2477,7 @@ export interface FileRouteTypes {
     | '/billing'
     | '/calendar'
     | '/case-conferences'
+    | '/cpd'
     | '/documents'
     | '/governance'
     | '/homework'
@@ -2576,6 +2607,8 @@ export interface FileRouteTypes {
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
+    | '/cpd/$eid'
+    | '/cpd/log'
     | '/documents/$id'
     | '/documents/new'
     | '/documents/worksheets'
@@ -2677,6 +2710,7 @@ export interface FileRouteTypes {
     | '/billing/'
     | '/calendar/'
     | '/case-conferences/'
+    | '/cpd/'
     | '/documents/'
     | '/governance/'
     | '/homework/'
@@ -2744,7 +2778,7 @@ export interface RootRouteChildren {
   BillingRoute: typeof BillingRouteWithChildren
   CaseConferencesRoute: typeof CaseConferencesRouteWithChildren
   CopilotRoute: typeof CopilotRoute
-  CpdRoute: typeof CpdRoute
+  CpdRoute: typeof CpdRouteWithChildren
   DashboardRoute: typeof DashboardRoute
   DocumentsRoute: typeof DocumentsRouteWithChildren
   GovernanceRoute: typeof GovernanceRouteWithChildren
@@ -3229,6 +3263,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/documents/'
       preLoaderRoute: typeof DocumentsIndexRouteImport
       parentRoute: typeof DocumentsRoute
+    }
+    '/cpd/': {
+      id: '/cpd/'
+      path: '/'
+      fullPath: '/cpd/'
+      preLoaderRoute: typeof CpdIndexRouteImport
+      parentRoute: typeof CpdRoute
     }
     '/case-conferences/': {
       id: '/case-conferences/'
@@ -3937,6 +3978,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocumentsIdRouteImport
       parentRoute: typeof DocumentsRoute
     }
+    '/cpd/log': {
+      id: '/cpd/log'
+      path: '/log'
+      fullPath: '/cpd/log'
+      preLoaderRoute: typeof CpdLogRouteImport
+      parentRoute: typeof CpdRoute
+    }
+    '/cpd/$eid': {
+      id: '/cpd/$eid'
+      path: '/$eid'
+      fullPath: '/cpd/$eid'
+      preLoaderRoute: typeof CpdEidRouteImport
+      parentRoute: typeof CpdRoute
+    }
     '/compliance/export': {
       id: '/compliance/export'
       path: '/compliance/export'
@@ -4525,6 +4580,20 @@ const CaseConferencesRouteWithChildren = CaseConferencesRoute._addFileChildren(
   CaseConferencesRouteChildren,
 )
 
+interface CpdRouteChildren {
+  CpdEidRoute: typeof CpdEidRoute
+  CpdLogRoute: typeof CpdLogRoute
+  CpdIndexRoute: typeof CpdIndexRoute
+}
+
+const CpdRouteChildren: CpdRouteChildren = {
+  CpdEidRoute: CpdEidRoute,
+  CpdLogRoute: CpdLogRoute,
+  CpdIndexRoute: CpdIndexRoute,
+}
+
+const CpdRouteWithChildren = CpdRoute._addFileChildren(CpdRouteChildren)
+
 interface DocumentsRouteChildren {
   DocumentsIdRoute: typeof DocumentsIdRoute
   DocumentsNewRoute: typeof DocumentsNewRoute
@@ -5053,7 +5122,7 @@ const rootRouteChildren: RootRouteChildren = {
   BillingRoute: BillingRouteWithChildren,
   CaseConferencesRoute: CaseConferencesRouteWithChildren,
   CopilotRoute: CopilotRoute,
-  CpdRoute: CpdRoute,
+  CpdRoute: CpdRouteWithChildren,
   DashboardRoute: DashboardRoute,
   DocumentsRoute: DocumentsRouteWithChildren,
   GovernanceRoute: GovernanceRouteWithChildren,
