@@ -298,9 +298,9 @@ export function markAttended(id: string) {
       title: `Supervision — ${sess.supervisorName}`,
       provider: sess.supervisorName,
       hours: sess.hoursForCpd,
-      startAt: sess.scheduledAt,
       endAt: sess.scheduledAt + sess.durationMin * 60 * 1000,
-      ref: sess.id,
+      category: "supervision",
+      sourceRef: sess.id,
     });
     if (cpd) sess.cpdEntryId = cpd.id;
   }
