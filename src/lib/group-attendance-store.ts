@@ -1,5 +1,5 @@
 // Group attendance ledger — per-session per-member presence.
-import { useSyncExternalStore } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 
 export type Attendance = "present" | "late" | "absent" | "excused";
 
