@@ -542,7 +542,9 @@ function seed(): StoreShape {
       : []),
   ]);
 
-  return { patients, notes, events, riskChanges, documents };
+  const taggedPatients = patients.map((p) => ({ ...p, source: "seed" as const }));
+  return { patients: taggedPatients, notes, events, riskChanges, documents };
+
 }
 
 // Draft note helpers (autosave for the composer)
