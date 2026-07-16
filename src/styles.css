@@ -149,8 +149,10 @@
   --pc-border:   #DCE3EF;
   --pc-ink:      #1D2A44;
   --pc-muted:    #7587A6;
-  --pc-primary:  #4B6CB7;
-  --pc-soft:     #AFC9F5;
+  --pc-primary:  #B0567A;
+  --pc-soft:     #F1C7D6;
+  --pc-ring:     #D68CA6;
+
   --pc-lavender: #D5C9F7;
   --pc-shell:    rgba(255,255,255,0.78);
   --pc-header:   rgba(247,250,255,0.92);
