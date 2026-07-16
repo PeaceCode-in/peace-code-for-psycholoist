@@ -941,6 +941,8 @@ export function AppShell({ children, crumb }: { children: ReactNode; crumb?: str
             crumb={crumb}
             onToggleSidebar={() => setPinned(!pinned)}
             onOpenMobile={() => setMobileOpen(true)}
+            pinned={pinned}
+
           />
           <main className="flex-1 min-w-0 pb-20 md:pb-0">{children}</main>
         </div>
