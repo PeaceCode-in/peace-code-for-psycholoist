@@ -282,11 +282,11 @@ function AccordionGroup({
         aria-expanded={open}
         className="group w-full flex items-center gap-2.5 h-9 px-2.5 rounded-xl text-[12.5px] transition-colors outline-none focus-visible:ring-2"
         style={{
-          background: containsActive ? "rgba(255,255,255,0.72)" : open ? palette.soft : "transparent",
+          background: containsActive ? "var(--pc-chrome-active)" : open ? palette.soft : "transparent",
           color: containsActive ? palette.ink : palette.muted,
           border: containsActive ? `1px solid ${palette.border}` : "1px solid transparent",
         }}
-        onMouseEnter={(e) => { if (!containsActive && !open) e.currentTarget.style.background = "rgba(255,255,255,0.45)"; }}
+        onMouseEnter={(e) => { if (!containsActive && !open) e.currentTarget.style.background = "var(--pc-chrome-hover)"; }}
         onMouseLeave={(e) => { if (!containsActive && !open) e.currentTarget.style.background = "transparent"; }}
       >
         <Icon className="w-[15px] h-[15px] shrink-0" strokeWidth={1.8} style={{ color: containsActive ? palette.primary : palette.muted }} />
@@ -324,7 +324,7 @@ function AccordionGroup({
                     background: active ? palette.soft : "transparent",
                     fontWeight: active ? 500 : 400,
                   }}
-                  onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = "rgba(255,255,255,0.55)"; }}
+                  onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = "var(--pc-chrome-hover)"; }}
                   onMouseLeave={(e) => { if (!active) e.currentTarget.style.background = "transparent"; }}
                 >
                   <span className="flex-1 truncate">{it.title}</span>
@@ -442,7 +442,7 @@ function Flyout({
       className="h-full flex flex-col py-4 px-3"
       style={{
         width: 240,
-        background: "rgba(255,247,250,0.96)",
+        background: "var(--pc-rail-flyout-bg)",
         borderLeft: `1px solid ${palette.border}`,
         borderRight: `1px solid ${palette.border}`,
         borderTopRightRadius: 16,
@@ -530,7 +530,7 @@ function DesktopTubeSidebar({
 
       style={{
         width: pinned ? 288 : 72,
-        background: "linear-gradient(180deg, #FFF9FB 0%, #F8E3EB 100%)",
+        background: "var(--pc-rail-bg)",
         // No hard right-border — topbar shares the same wash so the two surfaces meet seamlessly.
         boxShadow: "18px 0 40px -32px rgba(63,18,38,0.22)",
       }}
@@ -600,7 +600,7 @@ function DesktopTubeSidebar({
             aria-pressed={pinned}
             className={pinned ? "w-full h-9 rounded-xl flex items-center justify-center gap-2 text-[12px] transition-colors" : "w-9 h-9 rounded-lg flex items-center justify-center transition-colors"}
             style={{
-              background: pinned ? "rgba(255,255,255,0.62)" : palette.soft,
+              background: pinned ? "var(--pc-chrome-active)" : palette.soft,
               border: pinned ? `1px solid ${palette.border}` : "1px solid transparent",
               color: pinned ? palette.ink : palette.primary,
             }}
@@ -649,7 +649,7 @@ function MobileDrawer({ open, onClose, onDuty, setOnDuty }: { open: boolean; onC
       <aside
         className="pc-sidebar relative w-[86%] max-w-[320px] h-full flex flex-col animate-in slide-in-from-left duration-200"
         style={{
-          background: "linear-gradient(180deg, rgba(255,249,251,0.98) 0%, rgba(248,227,235,0.98) 100%)",
+          background: "var(--pc-drawer-bg)",
           backdropFilter: "blur(18px)",
           WebkitBackdropFilter: "blur(18px)",
           boxShadow: "18px 0 40px -20px rgba(63,18,38,0.28)",
@@ -813,7 +813,7 @@ function TopBar({ crumb, onToggleSidebar, onOpenMobile, pinned }: { crumb?: stri
       className="pc-topbar sticky top-0 z-30 h-14 shrink-0 flex items-center gap-2 px-3 sm:px-4"
       style={{
         // Continuous surface with the sidebar — same blush wash, no hard seam or border.
-        background: "linear-gradient(180deg, rgba(255,249,251,0.96) 0%, rgba(255,247,250,0.94) 100%)",
+        background: "var(--pc-topbar-bg)",
         backdropFilter: "blur(14px)",
         WebkitBackdropFilter: "blur(14px)",
         boxShadow: "0 1px 0 rgba(255,255,255,0.75) inset, 0 8px 24px -22px rgba(63,18,38,0.22)",
@@ -863,7 +863,7 @@ function TopBar({ crumb, onToggleSidebar, onOpenMobile, pinned }: { crumb?: stri
         <div
           className="group hidden md:flex items-center gap-1.5 h-8 pl-2.5 pr-1 rounded-full w-full max-w-[380px] transition-all duration-150 focus-within:max-w-[440px] focus-within:shadow-[0_0_0_3px_rgba(184,80,120,0.10)]"
           style={{
-            background: "rgba(255,255,255,0.72)",
+            background: "var(--pc-chrome-active)",
             border: `1px solid ${palette.border}`,
             boxShadow: "0 1px 0 rgba(255,255,255,0.8) inset",
           }}
