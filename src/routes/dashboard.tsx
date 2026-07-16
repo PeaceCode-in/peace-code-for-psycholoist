@@ -10,6 +10,12 @@ import {
   REVENUE_SPARK, REVENUE_MONTH, WEEK_METRICS, INBOX, PEER_UPDATES, COMPLIANCE,
   getPatient,
 } from "@/lib/practice-store";
+import {
+  Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Line, LineChart,
+  ResponsiveContainer, Tooltip, XAxis, YAxis,
+} from "recharts";
+import { useIsTouch } from "@/hooks/use-is-touch";
+
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
