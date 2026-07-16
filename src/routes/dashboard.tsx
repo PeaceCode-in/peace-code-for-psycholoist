@@ -10,6 +10,12 @@ import {
   REVENUE_SPARK, REVENUE_MONTH, WEEK_METRICS, INBOX, PEER_UPDATES, COMPLIANCE,
   getPatient,
 } from "@/lib/practice-store";
+import {
+  Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Line, LineChart,
+  ResponsiveContainer, Tooltip, XAxis, YAxis,
+} from "recharts";
+import { useIsTouch } from "@/hooks/use-is-touch";
+
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
@@ -197,21 +203,9 @@ function Dashboard() {
         </section>
         <section className="col-span-12 lg:col-span-4 rounded-2xl p-5" style={cardStyle}>
           <SectionHead title="Weekly load" hint="Booked · capacity" to="/schedule" />
-          <div className="mt-4 flex items-end gap-2 h-28">
-            {WEEKLY_LOAD.map((d) => {
-              const pct = d.capacity ? (d.booked / d.capacity) * 100 : 0;
-              return (
-                <div key={d.day} className="flex-1 flex flex-col items-center gap-1">
-                  <div className="w-full rounded-md relative flex-1" style={{ background: surface2 }}>
-                    <div className="absolute bottom-0 left-0 right-0 rounded-md" style={{ background: primary, height: `${pct}%`, opacity: pct ? 1 : 0.15 }} />
-                  </div>
-                  <div className="text-[9.5px]" style={{ color: muted }}>{d.day}</div>
-                  <div className="text-[9.5px] tabular-nums" style={{ color: ink }}>{d.booked}/{d.capacity}</div>
-                </div>
-              );
-            })}
-          </div>
+          <WeeklyLoadChart />
         </section>
+
       </div>
 
       {/* ── Row 5 — Quick Actions rail ───────────────────────── */}
@@ -409,27 +403,101 @@ function Avatar({ patient, size = 32 }: { patient: { initials: string; avatar?: 
     </div>
   );
 }
+
+// ── Chart tooltip shared style (tap-friendly on touch) ─────
+function useTipTrigger(): "hover" | "click" {
+  return useIsTouch() ? "click" : "hover";
+}
+function TipBox({ active, payload, label, unit }: any) {
+  if (!active || !payload?.length) return null;
+  return (
+    <div className="rounded-lg px-2.5 py-1.5 text-[11px] shadow-md" style={{ background: surface, border: `1px solid ${border}`, color: ink }}>
+      {label != null && <div className="text-[10px] mb-0.5" style={{ color: muted }}>{label}</div>}
+      {payload.map((p: any, i: number) => (
+        <div key={i} className="flex items-center gap-1.5 tabular-nums">
+          <span className="w-1.5 h-1.5 rounded-full" style={{ background: p.color || p.fill || primary }} />
+          <span style={{ color: muted }}>{p.name}</span>
+          <span>{p.value}{unit || ""}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function PhqSpark({ values }: { values: number[] }) {
-  const max = Math.max(...values), min = Math.min(...values);
-  const range = max - min || 1;
-  const pts = values.map((v, i) => `${(i / (values.length - 1)) * 100},${100 - ((v - min) / range) * 100}`).join(" ");
+  const trigger = useTipTrigger();
   const rising = values[values.length - 1] > values[0];
+  const stroke = rising ? "#DC3B4A" : "#1F7A3E";
+  const data = values.map((v, i) => ({ week: `W${i + 1}`, score: v }));
   return (
-    <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-8">
-      <polyline points={pts} fill="none" stroke={rising ? "#DC3B4A" : "#1F7A3E"} strokeWidth="2" vectorEffect="non-scaling-stroke" />
-    </svg>
+    <div className="w-full h-9 -mx-1">
+      <ResponsiveContainer>
+        <LineChart data={data} margin={{ top: 2, right: 4, bottom: 0, left: 4 }}>
+          <Tooltip trigger={trigger} cursor={{ stroke: border }} content={<TipBox unit="" />} wrapperStyle={{ outline: "none" }} />
+          <Line type="monotone" dataKey="score" name="PHQ-9" stroke={stroke} strokeWidth={2} dot={false} activeDot={{ r: 3 }} isAnimationActive={false} />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
+
 function AreaSpark({ values }: { values: number[] }) {
-  const max = Math.max(...values), min = Math.min(...values);
-  const range = max - min || 1;
-  const pts = values.map((v, i) => `${(i / (values.length - 1)) * 100},${100 - ((v - min) / range) * 100}`);
-  const line = pts.join(" ");
-  const area = `0,100 ${line} 100,100`;
+  const trigger = useTipTrigger();
+  const data = values.map((v, i) => ({ day: `D${i + 1}`, revenue: v }));
   return (
-    <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="flex-1 h-16">
-      <polygon points={area} fill={soft} opacity="0.7" />
-      <polyline points={line} fill="none" stroke={primary} strokeWidth="2" vectorEffect="non-scaling-stroke" />
-    </svg>
+    <div className="flex-1 h-16 min-w-0">
+      <ResponsiveContainer>
+        <AreaChart data={data} margin={{ top: 4, right: 4, bottom: 0, left: 4 }}>
+          <defs>
+            <linearGradient id="dashRevFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={primary} stopOpacity={0.35} />
+              <stop offset="100%" stopColor={primary} stopOpacity={0.02} />
+            </linearGradient>
+          </defs>
+          <Tooltip trigger={trigger} cursor={{ stroke: border }} content={<TipBox />} wrapperStyle={{ outline: "none" }} />
+          <Area type="monotone" dataKey="revenue" name="Revenue" stroke={primary} strokeWidth={2} fill="url(#dashRevFill)" activeDot={{ r: 3 }} isAnimationActive={false} />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
+
+function WeeklyLoadChart() {
+  const trigger = useTipTrigger();
+  const data = WEEKLY_LOAD.map((d) => ({
+    day: d.day,
+    booked: d.booked,
+    free: Math.max(0, d.capacity - d.booked),
+    capacity: d.capacity,
+  }));
+  return (
+    <div className="mt-4 w-full h-32">
+      <ResponsiveContainer>
+        <BarChart data={data} margin={{ top: 6, right: 4, bottom: 0, left: -20 }} barCategoryGap="22%">
+          <CartesianGrid stroke={border} strokeDasharray="2 4" vertical={false} />
+          <XAxis dataKey="day" tick={{ fontSize: 10, fill: muted }} axisLine={false} tickLine={false} />
+          <YAxis hide />
+          <Tooltip
+            trigger={trigger}
+            cursor={{ fill: soft, opacity: 0.6 }}
+            content={({ active, payload, label }: any) => {
+              if (!active || !payload?.length) return null;
+              const row = payload[0].payload;
+              return (
+                <div className="rounded-lg px-2.5 py-1.5 text-[11px] shadow-md" style={{ background: surface, border: `1px solid ${border}`, color: ink }}>
+                  <div className="text-[10px] mb-0.5" style={{ color: muted }}>{label}</div>
+                  <div className="tabular-nums">{row.booked}/{row.capacity} booked</div>
+                  <div className="tabular-nums" style={{ color: muted }}>{row.free} open</div>
+                </div>
+              );
+            }}
+            wrapperStyle={{ outline: "none" }}
+          />
+          <Bar dataKey="booked" stackId="a" fill={primary} radius={[4, 4, 0, 0]} isAnimationActive={false} />
+          <Bar dataKey="free" stackId="a" fill={surface2} radius={[4, 4, 0, 0]} isAnimationActive={false} />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
