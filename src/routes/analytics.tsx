@@ -226,46 +226,132 @@ function AnalyticsPage() {
               hint="Once invoices are marked paid they'll trend here in rupees."
             />
           ) : (
-            <div style={{ height: 240 }}>
-              <ResponsiveContainer>
-                {revView === "bar" ? (
-                  <BarChart data={revenueData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
-                    <CartesianGrid stroke={CHART.grid} vertical={false} />
-                    <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
-                    <YAxis tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }}
-                      tickFormatter={(v) => formatINR(v as number, { decimals: false })} width={72} />
-                    <Tooltip content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ fill: CHART.grid }} />
-                    <Bar dataKey="revenue" fill="var(--primary)" radius={[6, 6, 0, 0]} />
-                  </BarChart>
-                ) : revView === "line" ? (
-                  <LineChart data={revenueData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
-                    <CartesianGrid stroke={CHART.grid} vertical={false} />
-                    <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
-                    <YAxis tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }}
-                      tickFormatter={(v) => formatINR(v as number, { decimals: false })} width={72} />
-                    <Tooltip content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ stroke: CHART.grid }} />
-                    <Line type="monotone" dataKey="revenue" stroke="var(--primary)" strokeWidth={2.5}
-                      dot={{ r: 4, fill: "var(--primary)" }} activeDot={{ r: 6 }} />
-                  </LineChart>
-                ) : (
-                  <AreaChart data={revenueData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
-                    <defs>
-                      <linearGradient id="revFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="var(--primary)" stopOpacity={0.35} />
-                        <stop offset="100%" stopColor="var(--primary)" stopOpacity={0.02} />
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid stroke={CHART.grid} vertical={false} />
-                    <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
-                    <YAxis tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }}
-                      tickFormatter={(v) => formatINR(v as number, { decimals: false })} width={72} />
-                    <Tooltip content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ stroke: CHART.grid }} />
-                    <Area type="monotone" dataKey="revenue" stroke="var(--primary)" strokeWidth={2} fill="url(#revFill)" />
-                  </AreaChart>
-                )}
-              </ResponsiveContainer>
-            </div>
+            <>
+              {/* Interactive series legend — click to toggle */}
+              {services.length > 1 && (
+                <div className="flex flex-wrap items-center gap-1.5 mb-3">
+                  {services.map((svc, i) => {
+                    const color = CHART.series[i % CHART.series.length];
+                    const hidden = !!hiddenSeries[svc];
+                    return (
+                      <button
+                        key={svc}
+                        type="button"
+                        onClick={() => toggleSeries(svc)}
+                        className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] transition-all hover:scale-[1.03] active:scale-[0.98]"
+                        style={{
+                          background: hidden ? "transparent" : "color-mix(in oklab, var(--muted) 70%, transparent)",
+                          border: "1px solid var(--border)",
+                          color: hidden ? "var(--muted-foreground)" : "var(--foreground)",
+                          opacity: hidden ? 0.55 : 1,
+                          textDecoration: hidden ? "line-through" : "none",
+                        }}
+                        aria-pressed={!hidden}
+                        title={hidden ? `Show ${svc}` : `Hide ${svc}`}
+                      >
+                        <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: color }} />
+                        {svc}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              <div style={{ height: 240 }}>
+                <ResponsiveContainer>
+                  {revView === "bar" ? (
+                    <BarChart data={revenueData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
+                      <CartesianGrid stroke={CHART.grid} vertical={false} />
+                      <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
+                      <YAxis tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }}
+                        tickFormatter={(v) => formatINR(v as number, { decimals: false })} width={72} />
+                      <Tooltip content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ fill: CHART.grid }} />
+                      {services.length > 1 ? (
+                        services.map((svc, i) =>
+                          hiddenSeries[svc] ? null : (
+                            <Bar
+                              key={svc}
+                              dataKey={svc}
+                              stackId="rev"
+                              fill={CHART.series[i % CHART.series.length]}
+                              radius={i === services.length - 1 ? [6, 6, 0, 0] : [0, 0, 0, 0]}
+                              animationDuration={650}
+                              onClick={() => toggleSeries(svc)}
+                              cursor="pointer"
+                            />
+                          )
+                        )
+                      ) : (
+                        <Bar dataKey="revenue" fill="var(--primary)" radius={[6, 6, 0, 0]} animationDuration={650} />
+                      )}
+                    </BarChart>
+                  ) : revView === "line" ? (
+                    <LineChart data={revenueData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
+                      <CartesianGrid stroke={CHART.grid} vertical={false} />
+                      <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
+                      <YAxis tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }}
+                        tickFormatter={(v) => formatINR(v as number, { decimals: false })} width={72} />
+                      <Tooltip content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ stroke: CHART.grid }} />
+                      {services.length > 1 ? (
+                        services.map((svc, i) =>
+                          hiddenSeries[svc] ? null : (
+                            <Line
+                              key={svc}
+                              type="monotone"
+                              dataKey={svc}
+                              stroke={CHART.series[i % CHART.series.length]}
+                              strokeWidth={2.5}
+                              dot={{ r: 3.5, strokeWidth: 0, fill: CHART.series[i % CHART.series.length] }}
+                              activeDot={{ r: 6, onClick: () => toggleSeries(svc) }}
+                              animationDuration={650}
+                            />
+                          )
+                        )
+                      ) : (
+                        <Line type="monotone" dataKey="revenue" stroke="var(--primary)" strokeWidth={2.5}
+                          dot={{ r: 4, fill: "var(--primary)" }} activeDot={{ r: 6 }} animationDuration={650} />
+                      )}
+                    </LineChart>
+                  ) : (
+                    <AreaChart data={revenueData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
+                      <defs>
+                        {(services.length > 1 ? services : ["revenue"]).map((svc, i) => (
+                          <linearGradient key={svc} id={`revFill-${i}`} x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor={services.length > 1 ? CHART.series[i % CHART.series.length] : "var(--primary)"} stopOpacity={0.4} />
+                            <stop offset="100%" stopColor={services.length > 1 ? CHART.series[i % CHART.series.length] : "var(--primary)"} stopOpacity={0.02} />
+                          </linearGradient>
+                        ))}
+                      </defs>
+                      <CartesianGrid stroke={CHART.grid} vertical={false} />
+                      <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
+                      <YAxis tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }}
+                        tickFormatter={(v) => formatINR(v as number, { decimals: false })} width={72} />
+                      <Tooltip content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ stroke: CHART.grid }} />
+                      {services.length > 1 ? (
+                        services.map((svc, i) =>
+                          hiddenSeries[svc] ? null : (
+                            <Area
+                              key={svc}
+                              type="monotone"
+                              dataKey={svc}
+                              stackId="rev"
+                              stroke={CHART.series[i % CHART.series.length]}
+                              strokeWidth={2}
+                              fill={`url(#revFill-${i})`}
+                              animationDuration={650}
+                            />
+                          )
+                        )
+                      ) : (
+                        <Area type="monotone" dataKey="revenue" stroke="var(--primary)" strokeWidth={2} fill="url(#revFill-0)" animationDuration={650} />
+                      )}
+                    </AreaChart>
+                  )}
+                </ResponsiveContainer>
+              </div>
+            </>
           )}
+
         </Card>
 
         {/* Two-up */}
