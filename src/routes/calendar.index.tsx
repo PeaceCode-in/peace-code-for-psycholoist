@@ -307,8 +307,8 @@ function DayColumn({ date, startHour, hours, windows, blackouts, sessions, now }
         const isPulsing = pulseId === s.id;
         const isDragging = ghost?.id === s.id;
         const renderedHeight = isDragging ? ghost!.height : height;
-        const showMeta = renderedHeight >= 62;
-        const showName = renderedHeight >= 34;
+        const showMeta = renderedHeight >= 58;
+        const showName = renderedHeight >= 28;
         const timeStr = start.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit", hour12: false });
         return (
           <div
