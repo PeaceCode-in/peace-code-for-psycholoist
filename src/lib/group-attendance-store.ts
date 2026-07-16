@@ -14,11 +14,15 @@ export type GroupSession = {
 const KEY = "pc.group-sessions.v1";
 const listeners = new Set<() => void>();
 function emit() { listeners.forEach((l) => l()); }
+const EMPTY: GroupSession[] = [];
+let cache: GroupSession[] | null = null;
 function read(): GroupSession[] {
-  if (typeof window === "undefined") return [];
-  try { const raw = window.localStorage.getItem(KEY); return raw ? JSON.parse(raw) : []; } catch { return []; }
+  if (typeof window === "undefined") return EMPTY;
+  if (cache) return cache;
+  try { const raw = window.localStorage.getItem(KEY); cache = raw ? JSON.parse(raw) as GroupSession[] : []; return cache; } catch { cache = []; return cache; }
 }
 function write(next: GroupSession[]) {
+  cache = next.slice();
   try { window.localStorage.setItem(KEY, JSON.stringify(next)); } catch { /* noop */ }
   emit();
 }
@@ -34,11 +38,12 @@ export function logSession(input: Omit<GroupSession, "id">): GroupSession {
 export function deleteSession(id: string): void { write(read().filter((s) => s.id !== id)); }
 
 export function useGroupSessions(groupId: string): GroupSession[] {
-  return useSyncExternalStore(
+  const all = useSyncExternalStore(
     (fn) => { listeners.add(fn); return () => listeners.delete(fn); },
-    () => listSessions(groupId),
-    () => [],
+    read,
+    read,
   );
+  return useMemo(() => all.filter((s) => s.groupId === groupId).sort((a, b) => b.at - a.at), [all, groupId]);
 }
 
 export function attendanceRate(sessions: GroupSession[], patientId: string): { attended: number; total: number; pct: number } {
