@@ -1380,3 +1380,75 @@ html[data-pc-glass-panels="on"][data-theme="dark"] header.pc-topbar {
   background: color-mix(in oklab, #0B1020 55%, transparent) !important;
 }
 
+/* ============================================================
+   Dark-mode safety net for hardcoded Tailwind color utilities.
+   Many pages ship with text-black / text-gray-* / bg-white / etc.
+   In dark mode these become unreadable (black text on dark bg,
+   bright white cards on dark page). Remap the common offenders
+   to semantic tokens so every page inverts correctly.
+   ============================================================ */
+html.dark .text-black,
+html.dark .text-neutral-900, html.dark .text-neutral-800, html.dark .text-neutral-700,
+html.dark .text-gray-900,    html.dark .text-gray-800,    html.dark .text-gray-700,
+html.dark .text-slate-900,   html.dark .text-slate-800,   html.dark .text-slate-700,
+html.dark .text-zinc-900,    html.dark .text-zinc-800,    html.dark .text-zinc-700,
+html.dark .text-stone-900,   html.dark .text-stone-800,   html.dark .text-stone-700 {
+  color: var(--foreground) !important;
+}
+html.dark .text-neutral-600, html.dark .text-neutral-500,
+html.dark .text-gray-600,    html.dark .text-gray-500,
+html.dark .text-slate-600,   html.dark .text-slate-500,
+html.dark .text-zinc-600,    html.dark .text-zinc-500,
+html.dark .text-stone-600,   html.dark .text-stone-500 {
+  color: var(--muted-foreground) !important;
+}
+html.dark .text-neutral-400, html.dark .text-neutral-300,
+html.dark .text-gray-400,    html.dark .text-gray-300,
+html.dark .text-slate-400,   html.dark .text-slate-300,
+html.dark .text-zinc-400,    html.dark .text-zinc-300 {
+  color: color-mix(in oklab, var(--foreground) 65%, transparent) !important;
+}
+
+html.dark .bg-white {
+  background-color: var(--card) !important;
+  color: var(--card-foreground);
+}
+html.dark .bg-neutral-50, html.dark .bg-neutral-100,
+html.dark .bg-gray-50,    html.dark .bg-gray-100,
+html.dark .bg-slate-50,   html.dark .bg-slate-100,
+html.dark .bg-zinc-50,    html.dark .bg-zinc-100,
+html.dark .bg-stone-50,   html.dark .bg-stone-100 {
+  background-color: var(--muted) !important;
+  color: var(--foreground);
+}
+html.dark .bg-neutral-200,
+html.dark .bg-gray-200, html.dark .bg-slate-200,
+html.dark .bg-zinc-200, html.dark .bg-stone-200 {
+  background-color: color-mix(in oklab, var(--muted) 80%, var(--foreground) 6%) !important;
+}
+
+html.dark .border-white,
+html.dark .border-neutral-100, html.dark .border-neutral-200, html.dark .border-neutral-300,
+html.dark .border-gray-100,    html.dark .border-gray-200,    html.dark .border-gray-300,
+html.dark .border-slate-100,   html.dark .border-slate-200,   html.dark .border-slate-300,
+html.dark .border-zinc-100,    html.dark .border-zinc-200,    html.dark .border-zinc-300,
+html.dark .border-stone-100,   html.dark .border-stone-200,   html.dark .border-stone-300 {
+  border-color: var(--border) !important;
+}
+
+html.dark .hover\:bg-gray-50:hover,   html.dark .hover\:bg-gray-100:hover,
+html.dark .hover\:bg-slate-50:hover,  html.dark .hover\:bg-slate-100:hover,
+html.dark .hover\:bg-neutral-50:hover,html.dark .hover\:bg-neutral-100:hover,
+html.dark .hover\:bg-zinc-50:hover,   html.dark .hover\:bg-zinc-100:hover,
+html.dark .hover\:bg-white:hover {
+  background-color: color-mix(in oklab, var(--muted) 70%, var(--foreground) 8%) !important;
+}
+
+html.dark input.bg-white,
+html.dark textarea.bg-white,
+html.dark select.bg-white {
+  background-color: var(--input) !important;
+  color: var(--foreground) !important;
+}
+
+
