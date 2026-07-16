@@ -112,8 +112,22 @@ function AnalyticsPage() {
   const rev = getRevenueThisMonth();
   const collect = getCollectionRate(30);
   const months = getRevenueByMonth(range === "12m" ? 12 : range === "90d" ? 3 : 1);
-  const revenueData = months.map((m) => ({ month: m.month, revenue: m.total }));
-  const revenueEmpty = revenueData.every((d) => d.revenue === 0);
+  // Multi-series revenue: one column per service, per month → interactive legend
+  const services = useMemo(() => {
+    const set = new Set<string>();
+    months.forEach((m) => Object.keys(m.byService).forEach((k) => set.add(k)));
+    return Array.from(set);
+  }, [months]);
+  const revenueData = months.map((m) => {
+    const row: Record<string, number | string> = { month: m.month, revenue: m.total };
+    for (const svc of services) row[svc] = Math.round(m.byService[svc] ?? 0);
+    return row;
+  });
+  const revenueEmpty = revenueData.every((d) => (d.revenue as number) === 0);
+  const [hiddenSeries, setHiddenSeries] = useState<Record<string, boolean>>({});
+  const toggleSeries = (key: string) =>
+    setHiddenSeries((h) => ({ ...h, [key]: !h[key] }));
+
 
   const stableOrBetter = patients.filter((p) => p.status === "active" && (p.risk === "stable" || p.risk === "monitor")).length;
   const outcomeScore = activePatients ? Math.round((stableOrBetter / activePatients) * 100) : 0;
