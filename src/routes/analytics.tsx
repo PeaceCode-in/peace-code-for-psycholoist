@@ -393,56 +393,99 @@ function AnalyticsPage() {
 
             {modalityEmpty ? (
               <EmptyChart icon={Video} title="No sessions in this range" hint="Delivered sessions will appear here." />
-            ) : modView === "donut" ? (
-              <div style={{ height: 220 }} className="mt-2">
-                <ResponsiveContainer>
-                  <PieChart>
-                    <Tooltip content={<ChartTooltip />} />
-                    <Legend
-                      verticalAlign="bottom"
-                      height={28}
-                      formatter={(v) => <span style={{ color: "var(--muted-foreground)", fontSize: 11 }}>{v}</span>}
-                    />
-                    <Pie
-                      data={modalityData}
-                      dataKey="value"
-                      nameKey="name"
-                      innerRadius={48}
-                      outerRadius={78}
-                      paddingAngle={2}
-                      stroke="var(--card)"
-                    >
-                      {modalityData.map((entry, i) => (
-                        <Cell key={i} fill={entry.fill} />
-                      ))}
-                    </Pie>
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
             ) : (
-              <div style={{ height: 200 }} className="mt-2">
-                <ResponsiveContainer>
-                  <BarChart data={modalityData} layout="vertical" margin={{ top: 4, right: 12, left: 4, bottom: 0 }}>
-                    <CartesianGrid stroke={CHART.grid} horizontal={false} />
-                    <XAxis type="number" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
-                    <YAxis
-                      type="category"
-                      dataKey="name"
-                      tickLine={false}
-                      axisLine={false}
-                      tick={{ fill: CHART.muted, fontSize: 11 }}
-                      width={80}
-                    />
-                    <Tooltip content={<ChartTooltip />} cursor={{ fill: CHART.grid }} />
-                    <Bar dataKey="value" radius={[0, 6, 6, 0]}>
-                      {modalityData.map((entry, i) => (
-                        <Cell key={i} fill={entry.fill} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+              <>
+                {/* Clickable legend chips — toggle slice / bar */}
+                <div className="flex flex-wrap items-center gap-1.5 mt-2">
+                  {modalityData.map((d) => {
+                    const hidden = !!hiddenSlices[d.name];
+                    return (
+                      <button
+                        key={d.name}
+                        type="button"
+                        onClick={() => setHiddenSlices((h) => ({ ...h, [d.name]: !h[d.name] }))}
+                        className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] transition-all hover:scale-[1.03] active:scale-[0.98]"
+                        style={{
+                          background: hidden ? "transparent" : "color-mix(in oklab, var(--muted) 70%, transparent)",
+                          border: "1px solid var(--border)",
+                          color: hidden ? "var(--muted-foreground)" : "var(--foreground)",
+                          opacity: hidden ? 0.55 : 1,
+                          textDecoration: hidden ? "line-through" : "none",
+                        }}
+                        aria-pressed={!hidden}
+                      >
+                        <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: d.fill }} />
+                        {d.name} <span className="tabular-nums opacity-70">· {d.value}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {modView === "donut" ? (
+                  <div style={{ height: 200 }} className="mt-2">
+                    <ResponsiveContainer>
+                      <PieChart>
+                        <Tooltip content={<ChartTooltip />} />
+                        <Pie
+                          data={visibleModality.length ? visibleModality : modalityData}
+                          dataKey="value"
+                          nameKey="name"
+                          innerRadius={48}
+                          outerRadius={78}
+                          paddingAngle={2}
+                          stroke="var(--card)"
+                          animationDuration={650}
+                          onClick={(e: { name?: string }) =>
+                            e?.name && setHiddenSlices((h) => ({ ...h, [e.name!]: !h[e.name!] }))
+                          }
+                          cursor="pointer"
+                        >
+                          {(visibleModality.length ? visibleModality : modalityData).map((entry, i) => (
+                            <Cell key={i} fill={entry.fill} />
+                          ))}
+                        </Pie>
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                ) : (
+                  <div style={{ height: 180 }} className="mt-2">
+                    <ResponsiveContainer>
+                      <BarChart
+                        data={visibleModality.length ? visibleModality : modalityData}
+                        layout="vertical"
+                        margin={{ top: 4, right: 12, left: 4, bottom: 0 }}
+                      >
+                        <CartesianGrid stroke={CHART.grid} horizontal={false} />
+                        <XAxis type="number" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
+                        <YAxis
+                          type="category"
+                          dataKey="name"
+                          tickLine={false}
+                          axisLine={false}
+                          tick={{ fill: CHART.muted, fontSize: 11 }}
+                          width={80}
+                        />
+                        <Tooltip content={<ChartTooltip />} cursor={{ fill: CHART.grid }} />
+                        <Bar
+                          dataKey="value"
+                          radius={[0, 6, 6, 0]}
+                          animationDuration={650}
+                          onClick={(e: { name?: string }) =>
+                            e?.name && setHiddenSlices((h) => ({ ...h, [e.name!]: !h[e.name!] }))
+                          }
+                          cursor="pointer"
+                        >
+                          {(visibleModality.length ? visibleModality : modalityData).map((entry, i) => (
+                            <Cell key={i} fill={entry.fill} />
+                          ))}
+                        </Bar>
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                )}
+              </>
             )}
+
 
             <div className="mt-3 pt-3 text-[11.5px] flex items-center gap-1.5"
               style={{ color: "var(--muted-foreground)", borderTop: "1px solid var(--border)" }}>
