@@ -662,7 +662,7 @@ function MobileDrawer({ open, onClose, onDuty, setOnDuty }: { open: boolean; onC
               PeaceCode <span style={{ color: palette.primary, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", fontFamily: "'DM Mono', monospace" }}>· Psychologist</span>
             </span>
           </Link>
-          <button onClick={onClose} aria-label="Close menu" className="w-8 h-8 rounded-lg flex items-center justify-center transition-all hover:bg-white/70 active:scale-95" style={{ color: palette.ink }}>
+          <button onClick={onClose} aria-label="Close menu" className="w-8 h-8 rounded-lg flex items-center justify-center transition-all hover:bg-[var(--pc-chrome-hover)] active:scale-95" style={{ color: palette.ink }}>
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -820,14 +820,14 @@ function TopBar({ crumb, onToggleSidebar, onOpenMobile, pinned }: { crumb?: stri
       }}
     >
       <button
-        className="md:hidden p-1.5 -ml-1 rounded-lg transition-all duration-150 hover:bg-white/70 active:scale-95"
+        className="md:hidden p-1.5 -ml-1 rounded-lg transition-all duration-150 hover:bg-[var(--pc-chrome-hover)] active:scale-95"
         onClick={onOpenMobile}
         aria-label="Open menu"
       >
         <Menu className="w-5 h-5" style={{ color: palette.ink }} />
       </button>
       <button
-        className="hidden md:flex items-center justify-center w-9 h-9 rounded-xl transition-all duration-150 hover:bg-white/70 hover:shadow-sm active:scale-95"
+        className="hidden md:flex items-center justify-center w-9 h-9 rounded-xl transition-all duration-150 hover:bg-[var(--pc-chrome-hover)] hover:shadow-sm active:scale-95"
         onClick={onToggleSidebar}
         aria-label="Toggle sidebar"
         style={{ color: palette.ink }}
@@ -839,7 +839,7 @@ function TopBar({ crumb, onToggleSidebar, onOpenMobile, pinned }: { crumb?: stri
       {!pinned && (
         <Link
           to="/dashboard"
-          className="group hidden md:flex items-center gap-2 pl-1 pr-2.5 h-9 rounded-xl transition-all duration-150 hover:bg-white/70"
+          className="group hidden md:flex items-center gap-2 pl-1 pr-2.5 h-9 rounded-xl transition-all duration-150 hover:bg-[var(--pc-chrome-hover)]"
           aria-label="PeaceCode Psychologist"
         >
           <img
