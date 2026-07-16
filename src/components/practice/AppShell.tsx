@@ -92,12 +92,12 @@ const CATEGORIES: Category[] = [
       { title: "Billing", url: "/billing" },
       { title: "Invoices", url: "/billing/invoices" },
       { title: "Claims", url: "/billing/claims" },
-      { title: "Payments", url: "/payments" },
-      { title: "Payouts", url: "/payouts" },
+      { title: "Payments", url: "/billing/payments" },
+      { title: "Payouts", url: "/settings/payouts" },
       { title: "Reports", url: "/billing/reports" },
       { title: "Documents", url: "/documents" },
-      { title: "Templates", url: "/templates" },
-      { title: "Services & Pricing", url: "/services" },
+      { title: "Templates", url: "/notes/templates" },
+      { title: "Services & Pricing", url: "/settings/services" },
     ],
   },
   {
@@ -134,10 +134,10 @@ const CATEGORIES: Category[] = [
       { title: "Copilot", url: "/settings/copilot" },
       { title: "Integrations", url: "/integrations" },
       { title: "Notifications", url: "/notifications" },
-      { title: "Help & Support", url: "/support" },
-      { title: "Consent & DPDP", url: "/compliance/consent" },
-      { title: "Audit Log", url: "/compliance/audit" },
-      { title: "Data Export", url: "/compliance/export" },
+      { title: "Help & Support", url: "/settings/support" },
+      { title: "Consent & DPDP", url: "/governance/consent" },
+      { title: "Audit Log", url: "/governance/audit" },
+      { title: "Data Export", url: "/governance/reports" },
     ],
   },
 ];
@@ -696,7 +696,7 @@ function MobileDrawer({ open, onClose, onDuty, setOnDuty }: { open: boolean; onC
           ))}
           <div className="mt-4 pt-3 border-t space-y-0.5" style={{ borderColor: palette.border }}>
             <NavLinkRow item={{ title: "Notifications", url: "/notifications", icon: Bell }} isActive={isActive("/notifications")} />
-            <NavLinkRow item={{ title: "Help & Support", url: "/support", icon: LifeBuoy }} isActive={isActive("/support")} />
+            <NavLinkRow item={{ title: "Help & Support", url: "/settings/support", icon: LifeBuoy }} isActive={isActive("/settings/support")} />
             <NavLinkRow item={{ title: "Settings", url: "/settings", icon: SettingsIcon }} isActive={isActive("/settings")} />
             <button onClick={() => { endSession(); navigate({ to: "/auth" }); }} className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg" style={{ color: palette.muted }}>
               <LogOut className="h-3.5 w-3.5" strokeWidth={1.8} /><span className="text-[12.5px]">Sign out</span>
