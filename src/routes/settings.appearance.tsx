@@ -66,7 +66,20 @@ function AppearancePage() {
               ]}
             />
           }
-
+        />
+        <Row
+          label="Verify theme"
+          hint="Confirms the theme mode and background preset agree."
+          action={
+            <button
+              type="button"
+              onClick={runManualCheck}
+              className="text-[12px] px-3 py-1.5 rounded-full transition-colors"
+              style={{ background: palette.soft, color: palette.ink, border: `1px solid ${palette.border}` }}
+            >
+              Run check
+            </button>
+          }
         />
         <Row
           label="Density"
