@@ -1,8 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef } from "react";
+import { toast } from "sonner";
 import { PageHeader } from "@/components/practice/PageHeader";
 import { Section, Row, Segmented, Toggle } from "@/components/settings/primitives";
 import { useSettings, ACCENTS, BG_THEMES, type AccentKey, type BgThemeKey } from "@/lib/settings-store";
 import { palette } from "@/components/practice/palette";
+import { validateThemeConsistency } from "@/lib/theme-validator";
 
 export const Route = createFileRoute("/settings/appearance")({
   head: () => ({ meta: [{ name: "robots", content: "noindex" }] }),
@@ -12,6 +15,25 @@ export const Route = createFileRoute("/settings/appearance")({
 function AppearancePage() {
   const [s, setS] = useSettings();
   const a = s.appearance;
+
+  // Auto-verify after each toggle so any drift between mode and bg preset
+  // surfaces immediately as a toast instead of a silently wrong page.
+  const first = useRef(true);
+  useEffect(() => {
+    if (first.current) { first.current = false; return; }
+    const id = window.setTimeout(() => {
+      const r = validateThemeConsistency();
+      if (!r.ok) toast.error("Theme mismatch", { description: r.reason });
+    }, 60);
+    return () => window.clearTimeout(id);
+  }, [a.theme, a.bgTheme]);
+
+  const runManualCheck = () => {
+    const r = validateThemeConsistency();
+    if (r.ok) toast.success("Theme is consistent", { description: `${r.mode} · ${r.bg}` });
+    else toast.error("Theme mismatch", { description: r.reason });
+  };
+
 
   return (
     <>
