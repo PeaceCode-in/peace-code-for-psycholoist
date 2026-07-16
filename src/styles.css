@@ -1452,3 +1452,34 @@ html.dark select.bg-white {
 }
 
 
+/* ============================================================
+   Charts — dark-mode safety net.
+   Recharts renders SVG with inline styles. Axis text and grids
+   default to near-black, which disappears on a dark surface.
+   ============================================================ */
+html.dark .recharts-cartesian-grid line,
+html.dark .recharts-polar-grid line,
+html.dark .recharts-cartesian-axis-line,
+html.dark .recharts-cartesian-axis-tick-line {
+  stroke: color-mix(in oklab, var(--foreground) 18%, transparent) !important;
+}
+html.dark .recharts-cartesian-axis-tick-value,
+html.dark .recharts-text.recharts-label,
+html.dark .recharts-legend-item-text {
+  fill: var(--muted-foreground) !important;
+  color: var(--muted-foreground) !important;
+}
+html.dark .recharts-default-tooltip {
+  background: var(--card) !important;
+  border-color: var(--border) !important;
+  color: var(--foreground) !important;
+}
+html.dark .recharts-tooltip-item,
+html.dark .recharts-tooltip-label {
+  color: var(--foreground) !important;
+}
+html.dark .recharts-tooltip-cursor {
+  fill: color-mix(in oklab, var(--foreground) 8%, transparent) !important;
+  stroke: color-mix(in oklab, var(--foreground) 20%, transparent) !important;
+}
+
