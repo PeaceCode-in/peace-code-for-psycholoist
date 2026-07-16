@@ -93,7 +93,7 @@ export function PublicProfileBody({ profile: p }: { profile: Profile }) {
         </aside>
       </div>
 
-      <footer className="border-t px-8 py-6 text-[11px]" style={{ borderColor: "#e7e5e0", color: "#7a7770", fontFamily: "'DM Mono', ui-monospace, monospace" }}>
+      <footer className="border-t px-5 py-5 @md:px-8 @md:py-6 text-[11px]" style={{ borderColor: "#e7e5e0", color: "#7a7770", fontFamily: "'DM Mono', ui-monospace, monospace" }}>
         <div className="flex items-center justify-between flex-wrap gap-3">
           <span>Listed on PeaceCode · verified {p.credentials.filter((c) => c.verified).length} credentials</span>
           <span className="inline-flex items-center gap-1"><Calendar className="h-3 w-3" /> Updated {new Date(p.lastEditedAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}</span>
