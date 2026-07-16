@@ -2,7 +2,7 @@
 // Incoming + outgoing patient referrals from external sources: GPs,
 // psychiatrists, employers/EAPs, universities, prior therapists, self.
 // Tracks source, warm-handoff status, conversion to patient chart.
-import { useSyncExternalStore } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 
 export type ReferralDirection = "incoming" | "outgoing";
 export type ReferralStatus = "new" | "contacted" | "scheduled" | "converted" | "declined" | "closed";
