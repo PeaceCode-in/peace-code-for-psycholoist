@@ -545,28 +545,29 @@ function DesktopTubeSidebar({
       style={{
         width: pinned ? 288 : 72,
         background: "linear-gradient(180deg, #FFF9FB 0%, #F8E3EB 100%)",
-        borderRight: `1px solid ${palette.border}`,
-        boxShadow: "1px 0 0 rgba(255,255,255,0.75) inset, 14px 0 32px -30px rgba(63,18,38,0.24)",
+        // No hard right-border — topbar shares the same wash so the two surfaces meet seamlessly.
+        boxShadow: "18px 0 40px -32px rgba(63,18,38,0.22)",
       }}
     >
       <div className="h-full flex flex-col p-3">
         <div className={pinned ? "flex items-center gap-3 px-1.5 pt-1 pb-3" : "flex items-center justify-center pt-2 pb-3"}>
           <Link
             to="/dashboard"
-            className="w-12 h-12 rounded-2xl flex items-center justify-center transition-transform hover:scale-[1.04] shrink-0"
-            aria-label="PeaceCode Practice"
-            style={{
-              background: "rgba(255,255,255,0.78)",
-              border: `1px solid ${palette.border}`,
-              boxShadow: "0 2px 8px -4px rgba(120,50,80,0.15)",
-            }}
+            className="group w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-200 hover:scale-[1.05] active:scale-[0.97] shrink-0"
+            aria-label="PeaceCode Psychologist"
+            style={{ background: "transparent" }}
           >
-            <img src={peacecodeLogo} alt="PeaceCode" className="w-7 h-7 object-contain" style={{ filter: `drop-shadow(0 1px 0 rgba(255,255,255,0.6))` }} />
+            <img
+              src={peacecodeLogo}
+              alt="PeaceCode"
+              className="w-9 h-9 object-contain transition-transform duration-200 group-hover:rotate-[-4deg]"
+              style={{ background: "transparent", filter: "drop-shadow(0 2px 6px rgba(120,50,80,0.18))" }}
+            />
           </Link>
           {pinned && (
             <div className="min-w-0">
-              <div className="text-[15px] leading-tight" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>PeaceCode</div>
-              <div className="text-[10.5px] uppercase tracking-[0.18em]" style={{ color: palette.muted, fontFamily: "'DM Mono', monospace" }}>Practice</div>
+              <div className="text-[15.5px] leading-tight tracking-tight" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>PeaceCode</div>
+              <div className="text-[10px] uppercase tracking-[0.22em] mt-0.5" style={{ color: palette.primary, fontFamily: "'DM Mono', monospace" }}>Psychologist</div>
             </div>
           )}
         </div>
