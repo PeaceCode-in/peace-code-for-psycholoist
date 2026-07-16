@@ -73,18 +73,22 @@ function seed(): Referral[] {
   ];
 }
 
+let cache: Referral[] | null = null;
 function readAll(): Referral[] {
   if (!isBrowser()) return seed();
+  if (cache) return cache;
   try {
     const raw = window.localStorage.getItem(KEY);
-    if (raw) return JSON.parse(raw) as Referral[];
+    if (raw) { cache = JSON.parse(raw) as Referral[]; return cache; }
     const s = seed();
     window.localStorage.setItem(KEY, JSON.stringify(s));
+    cache = s;
     return s;
-  } catch { return seed(); }
+  } catch { cache = seed(); return cache; }
 }
 function writeAll(list: Referral[]) {
   if (!isBrowser()) return;
+  cache = list.slice();
   window.localStorage.setItem(KEY, JSON.stringify(list));
   emit();
 }
