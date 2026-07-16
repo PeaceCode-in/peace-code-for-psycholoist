@@ -1191,6 +1191,22 @@ html[data-motion="reduced"] *::after {
   scroll-behavior: auto !important;
 }
 
+/* Reduce motion — extra guardrails for the sidebar + topbar shell.
+   The global rule above zeros transition/animation timings; these rules also
+   suppress hover transforms and instantly resolve the sidebar accordion so
+   nothing feels "snapped" mid-motion. */
+html[data-motion="reduced"] aside.pc-sidebar *,
+html[data-motion="reduced"] header.pc-topbar * {
+  transform: none !important;
+  animation: none !important;
+}
+html[data-motion="reduced"] aside.pc-sidebar .grid[style*="grid-template-rows"] {
+  transition: none !important;
+}
+html[data-motion="reduced"] aside.pc-sidebar [style*="rotate"] {
+  transform: none !important;
+}
+
 /* Glass effects OFF — strip blur + saturate everywhere */
 html[data-glass="off"] *,
 html[data-glass="off"] *::before,
