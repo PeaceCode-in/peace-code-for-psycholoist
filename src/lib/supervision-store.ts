@@ -3,7 +3,7 @@
 // PRIVATE PARTITION (supervisor cannot query supervisee's private notes
 // even through the store internals — enforced at store layer), competency
 // framework, and CPD push-through. localStorage-backed.
-import { useSyncExternalStore } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 import { recordFromSupervision } from "@/lib/cpd-store";
 
 export type Role = "supervisee" | "supervisor";
@@ -82,6 +82,8 @@ const AUDIT_KEY = "peacecode.therapist.supervision-audit.v1";
 const CLINICIAN = "Dr. Aditi Rao";
 
 const listeners = new Set<() => void>();
+let cachedShape: Shape | null = null;
+const serverShape = seed();
 const emit = () => listeners.forEach((f) => f());
 const isBrowser = () => typeof window !== "undefined" && typeof window.localStorage !== "undefined";
 
@@ -172,16 +174,25 @@ function seed(): Shape {
 }
 
 function readAll(): Shape {
-  if (!isBrowser()) return seed();
+  if (!isBrowser()) return serverShape;
+  if (cachedShape) return cachedShape;
   try {
     const raw = window.localStorage.getItem(KEY);
-    if (raw) return JSON.parse(raw) as Shape;
+    if (raw) {
+      cachedShape = JSON.parse(raw) as Shape;
+      return cachedShape;
+    }
     const s = seed();
     window.localStorage.setItem(KEY, JSON.stringify(s));
+    cachedShape = s;
     return s;
-  } catch { return seed(); }
+  } catch {
+    cachedShape = seed();
+    return cachedShape;
+  }
 }
 function writeAll(s: Shape) {
+  cachedShape = s;
   if (!isBrowser()) return;
   window.localStorage.setItem(KEY, JSON.stringify(s));
   emit();
@@ -319,10 +330,14 @@ export function updateCompetency(id: string, patch: Partial<Competency>) {
 }
 
 // ── Hooks
-export function useSupervisors() { return useSyncExternalStore(subscribe, listSupervisors, listSupervisors); }
-export function useContracts() { return useSyncExternalStore(subscribe, listContracts, listContracts); }
-export function useSessions() { return useSyncExternalStore(subscribe, listSessions, listSessions); }
-export function useCompetencies() { return useSyncExternalStore(subscribe, listCompetencies, listCompetencies); }
+function useShapeSlice<T>(select: (s: Shape) => T): T {
+  const shape = useSyncExternalStore(subscribe, readAll, () => serverShape);
+  return useMemo(() => select(shape), [shape, select]);
+}
+export function useSupervisors() { return useShapeSlice((s) => s.supervisors.slice()); }
+export function useContracts() { return useShapeSlice((s) => s.contracts.slice().sort((a, b) => b.startedAt - a.startedAt)); }
+export function useSessions() { return useShapeSlice((s) => s.sessions.slice().sort((a, b) => b.scheduledAt - a.scheduledAt)); }
+export function useCompetencies() { return useShapeSlice((s) => s.competencies.slice().sort((a, b) => a.domain.localeCompare(b.domain))); }
 
 // ── Derived
 export function totalHoursThisYear(): number {

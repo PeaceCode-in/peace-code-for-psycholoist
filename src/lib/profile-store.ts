@@ -55,6 +55,8 @@ export type Profile = {
 
 const KEY = "peacecode.therapist.profile.v1";
 const listeners = new Set<() => void>();
+let cachedProfile: Profile | null = null;
+const serverProfile = seed();
 const emit = () => listeners.forEach((f) => f());
 const isBrowser = () => typeof window !== "undefined" && typeof window.localStorage !== "undefined";
 
@@ -112,16 +114,25 @@ Sessions are 50 minutes, in-person at my Indiranagar clinic on Tuesdays and Thur
 }
 
 function readAll(): Profile {
-  if (!isBrowser()) return seed();
+  if (!isBrowser()) return serverProfile;
+  if (cachedProfile) return cachedProfile;
   try {
     const raw = window.localStorage.getItem(KEY);
-    if (raw) return JSON.parse(raw) as Profile;
+    if (raw) {
+      cachedProfile = JSON.parse(raw) as Profile;
+      return cachedProfile;
+    }
     const s = seed();
     window.localStorage.setItem(KEY, JSON.stringify(s));
+    cachedProfile = s;
     return s;
-  } catch { return seed(); }
+  } catch {
+    cachedProfile = seed();
+    return cachedProfile;
+  }
 }
 function writeAll(p: Profile) {
+  cachedProfile = p;
   if (!isBrowser()) return;
   p.lastEditedAt = Date.now();
   window.localStorage.setItem(KEY, JSON.stringify(p));
@@ -171,7 +182,7 @@ export function removeFaq(id: string) {
   p.faqs = p.faqs.filter((f) => f.id !== id);
   writeAll(p);
 }
-export function useProfile(): Profile { return useSyncExternalStore(subscribe, getProfile, getProfile); }
+export function useProfile(): Profile { return useSyncExternalStore(subscribe, getProfile, () => serverProfile); }
 
 export function seoScore(p: Profile): { score: number; checks: { label: string; ok: boolean; hint?: string }[] } {
   const checks = [

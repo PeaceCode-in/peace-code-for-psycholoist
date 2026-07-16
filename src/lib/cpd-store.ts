@@ -5,7 +5,7 @@
 //
 // Every certificate carries a hash — tamper detection on export.
 
-import { useSyncExternalStore } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 
 // ─── Types ───────────────────────────────────────────────────
 export type CpdCategory =
@@ -149,23 +149,32 @@ type Shape = {
 };
 
 const listeners = new Set<() => void>();
+let cachedShape: Shape | null = null;
+const serverShape = seed();
 function emit() { listeners.forEach((fn) => fn()); }
 function subscribe(fn: () => void) { listeners.add(fn); return () => { listeners.delete(fn); }; }
 function isBrowser() { return typeof window !== "undefined" && typeof window.localStorage !== "undefined"; }
 
 function readAll(): Shape {
-  if (!isBrowser()) return seed();
+  if (!isBrowser()) return serverShape;
+  if (cachedShape) return cachedShape;
   try {
     const raw = window.localStorage.getItem(KEY);
-    if (raw) return JSON.parse(raw) as Shape;
+    if (raw) {
+      cachedShape = JSON.parse(raw) as Shape;
+      return cachedShape;
+    }
     const s = seed();
     window.localStorage.setItem(KEY, JSON.stringify(s));
+    cachedShape = s;
     return s;
   } catch {
-    return seed();
+    cachedShape = seed();
+    return cachedShape;
   }
 }
 function writeAll(shape: Shape) {
+  cachedShape = shape;
   if (!isBrowser()) return;
   window.localStorage.setItem(KEY, JSON.stringify(shape));
   emit();
@@ -435,11 +444,8 @@ export function recordFromSupervision(input: { title: string; provider: string; 
 
 // ── Reactive hooks
 function useShapeSlice<T>(select: (s: Shape) => T): T {
-  return useSyncExternalStore(
-    subscribe,
-    () => select(readAll()),
-    () => select(seed())
-  );
+  const shape = useSyncExternalStore(subscribe, readAll, () => serverShape);
+  return useMemo(() => select(shape), [shape, select]);
 }
 export function useEntries() { return useShapeSlice((s) => s.entries.slice().sort((a, b) => b.endAt - a.endAt)); }
 export function useCycles() { return useShapeSlice((s) => s.cycles.slice().sort((a, b) => b.expiryDate - a.expiryDate)); }
