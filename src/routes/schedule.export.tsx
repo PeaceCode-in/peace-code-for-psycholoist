@@ -58,7 +58,7 @@ function ExportPage() {
         </p>
       </div>
 
-      <div className="rounded-2xl border p-6 mb-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+      <div className="rounded-2xl border p-6 mb-4" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <div className="flex items-center gap-2 mb-3">
           <Cable className="w-4 h-4" style={{ color: palette.primary }} />
           <h3 className="text-[14px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>Subscribe URL</h3>
@@ -68,7 +68,7 @@ function ExportPage() {
         </p>
         <div className="flex items-center gap-2 p-3 rounded-lg border tabular-nums" style={{ borderColor: palette.border, background: "#faf6f7" }}>
           <code className="text-[12px] truncate flex-1" style={{ color: palette.ink, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{webcalUrl}</code>
-          <button onClick={copyUrl} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-[11.5px]" style={{ background: palette.ink, color: "#fff" }}>
+          <button onClick={copyUrl} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-[11.5px]" style={{ background: palette.ink, color: palette.inkContrast }}>
             {copied ? <><Check className="w-3.5 h-3.5" /> Copied</> : <><Copy className="w-3.5 h-3.5" /> Copy</>}
           </button>
         </div>
@@ -79,7 +79,7 @@ function ExportPage() {
 
 
 
-      <div className="rounded-2xl border p-6 mb-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+      <div className="rounded-2xl border p-6 mb-4" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <div className="flex items-center gap-2 mb-3">
           <Download className="w-4 h-4" style={{ color: palette.primary }} />
           <h3 className="text-[14px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>Download .ics</h3>
@@ -87,12 +87,12 @@ function ExportPage() {
         <p className="text-[12px] mb-3" style={{ color: palette.muted }}>
           One-shot download of the next 90 days. Import into any calendar that accepts iCalendar files.
         </p>
-        <button onClick={download} className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-[12.5px] border" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }}>
+        <button onClick={download} className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-[12.5px] border" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }}>
           <Download className="w-3.5 h-3.5" /> peacecode-schedule.ics
         </button>
       </div>
 
-      <div className="rounded-2xl border p-6" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+      <div className="rounded-2xl border p-6" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <div className="text-[10.5px] tracking-[0.14em] uppercase mb-2" style={{ color: palette.muted }}>Preview</div>
         <pre className="text-[10.5px] overflow-auto max-h-[240px] p-3 rounded-lg" style={{ background: "#faf6f7", color: palette.ink, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
 {ics.split("\r\n").slice(0, 40).join("\n")}

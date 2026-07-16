@@ -36,13 +36,13 @@ function ScheduleLayout() {
             </p>
           </div>
           <div className="pc-scroll-x -mx-4 px-4 sm:mx-0 sm:px-0">
-            <div className="inline-flex items-center rounded-full border p-1 whitespace-nowrap" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)", backdropFilter: "blur(12px)" }}>
+            <div className="inline-flex items-center rounded-full border p-1 whitespace-nowrap" style={{ borderColor: palette.border, background: palette.glass, backdropFilter: "blur(12px)" }}>
               {TABS.map((t) => {
                 const on = active(t.to, t.exact);
                 const Icon = t.icon;
                 return (
                   <Link key={t.to} to={t.to} className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] transition-all duration-[180ms] shrink-0"
-                    style={{ fontFamily: "'DM Mono', ui-monospace, monospace", background: on ? palette.ink : "transparent", color: on ? "#fff" : palette.muted }}>
+                    style={{ fontFamily: "'DM Mono', ui-monospace, monospace", background: on ? palette.ink : "transparent", color: on ? palette.inkContrast : palette.muted }}>
                     <Icon className="h-3.5 w-3.5" /> {t.label}
                   </Link>
                 );

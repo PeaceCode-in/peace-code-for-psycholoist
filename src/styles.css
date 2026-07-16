@@ -169,7 +169,15 @@
   --pc-chrome-hover:   rgba(255,255,255,0.55);
   --pc-chrome-active:  rgba(255,255,255,0.72);
   --pc-chrome-shadow:  10px 0 28px -24px rgba(63,18,38,0.28);
+
+  /* Glass surfaces used on inline styles across app content */
+  --pc-glass:        rgba(255,255,255,0.60);
+  --pc-glass-strong: rgba(255,255,255,0.70);
+  --pc-solid:        #FFFFFF;
+  --pc-ink-contrast: #FFFFFF;
 }
+
+
 .dark, [data-theme="dark"] {
   --pc-bg:       #0B1020;
   --pc-surface:  #141B33;
@@ -195,7 +203,15 @@
   --pc-chrome-hover:   rgba(255,255,255,0.06);
   --pc-chrome-active:  rgba(255,255,255,0.10);
   --pc-chrome-shadow:  10px 0 28px -24px rgba(0,0,0,0.55);
+
+  /* Glass surfaces — dark variants so inline "white glass" backgrounds don't flash white */
+  --pc-glass:        rgba(20,27,51,0.55);
+  --pc-glass-strong: rgba(20,27,51,0.72);
+  --pc-solid:        #141B33;
+  --pc-ink-contrast: #0B1020;
 }
+
+
 
 html { color-scheme: light; }
 html.dark, html[data-theme="dark"] { color-scheme: dark; }

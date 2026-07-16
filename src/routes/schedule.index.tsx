@@ -40,12 +40,12 @@ function SchedulePage() {
     <div className="max-w-[1400px] mx-auto px-5 sm:px-8 pb-24">
       {/* Toolbar */}
       <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
-        <div className="inline-flex items-center gap-1 rounded-full border p-1" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+        <div className="inline-flex items-center gap-1 rounded-full border p-1" style={{ borderColor: palette.border, background: palette.glass }}>
           {(["day","week","month","agenda"] as ScheduleView[]).map((v) => {
             const on = view === v;
             return (
               <button key={v} onClick={() => setView(v)} className="px-3 py-1.5 text-[12px] rounded-full transition-all capitalize"
-                style={{ fontFamily: "'DM Mono', ui-monospace, monospace", background: on ? palette.ink : "transparent", color: on ? "#fff" : palette.muted }}>
+                style={{ fontFamily: "'DM Mono', ui-monospace, monospace", background: on ? palette.ink : "transparent", color: on ? palette.inkContrast : palette.muted }}>
                 {v}
               </button>
             );
@@ -55,7 +55,7 @@ function SchedulePage() {
           <button onClick={() => setCursor(shift(view, cursor, -1))} className="h-8 w-8 grid place-items-center rounded-full border" style={{ borderColor: palette.border, color: palette.ink }}>
             <ChevronLeft className="h-4 w-4" />
           </button>
-          <button onClick={() => setCursor(new Date())} className="px-3 h-8 rounded-full border text-[12px]" style={{ borderColor: palette.border, color: palette.ink, background: "rgba(255,255,255,0.6)" }}>
+          <button onClick={() => setCursor(new Date())} className="px-3 h-8 rounded-full border text-[12px]" style={{ borderColor: palette.border, color: palette.ink, background: palette.glass }}>
             Today
           </button>
           <button onClick={() => setCursor(shift(view, cursor, 1))} className="h-8 w-8 grid place-items-center rounded-full border" style={{ borderColor: palette.border, color: palette.ink }}>
@@ -64,13 +64,13 @@ function SchedulePage() {
           <span className="text-[13px] ml-2" style={{ color: palette.ink, fontFamily: "'Fraunces', serif" }}>{titleFor(view, cursor)}</span>
         </div>
         <button onClick={() => window.dispatchEvent(new CustomEvent("schedule:new-booking"))}
-          className="inline-flex items-center gap-2 h-9 px-4 rounded-full text-[12.5px]" style={{ background: palette.ink, color: "#fff" }}>
+          className="inline-flex items-center gap-2 h-9 px-4 rounded-full text-[12.5px]" style={{ background: palette.ink, color: palette.inkContrast }}>
           <Plus className="h-3.5 w-3.5" /> New booking <kbd className="text-[10px] opacity-70">N</kbd>
         </button>
       </div>
 
       <div className="grid gap-5" style={{ gridTemplateColumns: "minmax(0,1fr) 300px" }}>
-        <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(12px)" }}>
+        <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(12px)" }}>
           {view === "day" && <DayView date={cursor} sessions={sessions} occurrences={occurrences} />}
           {view === "week" && <WeekView cursor={cursor} sessions={sessions} occurrences={occurrences} weekStartsOn={settings.weekStartsOn} />}
           {view === "month" && <MonthView cursor={cursor} sessions={sessions} occurrences={occurrences} onPick={(d) => { setCursor(d); setView("day"); }} weekStartsOn={settings.weekStartsOn} />}
@@ -211,7 +211,7 @@ function MonthView({ cursor, sessions, occurrences, onPick, weekStartsOn }: {
             <button key={i} onClick={() => onPick(d)} className="min-h-[92px] p-2 text-left border-r border-b transition-colors hover:bg-white/40"
               style={{ borderColor: palette.border, opacity: inMonth ? 1 : 0.4 }}>
               <div className="flex items-center justify-between">
-                <span className="text-[12px] tabular-nums" style={{ color: isToday ? "#fff" : palette.ink, background: isToday ? palette.primary : "transparent", borderRadius: 999, width: 20, height: 20, display: "inline-grid", placeItems: "center", fontFamily: "'Fraunces', serif" }}>
+                <span className="text-[12px] tabular-nums" style={{ color: isToday ? palette.inkContrast : palette.ink, background: isToday ? palette.primary : "transparent", borderRadius: 999, width: 20, height: 20, display: "inline-grid", placeItems: "center", fontFamily: "'Fraunces', serif" }}>
                   {d.getDate()}
                 </span>
                 {daySessions.length > 0 && (
@@ -289,7 +289,7 @@ function AgendaSessionRow({ s }: { s: Session }) {
   const p = getPatient(s.patientId);
   const c = SESSION_TYPE_COLOR[s.service];
   return (
-    <div className="flex items-center gap-3 p-3 rounded-xl border" style={{ background: "#fff", borderColor: palette.border }}>
+    <div className="flex items-center gap-3 p-3 rounded-xl border" style={{ background: palette.solid, borderColor: palette.border }}>
       <div className="w-1 h-10 rounded" style={{ background: c.hex }} />
       <div className="text-[12px] tabular-nums w-24" style={{ color: palette.ink }}>
         {new Date(s.startsAt).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}
@@ -451,7 +451,7 @@ function TodayRail({ sessions }: { sessions: Session[] }) {
 
   return (
     <div className="space-y-3">
-      <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(12px)" }}>
+      <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(12px)" }}>
         <div className="text-[10.5px] tracking-[0.14em] uppercase" style={{ color: palette.muted }}>Today</div>
         <div className="mt-2 tabular-nums" style={{ fontFamily: "'Fraunces', serif", fontSize: 34, color: palette.ink, lineHeight: 1 }}>
           {todaySessions.length}
@@ -459,7 +459,7 @@ function TodayRail({ sessions }: { sessions: Session[] }) {
         <div className="text-[11px] mt-1" style={{ color: palette.muted }}>sessions on the books</div>
       </div>
       {next && (
-        <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+        <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glassStrong }}>
           <div className="text-[10.5px] tracking-[0.14em] uppercase" style={{ color: palette.muted }}>Next up</div>
           <div className="mt-2 text-[13px]" style={{ color: palette.ink }}>
             {getPatient(next.patientId)?.fullName ?? "—"}
@@ -467,12 +467,12 @@ function TodayRail({ sessions }: { sessions: Session[] }) {
           <div className="text-[11px] mt-0.5" style={{ color: palette.muted }}>
             {new Date(next.startsAt).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })} · {next.service}
           </div>
-          <Link to="/sessions/$id" params={{ id: next.id }} className="mt-3 inline-flex items-center gap-1 text-[11.5px] px-3 py-1.5 rounded-full" style={{ background: palette.ink, color: "#fff" }}>
+          <Link to="/sessions/$id" params={{ id: next.id }} className="mt-3 inline-flex items-center gap-1 text-[11.5px] px-3 py-1.5 rounded-full" style={{ background: palette.ink, color: palette.inkContrast }}>
             Open session
           </Link>
         </div>
       )}
-      <div className="rounded-2xl border p-4 grid grid-cols-2 gap-3" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+      <div className="rounded-2xl border p-4 grid grid-cols-2 gap-3" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <div>
           <div className="text-[10.5px] tracking-[0.14em] uppercase" style={{ color: palette.muted }}>No-shows · 7d</div>
           <div className="tabular-nums mt-1" style={{ fontFamily: "'Fraunces', serif", fontSize: 22, color: noShows > 0 ? "#B03848" : palette.ink }}>{noShows}</div>
@@ -489,7 +489,7 @@ function TodayRail({ sessions }: { sessions: Session[] }) {
 
 function QuickActionsCard() {
   return (
-    <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+    <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glassStrong }}>
       <div className="text-[10.5px] tracking-[0.14em] uppercase mb-3" style={{ color: palette.muted }}>Quick actions</div>
       <div className="grid grid-cols-2 gap-2">
         <button onClick={() => window.dispatchEvent(new CustomEvent("schedule:new-booking"))} className="text-[11.5px] px-2.5 py-1.5 rounded-full border" style={{ borderColor: palette.border, color: palette.ink }}>
@@ -591,7 +591,7 @@ function BookingForm({ onDone }: { onDone: () => void }) {
             startsAt: startsAt.toISOString(), fee: 2500,
           });
           onDone();
-        }} className="text-[12px] px-3 py-1.5 rounded-full" style={{ background: palette.ink, color: "#fff" }}>
+        }} className="text-[12px] px-3 py-1.5 rounded-full" style={{ background: palette.ink, color: palette.inkContrast }}>
           Book
         </button>
       </div>
@@ -632,7 +632,7 @@ function BreakForm({ onDone }: { onDone: () => void }) {
         <button onClick={() => {
           createBlock({ title, kind, startsAt: new Date(`${dateStr}T${timeStr}:00`).toISOString(), durationMin: duration, recurrence: { kind: "once" } });
           onDone();
-        }} className="text-[12px] px-3 py-1.5 rounded-full" style={{ background: palette.ink, color: "#fff" }}>Add block</button>
+        }} className="text-[12px] px-3 py-1.5 rounded-full" style={{ background: palette.ink, color: palette.inkContrast }}>Add block</button>
       </div>
     </div>
   );

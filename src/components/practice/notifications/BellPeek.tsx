@@ -145,7 +145,7 @@ export function BellPeek() {
           </div>
           <div
             className="px-4 py-2.5 flex items-center justify-between border-t"
-            style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}
+            style={{ borderColor: palette.border, background: palette.glass }}
           >
             <span className="text-[10.5px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
               <kbd className="px-1.5 py-0.5 rounded" style={{ background: palette.surface, border: `1px solid ${palette.border}` }}>G</kbd>
