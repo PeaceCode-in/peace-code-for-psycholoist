@@ -78,6 +78,9 @@ export function createUser(u: Omit<StudentUser, "passwordHash" | "createdAt"> & 
   };
   users[email] = record;
   writeJSON(USERS_KEY, users);
+  // Bridge: promote this student into the psychologist's patient roster.
+  // Backend: replace with a server-side upsert triggered on signup.
+  syncStudentToPatientRoster(record);
   return record;
 }
 
@@ -88,7 +91,31 @@ export function verifyPassword(email: string, password: string): boolean {
 
 export function startSession(email: string): void {
   writeJSON(SESSION_KEY, { email: email.trim().toLowerCase(), startedAt: Date.now() } satisfies Session);
+  // Ensure the patient row exists (covers pre-existing users who signed up
+  // before this bridge landed). Backend: same server-side upsert as signup.
+  const u = findUser(email);
+  if (u) syncStudentToPatientRoster(u);
 }
+
+// ── Bridge to the psychologist's patient roster ─────────────
+// Deferred require to avoid a hard cycle at module init time.
+function syncStudentToPatientRoster(u: StudentUser) {
+  if (typeof window === "undefined") return;
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    import("./patients-store").then((m) => {
+      m.ensurePatientForStudent({
+        email: u.email,
+        fullName: u.fullName,
+        studentId: u.studentId,
+        college: u.college,
+        year: u.year,
+        concern: u.concern,
+      });
+    }).catch(() => { /* non-fatal */ });
+  } catch { /* non-fatal */ }
+}
+
 export function loadSession(): Session | null { return readJSON<Session | null>(SESSION_KEY, null); }
 export function endSession(): void {
   if (typeof window !== "undefined") {

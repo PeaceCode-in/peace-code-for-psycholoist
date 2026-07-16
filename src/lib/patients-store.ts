@@ -33,7 +33,15 @@ export type Patient = {
   consentSharing: boolean;
   createdAt: number;
   updatedAt: number;
+  // ── Backend join keys ─────────────────────────────────────
+  // Populated when the patient signed up on the student dashboard.
+  // The backend should use this as the FK to auth.users(email or id).
+  linkedStudentEmail?: string;
+  studentId?: string;
+  // How this row was created — the backend can filter demo rows out.
+  source?: "seed" | "student-signup" | "manual";
 };
+
 
 export type SessionNote = {
   id: string;
@@ -139,12 +147,16 @@ function uid(prefix = "id"): string {
 // ─── Helpers ─────────────────────────────────────────────────
 const DAY = 86_400_000;
 
-export function listPatients(filter?: { status?: PatientStatus | "all"; risk?: RiskLevel | "all"; search?: string; tag?: string }): Patient[] {
+export function listPatients(filter?: { status?: PatientStatus | "all"; risk?: RiskLevel | "all"; search?: string; tag?: string; source?: Patient["source"] | "all" | "real" }): Patient[] {
   const s = state();
   let out = [...s.patients];
   if (filter?.status && filter.status !== "all") out = out.filter((p) => p.status === filter.status);
   if (filter?.risk && filter.risk !== "all") out = out.filter((p) => p.risk === filter.risk);
   if (filter?.tag) out = out.filter((p) => p.tags.includes(filter.tag!));
+  if (filter?.source && filter.source !== "all") {
+    if (filter.source === "real") out = out.filter((p) => p.source !== "seed");
+    else out = out.filter((p) => (p.source ?? "manual") === filter.source);
+  }
   if (filter?.search) {
     const q = filter.search.toLowerCase().trim();
     if (q) out = out.filter((p) =>
@@ -157,6 +169,83 @@ export function listPatients(filter?: { status?: PatientStatus | "all"; risk?: R
   }
   return out.sort((a, b) => b.updatedAt - a.updatedAt);
 }
+
+/**
+ * Idempotently promote a signed-in student into the psychologist's patient
+ * roster. Called from the student auth flow on signup and login.
+ * Backend note: this becomes an upsert into `patients` keyed by
+ * `linked_student_email` (or `student_user_id`), executed server-side when
+ * the student signs in. See BACKEND_GUIDE.md → "Student → Patient join".
+ */
+export function ensurePatientForStudent(input: {
+  email: string;
+  fullName: string;
+  studentId?: string;
+  college?: string;
+  year?: string;
+  concern?: string;
+}): Patient {
+  const email = input.email.trim().toLowerCase();
+  const s = state();
+  const existing = s.patients.find(
+    (p) => p.linkedStudentEmail === email || p.email.toLowerCase() === email,
+  );
+  if (existing) {
+    const patch: Partial<Patient> = { linkedStudentEmail: email };
+    if (input.fullName && !existing.fullName) patch.fullName = input.fullName;
+    if (input.studentId && !existing.studentId) patch.studentId = input.studentId;
+    if (input.college && !existing.college) patch.college = input.college;
+    if (input.year && !existing.yearOfStudy) patch.yearOfStudy = input.year;
+    return updatePatient(existing.id, patch) ?? existing;
+  }
+  const now = Date.now();
+  const patient: Patient = {
+    id: uid("pat"),
+    fullName: input.fullName,
+    pronouns: "other",
+    age: 0,
+    email,
+    college: input.college ?? "—",
+    yearOfStudy: input.year ?? "—",
+    status: "waitlist",
+    risk: "monitor",
+    primaryConcern: input.concern?.trim() || "New student signup — intake pending",
+    tags: ["intake", "student-signup"],
+    intakeDate: now,
+    totalSessions: 0,
+    assignedTherapistId: "me",
+    consentSharing: false,
+    createdAt: now,
+    updatedAt: now,
+    linkedStudentEmail: email,
+    studentId: input.studentId,
+    source: "student-signup",
+  };
+  mutate((s) => ({
+    ...s,
+    patients: [patient, ...s.patients],
+    events: [
+      {
+        id: uid("ev"),
+        patientId: patient.id,
+        at: now,
+        kind: "status-change",
+        title: "New student signup",
+        summary: `${input.fullName} signed up on the student dashboard`,
+      },
+      ...s.events,
+    ],
+  }));
+  return patient;
+}
+
+export function findPatientByStudentEmail(email: string): Patient | undefined {
+  const e = email.trim().toLowerCase();
+  return state().patients.find(
+    (p) => p.linkedStudentEmail === e || p.email.toLowerCase() === e,
+  );
+}
+
 
 export function getPatient(id: string): Patient | undefined {
   return state().patients.find((p) => p.id === id);
@@ -453,7 +542,9 @@ function seed(): StoreShape {
       : []),
   ]);
 
-  return { patients, notes, events, riskChanges, documents };
+  const taggedPatients = patients.map((p) => ({ ...p, source: "seed" as const }));
+  return { patients: taggedPatients, notes, events, riskChanges, documents };
+
 }
 
 // Draft note helpers (autosave for the composer)
