@@ -805,29 +805,72 @@ function EmergencyDialog({ open, onClose }: { open: boolean; onClose: () => void
   );
 }
 
-function TopBar({ crumb, onToggleSidebar, onOpenMobile }: { crumb?: string; onToggleSidebar: () => void; onOpenMobile: () => void }) {
+function TopBar({ crumb, onToggleSidebar, onOpenMobile, pinned }: { crumb?: string; onToggleSidebar: () => void; onOpenMobile: () => void; pinned: boolean }) {
   const [emergency, setEmergency] = useState(false);
   const scopes = ["All", "Patients", "Notes", "Sessions", "Documents"];
   const [scope, setScope] = useState(scopes[0]);
   return (
     <header
-      className="sticky top-0 z-30 h-14 shrink-0 flex items-center gap-2 px-3 sm:px-4 border-b"
-      style={{ background: "rgba(255,255,255,0.96)", borderColor: palette.border, boxShadow: "0 1px 0 rgba(255,255,255,0.75) inset" }}
+      className="sticky top-0 z-30 h-14 shrink-0 flex items-center gap-2 px-3 sm:px-4"
+      style={{
+        // Continuous surface with the sidebar — same blush wash, no hard seam.
+        background: "linear-gradient(180deg, rgba(255,249,251,0.96) 0%, rgba(255,247,250,0.94) 100%)",
+        backdropFilter: "blur(14px)",
+        WebkitBackdropFilter: "blur(14px)",
+        borderBottom: `1px solid ${palette.border}`,
+        boxShadow: "0 1px 0 rgba(255,255,255,0.75) inset, 0 6px 20px -18px rgba(63,18,38,0.18)",
+      }}
     >
-      <button className="md:hidden p-1.5 -ml-1 rounded-lg" onClick={onOpenMobile} aria-label="Open menu"><Menu className="w-5 h-5" style={{ color: palette.ink }} /></button>
-      <button className="hidden md:flex p-1.5 rounded-lg" onClick={onToggleSidebar} aria-label="Toggle sidebar"><Menu className="w-4 h-4" style={{ color: palette.muted }} /></button>
+      <button
+        className="md:hidden p-1.5 -ml-1 rounded-lg transition-colors hover:bg-white/60"
+        onClick={onOpenMobile}
+        aria-label="Open menu"
+      >
+        <Menu className="w-5 h-5" style={{ color: palette.ink }} />
+      </button>
+      <button
+        className="hidden md:flex items-center justify-center w-8 h-8 rounded-lg transition-colors hover:bg-white/70"
+        onClick={onToggleSidebar}
+        aria-label="Toggle sidebar"
+        style={{ color: palette.muted }}
+      >
+        <Menu className="w-4 h-4" />
+      </button>
 
-      <div className="hidden sm:flex items-center gap-1 text-[11px] tracking-[0.16em] uppercase" style={{ color: palette.muted }}>
+      {/* Logo lockup on the left — shown when sidebar is collapsed so the brand never disappears */}
+      {!pinned && (
+        <Link
+          to="/dashboard"
+          className="hidden md:flex items-center gap-2 pl-1 pr-2 h-9 rounded-xl transition-colors hover:bg-white/60"
+          aria-label="PeaceCode Practice"
+        >
+          <img
+            src={peacecodeLogo}
+            alt=""
+            className="w-6 h-6 object-contain"
+            style={{ background: "transparent", filter: "drop-shadow(0 1px 0 rgba(255,255,255,0.6))" }}
+          />
+          <span className="text-[14px] leading-none" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>
+            PeaceCode
+          </span>
+        </Link>
+      )}
+
+      <div className="hidden sm:flex items-center gap-1.5 text-[10.5px] tracking-[0.18em] uppercase pl-1" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
         <span>Practice</span>
         {crumb && <><span className="opacity-40">/</span><span style={{ color: palette.ink }}>{crumb}</span></>}
       </div>
 
-      <div className="flex-1 flex justify-center">
+      <div className="flex-1 flex justify-center min-w-0">
         <div
-          className="hidden md:flex items-center gap-1.5 h-9 pl-3 pr-1 rounded-full w-full max-w-xl"
-          style={{ background: palette.surface2, border: `1px solid ${palette.border}` }}
+          className="hidden md:flex items-center gap-1.5 h-9 pl-3 pr-1 rounded-full w-full max-w-xl transition-shadow"
+          style={{
+            background: "rgba(255,255,255,0.72)",
+            border: `1px solid ${palette.border}`,
+            boxShadow: "0 1px 0 rgba(255,255,255,0.8) inset",
+          }}
         >
-          <Search className="w-3.5 h-3.5" style={{ color: palette.muted }} />
+          <Search className="w-3.5 h-3.5 shrink-0" style={{ color: palette.muted }} />
           <input
             className="flex-1 bg-transparent outline-none text-[12.5px] placeholder:opacity-60 min-w-0"
             placeholder="Search patients, notes, sessions, documents…"
@@ -848,13 +891,13 @@ function TopBar({ crumb, onToggleSidebar, onOpenMobile }: { crumb?: string; onTo
               </button>
             ))}
           </div>
-          <kbd className="text-[10px] px-1.5 py-0.5 rounded" style={{ background: palette.surface, color: palette.muted, border: `1px solid ${palette.border}` }}>⌘K</kbd>
+          <kbd className="text-[10px] px-1.5 py-0.5 rounded shrink-0" style={{ background: palette.surface, color: palette.muted, border: `1px solid ${palette.border}` }}>⌘K</kbd>
         </div>
       </div>
 
       <button
         onClick={() => setEmergency(true)}
-        className="hidden sm:flex items-center gap-1.5 h-8 px-2.5 rounded-full text-[11px]"
+        className="hidden sm:flex items-center gap-1.5 h-8 px-2.5 rounded-full text-[11px] transition-colors hover:brightness-95"
         style={{ background: "#FDECEC", color: "#B54848", border: "1px solid #F3C7C7" }}
       >
         <AlertOctagon className="w-3 h-3" /> Emergency
@@ -863,13 +906,12 @@ function TopBar({ crumb, onToggleSidebar, onOpenMobile }: { crumb?: string; onTo
       <ChecklistDrawer />
       <BellPeek />
 
-
-
       <QuickAddMenu />
       <EmergencyDialog open={emergency} onClose={() => setEmergency(false)} />
     </header>
   );
 }
+
 
 export function AppShell({ children, crumb }: { children: ReactNode; crumb?: string }) {
   const [mobileOpen, setMobileOpen] = useState(false);
