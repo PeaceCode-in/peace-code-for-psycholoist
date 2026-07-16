@@ -120,7 +120,7 @@ const KEY = "pc.msg.store.v1";
 // ─── Event bus ──────────────────────────────────────────────
 const listeners = new Set<() => void>();
 function emit() { listeners.forEach((fn) => fn()); }
-function subscribe(fn: () => void) { listeners.add(fn); return () => listeners.delete(fn); }
+function subscribe(fn: () => void) { listeners.add(fn); return () => { listeners.delete(fn); }; }
 
 // ─── Persistence ────────────────────────────────────────────
 function isBrowser() { return typeof window !== "undefined" && typeof localStorage !== "undefined"; }
@@ -446,27 +446,40 @@ export function listAudit(filter?: { patientId?: string; action?: AuditAction | 
 }
 
 // ─── Hooks ──────────────────────────────────────────────────
+import { useEffect, useState } from "react";
+function useSnap<T>(read: () => T, deps: unknown[] = []): T {
+  const [v, setV] = useState<T>(read);
+  useEffect(() => {
+    setV(read());
+    return subscribe(() => setV(read()));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
+  return v;
+}
 export function useLiveThreads(opts?: { filter?: "all" | "unread" | "starred" | "archived" | "urgent"; search?: string }): Thread[] {
-  return useSyncExternalStore(subscribe, () => listThreads(opts), () => listThreads(opts));
+  const key = JSON.stringify(opts ?? {});
+  return useSnap(() => listThreads(opts), [key]);
 }
 export function useLiveThread(id: string): Thread | undefined {
-  return useSyncExternalStore(subscribe, () => getThread(id), () => getThread(id));
+  return useSnap(() => getThread(id), [id]);
 }
 export function useLiveMessages(threadId: string): Message[] {
-  return useSyncExternalStore(subscribe, () => listMessages(threadId), () => listMessages(threadId));
+  return useSnap(() => listMessages(threadId), [threadId]);
 }
 export function useUnreadThreadCount(): number {
-  return useSyncExternalStore(subscribe, () => unreadThreadCount(), () => 0);
+  return useSnap(() => unreadThreadCount());
 }
 export function useLiveCanned(): CannedResponse[] {
-  return useSyncExternalStore(subscribe, () => listCanned(), () => listCanned());
+  return useSnap(() => listCanned());
 }
 export function useLiveSettings(): MessageSettings {
-  return useSyncExternalStore(subscribe, () => getSettings(), () => getSettings());
+  return useSnap(() => getSettings());
 }
 export function useLiveAudit(filter?: Parameters<typeof listAudit>[0]): AuditEvent[] {
-  return useSyncExternalStore(subscribe, () => listAudit(filter), () => listAudit(filter));
+  const key = JSON.stringify(filter ?? {});
+  return useSnap(() => listAudit(filter), [key]);
 }
+
 
 // ─── Seed ───────────────────────────────────────────────────
 function seed(): StoreShape {
