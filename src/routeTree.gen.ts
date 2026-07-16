@@ -57,6 +57,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as WritingIndexRouteImport } from './routes/writing.index'
 import { Route as WelcomeIndexRouteImport } from './routes/welcome.index'
 import { Route as TeamIndexRouteImport } from './routes/team.index'
+import { Route as SupervisionIndexRouteImport } from './routes/supervision.index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as SessionsIndexRouteImport } from './routes/sessions.index'
 import { Route as ScheduleIndexRouteImport } from './routes/schedule.index'
@@ -90,6 +91,9 @@ import { Route as TeamCoverageRouteImport } from './routes/team.coverage'
 import { Route as TeamAuditRouteImport } from './routes/team.audit'
 import { Route as TeamAnalyticsRouteImport } from './routes/team.analytics'
 import { Route as TeamIdRouteImport } from './routes/team.$id'
+import { Route as SupervisionSupervisorsRouteImport } from './routes/supervision.supervisors'
+import { Route as SupervisionCompetenciesRouteImport } from './routes/supervision.competencies'
+import { Route as SupervisionSidRouteImport } from './routes/supervision.$sid'
 import { Route as SettingsTelehealthRouteImport } from './routes/settings.telehealth'
 import { Route as SettingsTeamRouteImport } from './routes/settings.team'
 import { Route as SettingsSupportRouteImport } from './routes/settings.support'
@@ -212,6 +216,7 @@ import { Route as AdminLaunchReadinessRouteImport } from './routes/admin.launch-
 import { Route as AdminHardcodeReportRouteImport } from './routes/admin.hardcode-report'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
+import { Route as SupervisionContractsIndexRouteImport } from './routes/supervision.contracts.index'
 import { Route as SessionsIdIndexRouteImport } from './routes/sessions.$id.index'
 import { Route as PeersDiscussionsIndexRouteImport } from './routes/peers.discussions.index'
 import { Route as PatientsPidIndexRouteImport } from './routes/patients.$pid.index'
@@ -219,6 +224,7 @@ import { Route as BillingInvoicesIndexRouteImport } from './routes/billing.invoi
 import { Route as BillingClaimsIndexRouteImport } from './routes/billing.claims.index'
 import { Route as AssessmentsLibraryIndexRouteImport } from './routes/assessments.library.index'
 import { Route as WelcomeSetupStepRouteImport } from './routes/welcome.setup.$step'
+import { Route as SupervisionContractsCidRouteImport } from './routes/supervision.contracts.$cid'
 import { Route as SessionsDayDateRouteImport } from './routes/sessions.day.$date'
 import { Route as SessionsIdWrapRouteImport } from './routes/sessions.$id.wrap'
 import { Route as SessionsIdRoomRouteImport } from './routes/sessions.$id.room'
@@ -494,6 +500,11 @@ const TeamIndexRoute = TeamIndexRouteImport.update({
   path: '/',
   getParentRoute: () => TeamRoute,
 } as any)
+const SupervisionIndexRoute = SupervisionIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SupervisionRoute,
+} as any)
 const SettingsIndexRoute = SettingsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -658,6 +669,21 @@ const TeamIdRoute = TeamIdRouteImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => TeamRoute,
+} as any)
+const SupervisionSupervisorsRoute = SupervisionSupervisorsRouteImport.update({
+  id: '/supervisors',
+  path: '/supervisors',
+  getParentRoute: () => SupervisionRoute,
+} as any)
+const SupervisionCompetenciesRoute = SupervisionCompetenciesRouteImport.update({
+  id: '/competencies',
+  path: '/competencies',
+  getParentRoute: () => SupervisionRoute,
+} as any)
+const SupervisionSidRoute = SupervisionSidRouteImport.update({
+  id: '/$sid',
+  path: '/$sid',
+  getParentRoute: () => SupervisionRoute,
 } as any)
 const SettingsTelehealthRoute = SettingsTelehealthRouteImport.update({
   id: '/telehealth',
@@ -1274,6 +1300,12 @@ const Char91DotmcpChar93ListToolsRoute =
     path: '/.mcp/list-tools',
     getParentRoute: () => rootRouteImport,
   } as any)
+const SupervisionContractsIndexRoute =
+  SupervisionContractsIndexRouteImport.update({
+    id: '/contracts/',
+    path: '/contracts/',
+    getParentRoute: () => SupervisionRoute,
+  } as any)
 const SessionsIdIndexRoute = SessionsIdIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -1308,6 +1340,11 @@ const WelcomeSetupStepRoute = WelcomeSetupStepRouteImport.update({
   id: '/setup/$step',
   path: '/setup/$step',
   getParentRoute: () => WelcomeRoute,
+} as any)
+const SupervisionContractsCidRoute = SupervisionContractsCidRouteImport.update({
+  id: '/contracts/$cid',
+  path: '/contracts/$cid',
+  getParentRoute: () => SupervisionRoute,
 } as any)
 const SessionsDayDateRoute = SessionsDayDateRouteImport.update({
   id: '/day/$date',
@@ -1524,7 +1561,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/sessions': typeof SessionsRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
-  '/supervision': typeof SupervisionRoute
+  '/supervision': typeof SupervisionRouteWithChildren
   '/support': typeof SupportRoute
   '/team': typeof TeamRouteWithChildren
   '/templates': typeof TemplatesRoute
@@ -1654,6 +1691,9 @@ export interface FileRoutesByFullPath {
   '/settings/support': typeof SettingsSupportRoute
   '/settings/team': typeof SettingsTeamRoute
   '/settings/telehealth': typeof SettingsTelehealthRoute
+  '/supervision/$sid': typeof SupervisionSidRoute
+  '/supervision/competencies': typeof SupervisionCompetenciesRoute
+  '/supervision/supervisors': typeof SupervisionSupervisorsRoute
   '/team/$id': typeof TeamIdRoute
   '/team/analytics': typeof TeamAnalyticsRoute
   '/team/audit': typeof TeamAuditRoute
@@ -1687,6 +1727,7 @@ export interface FileRoutesByFullPath {
   '/schedule/': typeof ScheduleIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
+  '/supervision/': typeof SupervisionIndexRoute
   '/team/': typeof TeamIndexRoute
   '/welcome/': typeof WelcomeIndexRoute
   '/writing/': typeof WritingIndexRoute
@@ -1720,6 +1761,7 @@ export interface FileRoutesByFullPath {
   '/sessions/$id/room': typeof SessionsIdRoomRoute
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
+  '/supervision/contracts/$cid': typeof SupervisionContractsCidRoute
   '/welcome/setup/$step': typeof WelcomeSetupStepRoute
   '/assessments/library/': typeof AssessmentsLibraryIndexRoute
   '/billing/claims/': typeof BillingClaimsIndexRoute
@@ -1727,6 +1769,7 @@ export interface FileRoutesByFullPath {
   '/patients/$pid/': typeof PatientsPidIndexRoute
   '/peers/discussions/': typeof PeersDiscussionsIndexRoute
   '/sessions/$id/': typeof SessionsIdIndexRoute
+  '/supervision/contracts/': typeof SupervisionContractsIndexRoute
   '/documents/templates/$id/edit': typeof DocumentsTemplatesIdEditRoute
   '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
   '/patients/$pid/notes/new': typeof PatientsPidNotesNewRoute
@@ -1751,7 +1794,6 @@ export interface FileRoutesByTo {
   '/reviews': typeof ReviewsRoute
   '/risk': typeof RiskRoute
   '/services': typeof ServicesRoute
-  '/supervision': typeof SupervisionRoute
   '/support': typeof SupportRoute
   '/templates': typeof TemplatesRoute
   '/treatment-plans': typeof TreatmentPlansRoute
@@ -1873,6 +1915,9 @@ export interface FileRoutesByTo {
   '/settings/support': typeof SettingsSupportRoute
   '/settings/team': typeof SettingsTeamRoute
   '/settings/telehealth': typeof SettingsTelehealthRoute
+  '/supervision/$sid': typeof SupervisionSidRoute
+  '/supervision/competencies': typeof SupervisionCompetenciesRoute
+  '/supervision/supervisors': typeof SupervisionSupervisorsRoute
   '/team/$id': typeof TeamIdRoute
   '/team/analytics': typeof TeamAnalyticsRoute
   '/team/audit': typeof TeamAuditRoute
@@ -1906,6 +1951,7 @@ export interface FileRoutesByTo {
   '/schedule': typeof ScheduleIndexRoute
   '/sessions': typeof SessionsIndexRoute
   '/settings': typeof SettingsIndexRoute
+  '/supervision': typeof SupervisionIndexRoute
   '/team': typeof TeamIndexRoute
   '/welcome': typeof WelcomeIndexRoute
   '/writing': typeof WritingIndexRoute
@@ -1938,6 +1984,7 @@ export interface FileRoutesByTo {
   '/sessions/$id/room': typeof SessionsIdRoomRoute
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
+  '/supervision/contracts/$cid': typeof SupervisionContractsCidRoute
   '/welcome/setup/$step': typeof WelcomeSetupStepRoute
   '/assessments/library': typeof AssessmentsLibraryIndexRoute
   '/billing/claims': typeof BillingClaimsIndexRoute
@@ -1945,6 +1992,7 @@ export interface FileRoutesByTo {
   '/patients/$pid': typeof PatientsPidIndexRoute
   '/peers/discussions': typeof PeersDiscussionsIndexRoute
   '/sessions/$id': typeof SessionsIdIndexRoute
+  '/supervision/contracts': typeof SupervisionContractsIndexRoute
   '/documents/templates/$id/edit': typeof DocumentsTemplatesIdEditRoute
   '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
   '/patients/$pid/notes/new': typeof PatientsPidNotesNewRoute
@@ -1989,7 +2037,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/sessions': typeof SessionsRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
-  '/supervision': typeof SupervisionRoute
+  '/supervision': typeof SupervisionRouteWithChildren
   '/support': typeof SupportRoute
   '/team': typeof TeamRouteWithChildren
   '/templates': typeof TemplatesRoute
@@ -2119,6 +2167,9 @@ export interface FileRoutesById {
   '/settings/support': typeof SettingsSupportRoute
   '/settings/team': typeof SettingsTeamRoute
   '/settings/telehealth': typeof SettingsTelehealthRoute
+  '/supervision/$sid': typeof SupervisionSidRoute
+  '/supervision/competencies': typeof SupervisionCompetenciesRoute
+  '/supervision/supervisors': typeof SupervisionSupervisorsRoute
   '/team/$id': typeof TeamIdRoute
   '/team/analytics': typeof TeamAnalyticsRoute
   '/team/audit': typeof TeamAuditRoute
@@ -2152,6 +2203,7 @@ export interface FileRoutesById {
   '/schedule/': typeof ScheduleIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
+  '/supervision/': typeof SupervisionIndexRoute
   '/team/': typeof TeamIndexRoute
   '/welcome/': typeof WelcomeIndexRoute
   '/writing/': typeof WritingIndexRoute
@@ -2185,6 +2237,7 @@ export interface FileRoutesById {
   '/sessions/$id/room': typeof SessionsIdRoomRoute
   '/sessions/$id/wrap': typeof SessionsIdWrapRoute
   '/sessions/day/$date': typeof SessionsDayDateRoute
+  '/supervision/contracts/$cid': typeof SupervisionContractsCidRoute
   '/welcome/setup/$step': typeof WelcomeSetupStepRoute
   '/assessments/library/': typeof AssessmentsLibraryIndexRoute
   '/billing/claims/': typeof BillingClaimsIndexRoute
@@ -2192,6 +2245,7 @@ export interface FileRoutesById {
   '/patients/$pid/': typeof PatientsPidIndexRoute
   '/peers/discussions/': typeof PeersDiscussionsIndexRoute
   '/sessions/$id/': typeof SessionsIdIndexRoute
+  '/supervision/contracts/': typeof SupervisionContractsIndexRoute
   '/documents/templates/$id/edit': typeof DocumentsTemplatesIdEditRoute
   '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
   '/patients/$pid/notes/new': typeof PatientsPidNotesNewRoute
@@ -2367,6 +2421,9 @@ export interface FileRouteTypes {
     | '/settings/support'
     | '/settings/team'
     | '/settings/telehealth'
+    | '/supervision/$sid'
+    | '/supervision/competencies'
+    | '/supervision/supervisors'
     | '/team/$id'
     | '/team/analytics'
     | '/team/audit'
@@ -2400,6 +2457,7 @@ export interface FileRouteTypes {
     | '/schedule/'
     | '/sessions/'
     | '/settings/'
+    | '/supervision/'
     | '/team/'
     | '/welcome/'
     | '/writing/'
@@ -2433,6 +2491,7 @@ export interface FileRouteTypes {
     | '/sessions/$id/room'
     | '/sessions/$id/wrap'
     | '/sessions/day/$date'
+    | '/supervision/contracts/$cid'
     | '/welcome/setup/$step'
     | '/assessments/library/'
     | '/billing/claims/'
@@ -2440,6 +2499,7 @@ export interface FileRouteTypes {
     | '/patients/$pid/'
     | '/peers/discussions/'
     | '/sessions/$id/'
+    | '/supervision/contracts/'
     | '/documents/templates/$id/edit'
     | '/patients/$pid/notes/$nid'
     | '/patients/$pid/notes/new'
@@ -2464,7 +2524,6 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/risk'
     | '/services'
-    | '/supervision'
     | '/support'
     | '/templates'
     | '/treatment-plans'
@@ -2586,6 +2645,9 @@ export interface FileRouteTypes {
     | '/settings/support'
     | '/settings/team'
     | '/settings/telehealth'
+    | '/supervision/$sid'
+    | '/supervision/competencies'
+    | '/supervision/supervisors'
     | '/team/$id'
     | '/team/analytics'
     | '/team/audit'
@@ -2619,6 +2681,7 @@ export interface FileRouteTypes {
     | '/schedule'
     | '/sessions'
     | '/settings'
+    | '/supervision'
     | '/team'
     | '/welcome'
     | '/writing'
@@ -2651,6 +2714,7 @@ export interface FileRouteTypes {
     | '/sessions/$id/room'
     | '/sessions/$id/wrap'
     | '/sessions/day/$date'
+    | '/supervision/contracts/$cid'
     | '/welcome/setup/$step'
     | '/assessments/library'
     | '/billing/claims'
@@ -2658,6 +2722,7 @@ export interface FileRouteTypes {
     | '/patients/$pid'
     | '/peers/discussions'
     | '/sessions/$id'
+    | '/supervision/contracts'
     | '/documents/templates/$id/edit'
     | '/patients/$pid/notes/$nid'
     | '/patients/$pid/notes/new'
@@ -2831,6 +2896,9 @@ export interface FileRouteTypes {
     | '/settings/support'
     | '/settings/team'
     | '/settings/telehealth'
+    | '/supervision/$sid'
+    | '/supervision/competencies'
+    | '/supervision/supervisors'
     | '/team/$id'
     | '/team/analytics'
     | '/team/audit'
@@ -2864,6 +2932,7 @@ export interface FileRouteTypes {
     | '/schedule/'
     | '/sessions/'
     | '/settings/'
+    | '/supervision/'
     | '/team/'
     | '/welcome/'
     | '/writing/'
@@ -2897,6 +2966,7 @@ export interface FileRouteTypes {
     | '/sessions/$id/room'
     | '/sessions/$id/wrap'
     | '/sessions/day/$date'
+    | '/supervision/contracts/$cid'
     | '/welcome/setup/$step'
     | '/assessments/library/'
     | '/billing/claims/'
@@ -2904,6 +2974,7 @@ export interface FileRouteTypes {
     | '/patients/$pid/'
     | '/peers/discussions/'
     | '/sessions/$id/'
+    | '/supervision/contracts/'
     | '/documents/templates/$id/edit'
     | '/patients/$pid/notes/$nid'
     | '/patients/$pid/notes/new'
@@ -2948,7 +3019,7 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   SessionsRoute: typeof SessionsRouteWithChildren
   SettingsRoute: typeof SettingsRouteWithChildren
-  SupervisionRoute: typeof SupervisionRoute
+  SupervisionRoute: typeof SupervisionRouteWithChildren
   SupportRoute: typeof SupportRoute
   TeamRoute: typeof TeamRouteWithChildren
   TemplatesRoute: typeof TemplatesRoute
@@ -3315,6 +3386,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TeamIndexRouteImport
       parentRoute: typeof TeamRoute
     }
+    '/supervision/': {
+      id: '/supervision/'
+      path: '/'
+      fullPath: '/supervision/'
+      preLoaderRoute: typeof SupervisionIndexRouteImport
+      parentRoute: typeof SupervisionRoute
+    }
     '/settings/': {
       id: '/settings/'
       path: '/'
@@ -3545,6 +3623,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/team/$id'
       preLoaderRoute: typeof TeamIdRouteImport
       parentRoute: typeof TeamRoute
+    }
+    '/supervision/supervisors': {
+      id: '/supervision/supervisors'
+      path: '/supervisors'
+      fullPath: '/supervision/supervisors'
+      preLoaderRoute: typeof SupervisionSupervisorsRouteImport
+      parentRoute: typeof SupervisionRoute
+    }
+    '/supervision/competencies': {
+      id: '/supervision/competencies'
+      path: '/competencies'
+      fullPath: '/supervision/competencies'
+      preLoaderRoute: typeof SupervisionCompetenciesRouteImport
+      parentRoute: typeof SupervisionRoute
+    }
+    '/supervision/$sid': {
+      id: '/supervision/$sid'
+      path: '/$sid'
+      fullPath: '/supervision/$sid'
+      preLoaderRoute: typeof SupervisionSidRouteImport
+      parentRoute: typeof SupervisionRoute
     }
     '/settings/telehealth': {
       id: '/settings/telehealth'
@@ -4400,6 +4499,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/supervision/contracts/': {
+      id: '/supervision/contracts/'
+      path: '/contracts'
+      fullPath: '/supervision/contracts/'
+      preLoaderRoute: typeof SupervisionContractsIndexRouteImport
+      parentRoute: typeof SupervisionRoute
+    }
     '/sessions/$id/': {
       id: '/sessions/$id/'
       path: '/'
@@ -4448,6 +4554,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/welcome/setup/$step'
       preLoaderRoute: typeof WelcomeSetupStepRouteImport
       parentRoute: typeof WelcomeRoute
+    }
+    '/supervision/contracts/$cid': {
+      id: '/supervision/contracts/$cid'
+      path: '/contracts/$cid'
+      fullPath: '/supervision/contracts/$cid'
+      preLoaderRoute: typeof SupervisionContractsCidRouteImport
+      parentRoute: typeof SupervisionRoute
     }
     '/sessions/day/$date': {
       id: '/sessions/day/$date'
@@ -5310,6 +5423,28 @@ const SettingsRouteWithChildren = SettingsRoute._addFileChildren(
   SettingsRouteChildren,
 )
 
+interface SupervisionRouteChildren {
+  SupervisionSidRoute: typeof SupervisionSidRoute
+  SupervisionCompetenciesRoute: typeof SupervisionCompetenciesRoute
+  SupervisionSupervisorsRoute: typeof SupervisionSupervisorsRoute
+  SupervisionIndexRoute: typeof SupervisionIndexRoute
+  SupervisionContractsCidRoute: typeof SupervisionContractsCidRoute
+  SupervisionContractsIndexRoute: typeof SupervisionContractsIndexRoute
+}
+
+const SupervisionRouteChildren: SupervisionRouteChildren = {
+  SupervisionSidRoute: SupervisionSidRoute,
+  SupervisionCompetenciesRoute: SupervisionCompetenciesRoute,
+  SupervisionSupervisorsRoute: SupervisionSupervisorsRoute,
+  SupervisionIndexRoute: SupervisionIndexRoute,
+  SupervisionContractsCidRoute: SupervisionContractsCidRoute,
+  SupervisionContractsIndexRoute: SupervisionContractsIndexRoute,
+}
+
+const SupervisionRouteWithChildren = SupervisionRoute._addFileChildren(
+  SupervisionRouteChildren,
+)
+
 interface TeamRouteChildren {
   TeamIdRoute: typeof TeamIdRoute
   TeamAnalyticsRoute: typeof TeamAnalyticsRoute
@@ -5408,7 +5543,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   SessionsRoute: SessionsRouteWithChildren,
   SettingsRoute: SettingsRouteWithChildren,
-  SupervisionRoute: SupervisionRoute,
+  SupervisionRoute: SupervisionRouteWithChildren,
   SupportRoute: SupportRoute,
   TeamRoute: TeamRouteWithChildren,
   TemplatesRoute: TemplatesRoute,
