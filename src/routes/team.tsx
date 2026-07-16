@@ -37,7 +37,7 @@ function TeamShell({ children }: { children: ReactNode }) {
   const pending = usePendingCounts();
   const isActive = (to: string) => to === "/team" ? path === "/team" : path === to || path.startsWith(to + "/");
   return (
-    <div className="min-h-full" style={{ background: "linear-gradient(180deg, #FFF7FA 0%, #FBF7F8 240px)" }}>
+    <div className="min-h-full" style={{ background: "linear-gradient(180deg, color-mix(in oklab, var(--pc-primary, #B0567A) 8%, var(--pc-surface, #FFFFFF)) 0%, var(--pc-surface, #FBF7F8) 240px)" }}>
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 pt-6">
         <div className="flex items-baseline justify-between gap-4 mb-1">
           <div>
