@@ -253,7 +253,7 @@ function SidebarProfileCard({ collapsed, onDuty, setOnDuty }: { collapsed?: bool
   );
 }
 
-// ─── Accordion group used inside pinned sidebar ────────────────────────
+// ─── Accordion group used inside pinned sidebar (click-to-open only) ────
 function AccordionGroup({
   category, activeKey, isActive,
 }: {
@@ -263,7 +263,6 @@ function AccordionGroup({
 }) {
   const containsActive = activeKey === category.key;
   const [open, setOpen] = useState(containsActive);
-  const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => { if (containsActive) setOpen(true); }, [containsActive]);
 
@@ -279,7 +278,6 @@ function AccordionGroup({
     return base;
   };
 
-  // Aggregated badge count on the collapsed header (so users see activity without expanding).
   let headerCount = 0;
   let headerDot = false;
   for (const it of category.items) {
@@ -288,19 +286,10 @@ function AccordionGroup({
     else if (b === "dot") headerDot = true;
   }
 
-  const onEnter = () => {
-    if (hoverTimer.current) clearTimeout(hoverTimer.current);
-    hoverTimer.current = setTimeout(() => setOpen(true), 90);
-  };
-  const onLeave = () => {
-    if (hoverTimer.current) clearTimeout(hoverTimer.current);
-    if (!containsActive) hoverTimer.current = setTimeout(() => setOpen(false), 220);
-  };
-
   const Icon = category.icon;
 
   return (
-    <section onMouseEnter={onEnter} onMouseLeave={onLeave}>
+    <section>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -311,6 +300,8 @@ function AccordionGroup({
           color: containsActive ? palette.ink : palette.muted,
           border: containsActive ? `1px solid ${palette.border}` : "1px solid transparent",
         }}
+        onMouseEnter={(e) => { if (!containsActive && !open) e.currentTarget.style.background = "rgba(255,255,255,0.45)"; }}
+        onMouseLeave={(e) => { if (!containsActive && !open) e.currentTarget.style.background = "transparent"; }}
       >
         <Icon className="w-[15px] h-[15px] shrink-0" strokeWidth={1.8} style={{ color: containsActive ? palette.primary : palette.muted }} />
         <span className="flex-1 text-left truncate" style={{ fontWeight: containsActive ? 500 : 400 }}>{category.label}</span>
@@ -364,6 +355,7 @@ function AccordionGroup({
     </section>
   );
 }
+
 
 
 function useActiveCategoryKey(): string | null {
