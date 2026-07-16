@@ -1,7 +1,7 @@
 // PeaceCode · Practice — Peer Network store.
 // Peer directory, connections, discussion threads (anonymised cases),
 // journal club, referrals, endorsements. localStorage-backed.
-import { useSyncExternalStore } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 
 export type Peer = {
   id: string;
@@ -86,6 +86,8 @@ export type Endorsement = {
 
 const KEY = "peacecode.therapist.peers.v1";
 const listeners = new Set<() => void>();
+let cachedShape: Shape | null = null;
+const serverShape = seed();
 const emit = () => listeners.forEach((f) => f());
 const isBrowser = () => typeof window !== "undefined" && typeof window.localStorage !== "undefined";
 
@@ -171,16 +173,25 @@ function seed(): Shape {
 }
 
 function readAll(): Shape {
-  if (!isBrowser()) return seed();
+  if (!isBrowser()) return serverShape;
+  if (cachedShape) return cachedShape;
   try {
     const raw = window.localStorage.getItem(KEY);
-    if (raw) return JSON.parse(raw) as Shape;
+    if (raw) {
+      cachedShape = JSON.parse(raw) as Shape;
+      return cachedShape;
+    }
     const s = seed();
     window.localStorage.setItem(KEY, JSON.stringify(s));
+    cachedShape = s;
     return s;
-  } catch { return seed(); }
+  } catch {
+    cachedShape = seed();
+    return cachedShape;
+  }
 }
 function writeAll(s: Shape) {
+  cachedShape = s;
   if (!isBrowser()) return;
   window.localStorage.setItem(KEY, JSON.stringify(s));
   emit();
@@ -297,12 +308,16 @@ export function updateReferralStatus(id: string, status: Referral["status"]) {
 }
 
 // hooks
-export function usePeers() { return useSyncExternalStore(subscribe, listPeers, listPeers); }
-export function useConnections() { return useSyncExternalStore(subscribe, listConnections, listConnections); }
-export function useDiscussions() { return useSyncExternalStore(subscribe, listDiscussions, listDiscussions); }
-export function useJournal() { return useSyncExternalStore(subscribe, listJournal, listJournal); }
-export function useReferrals() { return useSyncExternalStore(subscribe, listReferrals, listReferrals); }
-export function useEndorsements() { return useSyncExternalStore(subscribe, listEndorsements, listEndorsements); }
+function useShapeSlice<T>(select: (s: Shape) => T): T {
+  const shape = useSyncExternalStore(subscribe, readAll, () => serverShape);
+  return useMemo(() => select(shape), [shape, select]);
+}
+export function usePeers() { return useShapeSlice((s) => s.peers.slice()); }
+export function useConnections() { return useShapeSlice((s) => s.connections.slice()); }
+export function useDiscussions() { return useShapeSlice((s) => s.discussions.slice().sort((a, b) => b.createdAt - a.createdAt)); }
+export function useJournal() { return useShapeSlice((s) => s.journal.slice().sort((a, b) => (b.discussionAt ?? b.addedAt) - (a.discussionAt ?? a.addedAt))); }
+export function useReferrals() { return useShapeSlice((s) => s.referrals.slice().sort((a, b) => b.updatedAt - a.updatedAt)); }
+export function useEndorsements() { return useShapeSlice((s) => s.endorsements.slice()); }
 
 export const KIND_LABEL: Record<DiscussionKind, string> = {
   case: "Case discussion",
