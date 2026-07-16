@@ -33,7 +33,15 @@ export type Patient = {
   consentSharing: boolean;
   createdAt: number;
   updatedAt: number;
+  // ── Backend join keys ─────────────────────────────────────
+  // Populated when the patient signed up on the student dashboard.
+  // The backend should use this as the FK to auth.users(email or id).
+  linkedStudentEmail?: string;
+  studentId?: string;
+  // How this row was created — the backend can filter demo rows out.
+  source?: "seed" | "student-signup" | "manual";
 };
+
 
 export type SessionNote = {
   id: string;
