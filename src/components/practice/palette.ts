@@ -18,8 +18,10 @@ export const palette = {
   soft:     "var(--pc-soft,     #F1C7D6)",
   ring:     "var(--pc-ring,     #D68CA6)",
   lavender: "var(--pc-lavender, #EFE4F0)",
-  glass:       "var(--pc-glass,        rgba(255,255,255,0.60))",
-  glassStrong: "var(--pc-glass-strong, rgba(255,255,255,0.70))",
-  solid:       "var(--pc-solid,        #FFFFFF)",
+  glass:       "var(--pc-glass,         rgba(255,255,255,0.60))",
+  glassStrong: "var(--pc-glass-strong,  rgba(255,255,255,0.70))",
+  solid:       "var(--pc-solid,         #FFFFFF)",
+  inkContrast: "var(--pc-ink-contrast,  #FFFFFF)",
 } as const;
+
 

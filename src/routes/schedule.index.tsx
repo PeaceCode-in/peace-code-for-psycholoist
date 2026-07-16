@@ -45,7 +45,7 @@ function SchedulePage() {
             const on = view === v;
             return (
               <button key={v} onClick={() => setView(v)} className="px-3 py-1.5 text-[12px] rounded-full transition-all capitalize"
-                style={{ fontFamily: "'DM Mono', ui-monospace, monospace", background: on ? palette.ink : "transparent", color: on ? "#fff" : palette.muted }}>
+                style={{ fontFamily: "'DM Mono', ui-monospace, monospace", background: on ? palette.ink : "transparent", color: on ? palette.inkContrast : palette.muted }}>
                 {v}
               </button>
             );
@@ -64,7 +64,7 @@ function SchedulePage() {
           <span className="text-[13px] ml-2" style={{ color: palette.ink, fontFamily: "'Fraunces', serif" }}>{titleFor(view, cursor)}</span>
         </div>
         <button onClick={() => window.dispatchEvent(new CustomEvent("schedule:new-booking"))}
-          className="inline-flex items-center gap-2 h-9 px-4 rounded-full text-[12.5px]" style={{ background: palette.ink, color: "#fff" }}>
+          className="inline-flex items-center gap-2 h-9 px-4 rounded-full text-[12.5px]" style={{ background: palette.ink, color: palette.inkContrast }}>
           <Plus className="h-3.5 w-3.5" /> New booking <kbd className="text-[10px] opacity-70">N</kbd>
         </button>
       </div>
@@ -211,7 +211,7 @@ function MonthView({ cursor, sessions, occurrences, onPick, weekStartsOn }: {
             <button key={i} onClick={() => onPick(d)} className="min-h-[92px] p-2 text-left border-r border-b transition-colors hover:bg-white/40"
               style={{ borderColor: palette.border, opacity: inMonth ? 1 : 0.4 }}>
               <div className="flex items-center justify-between">
-                <span className="text-[12px] tabular-nums" style={{ color: isToday ? "#fff" : palette.ink, background: isToday ? palette.primary : "transparent", borderRadius: 999, width: 20, height: 20, display: "inline-grid", placeItems: "center", fontFamily: "'Fraunces', serif" }}>
+                <span className="text-[12px] tabular-nums" style={{ color: isToday ? palette.inkContrast : palette.ink, background: isToday ? palette.primary : "transparent", borderRadius: 999, width: 20, height: 20, display: "inline-grid", placeItems: "center", fontFamily: "'Fraunces', serif" }}>
                   {d.getDate()}
                 </span>
                 {daySessions.length > 0 && (
@@ -467,7 +467,7 @@ function TodayRail({ sessions }: { sessions: Session[] }) {
           <div className="text-[11px] mt-0.5" style={{ color: palette.muted }}>
             {new Date(next.startsAt).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })} · {next.service}
           </div>
-          <Link to="/sessions/$id" params={{ id: next.id }} className="mt-3 inline-flex items-center gap-1 text-[11.5px] px-3 py-1.5 rounded-full" style={{ background: palette.ink, color: "#fff" }}>
+          <Link to="/sessions/$id" params={{ id: next.id }} className="mt-3 inline-flex items-center gap-1 text-[11.5px] px-3 py-1.5 rounded-full" style={{ background: palette.ink, color: palette.inkContrast }}>
             Open session
           </Link>
         </div>
@@ -591,7 +591,7 @@ function BookingForm({ onDone }: { onDone: () => void }) {
             startsAt: startsAt.toISOString(), fee: 2500,
           });
           onDone();
-        }} className="text-[12px] px-3 py-1.5 rounded-full" style={{ background: palette.ink, color: "#fff" }}>
+        }} className="text-[12px] px-3 py-1.5 rounded-full" style={{ background: palette.ink, color: palette.inkContrast }}>
           Book
         </button>
       </div>
@@ -632,7 +632,7 @@ function BreakForm({ onDone }: { onDone: () => void }) {
         <button onClick={() => {
           createBlock({ title, kind, startsAt: new Date(`${dateStr}T${timeStr}:00`).toISOString(), durationMin: duration, recurrence: { kind: "once" } });
           onDone();
-        }} className="text-[12px] px-3 py-1.5 rounded-full" style={{ background: palette.ink, color: "#fff" }}>Add block</button>
+        }} className="text-[12px] px-3 py-1.5 rounded-full" style={{ background: palette.ink, color: palette.inkContrast }}>Add block</button>
       </div>
     </div>
   );

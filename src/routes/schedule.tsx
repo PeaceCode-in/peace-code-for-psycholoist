@@ -42,7 +42,7 @@ function ScheduleLayout() {
                 const Icon = t.icon;
                 return (
                   <Link key={t.to} to={t.to} className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] transition-all duration-[180ms] shrink-0"
-                    style={{ fontFamily: "'DM Mono', ui-monospace, monospace", background: on ? palette.ink : "transparent", color: on ? "#fff" : palette.muted }}>
+                    style={{ fontFamily: "'DM Mono', ui-monospace, monospace", background: on ? palette.ink : "transparent", color: on ? palette.inkContrast : palette.muted }}>
                     <Icon className="h-3.5 w-3.5" /> {t.label}
                   </Link>
                 );

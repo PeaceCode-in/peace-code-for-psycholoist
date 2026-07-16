@@ -29,7 +29,7 @@ function RecurringPage() {
             Supervision, admin, personal — anything that keeps repeating so your calendar reserves it automatically.
           </p>
         </div>
-        <button onClick={() => setCreating(true)} className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-[12.5px]" style={{ background: palette.ink, color: "#fff" }}>
+        <button onClick={() => setCreating(true)} className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full text-[12.5px]" style={{ background: palette.ink, color: palette.inkContrast }}>
           <Plus className="w-3.5 h-3.5" /> Add block
         </button>
       </div>
@@ -135,7 +135,7 @@ function CreateModal({ onDone }: { onDone: () => void }) {
             <div className="flex gap-1.5">
               {(["once","weekly","biweekly","monthly"] as const).map((k) => (
                 <button key={k} onClick={() => setRrKind(k)} className="text-[11px] px-3 py-1.5 rounded-full border capitalize"
-                  style={{ borderColor: rrKind === k ? palette.ink : palette.border, background: rrKind === k ? palette.ink : "transparent", color: rrKind === k ? "#fff" : palette.muted }}>{k}</button>
+                  style={{ borderColor: rrKind === k ? palette.ink : palette.border, background: rrKind === k ? palette.ink : "transparent", color: rrKind === k ? palette.inkContrast : palette.muted }}>{k}</button>
               ))}
             </div>
           </Field>
@@ -144,7 +144,7 @@ function CreateModal({ onDone }: { onDone: () => void }) {
               <div className="flex gap-1">
                 {DAY_NAMES.map((n, i) => (
                   <button key={i} onClick={() => toggleDay(i)} className="w-8 h-8 rounded-full text-[11px]"
-                    style={{ background: days.includes(i) ? palette.primary : "transparent", color: days.includes(i) ? "#fff" : palette.muted, border: `1px solid ${palette.border}` }}>{n[0]}</button>
+                    style={{ background: days.includes(i) ? palette.primary : "transparent", color: days.includes(i) ? palette.inkContrast : palette.muted, border: `1px solid ${palette.border}` }}>{n[0]}</button>
                 ))}
               </div>
             </Field>
@@ -152,7 +152,7 @@ function CreateModal({ onDone }: { onDone: () => void }) {
         </div>
         <div className="flex justify-end gap-2 mt-5">
           <button onClick={onDone} className="text-[12px] px-3 py-1.5 rounded-full border" style={{ borderColor: palette.border, color: palette.muted }}>Cancel</button>
-          <button onClick={submit} className="text-[12px] px-3 py-1.5 rounded-full" style={{ background: palette.ink, color: "#fff" }}>Create</button>
+          <button onClick={submit} className="text-[12px] px-3 py-1.5 rounded-full" style={{ background: palette.ink, color: palette.inkContrast }}>Create</button>
         </div>
       </div>
     </div>

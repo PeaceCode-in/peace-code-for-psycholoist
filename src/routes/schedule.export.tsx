@@ -68,7 +68,7 @@ function ExportPage() {
         </p>
         <div className="flex items-center gap-2 p-3 rounded-lg border tabular-nums" style={{ borderColor: palette.border, background: "#faf6f7" }}>
           <code className="text-[12px] truncate flex-1" style={{ color: palette.ink, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{webcalUrl}</code>
-          <button onClick={copyUrl} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-[11.5px]" style={{ background: palette.ink, color: "#fff" }}>
+          <button onClick={copyUrl} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-[11.5px]" style={{ background: palette.ink, color: palette.inkContrast }}>
             {copied ? <><Check className="w-3.5 h-3.5" /> Copied</> : <><Copy className="w-3.5 h-3.5" /> Copy</>}
           </button>
         </div>

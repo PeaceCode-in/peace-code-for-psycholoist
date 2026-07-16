@@ -53,7 +53,7 @@ export function CalendarShell({ children, title, subtitle, actions }: { children
                     style={{
                       fontFamily: "'DM Mono', ui-monospace, monospace",
                       background: on ? palette.ink : "transparent",
-                      color: on ? "#fff" : palette.muted,
+                      color: on ? palette.inkContrast : palette.muted,
                     }}
                   >
                     <Icon className="h-3.5 w-3.5" />

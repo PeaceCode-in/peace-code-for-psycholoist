@@ -208,7 +208,9 @@
   --pc-glass:        rgba(20,27,51,0.55);
   --pc-glass-strong: rgba(20,27,51,0.72);
   --pc-solid:        #141B33;
+  --pc-ink-contrast: #0B1020;
 }
+
 
 
 html { color-scheme: light; }
