@@ -74,7 +74,7 @@ export function CalendarShell({ children, title, subtitle, actions }: { children
                     style={{
                       borderColor: on ? palette.primary : palette.border,
                       color: on ? palette.primary : palette.muted,
-                      background: on ? "rgba(176,86,122,0.06)" : "rgba(255,255,255,0.55)",
+                      background: on ? "rgba(176,86,122,0.06)" : palette.glass,
                     }}>
                     <Icon className="h-3.5 w-3.5" /> {l.label}
                   </Link>
