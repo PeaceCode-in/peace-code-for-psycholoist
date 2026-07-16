@@ -696,7 +696,7 @@ function MobileDrawer({ open, onClose, onDuty, setOnDuty }: { open: boolean; onC
           ))}
           <div className="mt-4 pt-3 border-t space-y-0.5" style={{ borderColor: palette.border }}>
             <NavLinkRow item={{ title: "Notifications", url: "/notifications", icon: Bell }} isActive={isActive("/notifications")} />
-            <NavLinkRow item={{ title: "Help & Support", url: "/support", icon: LifeBuoy }} isActive={isActive("/support")} />
+            <NavLinkRow item={{ title: "Help & Support", url: "/settings/support", icon: LifeBuoy }} isActive={isActive("/settings/support")} />
             <NavLinkRow item={{ title: "Settings", url: "/settings", icon: SettingsIcon }} isActive={isActive("/settings")} />
             <button onClick={() => { endSession(); navigate({ to: "/auth" }); }} className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg" style={{ color: palette.muted }}>
               <LogOut className="h-3.5 w-3.5" strokeWidth={1.8} /><span className="text-[12.5px]">Sign out</span>
