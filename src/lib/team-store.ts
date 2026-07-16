@@ -314,8 +314,13 @@ function subscribe(cb: () => void) {
   bus.addEventListener("change", on);
   return () => bus.removeEventListener("change", on);
 }
+function getSnap(): Snapshot { return read(); }
+export function useTeamSnapshot(): Snapshot {
+  return useSyncExternalStore(subscribe, getSnap, getSnap);
+}
 export function useTeamStore<T>(select: (s: Snapshot) => T): T {
-  return useSyncExternalStore(subscribe, () => select(read()), () => select(read()));
+  const snap = useTeamSnapshot();
+  return useMemo(() => select(snap), [snap, select]);
 }
 
 // ─── Selectors ───────────────────────────────────────────────
