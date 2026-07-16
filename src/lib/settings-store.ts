@@ -385,6 +385,15 @@ export function applyAppearance(s: Settings) {
   root.setAttribute("data-chart-style", a.chartStyle);
   root.style.setProperty("--pc-radius-scale", `${a.roundedCorners}px`);
   root.style.setProperty("--radius", `${a.roundedCorners}px`);
+
+  // Grain intensity — 0 (off) to 2 (heavy). 1 = default.
+  const g = Math.max(0, Math.min(2, a.grainIntensity ?? 1));
+  root.style.setProperty("--pc-grain-opacity", String(0.32 * g));
+  root.style.setProperty("--pc-grain-opacity-fine", String(0.22 * g));
+  root.setAttribute("data-pc-grain", g === 0 ? "off" : g < 0.6 ? "low" : g > 1.4 ? "high" : "on");
+
+  // Low-power — kill fine grain + all grain drift/flicker.
+  root.setAttribute("data-pc-lowpower", a.lowPower ? "on" : "off");
 }
 
 
