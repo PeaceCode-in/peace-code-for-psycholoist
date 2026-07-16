@@ -1448,6 +1448,14 @@ html.dark .bg-white {
   background-color: var(--card) !important;
   color: var(--card-foreground);
 }
+html:is(.dark, [data-theme="dark"]) main [class*="bg-white/"],
+html:is(.dark, [data-theme="dark"]) main [class*="from-white"],
+html:is(.dark, [data-theme="dark"]) main [class*="via-white"],
+html:is(.dark, [data-theme="dark"]) main [class*="to-white"] {
+  background-color: var(--card) !important;
+  background-image: none !important;
+  color: var(--card-foreground);
+}
 html.dark .bg-neutral-50, html.dark .bg-neutral-100,
 html.dark .bg-gray-50,    html.dark .bg-gray-100,
 html.dark .bg-slate-50,   html.dark .bg-slate-100,
@@ -1478,12 +1486,43 @@ html.dark .hover\:bg-zinc-50:hover,   html.dark .hover\:bg-zinc-100:hover,
 html.dark .hover\:bg-white:hover {
   background-color: color-mix(in oklab, var(--muted) 70%, var(--foreground) 8%) !important;
 }
+html:is(.dark, [data-theme="dark"]) main [class*="hover:bg-white/"]:hover {
+  background-color: color-mix(in oklab, var(--muted) 70%, var(--foreground) 8%) !important;
+}
 
 html.dark input.bg-white,
 html.dark textarea.bg-white,
 html.dark select.bg-white {
   background-color: var(--input) !important;
   color: var(--foreground) !important;
+}
+
+/* Dark-mode safety net for inline hardcoded white blocks.
+   Many feature pages use inline `background: "#fff"` or
+   `background: "rgba(255,255,255,...)"`, which Tailwind class remaps
+   cannot touch. Force those surfaces onto theme tokens in dark mode. */
+html:is(.dark, [data-theme="dark"]) main [style*="background: rgb(255, 255, 255)"],
+html:is(.dark, [data-theme="dark"]) main [style*="background: #fff"],
+html:is(.dark, [data-theme="dark"]) main [style*="background: #FFF"],
+html:is(.dark, [data-theme="dark"]) main [style*="background: #ffffff"],
+html:is(.dark, [data-theme="dark"]) main [style*="background: #FFFFFF"] {
+  background: var(--pc-solid) !important;
+  color: var(--pc-ink) !important;
+}
+html:is(.dark, [data-theme="dark"]) main [style*="background: rgba(255, 255, 255"],
+html:is(.dark, [data-theme="dark"]) main [style*="background: rgba(255,255,255"],
+html:is(.dark, [data-theme="dark"]) main [style*="background-color: rgba(255, 255, 255"],
+html:is(.dark, [data-theme="dark"]) main [style*="background-color: rgba(255,255,255"] {
+  background: var(--pc-glass) !important;
+  color: var(--pc-ink) !important;
+}
+html:is(.dark, [data-theme="dark"]) main [style*="border-color: rgb(255, 255, 255)"],
+html:is(.dark, [data-theme="dark"]) main [style*="border-color: rgba(255, 255, 255"],
+html:is(.dark, [data-theme="dark"]) main [style*="border-color: rgba(255,255,255"],
+html:is(.dark, [data-theme="dark"]) main [style*="border: 1px solid rgb(255, 255, 255)"],
+html:is(.dark, [data-theme="dark"]) main [style*="border: 1px solid rgba(255, 255, 255"],
+html:is(.dark, [data-theme="dark"]) main [style*="border: 1px solid rgba(255,255,255"] {
+  border-color: var(--pc-border) !important;
 }
 
 
