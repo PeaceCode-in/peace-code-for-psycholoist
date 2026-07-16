@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /
+
+# PeaceCode Practice is a gated clinical workspace.
+# There are no publicly indexable pages on this host.
