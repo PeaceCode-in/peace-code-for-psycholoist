@@ -82,7 +82,7 @@ export function removeMember(id: string, patientId: string): void {
 
 function subscribe(fn: () => void) { listeners.add(fn); return () => listeners.delete(fn); }
 export function useLiveGroups(): Group[] {
-  return useSyncExternalStore(subscribe, () => read(), () => []);
+  return useSyncExternalStore(subscribe, read, read);
 }
 
 export const CADENCE_LABEL: Record<GroupCadence, string> = { weekly: "Weekly", biweekly: "Every 2 weeks", monthly: "Monthly" };
