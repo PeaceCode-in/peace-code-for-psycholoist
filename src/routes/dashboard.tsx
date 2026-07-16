@@ -1,4 +1,3 @@
-import { palette } from '@/components/practice/palette';
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell, palette } from "@/components/practice/AppShell";
 import {
