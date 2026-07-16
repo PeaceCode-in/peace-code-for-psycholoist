@@ -1549,6 +1549,11 @@ html:is(.dark, [data-theme="dark"]) main [style*="border:1px solid rgba(255, 255
 html:is(.dark, [data-theme="dark"]) main [style*="border:1px solid rgba(255,255,255"] {
   border-color: var(--pc-border) !important;
 }
+html:is(.dark, [data-theme="dark"]) main :is(a, button)[style*="background:var(--pc-ink"],
+html:is(.dark, [data-theme="dark"]) main :is(a, button)[style*="background: var(--pc-ink"] {
+  background: var(--pc-primary) !important;
+  color: var(--pc-ink-contrast) !important;
+}
 
 
 /* ============================================================

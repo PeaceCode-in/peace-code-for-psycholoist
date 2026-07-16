@@ -27,7 +27,7 @@ export const Route = createFileRoute("/dashboard")({
   component: () => <AppShell crumb="Home"><Dashboard /></AppShell>,
 });
 
-const { surface, surface2, border, ink, muted, primary, soft } = palette;
+const { surface, surface2, border, ink, muted, primary, soft, inkContrast } = palette;
 const cardStyle = { background: surface, border: `1px solid ${border}` } as const;
 
 const fmtTime = (iso: string) => new Date(iso).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
@@ -79,7 +79,7 @@ function Dashboard() {
             <span>{nextSession.minutes}-min {nextSession.type}</span>
             <span className="opacity-40">·</span>
             <span className="capitalize">{nextSession.modality}</span>
-            <button className="ml-auto text-[11px] px-3 py-1 rounded-full text-white" style={{ background: primary }}>Prep now</button>
+            <button className="ml-auto text-[11px] px-3 py-1 rounded-full" style={{ background: primary, color: inkContrast }}>Prep now</button>
           </div>
         )}
       </section>
@@ -104,7 +104,7 @@ function Dashboard() {
                     </div>
                   </div>
                   <button className="text-[11px] px-3 py-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: surface2, color: ink, border: `1px solid ${border}` }}>Prep</button>
-                  <button className="text-[11px] px-3 py-1.5 rounded-full" style={{ background: ink, color: "#fff" }}>
+                  <button className="text-[11px] px-3 py-1.5 rounded-full" style={{ background: primary, color: inkContrast }}>
                     {s.modality === "in-person" ? "Check in" : "Join"}
                   </button>
                 </div>
@@ -170,7 +170,7 @@ function Dashboard() {
                   <span>PHQ-9 · 6w</span>
                   <span>{p.homework.status === "overdue" ? "Homework overdue" : p.nextSession ? `Next ${fmtDate(p.nextSession)}` : "No follow-up"}</span>
                 </div>
-                <button className="mt-2 w-full text-[11px] py-1 rounded-full" style={{ background: "#fff", color: ink, border: `1px solid ${border}` }}>
+                <button className="mt-2 w-full text-[11px] py-1 rounded-full" style={{ background: surface, color: ink, border: `1px solid ${border}` }}>
                   Send check-in
                 </button>
               </Link>

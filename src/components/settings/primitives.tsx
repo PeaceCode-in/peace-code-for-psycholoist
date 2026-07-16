@@ -64,9 +64,9 @@ export function Toggle({ checked, onChange, label }: { checked: boolean; onChang
       type="button" role="switch" aria-checked={checked} aria-label={label}
       onClick={() => onChange(!checked)}
       className="relative w-10 h-6 rounded-full transition"
-      style={{ background: checked ? primary : "#DCE3EF" }}
+      style={{ background: checked ? primary : surface2, border: `1px solid ${border}` }}
     >
-      <span className="absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform" style={{ transform: checked ? "translateX(16px)" : "translateX(0)" }} />
+      <span className="absolute top-0.5 left-0.5 w-5 h-5 rounded-full shadow-sm transition-transform" style={{ transform: checked ? "translateX(16px)" : "translateX(0)", background: surface }} />
     </button>
   );
 }
@@ -77,7 +77,7 @@ export function Segmented<T extends string>({ value, onChange, options }: { valu
       {options.map((o) => {
         const active = o.value === value;
         return (
-          <button key={o.value} onClick={() => onChange(o.value)} className="px-3 py-1 rounded-full text-[11.5px] transition" style={{ background: active ? "#fff" : "transparent", color: active ? ink : muted, boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : "none" }}>{o.label}</button>
+          <button key={o.value} onClick={() => onChange(o.value)} className="px-3 py-1 rounded-full text-[11.5px] transition" style={{ background: active ? surface : "transparent", color: active ? ink : muted, boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : "none" }}>{o.label}</button>
         );
       })}
     </div>
