@@ -741,7 +741,7 @@ function QuickAddMenu() {
       <button
         onClick={() => setOpen((v) => !v)}
         className="h-8 pl-2 pr-3 rounded-full text-[11.5px] flex items-center gap-1.5"
-        style={{ background: palette.ink, color: "#fff" }}
+        style={{ background: palette.primary, color: palette.inkContrast }}
       >
         <Plus className="w-3 h-3" /> New <ChevronDown className="w-3 h-3 opacity-70" />
       </button>
@@ -750,7 +750,7 @@ function QuickAddMenu() {
           <div className="fixed inset-0 z-30" onClick={() => setOpen(false)} />
           <div
             className="absolute right-0 top-full mt-1.5 z-40 min-w-[180px] rounded-xl p-1"
-            style={{ background: "#fff", border: `1px solid ${palette.border}`, boxShadow: "0 8px 28px rgba(30,20,24,0.08)" }}
+            style={{ background: palette.surface, border: `1px solid ${palette.border}`, boxShadow: "0 8px 28px rgba(30,20,24,0.08)" }}
           >
             {items.map((it) => (
               <button
@@ -777,7 +777,7 @@ function EmergencyDialog({ open, onClose }: { open: boolean; onClose: () => void
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
       <div
         className="relative rounded-2xl w-full max-w-md p-6"
-        style={{ background: "#fff", border: `1px solid #F3C7C7` }}
+        style={{ background: palette.surface, border: `1px solid ${palette.border}` }}
       >
         <div className="flex items-center gap-2 mb-2">
           <AlertOctagon className="w-4 h-4" style={{ color: "#B54848" }} />

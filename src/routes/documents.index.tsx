@@ -53,7 +53,7 @@ function DocumentsLibrary() {
         {/* Templates rail */}
         <aside
           className="md:w-[300px] shrink-0 border-b md:border-b-0 md:border-r overflow-y-auto"
-          style={{ borderColor: palette.border, background: "#FCF9FA" }}
+          style={{ borderColor: palette.border, background: palette.surface2 }}
         >
           <div className="px-5 pt-6 pb-4">
             <div style={{ fontFamily: "'Fraunces', serif", fontSize: 22, color: palette.ink, lineHeight: 1.1 }}>Documents</div>
@@ -118,7 +118,7 @@ function DocumentsLibrary() {
         </aside>
 
         {/* Main pane: sent & signed */}
-        <section className="flex-1 min-w-0 flex flex-col" style={{ background: "#fff" }}>
+        <section className="flex-1 min-w-0 flex flex-col" style={{ background: palette.surface }}>
           <div className="px-6 pt-5 pb-3 border-b" style={{ borderColor: palette.border }}>
             <div className="flex items-baseline justify-between">
               <div>
@@ -130,11 +130,11 @@ function DocumentsLibrary() {
               <div className="flex items-center gap-1 rounded-lg p-0.5" style={{ background: palette.surface2, border: `1px solid ${palette.border}` }}>
                 <button onClick={() => setView("grid")}
                   className="h-7 w-7 rounded-md flex items-center justify-center"
-                  style={{ background: view === "grid" ? "#fff" : "transparent", color: view === "grid" ? palette.ink : palette.muted }}
+                  style={{ background: view === "grid" ? palette.surface : "transparent", color: view === "grid" ? palette.ink : palette.muted }}
                   aria-label="Grid view"><LayoutGrid className="w-3.5 h-3.5" /></button>
                 <button onClick={() => setView("list")}
                   className="h-7 w-7 rounded-md flex items-center justify-center"
-                  style={{ background: view === "list" ? "#fff" : "transparent", color: view === "list" ? palette.ink : palette.muted }}
+                  style={{ background: view === "list" ? palette.surface : "transparent", color: view === "list" ? palette.ink : palette.muted }}
                   aria-label="List view"><ListIcon className="w-3.5 h-3.5" /></button>
               </div>
             </div>
@@ -157,8 +157,8 @@ function DocumentsLibrary() {
                   <button key={s} onClick={() => setStatus(s)}
                     className="h-7 px-2.5 rounded-full text-[10.5px] uppercase tracking-[0.14em] transition-colors"
                     style={{
-                      background: status === s ? palette.ink : "transparent",
-                      color: status === s ? "#fff" : palette.muted,
+                      background: status === s ? palette.primary : "transparent",
+                      color: status === s ? palette.inkContrast : palette.muted,
                       fontFamily: "'DM Mono', ui-monospace, monospace",
                     }}>
                     {s}
@@ -190,7 +190,7 @@ function DocumentsLibrary() {
               <div className="rounded-xl overflow-hidden" style={{ border: `1px solid ${palette.border}` }}>
                 <table className="w-full text-[12.5px]">
                   <thead>
-                    <tr style={{ background: "#FCF9FA" }}>
+                    <tr style={{ background: palette.surface2 }}>
                       <Th>Document</Th>
                       <Th>Patient</Th>
                       <Th>Category</Th>
