@@ -1289,4 +1289,25 @@ main .font-bold, main .font-extrabold, main .font-black {
   .pc-fade-in { animation: none !important; }
 }
 
+/* ============================================================
+   Global responsive guards — prevent page-level horizontal scroll,
+   keep main content clipped to its column, and give tab strips a
+   hidden scrollbar when they overflow on mobile.
+   ============================================================ */
+html, body { overflow-x: hidden; max-width: 100vw; }
+#root { min-width: 0; }
+main { min-width: 0; }
+main img, main video, main svg, main canvas { max-width: 100%; height: auto; }
+main p, main li, main dd, main td, main th, main span, main a { overflow-wrap: anywhere; }
+
+.pc-scroll-x {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.pc-scroll-x::-webkit-scrollbar { display: none; }
+
+@media (max-width: 767.98px) {
+  main { padding-bottom: max(96px, env(safe-area-inset-bottom, 0px) + 88px); }
+}
 
