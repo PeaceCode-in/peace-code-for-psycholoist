@@ -24,6 +24,7 @@ const KEY = "pc.groups.v1";
 const listeners = new Set<() => void>();
 
 function emit() { listeners.forEach((l) => l()); }
+const EMPTY: Group[] = [];
 let cache: Group[] | null = null;
 function read(): Group[] {
   if (typeof window === "undefined") return [];
