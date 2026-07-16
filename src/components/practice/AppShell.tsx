@@ -540,7 +540,8 @@ function DesktopTubeSidebar({
 
   return (
     <aside
-      className="hidden md:flex fixed left-0 top-0 bottom-0 z-40 flex-col transition-[width] duration-150 ease-out"
+      className="pc-sidebar hidden md:flex fixed left-0 top-0 bottom-0 z-40 flex-col transition-[width] duration-150 ease-out"
+
       style={{
         width: pinned ? 288 : 72,
         background: "linear-gradient(180deg, #FFF9FB 0%, #F8E3EB 100%)",
