@@ -253,7 +253,119 @@ function SidebarProfileCard({ collapsed, onDuty, setOnDuty }: { collapsed?: bool
   );
 }
 
-// ─── Tube sidebar (two-layer: rail + flyout) ───────────────────────────
+// ─── Accordion group used inside pinned sidebar ────────────────────────
+function AccordionGroup({
+  category, activeKey, isActive,
+}: {
+  category: Category;
+  activeKey: string | null;
+  isActive: (url: string) => boolean;
+}) {
+  const containsActive = activeKey === category.key;
+  const [open, setOpen] = useState(containsActive);
+  const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => { if (containsActive) setOpen(true); }, [containsActive]);
+
+  const liveSessions = useTodayRemaining();
+  const criticalFlags = useCriticalFlagCount();
+  const overdue = useOverdueCount();
+  const msgUnread = useUnreadThreadCount();
+  const badgeFor = (url: string, base?: number | "dot"): number | "dot" | undefined => {
+    if (url === "/sessions" && liveSessions > 0) return liveSessions;
+    if (url === "/assessments" && criticalFlags > 0) return criticalFlags;
+    if (url === "/billing" && overdue > 0) return overdue;
+    if (url === "/messages" && msgUnread > 0) return "dot";
+    return base;
+  };
+
+  // Aggregated badge count on the collapsed header (so users see activity without expanding).
+  let headerCount = 0;
+  let headerDot = false;
+  for (const it of category.items) {
+    const b = badgeFor(it.url, it.badge);
+    if (typeof b === "number") headerCount += b;
+    else if (b === "dot") headerDot = true;
+  }
+
+  const onEnter = () => {
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+    hoverTimer.current = setTimeout(() => setOpen(true), 90);
+  };
+  const onLeave = () => {
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+    if (!containsActive) hoverTimer.current = setTimeout(() => setOpen(false), 220);
+  };
+
+  const Icon = category.icon;
+
+  return (
+    <section onMouseEnter={onEnter} onMouseLeave={onLeave}>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="group w-full flex items-center gap-2.5 h-9 px-2.5 rounded-xl text-[12.5px] transition-colors outline-none focus-visible:ring-2"
+        style={{
+          background: containsActive ? "rgba(255,255,255,0.72)" : open ? palette.soft : "transparent",
+          color: containsActive ? palette.ink : palette.muted,
+          border: containsActive ? `1px solid ${palette.border}` : "1px solid transparent",
+        }}
+      >
+        <Icon className="w-[15px] h-[15px] shrink-0" strokeWidth={1.8} style={{ color: containsActive ? palette.primary : palette.muted }} />
+        <span className="flex-1 text-left truncate" style={{ fontWeight: containsActive ? 500 : 400 }}>{category.label}</span>
+        {!open && headerCount > 0 && (
+          <span className="text-[9.5px] tabular-nums px-1.5 min-w-[16px] h-[16px] rounded-full flex items-center justify-center" style={{ background: palette.primary, color: "#fff" }}>{headerCount}</span>
+        )}
+        {!open && headerCount === 0 && headerDot && (
+          <span className="w-1.5 h-1.5 rounded-full" style={{ background: palette.primary }} />
+        )}
+        <ChevronRight
+          className="w-3.5 h-3.5 transition-transform duration-150 shrink-0"
+          strokeWidth={2}
+          style={{ color: palette.muted, transform: open ? "rotate(90deg)" : "rotate(0deg)" }}
+        />
+      </button>
+
+      <div
+        className="overflow-hidden transition-[grid-template-rows] duration-200 ease-out grid"
+        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+      >
+        <div className="min-h-0">
+          <div className="pl-3 ml-3 mt-0.5 mb-1 space-y-0.5 border-l" style={{ borderColor: palette.border }}>
+            {category.items.map((it) => {
+              const active = isActive(it.url);
+              const b = badgeFor(it.url, it.badge);
+              const isBilling = it.url === "/billing";
+              return (
+                <Link
+                  key={it.url}
+                  to={it.url}
+                  className="relative flex items-center h-8 gap-2 px-2.5 rounded-lg text-[12.5px] transition-colors outline-none focus-visible:ring-2"
+                  style={{
+                    color: active ? palette.primary : palette.muted,
+                    background: active ? palette.soft : "transparent",
+                    fontWeight: active ? 500 : 400,
+                  }}
+                  onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = "rgba(255,255,255,0.55)"; }}
+                  onMouseLeave={(e) => { if (!active) e.currentTarget.style.background = "transparent"; }}
+                >
+                  <span className="flex-1 truncate">{it.title}</span>
+                  {typeof b === "number" && b > 0 && (
+                    <span className="text-[9.5px] tabular-nums px-1.5 min-w-[16px] h-[16px] rounded-full flex items-center justify-center" style={{ background: isBilling ? "#F3E4CE" : palette.primary, color: isBilling ? "#B6763A" : "#fff" }}>{b}</span>
+                  )}
+                  {b === "dot" && <span className="w-1.5 h-1.5 rounded-full" style={{ background: palette.primary }} />}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
 function useActiveCategoryKey(): string | null {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   for (const c of CATEGORIES) {
