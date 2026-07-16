@@ -7,7 +7,7 @@ import {
   BarChart,
   CartesianGrid,
   Cell,
-  Legend,
+
   Line,
   LineChart,
   Pie,
@@ -17,7 +17,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { AppShell, palette } from "@/components/practice/AppShell";
+import { AppShell } from "@/components/practice/AppShell";
 import { useLiveSessions } from "@/lib/sessions-store";
 import { useLivePatients } from "@/lib/patients-store";
 import { useLiveNotes } from "@/lib/notes-store";
@@ -112,8 +112,22 @@ function AnalyticsPage() {
   const rev = getRevenueThisMonth();
   const collect = getCollectionRate(30);
   const months = getRevenueByMonth(range === "12m" ? 12 : range === "90d" ? 3 : 1);
-  const revenueData = months.map((m) => ({ month: m.month, revenue: m.total }));
-  const revenueEmpty = revenueData.every((d) => d.revenue === 0);
+  // Multi-series revenue: one column per service, per month → interactive legend
+  const services = useMemo(() => {
+    const set = new Set<string>();
+    months.forEach((m) => Object.keys(m.byService).forEach((k) => set.add(k)));
+    return Array.from(set);
+  }, [months]);
+  const revenueData = months.map((m) => {
+    const row: Record<string, number | string> = { month: m.month, revenue: m.total };
+    for (const svc of services) row[svc] = Math.round(m.byService[svc] ?? 0);
+    return row;
+  });
+  const revenueEmpty = revenueData.every((d) => (d.revenue as number) === 0);
+  const [hiddenSeries, setHiddenSeries] = useState<Record<string, boolean>>({});
+  const toggleSeries = (key: string) =>
+    setHiddenSeries((h) => ({ ...h, [key]: !h[key] }));
+
 
   const stableOrBetter = patients.filter((p) => p.status === "active" && (p.risk === "stable" || p.risk === "monitor")).length;
   const outcomeScore = activePatients ? Math.round((stableOrBetter / activePatients) * 100) : 0;
@@ -129,6 +143,9 @@ function AnalyticsPage() {
     { name: "Phone", value: modality.phone, fill: CHART.series[2] },
   ];
   const modalityEmpty = modalityData.every((d) => d.value === 0);
+  const [hiddenSlices, setHiddenSlices] = useState<Record<string, boolean>>({});
+  const visibleModality = modalityData.filter((d) => !hiddenSlices[d.name]);
+
 
   return (
     <AppShell crumb="Analytics">
@@ -209,46 +226,132 @@ function AnalyticsPage() {
               hint="Once invoices are marked paid they'll trend here in rupees."
             />
           ) : (
-            <div style={{ height: 240 }}>
-              <ResponsiveContainer>
-                {revView === "bar" ? (
-                  <BarChart data={revenueData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
-                    <CartesianGrid stroke={CHART.grid} vertical={false} />
-                    <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
-                    <YAxis tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }}
-                      tickFormatter={(v) => formatINR(v as number, { decimals: false })} width={72} />
-                    <Tooltip content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ fill: CHART.grid }} />
-                    <Bar dataKey="revenue" fill="var(--primary)" radius={[6, 6, 0, 0]} />
-                  </BarChart>
-                ) : revView === "line" ? (
-                  <LineChart data={revenueData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
-                    <CartesianGrid stroke={CHART.grid} vertical={false} />
-                    <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
-                    <YAxis tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }}
-                      tickFormatter={(v) => formatINR(v as number, { decimals: false })} width={72} />
-                    <Tooltip content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ stroke: CHART.grid }} />
-                    <Line type="monotone" dataKey="revenue" stroke="var(--primary)" strokeWidth={2.5}
-                      dot={{ r: 4, fill: "var(--primary)" }} activeDot={{ r: 6 }} />
-                  </LineChart>
-                ) : (
-                  <AreaChart data={revenueData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
-                    <defs>
-                      <linearGradient id="revFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="var(--primary)" stopOpacity={0.35} />
-                        <stop offset="100%" stopColor="var(--primary)" stopOpacity={0.02} />
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid stroke={CHART.grid} vertical={false} />
-                    <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
-                    <YAxis tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }}
-                      tickFormatter={(v) => formatINR(v as number, { decimals: false })} width={72} />
-                    <Tooltip content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ stroke: CHART.grid }} />
-                    <Area type="monotone" dataKey="revenue" stroke="var(--primary)" strokeWidth={2} fill="url(#revFill)" />
-                  </AreaChart>
-                )}
-              </ResponsiveContainer>
-            </div>
+            <>
+              {/* Interactive series legend — click to toggle */}
+              {services.length > 1 && (
+                <div className="flex flex-wrap items-center gap-1.5 mb-3">
+                  {services.map((svc, i) => {
+                    const color = CHART.series[i % CHART.series.length];
+                    const hidden = !!hiddenSeries[svc];
+                    return (
+                      <button
+                        key={svc}
+                        type="button"
+                        onClick={() => toggleSeries(svc)}
+                        className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] transition-all hover:scale-[1.03] active:scale-[0.98]"
+                        style={{
+                          background: hidden ? "transparent" : "color-mix(in oklab, var(--muted) 70%, transparent)",
+                          border: "1px solid var(--border)",
+                          color: hidden ? "var(--muted-foreground)" : "var(--foreground)",
+                          opacity: hidden ? 0.55 : 1,
+                          textDecoration: hidden ? "line-through" : "none",
+                        }}
+                        aria-pressed={!hidden}
+                        title={hidden ? `Show ${svc}` : `Hide ${svc}`}
+                      >
+                        <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: color }} />
+                        {svc}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              <div style={{ height: 240 }}>
+                <ResponsiveContainer>
+                  {revView === "bar" ? (
+                    <BarChart data={revenueData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
+                      <CartesianGrid stroke={CHART.grid} vertical={false} />
+                      <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
+                      <YAxis tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }}
+                        tickFormatter={(v) => formatINR(v as number, { decimals: false })} width={72} />
+                      <Tooltip content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ fill: CHART.grid }} />
+                      {services.length > 1 ? (
+                        services.map((svc, i) =>
+                          hiddenSeries[svc] ? null : (
+                            <Bar
+                              key={svc}
+                              dataKey={svc}
+                              stackId="rev"
+                              fill={CHART.series[i % CHART.series.length]}
+                              radius={i === services.length - 1 ? [6, 6, 0, 0] : [0, 0, 0, 0]}
+                              animationDuration={650}
+                              onClick={() => toggleSeries(svc)}
+                              cursor="pointer"
+                            />
+                          )
+                        )
+                      ) : (
+                        <Bar dataKey="revenue" fill="var(--primary)" radius={[6, 6, 0, 0]} animationDuration={650} />
+                      )}
+                    </BarChart>
+                  ) : revView === "line" ? (
+                    <LineChart data={revenueData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
+                      <CartesianGrid stroke={CHART.grid} vertical={false} />
+                      <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
+                      <YAxis tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }}
+                        tickFormatter={(v) => formatINR(v as number, { decimals: false })} width={72} />
+                      <Tooltip content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ stroke: CHART.grid }} />
+                      {services.length > 1 ? (
+                        services.map((svc, i) =>
+                          hiddenSeries[svc] ? null : (
+                            <Line
+                              key={svc}
+                              type="monotone"
+                              dataKey={svc}
+                              stroke={CHART.series[i % CHART.series.length]}
+                              strokeWidth={2.5}
+                              dot={{ r: 3.5, strokeWidth: 0, fill: CHART.series[i % CHART.series.length] }}
+                              activeDot={{ r: 6, onClick: () => toggleSeries(svc) }}
+                              animationDuration={650}
+                            />
+                          )
+                        )
+                      ) : (
+                        <Line type="monotone" dataKey="revenue" stroke="var(--primary)" strokeWidth={2.5}
+                          dot={{ r: 4, fill: "var(--primary)" }} activeDot={{ r: 6 }} animationDuration={650} />
+                      )}
+                    </LineChart>
+                  ) : (
+                    <AreaChart data={revenueData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
+                      <defs>
+                        {(services.length > 1 ? services : ["revenue"]).map((svc, i) => (
+                          <linearGradient key={svc} id={`revFill-${i}`} x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor={services.length > 1 ? CHART.series[i % CHART.series.length] : "var(--primary)"} stopOpacity={0.4} />
+                            <stop offset="100%" stopColor={services.length > 1 ? CHART.series[i % CHART.series.length] : "var(--primary)"} stopOpacity={0.02} />
+                          </linearGradient>
+                        ))}
+                      </defs>
+                      <CartesianGrid stroke={CHART.grid} vertical={false} />
+                      <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
+                      <YAxis tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }}
+                        tickFormatter={(v) => formatINR(v as number, { decimals: false })} width={72} />
+                      <Tooltip content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ stroke: CHART.grid }} />
+                      {services.length > 1 ? (
+                        services.map((svc, i) =>
+                          hiddenSeries[svc] ? null : (
+                            <Area
+                              key={svc}
+                              type="monotone"
+                              dataKey={svc}
+                              stackId="rev"
+                              stroke={CHART.series[i % CHART.series.length]}
+                              strokeWidth={2}
+                              fill={`url(#revFill-${i})`}
+                              animationDuration={650}
+                            />
+                          )
+                        )
+                      ) : (
+                        <Area type="monotone" dataKey="revenue" stroke="var(--primary)" strokeWidth={2} fill="url(#revFill-0)" animationDuration={650} />
+                      )}
+                    </AreaChart>
+                  )}
+                </ResponsiveContainer>
+              </div>
+            </>
           )}
+
         </Card>
 
         {/* Two-up */}
@@ -290,56 +393,99 @@ function AnalyticsPage() {
 
             {modalityEmpty ? (
               <EmptyChart icon={Video} title="No sessions in this range" hint="Delivered sessions will appear here." />
-            ) : modView === "donut" ? (
-              <div style={{ height: 220 }} className="mt-2">
-                <ResponsiveContainer>
-                  <PieChart>
-                    <Tooltip content={<ChartTooltip />} />
-                    <Legend
-                      verticalAlign="bottom"
-                      height={28}
-                      formatter={(v) => <span style={{ color: "var(--muted-foreground)", fontSize: 11 }}>{v}</span>}
-                    />
-                    <Pie
-                      data={modalityData}
-                      dataKey="value"
-                      nameKey="name"
-                      innerRadius={48}
-                      outerRadius={78}
-                      paddingAngle={2}
-                      stroke="var(--card)"
-                    >
-                      {modalityData.map((entry, i) => (
-                        <Cell key={i} fill={entry.fill} />
-                      ))}
-                    </Pie>
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
             ) : (
-              <div style={{ height: 200 }} className="mt-2">
-                <ResponsiveContainer>
-                  <BarChart data={modalityData} layout="vertical" margin={{ top: 4, right: 12, left: 4, bottom: 0 }}>
-                    <CartesianGrid stroke={CHART.grid} horizontal={false} />
-                    <XAxis type="number" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
-                    <YAxis
-                      type="category"
-                      dataKey="name"
-                      tickLine={false}
-                      axisLine={false}
-                      tick={{ fill: CHART.muted, fontSize: 11 }}
-                      width={80}
-                    />
-                    <Tooltip content={<ChartTooltip />} cursor={{ fill: CHART.grid }} />
-                    <Bar dataKey="value" radius={[0, 6, 6, 0]}>
-                      {modalityData.map((entry, i) => (
-                        <Cell key={i} fill={entry.fill} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+              <>
+                {/* Clickable legend chips — toggle slice / bar */}
+                <div className="flex flex-wrap items-center gap-1.5 mt-2">
+                  {modalityData.map((d) => {
+                    const hidden = !!hiddenSlices[d.name];
+                    return (
+                      <button
+                        key={d.name}
+                        type="button"
+                        onClick={() => setHiddenSlices((h) => ({ ...h, [d.name]: !h[d.name] }))}
+                        className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] transition-all hover:scale-[1.03] active:scale-[0.98]"
+                        style={{
+                          background: hidden ? "transparent" : "color-mix(in oklab, var(--muted) 70%, transparent)",
+                          border: "1px solid var(--border)",
+                          color: hidden ? "var(--muted-foreground)" : "var(--foreground)",
+                          opacity: hidden ? 0.55 : 1,
+                          textDecoration: hidden ? "line-through" : "none",
+                        }}
+                        aria-pressed={!hidden}
+                      >
+                        <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: d.fill }} />
+                        {d.name} <span className="tabular-nums opacity-70">· {d.value}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {modView === "donut" ? (
+                  <div style={{ height: 200 }} className="mt-2">
+                    <ResponsiveContainer>
+                      <PieChart>
+                        <Tooltip content={<ChartTooltip />} />
+                        <Pie
+                          data={visibleModality.length ? visibleModality : modalityData}
+                          dataKey="value"
+                          nameKey="name"
+                          innerRadius={48}
+                          outerRadius={78}
+                          paddingAngle={2}
+                          stroke="var(--card)"
+                          animationDuration={650}
+                          onClick={(e: { name?: string }) =>
+                            e?.name && setHiddenSlices((h) => ({ ...h, [e.name!]: !h[e.name!] }))
+                          }
+                          cursor="pointer"
+                        >
+                          {(visibleModality.length ? visibleModality : modalityData).map((entry, i) => (
+                            <Cell key={i} fill={entry.fill} />
+                          ))}
+                        </Pie>
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                ) : (
+                  <div style={{ height: 180 }} className="mt-2">
+                    <ResponsiveContainer>
+                      <BarChart
+                        data={visibleModality.length ? visibleModality : modalityData}
+                        layout="vertical"
+                        margin={{ top: 4, right: 12, left: 4, bottom: 0 }}
+                      >
+                        <CartesianGrid stroke={CHART.grid} horizontal={false} />
+                        <XAxis type="number" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
+                        <YAxis
+                          type="category"
+                          dataKey="name"
+                          tickLine={false}
+                          axisLine={false}
+                          tick={{ fill: CHART.muted, fontSize: 11 }}
+                          width={80}
+                        />
+                        <Tooltip content={<ChartTooltip />} cursor={{ fill: CHART.grid }} />
+                        <Bar
+                          dataKey="value"
+                          radius={[0, 6, 6, 0]}
+                          animationDuration={650}
+                          onClick={(e: { name?: string }) =>
+                            e?.name && setHiddenSlices((h) => ({ ...h, [e.name!]: !h[e.name!] }))
+                          }
+                          cursor="pointer"
+                        >
+                          {(visibleModality.length ? visibleModality : modalityData).map((entry, i) => (
+                            <Cell key={i} fill={entry.fill} />
+                          ))}
+                        </Bar>
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                )}
+              </>
             )}
+
 
             <div className="mt-3 pt-3 text-[11.5px] flex items-center gap-1.5"
               style={{ color: "var(--muted-foreground)", borderTop: "1px solid var(--border)" }}>
