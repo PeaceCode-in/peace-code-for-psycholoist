@@ -24,14 +24,18 @@ const KEY = "pc.groups.v1";
 const listeners = new Set<() => void>();
 
 function emit() { listeners.forEach((l) => l()); }
+let cache: Group[] | null = null;
 function read(): Group[] {
   if (typeof window === "undefined") return [];
-  try { const raw = window.localStorage.getItem(KEY); if (raw) return JSON.parse(raw) as Group[]; } catch { /* noop */ }
+  if (cache) return cache;
+  try { const raw = window.localStorage.getItem(KEY); if (raw) { cache = JSON.parse(raw) as Group[]; return cache; } } catch { /* noop */ }
   const seed = seedGroups();
   try { window.localStorage.setItem(KEY, JSON.stringify(seed)); } catch { /* noop */ }
+  cache = seed;
   return seed;
 }
 function write(g: Group[]) {
+  cache = g.slice();
   try { window.localStorage.setItem(KEY, JSON.stringify(g)); } catch { /* noop */ }
   emit();
 }
