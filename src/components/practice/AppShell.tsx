@@ -468,36 +468,9 @@ function DesktopTubeSidebar({
 
         <div className={pinned ? "h-px mb-3" : "w-8 h-px mx-auto mb-3"} style={{ background: `linear-gradient(90deg, transparent, ${palette.border}, transparent)` }} />
 
-        <nav className={pinned ? "flex-1 overflow-y-auto pr-1 space-y-4" : "flex-1 flex flex-col items-center gap-1"} aria-label="Practice navigation">
+        <nav className={pinned ? "flex-1 overflow-y-auto pr-1 space-y-0.5" : "flex-1 flex flex-col items-center gap-1"} aria-label="Practice navigation">
           {pinned ? CATEGORIES.map((c) => (
-            <section key={c.key}>
-              <div className="px-2 mb-1 flex items-center gap-2 text-[10px] uppercase tracking-[0.18em]" style={{ color: palette.muted, fontFamily: "'DM Mono', monospace" }}>
-                <c.icon className="w-3 h-3" strokeWidth={1.8} /> {c.label}
-              </div>
-              <div className="space-y-0.5">
-                {c.items.map((it) => {
-                  const active = isActive(it.url);
-                  return (
-                    <Link
-                      key={it.url}
-                      to={it.url}
-                      className="relative flex items-center h-9 gap-2.5 px-3 rounded-xl text-[13px] transition-colors outline-none focus-visible:ring-2"
-                      style={{
-                        background: active ? "rgba(255,255,255,0.72)" : "transparent",
-                        color: active ? palette.ink : palette.muted,
-                        border: active ? `1px solid ${palette.border}` : "1px solid transparent",
-                      }}
-                    >
-                      <span className="flex-1 truncate">{it.title}</span>
-                      {typeof it.badge === "number" && it.badge > 0 && (
-                        <span className="text-[9.5px] tabular-nums px-1.5 min-w-[16px] h-[16px] rounded-full flex items-center justify-center" style={{ background: palette.primary, color: "#fff" }}>{it.badge}</span>
-                      )}
-                      {it.badge === "dot" && <span className="w-1.5 h-1.5 rounded-full" style={{ background: palette.primary }} />}
-                    </Link>
-                  );
-                })}
-              </div>
-            </section>
+            <AccordionGroup key={c.key} category={c} activeKey={activeKey} isActive={isActive} />
           )) : CATEGORIES.map((c) => {
             const active = activeKey === c.key;
             return (
@@ -525,6 +498,7 @@ function DesktopTubeSidebar({
             );
           })}
         </nav>
+
 
         <div className={pinned ? "mt-3 pt-3 border-t space-y-2" : "mt-3 pt-3 border-t flex flex-col items-center gap-2"} style={{ borderColor: palette.border }}>
           {pinned && <SidebarProfileCard onDuty={onDuty} setOnDuty={setOnDuty} />}
