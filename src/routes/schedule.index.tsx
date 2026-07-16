@@ -40,7 +40,7 @@ function SchedulePage() {
     <div className="max-w-[1400px] mx-auto px-5 sm:px-8 pb-24">
       {/* Toolbar */}
       <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
-        <div className="inline-flex items-center gap-1 rounded-full border p-1" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+        <div className="inline-flex items-center gap-1 rounded-full border p-1" style={{ borderColor: palette.border, background: palette.glass }}>
           {(["day","week","month","agenda"] as ScheduleView[]).map((v) => {
             const on = view === v;
             return (
@@ -55,7 +55,7 @@ function SchedulePage() {
           <button onClick={() => setCursor(shift(view, cursor, -1))} className="h-8 w-8 grid place-items-center rounded-full border" style={{ borderColor: palette.border, color: palette.ink }}>
             <ChevronLeft className="h-4 w-4" />
           </button>
-          <button onClick={() => setCursor(new Date())} className="px-3 h-8 rounded-full border text-[12px]" style={{ borderColor: palette.border, color: palette.ink, background: "rgba(255,255,255,0.6)" }}>
+          <button onClick={() => setCursor(new Date())} className="px-3 h-8 rounded-full border text-[12px]" style={{ borderColor: palette.border, color: palette.ink, background: palette.glass }}>
             Today
           </button>
           <button onClick={() => setCursor(shift(view, cursor, 1))} className="h-8 w-8 grid place-items-center rounded-full border" style={{ borderColor: palette.border, color: palette.ink }}>
@@ -70,7 +70,7 @@ function SchedulePage() {
       </div>
 
       <div className="grid gap-5" style={{ gridTemplateColumns: "minmax(0,1fr) 300px" }}>
-        <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(12px)" }}>
+        <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(12px)" }}>
           {view === "day" && <DayView date={cursor} sessions={sessions} occurrences={occurrences} />}
           {view === "week" && <WeekView cursor={cursor} sessions={sessions} occurrences={occurrences} weekStartsOn={settings.weekStartsOn} />}
           {view === "month" && <MonthView cursor={cursor} sessions={sessions} occurrences={occurrences} onPick={(d) => { setCursor(d); setView("day"); }} weekStartsOn={settings.weekStartsOn} />}
@@ -289,7 +289,7 @@ function AgendaSessionRow({ s }: { s: Session }) {
   const p = getPatient(s.patientId);
   const c = SESSION_TYPE_COLOR[s.service];
   return (
-    <div className="flex items-center gap-3 p-3 rounded-xl border" style={{ background: "#fff", borderColor: palette.border }}>
+    <div className="flex items-center gap-3 p-3 rounded-xl border" style={{ background: palette.solid, borderColor: palette.border }}>
       <div className="w-1 h-10 rounded" style={{ background: c.hex }} />
       <div className="text-[12px] tabular-nums w-24" style={{ color: palette.ink }}>
         {new Date(s.startsAt).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}
@@ -451,7 +451,7 @@ function TodayRail({ sessions }: { sessions: Session[] }) {
 
   return (
     <div className="space-y-3">
-      <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(12px)" }}>
+      <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(12px)" }}>
         <div className="text-[10.5px] tracking-[0.14em] uppercase" style={{ color: palette.muted }}>Today</div>
         <div className="mt-2 tabular-nums" style={{ fontFamily: "'Fraunces', serif", fontSize: 34, color: palette.ink, lineHeight: 1 }}>
           {todaySessions.length}
@@ -459,7 +459,7 @@ function TodayRail({ sessions }: { sessions: Session[] }) {
         <div className="text-[11px] mt-1" style={{ color: palette.muted }}>sessions on the books</div>
       </div>
       {next && (
-        <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+        <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glassStrong }}>
           <div className="text-[10.5px] tracking-[0.14em] uppercase" style={{ color: palette.muted }}>Next up</div>
           <div className="mt-2 text-[13px]" style={{ color: palette.ink }}>
             {getPatient(next.patientId)?.fullName ?? "—"}
@@ -472,7 +472,7 @@ function TodayRail({ sessions }: { sessions: Session[] }) {
           </Link>
         </div>
       )}
-      <div className="rounded-2xl border p-4 grid grid-cols-2 gap-3" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+      <div className="rounded-2xl border p-4 grid grid-cols-2 gap-3" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <div>
           <div className="text-[10.5px] tracking-[0.14em] uppercase" style={{ color: palette.muted }}>No-shows · 7d</div>
           <div className="tabular-nums mt-1" style={{ fontFamily: "'Fraunces', serif", fontSize: 22, color: noShows > 0 ? "#B03848" : palette.ink }}>{noShows}</div>
@@ -489,7 +489,7 @@ function TodayRail({ sessions }: { sessions: Session[] }) {
 
 function QuickActionsCard() {
   return (
-    <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+    <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glassStrong }}>
       <div className="text-[10.5px] tracking-[0.14em] uppercase mb-3" style={{ color: palette.muted }}>Quick actions</div>
       <div className="grid grid-cols-2 gap-2">
         <button onClick={() => window.dispatchEvent(new CustomEvent("schedule:new-booking"))} className="text-[11.5px] px-2.5 py-1.5 rounded-full border" style={{ borderColor: palette.border, color: palette.ink }}>

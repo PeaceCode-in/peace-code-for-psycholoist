@@ -52,7 +52,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   return (
     <div className="mb-6">
       <div className="text-[10.5px] tracking-[0.14em] uppercase mb-2" style={{ color: palette.muted }}>{title}</div>
-      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         {children}
       </div>
     </div>

@@ -36,7 +36,7 @@ function AvailabilityPage() {
         </p>
       </div>
 
-      <div className="rounded-2xl border p-4 mb-6" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+      <div className="rounded-2xl border p-4 mb-6" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <div className="grid grid-cols-3 gap-4">
           <NumField label="Default buffer between sessions" value={settings.defaultBufferMin} onChange={(v) => updateSettings({ defaultBufferMin: v })} suffix="min" />
           <NumField label="Working start" value={Math.floor(settings.workingHours.startMin / 60)} onChange={(v) => updateSettings({ workingHours: { ...settings.workingHours, startMin: v * 60 } })} suffix="h" />
@@ -44,7 +44,7 @@ function AvailabilityPage() {
         </div>
       </div>
 
-      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         {DAY_NAMES.map((name, d) => (
           <div key={d} className="grid gap-3 p-4 border-t first:border-t-0" style={{ borderColor: palette.border, gridTemplateColumns: "80px 1fr auto" }}>
             <div className="text-[13px]" style={{ color: palette.ink, fontFamily: "'Fraunces', serif" }}>{name}</div>

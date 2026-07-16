@@ -36,7 +36,7 @@ function ScheduleLayout() {
             </p>
           </div>
           <div className="pc-scroll-x -mx-4 px-4 sm:mx-0 sm:px-0">
-            <div className="inline-flex items-center rounded-full border p-1 whitespace-nowrap" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)", backdropFilter: "blur(12px)" }}>
+            <div className="inline-flex items-center rounded-full border p-1 whitespace-nowrap" style={{ borderColor: palette.border, background: palette.glass, backdropFilter: "blur(12px)" }}>
               {TABS.map((t) => {
                 const on = active(t.to, t.exact);
                 const Icon = t.icon;

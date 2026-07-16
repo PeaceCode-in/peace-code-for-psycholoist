@@ -41,7 +41,7 @@ export function CalendarShell({ children, title, subtitle, actions }: { children
         {/* Segmented view switcher + config chips — scroll horizontally on mobile */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6 min-w-0">
           <div className="pc-scroll-x -mx-4 px-4 sm:mx-0 sm:px-0">
-            <div className="inline-flex items-center rounded-full border p-1 whitespace-nowrap" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)", backdropFilter: "blur(12px)" }}>
+            <div className="inline-flex items-center rounded-full border p-1 whitespace-nowrap" style={{ borderColor: palette.border, background: palette.glass, backdropFilter: "blur(12px)" }}>
               {VIEWS.map((v) => {
                 const on = active(v.to, v.exact);
                 const Icon = v.icon;
