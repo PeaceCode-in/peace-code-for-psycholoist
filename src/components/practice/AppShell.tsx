@@ -663,7 +663,7 @@ function MobileDrawer({ open, onClose, onDuty, setOnDuty }: { open: boolean; onC
         <div className="p-3 flex items-center justify-between border-b" style={{ borderColor: palette.border }}>
           <div className="flex items-center gap-2">
             <span className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "rgba(255,255,255,0.7)", border: `1px solid ${palette.border}` }}><img src={peacecodeLogo} alt="" className="w-5 h-5 object-contain" /></span>
-            <span style={{ fontFamily: "'Fraunces', serif", color: palette.ink }} className="text-[14px]">PeaceCode <span style={{ color: palette.muted }}>· Practice</span></span>
+            <span style={{ fontFamily: "'Fraunces', serif", color: palette.ink }} className="text-[14px]">PeaceCode <span style={{ color: palette.primary }}>· Psychologist</span></span>
           </div>
           <button onClick={onClose} className="p-1.5 rounded-full" style={{ color: palette.muted }}><X className="w-4 h-4" /></button>
         </div>
