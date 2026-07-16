@@ -268,7 +268,7 @@ function AnalyticsPage() {
                       <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
                       <YAxis tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }}
                         tickFormatter={(v) => formatINR(v as number, { decimals: false })} width={72} />
-                      <Tooltip content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ fill: CHART.grid }} />
+                      <Tooltip trigger={tipTrigger} content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ fill: CHART.grid }} />
                       {services.length > 1 ? (
                         services.map((svc, i) =>
                           hiddenSeries[svc] ? null : (
@@ -294,7 +294,7 @@ function AnalyticsPage() {
                       <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
                       <YAxis tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }}
                         tickFormatter={(v) => formatINR(v as number, { decimals: false })} width={72} />
-                      <Tooltip content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ stroke: CHART.grid }} />
+                      <Tooltip trigger={tipTrigger} content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ stroke: CHART.grid }} />
                       {services.length > 1 ? (
                         services.map((svc, i) =>
                           hiddenSeries[svc] ? null : (
@@ -329,7 +329,7 @@ function AnalyticsPage() {
                       <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
                       <YAxis tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }}
                         tickFormatter={(v) => formatINR(v as number, { decimals: false })} width={72} />
-                      <Tooltip content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ stroke: CHART.grid }} />
+                      <Tooltip trigger={tipTrigger} content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ stroke: CHART.grid }} />
                       {services.length > 1 ? (
                         services.map((svc, i) =>
                           hiddenSeries[svc] ? null : (
@@ -428,7 +428,7 @@ function AnalyticsPage() {
                   <div style={{ height: 200 }} className="mt-2">
                     <ResponsiveContainer>
                       <PieChart>
-                        <Tooltip content={<ChartTooltip />} />
+                        <Tooltip trigger={tipTrigger} content={<ChartTooltip />} />
                         <Pie
                           data={visibleModality.length ? visibleModality : modalityData}
                           dataKey="value"
@@ -468,7 +468,7 @@ function AnalyticsPage() {
                           tick={{ fill: CHART.muted, fontSize: 11 }}
                           width={80}
                         />
-                        <Tooltip content={<ChartTooltip />} cursor={{ fill: CHART.grid }} />
+                        <Tooltip trigger={tipTrigger} content={<ChartTooltip />} cursor={{ fill: CHART.grid }} />
                         <Bar
                           dataKey="value"
                           radius={[0, 6, 6, 0]}
