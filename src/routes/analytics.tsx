@@ -18,6 +18,7 @@ import {
   YAxis,
 } from "recharts";
 import { AppShell } from "@/components/practice/AppShell";
+import { useIsTouch } from "@/hooks/use-is-touch";
 import { useLiveSessions } from "@/lib/sessions-store";
 import { useLivePatients } from "@/lib/patients-store";
 import { useLiveNotes } from "@/lib/notes-store";
