@@ -116,6 +116,8 @@ function MonthView() {
           })}
         </div>
       </div>
+      </div></div>
     </CalendarShell>
+
   );
 }
