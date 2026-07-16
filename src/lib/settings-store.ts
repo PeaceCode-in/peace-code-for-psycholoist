@@ -214,6 +214,8 @@ const defaults: Settings = {
     cardStyle: "elevated",
     chartStyle: "smooth",
     language: "English",
+    grainIntensity: 1,
+    lowPower: false,
   },
   accessibility: {
     highContrast: false,
