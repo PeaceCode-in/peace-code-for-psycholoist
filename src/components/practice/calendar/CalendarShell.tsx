@@ -24,18 +24,19 @@ export function CalendarShell({ children, title, subtitle, actions }: { children
 
   return (
     <AppShell crumb="Calendar">
-      <div className="max-w-[1400px] mx-auto px-5 sm:px-8 pt-6 pb-24">
-        <div className="flex items-baseline justify-between flex-wrap gap-3 mb-5">
-          <div>
-            <h1 className="text-[clamp(1.6rem,2.4vw,2rem)] leading-tight tracking-tight" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 pb-24 min-w-0">
+        <div className="flex items-baseline justify-between flex-wrap gap-3 mb-5 min-w-0">
+          <div className="min-w-0">
+            <h1 className="text-[clamp(1.4rem,2.4vw,2rem)] leading-tight tracking-tight truncate" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>
               {title ?? "Calendar"}
             </h1>
-            <p className="text-[12px] mt-1" style={{ color: palette.muted }}>
+            <p className="text-[12px] mt-1 break-words" style={{ color: palette.muted }}>
               {subtitle ?? "Your time as a living canvas — drag, resize, publish."}
             </p>
           </div>
-          <div className="flex items-center gap-2">{actions}</div>
+          <div className="flex items-center gap-2 flex-wrap">{actions}</div>
         </div>
+
 
         {/* Segmented view switcher + config chips */}
         <div className="flex flex-wrap items-center gap-3 mb-6">
