@@ -62,6 +62,19 @@ const CATEGORIES: Category[] = [
     ],
   },
   {
+    key: "clinical", label: "Clinical", meta: "8 tools", icon: Stethoscope,
+    items: [
+      { title: "Sessions", url: "/sessions" },
+      { title: "Notes", url: "/notes" },
+      { title: "Assessments", url: "/assessments" },
+      { title: "Treatment Plans", url: "/treatment-plans" },
+      { title: "Homework", url: "/homework" },
+      { title: "Prescriptions", url: "/prescriptions" },
+      { title: "Risk & Safety", url: "/risk" },
+      { title: "Case Conferences", url: "/case-conferences" },
+    ],
+  },
+  {
     key: "calendar", label: "Calendar", meta: "6 views", icon: CalendarDays,
     items: [
       { title: "Week", url: "/calendar" },
@@ -70,19 +83,6 @@ const CATEGORIES: Category[] = [
       { title: "Agenda", url: "/calendar/agenda" },
       { title: "Availability", url: "/calendar/availability" },
       { title: "Booking Link", url: "/calendar/booking-link" },
-    ],
-  },
-  {
-    key: "clinical", label: "Clinical", meta: "8 tools", icon: Stethoscope,
-    items: [
-      { title: "Sessions", url: "/sessions" },
-      { title: "Assessments", url: "/assessments" },
-      { title: "Notes", url: "/notes" },
-      { title: "Treatment Plans", url: "/treatment-plans" },
-      { title: "Homework", url: "/homework" },
-      { title: "Prescriptions", url: "/prescriptions" },
-      { title: "Risk & Safety", url: "/risk" },
-      { title: "Case Conferences", url: "/case-conferences" },
     ],
   },
   {
