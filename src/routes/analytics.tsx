@@ -81,6 +81,8 @@ function AnalyticsPage() {
   const [range, setRange] = useState<Range>("90d");
   const [revView, setRevView] = useState<RevenueView>("bar");
   const [modView, setModView] = useState<ModalityView>("bars");
+  const isTouch = useIsTouch();
+  const tipTrigger: "hover" | "click" = isTouch ? "click" : "hover";
 
   const sessions = useLiveSessions();
   const patients = useLivePatients();
