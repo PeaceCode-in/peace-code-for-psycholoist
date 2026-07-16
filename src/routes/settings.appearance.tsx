@@ -62,6 +62,36 @@ function AppearancePage() {
             />
           }
         />
+        <Row
+          label="Grain intensity"
+          hint={a.grainIntensity === 0 ? "Off — flat backgrounds." : a.grainIntensity < 0.6 ? "Whisper — barely-there texture." : a.grainIntensity > 1.4 ? "Heavy — film-grade noise." : "Balanced — the house default."}
+        >
+          <div className="mt-3 flex items-center gap-3">
+            <input
+              type="range"
+              min={0}
+              max={2}
+              step={0.1}
+              value={a.grainIntensity}
+              onChange={(e) => setS((p) => ({ ...p, appearance: { ...p.appearance, grainIntensity: Number(e.target.value) } }), "Appearance · grain intensity")}
+              className="flex-1 accent-current"
+              style={{ color: palette.primary }}
+            />
+            <span className="text-[11px] tabular-nums w-10 text-right" style={{ color: palette.muted, fontFamily: "'DM Mono', monospace" }}>
+              {a.grainIntensity.toFixed(1)}×
+            </span>
+          </div>
+        </Row>
+        <Row
+          label="Low-power mode"
+          hint="Drops the fine grain layer and stops all background drift — kinder to older phones and laptops."
+          action={
+            <Toggle
+              checked={a.lowPower}
+              onChange={(v) => setS((p) => ({ ...p, appearance: { ...p.appearance, lowPower: v } }), "Appearance · low-power")}
+            />
+          }
+        />
       </Section>
 
       {/* ── Accent — swatches, not chips ────────────────── */}
