@@ -61,6 +61,7 @@ import { Route as SupervisionIndexRouteImport } from './routes/supervision.index
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as SessionsIndexRouteImport } from './routes/sessions.index'
 import { Route as ScheduleIndexRouteImport } from './routes/schedule.index'
+import { Route as ProfilePublicIndexRouteImport } from './routes/profile-public.index'
 import { Route as PrescriptionsIndexRouteImport } from './routes/prescriptions.index'
 import { Route as PortalIndexRouteImport } from './routes/portal.index'
 import { Route as PeersIndexRouteImport } from './routes/peers.index'
@@ -123,6 +124,9 @@ import { Route as SessionsIdRouteImport } from './routes/sessions.$id'
 import { Route as ScheduleRecurringRouteImport } from './routes/schedule.recurring'
 import { Route as ScheduleExportRouteImport } from './routes/schedule.export'
 import { Route as ScheduleAvailabilityRouteImport } from './routes/schedule.availability'
+import { Route as ProfilePublicSeoRouteImport } from './routes/profile-public.seo'
+import { Route as ProfilePublicPreviewRouteImport } from './routes/profile-public.preview'
+import { Route as ProfilePublicDiscoveryRouteImport } from './routes/profile-public.discovery'
 import { Route as PrescriptionsReviewsRouteImport } from './routes/prescriptions.reviews'
 import { Route as PrescriptionsRefillsRouteImport } from './routes/prescriptions.refills'
 import { Route as PrescriptionsNewRouteImport } from './routes/prescriptions.new'
@@ -144,6 +148,7 @@ import { Route as PeersDirectoryRouteImport } from './routes/peers.directory'
 import { Route as PeersPidRouteImport } from './routes/peers.$pid'
 import { Route as PatientsNewRouteImport } from './routes/patients.new'
 import { Route as PatientsPidRouteImport } from './routes/patients.$pid'
+import { Route as PSlugRouteImport } from './routes/p.$slug'
 import { Route as NotesTemplatesRouteImport } from './routes/notes.templates'
 import { Route as NotesNewRouteImport } from './routes/notes.new'
 import { Route as NotesDraftsRouteImport } from './routes/notes.drafts'
@@ -520,6 +525,11 @@ const ScheduleIndexRoute = ScheduleIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ScheduleRoute,
 } as any)
+const ProfilePublicIndexRoute = ProfilePublicIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProfilePublicRoute,
+} as any)
 const PrescriptionsIndexRoute = PrescriptionsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -832,6 +842,21 @@ const ScheduleAvailabilityRoute = ScheduleAvailabilityRouteImport.update({
   path: '/availability',
   getParentRoute: () => ScheduleRoute,
 } as any)
+const ProfilePublicSeoRoute = ProfilePublicSeoRouteImport.update({
+  id: '/seo',
+  path: '/seo',
+  getParentRoute: () => ProfilePublicRoute,
+} as any)
+const ProfilePublicPreviewRoute = ProfilePublicPreviewRouteImport.update({
+  id: '/preview',
+  path: '/preview',
+  getParentRoute: () => ProfilePublicRoute,
+} as any)
+const ProfilePublicDiscoveryRoute = ProfilePublicDiscoveryRouteImport.update({
+  id: '/discovery',
+  path: '/discovery',
+  getParentRoute: () => ProfilePublicRoute,
+} as any)
 const PrescriptionsReviewsRoute = PrescriptionsReviewsRouteImport.update({
   id: '/reviews',
   path: '/reviews',
@@ -936,6 +961,11 @@ const PatientsPidRoute = PatientsPidRouteImport.update({
   id: '/$pid',
   path: '/$pid',
   getParentRoute: () => PatientsRoute,
+} as any)
+const PSlugRoute = PSlugRouteImport.update({
+  id: '/p/$slug',
+  path: '/p/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const NotesTemplatesRoute = NotesTemplatesRouteImport.update({
   id: '/templates',
@@ -1552,7 +1582,7 @@ export interface FileRoutesByFullPath {
   '/peers': typeof PeersRouteWithChildren
   '/portal': typeof PortalRouteWithChildren
   '/prescriptions': typeof PrescriptionsRouteWithChildren
-  '/profile-public': typeof ProfilePublicRoute
+  '/profile-public': typeof ProfilePublicRouteWithChildren
   '/referrals': typeof ReferralsRoute
   '/research': typeof ResearchRoute
   '/reviews': typeof ReviewsRoute
@@ -1641,6 +1671,7 @@ export interface FileRoutesByFullPath {
   '/notes/drafts': typeof NotesDraftsRoute
   '/notes/new': typeof NotesNewRoute
   '/notes/templates': typeof NotesTemplatesRoute
+  '/p/$slug': typeof PSlugRoute
   '/patients/$pid': typeof PatientsPidRouteWithChildren
   '/patients/new': typeof PatientsNewRoute
   '/peers/$pid': typeof PeersPidRoute
@@ -1662,6 +1693,9 @@ export interface FileRoutesByFullPath {
   '/prescriptions/new': typeof PrescriptionsNewRoute
   '/prescriptions/refills': typeof PrescriptionsRefillsRoute
   '/prescriptions/reviews': typeof PrescriptionsReviewsRoute
+  '/profile-public/discovery': typeof ProfilePublicDiscoveryRoute
+  '/profile-public/preview': typeof ProfilePublicPreviewRoute
+  '/profile-public/seo': typeof ProfilePublicSeoRoute
   '/schedule/availability': typeof ScheduleAvailabilityRoute
   '/schedule/export': typeof ScheduleExportRoute
   '/schedule/recurring': typeof ScheduleRecurringRoute
@@ -1724,6 +1758,7 @@ export interface FileRoutesByFullPath {
   '/peers/': typeof PeersIndexRoute
   '/portal/': typeof PortalIndexRoute
   '/prescriptions/': typeof PrescriptionsIndexRoute
+  '/profile-public/': typeof ProfilePublicIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -1788,7 +1823,6 @@ export interface FileRoutesByTo {
   '/notifications': typeof NotificationsRoute
   '/payments': typeof PaymentsRoute
   '/payouts': typeof PayoutsRoute
-  '/profile-public': typeof ProfilePublicRoute
   '/referrals': typeof ReferralsRoute
   '/research': typeof ResearchRoute
   '/reviews': typeof ReviewsRoute
@@ -1867,6 +1901,7 @@ export interface FileRoutesByTo {
   '/notes/drafts': typeof NotesDraftsRoute
   '/notes/new': typeof NotesNewRoute
   '/notes/templates': typeof NotesTemplatesRoute
+  '/p/$slug': typeof PSlugRoute
   '/patients/new': typeof PatientsNewRoute
   '/peers/$pid': typeof PeersPidRoute
   '/peers/directory': typeof PeersDirectoryRoute
@@ -1887,6 +1922,9 @@ export interface FileRoutesByTo {
   '/prescriptions/new': typeof PrescriptionsNewRoute
   '/prescriptions/refills': typeof PrescriptionsRefillsRoute
   '/prescriptions/reviews': typeof PrescriptionsReviewsRoute
+  '/profile-public/discovery': typeof ProfilePublicDiscoveryRoute
+  '/profile-public/preview': typeof ProfilePublicPreviewRoute
+  '/profile-public/seo': typeof ProfilePublicSeoRoute
   '/schedule/availability': typeof ScheduleAvailabilityRoute
   '/schedule/export': typeof ScheduleExportRoute
   '/schedule/recurring': typeof ScheduleRecurringRoute
@@ -1948,6 +1986,7 @@ export interface FileRoutesByTo {
   '/peers': typeof PeersIndexRoute
   '/portal': typeof PortalIndexRoute
   '/prescriptions': typeof PrescriptionsIndexRoute
+  '/profile-public': typeof ProfilePublicIndexRoute
   '/schedule': typeof ScheduleIndexRoute
   '/sessions': typeof SessionsIndexRoute
   '/settings': typeof SettingsIndexRoute
@@ -2028,7 +2067,7 @@ export interface FileRoutesById {
   '/peers': typeof PeersRouteWithChildren
   '/portal': typeof PortalRouteWithChildren
   '/prescriptions': typeof PrescriptionsRouteWithChildren
-  '/profile-public': typeof ProfilePublicRoute
+  '/profile-public': typeof ProfilePublicRouteWithChildren
   '/referrals': typeof ReferralsRoute
   '/research': typeof ResearchRoute
   '/reviews': typeof ReviewsRoute
@@ -2117,6 +2156,7 @@ export interface FileRoutesById {
   '/notes/drafts': typeof NotesDraftsRoute
   '/notes/new': typeof NotesNewRoute
   '/notes/templates': typeof NotesTemplatesRoute
+  '/p/$slug': typeof PSlugRoute
   '/patients/$pid': typeof PatientsPidRouteWithChildren
   '/patients/new': typeof PatientsNewRoute
   '/peers/$pid': typeof PeersPidRoute
@@ -2138,6 +2178,9 @@ export interface FileRoutesById {
   '/prescriptions/new': typeof PrescriptionsNewRoute
   '/prescriptions/refills': typeof PrescriptionsRefillsRoute
   '/prescriptions/reviews': typeof PrescriptionsReviewsRoute
+  '/profile-public/discovery': typeof ProfilePublicDiscoveryRoute
+  '/profile-public/preview': typeof ProfilePublicPreviewRoute
+  '/profile-public/seo': typeof ProfilePublicSeoRoute
   '/schedule/availability': typeof ScheduleAvailabilityRoute
   '/schedule/export': typeof ScheduleExportRoute
   '/schedule/recurring': typeof ScheduleRecurringRoute
@@ -2200,6 +2243,7 @@ export interface FileRoutesById {
   '/peers/': typeof PeersIndexRoute
   '/portal/': typeof PortalIndexRoute
   '/prescriptions/': typeof PrescriptionsIndexRoute
+  '/profile-public/': typeof ProfilePublicIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -2371,6 +2415,7 @@ export interface FileRouteTypes {
     | '/notes/drafts'
     | '/notes/new'
     | '/notes/templates'
+    | '/p/$slug'
     | '/patients/$pid'
     | '/patients/new'
     | '/peers/$pid'
@@ -2392,6 +2437,9 @@ export interface FileRouteTypes {
     | '/prescriptions/new'
     | '/prescriptions/refills'
     | '/prescriptions/reviews'
+    | '/profile-public/discovery'
+    | '/profile-public/preview'
+    | '/profile-public/seo'
     | '/schedule/availability'
     | '/schedule/export'
     | '/schedule/recurring'
@@ -2454,6 +2502,7 @@ export interface FileRouteTypes {
     | '/peers/'
     | '/portal/'
     | '/prescriptions/'
+    | '/profile-public/'
     | '/schedule/'
     | '/sessions/'
     | '/settings/'
@@ -2518,7 +2567,6 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/payments'
     | '/payouts'
-    | '/profile-public'
     | '/referrals'
     | '/research'
     | '/reviews'
@@ -2597,6 +2645,7 @@ export interface FileRouteTypes {
     | '/notes/drafts'
     | '/notes/new'
     | '/notes/templates'
+    | '/p/$slug'
     | '/patients/new'
     | '/peers/$pid'
     | '/peers/directory'
@@ -2617,6 +2666,9 @@ export interface FileRouteTypes {
     | '/prescriptions/new'
     | '/prescriptions/refills'
     | '/prescriptions/reviews'
+    | '/profile-public/discovery'
+    | '/profile-public/preview'
+    | '/profile-public/seo'
     | '/schedule/availability'
     | '/schedule/export'
     | '/schedule/recurring'
@@ -2678,6 +2730,7 @@ export interface FileRouteTypes {
     | '/peers'
     | '/portal'
     | '/prescriptions'
+    | '/profile-public'
     | '/schedule'
     | '/sessions'
     | '/settings'
@@ -2846,6 +2899,7 @@ export interface FileRouteTypes {
     | '/notes/drafts'
     | '/notes/new'
     | '/notes/templates'
+    | '/p/$slug'
     | '/patients/$pid'
     | '/patients/new'
     | '/peers/$pid'
@@ -2867,6 +2921,9 @@ export interface FileRouteTypes {
     | '/prescriptions/new'
     | '/prescriptions/refills'
     | '/prescriptions/reviews'
+    | '/profile-public/discovery'
+    | '/profile-public/preview'
+    | '/profile-public/seo'
     | '/schedule/availability'
     | '/schedule/export'
     | '/schedule/recurring'
@@ -2929,6 +2986,7 @@ export interface FileRouteTypes {
     | '/peers/'
     | '/portal/'
     | '/prescriptions/'
+    | '/profile-public/'
     | '/schedule/'
     | '/sessions/'
     | '/settings/'
@@ -3010,7 +3068,7 @@ export interface RootRouteChildren {
   PeersRoute: typeof PeersRouteWithChildren
   PortalRoute: typeof PortalRouteWithChildren
   PrescriptionsRoute: typeof PrescriptionsRouteWithChildren
-  ProfilePublicRoute: typeof ProfilePublicRoute
+  ProfilePublicRoute: typeof ProfilePublicRouteWithChildren
   ReferralsRoute: typeof ReferralsRoute
   ResearchRoute: typeof ResearchRoute
   ReviewsRoute: typeof ReviewsRoute
@@ -3043,6 +3101,7 @@ export interface RootRouteChildren {
   ComplianceAuditRoute: typeof ComplianceAuditRoute
   ComplianceConsentRoute: typeof ComplianceConsentRoute
   ComplianceExportRoute: typeof ComplianceExportRoute
+  PSlugRoute: typeof PSlugRoute
   CalendarIndexRoute: typeof CalendarIndexRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   CalendarBookSlugRoute: typeof CalendarBookSlugRoute
@@ -3413,6 +3472,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/schedule/'
       preLoaderRoute: typeof ScheduleIndexRouteImport
       parentRoute: typeof ScheduleRoute
+    }
+    '/profile-public/': {
+      id: '/profile-public/'
+      path: '/'
+      fullPath: '/profile-public/'
+      preLoaderRoute: typeof ProfilePublicIndexRouteImport
+      parentRoute: typeof ProfilePublicRoute
     }
     '/prescriptions/': {
       id: '/prescriptions/'
@@ -3848,6 +3914,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ScheduleAvailabilityRouteImport
       parentRoute: typeof ScheduleRoute
     }
+    '/profile-public/seo': {
+      id: '/profile-public/seo'
+      path: '/seo'
+      fullPath: '/profile-public/seo'
+      preLoaderRoute: typeof ProfilePublicSeoRouteImport
+      parentRoute: typeof ProfilePublicRoute
+    }
+    '/profile-public/preview': {
+      id: '/profile-public/preview'
+      path: '/preview'
+      fullPath: '/profile-public/preview'
+      preLoaderRoute: typeof ProfilePublicPreviewRouteImport
+      parentRoute: typeof ProfilePublicRoute
+    }
+    '/profile-public/discovery': {
+      id: '/profile-public/discovery'
+      path: '/discovery'
+      fullPath: '/profile-public/discovery'
+      preLoaderRoute: typeof ProfilePublicDiscoveryRouteImport
+      parentRoute: typeof ProfilePublicRoute
+    }
     '/prescriptions/reviews': {
       id: '/prescriptions/reviews'
       path: '/reviews'
@@ -3994,6 +4081,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/patients/$pid'
       preLoaderRoute: typeof PatientsPidRouteImport
       parentRoute: typeof PatientsRoute
+    }
+    '/p/$slug': {
+      id: '/p/$slug'
+      path: '/p/$slug'
+      fullPath: '/p/$slug'
+      preLoaderRoute: typeof PSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/notes/templates': {
       id: '/notes/templates'
@@ -5311,6 +5405,24 @@ const PrescriptionsRouteWithChildren = PrescriptionsRoute._addFileChildren(
   PrescriptionsRouteChildren,
 )
 
+interface ProfilePublicRouteChildren {
+  ProfilePublicDiscoveryRoute: typeof ProfilePublicDiscoveryRoute
+  ProfilePublicPreviewRoute: typeof ProfilePublicPreviewRoute
+  ProfilePublicSeoRoute: typeof ProfilePublicSeoRoute
+  ProfilePublicIndexRoute: typeof ProfilePublicIndexRoute
+}
+
+const ProfilePublicRouteChildren: ProfilePublicRouteChildren = {
+  ProfilePublicDiscoveryRoute: ProfilePublicDiscoveryRoute,
+  ProfilePublicPreviewRoute: ProfilePublicPreviewRoute,
+  ProfilePublicSeoRoute: ProfilePublicSeoRoute,
+  ProfilePublicIndexRoute: ProfilePublicIndexRoute,
+}
+
+const ProfilePublicRouteWithChildren = ProfilePublicRoute._addFileChildren(
+  ProfilePublicRouteChildren,
+)
+
 interface ScheduleRouteChildren {
   ScheduleAvailabilityRoute: typeof ScheduleAvailabilityRoute
   ScheduleExportRoute: typeof ScheduleExportRoute
@@ -5534,7 +5646,7 @@ const rootRouteChildren: RootRouteChildren = {
   PeersRoute: PeersRouteWithChildren,
   PortalRoute: PortalRouteWithChildren,
   PrescriptionsRoute: PrescriptionsRouteWithChildren,
-  ProfilePublicRoute: ProfilePublicRoute,
+  ProfilePublicRoute: ProfilePublicRouteWithChildren,
   ReferralsRoute: ReferralsRoute,
   ResearchRoute: ResearchRoute,
   ReviewsRoute: ReviewsRoute,
@@ -5568,6 +5680,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComplianceAuditRoute: ComplianceAuditRoute,
   ComplianceConsentRoute: ComplianceConsentRoute,
   ComplianceExportRoute: ComplianceExportRoute,
+  PSlugRoute: PSlugRoute,
   CalendarIndexRoute: CalendarIndexRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   CalendarBookSlugRoute: CalendarBookSlugRoute,
