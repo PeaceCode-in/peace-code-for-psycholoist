@@ -36,7 +36,7 @@ type Category = {
   key: string;
   label: string;
   meta: string;
-  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number; style?: React.CSSProperties }>;
   items: FlyoutItem[];
 };
 
