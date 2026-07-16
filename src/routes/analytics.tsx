@@ -166,10 +166,10 @@ function AnalyticsPage() {
         <div className="grid lg:grid-cols-2 gap-4 mt-4">
           <Card>
             <div className="text-[13.5px] mb-1" style={{ color: palette.ink }}>Outcomes</div>
-            <div className="text-[11.5px] mb-4" style={{ color: palette.muted }}>Mood lift per note (post − pre, 1–10 scale)</div>
+            <div className="text-[11.5px] mb-4" style={{ color: palette.muted }}>Share of active patients at stable or monitor risk</div>
             <div className="flex items-baseline gap-2">
-              <div className="text-[38px] tabular-nums leading-none" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>{avgMoodLift}</div>
-              <div className="text-[12px]" style={{ color: palette.muted }}>points, {moodDeltas.length} paired ratings</div>
+              <div className="text-[38px] tabular-nums leading-none" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>{outcomeScore}%</div>
+              <div className="text-[12px]" style={{ color: palette.muted }}>{stableOrBetter} of {activePatients} active</div>
             </div>
             <div className="mt-4 grid grid-cols-3 gap-2 text-center">
               <MiniStat label="Retention" value={`${retention}%`} />
