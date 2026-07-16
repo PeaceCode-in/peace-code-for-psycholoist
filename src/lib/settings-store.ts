@@ -80,6 +80,8 @@ export interface Settings {
     cardStyle: CardStyle;
     chartStyle: ChartStyle;
     language: string;
+    grainIntensity: number; // 0 (off) → 2 (heavy), default 1
+    lowPower: boolean;      // disables fine grain + drift for weak devices
   };
   accessibility: {
     highContrast: boolean;
