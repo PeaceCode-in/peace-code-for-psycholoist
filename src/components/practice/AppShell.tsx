@@ -540,7 +540,8 @@ function DesktopTubeSidebar({
 
   return (
     <aside
-      className="hidden md:flex fixed left-0 top-0 bottom-0 z-40 flex-col transition-[width] duration-150 ease-out"
+      className="pc-sidebar hidden md:flex fixed left-0 top-0 bottom-0 z-40 flex-col transition-[width] duration-150 ease-out"
+
       style={{
         width: pinned ? 288 : 72,
         background: "linear-gradient(180deg, #FFF9FB 0%, #F8E3EB 100%)",
@@ -811,7 +812,7 @@ function TopBar({ crumb, onToggleSidebar, onOpenMobile, pinned }: { crumb?: stri
   const [scope, setScope] = useState(scopes[0]);
   return (
     <header
-      className="sticky top-0 z-30 h-14 shrink-0 flex items-center gap-2 px-3 sm:px-4"
+      className="pc-topbar sticky top-0 z-30 h-14 shrink-0 flex items-center gap-2 px-3 sm:px-4"
       style={{
         // Continuous surface with the sidebar — same blush wash, no hard seam.
         background: "linear-gradient(180deg, rgba(255,249,251,0.96) 0%, rgba(255,247,250,0.94) 100%)",
