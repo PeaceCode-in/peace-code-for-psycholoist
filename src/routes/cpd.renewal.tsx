@@ -6,7 +6,7 @@ import { useCycles, useEntries, generateRenewalPacket, summarizeCycle, CATEGORY_
 import { useHydrated } from "@/lib/use-hydrated";
 
 export const Route = createFileRoute("/cpd/renewal")({
-  component: CpdRenewal;
+  component: CpdRenewal,
 });
 
 function CpdRenewal() {

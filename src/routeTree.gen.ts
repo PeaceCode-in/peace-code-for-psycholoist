@@ -172,7 +172,12 @@ import { Route as GovernanceAccessRouteImport } from './routes/governance.access
 import { Route as DocumentsWorksheetsRouteImport } from './routes/documents.worksheets'
 import { Route as DocumentsNewRouteImport } from './routes/documents.new'
 import { Route as DocumentsIdRouteImport } from './routes/documents.$id'
+import { Route as CpdRenewalRouteImport } from './routes/cpd.renewal'
+import { Route as CpdReadingRouteImport } from './routes/cpd.reading'
+import { Route as CpdProvidersRouteImport } from './routes/cpd.providers'
+import { Route as CpdPlanRouteImport } from './routes/cpd.plan'
 import { Route as CpdLogRouteImport } from './routes/cpd.log'
+import { Route as CpdCatalogRouteImport } from './routes/cpd.catalog'
 import { Route as CpdEidRouteImport } from './routes/cpd.$eid'
 import { Route as ComplianceExportRouteImport } from './routes/compliance.export'
 import { Route as ComplianceConsentRouteImport } from './routes/compliance.consent'
@@ -1059,9 +1064,34 @@ const DocumentsIdRoute = DocumentsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => DocumentsRoute,
 } as any)
+const CpdRenewalRoute = CpdRenewalRouteImport.update({
+  id: '/renewal',
+  path: '/renewal',
+  getParentRoute: () => CpdRoute,
+} as any)
+const CpdReadingRoute = CpdReadingRouteImport.update({
+  id: '/reading',
+  path: '/reading',
+  getParentRoute: () => CpdRoute,
+} as any)
+const CpdProvidersRoute = CpdProvidersRouteImport.update({
+  id: '/providers',
+  path: '/providers',
+  getParentRoute: () => CpdRoute,
+} as any)
+const CpdPlanRoute = CpdPlanRouteImport.update({
+  id: '/plan',
+  path: '/plan',
+  getParentRoute: () => CpdRoute,
+} as any)
 const CpdLogRoute = CpdLogRouteImport.update({
   id: '/log',
   path: '/log',
+  getParentRoute: () => CpdRoute,
+} as any)
+const CpdCatalogRoute = CpdCatalogRouteImport.update({
+  id: '/catalog',
+  path: '/catalog',
   getParentRoute: () => CpdRoute,
 } as any)
 const CpdEidRoute = CpdEidRouteImport.update({
@@ -1489,7 +1519,12 @@ export interface FileRoutesByFullPath {
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
   '/cpd/$eid': typeof CpdEidRoute
+  '/cpd/catalog': typeof CpdCatalogRoute
   '/cpd/log': typeof CpdLogRoute
+  '/cpd/plan': typeof CpdPlanRoute
+  '/cpd/providers': typeof CpdProvidersRoute
+  '/cpd/reading': typeof CpdReadingRoute
+  '/cpd/renewal': typeof CpdRenewalRoute
   '/documents/$id': typeof DocumentsIdRoute
   '/documents/new': typeof DocumentsNewRoute
   '/documents/worksheets': typeof DocumentsWorksheetsRoute
@@ -1699,7 +1734,12 @@ export interface FileRoutesByTo {
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
   '/cpd/$eid': typeof CpdEidRoute
+  '/cpd/catalog': typeof CpdCatalogRoute
   '/cpd/log': typeof CpdLogRoute
+  '/cpd/plan': typeof CpdPlanRoute
+  '/cpd/providers': typeof CpdProvidersRoute
+  '/cpd/reading': typeof CpdReadingRoute
+  '/cpd/renewal': typeof CpdRenewalRoute
   '/documents/$id': typeof DocumentsIdRoute
   '/documents/new': typeof DocumentsNewRoute
   '/documents/worksheets': typeof DocumentsWorksheetsRoute
@@ -1931,7 +1971,12 @@ export interface FileRoutesById {
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
   '/cpd/$eid': typeof CpdEidRoute
+  '/cpd/catalog': typeof CpdCatalogRoute
   '/cpd/log': typeof CpdLogRoute
+  '/cpd/plan': typeof CpdPlanRoute
+  '/cpd/providers': typeof CpdProvidersRoute
+  '/cpd/reading': typeof CpdReadingRoute
+  '/cpd/renewal': typeof CpdRenewalRoute
   '/documents/$id': typeof DocumentsIdRoute
   '/documents/new': typeof DocumentsNewRoute
   '/documents/worksheets': typeof DocumentsWorksheetsRoute
@@ -2167,7 +2212,12 @@ export interface FileRouteTypes {
     | '/compliance/consent'
     | '/compliance/export'
     | '/cpd/$eid'
+    | '/cpd/catalog'
     | '/cpd/log'
+    | '/cpd/plan'
+    | '/cpd/providers'
+    | '/cpd/reading'
+    | '/cpd/renewal'
     | '/documents/$id'
     | '/documents/new'
     | '/documents/worksheets'
@@ -2377,7 +2427,12 @@ export interface FileRouteTypes {
     | '/compliance/consent'
     | '/compliance/export'
     | '/cpd/$eid'
+    | '/cpd/catalog'
     | '/cpd/log'
+    | '/cpd/plan'
+    | '/cpd/providers'
+    | '/cpd/reading'
+    | '/cpd/renewal'
     | '/documents/$id'
     | '/documents/new'
     | '/documents/worksheets'
@@ -2608,7 +2663,12 @@ export interface FileRouteTypes {
     | '/compliance/consent'
     | '/compliance/export'
     | '/cpd/$eid'
+    | '/cpd/catalog'
     | '/cpd/log'
+    | '/cpd/plan'
+    | '/cpd/providers'
+    | '/cpd/reading'
+    | '/cpd/renewal'
     | '/documents/$id'
     | '/documents/new'
     | '/documents/worksheets'
@@ -3978,11 +4038,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocumentsIdRouteImport
       parentRoute: typeof DocumentsRoute
     }
+    '/cpd/renewal': {
+      id: '/cpd/renewal'
+      path: '/renewal'
+      fullPath: '/cpd/renewal'
+      preLoaderRoute: typeof CpdRenewalRouteImport
+      parentRoute: typeof CpdRoute
+    }
+    '/cpd/reading': {
+      id: '/cpd/reading'
+      path: '/reading'
+      fullPath: '/cpd/reading'
+      preLoaderRoute: typeof CpdReadingRouteImport
+      parentRoute: typeof CpdRoute
+    }
+    '/cpd/providers': {
+      id: '/cpd/providers'
+      path: '/providers'
+      fullPath: '/cpd/providers'
+      preLoaderRoute: typeof CpdProvidersRouteImport
+      parentRoute: typeof CpdRoute
+    }
+    '/cpd/plan': {
+      id: '/cpd/plan'
+      path: '/plan'
+      fullPath: '/cpd/plan'
+      preLoaderRoute: typeof CpdPlanRouteImport
+      parentRoute: typeof CpdRoute
+    }
     '/cpd/log': {
       id: '/cpd/log'
       path: '/log'
       fullPath: '/cpd/log'
       preLoaderRoute: typeof CpdLogRouteImport
+      parentRoute: typeof CpdRoute
+    }
+    '/cpd/catalog': {
+      id: '/cpd/catalog'
+      path: '/catalog'
+      fullPath: '/cpd/catalog'
+      preLoaderRoute: typeof CpdCatalogRouteImport
       parentRoute: typeof CpdRoute
     }
     '/cpd/$eid': {
@@ -4582,13 +4677,23 @@ const CaseConferencesRouteWithChildren = CaseConferencesRoute._addFileChildren(
 
 interface CpdRouteChildren {
   CpdEidRoute: typeof CpdEidRoute
+  CpdCatalogRoute: typeof CpdCatalogRoute
   CpdLogRoute: typeof CpdLogRoute
+  CpdPlanRoute: typeof CpdPlanRoute
+  CpdProvidersRoute: typeof CpdProvidersRoute
+  CpdReadingRoute: typeof CpdReadingRoute
+  CpdRenewalRoute: typeof CpdRenewalRoute
   CpdIndexRoute: typeof CpdIndexRoute
 }
 
 const CpdRouteChildren: CpdRouteChildren = {
   CpdEidRoute: CpdEidRoute,
+  CpdCatalogRoute: CpdCatalogRoute,
   CpdLogRoute: CpdLogRoute,
+  CpdPlanRoute: CpdPlanRoute,
+  CpdProvidersRoute: CpdProvidersRoute,
+  CpdReadingRoute: CpdReadingRoute,
+  CpdRenewalRoute: CpdRenewalRoute,
   CpdIndexRoute: CpdIndexRoute,
 }
 
@@ -5182,3 +5287,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
