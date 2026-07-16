@@ -203,21 +203,9 @@ function Dashboard() {
         </section>
         <section className="col-span-12 lg:col-span-4 rounded-2xl p-5" style={cardStyle}>
           <SectionHead title="Weekly load" hint="Booked · capacity" to="/schedule" />
-          <div className="mt-4 flex items-end gap-2 h-28">
-            {WEEKLY_LOAD.map((d) => {
-              const pct = d.capacity ? (d.booked / d.capacity) * 100 : 0;
-              return (
-                <div key={d.day} className="flex-1 flex flex-col items-center gap-1">
-                  <div className="w-full rounded-md relative flex-1" style={{ background: surface2 }}>
-                    <div className="absolute bottom-0 left-0 right-0 rounded-md" style={{ background: primary, height: `${pct}%`, opacity: pct ? 1 : 0.15 }} />
-                  </div>
-                  <div className="text-[9.5px]" style={{ color: muted }}>{d.day}</div>
-                  <div className="text-[9.5px] tabular-nums" style={{ color: ink }}>{d.booked}/{d.capacity}</div>
-                </div>
-              );
-            })}
-          </div>
+          <WeeklyLoadChart />
         </section>
+
       </div>
 
       {/* ── Row 5 — Quick Actions rail ───────────────────────── */}
