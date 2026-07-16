@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WritingRouteImport } from './routes/writing'
 import { Route as WelcomeRouteImport } from './routes/welcome'
 import { Route as WaitlistRouteImport } from './routes/waitlist'
 import { Route as TreatmentPlansRouteImport } from './routes/treatment-plans'
@@ -53,6 +54,7 @@ import { Route as AssessmentsRouteImport } from './routes/assessments'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WritingIndexRouteImport } from './routes/writing.index'
 import { Route as WelcomeIndexRouteImport } from './routes/welcome.index'
 import { Route as TeamIndexRouteImport } from './routes/team.index'
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
@@ -63,6 +65,7 @@ import { Route as PortalIndexRouteImport } from './routes/portal.index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
 import { Route as NotesIndexRouteImport } from './routes/notes.index'
 import { Route as MessagesIndexRouteImport } from './routes/messages.index'
+import { Route as LibraryIndexRouteImport } from './routes/library.index'
 import { Route as IntegrationsIndexRouteImport } from './routes/integrations.index'
 import { Route as HomeworkIndexRouteImport } from './routes/homework.index'
 import { Route as GovernanceIndexRouteImport } from './routes/governance.index'
@@ -72,6 +75,7 @@ import { Route as CalendarIndexRouteImport } from './routes/calendar.index'
 import { Route as BillingIndexRouteImport } from './routes/billing.index'
 import { Route as AuthIndexRouteImport } from './routes/auth.index'
 import { Route as AssessmentsIndexRouteImport } from './routes/assessments.index'
+import { Route as WritingSlugRouteImport } from './routes/writing.$slug'
 import { Route as WelcomeTeamRouteImport } from './routes/welcome.team'
 import { Route as WelcomeLetterRouteImport } from './routes/welcome.letter'
 import { Route as WelcomeCompleteRouteImport } from './routes/welcome.complete'
@@ -140,6 +144,10 @@ import { Route as MessagesComposeRouteImport } from './routes/messages.compose'
 import { Route as MessagesCannedRouteImport } from './routes/messages.canned'
 import { Route as MessagesAuditRouteImport } from './routes/messages.audit'
 import { Route as MessagesThreadIdRouteImport } from './routes/messages.$threadId'
+import { Route as LibraryWorksheetsRouteImport } from './routes/library.worksheets'
+import { Route as LibraryMediaRouteImport } from './routes/library.media'
+import { Route as LibraryAnalyticsRouteImport } from './routes/library.analytics'
+import { Route as LibraryPidRouteImport } from './routes/library.$pid'
 import { Route as IntegrationsWebhooksRouteImport } from './routes/integrations.webhooks'
 import { Route as IntegrationsTokensRouteImport } from './routes/integrations.tokens'
 import { Route as IntegrationsAutomationsRouteImport } from './routes/integrations.automations'
@@ -214,6 +222,8 @@ import { Route as PatientsPidChartRouteImport } from './routes/patients.$pid.cha
 import { Route as PatientsPidBillingRouteImport } from './routes/patients.$pid.billing'
 import { Route as PatientsPidAssessmentsRouteImport } from './routes/patients.$pid.assessments'
 import { Route as NotesNidAmendRouteImport } from './routes/notes.$nid.amend'
+import { Route as LibrarySeriesSidRouteImport } from './routes/library.series.$sid'
+import { Route as LibraryRepurposePidRouteImport } from './routes/library.repurpose.$pid'
 import { Route as HomeworkLibraryNewRouteImport } from './routes/homework.library.new'
 import { Route as DocumentsCertificateIdRouteImport } from './routes/documents.certificate.$id'
 import { Route as CalendarBookSlugRouteImport } from './routes/calendar.book.$slug'
@@ -229,6 +239,11 @@ import { Route as PatientsPidNotesNewRouteImport } from './routes/patients.$pid.
 import { Route as PatientsPidNotesNidRouteImport } from './routes/patients.$pid.notes.$nid'
 import { Route as DocumentsTemplatesIdEditRouteImport } from './routes/documents.templates.$id.edit'
 
+const WritingRoute = WritingRouteImport.update({
+  id: '/writing',
+  path: '/writing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WelcomeRoute = WelcomeRouteImport.update({
   id: '/welcome',
   path: '/welcome',
@@ -449,6 +464,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WritingIndexRoute = WritingIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => WritingRoute,
+} as any)
 const WelcomeIndexRoute = WelcomeIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -499,6 +519,11 @@ const MessagesIndexRoute = MessagesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => MessagesRoute,
 } as any)
+const LibraryIndexRoute = LibraryIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LibraryRoute,
+} as any)
 const IntegrationsIndexRoute = IntegrationsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -543,6 +568,11 @@ const AssessmentsIndexRoute = AssessmentsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AssessmentsRoute,
+} as any)
+const WritingSlugRoute = WritingSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => WritingRoute,
 } as any)
 const WelcomeTeamRoute = WelcomeTeamRouteImport.update({
   id: '/team',
@@ -885,6 +915,26 @@ const MessagesThreadIdRoute = MessagesThreadIdRouteImport.update({
   id: '/$threadId',
   path: '/$threadId',
   getParentRoute: () => MessagesRoute,
+} as any)
+const LibraryWorksheetsRoute = LibraryWorksheetsRouteImport.update({
+  id: '/worksheets',
+  path: '/worksheets',
+  getParentRoute: () => LibraryRoute,
+} as any)
+const LibraryMediaRoute = LibraryMediaRouteImport.update({
+  id: '/media',
+  path: '/media',
+  getParentRoute: () => LibraryRoute,
+} as any)
+const LibraryAnalyticsRoute = LibraryAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => LibraryRoute,
+} as any)
+const LibraryPidRoute = LibraryPidRouteImport.update({
+  id: '/$pid',
+  path: '/$pid',
+  getParentRoute: () => LibraryRoute,
 } as any)
 const IntegrationsWebhooksRoute = IntegrationsWebhooksRouteImport.update({
   id: '/webhooks',
@@ -1260,6 +1310,16 @@ const NotesNidAmendRoute = NotesNidAmendRouteImport.update({
   path: '/amend',
   getParentRoute: () => NotesNidRoute,
 } as any)
+const LibrarySeriesSidRoute = LibrarySeriesSidRouteImport.update({
+  id: '/series/$sid',
+  path: '/series/$sid',
+  getParentRoute: () => LibraryRoute,
+} as any)
+const LibraryRepurposePidRoute = LibraryRepurposePidRouteImport.update({
+  id: '/repurpose/$pid',
+  path: '/repurpose/$pid',
+  getParentRoute: () => LibraryRoute,
+} as any)
 const HomeworkLibraryNewRoute = HomeworkLibraryNewRouteImport.update({
   id: '/new',
   path: '/new',
@@ -1354,7 +1414,7 @@ export interface FileRoutesByFullPath {
   '/homework': typeof HomeworkRouteWithChildren
   '/inbox': typeof InboxRouteWithChildren
   '/integrations': typeof IntegrationsRouteWithChildren
-  '/library': typeof LibraryRoute
+  '/library': typeof LibraryRouteWithChildren
   '/mcp': typeof McpRoute
   '/messages': typeof MessagesRouteWithChildren
   '/notes': typeof NotesRouteWithChildren
@@ -1381,6 +1441,7 @@ export interface FileRoutesByFullPath {
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
   '/welcome': typeof WelcomeRouteWithChildren
+  '/writing': typeof WritingRouteWithChildren
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/hardcode-report': typeof AdminHardcodeReportRoute
@@ -1432,6 +1493,10 @@ export interface FileRoutesByFullPath {
   '/integrations/automations': typeof IntegrationsAutomationsRoute
   '/integrations/tokens': typeof IntegrationsTokensRoute
   '/integrations/webhooks': typeof IntegrationsWebhooksRoute
+  '/library/$pid': typeof LibraryPidRoute
+  '/library/analytics': typeof LibraryAnalyticsRoute
+  '/library/media': typeof LibraryMediaRoute
+  '/library/worksheets': typeof LibraryWorksheetsRoute
   '/messages/$threadId': typeof MessagesThreadIdRoute
   '/messages/audit': typeof MessagesAuditRoute
   '/messages/canned': typeof MessagesCannedRoute
@@ -1500,6 +1565,7 @@ export interface FileRoutesByFullPath {
   '/welcome/complete': typeof WelcomeCompleteRoute
   '/welcome/letter': typeof WelcomeLetterRoute
   '/welcome/team': typeof WelcomeTeamRoute
+  '/writing/$slug': typeof WritingSlugRoute
   '/assessments/': typeof AssessmentsIndexRoute
   '/auth/': typeof AuthIndexRoute
   '/billing/': typeof BillingIndexRoute
@@ -1509,6 +1575,7 @@ export interface FileRoutesByFullPath {
   '/governance/': typeof GovernanceIndexRoute
   '/homework/': typeof HomeworkIndexRoute
   '/integrations/': typeof IntegrationsIndexRoute
+  '/library/': typeof LibraryIndexRoute
   '/messages/': typeof MessagesIndexRoute
   '/notes/': typeof NotesIndexRoute
   '/patients/': typeof PatientsIndexRoute
@@ -1519,6 +1586,7 @@ export interface FileRoutesByFullPath {
   '/settings/': typeof SettingsIndexRoute
   '/team/': typeof TeamIndexRoute
   '/welcome/': typeof WelcomeIndexRoute
+  '/writing/': typeof WritingIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/assessments/library/$instrumentId': typeof AssessmentsLibraryInstrumentIdRoute
   '/assessments/results/$resultId': typeof AssessmentsResultsResultIdRoute
@@ -1529,6 +1597,8 @@ export interface FileRoutesByFullPath {
   '/calendar/book/$slug': typeof CalendarBookSlugRoute
   '/documents/certificate/$id': typeof DocumentsCertificateIdRoute
   '/homework/library/new': typeof HomeworkLibraryNewRoute
+  '/library/repurpose/$pid': typeof LibraryRepurposePidRoute
+  '/library/series/$sid': typeof LibrarySeriesSidRoute
   '/notes/$nid/amend': typeof NotesNidAmendRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/billing': typeof PatientsPidBillingRoute
@@ -1567,7 +1637,6 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/groups': typeof GroupsRoute
   '/inbox': typeof InboxRouteWithChildren
-  '/library': typeof LibraryRoute
   '/mcp': typeof McpRoute
   '/notifications': typeof NotificationsRoute
   '/payments': typeof PaymentsRoute
@@ -1632,6 +1701,10 @@ export interface FileRoutesByTo {
   '/integrations/automations': typeof IntegrationsAutomationsRoute
   '/integrations/tokens': typeof IntegrationsTokensRoute
   '/integrations/webhooks': typeof IntegrationsWebhooksRoute
+  '/library/$pid': typeof LibraryPidRoute
+  '/library/analytics': typeof LibraryAnalyticsRoute
+  '/library/media': typeof LibraryMediaRoute
+  '/library/worksheets': typeof LibraryWorksheetsRoute
   '/messages/$threadId': typeof MessagesThreadIdRoute
   '/messages/audit': typeof MessagesAuditRoute
   '/messages/canned': typeof MessagesCannedRoute
@@ -1698,6 +1771,7 @@ export interface FileRoutesByTo {
   '/welcome/complete': typeof WelcomeCompleteRoute
   '/welcome/letter': typeof WelcomeLetterRoute
   '/welcome/team': typeof WelcomeTeamRoute
+  '/writing/$slug': typeof WritingSlugRoute
   '/assessments': typeof AssessmentsIndexRoute
   '/auth': typeof AuthIndexRoute
   '/billing': typeof BillingIndexRoute
@@ -1707,6 +1781,7 @@ export interface FileRoutesByTo {
   '/governance': typeof GovernanceIndexRoute
   '/homework': typeof HomeworkIndexRoute
   '/integrations': typeof IntegrationsIndexRoute
+  '/library': typeof LibraryIndexRoute
   '/messages': typeof MessagesIndexRoute
   '/notes': typeof NotesIndexRoute
   '/patients': typeof PatientsIndexRoute
@@ -1717,6 +1792,7 @@ export interface FileRoutesByTo {
   '/settings': typeof SettingsIndexRoute
   '/team': typeof TeamIndexRoute
   '/welcome': typeof WelcomeIndexRoute
+  '/writing': typeof WritingIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/assessments/library/$instrumentId': typeof AssessmentsLibraryInstrumentIdRoute
   '/assessments/results/$resultId': typeof AssessmentsResultsResultIdRoute
@@ -1727,6 +1803,8 @@ export interface FileRoutesByTo {
   '/calendar/book/$slug': typeof CalendarBookSlugRoute
   '/documents/certificate/$id': typeof DocumentsCertificateIdRoute
   '/homework/library/new': typeof HomeworkLibraryNewRoute
+  '/library/repurpose/$pid': typeof LibraryRepurposePidRoute
+  '/library/series/$sid': typeof LibrarySeriesSidRoute
   '/notes/$nid/amend': typeof NotesNidAmendRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/billing': typeof PatientsPidBillingRoute
@@ -1773,7 +1851,7 @@ export interface FileRoutesById {
   '/homework': typeof HomeworkRouteWithChildren
   '/inbox': typeof InboxRouteWithChildren
   '/integrations': typeof IntegrationsRouteWithChildren
-  '/library': typeof LibraryRoute
+  '/library': typeof LibraryRouteWithChildren
   '/mcp': typeof McpRoute
   '/messages': typeof MessagesRouteWithChildren
   '/notes': typeof NotesRouteWithChildren
@@ -1800,6 +1878,7 @@ export interface FileRoutesById {
   '/treatment-plans': typeof TreatmentPlansRoute
   '/waitlist': typeof WaitlistRoute
   '/welcome': typeof WelcomeRouteWithChildren
+  '/writing': typeof WritingRouteWithChildren
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/hardcode-report': typeof AdminHardcodeReportRoute
@@ -1851,6 +1930,10 @@ export interface FileRoutesById {
   '/integrations/automations': typeof IntegrationsAutomationsRoute
   '/integrations/tokens': typeof IntegrationsTokensRoute
   '/integrations/webhooks': typeof IntegrationsWebhooksRoute
+  '/library/$pid': typeof LibraryPidRoute
+  '/library/analytics': typeof LibraryAnalyticsRoute
+  '/library/media': typeof LibraryMediaRoute
+  '/library/worksheets': typeof LibraryWorksheetsRoute
   '/messages/$threadId': typeof MessagesThreadIdRoute
   '/messages/audit': typeof MessagesAuditRoute
   '/messages/canned': typeof MessagesCannedRoute
@@ -1919,6 +2002,7 @@ export interface FileRoutesById {
   '/welcome/complete': typeof WelcomeCompleteRoute
   '/welcome/letter': typeof WelcomeLetterRoute
   '/welcome/team': typeof WelcomeTeamRoute
+  '/writing/$slug': typeof WritingSlugRoute
   '/assessments/': typeof AssessmentsIndexRoute
   '/auth/': typeof AuthIndexRoute
   '/billing/': typeof BillingIndexRoute
@@ -1928,6 +2012,7 @@ export interface FileRoutesById {
   '/governance/': typeof GovernanceIndexRoute
   '/homework/': typeof HomeworkIndexRoute
   '/integrations/': typeof IntegrationsIndexRoute
+  '/library/': typeof LibraryIndexRoute
   '/messages/': typeof MessagesIndexRoute
   '/notes/': typeof NotesIndexRoute
   '/patients/': typeof PatientsIndexRoute
@@ -1938,6 +2023,7 @@ export interface FileRoutesById {
   '/settings/': typeof SettingsIndexRoute
   '/team/': typeof TeamIndexRoute
   '/welcome/': typeof WelcomeIndexRoute
+  '/writing/': typeof WritingIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/assessments/library/$instrumentId': typeof AssessmentsLibraryInstrumentIdRoute
   '/assessments/results/$resultId': typeof AssessmentsResultsResultIdRoute
@@ -1948,6 +2034,8 @@ export interface FileRoutesById {
   '/calendar/book/$slug': typeof CalendarBookSlugRoute
   '/documents/certificate/$id': typeof DocumentsCertificateIdRoute
   '/homework/library/new': typeof HomeworkLibraryNewRoute
+  '/library/repurpose/$pid': typeof LibraryRepurposePidRoute
+  '/library/series/$sid': typeof LibrarySeriesSidRoute
   '/notes/$nid/amend': typeof NotesNidAmendRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/billing': typeof PatientsPidBillingRoute
@@ -2023,6 +2111,7 @@ export interface FileRouteTypes {
     | '/treatment-plans'
     | '/waitlist'
     | '/welcome'
+    | '/writing'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/hardcode-report'
@@ -2074,6 +2163,10 @@ export interface FileRouteTypes {
     | '/integrations/automations'
     | '/integrations/tokens'
     | '/integrations/webhooks'
+    | '/library/$pid'
+    | '/library/analytics'
+    | '/library/media'
+    | '/library/worksheets'
     | '/messages/$threadId'
     | '/messages/audit'
     | '/messages/canned'
@@ -2142,6 +2235,7 @@ export interface FileRouteTypes {
     | '/welcome/complete'
     | '/welcome/letter'
     | '/welcome/team'
+    | '/writing/$slug'
     | '/assessments/'
     | '/auth/'
     | '/billing/'
@@ -2151,6 +2245,7 @@ export interface FileRouteTypes {
     | '/governance/'
     | '/homework/'
     | '/integrations/'
+    | '/library/'
     | '/messages/'
     | '/notes/'
     | '/patients/'
@@ -2161,6 +2256,7 @@ export interface FileRouteTypes {
     | '/settings/'
     | '/team/'
     | '/welcome/'
+    | '/writing/'
     | '/.mcp/invoke-tool/$tool'
     | '/assessments/library/$instrumentId'
     | '/assessments/results/$resultId'
@@ -2171,6 +2267,8 @@ export interface FileRouteTypes {
     | '/calendar/book/$slug'
     | '/documents/certificate/$id'
     | '/homework/library/new'
+    | '/library/repurpose/$pid'
+    | '/library/series/$sid'
     | '/notes/$nid/amend'
     | '/patients/$pid/assessments'
     | '/patients/$pid/billing'
@@ -2209,7 +2307,6 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/groups'
     | '/inbox'
-    | '/library'
     | '/mcp'
     | '/notifications'
     | '/payments'
@@ -2274,6 +2371,10 @@ export interface FileRouteTypes {
     | '/integrations/automations'
     | '/integrations/tokens'
     | '/integrations/webhooks'
+    | '/library/$pid'
+    | '/library/analytics'
+    | '/library/media'
+    | '/library/worksheets'
     | '/messages/$threadId'
     | '/messages/audit'
     | '/messages/canned'
@@ -2340,6 +2441,7 @@ export interface FileRouteTypes {
     | '/welcome/complete'
     | '/welcome/letter'
     | '/welcome/team'
+    | '/writing/$slug'
     | '/assessments'
     | '/auth'
     | '/billing'
@@ -2349,6 +2451,7 @@ export interface FileRouteTypes {
     | '/governance'
     | '/homework'
     | '/integrations'
+    | '/library'
     | '/messages'
     | '/notes'
     | '/patients'
@@ -2359,6 +2462,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/team'
     | '/welcome'
+    | '/writing'
     | '/.mcp/invoke-tool/$tool'
     | '/assessments/library/$instrumentId'
     | '/assessments/results/$resultId'
@@ -2369,6 +2473,8 @@ export interface FileRouteTypes {
     | '/calendar/book/$slug'
     | '/documents/certificate/$id'
     | '/homework/library/new'
+    | '/library/repurpose/$pid'
+    | '/library/series/$sid'
     | '/notes/$nid/amend'
     | '/patients/$pid/assessments'
     | '/patients/$pid/billing'
@@ -2441,6 +2547,7 @@ export interface FileRouteTypes {
     | '/treatment-plans'
     | '/waitlist'
     | '/welcome'
+    | '/writing'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/hardcode-report'
@@ -2492,6 +2599,10 @@ export interface FileRouteTypes {
     | '/integrations/automations'
     | '/integrations/tokens'
     | '/integrations/webhooks'
+    | '/library/$pid'
+    | '/library/analytics'
+    | '/library/media'
+    | '/library/worksheets'
     | '/messages/$threadId'
     | '/messages/audit'
     | '/messages/canned'
@@ -2560,6 +2671,7 @@ export interface FileRouteTypes {
     | '/welcome/complete'
     | '/welcome/letter'
     | '/welcome/team'
+    | '/writing/$slug'
     | '/assessments/'
     | '/auth/'
     | '/billing/'
@@ -2569,6 +2681,7 @@ export interface FileRouteTypes {
     | '/governance/'
     | '/homework/'
     | '/integrations/'
+    | '/library/'
     | '/messages/'
     | '/notes/'
     | '/patients/'
@@ -2579,6 +2692,7 @@ export interface FileRouteTypes {
     | '/settings/'
     | '/team/'
     | '/welcome/'
+    | '/writing/'
     | '/.mcp/invoke-tool/$tool'
     | '/assessments/library/$instrumentId'
     | '/assessments/results/$resultId'
@@ -2589,6 +2703,8 @@ export interface FileRouteTypes {
     | '/calendar/book/$slug'
     | '/documents/certificate/$id'
     | '/homework/library/new'
+    | '/library/repurpose/$pid'
+    | '/library/series/$sid'
     | '/notes/$nid/amend'
     | '/patients/$pid/assessments'
     | '/patients/$pid/billing'
@@ -2636,7 +2752,7 @@ export interface RootRouteChildren {
   HomeworkRoute: typeof HomeworkRouteWithChildren
   InboxRoute: typeof InboxRouteWithChildren
   IntegrationsRoute: typeof IntegrationsRouteWithChildren
-  LibraryRoute: typeof LibraryRoute
+  LibraryRoute: typeof LibraryRouteWithChildren
   McpRoute: typeof McpRoute
   MessagesRoute: typeof MessagesRouteWithChildren
   NotesRoute: typeof NotesRouteWithChildren
@@ -2663,6 +2779,7 @@ export interface RootRouteChildren {
   TreatmentPlansRoute: typeof TreatmentPlansRoute
   WaitlistRoute: typeof WaitlistRoute
   WelcomeRoute: typeof WelcomeRouteWithChildren
+  WritingRoute: typeof WritingRouteWithChildren
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   AdminHardcodeReportRoute: typeof AdminHardcodeReportRoute
@@ -2686,6 +2803,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/writing': {
+      id: '/writing'
+      path: '/writing'
+      fullPath: '/writing'
+      preLoaderRoute: typeof WritingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/welcome': {
       id: '/welcome'
       path: '/welcome'
@@ -2994,6 +3118,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/writing/': {
+      id: '/writing/'
+      path: '/'
+      fullPath: '/writing/'
+      preLoaderRoute: typeof WritingIndexRouteImport
+      parentRoute: typeof WritingRoute
+    }
     '/welcome/': {
       id: '/welcome/'
       path: '/'
@@ -3064,6 +3195,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MessagesIndexRouteImport
       parentRoute: typeof MessagesRoute
     }
+    '/library/': {
+      id: '/library/'
+      path: '/'
+      fullPath: '/library/'
+      preLoaderRoute: typeof LibraryIndexRouteImport
+      parentRoute: typeof LibraryRoute
+    }
     '/integrations/': {
       id: '/integrations/'
       path: '/'
@@ -3126,6 +3264,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/assessments/'
       preLoaderRoute: typeof AssessmentsIndexRouteImport
       parentRoute: typeof AssessmentsRoute
+    }
+    '/writing/$slug': {
+      id: '/writing/$slug'
+      path: '/$slug'
+      fullPath: '/writing/$slug'
+      preLoaderRoute: typeof WritingSlugRouteImport
+      parentRoute: typeof WritingRoute
     }
     '/welcome/team': {
       id: '/welcome/team'
@@ -3602,6 +3747,34 @@ declare module '@tanstack/react-router' {
       fullPath: '/messages/$threadId'
       preLoaderRoute: typeof MessagesThreadIdRouteImport
       parentRoute: typeof MessagesRoute
+    }
+    '/library/worksheets': {
+      id: '/library/worksheets'
+      path: '/worksheets'
+      fullPath: '/library/worksheets'
+      preLoaderRoute: typeof LibraryWorksheetsRouteImport
+      parentRoute: typeof LibraryRoute
+    }
+    '/library/media': {
+      id: '/library/media'
+      path: '/media'
+      fullPath: '/library/media'
+      preLoaderRoute: typeof LibraryMediaRouteImport
+      parentRoute: typeof LibraryRoute
+    }
+    '/library/analytics': {
+      id: '/library/analytics'
+      path: '/analytics'
+      fullPath: '/library/analytics'
+      preLoaderRoute: typeof LibraryAnalyticsRouteImport
+      parentRoute: typeof LibraryRoute
+    }
+    '/library/$pid': {
+      id: '/library/$pid'
+      path: '/$pid'
+      fullPath: '/library/$pid'
+      preLoaderRoute: typeof LibraryPidRouteImport
+      parentRoute: typeof LibraryRoute
     }
     '/integrations/webhooks': {
       id: '/integrations/webhooks'
@@ -4121,6 +4294,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotesNidAmendRouteImport
       parentRoute: typeof NotesNidRoute
     }
+    '/library/series/$sid': {
+      id: '/library/series/$sid'
+      path: '/series/$sid'
+      fullPath: '/library/series/$sid'
+      preLoaderRoute: typeof LibrarySeriesSidRouteImport
+      parentRoute: typeof LibraryRoute
+    }
+    '/library/repurpose/$pid': {
+      id: '/library/repurpose/$pid'
+      path: '/repurpose/$pid'
+      fullPath: '/library/repurpose/$pid'
+      preLoaderRoute: typeof LibraryRepurposePidRouteImport
+      parentRoute: typeof LibraryRoute
+    }
     '/homework/library/new': {
       id: '/homework/library/new'
       path: '/new'
@@ -4455,6 +4642,29 @@ const IntegrationsRouteChildren: IntegrationsRouteChildren = {
 const IntegrationsRouteWithChildren = IntegrationsRoute._addFileChildren(
   IntegrationsRouteChildren,
 )
+
+interface LibraryRouteChildren {
+  LibraryPidRoute: typeof LibraryPidRoute
+  LibraryAnalyticsRoute: typeof LibraryAnalyticsRoute
+  LibraryMediaRoute: typeof LibraryMediaRoute
+  LibraryWorksheetsRoute: typeof LibraryWorksheetsRoute
+  LibraryIndexRoute: typeof LibraryIndexRoute
+  LibraryRepurposePidRoute: typeof LibraryRepurposePidRoute
+  LibrarySeriesSidRoute: typeof LibrarySeriesSidRoute
+}
+
+const LibraryRouteChildren: LibraryRouteChildren = {
+  LibraryPidRoute: LibraryPidRoute,
+  LibraryAnalyticsRoute: LibraryAnalyticsRoute,
+  LibraryMediaRoute: LibraryMediaRoute,
+  LibraryWorksheetsRoute: LibraryWorksheetsRoute,
+  LibraryIndexRoute: LibraryIndexRoute,
+  LibraryRepurposePidRoute: LibraryRepurposePidRoute,
+  LibrarySeriesSidRoute: LibrarySeriesSidRoute,
+}
+
+const LibraryRouteWithChildren =
+  LibraryRoute._addFileChildren(LibraryRouteChildren)
 
 interface MessagesRouteChildren {
   MessagesThreadIdRoute: typeof MessagesThreadIdRoute
@@ -4820,6 +5030,19 @@ const WelcomeRouteChildren: WelcomeRouteChildren = {
 const WelcomeRouteWithChildren =
   WelcomeRoute._addFileChildren(WelcomeRouteChildren)
 
+interface WritingRouteChildren {
+  WritingSlugRoute: typeof WritingSlugRoute
+  WritingIndexRoute: typeof WritingIndexRoute
+}
+
+const WritingRouteChildren: WritingRouteChildren = {
+  WritingSlugRoute: WritingSlugRoute,
+  WritingIndexRoute: WritingIndexRoute,
+}
+
+const WritingRouteWithChildren =
+  WritingRoute._addFileChildren(WritingRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AlertsRoute: AlertsRoute,
@@ -4838,7 +5061,7 @@ const rootRouteChildren: RootRouteChildren = {
   HomeworkRoute: HomeworkRouteWithChildren,
   InboxRoute: InboxRouteWithChildren,
   IntegrationsRoute: IntegrationsRouteWithChildren,
-  LibraryRoute: LibraryRoute,
+  LibraryRoute: LibraryRouteWithChildren,
   McpRoute: McpRoute,
   MessagesRoute: MessagesRouteWithChildren,
   NotesRoute: NotesRouteWithChildren,
@@ -4865,6 +5088,7 @@ const rootRouteChildren: RootRouteChildren = {
   TreatmentPlansRoute: TreatmentPlansRoute,
   WaitlistRoute: WaitlistRoute,
   WelcomeRoute: WelcomeRouteWithChildren,
+  WritingRoute: WritingRouteWithChildren,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
