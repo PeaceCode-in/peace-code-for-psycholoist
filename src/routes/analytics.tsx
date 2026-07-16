@@ -17,7 +17,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { AppShell, palette } from "@/components/practice/AppShell";
+import { AppShell } from "@/components/practice/AppShell";
 import { useLiveSessions } from "@/lib/sessions-store";
 import { useLivePatients } from "@/lib/patients-store";
 import { useLiveNotes } from "@/lib/notes-store";
