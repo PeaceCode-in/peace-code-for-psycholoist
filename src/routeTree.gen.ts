@@ -62,6 +62,7 @@ import { Route as SessionsIndexRouteImport } from './routes/sessions.index'
 import { Route as ScheduleIndexRouteImport } from './routes/schedule.index'
 import { Route as PrescriptionsIndexRouteImport } from './routes/prescriptions.index'
 import { Route as PortalIndexRouteImport } from './routes/portal.index'
+import { Route as PeersIndexRouteImport } from './routes/peers.index'
 import { Route as PatientsIndexRouteImport } from './routes/patients.index'
 import { Route as NotesIndexRouteImport } from './routes/notes.index'
 import { Route as MessagesIndexRouteImport } from './routes/messages.index'
@@ -133,6 +134,10 @@ import { Route as PortalCrisisRouteImport } from './routes/portal.crisis'
 import { Route as PortalBillingRouteImport } from './routes/portal.billing'
 import { Route as PortalAuthRouteImport } from './routes/portal.auth'
 import { Route as PortalAssessmentsRouteImport } from './routes/portal.assessments'
+import { Route as PeersReferralsRouteImport } from './routes/peers.referrals'
+import { Route as PeersJournalClubRouteImport } from './routes/peers.journal-club'
+import { Route as PeersDirectoryRouteImport } from './routes/peers.directory'
+import { Route as PeersPidRouteImport } from './routes/peers.$pid'
 import { Route as PatientsNewRouteImport } from './routes/patients.new'
 import { Route as PatientsPidRouteImport } from './routes/patients.$pid'
 import { Route as NotesTemplatesRouteImport } from './routes/notes.templates'
@@ -208,6 +213,7 @@ import { Route as AdminHardcodeReportRouteImport } from './routes/admin.hardcode
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as SessionsIdIndexRouteImport } from './routes/sessions.$id.index'
+import { Route as PeersDiscussionsIndexRouteImport } from './routes/peers.discussions.index'
 import { Route as PatientsPidIndexRouteImport } from './routes/patients.$pid.index'
 import { Route as BillingInvoicesIndexRouteImport } from './routes/billing.invoices.index'
 import { Route as BillingClaimsIndexRouteImport } from './routes/billing.claims.index'
@@ -223,6 +229,7 @@ import { Route as PrescriptionsMidDiscontinueRouteImport } from './routes/prescr
 import { Route as PortalMessagesThreadIdRouteImport } from './routes/portal.messages.$threadId'
 import { Route as PortalDocumentsTokenRouteImport } from './routes/portal.documents.$token'
 import { Route as PortalAssessmentsIdRouteImport } from './routes/portal.assessments.$id'
+import { Route as PeersDiscussionsTidRouteImport } from './routes/peers.discussions.$tid'
 import { Route as PatientsPidTimelineRouteImport } from './routes/patients.$pid.timeline'
 import { Route as PatientsPidNotesRouteImport } from './routes/patients.$pid.notes'
 import { Route as PatientsPidDocumentsRouteImport } from './routes/patients.$pid.documents'
@@ -511,6 +518,11 @@ const PortalIndexRoute = PortalIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => PortalRoute,
+} as any)
+const PeersIndexRoute = PeersIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PeersRoute,
 } as any)
 const PatientsIndexRoute = PatientsIndexRouteImport.update({
   id: '/',
@@ -868,6 +880,26 @@ const PortalAssessmentsRoute = PortalAssessmentsRouteImport.update({
   id: '/assessments',
   path: '/assessments',
   getParentRoute: () => PortalRoute,
+} as any)
+const PeersReferralsRoute = PeersReferralsRouteImport.update({
+  id: '/referrals',
+  path: '/referrals',
+  getParentRoute: () => PeersRoute,
+} as any)
+const PeersJournalClubRoute = PeersJournalClubRouteImport.update({
+  id: '/journal-club',
+  path: '/journal-club',
+  getParentRoute: () => PeersRoute,
+} as any)
+const PeersDirectoryRoute = PeersDirectoryRouteImport.update({
+  id: '/directory',
+  path: '/directory',
+  getParentRoute: () => PeersRoute,
+} as any)
+const PeersPidRoute = PeersPidRouteImport.update({
+  id: '/$pid',
+  path: '/$pid',
+  getParentRoute: () => PeersRoute,
 } as any)
 const PatientsNewRoute = PatientsNewRouteImport.update({
   id: '/new',
@@ -1247,6 +1279,11 @@ const SessionsIdIndexRoute = SessionsIdIndexRouteImport.update({
   path: '/',
   getParentRoute: () => SessionsIdRoute,
 } as any)
+const PeersDiscussionsIndexRoute = PeersDiscussionsIndexRouteImport.update({
+  id: '/discussions/',
+  path: '/discussions/',
+  getParentRoute: () => PeersRoute,
+} as any)
 const PatientsPidIndexRoute = PatientsPidIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -1322,6 +1359,11 @@ const PortalAssessmentsIdRoute = PortalAssessmentsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => PortalAssessmentsRoute,
+} as any)
+const PeersDiscussionsTidRoute = PeersDiscussionsTidRouteImport.update({
+  id: '/discussions/$tid',
+  path: '/discussions/$tid',
+  getParentRoute: () => PeersRoute,
 } as any)
 const PatientsPidTimelineRoute = PatientsPidTimelineRouteImport.update({
   id: '/timeline',
@@ -1470,7 +1512,7 @@ export interface FileRoutesByFullPath {
   '/patients': typeof PatientsRouteWithChildren
   '/payments': typeof PaymentsRoute
   '/payouts': typeof PayoutsRoute
-  '/peers': typeof PeersRoute
+  '/peers': typeof PeersRouteWithChildren
   '/portal': typeof PortalRouteWithChildren
   '/prescriptions': typeof PrescriptionsRouteWithChildren
   '/profile-public': typeof ProfilePublicRoute
@@ -1564,6 +1606,10 @@ export interface FileRoutesByFullPath {
   '/notes/templates': typeof NotesTemplatesRoute
   '/patients/$pid': typeof PatientsPidRouteWithChildren
   '/patients/new': typeof PatientsNewRoute
+  '/peers/$pid': typeof PeersPidRoute
+  '/peers/directory': typeof PeersDirectoryRoute
+  '/peers/journal-club': typeof PeersJournalClubRoute
+  '/peers/referrals': typeof PeersReferralsRoute
   '/portal/assessments': typeof PortalAssessmentsRouteWithChildren
   '/portal/auth': typeof PortalAuthRoute
   '/portal/billing': typeof PortalBillingRoute
@@ -1635,6 +1681,7 @@ export interface FileRoutesByFullPath {
   '/messages/': typeof MessagesIndexRoute
   '/notes/': typeof NotesIndexRoute
   '/patients/': typeof PatientsIndexRoute
+  '/peers/': typeof PeersIndexRoute
   '/portal/': typeof PortalIndexRoute
   '/prescriptions/': typeof PrescriptionsIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
@@ -1662,6 +1709,7 @@ export interface FileRoutesByFullPath {
   '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
   '/patients/$pid/notes': typeof PatientsPidNotesRouteWithChildren
   '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
+  '/peers/discussions/$tid': typeof PeersDiscussionsTidRoute
   '/portal/assessments/$id': typeof PortalAssessmentsIdRoute
   '/portal/documents/$token': typeof PortalDocumentsTokenRoute
   '/portal/messages/$threadId': typeof PortalMessagesThreadIdRoute
@@ -1677,6 +1725,7 @@ export interface FileRoutesByFullPath {
   '/billing/claims/': typeof BillingClaimsIndexRoute
   '/billing/invoices/': typeof BillingInvoicesIndexRoute
   '/patients/$pid/': typeof PatientsPidIndexRoute
+  '/peers/discussions/': typeof PeersDiscussionsIndexRoute
   '/sessions/$id/': typeof SessionsIdIndexRoute
   '/documents/templates/$id/edit': typeof DocumentsTemplatesIdEditRoute
   '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
@@ -1696,7 +1745,6 @@ export interface FileRoutesByTo {
   '/notifications': typeof NotificationsRoute
   '/payments': typeof PaymentsRoute
   '/payouts': typeof PayoutsRoute
-  '/peers': typeof PeersRoute
   '/profile-public': typeof ProfilePublicRoute
   '/referrals': typeof ReferralsRoute
   '/research': typeof ResearchRoute
@@ -1778,6 +1826,10 @@ export interface FileRoutesByTo {
   '/notes/new': typeof NotesNewRoute
   '/notes/templates': typeof NotesTemplatesRoute
   '/patients/new': typeof PatientsNewRoute
+  '/peers/$pid': typeof PeersPidRoute
+  '/peers/directory': typeof PeersDirectoryRoute
+  '/peers/journal-club': typeof PeersJournalClubRoute
+  '/peers/referrals': typeof PeersReferralsRoute
   '/portal/assessments': typeof PortalAssessmentsRouteWithChildren
   '/portal/auth': typeof PortalAuthRoute
   '/portal/billing': typeof PortalBillingRoute
@@ -1848,6 +1900,7 @@ export interface FileRoutesByTo {
   '/messages': typeof MessagesIndexRoute
   '/notes': typeof NotesIndexRoute
   '/patients': typeof PatientsIndexRoute
+  '/peers': typeof PeersIndexRoute
   '/portal': typeof PortalIndexRoute
   '/prescriptions': typeof PrescriptionsIndexRoute
   '/schedule': typeof ScheduleIndexRoute
@@ -1874,6 +1927,7 @@ export interface FileRoutesByTo {
   '/patients/$pid/chart': typeof PatientsPidChartRoute
   '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
   '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
+  '/peers/discussions/$tid': typeof PeersDiscussionsTidRoute
   '/portal/assessments/$id': typeof PortalAssessmentsIdRoute
   '/portal/documents/$token': typeof PortalDocumentsTokenRoute
   '/portal/messages/$threadId': typeof PortalMessagesThreadIdRoute
@@ -1889,6 +1943,7 @@ export interface FileRoutesByTo {
   '/billing/claims': typeof BillingClaimsIndexRoute
   '/billing/invoices': typeof BillingInvoicesIndexRoute
   '/patients/$pid': typeof PatientsPidIndexRoute
+  '/peers/discussions': typeof PeersDiscussionsIndexRoute
   '/sessions/$id': typeof SessionsIdIndexRoute
   '/documents/templates/$id/edit': typeof DocumentsTemplatesIdEditRoute
   '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
@@ -1922,7 +1977,7 @@ export interface FileRoutesById {
   '/patients': typeof PatientsRouteWithChildren
   '/payments': typeof PaymentsRoute
   '/payouts': typeof PayoutsRoute
-  '/peers': typeof PeersRoute
+  '/peers': typeof PeersRouteWithChildren
   '/portal': typeof PortalRouteWithChildren
   '/prescriptions': typeof PrescriptionsRouteWithChildren
   '/profile-public': typeof ProfilePublicRoute
@@ -2016,6 +2071,10 @@ export interface FileRoutesById {
   '/notes/templates': typeof NotesTemplatesRoute
   '/patients/$pid': typeof PatientsPidRouteWithChildren
   '/patients/new': typeof PatientsNewRoute
+  '/peers/$pid': typeof PeersPidRoute
+  '/peers/directory': typeof PeersDirectoryRoute
+  '/peers/journal-club': typeof PeersJournalClubRoute
+  '/peers/referrals': typeof PeersReferralsRoute
   '/portal/assessments': typeof PortalAssessmentsRouteWithChildren
   '/portal/auth': typeof PortalAuthRoute
   '/portal/billing': typeof PortalBillingRoute
@@ -2087,6 +2146,7 @@ export interface FileRoutesById {
   '/messages/': typeof MessagesIndexRoute
   '/notes/': typeof NotesIndexRoute
   '/patients/': typeof PatientsIndexRoute
+  '/peers/': typeof PeersIndexRoute
   '/portal/': typeof PortalIndexRoute
   '/prescriptions/': typeof PrescriptionsIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
@@ -2114,6 +2174,7 @@ export interface FileRoutesById {
   '/patients/$pid/documents': typeof PatientsPidDocumentsRoute
   '/patients/$pid/notes': typeof PatientsPidNotesRouteWithChildren
   '/patients/$pid/timeline': typeof PatientsPidTimelineRoute
+  '/peers/discussions/$tid': typeof PeersDiscussionsTidRoute
   '/portal/assessments/$id': typeof PortalAssessmentsIdRoute
   '/portal/documents/$token': typeof PortalDocumentsTokenRoute
   '/portal/messages/$threadId': typeof PortalMessagesThreadIdRoute
@@ -2129,6 +2190,7 @@ export interface FileRoutesById {
   '/billing/claims/': typeof BillingClaimsIndexRoute
   '/billing/invoices/': typeof BillingInvoicesIndexRoute
   '/patients/$pid/': typeof PatientsPidIndexRoute
+  '/peers/discussions/': typeof PeersDiscussionsIndexRoute
   '/sessions/$id/': typeof SessionsIdIndexRoute
   '/documents/templates/$id/edit': typeof DocumentsTemplatesIdEditRoute
   '/patients/$pid/notes/$nid': typeof PatientsPidNotesNidRoute
@@ -2257,6 +2319,10 @@ export interface FileRouteTypes {
     | '/notes/templates'
     | '/patients/$pid'
     | '/patients/new'
+    | '/peers/$pid'
+    | '/peers/directory'
+    | '/peers/journal-club'
+    | '/peers/referrals'
     | '/portal/assessments'
     | '/portal/auth'
     | '/portal/billing'
@@ -2328,6 +2394,7 @@ export interface FileRouteTypes {
     | '/messages/'
     | '/notes/'
     | '/patients/'
+    | '/peers/'
     | '/portal/'
     | '/prescriptions/'
     | '/schedule/'
@@ -2355,6 +2422,7 @@ export interface FileRouteTypes {
     | '/patients/$pid/documents'
     | '/patients/$pid/notes'
     | '/patients/$pid/timeline'
+    | '/peers/discussions/$tid'
     | '/portal/assessments/$id'
     | '/portal/documents/$token'
     | '/portal/messages/$threadId'
@@ -2370,6 +2438,7 @@ export interface FileRouteTypes {
     | '/billing/claims/'
     | '/billing/invoices/'
     | '/patients/$pid/'
+    | '/peers/discussions/'
     | '/sessions/$id/'
     | '/documents/templates/$id/edit'
     | '/patients/$pid/notes/$nid'
@@ -2389,7 +2458,6 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/payments'
     | '/payouts'
-    | '/peers'
     | '/profile-public'
     | '/referrals'
     | '/research'
@@ -2471,6 +2539,10 @@ export interface FileRouteTypes {
     | '/notes/new'
     | '/notes/templates'
     | '/patients/new'
+    | '/peers/$pid'
+    | '/peers/directory'
+    | '/peers/journal-club'
+    | '/peers/referrals'
     | '/portal/assessments'
     | '/portal/auth'
     | '/portal/billing'
@@ -2541,6 +2613,7 @@ export interface FileRouteTypes {
     | '/messages'
     | '/notes'
     | '/patients'
+    | '/peers'
     | '/portal'
     | '/prescriptions'
     | '/schedule'
@@ -2567,6 +2640,7 @@ export interface FileRouteTypes {
     | '/patients/$pid/chart'
     | '/patients/$pid/documents'
     | '/patients/$pid/timeline'
+    | '/peers/discussions/$tid'
     | '/portal/assessments/$id'
     | '/portal/documents/$token'
     | '/portal/messages/$threadId'
@@ -2582,6 +2656,7 @@ export interface FileRouteTypes {
     | '/billing/claims'
     | '/billing/invoices'
     | '/patients/$pid'
+    | '/peers/discussions'
     | '/sessions/$id'
     | '/documents/templates/$id/edit'
     | '/patients/$pid/notes/$nid'
@@ -2708,6 +2783,10 @@ export interface FileRouteTypes {
     | '/notes/templates'
     | '/patients/$pid'
     | '/patients/new'
+    | '/peers/$pid'
+    | '/peers/directory'
+    | '/peers/journal-club'
+    | '/peers/referrals'
     | '/portal/assessments'
     | '/portal/auth'
     | '/portal/billing'
@@ -2779,6 +2858,7 @@ export interface FileRouteTypes {
     | '/messages/'
     | '/notes/'
     | '/patients/'
+    | '/peers/'
     | '/portal/'
     | '/prescriptions/'
     | '/schedule/'
@@ -2806,6 +2886,7 @@ export interface FileRouteTypes {
     | '/patients/$pid/documents'
     | '/patients/$pid/notes'
     | '/patients/$pid/timeline'
+    | '/peers/discussions/$tid'
     | '/portal/assessments/$id'
     | '/portal/documents/$token'
     | '/portal/messages/$threadId'
@@ -2821,6 +2902,7 @@ export interface FileRouteTypes {
     | '/billing/claims/'
     | '/billing/invoices/'
     | '/patients/$pid/'
+    | '/peers/discussions/'
     | '/sessions/$id/'
     | '/documents/templates/$id/edit'
     | '/patients/$pid/notes/$nid'
@@ -2854,7 +2936,7 @@ export interface RootRouteChildren {
   PatientsRoute: typeof PatientsRouteWithChildren
   PaymentsRoute: typeof PaymentsRoute
   PayoutsRoute: typeof PayoutsRoute
-  PeersRoute: typeof PeersRoute
+  PeersRoute: typeof PeersRouteWithChildren
   PortalRoute: typeof PortalRouteWithChildren
   PrescriptionsRoute: typeof PrescriptionsRouteWithChildren
   ProfilePublicRoute: typeof ProfilePublicRoute
@@ -3267,6 +3349,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/portal/'
       preLoaderRoute: typeof PortalIndexRouteImport
       parentRoute: typeof PortalRoute
+    }
+    '/peers/': {
+      id: '/peers/'
+      path: '/'
+      fullPath: '/peers/'
+      preLoaderRoute: typeof PeersIndexRouteImport
+      parentRoute: typeof PeersRoute
     }
     '/patients/': {
       id: '/patients/'
@@ -3764,6 +3853,34 @@ declare module '@tanstack/react-router' {
       fullPath: '/portal/assessments'
       preLoaderRoute: typeof PortalAssessmentsRouteImport
       parentRoute: typeof PortalRoute
+    }
+    '/peers/referrals': {
+      id: '/peers/referrals'
+      path: '/referrals'
+      fullPath: '/peers/referrals'
+      preLoaderRoute: typeof PeersReferralsRouteImport
+      parentRoute: typeof PeersRoute
+    }
+    '/peers/journal-club': {
+      id: '/peers/journal-club'
+      path: '/journal-club'
+      fullPath: '/peers/journal-club'
+      preLoaderRoute: typeof PeersJournalClubRouteImport
+      parentRoute: typeof PeersRoute
+    }
+    '/peers/directory': {
+      id: '/peers/directory'
+      path: '/directory'
+      fullPath: '/peers/directory'
+      preLoaderRoute: typeof PeersDirectoryRouteImport
+      parentRoute: typeof PeersRoute
+    }
+    '/peers/$pid': {
+      id: '/peers/$pid'
+      path: '/$pid'
+      fullPath: '/peers/$pid'
+      preLoaderRoute: typeof PeersPidRouteImport
+      parentRoute: typeof PeersRoute
     }
     '/patients/new': {
       id: '/patients/new'
@@ -4290,6 +4407,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SessionsIdIndexRouteImport
       parentRoute: typeof SessionsIdRoute
     }
+    '/peers/discussions/': {
+      id: '/peers/discussions/'
+      path: '/discussions'
+      fullPath: '/peers/discussions/'
+      preLoaderRoute: typeof PeersDiscussionsIndexRouteImport
+      parentRoute: typeof PeersRoute
+    }
     '/patients/$pid/': {
       id: '/patients/$pid/'
       path: '/'
@@ -4394,6 +4518,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/portal/assessments/$id'
       preLoaderRoute: typeof PortalAssessmentsIdRouteImport
       parentRoute: typeof PortalAssessmentsRoute
+    }
+    '/peers/discussions/$tid': {
+      id: '/peers/discussions/$tid'
+      path: '/discussions/$tid'
+      fullPath: '/peers/discussions/$tid'
+      preLoaderRoute: typeof PeersDiscussionsTidRouteImport
+      parentRoute: typeof PeersRoute
     }
     '/patients/$pid/timeline': {
       id: '/patients/$pid/timeline'
@@ -4949,6 +5080,28 @@ const PatientsRouteWithChildren = PatientsRoute._addFileChildren(
   PatientsRouteChildren,
 )
 
+interface PeersRouteChildren {
+  PeersPidRoute: typeof PeersPidRoute
+  PeersDirectoryRoute: typeof PeersDirectoryRoute
+  PeersJournalClubRoute: typeof PeersJournalClubRoute
+  PeersReferralsRoute: typeof PeersReferralsRoute
+  PeersIndexRoute: typeof PeersIndexRoute
+  PeersDiscussionsTidRoute: typeof PeersDiscussionsTidRoute
+  PeersDiscussionsIndexRoute: typeof PeersDiscussionsIndexRoute
+}
+
+const PeersRouteChildren: PeersRouteChildren = {
+  PeersPidRoute: PeersPidRoute,
+  PeersDirectoryRoute: PeersDirectoryRoute,
+  PeersJournalClubRoute: PeersJournalClubRoute,
+  PeersReferralsRoute: PeersReferralsRoute,
+  PeersIndexRoute: PeersIndexRoute,
+  PeersDiscussionsTidRoute: PeersDiscussionsTidRoute,
+  PeersDiscussionsIndexRoute: PeersDiscussionsIndexRoute,
+}
+
+const PeersRouteWithChildren = PeersRoute._addFileChildren(PeersRouteChildren)
+
 interface PortalAssessmentsRouteChildren {
   PortalAssessmentsIdRoute: typeof PortalAssessmentsIdRoute
 }
@@ -5243,7 +5396,7 @@ const rootRouteChildren: RootRouteChildren = {
   PatientsRoute: PatientsRouteWithChildren,
   PaymentsRoute: PaymentsRoute,
   PayoutsRoute: PayoutsRoute,
-  PeersRoute: PeersRoute,
+  PeersRoute: PeersRouteWithChildren,
   PortalRoute: PortalRouteWithChildren,
   PrescriptionsRoute: PrescriptionsRouteWithChildren,
   ProfilePublicRoute: ProfilePublicRoute,
