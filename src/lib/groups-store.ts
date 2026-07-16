@@ -24,14 +24,19 @@ const KEY = "pc.groups.v1";
 const listeners = new Set<() => void>();
 
 function emit() { listeners.forEach((l) => l()); }
+const EMPTY: Group[] = [];
+let cache: Group[] | null = null;
 function read(): Group[] {
-  if (typeof window === "undefined") return [];
-  try { const raw = window.localStorage.getItem(KEY); if (raw) return JSON.parse(raw) as Group[]; } catch { /* noop */ }
+  if (typeof window === "undefined") return EMPTY;
+  if (cache) return cache;
+  try { const raw = window.localStorage.getItem(KEY); if (raw) { cache = JSON.parse(raw) as Group[]; return cache; } } catch { /* noop */ }
   const seed = seedGroups();
   try { window.localStorage.setItem(KEY, JSON.stringify(seed)); } catch { /* noop */ }
+  cache = seed;
   return seed;
 }
 function write(g: Group[]) {
+  cache = g.slice();
   try { window.localStorage.setItem(KEY, JSON.stringify(g)); } catch { /* noop */ }
   emit();
 }
@@ -78,7 +83,7 @@ export function removeMember(id: string, patientId: string): void {
 
 function subscribe(fn: () => void) { listeners.add(fn); return () => listeners.delete(fn); }
 export function useLiveGroups(): Group[] {
-  return useSyncExternalStore(subscribe, () => read(), () => []);
+  return useSyncExternalStore(subscribe, read, read);
 }
 
 export const CADENCE_LABEL: Record<GroupCadence, string> = { weekly: "Weekly", biweekly: "Every 2 weeks", monthly: "Monthly" };

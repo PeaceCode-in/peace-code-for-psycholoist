@@ -2,7 +2,7 @@
 // Multi-clinician case discussions: structured, documented, sign-off gated.
 // localStorage-backed with a tiny event bus for live re-renders.
 
-import { useSyncExternalStore } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 import { listPatients } from "@/lib/patients-store";
 import { listMembers } from "@/lib/team-store";
 
@@ -112,8 +112,11 @@ const emit = () => listeners.forEach((l) => l());
 const subscribe = (l: () => void) => { listeners.add(l); return () => listeners.delete(l); };
 
 function ssr(): boolean { return typeof window === "undefined"; }
+let cachedRoot: Root | null = null;
+const serverRoot: Root = { conferences: [], audit: [] };
 function read(): Root {
-  if (ssr()) return seed();
+  if (ssr()) return serverRoot;
+  if (cachedRoot) return cachedRoot;
   try {
     const raw = localStorage.getItem(KEY);
     const auditRaw = localStorage.getItem(AUDIT_KEY);
@@ -121,19 +124,23 @@ function read(): Root {
       const s = seed();
       localStorage.setItem(KEY, JSON.stringify({ conferences: s.conferences }));
       localStorage.setItem(AUDIT_KEY, JSON.stringify(s.audit));
+      cachedRoot = s;
       return s;
     }
     const parsed = JSON.parse(raw) as { conferences: Conference[] };
     const audit = auditRaw ? (JSON.parse(auditRaw) as ConfAudit[]) : [];
-    return { conferences: parsed.conferences, audit };
+    cachedRoot = { conferences: parsed.conferences, audit };
+    return cachedRoot;
   } catch {
-    return { conferences: [], audit: [] };
+    cachedRoot = { conferences: [], audit: [] };
+    return cachedRoot;
   }
 }
 function write(root: Root) {
   if (ssr()) return;
   localStorage.setItem(KEY, JSON.stringify({ conferences: root.conferences }));
   localStorage.setItem(AUDIT_KEY, JSON.stringify(root.audit.slice(-500)));
+  cachedRoot = { conferences: root.conferences.slice(), audit: root.audit.slice() };
   emit();
 }
 
@@ -318,17 +325,20 @@ export function draftCaseSummary(patientId: string | undefined, anonymized: bool
 }
 
 // ─── Hooks ───────────────────────────────────────────────────
-function useSync<T>(select: () => T, ssrDefault: T): T {
-  return useSyncExternalStore(subscribe, select, () => ssrDefault);
+function useRoot(): Root {
+  return useSyncExternalStore(subscribe, read, () => serverRoot);
 }
 export function useLiveConferences(): Conference[] {
-  return useSync(listConferences, [] as Conference[]);
+  const r = useRoot();
+  return useMemo(() => r.conferences.slice().sort((a, b) => b.scheduledAt - a.scheduledAt), [r]);
 }
 export function useLiveConference(id: string): Conference | undefined {
-  return useSync(() => getConferenceSilent(id), undefined);
+  const r = useRoot();
+  return useMemo(() => r.conferences.find((x) => x.id === id), [r, id]);
 }
 export function useLiveAudit(cid?: string): ConfAudit[] {
-  return useSync(() => listAudit(cid), [] as ConfAudit[]);
+  const r = useRoot();
+  return useMemo(() => cid ? r.audit.filter((x) => x.conferenceId === cid) : r.audit, [r, cid]);
 }
 
 // ─── Seed ────────────────────────────────────────────────────

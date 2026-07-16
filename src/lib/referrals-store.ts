@@ -2,7 +2,7 @@
 // Incoming + outgoing patient referrals from external sources: GPs,
 // psychiatrists, employers/EAPs, universities, prior therapists, self.
 // Tracks source, warm-handoff status, conversion to patient chart.
-import { useSyncExternalStore } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 
 export type ReferralDirection = "incoming" | "outgoing";
 export type ReferralStatus = "new" | "contacted" | "scheduled" | "converted" | "declined" | "closed";
@@ -73,18 +73,22 @@ function seed(): Referral[] {
   ];
 }
 
+let cache: Referral[] | null = null;
 function readAll(): Referral[] {
   if (!isBrowser()) return seed();
+  if (cache) return cache;
   try {
     const raw = window.localStorage.getItem(KEY);
-    if (raw) return JSON.parse(raw) as Referral[];
+    if (raw) { cache = JSON.parse(raw) as Referral[]; return cache; }
     const s = seed();
     window.localStorage.setItem(KEY, JSON.stringify(s));
+    cache = s;
     return s;
-  } catch { return seed(); }
+  } catch { cache = seed(); return cache; }
 }
 function writeAll(list: Referral[]) {
   if (!isBrowser()) return;
+  cache = list.slice();
   window.localStorage.setItem(KEY, JSON.stringify(list));
   emit();
 }
@@ -119,7 +123,10 @@ export function createReferral(input: Omit<Referral, "id" | "history">): Referra
   writeAll(list);
   return r;
 }
-export function useReferrals(): Referral[] { return useSyncExternalStore(subscribe, listReferrals, listReferrals); }
+export function useReferrals(): Referral[] {
+  const list = useSyncExternalStore(subscribe, readAll, readAll);
+  return useMemo(() => list.slice().sort((a, b) => b.receivedAt - a.receivedAt), [list]);
+}
 
 // analytics
 export function conversionStats(list: Referral[]) {
