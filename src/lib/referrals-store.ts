@@ -123,7 +123,10 @@ export function createReferral(input: Omit<Referral, "id" | "history">): Referra
   writeAll(list);
   return r;
 }
-export function useReferrals(): Referral[] { return useSyncExternalStore(subscribe, listReferrals, listReferrals); }
+export function useReferrals(): Referral[] {
+  const list = useSyncExternalStore(subscribe, readAll, readAll);
+  return useMemo(() => list.slice().sort((a, b) => b.receivedAt - a.receivedAt), [list]);
+}
 
 // analytics
 export function conversionStats(list: Referral[]) {
