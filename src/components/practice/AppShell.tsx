@@ -812,7 +812,7 @@ function TopBar({ crumb, onToggleSidebar, onOpenMobile, pinned }: { crumb?: stri
   const [scope, setScope] = useState(scopes[0]);
   return (
     <header
-      className="sticky top-0 z-30 h-14 shrink-0 flex items-center gap-2 px-3 sm:px-4"
+      className="pc-topbar sticky top-0 z-30 h-14 shrink-0 flex items-center gap-2 px-3 sm:px-4"
       style={{
         // Continuous surface with the sidebar — same blush wash, no hard seam.
         background: "linear-gradient(180deg, rgba(255,249,251,0.96) 0%, rgba(255,247,250,0.94) 100%)",
