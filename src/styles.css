@@ -1192,19 +1192,22 @@ html[data-motion="reduced"] *::after {
 }
 
 /* Reduce motion — extra guardrails for the sidebar + topbar shell.
-   The global rule above zeros transition/animation timings; these rules also
-   suppress hover transforms and instantly resolve the sidebar accordion so
-   nothing feels "snapped" mid-motion. */
-html[data-motion="reduced"] aside.pc-sidebar *,
-html[data-motion="reduced"] header.pc-topbar * {
+   The global rule above already zeros transition/animation timings; these
+   rules additionally cancel hover scale/rotate flourishes on the logo and
+   nav icons and instantly resolve the accordion open/close height tween.
+   The chevron's open-state rotate is preserved so state stays legible. */
+html[data-motion="reduced"] aside.pc-sidebar a:hover,
+html[data-motion="reduced"] aside.pc-sidebar button:hover,
+html[data-motion="reduced"] header.pc-topbar a:hover,
+html[data-motion="reduced"] header.pc-topbar button:hover,
+html[data-motion="reduced"] aside.pc-sidebar a:hover img,
+html[data-motion="reduced"] header.pc-topbar a:hover img {
   transform: none !important;
+}
+html[data-motion="reduced"] aside.pc-sidebar,
+html[data-motion="reduced"] header.pc-topbar,
+html[data-motion="reduced"] aside.pc-sidebar * {
   animation: none !important;
-}
-html[data-motion="reduced"] aside.pc-sidebar .grid[style*="grid-template-rows"] {
-  transition: none !important;
-}
-html[data-motion="reduced"] aside.pc-sidebar [style*="rotate"] {
-  transform: none !important;
 }
 
 /* Glass effects OFF — strip blur + saturate everywhere */
