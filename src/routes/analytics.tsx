@@ -8,7 +8,7 @@ import {
   CartesianGrid,
   Cell,
 
-  Legend,
+  Cell,
   Line,
   LineChart,
   Pie,
