@@ -82,7 +82,7 @@ function PeersHome() {
                   <div key={c.peerId} className="flex items-center justify-between py-2 border-b last:border-0" style={{ borderColor: palette.border }}>
                     <div>
                       <div className="text-[13px]" style={{ color: palette.ink }}>{p.name}</div>
-                      <div className="text-[11px]" style={{ color: palette.muted }}>{p.credentials ?? p.focus.join(" · ")}</div>
+                      <div className="text-[11px]" style={{ color: palette.muted }}>{p.focus.join(" · ")}</div>
                     </div>
                     <button onClick={() => acceptConnection(c.peerId)} className="inline-flex items-center gap-1 rounded-full px-3 py-1 text-[11px]" style={{ background: palette.ink, color: "#fff" }}>
                       <UserPlus2 className="h-3 w-3" /> Accept
