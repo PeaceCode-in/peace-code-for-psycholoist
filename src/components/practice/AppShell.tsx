@@ -545,28 +545,29 @@ function DesktopTubeSidebar({
       style={{
         width: pinned ? 288 : 72,
         background: "linear-gradient(180deg, #FFF9FB 0%, #F8E3EB 100%)",
-        borderRight: `1px solid ${palette.border}`,
-        boxShadow: "1px 0 0 rgba(255,255,255,0.75) inset, 14px 0 32px -30px rgba(63,18,38,0.24)",
+        // No hard right-border — topbar shares the same wash so the two surfaces meet seamlessly.
+        boxShadow: "18px 0 40px -32px rgba(63,18,38,0.22)",
       }}
     >
       <div className="h-full flex flex-col p-3">
         <div className={pinned ? "flex items-center gap-3 px-1.5 pt-1 pb-3" : "flex items-center justify-center pt-2 pb-3"}>
           <Link
             to="/dashboard"
-            className="w-12 h-12 rounded-2xl flex items-center justify-center transition-transform hover:scale-[1.04] shrink-0"
-            aria-label="PeaceCode Practice"
-            style={{
-              background: "rgba(255,255,255,0.78)",
-              border: `1px solid ${palette.border}`,
-              boxShadow: "0 2px 8px -4px rgba(120,50,80,0.15)",
-            }}
+            className="group w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-200 hover:scale-[1.05] active:scale-[0.97] shrink-0"
+            aria-label="PeaceCode Psychologist"
+            style={{ background: "transparent" }}
           >
-            <img src={peacecodeLogo} alt="PeaceCode" className="w-7 h-7 object-contain" style={{ filter: `drop-shadow(0 1px 0 rgba(255,255,255,0.6))` }} />
+            <img
+              src={peacecodeLogo}
+              alt="PeaceCode"
+              className="w-9 h-9 object-contain transition-transform duration-200 group-hover:rotate-[-4deg]"
+              style={{ background: "transparent", filter: "drop-shadow(0 2px 6px rgba(120,50,80,0.18))" }}
+            />
           </Link>
           {pinned && (
             <div className="min-w-0">
-              <div className="text-[15px] leading-tight" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>PeaceCode</div>
-              <div className="text-[10.5px] uppercase tracking-[0.18em]" style={{ color: palette.muted, fontFamily: "'DM Mono', monospace" }}>Practice</div>
+              <div className="text-[15.5px] leading-tight tracking-tight" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>PeaceCode</div>
+              <div className="text-[10px] uppercase tracking-[0.22em] mt-0.5" style={{ color: palette.primary, fontFamily: "'DM Mono', monospace" }}>Psychologist</div>
             </div>
           )}
         </div>
@@ -662,7 +663,7 @@ function MobileDrawer({ open, onClose, onDuty, setOnDuty }: { open: boolean; onC
         <div className="p-3 flex items-center justify-between border-b" style={{ borderColor: palette.border }}>
           <div className="flex items-center gap-2">
             <span className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "rgba(255,255,255,0.7)", border: `1px solid ${palette.border}` }}><img src={peacecodeLogo} alt="" className="w-5 h-5 object-contain" /></span>
-            <span style={{ fontFamily: "'Fraunces', serif", color: palette.ink }} className="text-[14px]">PeaceCode <span style={{ color: palette.muted }}>· Practice</span></span>
+            <span style={{ fontFamily: "'Fraunces', serif", color: palette.ink }} className="text-[14px]">PeaceCode <span style={{ color: palette.primary }}>· Psychologist</span></span>
           </div>
           <button onClick={onClose} className="p-1.5 rounded-full" style={{ color: palette.muted }}><X className="w-4 h-4" /></button>
         </div>
@@ -808,100 +809,82 @@ function EmergencyDialog({ open, onClose }: { open: boolean; onClose: () => void
 
 function TopBar({ crumb, onToggleSidebar, onOpenMobile, pinned }: { crumb?: string; onToggleSidebar: () => void; onOpenMobile: () => void; pinned: boolean }) {
   const [emergency, setEmergency] = useState(false);
-  const scopes = ["All", "Patients", "Notes", "Sessions", "Documents"];
-  const [scope, setScope] = useState(scopes[0]);
   return (
     <header
       className="pc-topbar sticky top-0 z-30 h-14 shrink-0 flex items-center gap-2 px-3 sm:px-4"
       style={{
-        // Continuous surface with the sidebar — same blush wash, no hard seam.
+        // Continuous surface with the sidebar — same blush wash, no hard seam or border.
         background: "linear-gradient(180deg, rgba(255,249,251,0.96) 0%, rgba(255,247,250,0.94) 100%)",
         backdropFilter: "blur(14px)",
         WebkitBackdropFilter: "blur(14px)",
-        borderBottom: `1px solid ${palette.border}`,
-        boxShadow: "0 1px 0 rgba(255,255,255,0.75) inset, 0 6px 20px -18px rgba(63,18,38,0.18)",
+        boxShadow: "0 1px 0 rgba(255,255,255,0.75) inset, 0 8px 24px -22px rgba(63,18,38,0.22)",
       }}
     >
       <button
-        className="md:hidden p-1.5 -ml-1 rounded-lg transition-colors hover:bg-white/60"
+        className="md:hidden p-1.5 -ml-1 rounded-lg transition-all duration-150 hover:bg-white/70 active:scale-95"
         onClick={onOpenMobile}
         aria-label="Open menu"
       >
         <Menu className="w-5 h-5" style={{ color: palette.ink }} />
       </button>
       <button
-        className="hidden md:flex items-center justify-center w-8 h-8 rounded-lg transition-colors hover:bg-white/70"
+        className="hidden md:flex items-center justify-center w-9 h-9 rounded-xl transition-all duration-150 hover:bg-white/70 hover:shadow-sm active:scale-95"
         onClick={onToggleSidebar}
         aria-label="Toggle sidebar"
-        style={{ color: palette.muted }}
+        style={{ color: palette.ink }}
       >
-        <Menu className="w-4 h-4" />
+        {pinned ? <PanelLeftClose className="w-[17px] h-[17px]" strokeWidth={1.7} /> : <PanelLeftOpen className="w-[17px] h-[17px]" strokeWidth={1.7} />}
       </button>
 
       {/* Logo lockup on the left — shown when sidebar is collapsed so the brand never disappears */}
       {!pinned && (
         <Link
           to="/dashboard"
-          className="hidden md:flex items-center gap-2 pl-1 pr-2 h-9 rounded-xl transition-colors hover:bg-white/60"
-          aria-label="PeaceCode Practice"
+          className="group hidden md:flex items-center gap-2 pl-1 pr-2.5 h-9 rounded-xl transition-all duration-150 hover:bg-white/70"
+          aria-label="PeaceCode Psychologist"
         >
           <img
             src={peacecodeLogo}
             alt=""
-            className="w-6 h-6 object-contain"
-            style={{ background: "transparent", filter: "drop-shadow(0 1px 0 rgba(255,255,255,0.6))" }}
+            className="w-7 h-7 object-contain transition-transform duration-200 group-hover:rotate-[-4deg]"
+            style={{ background: "transparent", filter: "drop-shadow(0 2px 4px rgba(120,50,80,0.16))" }}
           />
-          <span className="text-[14px] leading-none" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>
+          <span className="text-[14px] leading-none tracking-tight" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>
             PeaceCode
           </span>
         </Link>
       )}
 
       <div className="hidden sm:flex items-center gap-1.5 text-[10.5px] tracking-[0.18em] uppercase pl-1" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
-        <span>Practice</span>
+        <span>Psychologist</span>
         {crumb && <><span className="opacity-40">/</span><span style={{ color: palette.ink }}>{crumb}</span></>}
       </div>
 
       <div className="flex-1 flex justify-center min-w-0">
         <div
-          className="hidden md:flex items-center gap-1.5 h-9 pl-3 pr-1 rounded-full w-full max-w-xl transition-shadow"
+          className="group hidden md:flex items-center gap-1.5 h-8 pl-2.5 pr-1 rounded-full w-full max-w-[380px] transition-all duration-150 focus-within:max-w-[440px] focus-within:shadow-[0_0_0_3px_rgba(184,80,120,0.10)]"
           style={{
             background: "rgba(255,255,255,0.72)",
             border: `1px solid ${palette.border}`,
             boxShadow: "0 1px 0 rgba(255,255,255,0.8) inset",
           }}
         >
-          <Search className="w-3.5 h-3.5 shrink-0" style={{ color: palette.muted }} />
+          <Search className="w-3.5 h-3.5 shrink-0 transition-colors group-focus-within:text-[color:var(--pc-primary,#B85078)]" style={{ color: palette.muted }} />
           <input
-            className="flex-1 bg-transparent outline-none text-[12.5px] placeholder:opacity-60 min-w-0"
-            placeholder="Search patients, notes, sessions, documents…"
+            className="flex-1 bg-transparent outline-none text-[12px] placeholder:opacity-60 min-w-0"
+            placeholder="Search patients, notes, sessions…"
             style={{ color: palette.ink }}
           />
-          <div className="hidden lg:flex items-center gap-0.5">
-            {scopes.map((s) => (
-              <button
-                key={s}
-                onClick={() => setScope(s)}
-                className="text-[10.5px] px-2 h-6 rounded-full transition-colors"
-                style={{
-                  background: scope === s ? palette.ink : "transparent",
-                  color: scope === s ? "#fff" : palette.muted,
-                }}
-              >
-                {s}
-              </button>
-            ))}
-          </div>
-          <kbd className="text-[10px] px-1.5 py-0.5 rounded shrink-0" style={{ background: palette.surface, color: palette.muted, border: `1px solid ${palette.border}` }}>⌘K</kbd>
+          <kbd className="text-[9.5px] px-1.5 py-0.5 rounded shrink-0" style={{ background: palette.surface, color: palette.muted, border: `1px solid ${palette.border}` }}>⌘K</kbd>
         </div>
       </div>
 
       <button
         onClick={() => setEmergency(true)}
-        className="hidden sm:flex items-center gap-1.5 h-8 px-2.5 rounded-full text-[11px] transition-colors hover:brightness-95"
+        className="hidden sm:flex items-center gap-1.5 h-8 px-2.5 rounded-full text-[11px] transition-all duration-150 hover:brightness-95 hover:shadow-sm active:scale-95"
         style={{ background: "#FDECEC", color: "#B54848", border: "1px solid #F3C7C7" }}
       >
-        <AlertOctagon className="w-3 h-3" /> Emergency
+        <AlertOctagon className="w-3.5 h-3.5" strokeWidth={1.9} /> Emergency
       </button>
 
       <ChecklistDrawer />
