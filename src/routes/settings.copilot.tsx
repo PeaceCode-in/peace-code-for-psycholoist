@@ -20,7 +20,7 @@ function CopilotSettingsPage() {
   }, [audit]);
 
   return (
-    <AppShell crumb="Copilot settings">
+    <>
       <EthicsRibbon />
       <div className="max-w-[820px] mx-auto p-6 md:p-10">
         <div className="flex items-center gap-2 mb-1">
