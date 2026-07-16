@@ -120,7 +120,7 @@ const KEY = "pc.msg.store.v1";
 // ─── Event bus ──────────────────────────────────────────────
 const listeners = new Set<() => void>();
 function emit() { listeners.forEach((fn) => fn()); }
-function subscribe(fn: () => void) { listeners.add(fn); return () => listeners.delete(fn); }
+function subscribe(fn: () => void) { listeners.add(fn); return () => { listeners.delete(fn); }; }
 
 // ─── Persistence ────────────────────────────────────────────
 function isBrowser() { return typeof window !== "undefined" && typeof localStorage !== "undefined"; }
