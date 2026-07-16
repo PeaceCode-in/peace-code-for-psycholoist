@@ -28,7 +28,15 @@ function AppearancePage() {
           action={
             <Segmented
               value={a.theme === "system" ? "auto" : a.theme}
-              onChange={(v) => setS((p) => ({ ...p, appearance: { ...p.appearance, theme: v } }), "Appearance · theme")}
+              onChange={(v) => setS((p) => {
+                const curPreset = BG_THEMES[p.appearance.bgTheme];
+                let nextBg = p.appearance.bgTheme;
+                // Snap the background preset so Light = light surfaces,
+                // Dark = dark surfaces. Auto follows the current preset.
+                if (v === "light" && curPreset?.tone === "dark") nextBg = "sakura";
+                if (v === "dark"  && curPreset?.tone === "light") nextBg = "graphite";
+                return { ...p, appearance: { ...p.appearance, theme: v, bgTheme: nextBg } };
+              }, "Appearance · theme")}
               options={[
                 { value: "light", label: "Light" },
                 { value: "dark", label: "Dark" },
@@ -36,6 +44,7 @@ function AppearancePage() {
               ]}
             />
           }
+
         />
         <Row
           label="Density"
