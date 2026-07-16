@@ -143,6 +143,9 @@ function AnalyticsPage() {
     { name: "Phone", value: modality.phone, fill: CHART.series[2] },
   ];
   const modalityEmpty = modalityData.every((d) => d.value === 0);
+  const [hiddenSlices, setHiddenSlices] = useState<Record<string, boolean>>({});
+  const visibleModality = modalityData.filter((d) => !hiddenSlices[d.name]);
+
 
   return (
     <AppShell crumb="Analytics">
