@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo } from "react";
-import { AppShell } from "@/components/practice/AppShell";
 import { palette } from "@/components/practice/palette";
 import { EthicsRibbon, CopilotPanel, SemicolonMark } from "@/components/practice/copilot/primitives";
 import { useCopilotSettings, updateSettings, useAudit, type Tone, type Length, type Retention } from "@/lib/copilot-store";
@@ -21,7 +20,7 @@ function CopilotSettingsPage() {
   }, [audit]);
 
   return (
-    <AppShell crumb="Copilot settings">
+    <>
       <EthicsRibbon />
       <div className="max-w-[820px] mx-auto p-6 md:p-10">
         <div className="flex items-center gap-2 mb-1">
@@ -113,7 +112,7 @@ function CopilotSettingsPage() {
           Copilot never speaks to patients. It never diagnoses. It drafts, summarizes, and surfaces. You ratify.
         </div>
       </div>
-    </AppShell>
+    </>
   );
 }
 
