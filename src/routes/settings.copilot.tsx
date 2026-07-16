@@ -112,7 +112,7 @@ function CopilotSettingsPage() {
           Copilot never speaks to patients. It never diagnoses. It drafts, summarizes, and surfaces. You ratify.
         </div>
       </div>
-    </AppShell>
+    </>
   );
 }
 
