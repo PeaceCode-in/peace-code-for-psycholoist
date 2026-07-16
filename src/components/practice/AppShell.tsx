@@ -8,7 +8,7 @@ import {
   LineChart, Star, Sparkles, Library, GraduationCap,
   Handshake, UserCog, Microscope,
   FileLock2, History, Download,
-  Search, Bell, Plus, LifeBuoy, Settings as SettingsIcon, LogOut, Menu, ShieldCheck, ChevronDown, AlertOctagon, X,
+  Search, Bell, Plus, LifeBuoy, Settings as SettingsIcon, LogOut, Menu, ShieldCheck, ChevronDown, ChevronRight, AlertOctagon, X,
   Stethoscope, PanelLeftClose, PanelLeftOpen,
 } from "lucide-react";
 import { palette } from "./palette";
