@@ -216,7 +216,19 @@ function AppearancePage() {
             return (
               <button
                 key={k}
-                onClick={() => setS((p) => ({ ...p, appearance: { ...p.appearance, bgTheme: k } }), `Background · ${t.name}`)}
+                onClick={() => setS((p) => ({
+                  ...p,
+                  appearance: {
+                    ...p.appearance,
+                    bgTheme: k,
+                    // Sync mode so a light preset never renders under .dark
+                    // and vice versa. "Auto" stays auto.
+                    theme: p.appearance.theme === "auto" || p.appearance.theme === "system"
+                      ? p.appearance.theme
+                      : (t.tone === "dark" ? "dark" : "light"),
+                  },
+                }), `Background · ${t.name}`)}
+
                 className="rounded-xl p-3 text-left transition-all"
                 style={{
                   background: `linear-gradient(135deg, ${t.swatch[0]}, ${t.swatch[2] || t.swatch[1]})`,
