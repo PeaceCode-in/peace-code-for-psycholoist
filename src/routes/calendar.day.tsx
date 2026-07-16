@@ -92,13 +92,14 @@ function DayView() {
                 const c = SESSION_TYPE_COLOR[s.service].hex;
                 const p = getPatient(s.patientId);
                 return (
-                  <div key={s.id} className="absolute left-2 right-2 rounded-[12px] px-3 py-2 transition-all duration-[180ms] hover:brightness-95"
-                    style={{ top, height: h, background: `${c}23`, border: `1px solid ${c}66` }}>
-                    <div className="text-[11px]" style={{ color: c, fontFamily: "'DM Mono', monospace" }}>
-                      {t.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })} · {s.durationMin}m
+                  <div key={s.id} className="absolute left-2 right-2 rounded-[10px] px-3 py-2 overflow-hidden transition-all duration-[180ms] hover:brightness-95"
+                    style={{ top, height: h, background: `${c}1F`, borderLeft: `2px solid ${c}` }}>
+                    <div className="flex items-baseline gap-2 min-w-0">
+                      <span className="text-[11px] tabular-nums shrink-0" style={{ color: c, fontFamily: "'DM Mono', monospace" }}>{t.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit", hour12: false })}</span>
+                      <span className="text-[10px] shrink-0" style={{ color: `${c}CC`, fontFamily: "'DM Mono', monospace" }}>{s.durationMin}m</span>
                     </div>
-                    <div className="text-[14px] mt-0.5" style={{ color: palette.ink, fontFamily: "'Fraunces', serif" }}>{p?.preferredName ?? p?.fullName ?? "Client"}</div>
-                    <div className="text-[11px]" style={{ color: palette.muted }}>{s.service} · {MODALITY_META[s.modality].label}</div>
+                    <div className="text-[14px] leading-tight truncate mt-0.5" style={{ color: palette.ink, fontFamily: "'Fraunces', serif" }}>{p?.preferredName ?? p?.fullName ?? "Client"}</div>
+                    {h >= 62 && <div className="text-[11px] truncate mt-0.5" style={{ color: palette.muted }}>{s.service} · {MODALITY_META[s.modality].label}</div>}
                   </div>
                 );
               })}
