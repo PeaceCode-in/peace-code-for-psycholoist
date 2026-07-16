@@ -1,3 +1,4 @@
+import { palette } from '@/components/practice/palette';
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Mail, Lock, UserRound } from "lucide-react";

@@ -1,3 +1,4 @@
+import { palette } from '@/components/practice/palette';
 import { useState, useRef, useEffect, type ReactNode } from "react";
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import {

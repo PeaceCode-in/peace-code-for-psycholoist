@@ -1,4 +1,5 @@
 // /admin/launch-readiness — internal pre-flight, wired to live smoke + audit reports.
+import { palette } from '@/components/practice/palette';
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { AppShell } from "@/components/practice/AppShell";

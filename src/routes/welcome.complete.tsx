@@ -1,3 +1,4 @@
+import { palette } from '@/components/practice/palette';
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { BreathingDot, Glyph, Mono, Panel, Serif, SAKURA } from "@/components/practice/onboarding/primitives";

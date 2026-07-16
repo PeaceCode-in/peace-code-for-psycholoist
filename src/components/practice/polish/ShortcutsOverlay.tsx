@@ -1,5 +1,6 @@
 // Global ? overlay — a beautiful glass grid of every keyboard shortcut.
 // Grouped by module. Opened by pressing "?" (Shift+/) anywhere outside an input.
+import { palette } from '@/components/practice/palette';
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 

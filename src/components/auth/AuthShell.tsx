@@ -1,3 +1,4 @@
+import { palette } from '@/components/practice/palette';
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { CheckCircle2, ShieldCheck, AlertCircle } from "lucide-react";

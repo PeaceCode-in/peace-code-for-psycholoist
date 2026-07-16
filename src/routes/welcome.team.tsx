@@ -1,5 +1,6 @@
 // Team onboarding: appears when practice.kind === "group".
 // Three sub-steps: invite clinicians, supervision pairs, shared templates.
+import { palette } from '@/components/practice/palette';
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Chip, Glyph, InkField, Mono, Panel, Serif, StepRule, SAKURA } from "@/components/practice/onboarding/primitives";

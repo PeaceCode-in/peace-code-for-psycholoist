@@ -1,6 +1,7 @@
 // /admin/wire-up-report — a matrix of interactive elements × wire status.
 // This is honest infrastructure: rows list what the auditor has walked.
 // New routes must be walked and added here as they land.
+import { palette } from '@/components/practice/palette';
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { AppShell } from "@/components/practice/AppShell";

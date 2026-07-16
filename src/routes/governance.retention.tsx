@@ -1,3 +1,4 @@
+import { palette } from '@/components/practice/palette';
 import { createFileRoute } from "@tanstack/react-router";
 import { GovHeader } from "@/routes/governance";
 import { updateRetention, useGovernance, releaseLegalHold, type DataClass } from "@/lib/governance-store";

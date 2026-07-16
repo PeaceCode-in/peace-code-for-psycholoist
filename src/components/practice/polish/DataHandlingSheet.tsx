@@ -1,5 +1,6 @@
 // ⌘⇧D — a quick, calm view into where data lives, who sees it, how long it stays.
 // Not a legal document — a promise of transparency.
+import { palette } from '@/components/practice/palette';
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { X, Shield } from "lucide-react";

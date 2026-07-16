@@ -1,5 +1,6 @@
 // /admin/hardcode-report — a ledger of hardcoded values the auditor found,
 // with source assignment or a deletion decision. Honest scoreboard, not theatre.
+import { palette } from '@/components/practice/palette';
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { AppShell } from "@/components/practice/AppShell";
