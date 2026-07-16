@@ -7,31 +7,34 @@ const FORMAT_LABEL: Record<string, string> = { in_person: "In-person", video: "V
 
 export function PublicProfileBody({ profile: p }: { profile: Profile }) {
   return (
-    <article className="font-sans" style={{ color: "#1a1a1a" }}>
+    <article className="@container font-sans" style={{ color: "#1a1a1a" }}>
       {/* Hero */}
-      <header className="px-8 py-10 border-b" style={{ borderColor: "#e7e5e0", background: "#fbfaf7" }}>
-        <div className="flex flex-col md:flex-row items-start gap-6">
-          <div className="w-24 h-24 rounded-full flex items-center justify-center text-[28px] flex-shrink-0" style={{ background: p.photoBg, color: "#fff", fontFamily: "'Fraunces', serif" }}>{p.photoInitials}</div>
-          <div className="flex-1 min-w-0">
+      <header className="px-5 py-6 @md:px-8 @md:py-10 border-b" style={{ borderColor: "#e7e5e0", background: "#fbfaf7" }}>
+        <div className="flex flex-col @md:flex-row items-start gap-6">
+          <div className="w-20 h-20 @md:w-24 @md:h-24 rounded-full flex items-center justify-center text-[24px] @md:text-[28px] flex-shrink-0" style={{ background: p.photoBg, color: "#fff", fontFamily: "'Fraunces', serif" }}>{p.photoInitials}</div>
+          <div className="flex-1 min-w-0 w-full">
             <div className="text-[11px] uppercase tracking-[0.16em]" style={{ color: "#7a7770", fontFamily: "'DM Mono', ui-monospace, monospace" }}>Clinical psychologist</div>
-            <h1 className="mt-2 text-[36px] leading-tight tracking-tight" style={{ fontFamily: "'Fraunces', serif" }}>{p.displayName} <span className="text-[16px] font-normal" style={{ color: "#7a7770" }}>({p.pronouns})</span></h1>
-            <p className="mt-3 text-[17px] leading-snug max-w-2xl" style={{ color: "#3a3a3a" }}>{p.headline}</p>
-            <div className="mt-3 flex flex-wrap items-center gap-4 text-[12px]" style={{ color: "#7a7770", fontFamily: "'DM Mono', ui-monospace, monospace" }}>
+            <h1 className="mt-2 text-[26px] @md:text-[36px] leading-tight tracking-tight break-words" style={{ fontFamily: "'Fraunces', serif" }}>
+              <span>{p.displayName}</span>{" "}
+              <span className="text-[14px] @md:text-[16px] font-normal whitespace-nowrap" style={{ color: "#7a7770" }}>({p.pronouns})</span>
+            </h1>
+            <p className="mt-3 text-[15px] @md:text-[17px] leading-snug max-w-2xl" style={{ color: "#3a3a3a" }}>{p.headline}</p>
+            <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px]" style={{ color: "#7a7770", fontFamily: "'DM Mono', ui-monospace, monospace" }}>
               <span className="inline-flex items-center gap-1"><MapPin className="h-3.5 w-3.5" /> {p.city}</span>
-              <span>·</span>
+              <span aria-hidden>·</span>
               <span>{p.languages.join(" · ")}</span>
-              <span>·</span>
+              <span aria-hidden>·</span>
               <span>{p.sessionFormats.map((f) => FORMAT_LABEL[f]).join(" · ")}</span>
             </div>
           </div>
           {p.acceptingNew ? (
-            <div className="rounded-2xl border px-4 py-3" style={{ borderColor: "#3B7A57", background: "rgba(59,122,87,0.06)" }}>
+            <div className="rounded-2xl border px-4 py-3 w-full @md:w-auto" style={{ borderColor: "#3B7A57", background: "rgba(59,122,87,0.06)" }}>
               <div className="text-[11px] uppercase tracking-[0.14em]" style={{ color: "#3B7A57", fontFamily: "'DM Mono', ui-monospace, monospace" }}>Accepting new patients</div>
               <div className="mt-1 text-[13px]" style={{ color: "#1a1a1a" }}>Next opening — {p.nextAvailability}</div>
               <button className="mt-3 rounded-full px-4 py-1.5 text-[12px] w-full" style={{ background: "#1a1a1a", color: "#fff", fontFamily: "'DM Mono', ui-monospace, monospace" }}>Request first session</button>
             </div>
           ) : (
-            <div className="rounded-2xl border px-4 py-3" style={{ borderColor: "#e7e5e0" }}>
+            <div className="rounded-2xl border px-4 py-3 w-full @md:w-auto" style={{ borderColor: "#e7e5e0" }}>
               <div className="text-[11px] uppercase tracking-[0.14em]" style={{ color: "#7a7770", fontFamily: "'DM Mono', ui-monospace, monospace" }}>Waitlist only</div>
               <button className="mt-3 rounded-full px-4 py-1.5 text-[12px] w-full border" style={{ borderColor: "#1a1a1a", color: "#1a1a1a", fontFamily: "'DM Mono', ui-monospace, monospace" }}>Join waitlist</button>
             </div>
@@ -39,13 +42,13 @@ export function PublicProfileBody({ profile: p }: { profile: Profile }) {
         </div>
       </header>
 
-      <div className="grid md:grid-cols-[1fr_280px] gap-10 px-8 py-10">
+      <div className="grid @md:grid-cols-[1fr_280px] gap-8 @md:gap-10 px-5 py-8 @md:px-8 @md:py-10">
         <div>
           <h2 className="text-[11px] uppercase tracking-[0.16em] mb-4" style={{ color: "#7a7770", fontFamily: "'DM Mono', ui-monospace, monospace" }}>About my practice</h2>
-          <div className="text-[17px] leading-[1.7] whitespace-pre-line max-w-2xl" style={{ fontFamily: "'Fraunces', serif" }}>{p.bio}</div>
+          <div className="text-[16px] @md:text-[17px] leading-[1.7] whitespace-pre-line max-w-2xl" style={{ fontFamily: "'Fraunces', serif" }}>{p.bio}</div>
 
           <h2 className="mt-10 text-[11px] uppercase tracking-[0.16em] mb-3" style={{ color: "#7a7770", fontFamily: "'DM Mono', ui-monospace, monospace" }}>What clients say</h2>
-          <div className="grid sm:grid-cols-2 gap-3">
+          <div className="grid @sm:grid-cols-2 gap-3">
             {p.testimonials.filter((t) => t.approved).map((t) => (
               <blockquote key={t.id} className="rounded-2xl border p-5" style={{ borderColor: "#e7e5e0", background: "#fbfaf7" }}>
                 <p className="text-[15px] leading-snug italic" style={{ fontFamily: "'Fraunces', serif" }}>"{t.quote}"</p>
@@ -90,7 +93,7 @@ export function PublicProfileBody({ profile: p }: { profile: Profile }) {
         </aside>
       </div>
 
-      <footer className="border-t px-8 py-6 text-[11px]" style={{ borderColor: "#e7e5e0", color: "#7a7770", fontFamily: "'DM Mono', ui-monospace, monospace" }}>
+      <footer className="border-t px-5 py-5 @md:px-8 @md:py-6 text-[11px]" style={{ borderColor: "#e7e5e0", color: "#7a7770", fontFamily: "'DM Mono', ui-monospace, monospace" }}>
         <div className="flex items-center justify-between flex-wrap gap-3">
           <span>Listed on PeaceCode · verified {p.credentials.filter((c) => c.verified).length} credentials</span>
           <span className="inline-flex items-center gap-1"><Calendar className="h-3 w-3" /> Updated {new Date(p.lastEditedAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}</span>
