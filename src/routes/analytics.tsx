@@ -55,13 +55,9 @@ function AnalyticsPage() {
   const months = getRevenueByMonth(range === "12m" ? 12 : range === "90d" ? 3 : 1);
   const maxRev = Math.max(1, ...months.map((m) => m.total));
 
-  // Simple mood-lift proxy from note pre/post scores.
-  const moodDeltas = notes
-    .filter((n) => typeof n.moodBefore === "number" && typeof n.moodAfter === "number" && n.updatedAt >= cutoff)
-    .map((n) => (n.moodAfter as number) - (n.moodBefore as number));
-  const avgMoodLift = moodDeltas.length
-    ? (moodDeltas.reduce((a, b) => a + b, 0) / moodDeltas.length).toFixed(1)
-    : "—";
+  // Outcome proxy — % of active patients whose risk trended down or held stable.
+  const stableOrBetter = patients.filter((p) => p.status === "active" && (p.risk === "stable" || p.risk === "monitor")).length;
+  const outcomeScore = activePatients ? Math.round((stableOrBetter / activePatients) * 100) : 0;
 
   const modality = {
     telehealth: inRange.filter((s) => s.modality === "telehealth").length,
