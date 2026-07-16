@@ -93,51 +93,56 @@ function WeekInner() {
         </>
       }
     >
-      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.5)", backdropFilter: "blur(14px)" }}>
-        {/* Day header */}
-        <div className="grid" style={{ gridTemplateColumns: `56px repeat(${days.length}, minmax(0, 1fr))`, borderBottom: `1px solid ${palette.border}` }}>
-          <div />
-          {days.map((d) => {
-            const isToday = sameDay(d, now);
-            return (
-              <div key={d.toISOString()} className="px-3 py-2.5 text-center" style={{ borderLeft: `1px solid ${palette.border}` }}>
-                <div className="text-[11px] uppercase tracking-wide" style={{ color: palette.muted, fontFamily: "'Fraunces', serif", fontStyle: "italic" }}>
-                  {d.toLocaleDateString(undefined, { weekday: "short" })}
-                </div>
-                <div className="flex items-center justify-center gap-1.5 mt-0.5">
-                  <span className="text-[15px]" style={{ color: isToday ? palette.primary : palette.ink, fontFamily: "'DM Mono', monospace", fontWeight: isToday ? 600 : 400 }}>{d.getDate()}</span>
-                  {isToday && <span className="h-1.5 w-1.5 rounded-full" style={{ background: palette.primary }} />}
-                </div>
-              </div>
-            );
-          })}
-        </div>
+      <div className="pc-scroll-x -mx-4 sm:mx-0">
+        <div className="px-4 sm:px-0" style={{ minWidth: Math.max(640, 56 + days.length * 96) }}>
+          <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.5)", backdropFilter: "blur(14px)" }}>
+            {/* Day header */}
+            <div className="grid" style={{ gridTemplateColumns: `56px repeat(${days.length}, minmax(0, 1fr))`, borderBottom: `1px solid ${palette.border}` }}>
+              <div />
+              {days.map((d) => {
+                const isToday = sameDay(d, now);
+                return (
+                  <div key={d.toISOString()} className="px-3 py-2.5 text-center" style={{ borderLeft: `1px solid ${palette.border}` }}>
+                    <div className="text-[11px] uppercase tracking-wide" style={{ color: palette.muted, fontFamily: "'Fraunces', serif", fontStyle: "italic" }}>
+                      {d.toLocaleDateString(undefined, { weekday: "short" })}
+                    </div>
+                    <div className="flex items-center justify-center gap-1.5 mt-0.5">
+                      <span className="text-[15px]" style={{ color: isToday ? palette.primary : palette.ink, fontFamily: "'DM Mono', monospace", fontWeight: isToday ? 600 : 400 }}>{d.getDate()}</span>
+                      {isToday && <span className="h-1.5 w-1.5 rounded-full" style={{ background: palette.primary }} />}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
 
-        {/* Grid body */}
-        <div className="grid relative" style={{ gridTemplateColumns: `56px repeat(${days.length}, minmax(0, 1fr))` }}>
-          {/* Hour labels column */}
-          <div>
-            {hours.map((h) => (
-              <div key={h} className="text-right pr-2" style={{ height: HOUR_PX, borderTop: h === startHour ? "none" : `1px solid ${palette.border}` }}>
-                <span className="text-[11px]" style={{ color: palette.muted, fontFamily: "'DM Mono', monospace" }}>{String(h).padStart(2, "0")}:00</span>
+            {/* Grid body */}
+            <div className="grid relative" style={{ gridTemplateColumns: `56px repeat(${days.length}, minmax(0, 1fr))` }}>
+              {/* Hour labels column */}
+              <div>
+                {hours.map((h) => (
+                  <div key={h} className="text-right pr-2" style={{ height: HOUR_PX, borderTop: h === startHour ? "none" : `1px solid ${palette.border}` }}>
+                    <span className="text-[11px]" style={{ color: palette.muted, fontFamily: "'DM Mono', monospace" }}>{String(h).padStart(2, "0")}:00</span>
+                  </div>
+                ))}
               </div>
-            ))}
+
+              {days.map((d) => (
+                <DayColumn
+                  key={d.toISOString()}
+                  date={d}
+                  startHour={startHour}
+                  hours={hours}
+                  windows={windows}
+                  blackouts={blackouts}
+                  sessions={sessions}
+                  now={now}
+                />
+              ))}
+            </div>
           </div>
-
-          {days.map((d) => (
-            <DayColumn
-              key={d.toISOString()}
-              date={d}
-              startHour={startHour}
-              hours={hours}
-              windows={windows}
-              blackouts={blackouts}
-              sessions={sessions}
-              now={now}
-            />
-          ))}
         </div>
       </div>
+
 
       {/* Legend */}
       <div className="mt-4 flex flex-wrap gap-3 items-center text-[11px]" style={{ color: palette.muted, fontFamily: "'DM Mono', monospace" }}>
