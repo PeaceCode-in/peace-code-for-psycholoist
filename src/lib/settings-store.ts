@@ -356,10 +356,13 @@ export function applyAppearance(s: Settings) {
   root.setAttribute("data-theme", mode);
   try { localStorage.setItem("peacecode.theme.v1", mode); } catch {}
 
-  // Accent
+  // Accent — drives every `palette.primary` / `palette.soft` / `palette.ring`
+  // reference in the app through CSS variables. No component has to know
+  // what the current accent is.
   const acc = ACCENTS[a.accent] ?? ACCENTS.blue;
   root.style.setProperty("--pc-primary", acc.primary);
   root.style.setProperty("--pc-soft", acc.soft);
+  root.style.setProperty("--pc-ring", acc.ring);
   root.style.setProperty("--pc-aurora-b", acc.soft);
 
   // Font size (base rem)
@@ -372,11 +375,14 @@ export function applyAppearance(s: Settings) {
   // Motion / effects
   root.setAttribute("data-motion", (a.reduceMotion || s.accessibility.reduceAnim) ? "reduced" : "on");
   root.setAttribute("data-glass", a.glassEffects ? "on" : "off");
+  // Panels (sidebar + topbar) go full glass when the user opts in.
+  root.setAttribute("data-pc-glass-panels", a.glassEffects ? "on" : "off");
   root.setAttribute("data-card-style", a.cardStyle);
   root.setAttribute("data-chart-style", a.chartStyle);
   root.style.setProperty("--pc-radius-scale", `${a.roundedCorners}px`);
   root.style.setProperty("--radius", `${a.roundedCorners}px`);
 }
+
 
 export function applyAccessibility(s: Settings) {
   if (typeof document === "undefined") return;
