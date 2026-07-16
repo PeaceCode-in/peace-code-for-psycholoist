@@ -1,11 +1,47 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import {
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Legend,
+  Line,
+  LineChart,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { AppShell, palette } from "@/components/practice/AppShell";
 import { useLiveSessions } from "@/lib/sessions-store";
 import { useLivePatients } from "@/lib/patients-store";
 import { useLiveNotes } from "@/lib/notes-store";
-import { getRevenueByMonth, getCollectionRate, getRevenueThisMonth, formatINR } from "@/lib/billing-store";
-import { TrendingUp, TrendingDown, Users, Video, FileSignature, IndianRupee, ChevronRight, Info } from "lucide-react";
+import {
+  getRevenueByMonth,
+  getCollectionRate,
+  getRevenueThisMonth,
+  formatINR,
+} from "@/lib/billing-store";
+import {
+  TrendingUp,
+  TrendingDown,
+  Users,
+  Video,
+  FileSignature,
+  IndianRupee,
+  ChevronRight,
+  Info,
+  BarChart3,
+  LineChart as LineIcon,
+  AreaChart as AreaIcon,
+  PieChart as PieIcon,
+  Inbox,
+} from "lucide-react";
 
 export const Route = createFileRoute("/analytics")({
   head: () => ({
@@ -20,8 +56,31 @@ export const Route = createFileRoute("/analytics")({
 type Range = "30d" | "90d" | "12m";
 const RANGE_DAYS: Record<Range, number> = { "30d": 30, "90d": 90, "12m": 365 };
 
+type RevenueView = "bar" | "line" | "area";
+type ModalityView = "bars" | "donut";
+
+// Chart palette — pulls semantic tokens so dark mode inverts automatically.
+const CHART = {
+  primary: "hsl(var(--primary, 220 65% 51%)) ",
+  ink: "var(--foreground)",
+  muted: "var(--muted-foreground)",
+  grid: "color-mix(in oklab, var(--foreground) 12%, transparent)",
+  card: "var(--card)",
+  border: "var(--border)",
+  series: [
+    "var(--primary)",
+    "#7BA88A",
+    "#C2A97E",
+    "#A48CC7",
+    "#E88A6A",
+  ],
+};
+
 function AnalyticsPage() {
   const [range, setRange] = useState<Range>("90d");
+  const [revView, setRevView] = useState<RevenueView>("bar");
+  const [modView, setModView] = useState<ModalityView>("bars");
+
   const sessions = useLiveSessions();
   const patients = useLivePatients();
   const notes = useLiveNotes();
@@ -53,9 +112,9 @@ function AnalyticsPage() {
   const rev = getRevenueThisMonth();
   const collect = getCollectionRate(30);
   const months = getRevenueByMonth(range === "12m" ? 12 : range === "90d" ? 3 : 1);
-  const maxRev = Math.max(1, ...months.map((m) => m.total));
+  const revenueData = months.map((m) => ({ month: m.month, revenue: m.total }));
+  const revenueEmpty = revenueData.every((d) => d.revenue === 0);
 
-  // Outcome proxy — % of active patients whose risk trended down or held stable.
   const stableOrBetter = patients.filter((p) => p.status === "active" && (p.risk === "stable" || p.risk === "monitor")).length;
   const outcomeScore = activePatients ? Math.round((stableOrBetter / activePatients) * 100) : 0;
 
@@ -64,7 +123,12 @@ function AnalyticsPage() {
     in_person: inRange.filter((s) => s.modality === "in_person").length,
     phone: inRange.filter((s) => s.modality === "phone").length,
   };
-  const modalityTotal = modality.telehealth + modality.in_person + modality.phone || 1;
+  const modalityData = [
+    { name: "Telehealth", value: modality.telehealth, fill: CHART.series[0] },
+    { name: "In-person", value: modality.in_person, fill: CHART.series[1] },
+    { name: "Phone", value: modality.phone, fill: CHART.series[2] },
+  ];
+  const modalityEmpty = modalityData.every((d) => d.value === 0);
 
   return (
     <AppShell crumb="Analytics">
@@ -72,104 +136,134 @@ function AnalyticsPage() {
         {/* Header */}
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4 sm:flex sm:flex-wrap sm:justify-between mb-6">
           <div className="min-w-0">
-            <div className="uppercase text-[10.5px] tracking-[0.22em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Growth · Analytics</div>
-            <h1 className="mt-1 text-[26px] leading-tight tracking-tight truncate" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>
+            <div
+              className="uppercase text-[10.5px] tracking-[0.22em]"
+              style={{ color: "var(--muted-foreground)", fontFamily: "'DM Mono', ui-monospace, monospace" }}
+            >
+              Growth · Analytics
+            </div>
+            <h1
+              className="mt-1 text-[26px] leading-tight tracking-tight truncate"
+              style={{ fontFamily: "'Fraunces', serif", color: "var(--foreground)" }}
+            >
               How the practice is really doing
             </h1>
-            <p className="text-[13px] mt-1" style={{ color: palette.muted }}>
+            <p className="text-[13px] mt-1" style={{ color: "var(--muted-foreground)" }}>
               Live from your sessions, patients, notes, and billing — no re-entry.
             </p>
           </div>
-          <div className="inline-flex rounded-full p-0.5 shrink-0" style={{ background: palette.surface2, border: `1px solid ${palette.border}` }}>
-            {(["30d", "90d", "12m"] as Range[]).map((r) => (
-              <button
-                key={r}
-                onClick={() => setRange(r)}
-                className="text-[12px] h-8 px-3 rounded-full transition-colors"
-                style={{
-                  background: range === r ? "#fff" : "transparent",
-                  color: range === r ? palette.ink : palette.muted,
-                  boxShadow: range === r ? "0 1px 2px rgba(30,20,24,0.05)" : "none",
-                }}
-              >{r === "30d" ? "30 days" : r === "90d" ? "90 days" : "12 months"}</button>
-            ))}
-          </div>
+          <SegmentedPill
+            value={range}
+            onChange={(v) => setRange(v as Range)}
+            options={[
+              { value: "30d", label: "30 days" },
+              { value: "90d", label: "90 days" },
+              { value: "12m", label: "12 months" },
+            ]}
+          />
         </div>
 
         {/* KPI grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-          <Kpi
-            icon={IndianRupee}
-            label="Revenue this month"
-            value={formatINR(rev.current)}
-            delta={rev.delta}
-            hint={`vs ${formatINR(rev.previous)} last month`}
-          />
-          <Kpi
-            icon={Users}
-            label="Active patients"
-            value={String(activePatients)}
-            delta={newPatients}
-            deltaSuffix=" new"
-            hint={`${dischargedInRange} discharged in range`}
-          />
-          <Kpi
-            icon={Video}
-            label="Session completion"
-            value={`${completionRate}%`}
-            delta={-noShowRate}
-            deltaSuffix="% no-show"
-            hint={`${completed} completed · ${cancelled} cancelled`}
-          />
-          <Kpi
-            icon={FileSignature}
-            label="Notes signed"
-            value={String(signed)}
-            delta={unsigned}
-            deltaSuffix=" unsigned"
-            hint={`Collection rate ${collect}%`}
-          />
+          <Kpi icon={IndianRupee} label="Revenue this month" value={formatINR(rev.current)} delta={rev.delta}
+            hint={`vs ${formatINR(rev.previous)} last month`} />
+          <Kpi icon={Users} label="Active patients" value={String(activePatients)} delta={newPatients} deltaSuffix=" new"
+            hint={`${dischargedInRange} discharged in range`} />
+          <Kpi icon={Video} label="Session completion" value={`${completionRate}%`} delta={-noShowRate} deltaSuffix="% no-show"
+            hint={`${completed} completed · ${cancelled} cancelled`} />
+          <Kpi icon={FileSignature} label="Notes signed" value={String(signed)} delta={unsigned} deltaSuffix=" unsigned"
+            hint={`Collection rate ${collect}%`} />
         </div>
 
         {/* Revenue trend */}
         <Card className="mt-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-4 gap-3 flex-wrap">
             <div>
-              <div className="text-[13.5px]" style={{ color: palette.ink }}>Revenue trend</div>
-              <div className="text-[11.5px]" style={{ color: palette.muted }}>Paid invoices by month</div>
+              <div className="text-[13.5px]" style={{ color: "var(--foreground)" }}>Revenue trend</div>
+              <div className="text-[11.5px]" style={{ color: "var(--muted-foreground)" }}>Paid invoices by month · same data, three views</div>
             </div>
-            <Link to="/billing/reports" className="text-[11.5px] flex items-center gap-1 hover:underline" style={{ color: palette.primary }}>
-              Full report <ChevronRight className="w-3 h-3" />
-            </Link>
+            <div className="flex items-center gap-2">
+              <SegmentedPill
+                value={revView}
+                onChange={(v) => setRevView(v as RevenueView)}
+                options={[
+                  { value: "bar", label: "Bars", icon: BarChart3 },
+                  { value: "line", label: "Line", icon: LineIcon },
+                  { value: "area", label: "Area", icon: AreaIcon },
+                ]}
+              />
+              <Link
+                to="/billing"
+                className="text-[11.5px] flex items-center gap-1 hover:underline"
+                style={{ color: "var(--primary)" }}
+              >
+                Full report <ChevronRight className="w-3 h-3" />
+              </Link>
+            </div>
           </div>
-          <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${months.length}, minmax(0, 1fr))` }}>
-            {months.map((m) => {
-              const h = Math.max(6, Math.round((m.total / maxRev) * 140));
-              return (
-                <div key={m.monthISO} className="flex flex-col items-center gap-2">
-                  <div className="w-full flex items-end justify-center" style={{ height: 140 }}>
-                    <div
-                      className="w-6 sm:w-10 rounded-t-md transition-all"
-                      style={{ height: h, background: palette.primary, opacity: 0.85 }}
-                      title={`${m.month} · ${formatINR(m.total)}`}
-                    />
-                  </div>
-                  <div className="text-[10.5px] uppercase tracking-wider" style={{ color: palette.muted }}>{m.month}</div>
-                  <div className="text-[11px] tabular-nums" style={{ color: palette.ink }}>{formatINR(m.total, { decimals: false })}</div>
-                </div>
-              );
-            })}
-          </div>
+
+          {revenueEmpty ? (
+            <EmptyChart
+              icon={IndianRupee}
+              title="No revenue yet in this range"
+              hint="Once invoices are marked paid they'll trend here in rupees."
+            />
+          ) : (
+            <div style={{ height: 240 }}>
+              <ResponsiveContainer>
+                {revView === "bar" ? (
+                  <BarChart data={revenueData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
+                    <CartesianGrid stroke={CHART.grid} vertical={false} />
+                    <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
+                    <YAxis tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }}
+                      tickFormatter={(v) => formatINR(v as number, { decimals: false })} width={72} />
+                    <Tooltip content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ fill: CHART.grid }} />
+                    <Bar dataKey="revenue" fill="var(--primary)" radius={[6, 6, 0, 0]} />
+                  </BarChart>
+                ) : revView === "line" ? (
+                  <LineChart data={revenueData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
+                    <CartesianGrid stroke={CHART.grid} vertical={false} />
+                    <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
+                    <YAxis tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }}
+                      tickFormatter={(v) => formatINR(v as number, { decimals: false })} width={72} />
+                    <Tooltip content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ stroke: CHART.grid }} />
+                    <Line type="monotone" dataKey="revenue" stroke="var(--primary)" strokeWidth={2.5}
+                      dot={{ r: 4, fill: "var(--primary)" }} activeDot={{ r: 6 }} />
+                  </LineChart>
+                ) : (
+                  <AreaChart data={revenueData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="revFill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="var(--primary)" stopOpacity={0.35} />
+                        <stop offset="100%" stopColor="var(--primary)" stopOpacity={0.02} />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid stroke={CHART.grid} vertical={false} />
+                    <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
+                    <YAxis tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }}
+                      tickFormatter={(v) => formatINR(v as number, { decimals: false })} width={72} />
+                    <Tooltip content={<ChartTooltip formatter={(v) => formatINR(v as number)} />} cursor={{ stroke: CHART.grid }} />
+                    <Area type="monotone" dataKey="revenue" stroke="var(--primary)" strokeWidth={2} fill="url(#revFill)" />
+                  </AreaChart>
+                )}
+              </ResponsiveContainer>
+            </div>
+          )}
         </Card>
 
         {/* Two-up */}
         <div className="grid lg:grid-cols-2 gap-4 mt-4">
           <Card>
-            <div className="text-[13.5px] mb-1" style={{ color: palette.ink }}>Outcomes</div>
-            <div className="text-[11.5px] mb-4" style={{ color: palette.muted }}>Share of active patients at stable or monitor risk</div>
+            <div className="text-[13.5px] mb-1" style={{ color: "var(--foreground)" }}>Outcomes</div>
+            <div className="text-[11.5px] mb-4" style={{ color: "var(--muted-foreground)" }}>
+              Share of active patients at stable or monitor risk
+            </div>
             <div className="flex items-baseline gap-2">
-              <div className="text-[38px] tabular-nums leading-none" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>{outcomeScore}%</div>
-              <div className="text-[12px]" style={{ color: palette.muted }}>{stableOrBetter} of {activePatients} active</div>
+              <div className="text-[38px] tabular-nums leading-none"
+                style={{ fontFamily: "'Fraunces', serif", color: "var(--foreground)" }}>{outcomeScore}%</div>
+              <div className="text-[12px]" style={{ color: "var(--muted-foreground)" }}>
+                {stableOrBetter} of {activePatients} active
+              </div>
             </div>
             <div className="mt-4 grid grid-cols-3 gap-2 text-center">
               <MiniStat label="Retention" value={`${retention}%`} />
@@ -177,15 +271,78 @@ function AnalyticsPage() {
               <MiniStat label="Discharged" value={String(dischargedInRange)} />
             </div>
           </Card>
+
           <Card>
-            <div className="text-[13.5px] mb-1" style={{ color: palette.ink }}>Modality mix</div>
-            <div className="text-[11.5px] mb-4" style={{ color: palette.muted }}>Sessions delivered in range</div>
-            <div className="space-y-3">
-              <Bar label="Telehealth" value={modality.telehealth} total={modalityTotal} color={palette.primary} />
-              <Bar label="In-person" value={modality.in_person} total={modalityTotal} color="#7BA88A" />
-              <Bar label="Phone" value={modality.phone} total={modalityTotal} color="#C2A97E" />
+            <div className="flex items-center justify-between mb-1 gap-3 flex-wrap">
+              <div>
+                <div className="text-[13.5px]" style={{ color: "var(--foreground)" }}>Modality mix</div>
+                <div className="text-[11.5px]" style={{ color: "var(--muted-foreground)" }}>Sessions delivered in range</div>
+              </div>
+              <SegmentedPill
+                value={modView}
+                onChange={(v) => setModView(v as ModalityView)}
+                options={[
+                  { value: "bars", label: "Bars", icon: BarChart3 },
+                  { value: "donut", label: "Donut", icon: PieIcon },
+                ]}
+              />
             </div>
-            <div className="mt-4 pt-3 text-[11.5px] flex items-center gap-1.5" style={{ color: palette.muted, borderTop: `1px solid ${palette.border}` }}>
+
+            {modalityEmpty ? (
+              <EmptyChart icon={Video} title="No sessions in this range" hint="Delivered sessions will appear here." />
+            ) : modView === "donut" ? (
+              <div style={{ height: 220 }} className="mt-2">
+                <ResponsiveContainer>
+                  <PieChart>
+                    <Tooltip content={<ChartTooltip />} />
+                    <Legend
+                      verticalAlign="bottom"
+                      height={28}
+                      formatter={(v) => <span style={{ color: "var(--muted-foreground)", fontSize: 11 }}>{v}</span>}
+                    />
+                    <Pie
+                      data={modalityData}
+                      dataKey="value"
+                      nameKey="name"
+                      innerRadius={48}
+                      outerRadius={78}
+                      paddingAngle={2}
+                      stroke="var(--card)"
+                    >
+                      {modalityData.map((entry, i) => (
+                        <Cell key={i} fill={entry.fill} />
+                      ))}
+                    </Pie>
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            ) : (
+              <div style={{ height: 200 }} className="mt-2">
+                <ResponsiveContainer>
+                  <BarChart data={modalityData} layout="vertical" margin={{ top: 4, right: 12, left: 4, bottom: 0 }}>
+                    <CartesianGrid stroke={CHART.grid} horizontal={false} />
+                    <XAxis type="number" tickLine={false} axisLine={false} tick={{ fill: CHART.muted, fontSize: 11 }} />
+                    <YAxis
+                      type="category"
+                      dataKey="name"
+                      tickLine={false}
+                      axisLine={false}
+                      tick={{ fill: CHART.muted, fontSize: 11 }}
+                      width={80}
+                    />
+                    <Tooltip content={<ChartTooltip />} cursor={{ fill: CHART.grid }} />
+                    <Bar dataKey="value" radius={[0, 6, 6, 0]}>
+                      {modalityData.map((entry, i) => (
+                        <Cell key={i} fill={entry.fill} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            )}
+
+            <div className="mt-3 pt-3 text-[11.5px] flex items-center gap-1.5"
+              style={{ color: "var(--muted-foreground)", borderTop: "1px solid var(--border)" }}>
               <Info className="w-3 h-3" /> Modality mix influences no-show risk — phone tends to run 8–12% higher.
             </div>
           </Card>
@@ -195,46 +352,160 @@ function AnalyticsPage() {
   );
 }
 
+/* -------------------- Presentation primitives -------------------- */
+
 function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`rounded-2xl p-5 ${className}`} style={{ background: "#fff", border: `1px solid ${palette.border}` }}>{children}</div>
+    <div
+      className={`rounded-2xl p-5 ${className}`}
+      style={{ background: "var(--card)", color: "var(--card-foreground)", border: "1px solid var(--border)" }}
+    >
+      {children}
+    </div>
   );
 }
-function Kpi({ icon: Icon, label, value, delta, deltaSuffix = "%", hint }: { icon: React.ComponentType<{ className?: string }>; label: string; value: string; delta: number; deltaSuffix?: string; hint: string }) {
+
+function Kpi({
+  icon: Icon, label, value, delta, deltaSuffix = "%", hint,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string; value: string; delta: number; deltaSuffix?: string; hint: string;
+}) {
   const positive = delta >= 0;
   const Arrow = positive ? TrendingUp : TrendingDown;
   return (
-    <div className="rounded-2xl p-4" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
-      <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider" style={{ color: palette.muted }}>
+    <div
+      className="rounded-2xl p-4"
+      style={{ background: "var(--card)", color: "var(--card-foreground)", border: "1px solid var(--border)" }}
+    >
+      <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider" style={{ color: "var(--muted-foreground)" }}>
         <Icon className="w-3.5 h-3.5" /> {label}
       </div>
-      <div className="mt-2 text-[24px] tabular-nums leading-none" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>{value}</div>
-      <div className="mt-2 flex items-center gap-1.5 text-[11.5px]" style={{ color: positive ? "#3F7A55" : "#B54848" }}>
+      <div className="mt-2 text-[24px] tabular-nums leading-none"
+        style={{ fontFamily: "'Fraunces', serif", color: "var(--foreground)" }}>{value}</div>
+      <div
+        className="mt-2 flex items-center gap-1.5 text-[11.5px]"
+        style={{ color: positive ? "color-mix(in oklab, var(--foreground) 20%, #3F7A55)" : "color-mix(in oklab, var(--foreground) 15%, #B54848)" }}
+      >
         <Arrow className="w-3 h-3" /> {positive ? "+" : ""}{delta}{deltaSuffix}
       </div>
-      <div className="mt-1 text-[10.5px]" style={{ color: palette.muted }}>{hint}</div>
+      <div className="mt-1 text-[10.5px]" style={{ color: "var(--muted-foreground)" }}>{hint}</div>
     </div>
   );
 }
+
 function MiniStat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl px-2 py-3" style={{ background: palette.surface, border: `1px solid ${palette.border}` }}>
-      <div className="text-[16px] tabular-nums" style={{ color: palette.ink }}>{value}</div>
-      <div className="text-[10.5px]" style={{ color: palette.muted }}>{label}</div>
+    <div className="rounded-xl px-2 py-3" style={{ background: "var(--muted)", border: "1px solid var(--border)" }}>
+      <div className="text-[16px] tabular-nums" style={{ color: "var(--foreground)" }}>{value}</div>
+      <div className="text-[10.5px]" style={{ color: "var(--muted-foreground)" }}>{label}</div>
     </div>
   );
 }
-function Bar({ label, value, total, color }: { label: string; value: number; total: number; color: string }) {
-  const pct = Math.round((value / total) * 100);
+
+function SegmentedPill<T extends string>({
+  value, onChange, options,
+}: {
+  value: T;
+  onChange: (v: T) => void;
+  options: { value: T; label: string; icon?: React.ComponentType<{ className?: string }> }[];
+}) {
   return (
-    <div>
-      <div className="flex items-baseline justify-between text-[12px]">
-        <span style={{ color: palette.ink }}>{label}</span>
-        <span className="tabular-nums" style={{ color: palette.muted }}>{value} · {pct}%</span>
+    <div
+      className="inline-flex rounded-full p-0.5 shrink-0"
+      style={{ background: "var(--muted)", border: "1px solid var(--border)" }}
+    >
+      {options.map((o) => {
+        const active = value === o.value;
+        const Icon = o.icon;
+        return (
+          <button
+            key={o.value}
+            onClick={() => onChange(o.value)}
+            className="text-[12px] h-8 px-3 rounded-full transition-colors inline-flex items-center gap-1.5"
+            style={{
+              background: active ? "var(--card)" : "transparent",
+              color: active ? "var(--foreground)" : "var(--muted-foreground)",
+              boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : "none",
+            }}
+            aria-pressed={active}
+          >
+            {Icon && <Icon className="w-3.5 h-3.5" />}
+            {o.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function EmptyChart({
+  icon: Icon = Inbox,
+  title,
+  hint,
+}: {
+  icon?: React.ComponentType<{ className?: string }>;
+  title: string;
+  hint?: string;
+}) {
+  return (
+    <div
+      className="rounded-xl flex flex-col items-center justify-center text-center px-6 py-10 gap-2"
+      style={{
+        background: "color-mix(in oklab, var(--muted) 60%, transparent)",
+        border: "1px dashed var(--border)",
+        minHeight: 200,
+      }}
+    >
+      <div
+        className="w-9 h-9 rounded-full grid place-items-center"
+        style={{ background: "var(--card)", border: "1px solid var(--border)", color: "var(--muted-foreground)" }}
+      >
+        <Icon className="w-4 h-4" />
       </div>
-      <div className="mt-1 h-2 rounded-full overflow-hidden" style={{ background: palette.surface2 }}>
-        <div className="h-full rounded-full" style={{ width: `${pct}%`, background: color }} />
-      </div>
+      <div className="text-[13px]" style={{ color: "var(--foreground)" }}>{title}</div>
+      {hint && <div className="text-[11.5px] max-w-xs" style={{ color: "var(--muted-foreground)" }}>{hint}</div>}
+    </div>
+  );
+}
+
+/* Recharts tooltip that reads semantic tokens — inverts cleanly in dark mode. */
+function ChartTooltip({
+  active, payload, label, formatter,
+}: {
+  active?: boolean;
+  payload?: Array<{ name?: string; value?: number | string; color?: string; payload?: { name?: string; fill?: string } }>;
+  label?: string | number;
+  formatter?: (v: number | string) => string;
+}) {
+  if (!active || !payload?.length) return null;
+  return (
+    <div
+      className="rounded-lg px-3 py-2 text-[11.5px] shadow-lg"
+      style={{
+        background: "var(--card)",
+        color: "var(--card-foreground)",
+        border: "1px solid var(--border)",
+        boxShadow: "0 8px 24px -12px rgba(0,0,0,0.35)",
+      }}
+    >
+      {label !== undefined && (
+        <div className="uppercase tracking-wider text-[10px] mb-1" style={{ color: "var(--muted-foreground)" }}>{label}</div>
+      )}
+      {payload.map((p, i) => {
+        const color = p.color || p.payload?.fill || "var(--primary)";
+        const name = p.name || p.payload?.name || "value";
+        const val = p.value ?? "";
+        return (
+          <div key={i} className="flex items-center gap-2">
+            <span className="inline-block w-2 h-2 rounded-full" style={{ background: color }} />
+            <span style={{ color: "var(--muted-foreground)" }}>{name}</span>
+            <span className="ml-auto tabular-nums" style={{ color: "var(--foreground)" }}>
+              {formatter ? formatter(val as number) : val}
+            </span>
+          </div>
+        );
+      })}
     </div>
   );
 }
