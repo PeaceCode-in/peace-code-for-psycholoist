@@ -61,6 +61,7 @@ import { Route as SupervisionIndexRouteImport } from './routes/supervision.index
 import { Route as SettingsIndexRouteImport } from './routes/settings.index'
 import { Route as SessionsIndexRouteImport } from './routes/sessions.index'
 import { Route as ScheduleIndexRouteImport } from './routes/schedule.index'
+import { Route as ReferralsIndexRouteImport } from './routes/referrals.index'
 import { Route as ProfilePublicIndexRouteImport } from './routes/profile-public.index'
 import { Route as PrescriptionsIndexRouteImport } from './routes/prescriptions.index'
 import { Route as PortalIndexRouteImport } from './routes/portal.index'
@@ -124,6 +125,9 @@ import { Route as SessionsIdRouteImport } from './routes/sessions.$id'
 import { Route as ScheduleRecurringRouteImport } from './routes/schedule.recurring'
 import { Route as ScheduleExportRouteImport } from './routes/schedule.export'
 import { Route as ScheduleAvailabilityRouteImport } from './routes/schedule.availability'
+import { Route as ReferralsSourcesRouteImport } from './routes/referrals.sources'
+import { Route as ReferralsAnalyticsRouteImport } from './routes/referrals.analytics'
+import { Route as ReferralsRidRouteImport } from './routes/referrals.$rid'
 import { Route as ProfilePublicSeoRouteImport } from './routes/profile-public.seo'
 import { Route as ProfilePublicPreviewRouteImport } from './routes/profile-public.preview'
 import { Route as ProfilePublicDiscoveryRouteImport } from './routes/profile-public.discovery'
@@ -525,6 +529,11 @@ const ScheduleIndexRoute = ScheduleIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ScheduleRoute,
 } as any)
+const ReferralsIndexRoute = ReferralsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ReferralsRoute,
+} as any)
 const ProfilePublicIndexRoute = ProfilePublicIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -841,6 +850,21 @@ const ScheduleAvailabilityRoute = ScheduleAvailabilityRouteImport.update({
   id: '/availability',
   path: '/availability',
   getParentRoute: () => ScheduleRoute,
+} as any)
+const ReferralsSourcesRoute = ReferralsSourcesRouteImport.update({
+  id: '/sources',
+  path: '/sources',
+  getParentRoute: () => ReferralsRoute,
+} as any)
+const ReferralsAnalyticsRoute = ReferralsAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => ReferralsRoute,
+} as any)
+const ReferralsRidRoute = ReferralsRidRouteImport.update({
+  id: '/$rid',
+  path: '/$rid',
+  getParentRoute: () => ReferralsRoute,
 } as any)
 const ProfilePublicSeoRoute = ProfilePublicSeoRouteImport.update({
   id: '/seo',
@@ -1583,7 +1607,7 @@ export interface FileRoutesByFullPath {
   '/portal': typeof PortalRouteWithChildren
   '/prescriptions': typeof PrescriptionsRouteWithChildren
   '/profile-public': typeof ProfilePublicRouteWithChildren
-  '/referrals': typeof ReferralsRoute
+  '/referrals': typeof ReferralsRouteWithChildren
   '/research': typeof ResearchRoute
   '/reviews': typeof ReviewsRoute
   '/risk': typeof RiskRoute
@@ -1696,6 +1720,9 @@ export interface FileRoutesByFullPath {
   '/profile-public/discovery': typeof ProfilePublicDiscoveryRoute
   '/profile-public/preview': typeof ProfilePublicPreviewRoute
   '/profile-public/seo': typeof ProfilePublicSeoRoute
+  '/referrals/$rid': typeof ReferralsRidRoute
+  '/referrals/analytics': typeof ReferralsAnalyticsRoute
+  '/referrals/sources': typeof ReferralsSourcesRoute
   '/schedule/availability': typeof ScheduleAvailabilityRoute
   '/schedule/export': typeof ScheduleExportRoute
   '/schedule/recurring': typeof ScheduleRecurringRoute
@@ -1759,6 +1786,7 @@ export interface FileRoutesByFullPath {
   '/portal/': typeof PortalIndexRoute
   '/prescriptions/': typeof PrescriptionsIndexRoute
   '/profile-public/': typeof ProfilePublicIndexRoute
+  '/referrals/': typeof ReferralsIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -1823,7 +1851,6 @@ export interface FileRoutesByTo {
   '/notifications': typeof NotificationsRoute
   '/payments': typeof PaymentsRoute
   '/payouts': typeof PayoutsRoute
-  '/referrals': typeof ReferralsRoute
   '/research': typeof ResearchRoute
   '/reviews': typeof ReviewsRoute
   '/risk': typeof RiskRoute
@@ -1925,6 +1952,9 @@ export interface FileRoutesByTo {
   '/profile-public/discovery': typeof ProfilePublicDiscoveryRoute
   '/profile-public/preview': typeof ProfilePublicPreviewRoute
   '/profile-public/seo': typeof ProfilePublicSeoRoute
+  '/referrals/$rid': typeof ReferralsRidRoute
+  '/referrals/analytics': typeof ReferralsAnalyticsRoute
+  '/referrals/sources': typeof ReferralsSourcesRoute
   '/schedule/availability': typeof ScheduleAvailabilityRoute
   '/schedule/export': typeof ScheduleExportRoute
   '/schedule/recurring': typeof ScheduleRecurringRoute
@@ -1987,6 +2017,7 @@ export interface FileRoutesByTo {
   '/portal': typeof PortalIndexRoute
   '/prescriptions': typeof PrescriptionsIndexRoute
   '/profile-public': typeof ProfilePublicIndexRoute
+  '/referrals': typeof ReferralsIndexRoute
   '/schedule': typeof ScheduleIndexRoute
   '/sessions': typeof SessionsIndexRoute
   '/settings': typeof SettingsIndexRoute
@@ -2068,7 +2099,7 @@ export interface FileRoutesById {
   '/portal': typeof PortalRouteWithChildren
   '/prescriptions': typeof PrescriptionsRouteWithChildren
   '/profile-public': typeof ProfilePublicRouteWithChildren
-  '/referrals': typeof ReferralsRoute
+  '/referrals': typeof ReferralsRouteWithChildren
   '/research': typeof ResearchRoute
   '/reviews': typeof ReviewsRoute
   '/risk': typeof RiskRoute
@@ -2181,6 +2212,9 @@ export interface FileRoutesById {
   '/profile-public/discovery': typeof ProfilePublicDiscoveryRoute
   '/profile-public/preview': typeof ProfilePublicPreviewRoute
   '/profile-public/seo': typeof ProfilePublicSeoRoute
+  '/referrals/$rid': typeof ReferralsRidRoute
+  '/referrals/analytics': typeof ReferralsAnalyticsRoute
+  '/referrals/sources': typeof ReferralsSourcesRoute
   '/schedule/availability': typeof ScheduleAvailabilityRoute
   '/schedule/export': typeof ScheduleExportRoute
   '/schedule/recurring': typeof ScheduleRecurringRoute
@@ -2244,6 +2278,7 @@ export interface FileRoutesById {
   '/portal/': typeof PortalIndexRoute
   '/prescriptions/': typeof PrescriptionsIndexRoute
   '/profile-public/': typeof ProfilePublicIndexRoute
+  '/referrals/': typeof ReferralsIndexRoute
   '/schedule/': typeof ScheduleIndexRoute
   '/sessions/': typeof SessionsIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -2440,6 +2475,9 @@ export interface FileRouteTypes {
     | '/profile-public/discovery'
     | '/profile-public/preview'
     | '/profile-public/seo'
+    | '/referrals/$rid'
+    | '/referrals/analytics'
+    | '/referrals/sources'
     | '/schedule/availability'
     | '/schedule/export'
     | '/schedule/recurring'
@@ -2503,6 +2541,7 @@ export interface FileRouteTypes {
     | '/portal/'
     | '/prescriptions/'
     | '/profile-public/'
+    | '/referrals/'
     | '/schedule/'
     | '/sessions/'
     | '/settings/'
@@ -2567,7 +2606,6 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/payments'
     | '/payouts'
-    | '/referrals'
     | '/research'
     | '/reviews'
     | '/risk'
@@ -2669,6 +2707,9 @@ export interface FileRouteTypes {
     | '/profile-public/discovery'
     | '/profile-public/preview'
     | '/profile-public/seo'
+    | '/referrals/$rid'
+    | '/referrals/analytics'
+    | '/referrals/sources'
     | '/schedule/availability'
     | '/schedule/export'
     | '/schedule/recurring'
@@ -2731,6 +2772,7 @@ export interface FileRouteTypes {
     | '/portal'
     | '/prescriptions'
     | '/profile-public'
+    | '/referrals'
     | '/schedule'
     | '/sessions'
     | '/settings'
@@ -2924,6 +2966,9 @@ export interface FileRouteTypes {
     | '/profile-public/discovery'
     | '/profile-public/preview'
     | '/profile-public/seo'
+    | '/referrals/$rid'
+    | '/referrals/analytics'
+    | '/referrals/sources'
     | '/schedule/availability'
     | '/schedule/export'
     | '/schedule/recurring'
@@ -2987,6 +3032,7 @@ export interface FileRouteTypes {
     | '/portal/'
     | '/prescriptions/'
     | '/profile-public/'
+    | '/referrals/'
     | '/schedule/'
     | '/sessions/'
     | '/settings/'
@@ -3069,7 +3115,7 @@ export interface RootRouteChildren {
   PortalRoute: typeof PortalRouteWithChildren
   PrescriptionsRoute: typeof PrescriptionsRouteWithChildren
   ProfilePublicRoute: typeof ProfilePublicRouteWithChildren
-  ReferralsRoute: typeof ReferralsRoute
+  ReferralsRoute: typeof ReferralsRouteWithChildren
   ResearchRoute: typeof ResearchRoute
   ReviewsRoute: typeof ReviewsRoute
   RiskRoute: typeof RiskRoute
@@ -3472,6 +3518,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/schedule/'
       preLoaderRoute: typeof ScheduleIndexRouteImport
       parentRoute: typeof ScheduleRoute
+    }
+    '/referrals/': {
+      id: '/referrals/'
+      path: '/'
+      fullPath: '/referrals/'
+      preLoaderRoute: typeof ReferralsIndexRouteImport
+      parentRoute: typeof ReferralsRoute
     }
     '/profile-public/': {
       id: '/profile-public/'
@@ -3913,6 +3966,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/schedule/availability'
       preLoaderRoute: typeof ScheduleAvailabilityRouteImport
       parentRoute: typeof ScheduleRoute
+    }
+    '/referrals/sources': {
+      id: '/referrals/sources'
+      path: '/sources'
+      fullPath: '/referrals/sources'
+      preLoaderRoute: typeof ReferralsSourcesRouteImport
+      parentRoute: typeof ReferralsRoute
+    }
+    '/referrals/analytics': {
+      id: '/referrals/analytics'
+      path: '/analytics'
+      fullPath: '/referrals/analytics'
+      preLoaderRoute: typeof ReferralsAnalyticsRouteImport
+      parentRoute: typeof ReferralsRoute
+    }
+    '/referrals/$rid': {
+      id: '/referrals/$rid'
+      path: '/$rid'
+      fullPath: '/referrals/$rid'
+      preLoaderRoute: typeof ReferralsRidRouteImport
+      parentRoute: typeof ReferralsRoute
     }
     '/profile-public/seo': {
       id: '/profile-public/seo'
@@ -5423,6 +5497,24 @@ const ProfilePublicRouteWithChildren = ProfilePublicRoute._addFileChildren(
   ProfilePublicRouteChildren,
 )
 
+interface ReferralsRouteChildren {
+  ReferralsRidRoute: typeof ReferralsRidRoute
+  ReferralsAnalyticsRoute: typeof ReferralsAnalyticsRoute
+  ReferralsSourcesRoute: typeof ReferralsSourcesRoute
+  ReferralsIndexRoute: typeof ReferralsIndexRoute
+}
+
+const ReferralsRouteChildren: ReferralsRouteChildren = {
+  ReferralsRidRoute: ReferralsRidRoute,
+  ReferralsAnalyticsRoute: ReferralsAnalyticsRoute,
+  ReferralsSourcesRoute: ReferralsSourcesRoute,
+  ReferralsIndexRoute: ReferralsIndexRoute,
+}
+
+const ReferralsRouteWithChildren = ReferralsRoute._addFileChildren(
+  ReferralsRouteChildren,
+)
+
 interface ScheduleRouteChildren {
   ScheduleAvailabilityRoute: typeof ScheduleAvailabilityRoute
   ScheduleExportRoute: typeof ScheduleExportRoute
@@ -5647,7 +5739,7 @@ const rootRouteChildren: RootRouteChildren = {
   PortalRoute: PortalRouteWithChildren,
   PrescriptionsRoute: PrescriptionsRouteWithChildren,
   ProfilePublicRoute: ProfilePublicRouteWithChildren,
-  ReferralsRoute: ReferralsRoute,
+  ReferralsRoute: ReferralsRouteWithChildren,
   ResearchRoute: ResearchRoute,
   ReviewsRoute: ReviewsRoute,
   RiskRoute: RiskRoute,
