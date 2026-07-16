@@ -345,20 +345,36 @@ export function applyAppearance(s: Settings) {
   const a = s.appearance;
 
   // Background theme (writes html[data-pc-bg]; CSS in styles.css does the rest)
-  const bg = (a.bgTheme && BG_THEMES[a.bgTheme]) ? a.bgTheme : "sakura";
-  root.setAttribute("data-pc-bg", bg);
+  let bg = (a.bgTheme && BG_THEMES[a.bgTheme]) ? a.bgTheme : "sakura";
 
   // Theme mode: dark presets force dark; user override still wins if explicit.
-  const preset = BG_THEMES[bg];
+  let preset = BG_THEMES[bg];
   let mode: "light" | "dark" = preset.tone === "dark" ? "dark" : "light";
   if (a.theme === "dark") mode = "dark";
   else if (a.theme === "light") mode = "light";
   else if (a.theme === "auto" || a.theme === "system") {
     mode = window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : preset.tone;
   }
+
+  // If the resolved mode is dark but the chosen preset is a LIGHT one, snap
+  // to a proper dark background preset so surfaces, ink and aurora all read
+  // correctly. Users who explicitly picked a dark preset keep theirs.
+  if (mode === "dark" && preset.tone === "light") {
+    bg = "graphite";
+    preset = BG_THEMES[bg];
+  }
+  // Conversely, if mode is light but the chosen preset is dark, snap to a
+  // sensible light preset so we don't render black text on a black bg.
+  if (mode === "light" && preset.tone === "dark") {
+    bg = "sakura";
+    preset = BG_THEMES[bg];
+  }
+
+  root.setAttribute("data-pc-bg", bg);
   root.classList.toggle("dark", mode === "dark");
   root.setAttribute("data-theme", mode);
   try { localStorage.setItem("peacecode.theme.v1", mode); } catch {}
+
 
   // Accent — drives every `palette.primary` / `palette.soft` / `palette.ring`
   // reference in the app through CSS variables. No component has to know
