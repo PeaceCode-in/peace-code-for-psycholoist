@@ -94,7 +94,16 @@ export function AuthShell({
           backgroundRepeat: "no-repeat",
         }}
       />
-      {/* Single soft warm wash — no blur, no animation, no grain */}
+      {/* Soft blur wash — frosts the sky beneath so it reads as atmosphere, not a photo */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden
+        style={{
+          backdropFilter: "blur(18px) saturate(115%)",
+          background: "rgba(255,248,240,0.08)",
+        }}
+      />
+      {/* Warm color wash on top of the blur */}
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden
@@ -103,6 +112,19 @@ export function AuthShell({
             "linear-gradient(180deg, rgba(190,205,225,0.18) 0%, rgba(240,200,170,0.22) 55%, rgba(220,170,140,0.30) 100%)",
         }}
       />
+      {/* SVG noise — soft-light blend, sits above the wash for a filmic grain */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.98  0 0 0 0 0.94  0 0 0 0 0.88  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
+          backgroundSize: "240px 240px",
+          mixBlendMode: "soft-light",
+          opacity: 0.55,
+        }}
+      />
+
 
       <div className="hidden sm:flex absolute top-6 right-8 z-10 items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px]"
         style={{
