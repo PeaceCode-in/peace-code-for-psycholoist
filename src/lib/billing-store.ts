@@ -455,7 +455,13 @@ export function getRevenueThisMonth(): { current: number; previous: number; delt
 
 // ─── Hooks ───────────────────────────────────────────────────
 function useSnap<T>(read: () => T): T {
-  return useSyncExternalStore(subscribe, read, read);
+  const [v, setV] = useState<T>(read);
+  useEffect(() => {
+    setV(read());
+    return subscribe(() => setV(read()));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return v;
 }
 export function useLiveInvoices(filter?: Parameters<typeof listInvoices>[0]): Invoice[] {
   const key = JSON.stringify(filter ?? {});
@@ -482,6 +488,7 @@ export function useLiveClaim(id: string): InsuranceClaim | undefined {
 export function useLivePayments(): Payment[] { return useSnap(() => listPayments()); }
 export function useLiveServices(): ServiceRate[] { return useSnap(() => listServices()); }
 export function useOverdueCount(): number { return useSnap(() => getOverdueCount()); }
+
 
 // ─── Status meta ─────────────────────────────────────────────
 export const INVOICE_STATUS_META: Record<InvoiceStatus, { label: string; color: string; soft: string }> = {
