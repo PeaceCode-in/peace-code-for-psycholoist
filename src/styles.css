@@ -853,20 +853,34 @@ html[data-pc-bg] body {
   color: var(--pc-ink);
   transition: background-color 400ms ease, color 400ms ease;
 }
-/* Coarse grain — creates depth and film-like texture */
+/* Coarse grain — creates depth and film-like texture.
+   Real SVG turbulence noise, not a subtle gradient, so the texture reads
+   on every background theme. Fine-tuned for print-quality film grain. */
 html[data-pc-bg] body::before {
   content: "";
   position: fixed; inset: -20px;
   pointer-events: none;
   z-index: 0;
-  background-image: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0));
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='240' height='240' filter='url(%23n)' opacity='0.9'/></svg>"),
+    linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0));
+  background-size: 240px 240px, 100% 100%;
   mix-blend-mode: multiply;
-  opacity: 0.18;
+  opacity: 0.32;
 }
-/* Fine grain — a sharper micro-layer over the top */
+/* Fine grain — sharper micro-layer, drifts almost imperceptibly */
 html[data-pc-bg] body::after {
-  content: none;
+  content: "";
+  position: fixed; inset: -20px;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='0.7'/></svg>");
+  background-size: 160px 160px;
+  mix-blend-mode: overlay;
+  opacity: 0.22;
 }
+
 html[data-pc-bg][data-theme="dark"] body::before,
 html[data-pc-bg="midnight"] body::before,
 html[data-pc-bg="noir"] body::before {
