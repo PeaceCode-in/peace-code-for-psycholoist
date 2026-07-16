@@ -2,7 +2,7 @@
 // Multi-clinician case discussions: structured, documented, sign-off gated.
 // localStorage-backed with a tiny event bus for live re-renders.
 
-import { useSyncExternalStore } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 import { listPatients } from "@/lib/patients-store";
 import { listMembers } from "@/lib/team-store";
 
