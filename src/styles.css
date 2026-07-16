@@ -1327,3 +1327,24 @@ main p, main li, main dd, main td, main th, main span, main a { overflow-wrap: a
   main { padding-bottom: max(96px, env(safe-area-inset-bottom, 0px) + 88px); }
 }
 
+/* ============================================================
+   Glass panel mode — turns the sidebar + topbar into frosted
+   glass surfaces the page shows through. Driven by
+   Settings › Appearance › Glass panels.
+   ============================================================ */
+html[data-pc-glass-panels="on"] aside.pc-sidebar,
+html[data-pc-glass-panels="on"] header.pc-topbar {
+  background: color-mix(in oklab, var(--pc-surface, #fff) 42%, transparent) !important;
+  backdrop-filter: blur(22px) saturate(160%);
+  border-color: color-mix(in oklab, var(--pc-primary) 14%, transparent) !important;
+}
+html[data-pc-glass-panels="on"] header.pc-topbar {
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.6) inset,
+    0 8px 24px -18px color-mix(in oklab, var(--pc-primary) 40%, transparent) !important;
+}
+html[data-pc-glass-panels="on"][data-theme="dark"] aside.pc-sidebar,
+html[data-pc-glass-panels="on"][data-theme="dark"] header.pc-topbar {
+  background: color-mix(in oklab, #0B1020 55%, transparent) !important;
+}
+
