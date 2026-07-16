@@ -174,7 +174,9 @@
   --pc-glass:        rgba(255,255,255,0.60);
   --pc-glass-strong: rgba(255,255,255,0.70);
   --pc-solid:        #FFFFFF;
+  --pc-ink-contrast: #FFFFFF;
 }
+
 
 .dark, [data-theme="dark"] {
   --pc-bg:       #0B1020;
