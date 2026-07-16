@@ -3,7 +3,7 @@
 // case sharing, internal referrals, coverage/OOO, and audit trail.
 // localStorage-backed with a tiny event bus for live re-renders.
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 
 // ─── Types ───────────────────────────────────────────────────
 export type RoleKey = "owner" | "clinician" | "supervisor" | "associate" | "frontdesk" | "billing" | "readonly";
