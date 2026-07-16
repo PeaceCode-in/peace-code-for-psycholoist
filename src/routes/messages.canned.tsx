@@ -97,7 +97,7 @@ function TemplateEditor({ draft, onClose, onSave }: { draft: Partial<CannedRespo
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <div className="relative rounded-2xl w-full max-w-3xl flex" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+      <div className="relative rounded-2xl w-full max-w-3xl flex" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
         <div className="flex-1 p-5 border-r" style={{ borderColor: palette.border }}>
           <div className="flex items-center justify-between mb-4">
             <span style={{ fontFamily: "'Fraunces', serif", fontSize: "16px", color: palette.ink }}>{d.id ? "Edit template" : "New template"}</span>
@@ -128,7 +128,7 @@ function TemplateEditor({ draft, onClose, onSave }: { draft: Partial<CannedRespo
         </div>
         <div className="w-[300px] p-5" style={{ background: palette.surface2 }}>
           <div style={{ fontFamily: "'DM Mono', monospace", fontSize: "10px", color: palette.muted, marginBottom: "8px" }}>PREVIEW</div>
-          <div className="rounded-lg p-3 whitespace-pre-wrap" style={{ background: "#fff", border: `1px solid ${palette.border}`, fontFamily: "'DM Sans', sans-serif", fontSize: "12.5px", color: palette.ink, lineHeight: 1.55, minHeight: "200px" }}>
+          <div className="rounded-lg p-3 whitespace-pre-wrap" style={{ background: palette.solid, border: `1px solid ${palette.border}`, fontFamily: "'DM Sans', sans-serif", fontSize: "12.5px", color: palette.ink, lineHeight: 1.55, minHeight: "200px" }}>
             {interpolate(d.body ?? "", samplePatient)}
           </div>
         </div>

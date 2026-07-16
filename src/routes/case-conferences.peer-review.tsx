@@ -26,7 +26,7 @@ function PeerReviewPage() {
     <div className="max-w-[1400px] mx-auto px-5 sm:px-8 pb-24">
       <div className="rounded-2xl border p-5 mb-5" style={{ borderColor: palette.border, background: palette.lavender + "80" }}>
         <div className="flex items-start gap-3">
-          <div className="mt-0.5 rounded-full p-2" style={{ background: "#fff" }}>
+          <div className="mt-0.5 rounded-full p-2" style={{ background: palette.solid }}>
             <GraduationCap className="h-4 w-4" style={{ color: palette.primary }} />
           </div>
           <div>
@@ -37,7 +37,7 @@ function PeerReviewPage() {
       </div>
 
       {peer.length === 0 ? (
-        <div className="rounded-3xl border p-16 text-center" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+        <div className="rounded-3xl border p-16 text-center" style={{ borderColor: palette.border, background: palette.glass }}>
           <p className="text-[15px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>No peer-review cases yet.</p>
           <p className="text-[12.5px] mt-2" style={{ color: palette.muted }}>Start one to log a de-identified consult.</p>
           <Link to="/case-conferences/new" search={{ peer: "1" }} className="inline-flex items-center gap-2 mt-5 h-9 px-4 rounded-full text-[12.5px]" style={{ background: palette.ink, color: "#fff" }}>
@@ -49,7 +49,7 @@ function PeerReviewPage() {
           {peer.map((c) => {
             const facilitator = getMember(c.facilitatorId);
             return (
-              <Link key={c.id} to="/case-conferences/$cid" params={{ cid: c.id }} className="block rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+              <Link key={c.id} to="/case-conferences/$cid" params={{ cid: c.id }} className="block rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong }}>
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 mb-1.5">

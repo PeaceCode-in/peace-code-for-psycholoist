@@ -37,7 +37,7 @@ function CpdPlan() {
         <p className="text-[12px] mt-1" style={{ color: palette.muted }}>Annual goals you set for yourself. Questions Co-Pilot might ask, never prescribe.</p>
       </div>
 
-      <section className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.72)", backdropFilter: "blur(14px)" }}>
+      <section className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
         <div className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
           <Sparkles className="h-3 w-3" /> Gentle nudges
         </div>
@@ -50,14 +50,14 @@ function CpdPlan() {
         </ul>
       </section>
 
-      <section className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.72)", backdropFilter: "blur(14px)" }}>
+      <section className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
         <h3 style={{ fontFamily: "'Fraunces', serif", color: palette.ink, fontSize: 18 }}>Your goals</h3>
         <div className="grid grid-cols-1 md:grid-cols-[1fr_180px_100px_auto] gap-2 mt-3">
-          <input value={goal} onChange={(e) => setGoal(e.target.value)} placeholder="e.g. Deepen ACT for chronic pain" className="rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: "#fff" }} />
-          <select value={cat} onChange={(e) => setCat(e.target.value as CpdCategory)} className="rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: "#fff" }}>
+          <input value={goal} onChange={(e) => setGoal(e.target.value)} placeholder="e.g. Deepen ACT for chronic pain" className="rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: palette.solid }} />
+          <select value={cat} onChange={(e) => setCat(e.target.value as CpdCategory)} className="rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: palette.solid }}>
             {(Object.keys(CATEGORY_LABEL) as CpdCategory[]).map((c) => <option key={c} value={c}>{CATEGORY_LABEL[c]}</option>)}
           </select>
-          <input type="number" min={1} value={target} onChange={(e) => setTarget(Number(e.target.value))} className="rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: "#fff" }} placeholder="hours" />
+          <input type="number" min={1} value={target} onChange={(e) => setTarget(Number(e.target.value))} className="rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: palette.solid }} placeholder="hours" />
           <button onClick={submit} className="inline-flex items-center gap-1 rounded-full px-3 py-2 text-[12px]" style={{ background: palette.ink, color: "#fff" }}><Plus className="h-3.5 w-3.5" />Add</button>
         </div>
         <ul className="mt-4 divide-y" style={{ borderColor: palette.border }}>

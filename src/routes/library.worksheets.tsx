@@ -15,13 +15,13 @@ function Worksheets() {
     <div className="max-w-[1400px] mx-auto px-5 sm:px-8 pb-24">
       <p className="text-[12.5px] mb-5" style={{ color: palette.muted }}>Downloadable resources. Bulk-share to patients via Messages.</p>
       {ws.length === 0 ? (
-        <div className="rounded-3xl border p-16 text-center" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+        <div className="rounded-3xl border p-16 text-center" style={{ borderColor: palette.border, background: palette.glass }}>
           <p className="text-[15px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>No worksheets yet.</p>
         </div>
       ) : (
         <div className="grid gap-3">
           {ws.map((p) => (
-            <div key={p.id} className="rounded-2xl border p-5 flex items-center gap-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+            <div key={p.id} className="rounded-2xl border p-5 flex items-center gap-4" style={{ borderColor: palette.border, background: palette.glassStrong }}>
               <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: palette.soft, color: palette.primary }}>
                 <FileText className="h-5 w-5" />
               </div>

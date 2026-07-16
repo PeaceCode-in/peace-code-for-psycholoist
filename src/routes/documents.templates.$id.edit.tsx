@@ -146,7 +146,7 @@ function TemplateEditor() {
         <section className="flex-1 min-w-0 overflow-y-auto" style={{ background: "#F7F3F4" }}>
           <div className="max-w-3xl mx-auto py-10 px-6">
             {/* Doc header */}
-            <div className="rounded-2xl p-6 mb-4" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+            <div className="rounded-2xl p-6 mb-4" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
               <input
                 value={draft.name}
                 onChange={(e) => setDraft({ ...draft, name: e.target.value })}
@@ -163,7 +163,7 @@ function TemplateEditor() {
             </div>
 
             {/* Blocks */}
-            <div className="rounded-2xl overflow-hidden" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+            <div className="rounded-2xl overflow-hidden" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
               {draft.blocks.length === 0 && (
                 <div className="p-10 text-center text-[13px]" style={{ color: palette.muted }}>
                   A blank page. Add a block from the left, or use the + below.
@@ -206,7 +206,7 @@ function TemplateEditor() {
             </div>
 
             {showSlash && (
-              <div className="mt-3 rounded-xl p-2 grid grid-cols-2 gap-1" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+              <div className="mt-3 rounded-xl p-2 grid grid-cols-2 gap-1" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
                 {BLOCK_LIBRARY.map((def) => (
                   <button key={def.type} onClick={() => insertAfter(showSlash.afterId, def.type)}
                     className="flex items-center gap-2 px-3 py-1.5 rounded-md hover:bg-black/[0.03] text-left text-[12.5px]"
@@ -336,7 +336,7 @@ function TemplateEditor() {
   );
 }
 
-const inputStyle: React.CSSProperties = { background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink, outline: "none" };
+const inputStyle: React.CSSProperties = { background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink, outline: "none" };
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (

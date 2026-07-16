@@ -26,7 +26,7 @@ function Analytics() {
         <Stat icon={<Share2 className="h-4 w-4" />} label="Shares" value={totalShares.toLocaleString()} />
       </div>
 
-      <div className="rounded-2xl border" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+      <div className="rounded-2xl border" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <div className="px-5 py-4 border-b flex items-center justify-between" style={{ borderColor: palette.border }}>
           <div className="text-[13px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>Top pieces</div>
           <div className="text-[10.5px] uppercase tracking-[0.14em]" style={{ color: palette.muted }}>Last 30 days</div>
@@ -57,7 +57,7 @@ function Analytics() {
 
 function Stat({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
-    <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+    <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glassStrong }}>
       <div className="flex items-center gap-2 mb-2 text-[10.5px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
         <span style={{ color: palette.primary }}>{icon}</span> {label}
       </div>

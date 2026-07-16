@@ -48,7 +48,7 @@ function AmendPage() {
         <ArrowLeft className="h-3 w-3" /> Back to note
       </Link>
 
-      <div className="rounded-3xl border p-8 lg:p-10" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.85)" }}>
+      <div className="rounded-3xl border p-8 lg:p-10" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <div className="inline-flex items-center gap-1.5 text-[10.5px] px-2.5 py-1 rounded-full mb-4" style={{ background: "#EFE4F0", color: "#5F3F60", fontFamily: "'DM Mono', ui-monospace, monospace" }}>
           <GitBranch className="h-3 w-3" /> Amendment
         </div>
@@ -65,7 +65,7 @@ function AmendPage() {
             value={reason} onChange={(e) => setReason(e.target.value)}
             placeholder="e.g. Corrected date of prior session, added omitted risk info"
             className="w-full h-11 px-3 rounded-xl border text-[13.5px] outline-none"
-            style={{ borderColor: palette.border, background: "#fff", color: palette.ink }}
+            style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }}
           />
         </div>
 

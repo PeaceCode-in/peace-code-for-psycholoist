@@ -120,7 +120,7 @@ function HardcodeReport() {
           </div>
         </div>
 
-        <div className="mt-6 rounded-2xl border overflow-hidden" style={{ borderColor: "rgba(20,30,60,0.08)", background: "rgba(255,255,255,0.6)" }}>
+        <div className="mt-6 rounded-2xl border overflow-hidden" style={{ borderColor: "rgba(20,30,60,0.08)", background: palette.glass }}>
           <table className="w-full text-[13px]">
             <thead>
               <tr className="text-left text-[10px] uppercase tracking-[0.12em] text-[color:var(--muted-foreground)]">

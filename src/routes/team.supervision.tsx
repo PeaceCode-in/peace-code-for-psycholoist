@@ -142,7 +142,7 @@ function LogSessionButton({ supervisionId }: { supervisionId: string }) {
   return (
     <div className="fixed inset-0 z-40 flex items-end sm:items-center justify-center px-3" onClick={() => setOpen(false)}>
       <div className="absolute inset-0 bg-black/30" />
-      <div className="relative w-full max-w-md rounded-2xl p-4" style={{ background: "#fff", border: `1px solid ${palette.border}` }} onClick={(e) => e.stopPropagation()}>
+      <div className="relative w-full max-w-md rounded-2xl p-4" style={{ background: palette.solid, border: `1px solid ${palette.border}` }} onClick={(e) => e.stopPropagation()}>
         <div className="uppercase text-[9.5px] tracking-[0.22em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Private supervision note</div>
         <h3 className="text-[16px] mt-1" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>Log a supervision session</h3>
         <p className="text-[11.5px] mt-1" style={{ color: palette.muted }}>

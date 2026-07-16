@@ -125,7 +125,7 @@ function AvailabilityEditor() {
       </div>
 
       <div className="grid gap-5" style={{ gridTemplateColumns: "minmax(0,1fr) 300px" }}>
-        <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.5)" }}>
+        <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.glass }}>
           <div className="grid" style={{ gridTemplateColumns: `56px repeat(7, minmax(0, 1fr))`, borderBottom: `1px solid ${palette.border}` }}>
             <div />
             {dayOrder.map((d) => (
@@ -161,7 +161,7 @@ function AvailabilityEditor() {
                   const h = ((w.endMin - w.startMin) / 60) * HOUR_PX;
                   return (
                     <div key={w.id} className="absolute left-1 right-1 rounded-lg text-[10px] px-2 py-0.5 flex items-center justify-between pointer-events-auto"
-                      style={{ top, height: h, background: "rgba(255,255,255,0.55)", border: `1px solid ${palette.border}` }}>
+                      style={{ top, height: h, background: palette.glass, border: `1px solid ${palette.border}` }}>
                       <span style={{ fontFamily: "'DM Mono', monospace", color: palette.ink }}>{fmt(w.startMin)}–{fmt(w.endMin)}</span>
                       <button onPointerDown={(e) => e.stopPropagation()} onClick={() => { deleteWindow(w.id); toast.success("Window removed"); }} className="opacity-60 hover:opacity-100" aria-label="Delete window">
                         <Trash2 className="h-3 w-3" style={{ color: palette.muted }} />
@@ -178,13 +178,13 @@ function AvailabilityEditor() {
         </div>
 
         <aside className="space-y-4">
-          <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.55)" }}>
+          <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glass }}>
             <div className="text-[11px] uppercase tracking-wider mb-2" style={{ color: palette.muted, fontFamily: "'DM Mono', monospace" }}>Next 7 days</div>
             <div className="text-[26px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>{openSlots}</div>
             <div className="text-[11px]" style={{ color: palette.muted }}>open 50-min slots</div>
           </div>
 
-          <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.55)" }}>
+          <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glass }}>
             <div className="flex items-center justify-between mb-3">
               <div className="text-[11px] uppercase tracking-wider" style={{ color: palette.muted, fontFamily: "'DM Mono', monospace" }}>Blackouts</div>
             </div>

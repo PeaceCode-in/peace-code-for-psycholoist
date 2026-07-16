@@ -351,7 +351,7 @@ function FirstPatientStep({ onCommit }: { onCommit: () => void }) {
             key={o.k}
             onClick={() => setMode(o.k)}
             className="text-left rounded-2xl p-5 transition-all duration-150"
-            style={{ background: "rgba(255,255,255,0.55)", border: `1px solid ${SAKURA.border}` }}
+            style={{ background: palette.glass, border: `1px solid ${SAKURA.border}` }}
             onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(176,86,122,0.05)"; e.currentTarget.style.borderColor = SAKURA.accent; }}
             onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.55)"; e.currentTarget.style.borderColor = SAKURA.border; }}
           >

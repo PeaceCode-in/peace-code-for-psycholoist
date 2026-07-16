@@ -46,7 +46,7 @@ function CpdIndex() {
 
       <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6">
         {/* Cycle ring + category breakdown */}
-        <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+        <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
           <div className="text-[11px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Cycle progress</div>
           <Ring percent={summary.percent} behind={summary.behind} />
           <div className="text-center text-[11px] mt-2" style={{ color: palette.muted }}>
@@ -80,7 +80,7 @@ function CpdIndex() {
           </div>
 
           {filtered.length === 0 ? (
-            <div className="rounded-2xl border p-10 text-center" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+            <div className="rounded-2xl border p-10 text-center" style={{ borderColor: palette.border, background: palette.glass }}>
               <p style={{ fontFamily: "'Fraunces', serif", color: palette.ink, fontSize: 20 }}>
                 {filter === "this_cycle" && summary.hoursTotal === 0
                   ? "No hours logged this cycle. There's still time — and the first entry is the hardest."
@@ -91,7 +91,7 @@ function CpdIndex() {
               </Link>
             </div>
           ) : (
-            <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+            <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.glassStrong }}>
               {filtered.map((e, i) => (
                 <Link
                   key={e.id}
@@ -139,7 +139,7 @@ const FILTER_LABEL: Record<Filter, string> = {
 function StatCard({ label, value, sub, tone }: { label: string; value: string; sub?: string; tone?: "ok" | "warn" }) {
   const toneColor = tone === "warn" ? "#B85C4A" : palette.muted;
   return (
-    <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.65)", backdropFilter: "blur(12px)" }}>
+    <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glass, backdropFilter: "blur(12px)" }}>
       <div className="text-[10px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{label}</div>
       <div className="mt-1" style={{ fontFamily: "'Fraunces', serif", color: palette.ink, fontSize: 22 }}>{value}</div>
       {sub && <div className="text-[11px] mt-0.5" style={{ color: toneColor }}>{sub}</div>}

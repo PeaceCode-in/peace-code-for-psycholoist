@@ -29,7 +29,7 @@ function DiscoveryPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+        <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
           <div className="text-[11px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Directory listing</div>
           <p className="text-[12px] mb-3" style={{ color: palette.muted }}>
             How you're indexed on the PeaceCode public directory. Facets that patients filter by.
@@ -44,7 +44,7 @@ function DiscoveryPage() {
           <Row label="Sliding scale">{p.slidingScale ? "Offered" : "Not offered"}</Row>
         </div>
 
-        <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+        <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
           <div className="text-[11px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Discovery levers</div>
           <Toggle label="Boost 'accepting new' badge" checked={p.acceptingNew} onChange={(v) => updateProfile({ acceptingNew: v })} hint="Shown at top of directory when on" />
           <Toggle label="Highlight sliding-scale slots" checked={p.slidingScale} onChange={(v) => updateProfile({ slidingScale: v })} hint="Signals access-forward practice" />
@@ -56,7 +56,7 @@ function DiscoveryPage() {
         </div>
       </div>
 
-      <div className="mt-5 rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+      <div className="mt-5 rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
         <div className="text-[11px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Top search queries you appeared for</div>
         <div className="space-y-1 text-[13px]" style={{ color: palette.ink }}>
           {[
@@ -80,7 +80,7 @@ function DiscoveryPage() {
 
 function Stat({ icon, label, value, sub }: { icon: React.ReactNode; label: string; value: string; sub: string }) {
   return (
-    <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+    <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
       <div className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{icon} {label}</div>
       <div className="mt-1 text-[24px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>{value}</div>
       <div className="text-[11px]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{sub}</div>

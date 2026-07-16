@@ -33,7 +33,7 @@ function ReferralDetail() {
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-5">
         <div className="space-y-4">
-          <div className="rounded-2xl border p-6" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+          <div className="rounded-2xl border p-6" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
             <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
               <span>{r.direction} · {SOURCE_LABEL[r.source]}</span>
               <span>{STATUS_LABEL[r.status]}</span>
@@ -62,12 +62,12 @@ function ReferralDetail() {
             </div>
           </div>
 
-          <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+          <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
             <div className="text-[11px] uppercase tracking-[0.14em] mb-2" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Working notes</div>
             <textarea value={notes} onChange={(e) => setNotes(e.target.value)} onBlur={() => updateReferral(r.id, { notes }, "notes edited")} rows={5} className="w-full border rounded-xl px-3 py-2 text-[13px]" style={{ borderColor: palette.border }} />
           </div>
 
-          <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+          <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
             <div className="text-[11px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>History</div>
             <div className="space-y-1.5">
               {r.history.map((h, i) => (
@@ -82,7 +82,7 @@ function ReferralDetail() {
         </div>
 
         <div className="space-y-4">
-          <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+          <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
             <div className="text-[11px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Actions</div>
             <div className="space-y-2">
               {r.direction === "incoming" && r.status === "new" && (
@@ -100,13 +100,13 @@ function ReferralDetail() {
             </div>
           </div>
 
-          <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+          <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
             <div className="text-[11px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Contact</div>
             {r.sourceContact && <ContactRow icon={<Mail className="h-3.5 w-3.5" />} value={r.sourceContact} label="Source" />}
             {r.patientContact && <ContactRow icon={<Phone className="h-3.5 w-3.5" />} value={r.patientContact} label="Patient" />}
           </div>
 
-          <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+          <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
             <div className="text-[11px] uppercase tracking-[0.14em] mb-2" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Change status</div>
             <select value={r.status} onChange={(e) => setStatus(r.id, e.target.value as ReferralStatus)} className="w-full border rounded-lg px-2 py-1.5 text-[12px]" style={{ borderColor: palette.border, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
               {(Object.keys(STATUS_LABEL) as ReferralStatus[]).map((k) => <option key={k} value={k}>{STATUS_LABEL[k]}</option>)}

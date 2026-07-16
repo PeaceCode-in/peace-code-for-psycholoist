@@ -84,7 +84,7 @@ function TeamOnboarding() {
                   <Mono style={{ color: SAKURA.muted }}>Supervisees</Mono>
                   <div className="mt-2 space-y-2">
                     {invites.filter((i) => i.role === "clinician").map((i) => (
-                      <div key={i.email} className="rounded-xl px-4 py-3 text-[13.5px]" style={{ background: "rgba(255,255,255,0.6)", border: `1px solid ${SAKURA.border}` }}>{i.email || "(unnamed)"}</div>
+                      <div key={i.email} className="rounded-xl px-4 py-3 text-[13.5px]" style={{ background: palette.glass, border: `1px solid ${SAKURA.border}` }}>{i.email || "(unnamed)"}</div>
                     ))}
                   </div>
                 </div>

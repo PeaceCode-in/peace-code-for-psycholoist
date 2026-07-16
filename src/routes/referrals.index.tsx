@@ -39,7 +39,7 @@ function ReferralsIndex() {
 
       <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
         <div className="flex flex-wrap items-center gap-2">
-          <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)", backdropFilter: "blur(12px)" }}>
+          <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: palette.glass, backdropFilter: "blur(12px)" }}>
             {(["all", "incoming", "outgoing"] as const).map((k) => (
               <button key={k} onClick={() => setDir(k)} className="rounded-full px-3 py-1 text-[11px] capitalize" style={{ fontFamily: "'DM Mono', ui-monospace, monospace", background: dir === k ? palette.ink : "transparent", color: dir === k ? "#fff" : palette.muted }}>{k}</button>
             ))}
@@ -52,7 +52,7 @@ function ReferralsIndex() {
         <div className="text-[11px]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{filtered.length} shown</div>
       </div>
 
-      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <div className="grid grid-cols-[48px_1fr_1.4fr_140px_120px_100px_100px] gap-3 px-4 py-2 text-[11px] uppercase tracking-[0.14em]" style={{ color: palette.muted, background: "rgba(0,0,0,0.02)", fontFamily: "'DM Mono', ui-monospace, monospace" }}>
           <div>Dir</div><div>Source</div><div>Patient / presenting</div><div>Urgency</div><div>Status</div><div>Received</div><div>Convert</div>
         </div>
@@ -93,7 +93,7 @@ function ReferralsIndex() {
 function Stat({ label, value, sub, tone = "ok" }: { label: string; value: string; sub: string; tone?: "ok" | "warn" }) {
   const border = tone === "warn" ? "rgba(203,108,84,0.4)" : palette.border;
   return (
-    <div className="rounded-2xl border p-4" style={{ borderColor: border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+    <div className="rounded-2xl border p-4" style={{ borderColor: border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
       <div className="text-[11px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{label}</div>
       <div className="mt-1 text-[24px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>{value}</div>
       <div className="text-[11px]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{sub}</div>

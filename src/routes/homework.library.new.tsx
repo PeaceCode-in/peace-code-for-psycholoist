@@ -53,13 +53,13 @@ function NewTemplate() {
         <ArrowLeft className="h-3 w-3" /> Library
       </Link>
 
-      <div className="rounded-3xl border p-8 lg:p-10" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.85)" }}>
+      <div className="rounded-3xl border p-8 lg:p-10" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <h2 className="text-[24px] leading-tight tracking-tight" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>New template</h2>
         <p className="text-[12.5px] mt-1" style={{ color: palette.muted }}>Compose from blocks. This becomes reusable across patients.</p>
 
         <div className="grid gap-5 mt-6">
           <Row label="Name">
-            <input value={name} onChange={(e) => setName(e.target.value)} className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+            <input value={name} onChange={(e) => setName(e.target.value)} className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
           </Row>
           <Row label="Modality">
             <select value={modality} onChange={(e) => setModality(e.target.value as Modality)} className="w-full h-10 px-3 rounded-xl border text-[13px] bg-white" style={{ borderColor: palette.border, color: palette.ink }}>
@@ -67,17 +67,17 @@ function NewTemplate() {
             </select>
           </Row>
           <Row label="Description">
-            <input value={description} onChange={(e) => setDescription(e.target.value)} className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+            <input value={description} onChange={(e) => setDescription(e.target.value)} className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
           </Row>
           <Row label="Default instructions">
-            <textarea value={instructions} onChange={(e) => setInstructions(e.target.value)} rows={3} className="w-full rounded-xl border p-3 text-[13px] outline-none" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+            <textarea value={instructions} onChange={(e) => setInstructions(e.target.value)} rows={3} className="w-full rounded-xl border p-3 text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
           </Row>
 
           <div>
             <div className="text-[10.5px] uppercase tracking-[0.14em] mb-2" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Fields</div>
             <ul className="space-y-2">
               {fields.map((f, idx) => (
-                <li key={idx} className="rounded-xl border p-3 flex items-center gap-2" style={{ borderColor: palette.border, background: "#fff" }}>
+                <li key={idx} className="rounded-xl border p-3 flex items-center gap-2" style={{ borderColor: palette.border, background: palette.solid }}>
                   <GripVertical className="h-3.5 w-3.5" style={{ color: palette.muted }} />
                   <input value={f.label} onChange={(e) => updateField(idx, { label: e.target.value })} className="flex-1 h-8 px-2 rounded border text-[13px] outline-none" style={{ borderColor: palette.border, color: palette.ink }} />
                   <select value={f.type} onChange={(e) => updateField(idx, { type: e.target.value as FieldType })} className="h-8 px-2 rounded border text-[12px] bg-white" style={{ borderColor: palette.border, color: palette.ink }}>

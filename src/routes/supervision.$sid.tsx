@@ -37,7 +37,7 @@ function SessionDetail() {
         <ArrowLeft className="h-3 w-3" /> Sessions
       </Link>
 
-      <div className="rounded-2xl border p-6 mb-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+      <div className="rounded-2xl border p-6 mb-4" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
         <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
           <span>Supervision session · {s.role}</span>
           <span>{s.status.replace("_", " ")}</span>
@@ -82,7 +82,7 @@ function SessionDetail() {
         )}
       </div>
 
-      <div className="rounded-2xl border p-5 mb-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+      <div className="rounded-2xl border p-5 mb-4" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
         <div className="text-[11px] uppercase tracking-[0.14em] mb-2" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Shared notes — visible to both</div>
         <textarea value={shared} onChange={(e) => setShared(e.target.value)} onBlur={() => updateSession(s.id, { sharedNotes: shared })} rows={6} placeholder="Working record. Discussed, agreed, action items." className="w-full border rounded-xl px-3 py-2 text-[13px]" style={{ borderColor: palette.border }} />
       </div>

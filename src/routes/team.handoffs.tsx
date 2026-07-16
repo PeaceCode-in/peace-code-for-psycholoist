@@ -168,7 +168,7 @@ function HandoffDialog({ onClose }: { onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-40 flex items-end sm:items-center justify-center px-3" onClick={onClose}>
       <div className="absolute inset-0 bg-black/30" />
-      <div className="relative w-full max-w-lg rounded-2xl p-5" style={{ background: "#fff", border: `1px solid ${palette.border}` }} onClick={(e) => e.stopPropagation()}>
+      <div className="relative w-full max-w-lg rounded-2xl p-5" style={{ background: palette.solid, border: `1px solid ${palette.border}` }} onClick={(e) => e.stopPropagation()}>
         <div className="uppercase text-[9.5px] tracking-[0.22em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Step {step} of 2</div>
         <h3 className="text-[18px] mt-1" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>
           {step === 1 ? "What are you handing over?" : "Confirm the handoff"}

@@ -75,7 +75,7 @@ function LaunchReadiness() {
 
         <div
           className="mt-8 rounded-2xl border p-5"
-          style={{ borderColor: "rgba(20,30,60,0.08)", background: "rgba(255,255,255,0.6)" }}
+          style={{ borderColor: "rgba(20,30,60,0.08)", background: palette.glass }}
         >
           <div className="flex items-baseline justify-between">
             <div className="text-[11px] uppercase tracking-[0.14em] text-[color:var(--muted-foreground)]">Overall</div>
@@ -103,7 +103,7 @@ function LaunchReadiness() {
               key={c.id}
               onClick={() => setOverrides((o) => ({ ...o, [c.id]: !c.passing }))}
               className="w-full text-left rounded-xl border p-4 flex items-start gap-3 transition-colors duration-150 hover:bg-[rgba(20,30,60,0.02)]"
-              style={{ borderColor: "rgba(20,30,60,0.08)", background: "rgba(255,255,255,0.6)" }}
+              style={{ borderColor: "rgba(20,30,60,0.08)", background: palette.glass }}
             >
               <span
                 className="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center shrink-0"

@@ -39,7 +39,7 @@ function DailyBriefPage() {
         </Link>
 
         {/* Envelope preview */}
-        <div className="rounded-3xl overflow-hidden" style={{ background: "#fff", border: `1px solid ${palette.border}`, boxShadow: "0 20px 80px rgba(30,20,24,0.06)" }}>
+        <div className="rounded-3xl overflow-hidden" style={{ background: palette.solid, border: `1px solid ${palette.border}`, boxShadow: "0 20px 80px rgba(30,20,24,0.06)" }}>
           <div className="px-8 py-5 border-b flex items-center justify-between" style={{ borderColor: palette.border, background: "#FCF9FA" }}>
             <div>
               <div className="uppercase" style={{ fontFamily: "'DM Mono', ui-monospace, monospace", fontSize: 10, letterSpacing: "0.18em", color: palette.muted }}>

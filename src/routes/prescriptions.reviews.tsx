@@ -36,7 +36,7 @@ function Reviews() {
             {g.items.length === 0 ? (
               <div className="text-[12px]" style={{ color: palette.muted }}>Nothing here.</div>
             ) : (
-              <ul className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.75)" }}>
+              <ul className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.glassStrong }}>
                 {g.items.map((m) => {
                   const p = getPatient(m.patientId);
                   return (

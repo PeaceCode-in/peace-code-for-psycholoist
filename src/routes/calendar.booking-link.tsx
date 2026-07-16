@@ -33,7 +33,7 @@ function BookingLinkConfig() {
 
   return (
     <CalendarShell title="Booking link" subtitle="A quiet doorway to your calendar.">
-      <div className="rounded-2xl border p-4 mb-5 flex items-center gap-3 flex-wrap" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.55)" }}>
+      <div className="rounded-2xl border p-4 mb-5 flex items-center gap-3 flex-wrap" style={{ borderColor: palette.border, background: palette.glass }}>
         <span className="text-[12px] px-3 py-1 rounded-full" style={{ background: cfg.isPublic ? "#E1EFE3" : palette.surface2, color: cfg.isPublic ? "#3E6B4C" : palette.muted, fontFamily: "'DM Mono', monospace" }}>
           {cfg.isPublic ? "Public" : "Paused"}
         </span>
@@ -48,7 +48,7 @@ function BookingLinkConfig() {
 
       <div className="grid gap-5" style={{ gridTemplateColumns: "minmax(0,1fr) 380px" }}>
         {/* Config */}
-        <div className="rounded-2xl border p-5 space-y-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.55)" }}>
+        <div className="rounded-2xl border p-5 space-y-5" style={{ borderColor: palette.border, background: palette.glass }}>
           <Field label="Headline">
             <input value={cfg.headline} onChange={(e) => updateBooking({ headline: e.target.value })} className="w-full rounded-md border px-3 py-2 text-[14px]" style={{ borderColor: palette.border }} />
           </Field>
@@ -109,11 +109,11 @@ function BookingLinkConfig() {
         {/* Preview */}
         <aside className="space-y-4">
           <div className="rounded-[28px] border p-2" style={{ borderColor: palette.border, background: palette.surface2 }}>
-            <div className="rounded-[22px] overflow-hidden border" style={{ borderColor: palette.border, background: "#fff", height: 640 }}>
+            <div className="rounded-[22px] overflow-hidden border" style={{ borderColor: palette.border, background: palette.solid, height: 640 }}>
               <iframe title="Booking link preview" src={`/calendar/book/${cfg.slug}?preview=1`} className="w-full h-full block" />
             </div>
           </div>
-          <div className="rounded-2xl border p-3 flex items-center gap-3" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.55)" }}>
+          <div className="rounded-2xl border p-3 flex items-center gap-3" style={{ borderColor: palette.border, background: palette.glass }}>
             <div dangerouslySetInnerHTML={{ __html: qr }} />
             <div className="text-[11px]" style={{ color: palette.muted, fontFamily: "'DM Mono', monospace" }}>QR — share on print materials.</div>
           </div>

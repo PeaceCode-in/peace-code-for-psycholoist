@@ -33,12 +33,12 @@ function CertificatePage() {
             <ArrowLeft className="w-3 h-3" /> Document
           </Link>
           <button onClick={() => window.print()} className="h-9 px-3 rounded-full text-[12px] flex items-center gap-1.5"
-            style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}>
+            style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}>
             <Printer className="w-3.5 h-3.5" /> Print / Save PDF
           </button>
         </div>
 
-        <div className="rounded-2xl overflow-hidden" style={{ background: "#fff", border: `1px solid ${palette.border}`, boxShadow: "0 20px 60px -30px rgba(30,20,24,0.16)" }}>
+        <div className="rounded-2xl overflow-hidden" style={{ background: palette.solid, border: `1px solid ${palette.border}`, boxShadow: "0 20px 60px -30px rgba(30,20,24,0.16)" }}>
           <div className="px-10 py-8 border-b flex items-center justify-between" style={{ borderColor: palette.border, background: "linear-gradient(180deg,#FCF9FA,#FFFFFF)" }}>
             <div>
               <div className="uppercase" style={{ fontFamily: "'DM Mono', ui-monospace, monospace", fontSize: 10, letterSpacing: "0.22em", color: palette.muted }}>

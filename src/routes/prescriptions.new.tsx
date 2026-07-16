@@ -60,7 +60,7 @@ function NewMed() {
         <ArrowLeft className="h-3 w-3" /> Prescriptions
       </Link>
 
-      <div className="rounded-3xl border p-8 lg:p-10" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.85)" }}>
+      <div className="rounded-3xl border p-8 lg:p-10" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <Steps step={step} />
 
         {step === 1 && (
@@ -79,7 +79,7 @@ function NewMed() {
             <h2 className="text-[22px] mt-6 mb-3" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>Drug</h2>
             <div className="relative mb-3">
               <Search className="h-3.5 w-3.5 absolute left-3 top-1/2 -translate-y-1/2" style={{ color: palette.muted }} />
-              <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search generic or brand" className="w-full h-10 pl-9 pr-3 rounded-full border text-[13px] outline-none" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+              <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search generic or brand" className="w-full h-10 pl-9 pr-3 rounded-full border text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
             </div>
             <div className="max-h-[380px] overflow-auto grid sm:grid-cols-2 gap-2 pr-1">
               {filteredDrugs.map((d) => {
@@ -106,10 +106,10 @@ function NewMed() {
             <h2 className="text-[22px] mt-6 mb-3" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>Regimen</h2>
             <div className="grid gap-4">
               <Row label={`Dose ${drug ? `(range: ${drug.typicalRange})` : ""}`}>
-                <input value={dose} onChange={(e) => setDose(e.target.value)} placeholder="e.g. 10 mg" className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+                <input value={dose} onChange={(e) => setDose(e.target.value)} placeholder="e.g. 10 mg" className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
               </Row>
               <Row label="Frequency">
-                <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: "#fff" }}>
+                <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: palette.solid }}>
                   {(["OD", "BD", "TID", "QID", "HS", "PRN"] as Frequency[]).map((f) => {
                     const on = frequency === f;
                     return <button key={f} type="button" onClick={() => setFrequency(f)} className="px-3 h-7 rounded-full text-[12px]" style={{ background: on ? palette.ink : "transparent", color: on ? "#fff" : palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{f}</button>;
@@ -117,7 +117,7 @@ function NewMed() {
                 </div>
               </Row>
               <Row label="Route">
-                <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: "#fff" }}>
+                <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: palette.solid }}>
                   {(["PO", "SL", "IM", "IV", "TD"] as Route_[]).map((r) => {
                     const on = route_ === r;
                     return <button key={r} type="button" onClick={() => setRoute(r)} className="px-3 h-7 rounded-full text-[12px]" style={{ background: on ? palette.ink : "transparent", color: on ? "#fff" : palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{r}</button>;
@@ -125,7 +125,7 @@ function NewMed() {
                 </div>
               </Row>
               <Row label="Indication">
-                <input value={indication} onChange={(e) => setIndication(e.target.value)} placeholder="e.g. Generalised anxiety" className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+                <input value={indication} onChange={(e) => setIndication(e.target.value)} placeholder="e.g. Generalised anxiety" className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
               </Row>
             </div>
             <Nav back={() => setStep(2)} next={() => setStep(4)} nextDisabled={!dose} />
@@ -137,27 +137,27 @@ function NewMed() {
             <h2 className="text-[22px] mt-6 mb-3" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>Meta</h2>
             <div className="grid gap-4">
               <Row label="Prescriber">
-                <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: "#fff" }}>
+                <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: palette.solid }}>
                   {(["self", "external"] as const).map((p) => {
                     const on = prescriber === p;
                     return <button key={p} type="button" onClick={() => setPrescriber(p)} className="px-3 h-7 rounded-full text-[12px] capitalize" style={{ background: on ? palette.ink : "transparent", color: on ? "#fff" : palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{p}</button>;
                   })}
                 </div>
                 {prescriber === "external" && (
-                  <input value={externalName} onChange={(e) => setExternalName(e.target.value)} placeholder="External prescriber name" className="mt-2 w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+                  <input value={externalName} onChange={(e) => setExternalName(e.target.value)} placeholder="External prescriber name" className="mt-2 w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
                 )}
               </Row>
               <Row label="Start date">
-                <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+                <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
               </Row>
               <Row label="Supply (days)">
-                <input type="number" value={supplyDays} onChange={(e) => setSupplyDays(Number(e.target.value))} className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+                <input type="number" value={supplyDays} onChange={(e) => setSupplyDays(Number(e.target.value))} className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
               </Row>
               <Row label="Notes">
-                <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} className="w-full rounded-xl border p-3 text-[13px] outline-none" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+                <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} className="w-full rounded-xl border p-3 text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
               </Row>
               <Row label="Taper plan (if applicable)">
-                <input value={taperPlan} onChange={(e) => setTaperPlan(e.target.value)} placeholder="e.g. Reduce by 5 mg every 2 weeks" className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+                <input value={taperPlan} onChange={(e) => setTaperPlan(e.target.value)} placeholder="e.g. Reduce by 5 mg every 2 weeks" className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
               </Row>
             </div>
             <Nav back={() => setStep(3)} next={submit} nextLabel="Add medication" />

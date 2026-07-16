@@ -114,7 +114,7 @@ function NoteEditor() {
 
         {/* LEFT: patient rail */}
         <aside className="hidden lg:block">
-          <div className="rounded-2xl border p-4 sticky top-6" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+          <div className="rounded-2xl border p-4 sticky top-6" style={{ borderColor: palette.border, background: palette.glassStrong }}>
             <Link to="/notes" className="inline-flex items-center gap-1.5 text-[10.5px] uppercase tracking-[0.16em] mb-4" style={{ color: palette.muted }}>
               <ArrowLeft className="h-3 w-3" /> All notes
             </Link>
@@ -153,7 +153,7 @@ function NoteEditor() {
               </span>
               {!readOnly && (
                 <>
-                  <button onClick={manualSave} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full border text-[12px]" style={{ borderColor: palette.border, color: palette.ink, background: "rgba(255,255,255,0.7)" }}>
+                  <button onClick={manualSave} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full border text-[12px]" style={{ borderColor: palette.border, color: palette.ink, background: palette.glassStrong }}>
                     <Save className="h-3.5 w-3.5" /> Save
                   </button>
                   <button onClick={doSign} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-[12px]" style={{ background: palette.ink, color: "#fff" }}>
@@ -163,10 +163,10 @@ function NoteEditor() {
               )}
               {readOnly && (
                 <>
-                  <button onClick={copyRedacted} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full border text-[12px]" style={{ borderColor: palette.border, color: palette.ink, background: "rgba(255,255,255,0.7)" }}>
+                  <button onClick={copyRedacted} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full border text-[12px]" style={{ borderColor: palette.border, color: palette.ink, background: palette.glassStrong }}>
                     <Copy className="h-3.5 w-3.5" /> Copy
                   </button>
-                  <button onClick={exportPdf} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full border text-[12px]" style={{ borderColor: palette.border, color: palette.ink, background: "rgba(255,255,255,0.7)" }}>
+                  <button onClick={exportPdf} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full border text-[12px]" style={{ borderColor: palette.border, color: palette.ink, background: palette.glassStrong }}>
                     <FileDown className="h-3.5 w-3.5" /> Export PDF
                   </button>
                   <button onClick={() => navigate({ to: "/notes/$nid/amend", params: { nid: note.id } })} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-[12px]" style={{ background: palette.ink, color: "#fff" }}>
@@ -178,7 +178,7 @@ function NoteEditor() {
           </div>
 
           {/* Editor surface */}
-          <div className="rounded-3xl border" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.85)" }}>
+          <div className="rounded-3xl border" style={{ borderColor: palette.border, background: palette.glassStrong }}>
             <div className="p-6 lg:p-10 space-y-8">
               {sections.map((s, idx) => (
                 <section key={s.key}>
@@ -246,7 +246,7 @@ function NoteEditor() {
               {showVersions && (
                 <ul className="mt-3 space-y-1.5 text-[11.5px]" style={{ color: palette.muted }}>
                   {note.versions.slice().reverse().map((v) => (
-                    <li key={v.id} className="rounded-lg px-3 py-1.5 border" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+                    <li key={v.id} className="rounded-lg px-3 py-1.5 border" style={{ borderColor: palette.border, background: palette.glass }}>
                       Snapshot · {new Date(v.at).toLocaleString("en-IN")}
                     </li>
                   ))}
@@ -258,7 +258,7 @@ function NoteEditor() {
 
         {/* RIGHT: co-pilot suggestions */}
         <aside className="hidden xl:block">
-          <div className="rounded-2xl border p-4 sticky top-6" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+          <div className="rounded-2xl border p-4 sticky top-6" style={{ borderColor: palette.border, background: palette.glassStrong }}>
             <div className="text-[10.5px] uppercase tracking-[0.16em] mb-3 inline-flex items-center gap-1.5" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
               <Sparkles className="h-3 w-3" /> Co-pilot
             </div>

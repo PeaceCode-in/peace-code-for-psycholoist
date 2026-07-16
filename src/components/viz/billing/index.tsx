@@ -145,7 +145,7 @@ export function StackedAreaChart({
           style={{
             left: `calc(${((padL + hoverIdx * xStep) / W) * 100}% + 8px)`,
             top: 12,
-            background: "rgba(255,255,255,0.9)",
+            background: palette.glassStrong,
             backdropFilter: "blur(12px)",
             border: `1px solid ${palette.border}`,
             fontFamily: "'DM Sans', system-ui, sans-serif",
@@ -323,7 +323,7 @@ export function KPICell({
     : <span className="font-mono tabular-nums text-[22px]" style={{ fontFamily: "'DM Mono', monospace", color: palette.ink }}>{Math.round(value)}{suffix}</span>;
   const deltaColor = (delta ?? 0) >= 0 ? "#5C8F6B" : "#B0567A";
   return (
-    <div className="rounded-2xl p-4" style={{ background: "rgba(255,255,255,0.4)", backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` }}>
+    <div className="rounded-2xl p-4" style={{ background: palette.glass, backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` }}>
       <div className="text-[10.5px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'Fraunces', serif" }}>
         {label}
       </div>

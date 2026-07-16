@@ -30,7 +30,7 @@ function ContractDetail() {
         <ArrowLeft className="h-3 w-3" /> Contracts
       </Link>
 
-      <div className="rounded-3xl border p-8" style={{ borderColor: palette.border, background: "#fff" }}>
+      <div className="rounded-3xl border p-8" style={{ borderColor: palette.border, background: palette.solid }}>
         <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.14em] pb-4 border-b" style={{ color: palette.muted, borderColor: palette.border, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
           <span className="inline-flex items-center gap-1.5"><FileSignature className="h-3.5 w-3.5" /> Supervision contract · {c.status}</span>
           <span>{c.id}</span>
@@ -64,7 +64,7 @@ function ContractDetail() {
         )}
       </div>
 
-      <div className="mt-6 rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+      <div className="mt-6 rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
         <div className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
           <ShieldCheck className="h-3.5 w-3.5" /> Audit trail
         </div>

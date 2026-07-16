@@ -49,7 +49,7 @@ function SupervisionHome() {
 
         <div className="space-y-5">
           {activeContract && (
-            <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+            <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
               <div className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
                 <ShieldCheck className="h-3.5 w-3.5" /> Active contract
               </div>
@@ -63,7 +63,7 @@ function SupervisionHome() {
             </div>
           )}
 
-          <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+          <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
             <div className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
               <Lock className="h-3.5 w-3.5" /> Private-notes partition
             </div>
@@ -82,7 +82,7 @@ function SupervisionHome() {
 function SessionRow({ s }: { s: SupervisionSession }) {
   const past = s.status !== "upcoming";
   return (
-    <Link to="/supervision/$sid" params={{ sid: s.id }} className="block rounded-2xl border p-4 hover:border-[var(--ink)] transition-all duration-[180ms]" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)", ["--ink" as string]: palette.ink }}>
+    <Link to="/supervision/$sid" params={{ sid: s.id }} className="block rounded-2xl border p-4 hover:border-[var(--ink)] transition-all duration-[180ms]" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)", ["--ink" as string]: palette.ink }}>
       <div className="flex items-center justify-between text-[11px]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
         <span className="inline-flex items-center gap-1.5">
           <CalendarClock className="h-3 w-3" />
@@ -101,7 +101,7 @@ function SessionRow({ s }: { s: SupervisionSession }) {
 function Stat({ label, value, sub, tone = "ok" }: { label: string; value: string; sub: string; tone?: "ok" | "warn" }) {
   const border = tone === "warn" ? "rgba(203,108,84,0.4)" : palette.border;
   return (
-    <div className="rounded-2xl border p-4" style={{ borderColor: border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+    <div className="rounded-2xl border p-4" style={{ borderColor: border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
       <div className="text-[11px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{label}</div>
       <div className="mt-1 text-[24px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>{value}</div>
       <div className="text-[11px]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{sub}</div>
@@ -118,7 +118,7 @@ function NewSessionModal({ onClose, contractId, supervisorName }: { onClose: () 
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "rgba(20,20,20,0.4)" }} onClick={onClose}>
-      <div className="w-full max-w-[560px] rounded-3xl border p-6" style={{ borderColor: palette.border, background: "#fff" }} onClick={(e) => e.stopPropagation()}>
+      <div className="w-full max-w-[560px] rounded-3xl border p-6" style={{ borderColor: palette.border, background: palette.solid }} onClick={(e) => e.stopPropagation()}>
         <div className="text-[11px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Log / schedule supervision session</div>
         <input type="datetime-local" value={when} onChange={(e) => setWhen(e.target.value)} className="w-full border rounded-xl px-3 py-2 text-[13px] mb-2" style={{ borderColor: palette.border }} />
         <textarea value={agenda} onChange={(e) => setAgenda(e.target.value)} placeholder="Agenda — cases, questions, focus" rows={3} className="w-full border rounded-xl px-3 py-2 text-[13px] mb-2" style={{ borderColor: palette.border }} />

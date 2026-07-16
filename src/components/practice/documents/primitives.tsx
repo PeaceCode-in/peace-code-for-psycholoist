@@ -167,7 +167,7 @@ export function SignatureCanvas({ onChange, height = 160 }: { onChange: (dataUrl
     onChange(null);
   };
   return (
-    <div className="rounded-xl p-3" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+    <div className="rounded-xl p-3" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
       <canvas
         ref={canvasRef}
         onPointerDown={onDown}

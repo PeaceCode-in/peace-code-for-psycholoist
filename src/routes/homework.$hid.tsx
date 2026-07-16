@@ -75,7 +75,7 @@ function HomeworkDetail() {
       </Link>
 
       <div className="grid gap-5" style={{ gridTemplateColumns: "minmax(0,1fr) 320px" }}>
-        <div className="rounded-3xl border p-6 lg:p-8" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.85)" }}>
+        <div className="rounded-3xl border p-6 lg:p-8" style={{ borderColor: palette.border, background: palette.glassStrong }}>
           <div className="flex items-baseline justify-between gap-3 flex-wrap">
             <div>
               <div className="text-[10.5px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
@@ -114,7 +114,7 @@ function HomeworkDetail() {
             ) : (
               <ul className="space-y-3">
                 {a.submissions.slice().reverse().map((s) => (
-                  <li key={s.id} className="rounded-xl border p-4" style={{ borderColor: palette.border, background: "#fff" }}>
+                  <li key={s.id} className="rounded-xl border p-4" style={{ borderColor: palette.border, background: palette.solid }}>
                     <div className="text-[11px] mb-2" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{new Date(s.at).toLocaleString("en-IN")}</div>
                     <div className="grid sm:grid-cols-2 gap-x-6 gap-y-2">
                       {tpl.fields.map((f) => {
@@ -167,7 +167,7 @@ function HomeworkDetail() {
               ))}
             </ul>
             <div className="flex items-center gap-2">
-              <input value={msg} onChange={(e) => setMsg(e.target.value)} onKeyDown={(e) => e.key === "Enter" && sendMsg()} placeholder="Send a quick note…" className="flex-1 h-10 px-3 rounded-full border text-[12.5px] outline-none" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+              <input value={msg} onChange={(e) => setMsg(e.target.value)} onKeyDown={(e) => e.key === "Enter" && sendMsg()} placeholder="Send a quick note…" className="flex-1 h-10 px-3 rounded-full border text-[12.5px] outline-none" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
               <button onClick={sendMsg} className="grid place-items-center h-10 w-10 rounded-full" style={{ background: palette.ink, color: "#fff" }}>
                 <Send className="h-3.5 w-3.5" />
               </button>
@@ -176,7 +176,7 @@ function HomeworkDetail() {
         </div>
 
         <aside>
-          <div className="rounded-2xl border p-4 sticky top-6" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+          <div className="rounded-2xl border p-4 sticky top-6" style={{ borderColor: palette.border, background: palette.glassStrong }}>
             <div className="text-[10.5px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Actions</div>
             <div className="grid gap-2">
               <button onClick={doExtend} className="inline-flex items-center gap-2 h-9 px-3 rounded-xl border text-[12.5px] text-left" style={{ borderColor: palette.border, color: palette.ink }}>

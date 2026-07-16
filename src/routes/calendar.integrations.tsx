@@ -24,7 +24,7 @@ function Integrations() {
     <CalendarShell title="Integrations" subtitle="Sync is invisible when it works.">
       <div className="grid gap-4 md:grid-cols-2">
         {/* Google */}
-        <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.55)" }}>
+        <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glass }}>
           <div className="flex items-center justify-between mb-3">
             <div>
               <div className="text-[16px]" style={{ fontFamily: "'Fraunces', serif" }}>Google Calendar</div>
@@ -58,7 +58,7 @@ function Integrations() {
         </div>
 
         {/* iCal */}
-        <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.55)" }}>
+        <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glass }}>
           <div className="text-[16px] mb-1" style={{ fontFamily: "'Fraunces', serif" }}>iCal feed</div>
           <div className="text-[11px] mb-4" style={{ color: palette.muted }}>Read-only. Subscribe from Apple Calendar or Outlook.</div>
           <div className="flex items-center gap-2">
@@ -68,7 +68,7 @@ function Integrations() {
         </div>
 
         {/* Video */}
-        <div className="rounded-2xl border p-5 md:col-span-2" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.55)" }}>
+        <div className="rounded-2xl border p-5 md:col-span-2" style={{ borderColor: palette.border, background: palette.glass }}>
           <div className="text-[16px] mb-1" style={{ fontFamily: "'Fraunces', serif" }}>Video meeting links</div>
           <div className="text-[11px] mb-4" style={{ color: palette.muted }}>Auto-generate on every telehealth session.</div>
           <div className="flex items-center gap-3 flex-wrap">

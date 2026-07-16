@@ -77,7 +77,7 @@ function ResearchPage() {
             value={discipline}
             onChange={(e) => setDiscipline(e.target.value as Discipline | "All")}
             className="h-8 px-3 rounded-full text-[12px] outline-none"
-            style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}
+            style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}
           >
             {disciplines.map((d) => <option key={d} value={d}>{d}</option>)}
           </select>
@@ -86,7 +86,7 @@ function ResearchPage() {
         {/* List */}
         <div className="space-y-3">
           {filtered.length === 0 && (
-            <div className="rounded-2xl p-8 text-center text-[13px]" style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.muted }}>
+            <div className="rounded-2xl p-8 text-center text-[13px]" style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.muted }}>
               No studies match this filter.
             </div>
           )}
@@ -121,7 +121,7 @@ function StudyCard({ s, expanded, caseLabel, onToggle, onJoin, onWithdraw, onAdv
   const partMeta = PARTICIPATION[s.participation];
   const statusMeta = STATUS[s.status];
   return (
-    <div className="rounded-2xl overflow-hidden" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+    <div className="rounded-2xl overflow-hidden" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
       <div className="p-5">
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div className="min-w-0 flex-1">
@@ -211,7 +211,7 @@ function StudyCard({ s, expanded, caseLabel, onToggle, onJoin, onWithdraw, onAdv
                   onChange={(e) => onCaseChange(e.target.value)}
                   placeholder="Case label (de-identified — e.g. 'Case #A11 · adult · GAD')"
                   className="flex-1 h-9 px-3 rounded-full text-[12.5px] outline-none"
-                  style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}
+                  style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}
                 />
                 <button onClick={onAddCase} className="h-9 px-4 rounded-full text-[12.5px]" style={{ background: palette.ink, color: "#fff" }}>Add case</button>
               </div>
@@ -225,7 +225,7 @@ function StudyCard({ s, expanded, caseLabel, onToggle, onJoin, onWithdraw, onAdv
 
 function StatBox({ icon: Icon, label, value }: { icon: React.ComponentType<{ className?: string }>; label: string; value: string }) {
   return (
-    <div className="rounded-2xl p-4" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+    <div className="rounded-2xl p-4" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
       <div className="flex items-center gap-2 text-[11px] uppercase tracking-wider" style={{ color: palette.muted }}>
         <Icon className="w-3.5 h-3.5" /> {label}
       </div>

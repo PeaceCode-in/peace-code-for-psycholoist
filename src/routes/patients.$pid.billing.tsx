@@ -83,4 +83,4 @@ function StatBox({ label, value, accent, format }: { label: string; value: numbe
     </div>
   );
 }
-const glass = { background: "rgba(255,255,255,0.5)", backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` } as const;
+const glass = { background: palette.glass, backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` } as const;

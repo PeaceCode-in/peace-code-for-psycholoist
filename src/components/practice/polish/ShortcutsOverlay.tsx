@@ -133,7 +133,7 @@ export function ShortcutsOverlay() {
                           className="px-1.5 py-0.5 rounded-md border text-[11px]"
                           style={{
                             fontFamily: "'DM Mono', ui-monospace, monospace",
-                            background: "rgba(255,255,255,0.7)",
+                            background: palette.glassStrong,
                             borderColor: "rgba(20,30,60,0.10)",
                             minWidth: 22,
                             textAlign: "center",

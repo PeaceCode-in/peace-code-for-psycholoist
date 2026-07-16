@@ -81,7 +81,7 @@ function NewConference() {
         </span>
       </div>
 
-      <div className="rounded-3xl border p-7" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+      <div className="rounded-3xl border p-7" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         {step === 1 && (
           <div>
             <h2 className="text-[20px] mb-1" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>Who is this about?</h2>
@@ -97,7 +97,7 @@ function NewConference() {
               <>
                 <select value={patientId} onChange={(e) => setPatientId(e.target.value)}
                   className="w-full h-11 px-3 rounded-xl border text-[13px] outline-none mb-3"
-                  style={{ borderColor: palette.border, background: "#fff", color: palette.ink }}>
+                  style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }}>
                   <option value="">— Select patient —</option>
                   {patients.map((p) => <option key={p.id} value={p.id}>{p.fullName} · {p.primaryConcern}</option>)}
                 </select>
@@ -117,7 +117,7 @@ function NewConference() {
             <textarea value={presenting} onChange={(e) => setPresenting(e.target.value)} rows={3}
               placeholder="e.g. Six months in, symptom scores flat. Diagnostic reformulation warranted."
               className="w-full p-3 rounded-xl border text-[13px] outline-none mb-4"
-              style={{ borderColor: palette.border, background: "#fff", color: palette.ink, fontFamily: "'DM Sans', sans-serif" }} />
+              style={{ borderColor: palette.border, background: palette.solid, color: palette.ink, fontFamily: "'DM Sans', sans-serif" }} />
             <div className="grid grid-cols-2 gap-2 mb-4">
               {(Object.keys(REASON_META) as ConferenceReason[]).filter((r) => peerReview ? r === "peer-review" : r !== "peer-review").map((r) => {
                 const m = REASON_META[r];
@@ -176,12 +176,12 @@ function NewConference() {
               <label className="block">
                 <span className="text-[11px] uppercase tracking-wider" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Date & time</span>
                 <input type="datetime-local" value={when} onChange={(e) => setWhen(e.target.value)}
-                  className="mt-1.5 w-full h-11 px-3 rounded-xl border text-[13px]" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+                  className="mt-1.5 w-full h-11 px-3 rounded-xl border text-[13px]" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
               </label>
               <label className="block">
                 <span className="text-[11px] uppercase tracking-wider" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Duration (min)</span>
                 <input type="number" min={15} max={180} step={15} value={durationMin} onChange={(e) => setDuration(Number(e.target.value))}
-                  className="mt-1.5 w-full h-11 px-3 rounded-xl border text-[13px]" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+                  className="mt-1.5 w-full h-11 px-3 rounded-xl border text-[13px]" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
               </label>
             </div>
             <div className="mt-4 flex items-center gap-2">

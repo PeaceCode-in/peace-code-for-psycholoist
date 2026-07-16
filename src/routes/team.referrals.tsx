@@ -120,7 +120,7 @@ function ReferralRow({ r, showAccept = false, dense = false }: { r: Referral; sh
             onChange={(e) => setNote(e.target.value)}
             placeholder="Optional note back to referrer"
             className="flex-1 min-w-[200px] h-8 px-3 rounded-lg text-[12px] outline-none"
-            style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}
+            style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}
           />
           <InlineButton tone="ghost" onClick={() => respondReferral(r.id, "declined", note, me)}><X className="w-3 h-3" /> Decline</InlineButton>
           <InlineButton tone="rose" onClick={() => respondReferral(r.id, "accepted", note, me)}><Check className="w-3 h-3" /> Accept referral</InlineButton>
@@ -149,7 +149,7 @@ function ReferralDialog({ onClose }: { onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-40 flex items-end sm:items-center justify-center px-3" onClick={onClose}>
       <div className="absolute inset-0 bg-black/30" />
-      <div className="relative w-full max-w-md rounded-2xl p-5" style={{ background: "#fff", border: `1px solid ${palette.border}` }} onClick={(e) => e.stopPropagation()}>
+      <div className="relative w-full max-w-md rounded-2xl p-5" style={{ background: palette.solid, border: `1px solid ${palette.border}` }} onClick={(e) => e.stopPropagation()}>
         <div className="uppercase text-[9.5px] tracking-[0.22em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>New internal referral</div>
         <h3 className="text-[18px] mt-1" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>Route to a colleague</h3>
         <div className="mt-3 space-y-3">

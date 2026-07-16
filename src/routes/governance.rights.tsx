@@ -129,9 +129,9 @@ function Ceremony({ r }: { r: RightsRequest }) {
 
       {r.status !== "fulfilled" && r.status !== "refused" && (
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="rounded-xl p-4" style={{ background: "rgba(255,255,255,0.65)", border: `1px solid ${VAULT.border}` }}>
+          <div className="rounded-xl p-4" style={{ background: palette.glass, border: `1px solid ${VAULT.border}` }}>
             <Mono style={{ color: VAULT.muted }}>Advance</Mono>
-            <input value={reason} onChange={(e) => setReason(e.target.value)} placeholder="Note for the ledger (optional)" className="mt-2 w-full rounded-lg px-3 py-2 text-[13px] outline-none" style={{ background: "rgba(255,255,255,0.9)", border: `1px solid ${VAULT.border}` }} />
+            <input value={reason} onChange={(e) => setReason(e.target.value)} placeholder="Note for the ledger (optional)" className="mt-2 w-full rounded-lg px-3 py-2 text-[13px] outline-none" style={{ background: palette.glassStrong, border: `1px solid ${VAULT.border}` }} />
             <button
               onClick={() => advanceRight(r.id, r.step >= 3 ? { status: "fulfilled" } : { step: (r.step + 1) as 1 | 2 | 3, status: "reviewing" as RightStatus, reason })}
               className="mt-3 w-full rounded-lg px-4 py-2.5 text-[13px]"
@@ -140,9 +140,9 @@ function Ceremony({ r }: { r: RightsRequest }) {
               {r.step >= 3 ? "Mark fulfilled" : `Advance to step ${r.step + 1}`}
             </button>
           </div>
-          <div className="rounded-xl p-4" style={{ background: "rgba(255,255,255,0.65)", border: `1px solid ${VAULT.border}` }}>
+          <div className="rounded-xl p-4" style={{ background: palette.glass, border: `1px solid ${VAULT.border}` }}>
             <Mono style={{ color: VAULT.muted }}>Refuse — with reason</Mono>
-            <textarea value={refusal} onChange={(e) => setRefusal(e.target.value)} rows={2} placeholder="Legal hold, clinical necessity, incomplete verification…" className="mt-2 w-full rounded-lg px-3 py-2 text-[13px] outline-none" style={{ background: "rgba(255,255,255,0.9)", border: `1px solid ${VAULT.border}`, fontFamily: "'Fraunces', serif" }} />
+            <textarea value={refusal} onChange={(e) => setRefusal(e.target.value)} rows={2} placeholder="Legal hold, clinical necessity, incomplete verification…" className="mt-2 w-full rounded-lg px-3 py-2 text-[13px] outline-none" style={{ background: palette.glassStrong, border: `1px solid ${VAULT.border}`, fontFamily: "'Fraunces', serif" }} />
             <button
               disabled={!refusal.trim()}
               onClick={() => advanceRight(r.id, { status: "refused", refusalReason: refusal })}

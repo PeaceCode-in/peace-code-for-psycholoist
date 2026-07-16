@@ -41,7 +41,7 @@ function DraftCard({ icon, title, text }: { icon: React.ReactNode; title: string
   const [copied, setCopied] = useState(false);
   const [val, setVal] = useState(text);
   return (
-    <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+    <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong }}>
       <div className="flex items-center gap-2 mb-3">
         <span style={{ color: palette.primary }}>{icon}</span>
         <span className="text-[12.5px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>{title}</span>

@@ -1498,7 +1498,7 @@ html.dark select.bg-white {
 }
 
 /* Dark-mode safety net for inline hardcoded white blocks.
-   Many feature pages use inline `background: "#fff"` or
+   Many feature pages use inline `background: palette.solid` or
    `background: "rgba(255,255,255,...)"`, which Tailwind class remaps
    cannot touch. Force those surfaces onto theme tokens in dark mode. */
 html:is(.dark, [data-theme="dark"]) main [style*="background: rgb(255, 255, 255)"],

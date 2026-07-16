@@ -77,11 +77,11 @@ function DocumentDetail() {
 
           <div className="flex flex-wrap gap-2">
             <button onClick={doDownload} className="h-9 px-3 rounded-full text-[12px] flex items-center gap-1.5"
-              style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}>
+              style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}>
               <Download className="w-3.5 h-3.5" /> Download PDF
             </button>
             <button onClick={() => window.print()} className="h-9 px-3 rounded-full text-[12px] flex items-center gap-1.5"
-              style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}>
+              style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}>
               <Printer className="w-3.5 h-3.5" /> Print
             </button>
             {inst.status === "sent" || inst.status === "viewed" ? (
@@ -90,7 +90,7 @@ function DocumentDetail() {
                 navigator.clipboard.writeText(url);
                 toast("Signing link copied to clipboard.");
               }} className="h-9 px-3 rounded-full text-[12px] flex items-center gap-1.5"
-                style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}>
+                style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}>
                 <ExternalLink className="w-3.5 h-3.5" /> Copy signing link
               </button>
             ) : null}
@@ -101,18 +101,18 @@ function DocumentDetail() {
               </button>
             )}
             <button onClick={doAmend} className="h-9 px-3 rounded-full text-[12px] flex items-center gap-1.5"
-              style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}>
+              style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}>
               <GitBranch className="w-3.5 h-3.5" /> Amend
             </button>
             {inst.status !== "voided" && (
               <button onClick={() => setVoidOpen(true)} className="h-9 px-3 rounded-full text-[12px] flex items-center gap-1.5"
-                style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.primary }}>
+                style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.primary }}>
                 <Ban className="w-3.5 h-3.5" /> Void
               </button>
             )}
             {inst.status !== "archived" && (
               <button onClick={() => archiveInstance(inst.id)} className="h-9 px-3 rounded-full text-[12px] flex items-center gap-1.5"
-                style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.muted }}>
+                style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.muted }}>
                 Archive
               </button>
             )}
@@ -121,7 +121,7 @@ function DocumentDetail() {
 
         <div className="mt-8 grid lg:grid-cols-[1fr_320px] gap-6">
           {/* Rendered document */}
-          <article className="rounded-2xl p-8 sm:p-12" style={{ background: "#fff", border: `1px solid ${palette.border}`, boxShadow: "0 20px 60px -30px rgba(30,20,24,0.14)" }}>
+          <article className="rounded-2xl p-8 sm:p-12" style={{ background: palette.solid, border: `1px solid ${palette.border}`, boxShadow: "0 20px 60px -30px rgba(30,20,24,0.14)" }}>
             {inst.blocks.map((b) => <RenderedBlock key={b.id} b={b} />)}
             {inst.certificate && (
               <div className="mt-10 pt-6 border-t" style={{ borderColor: palette.border }}>
@@ -167,7 +167,7 @@ function DocumentDetail() {
       {voidOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4" onClick={() => setVoidOpen(false)}>
           <div className="absolute inset-0 bg-black/30" />
-          <div className="relative rounded-2xl w-full max-w-md p-6" style={{ background: "#fff", border: `1px solid ${palette.border}` }} onClick={(e) => e.stopPropagation()}>
+          <div className="relative rounded-2xl w-full max-w-md p-6" style={{ background: palette.solid, border: `1px solid ${palette.border}` }} onClick={(e) => e.stopPropagation()}>
             <div style={{ fontFamily: "'Fraunces', serif", fontSize: 18, color: palette.ink }}>Void this document?</div>
             <p className="mt-2 text-[12.5px]" style={{ color: palette.muted }}>The document remains in the audit trail. Voiding is permanent.</p>
             <textarea value={voidReason} onChange={(e) => setVoidReason(e.target.value)} rows={3}
@@ -235,7 +235,7 @@ function RenderedBlock({ b }: { b: Block }) {
     return (
       <div className="my-3 flex items-center gap-3">
         <span className="w-14 h-10 rounded-md flex items-center justify-center text-[14px]"
-          style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink, fontFamily: "'Caveat', cursive" }}>
+          style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink, fontFamily: "'Caveat', cursive" }}>
           {typeof answer === "string" ? answer : ""}
         </span>
         <span className="text-[12.5px]" style={{ color: palette.ink, fontFamily: "'Fraunces', serif" }}>{b.label}</span>

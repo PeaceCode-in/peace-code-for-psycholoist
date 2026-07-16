@@ -33,7 +33,7 @@ function LibraryPage() {
       <div className="flex flex-wrap items-center gap-3 mb-6">
         <div className="relative flex-1 min-w-[240px]">
           <Search className="h-3.5 w-3.5 absolute left-3 top-1/2 -translate-y-1/2" style={{ color: palette.muted }} />
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search templates" className="w-full h-9 pl-9 pr-3 rounded-full border text-[13px] outline-none" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", color: palette.ink }} />
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search templates" className="w-full h-9 pl-9 pr-3 rounded-full border text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.glassStrong, color: palette.ink }} />
         </div>
         <Link to="/homework/library/new" className="inline-flex items-center gap-2 h-9 px-4 rounded-full text-[12.5px]" style={{ background: palette.ink, color: "#fff" }}>
           <Plus className="h-3.5 w-3.5" /> New template
@@ -49,7 +49,7 @@ function LibraryPage() {
               <h3 className="text-[13px] uppercase tracking-[0.16em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{mod}</h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
                 {items.map((t) => (
-                  <Link key={t.id} to="/homework/assign" className="rounded-2xl border p-5 hover:shadow-sm transition-shadow block" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.75)" }}>
+                  <Link key={t.id} to="/homework/assign" className="rounded-2xl border p-5 hover:shadow-sm transition-shadow block" style={{ borderColor: palette.border, background: palette.glassStrong }}>
                     <div className="text-[15px] leading-tight" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>{t.name}</div>
                     <p className="text-[12px] mt-1.5" style={{ color: palette.muted }}>{t.description}</p>
                     <div className="mt-3 flex flex-wrap gap-1">

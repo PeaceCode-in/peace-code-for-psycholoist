@@ -95,7 +95,7 @@ function WeekInner() {
     >
       <div className="pc-scroll-x -mx-4 sm:mx-0">
         <div className="px-4 sm:px-0" style={{ minWidth: Math.max(720, 56 + days.length * 120) }}>
-          <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.5)", backdropFilter: "blur(14px)" }}>
+          <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.glass, backdropFilter: "blur(14px)" }}>
             {/* Day header */}
             <div className="grid" style={{ gridTemplateColumns: `56px repeat(${days.length}, minmax(0, 1fr))`, borderBottom: `1px solid ${palette.border}` }}>
               <div />

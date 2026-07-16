@@ -46,7 +46,7 @@ function CpdCatalog() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {filtered.map((c) => (
-          <div key={c.id} className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.72)", backdropFilter: "blur(14px)" }}>
+          <div key={c.id} className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
             <div className="flex justify-between items-start gap-3">
               <div>
                 <div className="text-[11px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{CATEGORY_LABEL[c.category]} · {FORMAT_LABEL[c.format]}</div>
@@ -90,7 +90,7 @@ function CpdCatalog() {
       </div>
 
       {filtered.length === 0 && (
-        <div className="rounded-2xl border p-10 text-center" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+        <div className="rounded-2xl border p-10 text-center" style={{ borderColor: palette.border, background: palette.glass }}>
           <p style={{ fontFamily: "'Fraunces', serif", color: palette.ink, fontSize: 18 }}>Nothing in this filter. Try widening.</p>
         </div>
       )}

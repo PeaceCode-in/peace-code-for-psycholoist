@@ -23,9 +23,9 @@ function Services() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {services.map((s) => (
           <div key={s.id} className="group relative rounded-3xl p-5 transition-transform hover:-translate-y-0.5"
-            style={{ background: "rgba(255,255,255,0.5)", backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` }}>
+            style={{ background: palette.glass, backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` }}>
             <button className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 rounded-full"
-              style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.muted }}>
+              style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.muted }}>
               <Pencil className="w-3 h-3" />
             </button>
             <div className="text-[13.5px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>{s.service}</div>

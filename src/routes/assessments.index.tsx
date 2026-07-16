@@ -20,7 +20,7 @@ export const Route = createFileRoute("/assessments/")({
 
 function Glass({ children, className = "", style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) {
   return (
-    <div className={`rounded-3xl border ${className}`} style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(24px) saturate(140%)", borderColor: "rgba(255,255,255,0.55)", ...style }}>
+    <div className={`rounded-3xl border ${className}`} style={{ background: palette.glass, backdropFilter: "blur(24px) saturate(140%)", borderColor: "rgba(255,255,255,0.55)", ...style }}>
       {children}
     </div>
   );
@@ -82,7 +82,7 @@ function OverviewPage() {
           </h1>
         </div>
         <div className="flex gap-2">
-          <Link to="/assessments/assignments" className="text-[12px] px-3.5 py-1.5 rounded-full border" style={{ borderColor: palette.border, color: palette.ink, background: "rgba(255,255,255,0.6)" }}>Assignments</Link>
+          <Link to="/assessments/assignments" className="text-[12px] px-3.5 py-1.5 rounded-full border" style={{ borderColor: palette.border, color: palette.ink, background: palette.glass }}>Assignments</Link>
           <Link to="/assessments/library" className="text-[12px] px-3.5 py-1.5 rounded-full" style={{ background: palette.ink, color: "#fff" }}>Instrument library</Link>
         </div>
       </header>
@@ -191,7 +191,7 @@ function TrajectoryCard({ patientId, instrument, data }: { patientId: string; in
     <Link
       to="/assessments/results/$resultId" params={{ resultId: last.id }}
       className="group rounded-2xl border p-3 transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-16px_rgba(30,20,24,0.25)]"
-      style={{ background: "rgba(255,255,255,0.7)", borderColor: "rgba(255,255,255,0.6)" }}
+      style={{ background: palette.glassStrong, borderColor: "rgba(255,255,255,0.6)" }}
     >
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">

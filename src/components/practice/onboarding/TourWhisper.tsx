@@ -30,7 +30,7 @@ export function TourWhisper({ tourKey, children }: { tourKey: string; children: 
       <div
         className="flex items-center gap-3 rounded-full px-5 py-2.5 max-w-lg"
         style={{
-          background: "rgba(255,255,255,0.92)",
+          background: palette.glassStrong,
           border: `1px solid ${palette.border}`,
           boxShadow: "0 20px 40px -20px rgba(30,20,24,0.35)",
           backdropFilter: "blur(18px) saturate(140%)",

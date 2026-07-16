@@ -41,7 +41,7 @@ function ConsentLedger() {
           <input
             value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search patient, category, clause…"
             className="flex-1 min-w-[240px] rounded-lg px-3 py-2 text-[13px] outline-none"
-            style={{ background: "rgba(255,255,255,0.7)", border: `1px solid ${VAULT.border}`, color: VAULT.ink }}
+            style={{ background: palette.glassStrong, border: `1px solid ${VAULT.border}`, color: VAULT.ink }}
           />
           {(["all","active","withdrawn","expired"] as const).map((s) => (
             <button key={s} onClick={() => setStatus(s)} className="rounded-full px-3 py-1.5 text-[11.5px]"
@@ -129,7 +129,7 @@ function ConsentDetail({ c, onWithdraw }: { c: Consent | null; onWithdraw: (r: s
           <textarea value={reason} onChange={(e) => setReason(e.target.value)} rows={3}
             placeholder="Reason for withdrawal (recorded in ledger)…"
             className="mt-2 w-full rounded-lg px-3 py-2 text-[13px] outline-none"
-            style={{ background: "rgba(255,255,255,0.7)", border: `1px solid ${VAULT.border}`, color: VAULT.ink, fontFamily: "'Fraunces', serif" }}
+            style={{ background: palette.glassStrong, border: `1px solid ${VAULT.border}`, color: VAULT.ink, fontFamily: "'Fraunces', serif" }}
           />
           <div className="mt-2 rounded-lg p-3 text-[11.5px]" style={{ background: "rgba(176,86,122,0.06)", border: `1px solid ${VAULT.border}`, color: VAULT.muted }}>
             <span style={{ color: VAULT.pulse, fontFamily: "'DM Mono', ui-monospace, monospace" }}>CASCADE PREVIEW · </span>

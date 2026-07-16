@@ -24,7 +24,7 @@ function CpdEntryDetail() {
   if (!entry) {
     return (
       <div className="max-w-[860px] mx-auto px-5 sm:px-8 pb-16">
-        <div className="rounded-2xl border p-10 text-center" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+        <div className="rounded-2xl border p-10 text-center" style={{ borderColor: palette.border, background: palette.glass }}>
           <p style={{ fontFamily: "'Fraunces', serif", color: palette.ink, fontSize: 20 }}>Entry not found.</p>
           <Link to="/cpd" className="inline-flex mt-4 items-center gap-1.5 text-[12px] underline" style={{ color: palette.muted }}><ArrowLeft className="h-3.5 w-3.5" />Back to ledger</Link>
         </div>
@@ -38,7 +38,7 @@ function CpdEntryDetail() {
     <div className="max-w-[960px] mx-auto px-5 sm:px-8 pb-16">
       <Link to="/cpd" className="inline-flex items-center gap-1.5 text-[12px] mb-4" style={{ color: palette.muted }}><ArrowLeft className="h-3.5 w-3.5" /> Back to ledger</Link>
 
-      <div className="rounded-2xl border p-6 sm:p-8" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.72)", backdropFilter: "blur(14px)" }}>
+      <div className="rounded-2xl border p-6 sm:p-8" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
         <div className="flex items-baseline justify-between gap-3 flex-wrap">
           <div>
             <div className="text-[11px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{TYPE_LABEL[entry.type]} · {CATEGORY_LABEL[entry.category]}</div>
@@ -59,7 +59,7 @@ function CpdEntryDetail() {
           {entry.evidence.length === 0 ? (
             <div className="text-[12px]" style={{ color: palette.muted }}>None attached yet.</div>
           ) : (
-            <ul className="rounded-lg border divide-y" style={{ borderColor: palette.border, background: "#fff" }}>
+            <ul className="rounded-lg border divide-y" style={{ borderColor: palette.border, background: palette.solid }}>
               {entry.evidence.map((e) => (
                 <li key={e.id} className="px-3 py-2 text-[12px] flex items-center justify-between">
                   <span className="inline-flex items-center gap-2" style={{ color: palette.ink }}>
@@ -79,7 +79,7 @@ function CpdEntryDetail() {
         <section className="mt-8">
           <SectionHeader>Reflection</SectionHeader>
           {editing ? (
-            <textarea value={reflection} onChange={(e) => setReflection(e.target.value)} rows={5} className="w-full rounded-lg border p-3 text-[13px]" style={{ borderColor: palette.border, background: "#fff", fontFamily: "'Fraunces', serif", lineHeight: 1.6 }} />
+            <textarea value={reflection} onChange={(e) => setReflection(e.target.value)} rows={5} className="w-full rounded-lg border p-3 text-[13px]" style={{ borderColor: palette.border, background: palette.solid, fontFamily: "'Fraunces', serif", lineHeight: 1.6 }} />
           ) : (
             <p style={{ fontFamily: "'Fraunces', serif", color: entry.reflection ? palette.ink : palette.muted, fontSize: 15, lineHeight: 1.7 }}>
               {entry.reflection || "No reflection recorded — regulators may ask for one before this counts."}

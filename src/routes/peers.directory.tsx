@@ -27,7 +27,7 @@ function Directory() {
   return (
     <div className="max-w-[1200px] mx-auto px-5 sm:px-8 pb-16">
       <div className="flex flex-wrap items-center gap-3 mb-5">
-        <div className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+        <div className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5" style={{ borderColor: palette.border, background: palette.glassStrong }}>
           <Search className="h-3.5 w-3.5" style={{ color: palette.muted }} />
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search by name, handle, city" className="bg-transparent text-[12px] w-64 outline-none" style={{ color: palette.ink }} />
         </div>
@@ -41,7 +41,7 @@ function Directory() {
         {filtered.map((p) => {
           const status = cmap[p.id];
           return (
-            <div key={p.id} className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+            <div key={p.id} className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
               <div className="flex items-center gap-3">
                 <div className="w-11 h-11 rounded-full flex items-center justify-center text-[13px]" style={{ background: palette.ink, color: "#fff", fontFamily: "'Fraunces', serif" }}>{p.avatarInitials}</div>
                 <div className="min-w-0">

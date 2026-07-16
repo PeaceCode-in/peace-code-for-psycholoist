@@ -36,7 +36,7 @@ function PeerProfile() {
         <ArrowLeft className="h-3 w-3" /> Directory
       </Link>
 
-      <div className="rounded-2xl border p-6 mb-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+      <div className="rounded-2xl border p-6 mb-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
         <div className="flex items-start gap-5">
           <div className="w-16 h-16 rounded-full flex items-center justify-center text-[18px]" style={{ background: palette.ink, color: "#fff", fontFamily: "'Fraunces', serif" }}>{p.avatarInitials}</div>
           <div className="flex-1">

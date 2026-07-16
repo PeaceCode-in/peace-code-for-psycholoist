@@ -365,7 +365,7 @@ export function GhostRow({
     >
       <span
         className="w-9 h-9 rounded-xl flex items-center justify-center"
-        style={{ background: "rgba(255,255,255,0.85)", color: ACCENT }}
+        style={{ background: palette.glassStrong, color: ACCENT }}
       >
         {icon}
       </span>

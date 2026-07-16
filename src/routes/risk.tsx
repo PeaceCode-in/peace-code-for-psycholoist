@@ -115,7 +115,7 @@ function RiskPage() {
 
         {/* Recent changes */}
         {recentChanges.length > 0 && (
-          <section className="mb-6 rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.55)" }}>
+          <section className="mb-6 rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glass }}>
             <div className="flex items-center gap-2 mb-3">
               <History className="h-3.5 w-3.5" style={{ color: palette.muted }} />
               <span className="text-[10.5px] uppercase tracking-[0.16em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Recent risk changes</span>
@@ -150,7 +150,7 @@ function RiskPage() {
           </div>
         )}
 
-        <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+        <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.glassStrong }}>
           {visible.length === 0 ? (
             <div className="p-10 text-center text-[13px]" style={{ color: palette.muted }}>No patients in this bucket right now.</div>
           ) : (
@@ -259,7 +259,7 @@ function PatientPanel({ p, onClose, onEditPlan }: { p: Patient; onClose: () => v
           </button>
         </div>
         {plan ? (
-          <div className="mt-2 rounded-xl border p-3 text-[12px]" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)", color: palette.ink }}>
+          <div className="mt-2 rounded-xl border p-3 text-[12px]" style={{ borderColor: palette.border, background: palette.glass, color: palette.ink }}>
             <PlanRow label="Warning signs" items={plan.warningSigns} />
             <PlanRow label="Coping strategies" items={plan.copingStrategies} />
             <PlanRow label="Supports" items={plan.supports.filter(s => s.name).map(s => `${s.name}${s.phone ? ` (${s.phone})` : ""}`)} />
@@ -278,7 +278,7 @@ function PatientPanel({ p, onClose, onEditPlan }: { p: Patient; onClose: () => v
           ) : (
             <ol className="mt-2 space-y-1.5">
               {history.map((c) => (
-                <li key={c.id} className="text-[12px] rounded-lg border p-2" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.5)" }}>
+                <li key={c.id} className="text-[12px] rounded-lg border p-2" style={{ borderColor: palette.border, background: palette.glass }}>
                   <div className="flex justify-between" style={{ color: palette.ink }}>
                     <span style={{ fontFamily: "'DM Mono', ui-monospace, monospace" }}>{RISK_META[c.from].label.toLowerCase()} → {RISK_META[c.to].label.toLowerCase()}</span>
                     <span style={{ color: palette.muted }}>{new Date(c.at).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}</span>

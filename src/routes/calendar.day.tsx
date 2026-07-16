@@ -61,7 +61,7 @@ function DayView() {
       }
     >
       <div className="grid gap-5" style={{ gridTemplateColumns: "minmax(0,1fr) 280px" }}>
-        <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.5)" }}>
+        <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.glass }}>
           <div className="grid" style={{ gridTemplateColumns: "56px minmax(0,1fr)" }}>
             <div>
               {hours.map((h) => (
@@ -108,7 +108,7 @@ function DayView() {
         </div>
 
         <aside className="space-y-4">
-          <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.55)" }}>
+          <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glass }}>
             <div className="text-[11px] uppercase tracking-wider mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', monospace" }}>Today at a glance</div>
             <dl className="space-y-2 text-[13px]" style={{ color: palette.ink }}>
               <div className="flex justify-between"><dt style={{ color: palette.muted }}>Sessions</dt><dd style={{ fontFamily: "'DM Mono', monospace" }}>{daySessions.length}</dd></div>
@@ -122,7 +122,7 @@ function DayView() {
             </dl>
           </div>
 
-          <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.55)" }}>
+          <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glass }}>
             <div className="text-[11px] uppercase tracking-wider mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', monospace" }}>Prep queue</div>
             <div className="space-y-2">
               {daySessions.slice(0, 3).map((s) => {
@@ -141,7 +141,7 @@ function DayView() {
             </div>
           </div>
 
-          <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.55)" }}>
+          <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glass }}>
             <div className="text-[11px] uppercase tracking-wider mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', monospace" }}>Availability</div>
             <div className="text-[12px]" style={{ color: palette.ink }}>
               {dayWindows.length ? dayWindows.map((w) => `${String(Math.floor(w.startMin/60)).padStart(2,"0")}:${String(w.startMin%60).padStart(2,"0")}–${String(Math.floor(w.endMin/60)).padStart(2,"0")}:${String(w.endMin%60).padStart(2,"0")}`).join(" · ") : "No windows"}

@@ -51,7 +51,7 @@ function PeersHome() {
             const author = pmap[d.authorId];
             const authorLabel = d.anonymised ? author?.handle ?? "@anon" : author?.name ?? "—";
             return (
-              <Link key={d.id} to="/peers/discussions/$tid" params={{ tid: d.id }} className="block rounded-2xl border p-5 hover:border-[var(--ink)] transition-all duration-[180ms]" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)", ["--ink" as string]: palette.ink }}>
+              <Link key={d.id} to="/peers/discussions/$tid" params={{ tid: d.id }} className="block rounded-2xl border p-5 hover:border-[var(--ink)] transition-all duration-[180ms]" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)", ["--ink" as string]: palette.ink }}>
                 <div className="flex items-center gap-2 text-[11px]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
                   <span className="uppercase tracking-[0.12em]">{KIND_LABEL[d.kind]}</span>
                   <span>·</span>
@@ -73,7 +73,7 @@ function PeersHome() {
 
         <div className="space-y-5">
           {pendingIn.length > 0 && (
-            <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+            <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
               <div className="text-[11px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Pending requests</div>
               {pendingIn.map((c) => {
                 const p = pmap[c.peerId];
@@ -94,7 +94,7 @@ function PeersHome() {
           )}
 
           {nextClub && (
-            <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+            <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
               <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] mb-2" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
                 <BookOpen className="h-3.5 w-3.5" /> Next journal club
               </div>
@@ -107,7 +107,7 @@ function PeersHome() {
           )}
 
           {openReferrals.length > 0 && (
-            <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+            <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
               <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
                 <Share2 className="h-3.5 w-3.5" /> Open referrals
               </div>
@@ -123,7 +123,7 @@ function PeersHome() {
             </div>
           )}
 
-          <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+          <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
             <div className="text-[11px] uppercase tracking-[0.14em] mb-2" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Endorsements for you</div>
             {mineEndorsements.length === 0 ? (
               <p className="text-[12px]" style={{ color: palette.muted }}>None yet.</p>
@@ -147,7 +147,7 @@ function PeersHome() {
 function Stat({ label, value, sub, tone = "ok" }: { label: string; value: string; sub: string; tone?: "ok" | "warn" }) {
   const border = tone === "warn" ? "rgba(203,108,84,0.4)" : palette.border;
   return (
-    <div className="rounded-2xl border p-4" style={{ borderColor: border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+    <div className="rounded-2xl border p-4" style={{ borderColor: border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
       <div className="text-[11px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{label}</div>
       <div className="mt-1 text-[24px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>{value}</div>
       <div className="text-[11px]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{sub}</div>

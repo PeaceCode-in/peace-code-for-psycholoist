@@ -31,7 +31,7 @@ function NewNote() {
         <ArrowLeft className="h-3 w-3" /> Back to notes
       </Link>
 
-      <div className="rounded-3xl border p-8 lg:p-10" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.75)", backdropFilter: "blur(12px)" }}>
+      <div className="rounded-3xl border p-8 lg:p-10" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(12px)" }}>
         <h2 className="text-[24px] leading-tight tracking-tight mb-2" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>
           New note
         </h2>
@@ -42,7 +42,7 @@ function NewNote() {
             <div className="text-[10.5px] uppercase tracking-[0.16em] mb-2" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Patient</div>
             <select value={patientId} onChange={(e) => setPatientId(e.target.value)}
               className="w-full h-11 px-3 rounded-xl border text-[13.5px] outline-none"
-              style={{ borderColor: palette.border, background: "#fff", color: palette.ink }}>
+              style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }}>
               <option value="">Select a patient…</option>
               {patients.map((p) => <option key={p.id} value={p.id}>{p.fullName} · {p.college}</option>)}
             </select>

@@ -25,7 +25,7 @@ function DiscussionsIndex() {
   return (
     <div className="max-w-[1400px] mx-auto px-5 sm:px-8 pb-16">
       <div className="flex items-center justify-between mb-4">
-        <div className="inline-flex items-center gap-2 rounded-full border p-1" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)", backdropFilter: "blur(12px)" }}>
+        <div className="inline-flex items-center gap-2 rounded-full border p-1" style={{ borderColor: palette.border, background: palette.glass, backdropFilter: "blur(12px)" }}>
           <Filter className="h-3.5 w-3.5 ml-2" style={{ color: palette.muted }} />
           {(["all", "case", "methodology", "ethics", "question"] as const).map((k) => (
             <button key={k} onClick={() => setKind(k)} className="rounded-full px-3 py-1 text-[11px]" style={{ fontFamily: "'DM Mono', ui-monospace, monospace", background: kind === k ? palette.ink : "transparent", color: kind === k ? "#fff" : palette.muted }}>
@@ -43,7 +43,7 @@ function DiscussionsIndex() {
           const a = pmap[d.authorId];
           const label = d.anonymised ? a?.handle ?? "@anon" : a?.name ?? "—";
           return (
-            <Link key={d.id} to="/peers/discussions/$tid" params={{ tid: d.id }} className="block rounded-2xl border p-5 hover:border-[var(--ink)] transition-all duration-[180ms]" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)", ["--ink" as string]: palette.ink }}>
+            <Link key={d.id} to="/peers/discussions/$tid" params={{ tid: d.id }} className="block rounded-2xl border p-5 hover:border-[var(--ink)] transition-all duration-[180ms]" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)", ["--ink" as string]: palette.ink }}>
               <div className="flex items-center justify-between text-[11px]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
                 <span>{KIND_LABEL[d.kind]} · {label}{d.anonymised ? " (anon)" : ""}</span>
                 <span>{d.replies.length} replies</span>
@@ -71,7 +71,7 @@ function NewDiscussionModal({ onClose, onCreate }: { onClose: () => void; onCrea
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "rgba(20,20,20,0.4)" }} onClick={onClose}>
-      <div className="w-full max-w-[600px] rounded-3xl border p-6" style={{ borderColor: palette.border, background: "#fff" }} onClick={(e) => e.stopPropagation()}>
+      <div className="w-full max-w-[600px] rounded-3xl border p-6" style={{ borderColor: palette.border, background: palette.solid }} onClick={(e) => e.stopPropagation()}>
         <div className="text-[11px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>New discussion</div>
 
         <div className="inline-flex items-center rounded-full border p-1 mb-3" style={{ borderColor: palette.border }}>

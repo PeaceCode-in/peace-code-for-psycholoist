@@ -109,7 +109,7 @@ function WaitlistPage() {
             <Search className="h-3.5 w-3.5 absolute left-3 top-1/2 -translate-y-1/2" style={{ color: palette.muted }} />
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search by name, concern or college" className="w-full pl-8 pr-3 py-2 rounded-full border text-[12.5px] bg-white/70" style={{ borderColor: palette.border }} />
           </div>
-          <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+          <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: palette.glass }}>
             {(["priority", "waited", "risk", "name"] as const).map((k) => (
               <button key={k} onClick={() => setSort(k)} className="rounded-full px-3 py-1 text-[11px] capitalize" style={{ fontFamily: "'DM Mono', ui-monospace, monospace", background: sort === k ? palette.ink : "transparent", color: sort === k ? "#fff" : palette.muted }}>
                 {k === "waited" ? "Wait time" : k}
@@ -130,7 +130,7 @@ function WaitlistPage() {
           </div>
         )}
 
-        <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+        <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.glassStrong }}>
           {filtered.length === 0 ? (
             <div className="p-10 text-center text-[13px]" style={{ color: palette.muted }}>Nothing on the waitlist{q ? " matches this search" : ""}.</div>
           ) : (
@@ -159,7 +159,7 @@ function WaitlistPage() {
 function Stat({ label, value, sub, tone }: { label: string; value: string; sub?: string; tone?: "ok" | "warn" }) {
   const accent = tone === "warn" ? "#B0384A" : palette.ink;
   return (
-    <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)", backdropFilter: "blur(12px)" }}>
+    <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glass, backdropFilter: "blur(12px)" }}>
       <div className="text-[10.5px] tracking-[0.16em] uppercase" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{label}</div>
       <div className="tabular-nums leading-none mt-2" style={{ fontFamily: "'Fraunces', serif", color: accent, fontSize: 32 }}>{value}</div>
       {sub && <div className="text-[11.5px] mt-1" style={{ color: palette.muted }}>{sub}</div>}
@@ -256,7 +256,7 @@ function OfferDialog({ patients, onClose }: { patients: Patient[]; onClose: () =
 
         <label className="block mt-3">
           <span className="text-[10.5px] uppercase tracking-[0.16em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Template</span>
-          <div className="mt-1 inline-flex rounded-full border p-1" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+          <div className="mt-1 inline-flex rounded-full border p-1" style={{ borderColor: palette.border, background: palette.glass }}>
             {(["warm", "brief", "urgent"] as const).map((k) => (
               <button key={k} type="button" onClick={() => setTemplate(k)} className="rounded-full px-3 py-1 text-[11px]" style={{ fontFamily: "'DM Mono', ui-monospace, monospace", background: template === k ? palette.ink : "transparent", color: template === k ? "#fff" : palette.muted }}>
                 {OFFER_TEMPLATES[k].label}
@@ -265,7 +265,7 @@ function OfferDialog({ patients, onClose }: { patients: Patient[]; onClose: () =
           </div>
         </label>
 
-        <div className="mt-4 rounded-xl border p-3 whitespace-pre-wrap text-[12.5px]" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)", color: palette.ink, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
+        <div className="mt-4 rounded-xl border p-3 whitespace-pre-wrap text-[12.5px]" style={{ borderColor: palette.border, background: palette.glass, color: palette.ink, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
           {body}
         </div>
 

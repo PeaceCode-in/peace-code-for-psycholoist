@@ -41,7 +41,7 @@ function TasksPage() {
           {open.length} open · {done.length} done
         </div>
 
-        <div className="mt-8 rounded-2xl p-4 flex items-center gap-2" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+        <div className="mt-8 rounded-2xl p-4 flex items-center gap-2" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
           <input
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
@@ -65,7 +65,7 @@ function TasksPage() {
         <ul className="mt-6 space-y-2">
           {open.map((t) => (
             <li key={t.id} className="flex items-start gap-3 px-4 py-3 rounded-xl group"
-              style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+              style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
               <button onClick={() => toggleTask(t.id)} className="mt-0.5 w-4 h-4 rounded border shrink-0"
                 style={{ borderColor: palette.border, background: "transparent" }} aria-label="Complete task" />
               <div className="flex-1 min-w-0">

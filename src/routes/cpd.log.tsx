@@ -72,7 +72,7 @@ function CpdLog() {
 
   return (
     <div className="max-w-[860px] mx-auto px-5 sm:px-8 pb-16">
-      <div className="rounded-2xl border p-6 sm:p-8" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.72)", backdropFilter: "blur(14px)" }}>
+      <div className="rounded-2xl border p-6 sm:p-8" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
         <StepDots step={step} of={4} labels={["Type", "Basics", "Evidence", "Reflection"]} />
 
         {step === 1 && (
@@ -101,26 +101,26 @@ function CpdLog() {
           <section className="mt-6 space-y-4">
             <h2 style={{ fontFamily: "'Fraunces', serif", color: palette.ink, fontSize: 22 }}>Basics</h2>
             <Field label="Title">
-              <input value={title} onChange={(e) => setTitle(e.target.value)} className="w-full rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: "#fff" }} placeholder="e.g. Ethical consent in digital therapy" />
+              <input value={title} onChange={(e) => setTitle(e.target.value)} className="w-full rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: palette.solid }} placeholder="e.g. Ethical consent in digital therapy" />
             </Field>
             <Field label="Provider">
-              <input value={provider} onChange={(e) => setProvider(e.target.value)} className="w-full rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: "#fff" }} placeholder="IAP Ethics Committee" />
+              <input value={provider} onChange={(e) => setProvider(e.target.value)} className="w-full rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: palette.solid }} placeholder="IAP Ethics Committee" />
             </Field>
             <div className="grid grid-cols-2 gap-3">
-              <Field label="Start"><input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="w-full rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: "#fff" }} /></Field>
-              <Field label="End"><input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="w-full rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: "#fff" }} /></Field>
+              <Field label="Start"><input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="w-full rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: palette.solid }} /></Field>
+              <Field label="End"><input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="w-full rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: palette.solid }} /></Field>
             </div>
             <div className="grid grid-cols-3 gap-3">
               <Field label="Hours">
-                <input type="number" min={0.5} step={0.5} value={hours} onChange={(e) => setHours(Number(e.target.value))} className="w-full rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: "#fff" }} />
+                <input type="number" min={0.5} step={0.5} value={hours} onChange={(e) => setHours(Number(e.target.value))} className="w-full rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: palette.solid }} />
               </Field>
               <Field label="Category">
-                <select value={category} onChange={(e) => setCategory(e.target.value as CpdCategory)} className="w-full rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: "#fff" }}>
+                <select value={category} onChange={(e) => setCategory(e.target.value as CpdCategory)} className="w-full rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: palette.solid }}>
                   {(Object.keys(CATEGORY_LABEL) as CpdCategory[]).map((c) => <option key={c} value={c}>{CATEGORY_LABEL[c]}</option>)}
                 </select>
               </Field>
               <Field label="Format">
-                <select value={format} onChange={(e) => setFormat(e.target.value as CpdFormat)} className="w-full rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: "#fff" }}>
+                <select value={format} onChange={(e) => setFormat(e.target.value as CpdFormat)} className="w-full rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: palette.solid }}>
                   {(Object.keys(FORMAT_LABEL) as CpdFormat[]).map((c) => <option key={c} value={c}>{FORMAT_LABEL[c]}</option>)}
                 </select>
               </Field>
@@ -151,7 +151,7 @@ function CpdLog() {
             )}
 
             {evidence.length > 0 && (
-              <ul className="rounded-lg border divide-y" style={{ borderColor: palette.border, background: "#FFF" }}>
+              <ul className="rounded-lg border divide-y" style={{ borderColor: palette.border, background: palette.solid }}>
                 {evidence.map((e) => (
                   <li key={e.id} className="px-3 py-2 text-[12px] flex items-center justify-between">
                     <span style={{ color: palette.ink }}>{e.kind === "link" ? e.url : e.filename}</span>
@@ -168,7 +168,7 @@ function CpdLog() {
             <h2 style={{ fontFamily: "'Fraunces', serif", color: palette.ink, fontSize: 22 }}>Reflection</h2>
             <p className="text-[12px]" style={{ color: palette.muted }}>Regulators increasingly ask for what changed in your practice. Two or three sentences is enough.</p>
             <button onClick={() => !reflection && setReflection(REFLECTION_TEMPLATE)} className="text-[11px] underline" style={{ color: palette.muted }}>Insert draft template</button>
-            <textarea value={reflection} onChange={(e) => setReflection(e.target.value)} rows={6} className="w-full rounded-lg border p-3 text-[13px]" style={{ borderColor: palette.border, background: "#fff", fontFamily: "'Fraunces', serif", lineHeight: 1.6 }} placeholder="What changed?" />
+            <textarea value={reflection} onChange={(e) => setReflection(e.target.value)} rows={6} className="w-full rounded-lg border p-3 text-[13px]" style={{ borderColor: palette.border, background: palette.solid, fontFamily: "'Fraunces', serif", lineHeight: 1.6 }} placeholder="What changed?" />
             <div className="text-[11px]" style={{ color: reflection.trim().length >= 20 ? "#3E6A2E" : palette.muted }}>
               {reflection.trim().length}/20 minimum
             </div>

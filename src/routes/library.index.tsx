@@ -81,7 +81,7 @@ function LibraryIndex() {
         <div className="relative flex-1 min-w-[240px]">
           <Search className="h-3.5 w-3.5 absolute left-3 top-1/2 -translate-y-1/2" style={{ color: palette.muted }} />
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search title, subtitle, tag" className="w-full h-9 pl-9 pr-3 rounded-full border text-[13px] outline-none"
-            style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", color: palette.ink, fontFamily: "'DM Sans', sans-serif" }} />
+            style={{ borderColor: palette.border, background: palette.glassStrong, color: palette.ink, fontFamily: "'DM Sans', sans-serif" }} />
         </div>
         <FilterPill label="Format" value={format} onChange={(v) => setFormat(v as PieceFormat | "all")}
           options={[{ v: "all", label: "All" }, ...(Object.keys(FORMAT_COLOR) as PieceFormat[]).map((k) => ({ v: k, label: k }))]} />
@@ -106,7 +106,7 @@ function LibraryIndex() {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="rounded-3xl border p-16 text-center" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+        <div className="rounded-3xl border p-16 text-center" style={{ borderColor: palette.border, background: palette.glass }}>
           <p className="text-[17px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>Nothing written yet.</p>
           <p className="text-[12.5px] mt-2" style={{ color: palette.muted }}>One good piece a month is a career.</p>
           <button onClick={onNew} className="mt-5 inline-flex items-center gap-2 h-9 px-4 rounded-full text-[12.5px]" style={{ background: palette.ink, color: "#fff" }}>
@@ -122,7 +122,7 @@ function LibraryIndex() {
             const date = new Date(p.publishedAt ?? p.updatedAt).toLocaleDateString("en-IN", { day: "2-digit", month: "short" });
             return (
               <Link key={p.id} to="/library/$pid" params={{ pid: p.id }} className="group rounded-2xl border overflow-hidden transition-all duration-[180ms] hover:shadow-sm flex flex-col"
-                style={{ borderColor: palette.border, background: "rgba(255,255,255,0.75)" }}>
+                style={{ borderColor: palette.border, background: palette.glassStrong }}>
                 <div className="h-32 relative" style={{ background: p.coverImage ? `center/cover url(${p.coverImage})` : `linear-gradient(135deg, ${palette.soft}, ${palette.lavender})` }}>
                   {!p.coverImage && (
                     <div className="absolute inset-0 flex items-center justify-center p-5 text-center text-[13.5px] leading-tight italic"
@@ -174,7 +174,7 @@ function LibraryIndex() {
 
 function FilterPill({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: Array<{ v: string; label: string }> }) {
   return (
-    <label className="inline-flex items-center gap-2 h-9 px-3 rounded-full border text-[12px]" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
+    <label className="inline-flex items-center gap-2 h-9 px-3 rounded-full border text-[12px]" style={{ borderColor: palette.border, background: palette.glassStrong, color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
       <span className="uppercase tracking-wider text-[10.5px]">{label}</span>
       <select value={value} onChange={(e) => onChange(e.target.value)} className="bg-transparent outline-none text-[12px]" style={{ color: palette.ink }}>
         {options.map((o) => <option key={o.v} value={o.v}>{o.label}</option>)}

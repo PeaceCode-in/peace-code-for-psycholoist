@@ -130,7 +130,7 @@ function SignCeremony() {
           </p>
         )}
 
-        <div className="mt-8 rounded-2xl p-6 sm:p-8" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+        <div className="mt-8 rounded-2xl p-6 sm:p-8" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
           <div className="mb-5" style={{ fontFamily: "'Fraunces', serif", fontSize: 20, color: palette.ink }}>
             {sections[step].title}
           </div>
@@ -314,7 +314,7 @@ function SignatureBlock({ b, onChange }: { b: Block; onChange: (p: Partial<Block
           <input value={typed} onChange={(e) => { setTyped(e.target.value); onChange({ signatureTypedAs: e.target.value, signedAt: Date.now() }); }}
             placeholder="Type your full name"
             className="w-full h-14 px-4 rounded-lg outline-none"
-            style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink, fontFamily: "'Caveat', 'Homemade Apple', cursive", fontSize: 28 }} />
+            style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink, fontFamily: "'Caveat', 'Homemade Apple', cursive", fontSize: 28 }} />
         </div>
       )}
     </div>
@@ -330,11 +330,11 @@ function InitialsBlock({ b, onChange }: { b: Block; onChange: (p: Partial<Block>
         onChange={(e) => onChange({ answer: e.target.value.toUpperCase() })}
         placeholder="AA"
         className="w-16 h-12 rounded-md text-center outline-none"
-        style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink, fontFamily: "'Caveat', cursive", fontSize: 22 }}
+        style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink, fontFamily: "'Caveat', cursive", fontSize: 22 }}
       />
       <span className="text-[13px]" style={{ color: palette.ink, fontFamily: "'Fraunces', serif" }}>{b.label}</span>
     </div>
   );
 }
 
-const inputStyle: React.CSSProperties = { background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink, outline: "none" };
+const inputStyle: React.CSSProperties = { background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink, outline: "none" };

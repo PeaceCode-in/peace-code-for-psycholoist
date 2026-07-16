@@ -127,7 +127,7 @@ function WireUpReport() {
                 className="rounded-2xl border p-4 text-left transition-colors duration-150 hover:bg-[rgba(20,30,60,0.02)]"
                 style={{
                   borderColor: filter === s ? m.color : "rgba(20,30,60,0.08)",
-                  background: "rgba(255,255,255,0.6)",
+                  background: palette.glass,
                 }}
               >
                 <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em]" style={{ color: m.color }}>
@@ -141,7 +141,7 @@ function WireUpReport() {
           })}
         </div>
 
-        <div className="mt-6 rounded-2xl border overflow-hidden" style={{ borderColor: "rgba(20,30,60,0.08)", background: "rgba(255,255,255,0.6)" }}>
+        <div className="mt-6 rounded-2xl border overflow-hidden" style={{ borderColor: "rgba(20,30,60,0.08)", background: palette.glass }}>
           <table className="w-full text-[13px]">
             <thead>
               <tr className="text-left text-[10px] uppercase tracking-[0.12em] text-[color:var(--muted-foreground)]">

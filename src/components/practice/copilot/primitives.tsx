@@ -126,7 +126,7 @@ export function ProvenancePopover({ prov, children }: { prov: { model: string; p
           role="tooltip"
           className="absolute z-50 top-full mt-1 left-0 min-w-[260px] p-2.5 rounded-lg"
           style={{
-            background: "#fff",
+            background: palette.solid,
             border: `1px solid ${palette.border}`,
             boxShadow: "0 10px 30px rgba(30,20,24,0.08)",
             fontFamily: "'DM Mono', ui-monospace, monospace",

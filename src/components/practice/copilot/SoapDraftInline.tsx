@@ -77,7 +77,7 @@ export function SoapDraftInline({
       </div>
       <div className="grid sm:grid-cols-2 gap-3">
         {draft.blocks.map((b) => (
-          <div key={b.id} className="p-3 rounded-lg" style={{ background: "rgba(255,255,255,0.6)", border: `1px solid ${palette.border}` }}>
+          <div key={b.id} className="p-3 rounded-lg" style={{ background: palette.glass, border: `1px solid ${palette.border}` }}>
             <div className="flex items-center justify-between mb-1.5">
               <span className="text-[10.5px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{b.label}</span>
               <div className="flex items-center gap-2 text-[10.5px]">

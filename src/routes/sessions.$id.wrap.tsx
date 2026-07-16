@@ -56,7 +56,7 @@ function WrapView() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-12" style={{ background: "radial-gradient(120% 80% at 50% 0%, #F5DDE4 0%, #FBF7F8 60%)" }}>
-      <div className="w-full max-w-[720px] rounded-[28px] border p-8 sm:p-10" style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(28px) saturate(140%)", borderColor: "rgba(255,255,255,0.6)", boxShadow: "0 30px 80px -30px rgba(30,20,24,0.25)" }}>
+      <div className="w-full max-w-[720px] rounded-[28px] border p-8 sm:p-10" style={{ background: palette.glassStrong, backdropFilter: "blur(28px) saturate(140%)", borderColor: "rgba(255,255,255,0.6)", boxShadow: "0 30px 80px -30px rgba(30,20,24,0.25)" }}>
         <header className="flex items-center gap-3 mb-8">
           <img src={avatarUrl(patient.id)} alt="" className="w-10 h-10 rounded-full" />
           <div>
