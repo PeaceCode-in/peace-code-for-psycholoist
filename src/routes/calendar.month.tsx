@@ -55,7 +55,9 @@ function MonthView() {
         </div>
       }
     >
+      <div className="pc-scroll-x -mx-4 sm:mx-0"><div className="px-4 sm:px-0" style={{ minWidth: 720 }}>
       <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.5)" }}>
+
         <div className="grid grid-cols-7">
           {weekdayLabels.map((l) => (
             <div key={l} className="px-3 py-2 text-[10.5px] uppercase tracking-wider" style={{ color: palette.muted, fontFamily: "'DM Mono', monospace", borderBottom: `1px solid ${palette.border}` }}>{l}</div>
@@ -114,6 +116,8 @@ function MonthView() {
           })}
         </div>
       </div>
+      </div></div>
     </CalendarShell>
+
   );
 }
