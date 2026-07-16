@@ -177,6 +177,7 @@ import { Route as HomeworkLibraryRouteImport } from './routes/homework.library'
 import { Route as HomeworkComplianceRouteImport } from './routes/homework.compliance'
 import { Route as HomeworkAssignRouteImport } from './routes/homework.assign'
 import { Route as HomeworkHidRouteImport } from './routes/homework.$hid'
+import { Route as HealthRoutesRouteImport } from './routes/health.routes'
 import { Route as GovernanceRightsRouteImport } from './routes/governance.rights'
 import { Route as GovernanceRetentionRouteImport } from './routes/governance.retention'
 import { Route as GovernanceReportsRouteImport } from './routes/governance.reports'
@@ -1111,6 +1112,11 @@ const HomeworkHidRoute = HomeworkHidRouteImport.update({
   path: '/$hid',
   getParentRoute: () => HomeworkRoute,
 } as any)
+const HealthRoutesRoute = HealthRoutesRouteImport.update({
+  id: '/health/routes',
+  path: '/health/routes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GovernanceRightsRoute = GovernanceRightsRouteImport.update({
   id: '/rights',
   path: '/rights',
@@ -1671,6 +1677,7 @@ export interface FileRoutesByFullPath {
   '/governance/reports': typeof GovernanceReportsRoute
   '/governance/retention': typeof GovernanceRetentionRoute
   '/governance/rights': typeof GovernanceRightsRoute
+  '/health/routes': typeof HealthRoutesRoute
   '/homework/$hid': typeof HomeworkHidRoute
   '/homework/assign': typeof HomeworkAssignRoute
   '/homework/compliance': typeof HomeworkComplianceRoute
@@ -1904,6 +1911,7 @@ export interface FileRoutesByTo {
   '/governance/reports': typeof GovernanceReportsRoute
   '/governance/retention': typeof GovernanceRetentionRoute
   '/governance/rights': typeof GovernanceRightsRoute
+  '/health/routes': typeof HealthRoutesRoute
   '/homework/$hid': typeof HomeworkHidRoute
   '/homework/assign': typeof HomeworkAssignRoute
   '/homework/compliance': typeof HomeworkComplianceRoute
@@ -2163,6 +2171,7 @@ export interface FileRoutesById {
   '/governance/reports': typeof GovernanceReportsRoute
   '/governance/retention': typeof GovernanceRetentionRoute
   '/governance/rights': typeof GovernanceRightsRoute
+  '/health/routes': typeof HealthRoutesRoute
   '/homework/$hid': typeof HomeworkHidRoute
   '/homework/assign': typeof HomeworkAssignRoute
   '/homework/compliance': typeof HomeworkComplianceRoute
@@ -2426,6 +2435,7 @@ export interface FileRouteTypes {
     | '/governance/reports'
     | '/governance/retention'
     | '/governance/rights'
+    | '/health/routes'
     | '/homework/$hid'
     | '/homework/assign'
     | '/homework/compliance'
@@ -2659,6 +2669,7 @@ export interface FileRouteTypes {
     | '/governance/reports'
     | '/governance/retention'
     | '/governance/rights'
+    | '/health/routes'
     | '/homework/$hid'
     | '/homework/assign'
     | '/homework/compliance'
@@ -2917,6 +2928,7 @@ export interface FileRouteTypes {
     | '/governance/reports'
     | '/governance/retention'
     | '/governance/rights'
+    | '/health/routes'
     | '/homework/$hid'
     | '/homework/assign'
     | '/homework/compliance'
@@ -3147,6 +3159,7 @@ export interface RootRouteChildren {
   ComplianceAuditRoute: typeof ComplianceAuditRoute
   ComplianceConsentRoute: typeof ComplianceConsentRoute
   ComplianceExportRoute: typeof ComplianceExportRoute
+  HealthRoutesRoute: typeof HealthRoutesRoute
   PSlugRoute: typeof PSlugRoute
   CalendarIndexRoute: typeof CalendarIndexRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -4330,6 +4343,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/homework/$hid'
       preLoaderRoute: typeof HomeworkHidRouteImport
       parentRoute: typeof HomeworkRoute
+    }
+    '/health/routes': {
+      id: '/health/routes'
+      path: '/health/routes'
+      fullPath: '/health/routes'
+      preLoaderRoute: typeof HealthRoutesRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/governance/rights': {
       id: '/governance/rights'
@@ -5772,6 +5792,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComplianceAuditRoute: ComplianceAuditRoute,
   ComplianceConsentRoute: ComplianceConsentRoute,
   ComplianceExportRoute: ComplianceExportRoute,
+  HealthRoutesRoute: HealthRoutesRoute,
   PSlugRoute: PSlugRoute,
   CalendarIndexRoute: CalendarIndexRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
