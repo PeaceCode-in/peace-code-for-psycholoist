@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo } from "react";
-import { AppShell } from "@/components/practice/AppShell";
 import { palette } from "@/components/practice/palette";
 import { EthicsRibbon, CopilotPanel, SemicolonMark } from "@/components/practice/copilot/primitives";
 import { useCopilotSettings, updateSettings, useAudit, type Tone, type Length, type Retention } from "@/lib/copilot-store";
