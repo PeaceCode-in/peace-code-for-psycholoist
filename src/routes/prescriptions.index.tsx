@@ -50,7 +50,7 @@ function Landing() {
       <div className="flex flex-wrap items-center gap-3 mb-5">
         <div className="relative flex-1 min-w-[240px]">
           <Search className="h-3.5 w-3.5 absolute left-3 top-1/2 -translate-y-1/2" style={{ color: palette.muted }} />
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search patient or drug" className="w-full h-9 pl-9 pr-3 rounded-full border text-[13px] outline-none" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", color: palette.ink }} />
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search patient or drug" className="w-full h-9 pl-9 pr-3 rounded-full border text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.glassStrong, color: palette.ink }} />
         </div>
         <div className="flex flex-wrap items-center gap-1.5">
           {(["all", "active", "titrating", "tapering", "discontinued", "reviewDue"] as const).map((k) => {
@@ -69,7 +69,7 @@ function Landing() {
       </div>
 
       {byPatient.length === 0 ? (
-        <div className="rounded-3xl border p-16 text-center" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+        <div className="rounded-3xl border p-16 text-center" style={{ borderColor: palette.border, background: palette.glass }}>
           <p className="text-[15px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>No medications on record. That's fine — many good treatments don't need any.</p>
         </div>
       ) : (
@@ -79,7 +79,7 @@ function Landing() {
             const active = items.filter((m) => m.status !== "discontinued");
             const latestChange = Math.max(...items.map((m) => m.history.length ? m.history[m.history.length - 1].at : m.startedAt));
             return (
-              <Link key={pid} to="/prescriptions/patient/$pid" params={{ pid }} className="block rounded-2xl border p-5 hover:shadow-sm transition-shadow" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+              <Link key={pid} to="/prescriptions/patient/$pid" params={{ pid }} className="block rounded-2xl border p-5 hover:shadow-sm transition-shadow" style={{ borderColor: palette.border, background: palette.glassStrong }}>
                 <div className="flex items-center gap-6">
                   <div className="flex-1 min-w-0">
                     <div className="text-[15.5px] leading-tight" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>{p?.fullName ?? "Unknown"}</div>

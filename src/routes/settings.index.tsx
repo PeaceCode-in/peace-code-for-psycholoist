@@ -41,7 +41,7 @@ function SettingsIndex() {
                   to={it.to}
                   className="group rounded-2xl p-4 flex items-start gap-3 transition-all hover:-translate-y-[1px]"
                   style={{
-                    background: "rgba(255,255,255,0.75)",
+                    background: palette.glassStrong,
                     backdropFilter: "blur(14px) saturate(140%)",
                     border: `1px solid ${border}`,
                   }}

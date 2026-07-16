@@ -118,7 +118,7 @@ function ThreadHeader({ threadId }: { threadId: string }) {
             <TagIcon className="w-3.5 h-3.5" style={{ color: palette.muted }} />
           </IconBtn>
           {labelOpen && (
-            <div className="absolute right-0 top-full mt-1 min-w-[200px] rounded-xl p-2 z-20" style={{ background: "#fff", border: `1px solid ${palette.border}`, boxShadow: "0 8px 28px rgba(30,20,24,0.08)" }}>
+            <div className="absolute right-0 top-full mt-1 min-w-[200px] rounded-xl p-2 z-20" style={{ background: palette.solid, border: `1px solid ${palette.border}`, boxShadow: "0 8px 28px rgba(30,20,24,0.08)" }}>
               <div className="flex flex-wrap gap-1 mb-2">
                 {["clinical", "scheduling", "billing", "warmth", "urgent"].filter((l) => !thread.labels.includes(l)).map((l) => (
                   <button key={l} onClick={() => { addLabel(threadId, l); setLabelOpen(false); }} className="px-2 py-0.5 rounded" style={{ background: palette.surface2, fontSize: "10.5px", fontFamily: "'DM Mono', monospace", color: palette.muted }}>{l}</button>
@@ -135,7 +135,7 @@ function ThreadHeader({ threadId }: { threadId: string }) {
             <MoreHorizontal className="w-3.5 h-3.5" style={{ color: palette.muted }} />
           </IconBtn>
           {moreOpen && (
-            <div className="absolute right-0 top-full mt-1 min-w-[180px] rounded-xl p-1 z-20" style={{ background: "#fff", border: `1px solid ${palette.border}`, boxShadow: "0 8px 28px rgba(30,20,24,0.08)" }}>
+            <div className="absolute right-0 top-full mt-1 min-w-[180px] rounded-xl p-1 z-20" style={{ background: palette.solid, border: `1px solid ${palette.border}`, boxShadow: "0 8px 28px rgba(30,20,24,0.08)" }}>
               {[
                 { label: "Print", icon: Printer, onClick: () => window.print() },
                 { label: "Export PDF", icon: Download, onClick: () => window.print() },
@@ -410,7 +410,7 @@ function Composer({ threadId }: { threadId: string }) {
       </div>
 
       {cannedOpen && filteredCanned.length > 0 && patient && (
-        <div className="absolute left-6 md:left-10 bottom-full mb-2 min-w-[280px] max-w-[420px] rounded-xl p-1 z-20" style={{ background: "#fff", border: `1px solid ${palette.border}`, boxShadow: "0 8px 28px rgba(30,20,24,0.08)" }}>
+        <div className="absolute left-6 md:left-10 bottom-full mb-2 min-w-[280px] max-w-[420px] rounded-xl p-1 z-20" style={{ background: palette.solid, border: `1px solid ${palette.border}`, boxShadow: "0 8px 28px rgba(30,20,24,0.08)" }}>
           {filteredCanned.map((c) => (
             <button key={c.id} onClick={() => insertCanned(c.id)} className="w-full text-left px-2.5 py-2 rounded-lg hover:bg-black/[0.03]">
               <div className="flex items-center gap-2">
@@ -441,7 +441,7 @@ function ShortcutsSheet({ onClose }: { onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
       <div className="absolute inset-0 bg-black/30" onClick={onClose} />
-      <div className="relative rounded-2xl p-5 w-full max-w-md" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+      <div className="relative rounded-2xl p-5 w-full max-w-md" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
         <div className="flex items-center justify-between mb-3">
           <span style={{ fontFamily: "'Fraunces', serif", fontSize: "15px", color: palette.ink }}>Keyboard shortcuts</span>
           <button onClick={onClose}><X className="w-4 h-4" style={{ color: palette.muted }} /></button>

@@ -198,7 +198,7 @@ function PrepSheet() {
 
       {/* Sticky CTA */}
       <div className="sticky bottom-4 mt-8 flex justify-center">
-        <div className="flex items-center gap-2 rounded-full border p-1.5" style={{ background: "rgba(255,255,255,0.85)", backdropFilter: "blur(20px)", borderColor: "rgba(255,255,255,0.6)", boxShadow: "0 10px 40px -20px rgba(30,20,24,0.3)" }}>
+        <div className="flex items-center gap-2 rounded-full border p-1.5" style={{ background: palette.glassStrong, backdropFilter: "blur(20px)", borderColor: "rgba(255,255,255,0.6)", boxShadow: "0 10px 40px -20px rgba(30,20,24,0.3)" }}>
           <button
             onClick={() => toast("Reschedule flow lands in the next pass.")}
             className="h-11 px-5 rounded-full text-[12.5px]"
@@ -224,7 +224,7 @@ function PrepSheet() {
 
 function Glass({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <section className={`rounded-3xl border p-5 ${className}`} style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(24px) saturate(140%)", borderColor: "rgba(255,255,255,0.55)" }}>
+    <section className={`rounded-3xl border p-5 ${className}`} style={{ background: palette.glass, backdropFilter: "blur(24px) saturate(140%)", borderColor: "rgba(255,255,255,0.55)" }}>
       {children}
     </section>
   );

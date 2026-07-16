@@ -70,7 +70,7 @@ function ReviewsPage() {
 
         {/* Summary card */}
         <div className="grid lg:grid-cols-[300px_1fr] gap-4">
-          <div className="rounded-2xl p-5" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+          <div className="rounded-2xl p-5" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
             <div className="text-[11px] uppercase tracking-wider" style={{ color: palette.muted }}>Overall</div>
             <div className="flex items-baseline gap-2 mt-1">
               <div className="text-[42px] tabular-nums leading-none" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>{avg.toFixed(1)}</div>
@@ -93,7 +93,7 @@ function ReviewsPage() {
             </div>
           </div>
 
-          <div className="rounded-2xl p-5" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+          <div className="rounded-2xl p-5" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
             <div className="text-[13.5px]" style={{ color: palette.ink }}>Sub-score averages</div>
             <div className="text-[11.5px] mb-4" style={{ color: palette.muted }}>What patients rate you strongest on</div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -131,7 +131,7 @@ function ReviewsPage() {
         {/* List */}
         <div className="mt-4 space-y-3">
           {filtered.length === 0 && (
-            <div className="rounded-2xl p-8 text-center text-[13px]" style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.muted }}>
+            <div className="rounded-2xl p-8 text-center text-[13px]" style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.muted }}>
               Nothing here yet in this view.
             </div>
           )}
@@ -163,7 +163,7 @@ function ReviewCard({ r, expanded, draft, onToggle, onDraft, onSend, onAck, onFl
   const rel = relTime(r.at);
   const statusTone = STATUS[r.status];
   return (
-    <div className="rounded-2xl p-4 sm:p-5" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+    <div className="rounded-2xl p-4 sm:p-5" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 flex-wrap">

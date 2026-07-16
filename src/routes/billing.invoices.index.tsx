@@ -52,7 +52,7 @@ function InvoiceList() {
             <Search className="w-3.5 h-3.5 absolute left-2.5 top-2" style={{ color: palette.muted }} />
             <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search invoice or patient"
               className="pl-8 pr-3 h-8 rounded-full text-[11.5px] w-56"
-              style={{ background: "rgba(255,255,255,0.6)", border: `1px solid ${palette.border}`, color: palette.ink }} />
+              style={{ background: palette.glass, border: `1px solid ${palette.border}`, color: palette.ink }} />
           </div>
           <Link to="/billing/invoices/new"
             className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-[12px]"
@@ -117,7 +117,7 @@ function InvoiceList() {
 }
 
 const cardStyle = {
-  background: "rgba(255,255,255,0.5)",
+  background: palette.glass,
   backdropFilter: "blur(24px) saturate(140%)",
   border: `1px solid ${palette.border}`,
 } as const;

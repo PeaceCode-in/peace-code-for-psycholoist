@@ -100,5 +100,5 @@ function Reports() {
   );
 }
 
-const glass = { background: "rgba(255,255,255,0.42)", backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` } as const;
-const pill = { background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink } as const;
+const glass = { background: palette.glass, backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` } as const;
+const pill = { background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink } as const;

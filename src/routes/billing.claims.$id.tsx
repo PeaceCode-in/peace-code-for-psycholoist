@@ -38,7 +38,7 @@ function ClaimDetail() {
               <CurrencyNumber value={claim.claimedAmount} size="xl" />
             </div>
           </div>
-          <article className="rounded-3xl p-8" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+          <article className="rounded-3xl p-8" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
             <header className="flex items-start justify-between mb-6">
               <div>
                 <div style={{ fontFamily: "'Fraunces', serif", color: palette.ink, fontSize: 18 }}>{claim.insurer}</div>
@@ -115,4 +115,4 @@ function ActionBtn({ children, primary, onClick }: { children: React.ReactNode; 
 function labelOf(s: string) {
   return ({ submitted: "Submitted", in_review: "In review", approved: "Approved", paid: "Paid" } as Record<string, string>)[s] ?? s;
 }
-const glass = { background: "rgba(255,255,255,0.5)", backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` } as const;
+const glass = { background: palette.glass, backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` } as const;

@@ -157,7 +157,7 @@ function ResultView() {
 
 function Glass({ children, className = "", style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) {
   return (
-    <div className={`rounded-3xl border ${className}`} style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(24px) saturate(140%)", borderColor: "rgba(255,255,255,0.55)", ...style }}>
+    <div className={`rounded-3xl border ${className}`} style={{ background: palette.glass, backdropFilter: "blur(24px) saturate(140%)", borderColor: "rgba(255,255,255,0.55)", ...style }}>
       {children}
     </div>
   );

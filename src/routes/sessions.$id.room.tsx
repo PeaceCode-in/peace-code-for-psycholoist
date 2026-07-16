@@ -80,18 +80,18 @@ function RoomView() {
 
       {/* Top bar */}
       <div className="absolute top-0 left-0 right-0 flex items-start justify-between p-6 z-20">
-        <div className="rounded-full border px-3 py-2" style={{ background: "rgba(255,255,255,0.6)", backdropFilter: "blur(20px)", borderColor: "rgba(255,255,255,0.6)" }}>
+        <div className="rounded-full border px-3 py-2" style={{ background: palette.glass, backdropFilter: "blur(20px)", borderColor: "rgba(255,255,255,0.6)" }}>
           <ConnectionMeter quality={room.connectionQuality} />
         </div>
 
-        <div className="rounded-full border px-4 py-2 tabular-nums" style={{ background: "rgba(255,255,255,0.65)", backdropFilter: "blur(20px)", borderColor: "rgba(255,255,255,0.6)", color: palette.primary, fontFamily: "'Fraunces', serif", fontVariantNumeric: "tabular-nums", fontSize: 15 }}>
+        <div className="rounded-full border px-4 py-2 tabular-nums" style={{ background: palette.glass, backdropFilter: "blur(20px)", borderColor: "rgba(255,255,255,0.6)", color: palette.primary, fontFamily: "'Fraunces', serif", fontVariantNumeric: "tabular-nums", fontSize: 15 }}>
           {fmtDur(elapsed)}
         </div>
 
         <button
           onClick={() => navigate({ to: "/sessions/$id", params: { id } })}
           className="w-9 h-9 rounded-full flex items-center justify-center border transition-transform hover:scale-105"
-          style={{ background: "rgba(255,255,255,0.6)", backdropFilter: "blur(20px)", borderColor: "rgba(255,255,255,0.6)", color: palette.ink }}
+          style={{ background: palette.glass, backdropFilter: "blur(20px)", borderColor: "rgba(255,255,255,0.6)", color: palette.ink }}
           aria-label="Minimize"
         >
           <X className="w-4 h-4" strokeWidth={1.5} />
@@ -111,7 +111,7 @@ function RoomView() {
                 />
               ) : (
                 <div className="text-center">
-                  <div className="w-24 h-24 rounded-full mx-auto flex items-center justify-center text-[28px]" style={{ background: "rgba(255,255,255,0.55)", color: palette.ink, fontFamily: "'Fraunces', serif" }}>
+                  <div className="w-24 h-24 rounded-full mx-auto flex items-center justify-center text-[28px]" style={{ background: palette.glass, color: palette.ink, fontFamily: "'Fraunces', serif" }}>
                     {(patient?.preferredName ?? patient?.fullName ?? "—").slice(0, 1)}
                   </div>
                   <p className="mt-3 text-[11px] tracking-[0.16em] uppercase" style={{ color: palette.muted }}>Video paused</p>
@@ -134,14 +134,14 @@ function RoomView() {
       {/* Captions */}
       {room.captionsOn && (
         <div className="absolute left-1/2 -translate-x-1/2 bottom-40 max-w-2xl w-[calc(100%-3rem)] rounded-2xl px-4 py-3 text-center animate-in fade-in duration-200"
-          style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.6)" }}>
+          style={{ background: palette.glassStrong, backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.6)" }}>
           <p className="text-[13.5px] leading-snug" style={{ color: palette.ink }}>{CAPTIONS[captionIdx]}</p>
         </div>
       )}
 
       {/* Dock */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20">
-        <div className="flex items-center gap-2 rounded-full border px-3 h-[72px]" style={{ background: "rgba(255,255,255,0.75)", backdropFilter: "blur(24px) saturate(140%)", borderColor: "rgba(255,255,255,0.6)", boxShadow: "0 20px 50px -20px rgba(30,20,24,0.3)" }}>
+        <div className="flex items-center gap-2 rounded-full border px-3 h-[72px]" style={{ background: palette.glassStrong, backdropFilter: "blur(24px) saturate(140%)", borderColor: "rgba(255,255,255,0.6)", boxShadow: "0 20px 50px -20px rgba(30,20,24,0.3)" }}>
           <DockBtn active={room.micOn} onClick={toggleMic} label={room.micOn ? "Mute" : "Unmute"}>{room.micOn ? <Mic className="w-4 h-4" strokeWidth={1.5} /> : <MicOff className="w-4 h-4" strokeWidth={1.5} />}</DockBtn>
           <DockBtn active={room.camOn} onClick={toggleCam} label={room.camOn ? "Stop video" : "Start video"}>{room.camOn ? <Video className="w-4 h-4" strokeWidth={1.5} /> : <VideoOff className="w-4 h-4" strokeWidth={1.5} />}</DockBtn>
           <DockBtn active={room.screenShare} onClick={toggleShare} label="Share screen"><MonitorUp className="w-4 h-4" strokeWidth={1.5} /></DockBtn>
@@ -161,7 +161,7 @@ function RoomView() {
       {/* Notes drawer */}
       <div className={`absolute top-0 right-0 h-full w-full max-w-[380px] z-30 transition-transform duration-200 ease-out ${notesOpen ? "translate-x-0" : "translate-x-full"}`}>
         <div className="h-full p-4">
-          <div className="h-full rounded-3xl border p-5 overflow-y-auto" style={{ background: "rgba(255,255,255,0.85)", backdropFilter: "blur(24px) saturate(140%)", borderColor: "rgba(255,255,255,0.6)" }}>
+          <div className="h-full rounded-3xl border p-5 overflow-y-auto" style={{ background: palette.glassStrong, backdropFilter: "blur(24px) saturate(140%)", borderColor: "rgba(255,255,255,0.6)" }}>
             <div className="flex items-center justify-between">
               <p className="text-[11px] tracking-[0.16em] uppercase" style={{ color: palette.muted }}>Quick capture</p>
               <button onClick={() => setNotesOpen(false)}><X className="w-4 h-4" style={{ color: palette.muted }} /></button>
@@ -180,7 +180,7 @@ function RoomView() {
       {/* Confirm end */}
       {confirm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-6" style={{ background: "rgba(30,20,24,0.4)", backdropFilter: "blur(8px)" }}>
-          <div className="rounded-3xl border p-6 max-w-sm w-full animate-in fade-in duration-150" style={{ background: "rgba(255,255,255,0.95)", borderColor: "rgba(255,255,255,0.6)" }}>
+          <div className="rounded-3xl border p-6 max-w-sm w-full animate-in fade-in duration-150" style={{ background: palette.glassStrong, borderColor: "rgba(255,255,255,0.6)" }}>
             <h2 className="text-[18px] tracking-tight" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>End this session?</h2>
             <p className="text-[12.5px] mt-2" style={{ color: palette.muted }}>You'll be taken to a quick wrap-up. Timer stops now.</p>
             <div className="mt-5 flex gap-2 justify-end">

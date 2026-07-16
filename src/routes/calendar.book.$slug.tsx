@@ -186,7 +186,7 @@ function PublicBookingFlow() {
       {step === 4 && service && slot && (
         <section className="pt-6">
           <h2 className="text-[clamp(2.4rem,5vw,4rem)] leading-none" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>Booked.</h2>
-          <div className="mt-6 rounded-2xl border p-5 max-w-xl" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+          <div className="mt-6 rounded-2xl border p-5 max-w-xl" style={{ borderColor: palette.border, background: palette.glassStrong }}>
             <dl className="space-y-2 text-[13.5px]" style={{ color: palette.ink }}>
               <Row k="Service" v={service} />
               <Row k="When" v={`${new Date(slot).toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"})} · ${new Date(slot).toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"})}`} />

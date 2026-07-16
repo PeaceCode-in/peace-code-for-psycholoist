@@ -187,7 +187,7 @@ export function CopilotPill() {
       {open && (
         <div className="fixed inset-0 z-[60] flex items-start justify-center pt-[10vh] px-4">
           <div className="absolute inset-0 bg-black/25" onClick={() => setOpen(false)} />
-          <CopilotPanel className="relative w-full max-w-[600px] overflow-hidden" style={{ background: "rgba(255,255,255,0.96)" }}>
+          <CopilotPanel className="relative w-full max-w-[600px] overflow-hidden" style={{ background: palette.glassStrong }}>
             <EthicsRibbon />
             <div className="p-3">
               <div className="flex items-center gap-2 px-2 pb-2 border-b" style={{ borderColor: palette.border }}>

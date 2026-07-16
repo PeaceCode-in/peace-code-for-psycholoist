@@ -44,7 +44,7 @@ function ClaimsBoard() {
           const items = claims.filter((c) => col.accepts.includes(c.status));
           return (
             <div key={col.key} className="rounded-3xl p-3 min-w-[240px]"
-              style={{ background: "rgba(255,255,255,0.4)", backdropFilter: "blur(24px)", border: `1px solid ${palette.border}`, minHeight: 400 }}
+              style={{ background: palette.glass, backdropFilter: "blur(24px)", border: `1px solid ${palette.border}`, minHeight: 400 }}
               onDragOver={(e) => e.preventDefault()}
               onDrop={(e) => {
                 const id = e.dataTransfer.getData("text/plain");
@@ -64,7 +64,7 @@ function ClaimsBoard() {
                       draggable
                       onDragStart={(e) => e.dataTransfer.setData("text/plain", c.id)}
                       className="block rounded-xl p-3 cursor-grab active:cursor-grabbing hover:-translate-y-0.5 transition-transform"
-                      style={{ background: "#fff", border: `1px solid ${palette.border}`, borderLeft: `3px solid ${meta.color}` }}>
+                      style={{ background: palette.solid, border: `1px solid ${palette.border}`, borderLeft: `3px solid ${meta.color}` }}>
                       <div className="flex items-baseline justify-between">
                         <span className="text-[10.5px] font-mono" style={{ fontFamily: "'DM Mono', monospace", color: palette.muted }}>{c.id}</span>
                         <span className="text-[10.5px]" style={{ color: daysColor, fontFamily: "'Fraunces', serif", letterSpacing: "0.08em" }}>{daysIn}d</span>
@@ -86,13 +86,13 @@ function ClaimsBoard() {
       </div>
 
       <aside className="space-y-3">
-        <div className="rounded-2xl p-4" style={{ background: "rgba(255,255,255,0.5)", backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` }}>
+        <div className="rounded-2xl p-4" style={{ background: palette.glass, backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` }}>
           <div className="text-[10.5px] uppercase tracking-[0.14em] mb-2" style={{ color: palette.muted, fontFamily: "'Fraunces', serif" }}>Overall reimbursement</div>
           <div className="font-mono tabular-nums text-[26px]" style={{ fontFamily: "'DM Mono', monospace", color: palette.ink }}>
             {Math.round(getInsuranceReimbursementRate() * 100)}%
           </div>
         </div>
-        <div className="rounded-2xl p-4" style={{ background: "rgba(255,255,255,0.5)", backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` }}>
+        <div className="rounded-2xl p-4" style={{ background: palette.glass, backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` }}>
           <div className="text-[10.5px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'Fraunces', serif" }}>By insurer</div>
           <HBarList items={byInsurer} format="number" />
         </div>

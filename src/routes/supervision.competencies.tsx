@@ -29,7 +29,7 @@ function Competencies() {
         <Stat label="Gap domains" value={String(gap)} sub="focus for supervision" tone={gap ? "warn" : "ok"} />
       </div>
 
-      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         {competencies.map((c) => {
           const behind = c.level < c.targetLevel;
           return (
@@ -83,7 +83,7 @@ function Competencies() {
 function Stat({ label, value, sub, tone = "ok" }: { label: string; value: string; sub: string; tone?: "ok" | "warn" }) {
   const border = tone === "warn" ? "rgba(203,108,84,0.4)" : palette.border;
   return (
-    <div className="rounded-2xl border p-4" style={{ borderColor: border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+    <div className="rounded-2xl border p-4" style={{ borderColor: border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
       <div className="text-[11px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{label}</div>
       <div className="mt-1 text-[24px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>{value}</div>
       <div className="text-[11px]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{sub}</div>

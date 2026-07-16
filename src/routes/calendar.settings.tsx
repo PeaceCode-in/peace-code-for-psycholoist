@@ -74,7 +74,7 @@ function CalendarSettingsPage() {
 }
 
 function Card({ children }: { children: React.ReactNode }) {
-  return <div className="rounded-2xl border divide-y" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.55)" }}>{children}</div>;
+  return <div className="rounded-2xl border divide-y" style={{ borderColor: palette.border, background: palette.glass }}>{children}</div>;
 }
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (

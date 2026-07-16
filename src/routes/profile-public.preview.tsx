@@ -28,7 +28,7 @@ function PreviewPage() {
         </Link>
       </div>
 
-      <div className="mx-auto rounded-3xl border overflow-hidden" style={{ borderColor: palette.border, background: "#fff", maxWidth: device === "mobile" ? 420 : 1100 }}>
+      <div className="mx-auto rounded-3xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.solid, maxWidth: device === "mobile" ? 420 : 1100 }}>
         <div className="h-8 flex items-center gap-1.5 px-3 border-b" style={{ borderColor: palette.border, background: "rgba(0,0,0,0.03)" }}>
           <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#ff5f57" }} />
           <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#febc2e" }} />

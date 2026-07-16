@@ -56,7 +56,7 @@ function MonthView() {
       }
     >
       <div className="pc-scroll-x -mx-4 sm:mx-0"><div className="px-4 sm:px-0" style={{ minWidth: 720 }}>
-      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.5)" }}>
+      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.glass }}>
 
         <div className="grid grid-cols-7">
           {weekdayLabels.map((l) => (
@@ -98,7 +98,7 @@ function MonthView() {
                   <div className="h-full rounded-full transition-all duration-[180ms]" style={{ width: `${Math.round(density * 100)}%`, background: palette.primary, opacity: 0.7 }} />
                 </div>
                 {hoverDay === key && dayS.length > 0 && (
-                  <div className="absolute top-full left-0 z-30 mt-1 min-w-[220px] rounded-xl border p-2 shadow-lg" style={{ borderColor: palette.border, background: "#fff" }}>
+                  <div className="absolute top-full left-0 z-30 mt-1 min-w-[220px] rounded-xl border p-2 shadow-lg" style={{ borderColor: palette.border, background: palette.solid }}>
                     {dayS.slice(0, 3).map((s) => {
                       const p = getPatient(s.patientId);
                       return (

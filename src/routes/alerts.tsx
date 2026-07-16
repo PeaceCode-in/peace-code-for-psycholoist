@@ -152,14 +152,14 @@ function AlertsPage() {
         </div>
 
         {visible.length === 0 ? (
-          <div className="rounded-2xl border p-12 text-center" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+          <div className="rounded-2xl border p-12 text-center" style={{ borderColor: palette.border, background: palette.glass }}>
             <Bell className="h-6 w-6 mx-auto mb-3" style={{ color: palette.muted }} />
             <p className="text-[13px]" style={{ color: palette.muted }}>Nothing needs your attention right now.</p>
           </div>
         ) : grouped ? (
           <div className="space-y-4">
             {groupedList.map((bucket) => (
-              <div key={bucket[0].patient?.id ?? "_"} className="rounded-2xl border p-3" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+              <div key={bucket[0].patient?.id ?? "_"} className="rounded-2xl border p-3" style={{ borderColor: palette.border, background: palette.glassStrong }}>
                 {bucket[0].patient && (
                   <div className="flex items-center gap-2 mb-2 px-1">
                     <img src={avatarUrl(bucket[0].patient.id)} alt="" className="h-7 w-7 rounded-full object-cover" />
@@ -180,7 +180,7 @@ function AlertsPage() {
             <h3 className="text-[10.5px] uppercase tracking-[0.16em] mb-2" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Snoozed · {snoozedList.length}</h3>
             <ul className="space-y-1">
               {snoozedList.map((a) => (
-                <li key={a.id} className="flex items-center gap-2 text-[12px] p-2.5 rounded-xl border" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.5)" }}>
+                <li key={a.id} className="flex items-center gap-2 text-[12px] p-2.5 rounded-xl border" style={{ borderColor: palette.border, background: palette.glass }}>
                   <BellOff className="h-3.5 w-3.5" style={{ color: palette.muted }} />
                   <span style={{ color: palette.ink }}>{a.title}</span>
                   <span className="ml-auto text-[11px]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>returns {new Date(prefs.snoozes[a.id]).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" })}</span>
@@ -218,7 +218,7 @@ function AlertRow({ a, showAvatar = true }: { a: Alert; showAvatar?: boolean }) 
   }
 
   return (
-    <li className="grid grid-cols-[auto_1fr_auto] items-center gap-4 rounded-2xl border p-3.5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.75)", backdropFilter: "blur(12px)" }}>
+    <li className="grid grid-cols-[auto_1fr_auto] items-center gap-4 rounded-2xl border p-3.5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(12px)" }}>
       <div className="flex items-center gap-3">
         <div className="h-9 w-9 rounded-full flex items-center justify-center" style={{ background: meta.bg }}>
           <Icon className="h-4 w-4" style={{ color: meta.color }} />
@@ -301,7 +301,7 @@ function RulesDialog({ onClose }: { onClose: () => void }) {
             const on = prefs.enabled[k];
             const Icon = meta.Icon;
             return (
-              <li key={k} className="flex items-center gap-3 rounded-xl border p-3" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+              <li key={k} className="flex items-center gap-3 rounded-xl border p-3" style={{ borderColor: palette.border, background: palette.glass }}>
                 <div className="h-8 w-8 rounded-full flex items-center justify-center" style={{ background: meta.bg }}>
                   <Icon className="h-4 w-4" style={{ color: meta.color }} />
                 </div>

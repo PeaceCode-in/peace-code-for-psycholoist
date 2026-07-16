@@ -44,7 +44,7 @@ function AgendaView() {
   let idx = -1;
   return (
     <CalendarShell title="Agenda" subtitle="Quiet, keyboard-first. j/k to move · Enter to open.">
-      <div className="rounded-2xl border" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.5)" }}>
+      <div className="rounded-2xl border" style={{ borderColor: palette.border, background: palette.glass }}>
         {grouped.map(([day, list]) => (
           <div key={day}>
             <div className="px-5 pt-4 pb-2 flex items-baseline gap-3">

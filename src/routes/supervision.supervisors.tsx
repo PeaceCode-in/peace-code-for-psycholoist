@@ -24,7 +24,7 @@ function SupervisorsDirectory() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         {supervisors.map((s) => (
-          <div key={s.id} className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+          <div key={s.id} className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full flex items-center justify-center text-[14px]" style={{ background: palette.ink, color: "#fff", fontFamily: "'Fraunces', serif" }}>{s.avatarInitials}</div>
               <div>
@@ -64,7 +64,7 @@ function DraftContract({ supervisor, onClose }: { supervisor: Supervisor; onClos
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "rgba(20,20,20,0.4)" }} onClick={onClose}>
-      <div className="w-full max-w-[560px] rounded-3xl border p-6" style={{ borderColor: palette.border, background: "#fff" }} onClick={(e) => e.stopPropagation()}>
+      <div className="w-full max-w-[560px] rounded-3xl border p-6" style={{ borderColor: palette.border, background: palette.solid }} onClick={(e) => e.stopPropagation()}>
         <div className="text-[11px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Draft contract with {supervisor.name}</div>
 
         <label className="text-[11px]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Cadence</label>

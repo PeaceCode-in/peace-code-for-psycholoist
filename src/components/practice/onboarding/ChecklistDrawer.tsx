@@ -33,7 +33,7 @@ export function ChecklistDrawer() {
         onClick={() => setOpen(true)}
         title="First-run checklist (⌘.)"
         className="hidden md:flex items-center gap-2 rounded-full px-3 py-1.5 text-[12px] transition-all duration-150 hover:bg-white/60"
-        style={{ background: "rgba(255,255,255,0.5)", border: `1px solid ${palette.border}`, color: palette.ink }}
+        style={{ background: palette.glass, border: `1px solid ${palette.border}`, color: palette.ink }}
       >
         <ListChecks className="h-3.5 w-3.5" style={{ color: palette.primary }} />
         <span>First week</span>

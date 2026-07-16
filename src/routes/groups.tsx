@@ -57,7 +57,7 @@ function GroupsPage() {
             <Search className="h-3.5 w-3.5 absolute left-3 top-1/2 -translate-y-1/2" style={{ color: palette.muted }} />
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search by name or focus" className="w-full pl-8 pr-3 py-2 rounded-full border text-[12.5px] bg-white/70" style={{ borderColor: palette.border }} />
           </div>
-          <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+          <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: palette.glass }}>
             {(["all", "active", "forming", "closed"] as const).map((k) => (
               <button key={k} onClick={() => setStatus(k)} className="rounded-full px-3 py-1 text-[11px] capitalize" style={{ fontFamily: "'DM Mono', ui-monospace, monospace", background: status === k ? palette.ink : "transparent", color: status === k ? "#fff" : palette.muted }}>{k}</button>
             ))}
@@ -66,7 +66,7 @@ function GroupsPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
           {filtered.length === 0 ? (
-            <div className="col-span-full rounded-2xl border p-10 text-center text-[13px]" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", color: palette.muted }}>No groups match.</div>
+            <div className="col-span-full rounded-2xl border p-10 text-center text-[13px]" style={{ borderColor: palette.border, background: palette.glassStrong, color: palette.muted }}>No groups match.</div>
           ) : filtered.map((g) => <GroupCard key={g.id} g={g} onOpen={() => setOpenId(g.id)} />)}
         </div>
       </div>
@@ -83,7 +83,7 @@ function GroupCard({ g, onOpen }: { g: Group; onOpen: () => void }) {
   const sessions = useGroupSessions(g.id);
   const next = g.nextSessionAt ? new Date(g.nextSessionAt) : null;
   return (
-    <button onClick={onOpen} className="text-left rounded-2xl border p-4 transition-all hover:-translate-y-0.5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(12px)" }}>
+    <button onClick={onOpen} className="text-left rounded-2xl border p-4 transition-all hover:-translate-y-0.5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(12px)" }}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="text-[15px] leading-tight" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>{g.name}</div>
@@ -151,7 +151,7 @@ function GroupDrawer({ g, onClose }: { g: Group; onClose: () => void }) {
         </dl>
 
         {g.notes && (
-          <p className="mt-4 text-[12.5px] p-3 rounded-xl border italic" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)", color: palette.muted }}>{g.notes}</p>
+          <p className="mt-4 text-[12.5px] p-3 rounded-xl border italic" style={{ borderColor: palette.border, background: palette.glass, color: palette.muted }}>{g.notes}</p>
         )}
 
         <div className="mt-6 flex flex-wrap gap-2">
@@ -163,7 +163,7 @@ function GroupDrawer({ g, onClose }: { g: Group; onClose: () => void }) {
           </select>
         </div>
 
-        <div className="mt-6 inline-flex rounded-full border p-1" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+        <div className="mt-6 inline-flex rounded-full border p-1" style={{ borderColor: palette.border, background: palette.glass }}>
           {(["roster", "sessions"] as const).map((k) => (
             <button key={k} onClick={() => setTab(k)} className="rounded-full px-3 py-1 text-[11.5px]" style={{ fontFamily: "'DM Mono', ui-monospace, monospace", background: tab === k ? palette.ink : "transparent", color: tab === k ? "#fff" : palette.muted }}>
               {k === "roster" ? `Roster (${members.length})` : `Sessions (${sessions.length})`}
@@ -177,7 +177,7 @@ function GroupDrawer({ g, onClose }: { g: Group; onClose: () => void }) {
               <button onClick={() => setAddOpen((v) => !v)} className="mb-2 inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[11px]" style={{ borderColor: palette.border, color: palette.ink }}><UserPlus className="h-3 w-3" /> Add member</button>
             )}
             {addOpen && (
-              <div className="mb-3 rounded-xl border p-2 max-h-56 overflow-y-auto" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+              <div className="mb-3 rounded-xl border p-2 max-h-56 overflow-y-auto" style={{ borderColor: palette.border, background: palette.glass }}>
                 {candidates.length === 0 ? (
                   <p className="p-3 text-[12px]" style={{ color: palette.muted }}>No eligible patients.</p>
                 ) : candidates.map((p) => (
@@ -196,7 +196,7 @@ function GroupDrawer({ g, onClose }: { g: Group; onClose: () => void }) {
               ) : members.map((p) => {
                 const rate = attendanceRate(sessions, p.id);
                 return (
-                  <li key={p.id} className="flex items-center gap-2 px-2 py-1.5 rounded-lg" style={{ background: "rgba(255,255,255,0.6)" }}>
+                  <li key={p.id} className="flex items-center gap-2 px-2 py-1.5 rounded-lg" style={{ background: palette.glass }}>
                     <img src={avatarUrl(p.id)} alt="" className="h-7 w-7 rounded-full" />
                     <div className="min-w-0 flex-1">
                       <div className="text-[12.5px] truncate" style={{ color: palette.ink }}>{p.preferredName ?? p.fullName}</div>
@@ -219,7 +219,7 @@ function GroupDrawer({ g, onClose }: { g: Group; onClose: () => void }) {
             ) : sessions.map((s) => {
               const present = Object.values(s.attendance).filter((a) => a === "present" || a === "late").length;
               return (
-                <div key={s.id} className="rounded-xl border p-3" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+                <div key={s.id} className="rounded-xl border p-3" style={{ borderColor: palette.border, background: palette.glass }}>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-[12.5px]" style={{ color: palette.ink }}>
                       <Calendar className="h-3.5 w-3.5" style={{ color: palette.muted }} />
@@ -290,10 +290,10 @@ function LogSessionDialog({ g, members, onClose }: { g: Group; members: Patient[
           <span className="text-[10.5px] uppercase tracking-[0.16em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Attendance</span>
           <ul className="mt-2 space-y-1">
             {members.map((m) => (
-              <li key={m.id} className="flex items-center gap-2 rounded-lg px-2 py-1.5" style={{ background: "rgba(255,255,255,0.6)" }}>
+              <li key={m.id} className="flex items-center gap-2 rounded-lg px-2 py-1.5" style={{ background: palette.glass }}>
                 <img src={avatarUrl(m.id)} alt="" className="h-6 w-6 rounded-full" />
                 <span className="flex-1 text-[12.5px]" style={{ color: palette.ink }}>{m.preferredName ?? m.fullName}</span>
-                <div className="inline-flex rounded-full border p-0.5" style={{ borderColor: palette.border, background: "#fff" }}>
+                <div className="inline-flex rounded-full border p-0.5" style={{ borderColor: palette.border, background: palette.solid }}>
                   {(["present", "late", "absent", "excused"] as const).map((k) => {
                     const on = attendance[m.id] === k;
                     const am = ATTENDANCE_META[k];

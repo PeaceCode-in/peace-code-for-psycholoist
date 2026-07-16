@@ -83,7 +83,7 @@ function InstrumentDetail() {
         <p className="text-[10.5px] tracking-[0.16em] uppercase mb-4" style={{ color: palette.muted }}>Items ({inst.items.length})</p>
         <ol className="space-y-4">
           {inst.items.map((it, i) => (
-            <li key={it.id} className="rounded-2xl border p-4" style={{ background: "rgba(255,255,255,0.55)", borderColor: "rgba(255,255,255,0.55)" }}>
+            <li key={it.id} className="rounded-2xl border p-4" style={{ background: palette.glass, borderColor: "rgba(255,255,255,0.55)" }}>
               <div className="flex items-start gap-3">
                 <span className="tabular-nums text-[12px] mt-0.5 w-5 shrink-0" style={{ color: palette.muted, fontFamily: "'Fraunces', serif" }}>{String(i + 1).padStart(2, "0")}</span>
                 <div className="flex-1 min-w-0">
@@ -108,7 +108,7 @@ function InstrumentDetail() {
       {/* Population norms */}
       {norms && (
         <section className="mb-10">
-          <div className="rounded-3xl border p-5" style={{ background: "rgba(255,255,255,0.55)", borderColor: "rgba(255,255,255,0.55)" }}>
+          <div className="rounded-3xl border p-5" style={{ background: palette.glass, borderColor: "rgba(255,255,255,0.55)" }}>
             <p className="text-[10.5px] tracking-[0.16em] uppercase" style={{ color: palette.muted }}>Your practice · {norms.n} results</p>
             <div className="mt-3 flex items-baseline gap-4 flex-wrap">
               <div>
@@ -133,10 +133,10 @@ function InstrumentDetail() {
         <button onClick={() => toast("Assign from Assignments → Assign new")} className="inline-flex items-center gap-1.5 text-[12px] px-4 h-10 rounded-full" style={{ background: palette.primary, color: "#fff" }}>
           <UserPlus className="w-3.5 h-3.5" /> Assign to patient
         </button>
-        <button onClick={() => toast("Preview flow lives at /assessments/take/$id")} className="inline-flex items-center gap-1.5 text-[12px] px-4 h-10 rounded-full border" style={{ borderColor: palette.border, color: palette.ink, background: "rgba(255,255,255,0.5)" }}>
+        <button onClick={() => toast("Preview flow lives at /assessments/take/$id")} className="inline-flex items-center gap-1.5 text-[12px] px-4 h-10 rounded-full border" style={{ borderColor: palette.border, color: palette.ink, background: palette.glass }}>
           <Eye className="w-3.5 h-3.5" /> Preview as patient
         </button>
-        <button onClick={duplicate} className="inline-flex items-center gap-1.5 text-[12px] px-4 h-10 rounded-full border" style={{ borderColor: palette.border, color: palette.ink, background: "rgba(255,255,255,0.5)" }}>
+        <button onClick={duplicate} className="inline-flex items-center gap-1.5 text-[12px] px-4 h-10 rounded-full border" style={{ borderColor: palette.border, color: palette.ink, background: palette.glass }}>
           <Copy className="w-3.5 h-3.5" /> Duplicate as custom
         </button>
       </div>

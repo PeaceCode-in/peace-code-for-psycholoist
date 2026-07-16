@@ -26,7 +26,7 @@ function Referrals() {
   return (
     <div className="max-w-[1200px] mx-auto px-5 sm:px-8 pb-16">
       <div className="flex items-center justify-between mb-5">
-        <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)", backdropFilter: "blur(12px)" }}>
+        <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: palette.glass, backdropFilter: "blur(12px)" }}>
           {(["all", "sent", "received"] as const).map((k) => (
             <button key={k} onClick={() => setDir(k)} className="rounded-full px-3 py-1 text-[11px] capitalize" style={{ fontFamily: "'DM Mono', ui-monospace, monospace", background: dir === k ? palette.ink : "transparent", color: dir === k ? "#fff" : palette.muted }}>{k}</button>
           ))}
@@ -36,7 +36,7 @@ function Referrals() {
         </button>
       </div>
 
-      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <div className="grid grid-cols-[60px_1fr_1fr_180px_120px_140px] gap-3 px-4 py-2 text-[11px] uppercase tracking-[0.14em]" style={{ color: palette.muted, background: "rgba(0,0,0,0.02)", fontFamily: "'DM Mono', ui-monospace, monospace" }}>
           <div>Dir</div><div>Peer</div><div>Focus</div><div>Patient</div><div>Status</div><div>Updated</div>
         </div>
@@ -78,7 +78,7 @@ function NewReferral({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "rgba(20,20,20,0.4)" }} onClick={onClose}>
-      <div className="w-full max-w-[520px] rounded-3xl border p-6" style={{ borderColor: palette.border, background: "#fff" }} onClick={(e) => e.stopPropagation()}>
+      <div className="w-full max-w-[520px] rounded-3xl border p-6" style={{ borderColor: palette.border, background: palette.solid }} onClick={(e) => e.stopPropagation()}>
         <div className="text-[11px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Send referral</div>
         <label className="text-[11px]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>To peer</label>
         <select value={counterpartId} onChange={(e) => setCounterpartId(e.target.value)} className="w-full border rounded-xl px-3 py-2 text-[13px] mb-3 mt-1" style={{ borderColor: palette.border }}>

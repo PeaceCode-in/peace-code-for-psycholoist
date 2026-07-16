@@ -64,7 +64,7 @@ function NewInvoice() {
         <div className="relative mt-2">
           <button onClick={() => setPatientOpen((v) => !v)}
             className="w-full flex items-center justify-between h-11 px-3 rounded-xl text-[13px]"
-            style={{ background: "#fff", border: `1px solid ${palette.border}`, color: patient ? palette.ink : palette.muted }}>
+            style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: patient ? palette.ink : palette.muted }}>
             <span className="flex items-center gap-2">
               {patient && <img src={avatarUrl(patient.id)} className="w-6 h-6 rounded-full" alt="" />}
               {patient ? patient.fullName : "Select a patient"}
@@ -73,7 +73,7 @@ function NewInvoice() {
           </button>
           {patientOpen && (
             <div className="absolute z-30 mt-1 w-full max-h-72 overflow-auto rounded-xl"
-              style={{ background: "#fff", border: `1px solid ${palette.border}`, boxShadow: "0 12px 32px rgba(30,20,24,0.08)" }}>
+              style={{ background: palette.solid, border: `1px solid ${palette.border}`, boxShadow: "0 12px 32px rgba(30,20,24,0.08)" }}>
               {patients.map((p) => (
                 <button key={p.id} onClick={() => { setPatientId(p.id); setPatientOpen(false); }}
                   className="w-full flex items-center gap-2 px-3 py-2 text-[12.5px] hover:bg-black/[0.03]" style={{ color: palette.ink }}>
@@ -94,7 +94,7 @@ function NewInvoice() {
           <div className="relative">
             <select onChange={(e) => { if (e.target.value) { addService(e.target.value); e.target.value = ""; } }}
               className="text-[11.5px] pr-6 pl-3 h-8 rounded-full appearance-none cursor-pointer"
-              style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}>
+              style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}>
               <option value="">+ Add from catalog</option>
               {services.map((s) => <option key={s.id} value={s.id}>{s.service} · ₹ {s.standardRate}</option>)}
             </select>
@@ -170,10 +170,10 @@ function NewInvoice() {
       </div>
 
       {/* Actions */}
-      <div className="sticky bottom-4 flex justify-end gap-2 rounded-2xl p-3" style={{ ...cardStyle, background: "rgba(255,255,255,0.85)" }}>
+      <div className="sticky bottom-4 flex justify-end gap-2 rounded-2xl p-3" style={{ ...cardStyle, background: palette.glassStrong }}>
         <button onClick={() => save("draft")} disabled={!patientId || lines.length === 0}
           className="h-9 px-4 rounded-full text-[12px] disabled:opacity-40"
-          style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}>
+          style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}>
           Save draft
         </button>
         <button onClick={() => save("sent")} disabled={!patientId || lines.length === 0}
@@ -195,7 +195,7 @@ function TotalRow({ label, value, muted }: { label: string; value: number; muted
   );
 }
 
-const cardStyle = { background: "rgba(255,255,255,0.5)", backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` } as const;
-const fieldStyle = { background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink } as const;
+const cardStyle = { background: palette.glass, backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` } as const;
+const fieldStyle = { background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink } as const;
 
 void Plus;

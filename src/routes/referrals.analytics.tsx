@@ -32,7 +32,7 @@ function AnalyticsPage() {
   return (
     <div className="max-w-[1200px] mx-auto px-5 sm:px-8 pb-16">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div className="rounded-2xl border p-6" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+        <div className="rounded-2xl border p-6" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
           <div className="text-[11px] uppercase tracking-[0.14em] mb-4" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Intake funnel</div>
           {funnel.map((f, i) => {
             const pct = Math.round((f.value / max) * 100);
@@ -60,7 +60,7 @@ function AnalyticsPage() {
         </div>
       </div>
 
-      <div className="mt-5 rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+      <div className="mt-5 rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
         <div className="text-[11px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Copilot observation</div>
         <p className="text-[13px] leading-relaxed max-w-2xl" style={{ color: palette.ink }}>
           Response time of <strong>{avgContactDays.toFixed(1)} days</strong> is {avgContactDays > 2 ? "outside the 48-hour window most GP-referred patients expect. Two of the last five GP referrals waited over 3 days for first contact." : "within the 48-hour window most GP-referred patients expect."} Every day of delay drops conversion by roughly 6% in your cohort.
@@ -73,7 +73,7 @@ function AnalyticsPage() {
 function StatCard({ label, value, sub, tone = "ok" }: { label: string; value: string; sub: string; tone?: "ok" | "warn" }) {
   const border = tone === "warn" ? "rgba(203,108,84,0.4)" : palette.border;
   return (
-    <div className="rounded-2xl border p-5" style={{ borderColor: border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+    <div className="rounded-2xl border p-5" style={{ borderColor: border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
       <div className="text-[11px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{label}</div>
       <div className="mt-1 text-[28px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>{value}</div>
       <div className="text-[11px]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{sub}</div>

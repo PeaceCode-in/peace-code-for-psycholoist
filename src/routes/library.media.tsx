@@ -18,7 +18,7 @@ function Media() {
         {media.map((p) => {
           const Icon = p.format === "Video" ? Film : p.format === "Podcast" ? Music : ImageIcon;
           return (
-            <Link key={p.id} to="/library/$pid" params={{ pid: p.id }} className="rounded-2xl border p-5 hover:shadow-sm transition-all" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+            <Link key={p.id} to="/library/$pid" params={{ pid: p.id }} className="rounded-2xl border p-5 hover:shadow-sm transition-all" style={{ borderColor: palette.border, background: palette.glassStrong }}>
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: palette.soft, color: palette.primary }}><Icon className="h-4.5 w-4.5" /></div>
                 <span className="text-[10.5px] uppercase tracking-[0.14em]" style={{ color: palette.muted }}>{p.format}</span>

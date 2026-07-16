@@ -38,7 +38,7 @@ function WritingIndex() {
 
       {featured && (
         <Link to="/writing/$slug" params={{ slug: featured.slug }} className="block group mb-16">
-          <div className="rounded-3xl overflow-hidden border" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.75)" }}>
+          <div className="rounded-3xl overflow-hidden border" style={{ borderColor: palette.border, background: palette.glassStrong }}>
             <div className="h-64 sm:h-80" style={{ background: featured.coverImage ? `center/cover url(${featured.coverImage})` : `linear-gradient(135deg, ${palette.soft}, ${palette.lavender})` }} />
             <div className="p-8 lg:p-10">
               <div className="text-[10.5px] uppercase tracking-[0.18em] mb-3" style={{ color: palette.primary, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{featured.category} · {readingTimeMin(featured.blocks)} min</div>
@@ -53,7 +53,7 @@ function WritingIndex() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {rest.map((p) => (
           <Link key={p.id} to="/writing/$slug" params={{ slug: p.slug }} className="block group">
-            <div className="rounded-2xl overflow-hidden border mb-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+            <div className="rounded-2xl overflow-hidden border mb-4" style={{ borderColor: palette.border, background: palette.glass }}>
               <div className="h-40" style={{ background: p.coverImage ? `center/cover url(${p.coverImage})` : `linear-gradient(135deg, ${palette.soft}, ${palette.lavender})` }} />
             </div>
             <div className="text-[10.5px] uppercase tracking-[0.16em] mb-1.5" style={{ color: palette.primary, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{p.category} · {readingTimeMin(p.blocks)} min</div>

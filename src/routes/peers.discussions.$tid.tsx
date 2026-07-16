@@ -40,7 +40,7 @@ function ThreadDetail() {
         <ArrowLeft className="h-3 w-3" /> All discussions
       </Link>
 
-      <div className="rounded-2xl border p-6 mb-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+      <div className="rounded-2xl border p-6 mb-4" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
         <div className="flex items-center justify-between text-[11px] mb-2" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
           <span className="uppercase tracking-[0.14em]">{KIND_LABEL[d.kind]}</span>
           <div className="flex items-center gap-3">
@@ -65,7 +65,7 @@ function ThreadDetail() {
           const a = pmap[r.authorId];
           const mine = r.helpfulBy.includes(ME_ID);
           return (
-            <div key={r.id} className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+            <div key={r.id} className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
               <div className="flex items-center justify-between text-[11px] mb-1" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
                 <span>{a?.name ?? "—"}{a?.self ? " (you)" : ""}</span>
                 <span>{new Date(r.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}</span>
@@ -79,7 +79,7 @@ function ThreadDetail() {
         })}
       </div>
 
-      <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+      <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
         <div className="text-[11px] uppercase tracking-[0.14em] mb-2" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Your reply</div>
         <textarea value={reply} onChange={(e) => setReply(e.target.value)} rows={4} placeholder="Contribute — clinical judgement, references, or a question of your own." className="w-full border rounded-xl px-3 py-2 text-[13px]" style={{ borderColor: palette.border }} />
         <div className="mt-3 flex justify-end">

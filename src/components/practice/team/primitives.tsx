@@ -10,7 +10,7 @@ export function Card({ children, className = "", style = {} }: { children: React
     <div
       className={`rounded-2xl ${className}`}
       style={{
-        background: "rgba(255,255,255,0.72)",
+        background: palette.glassStrong,
         border: `1px solid ${palette.border}`,
         backdropFilter: "blur(14px) saturate(140%)",
         ...style,

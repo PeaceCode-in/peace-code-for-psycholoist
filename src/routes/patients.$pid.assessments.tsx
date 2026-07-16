@@ -27,7 +27,7 @@ function PatientAssessmentsTab() {
 
   if (activeIds.length === 0) {
     return (
-      <div className="rounded-3xl border p-10 text-center" style={{ background: "rgba(255,255,255,0.5)", borderColor: "rgba(255,255,255,0.55)" }}>
+      <div className="rounded-3xl border p-10 text-center" style={{ background: palette.glass, borderColor: "rgba(255,255,255,0.55)" }}>
         <p className="text-[13px]" style={{ color: palette.muted }}>No assessments assigned yet.</p>
         <Link to="/assessments/assignments" className="inline-block mt-4 text-[12px] px-4 h-9 leading-9 rounded-full" style={{ background: palette.ink, color: "#fff" }}>Assign an instrument</Link>
       </div>
@@ -54,14 +54,14 @@ function PatientAssessmentsTab() {
 
       {inst && (
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6">
-          <section className="rounded-3xl border p-5" style={{ background: "rgba(255,255,255,0.55)", borderColor: "rgba(255,255,255,0.55)" }}>
+          <section className="rounded-3xl border p-5" style={{ background: palette.glass, borderColor: "rgba(255,255,255,0.55)" }}>
             <p className="text-[10.5px] tracking-[0.16em] uppercase mb-2" style={{ color: palette.muted }}>{inst.name} · trajectory</p>
             <div className="-mx-2">
               <TrajectoryChart data={trajectory} instrument={inst} height={240} />
             </div>
           </section>
 
-          <section className="rounded-3xl border p-5 flex flex-col justify-between" style={{ background: "rgba(255,255,255,0.55)", borderColor: "rgba(255,255,255,0.55)" }}>
+          <section className="rounded-3xl border p-5 flex flex-col justify-between" style={{ background: palette.glass, borderColor: "rgba(255,255,255,0.55)" }}>
             {latest ? (
               <>
                 <div>
@@ -90,7 +90,7 @@ function PatientAssessmentsTab() {
             {[...trajectory].reverse().map((r) => (
               <li key={r.id}>
                 <Link to="/assessments/results/$resultId" params={{ resultId: r.id }} className="flex items-center justify-between px-4 py-2.5 rounded-2xl border transition-colors hover:bg-white/50"
-                  style={{ background: "rgba(255,255,255,0.4)", borderColor: "rgba(255,255,255,0.55)" }}>
+                  style={{ background: palette.glass, borderColor: "rgba(255,255,255,0.55)" }}>
                   <span className="text-[12px]" style={{ color: palette.muted }}>{new Date(r.completedAt).toLocaleDateString([], { day: "2-digit", month: "short", year: "numeric" })}</span>
                   <span className="flex items-center gap-3">
                     <DeltaChip value={r.deltaFromLast} size="sm" />

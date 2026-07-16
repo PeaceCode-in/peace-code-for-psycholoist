@@ -700,7 +700,7 @@ function MobileBottomPill() {
     <nav
       className="md:hidden fixed bottom-3 left-3 right-3 z-40 flex items-center justify-around px-2 h-14 rounded-full"
       style={{
-        background: "rgba(255,255,255,0.96)",
+        background: palette.glassStrong,
         border: `1px solid ${palette.border}`,
         boxShadow: "0 6px 24px rgba(30,20,24,0.08)",
       }}

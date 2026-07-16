@@ -198,7 +198,7 @@ function InboxPage() {
         </aside>
 
         {/* Thread list */}
-        <section className="flex-1 min-w-0 flex flex-col border-r" style={{ borderColor: palette.border, background: "#fff" }}>
+        <section className="flex-1 min-w-0 flex flex-col border-r" style={{ borderColor: palette.border, background: palette.solid }}>
           <div className="px-5 py-3 border-b flex items-center gap-3" style={{ borderColor: palette.border }}>
             <div>
               <div style={{ fontFamily: "'Fraunces', serif", fontSize: 15, color: palette.ink }}>{categoryLabel(cat)}</div>
@@ -354,7 +354,7 @@ function DetailPane({ n, onSnooze }: { n: Notification; onSnooze: () => void }) 
           style={{
             fontFamily: "'DM Mono', ui-monospace, monospace",
             fontSize: 9.5, letterSpacing: "0.18em",
-            background: "rgba(255,255,255,0.7)",
+            background: palette.glassStrong,
             border: `1px solid ${palette.border}`,
             color: severityDot(n.severity),
           }}
@@ -376,7 +376,7 @@ function DetailPane({ n, onSnooze }: { n: Notification; onSnooze: () => void }) 
       </div>
 
       {n.meta && Object.keys(n.meta).length > 0 && (
-        <div className="mt-6 rounded-xl p-3.5" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+        <div className="mt-6 rounded-xl p-3.5" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
           {Object.entries(n.meta).map(([k, v]) => (
             <div key={k} className="flex items-center justify-between py-1 text-[12px]">
               <span className="uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
@@ -398,12 +398,12 @@ function DetailPane({ n, onSnooze }: { n: Notification; onSnooze: () => void }) 
         </button>
         {(n.type === "patient_message" || n.type === "supervisor_comment") && (
           <button onClick={() => navigate({ to: n.deepLink })} className="h-9 px-4 rounded-full text-[12.5px] flex items-center gap-1.5"
-            style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}>
+            style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}>
             <Reply className="w-3.5 h-3.5" /> Reply
           </button>
         )}
         <button onClick={onSnooze} className="h-9 px-4 rounded-full text-[12.5px] flex items-center gap-1.5"
-          style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}>
+          style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}>
           <Clock className="w-3.5 h-3.5" /> Snooze
         </button>
         <button onClick={() => {
@@ -411,15 +411,15 @@ function DetailPane({ n, onSnooze }: { n: Notification; onSnooze: () => void }) 
           archive(n.id);
           pushUndo("Archived", () => unarchive(snap.id));
         }} className="h-9 px-4 rounded-full text-[12.5px] flex items-center gap-1.5"
-          style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}>
+          style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}>
           <Archive className="w-3.5 h-3.5" /> Archive
         </button>
         <button onClick={() => { markRead(n.id, false); }} className="h-9 px-4 rounded-full text-[12.5px] flex items-center gap-1.5"
-          style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}>
+          style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}>
           <Mail className="w-3.5 h-3.5" /> Mark unread
         </button>
         <button onClick={() => { convertToTask(n.id); pushUndo("Converted to task", () => {}); }} className="h-9 px-4 rounded-full text-[12.5px] flex items-center gap-1.5"
-          style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}>
+          style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}>
           <ListTodo className="w-3.5 h-3.5" /> Convert to task
         </button>
       </div>
@@ -435,7 +435,7 @@ function SnoozePicker({ onClose, onPick }: { onClose: () => void; onPick: (at: n
       <div className="absolute inset-0 bg-black/25" />
       <div
         className="relative rounded-2xl w-full max-w-sm overflow-hidden"
-        style={{ background: "#fff", border: `1px solid ${palette.border}`, boxShadow: "0 20px 60px rgba(30,20,24,0.18)" }}
+        style={{ background: palette.solid, border: `1px solid ${palette.border}`, boxShadow: "0 20px 60px rgba(30,20,24,0.18)" }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="px-5 pt-5 pb-3">
@@ -530,7 +530,7 @@ function KeyboardHint() {
     <div
       className="hidden xl:flex fixed bottom-4 right-4 z-40 items-center gap-3 px-3 py-2 rounded-full"
       style={{
-        background: "rgba(255,255,255,0.9)",
+        background: palette.glassStrong,
         backdropFilter: "blur(12px)",
         border: `1px solid ${palette.border}`,
         color: palette.muted,

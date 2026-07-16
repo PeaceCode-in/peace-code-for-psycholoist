@@ -63,11 +63,11 @@ function BulkPage() {
       <div className="flex flex-wrap items-end gap-3 mb-5">
         <div>
           <div className="text-[10.5px] uppercase tracking-[0.16em] mb-1" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>From</div>
-          <input type="date" value={range.from} onChange={(e) => setRange({ ...range, from: e.target.value })} className="h-9 px-3 rounded-full border text-[12.5px]" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+          <input type="date" value={range.from} onChange={(e) => setRange({ ...range, from: e.target.value })} className="h-9 px-3 rounded-full border text-[12.5px]" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
         </div>
         <div>
           <div className="text-[10.5px] uppercase tracking-[0.16em] mb-1" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>To</div>
-          <input type="date" value={range.to} onChange={(e) => setRange({ ...range, to: e.target.value })} className="h-9 px-3 rounded-full border text-[12.5px]" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+          <input type="date" value={range.to} onChange={(e) => setRange({ ...range, to: e.target.value })} className="h-9 px-3 rounded-full border text-[12.5px]" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
         </div>
         <div className="ml-auto flex items-center gap-2">
           <button onClick={signAll} disabled={selected.size === 0} className="inline-flex items-center gap-1.5 h-9 px-3 rounded-full border text-[12px] disabled:opacity-40" style={{ borderColor: palette.border, color: palette.ink }}>
@@ -79,7 +79,7 @@ function BulkPage() {
         </div>
       </div>
 
-      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.75)" }}>
+      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <div className="flex items-center gap-3 px-4 py-3 border-b" style={{ borderColor: palette.border }}>
           <button onClick={toggleAll} className="inline-flex items-center gap-1.5 text-[11.5px]" style={{ color: palette.muted }}>
             {selected.size === inRange.length && inRange.length > 0 ? <CheckSquare className="h-3.5 w-3.5" /> : <Square className="h-3.5 w-3.5" />}

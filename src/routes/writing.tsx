@@ -20,7 +20,7 @@ export const Route = createFileRoute("/writing")({
 function WritingLayout() {
   return (
     <div className="min-h-screen" style={{ background: `linear-gradient(180deg, #FDF7F8 0%, #F6F1F2 100%)`, color: palette.ink }}>
-      <header className="border-b" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)", backdropFilter: "blur(12px)" }}>
+      <header className="border-b" style={{ borderColor: palette.border, background: palette.glass, backdropFilter: "blur(12px)" }}>
         <div className="max-w-[1200px] mx-auto px-5 sm:px-8 h-14 flex items-center justify-between">
           <Link to="/writing" className="text-[15px] tracking-tight" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>
             PeaceCode <span className="italic" style={{ color: palette.primary }}>writing</span>

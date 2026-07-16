@@ -48,7 +48,7 @@ function NotificationPrefs() {
 
       {/* DND + rhythm bar */}
       <div className="max-w-4xl grid md:grid-cols-2 gap-3 mb-6">
-        <div className="rounded-2xl p-5" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+        <div className="rounded-2xl p-5" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
           <div className="flex items-center justify-between">
             <div>
               <div style={{ fontFamily: "'Fraunces', serif", fontSize: 16, color: palette.ink }}>Do not disturb</div>
@@ -76,7 +76,7 @@ function NotificationPrefs() {
           </div>
         </div>
 
-        <div className="rounded-2xl p-5" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+        <div className="rounded-2xl p-5" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
           <div style={{ fontFamily: "'Fraunces', serif", fontSize: 16, color: palette.ink }}>Rhythm</div>
           <div className="text-[12px] mt-0.5" style={{ color: palette.muted }}>How often the digest email lands.</div>
           <div className="mt-4 grid grid-cols-2 gap-2">
@@ -104,7 +104,7 @@ function NotificationPrefs() {
       </div>
 
       {/* Quiet hours */}
-      <div className="max-w-4xl rounded-2xl p-5 mb-6" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+      <div className="max-w-4xl rounded-2xl p-5 mb-6" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
         <div className="flex items-center justify-between">
           <div>
             <div style={{ fontFamily: "'Fraunces', serif", fontSize: 16, color: palette.ink }}>Quiet hours</div>
@@ -137,7 +137,7 @@ function NotificationPrefs() {
       </div>
 
       {/* Matrix */}
-      <div className="max-w-4xl rounded-2xl overflow-hidden" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+      <div className="max-w-4xl rounded-2xl overflow-hidden" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
         <div className="px-5 py-4 border-b" style={{ borderColor: palette.border }}>
           <div style={{ fontFamily: "'Fraunces', serif", fontSize: 16, color: palette.ink }}>Per-event channels</div>
           <div className="text-[12px] mt-0.5" style={{ color: palette.muted }}>
@@ -193,7 +193,7 @@ function NotificationPrefs() {
         </div>
       </div>
 
-      <div className="max-w-4xl mt-6 flex items-center justify-between rounded-2xl p-5" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+      <div className="max-w-4xl mt-6 flex items-center justify-between rounded-2xl p-5" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
         <div>
           <div style={{ fontFamily: "'Fraunces', serif", fontSize: 15, color: palette.ink }}>Soft chime for urgent</div>
           <div className="text-[12px] mt-0.5" style={{ color: palette.muted }}>

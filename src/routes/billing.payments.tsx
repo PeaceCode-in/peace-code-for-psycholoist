@@ -46,7 +46,7 @@ function PaymentLedger() {
         <StatPill label="Reconciled" value={stats.reconciled} accent="#5C8F6B" />
       </div>
 
-      <div className="rounded-3xl overflow-hidden" style={{ background: "rgba(255,255,255,0.5)", backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` }}>
+      <div className="rounded-3xl overflow-hidden" style={{ background: palette.glass, backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` }}>
         {groups.length === 0 && <div className="p-10 text-center text-[12px]" style={{ color: palette.muted }}>No payments yet.</div>}
         {groups.map(([date, rows]) => (
           <div key={date}>
@@ -91,7 +91,7 @@ function PaymentLedger() {
 
 function StatPill({ label, value, accent }: { label: string; value: number; accent?: string }) {
   return (
-    <div className="rounded-2xl p-4" style={{ background: "rgba(255,255,255,0.5)", backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` }}>
+    <div className="rounded-2xl p-4" style={{ background: palette.glass, backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` }}>
       <div className="text-[10.5px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'Fraunces', serif" }}>{label}</div>
       <div className="mt-1.5 flex items-baseline gap-2">
         <CurrencyNumber value={value} size="lg" />

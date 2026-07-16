@@ -34,7 +34,7 @@ function PatientChart() {
       </Link>
 
       {/* Header */}
-      <div className="rounded-3xl border p-6 lg:p-8 mb-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.85)" }}>
+      <div className="rounded-3xl border p-6 lg:p-8 mb-4" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <div className="flex items-baseline justify-between gap-3 flex-wrap">
           <div>
             <h2 className="text-[26px] leading-tight tracking-tight" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>{p.fullName}</h2>
@@ -69,7 +69,7 @@ function PatientChart() {
       </div>
 
       {/* Active meds table */}
-      <div className="rounded-2xl border overflow-hidden mb-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.75)" }}>
+      <div className="rounded-2xl border overflow-hidden mb-4" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <div className="grid grid-cols-[1.4fr_1fr_1fr_1fr_1.2fr_auto] text-[10.5px] uppercase tracking-[0.14em] px-4 py-2 border-b" style={{ borderColor: palette.border, color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
           <div>Drug</div><div>Dose · freq</div><div>Started</div><div>Prescriber</div><div>Indication</div><div></div>
         </div>
@@ -98,7 +98,7 @@ function PatientChart() {
 
       {/* Timeline */}
       {meds.length > 0 && (
-        <div className="rounded-2xl border p-5 mb-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.75)" }}>
+        <div className="rounded-2xl border p-5 mb-4" style={{ borderColor: palette.border, background: palette.glassStrong }}>
           <div className="text-[10.5px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Timeline</div>
           <ul className="space-y-3">
             {meds.map((m) => (
@@ -128,7 +128,7 @@ function PatientChart() {
 
       {/* Historical */}
       {historical.length > 0 && (
-        <details className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.75)" }}>
+        <details className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong }}>
           <summary className="cursor-pointer text-[10.5px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Historical · {historical.length}</summary>
           <ul className="mt-3 space-y-2 text-[12.5px]">
             {historical.map((m) => (

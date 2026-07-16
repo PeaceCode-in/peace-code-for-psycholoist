@@ -88,7 +88,7 @@ function LibraryPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {filtered.map((inst) => <InstrumentTile key={inst.id} inst={inst} />)}
           {filtered.length === 0 && (
-            <div className="col-span-full rounded-3xl border p-10 text-center" style={{ background: "rgba(255,255,255,0.5)", borderColor: "rgba(255,255,255,0.55)" }}>
+            <div className="col-span-full rounded-3xl border p-10 text-center" style={{ background: palette.glass, borderColor: "rgba(255,255,255,0.55)" }}>
               <p className="text-[13px]" style={{ color: palette.muted }}>No instruments match those filters.</p>
             </div>
           )}
@@ -124,7 +124,7 @@ function InstrumentTile({ inst }: { inst: Instrument }) {
   return (
     <div
       className="group rounded-3xl border p-5 min-h-[240px] flex flex-col justify-between transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-20px_rgba(30,20,24,0.35)]"
-      style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(24px) saturate(140%)", borderColor: "rgba(255,255,255,0.55)" }}
+      style={{ background: palette.glass, backdropFilter: "blur(24px) saturate(140%)", borderColor: "rgba(255,255,255,0.55)" }}
     >
       <div>
         <div className="flex items-start justify-between">
@@ -146,7 +146,7 @@ function InstrumentTile({ inst }: { inst: Instrument }) {
       </div>
 
       <div className="mt-4 flex items-center gap-2">
-        <Link to="/assessments/library/$instrumentId" params={{ instrumentId: inst.id }} className="text-[11.5px] px-3 py-1.5 rounded-full transition-colors" style={{ background: "rgba(255,255,255,0.7)", color: palette.ink, border: `1px solid ${palette.border}` }}>
+        <Link to="/assessments/library/$instrumentId" params={{ instrumentId: inst.id }} className="text-[11.5px] px-3 py-1.5 rounded-full transition-colors" style={{ background: palette.glassStrong, color: palette.ink, border: `1px solid ${palette.border}` }}>
           Preview
         </Link>
         <button
@@ -197,7 +197,7 @@ function CustomBuilder({ onClose }: { onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-50 flex justify-end" style={{ background: "rgba(30,20,24,0.4)", backdropFilter: "blur(6px)" }} onClick={onClose}>
       <div onClick={(e) => e.stopPropagation()} className="h-full w-full max-w-md p-4 animate-in slide-in-from-right duration-200">
-        <div className="h-full rounded-3xl border p-6 flex flex-col overflow-y-auto" style={{ background: "rgba(255,255,255,0.95)", borderColor: "rgba(255,255,255,0.6)" }}>
+        <div className="h-full rounded-3xl border p-6 flex flex-col overflow-y-auto" style={{ background: palette.glassStrong, borderColor: "rgba(255,255,255,0.6)" }}>
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-[18px] tracking-tight" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>New instrument</h2>
             <button onClick={onClose}><X className="w-4 h-4" style={{ color: palette.muted }} /></button>

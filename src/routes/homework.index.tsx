@@ -60,7 +60,7 @@ function HomeworkIndex() {
   return (
     <div className="max-w-[1400px] mx-auto px-5 sm:px-8 pb-24">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
-        <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+        <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: palette.glass }}>
           <ViewPill on={view === "patient"} onClick={() => setView("patient")} icon={<Users className="h-3.5 w-3.5" />} label="By patient" />
           <ViewPill on={view === "assignment"} onClick={() => setView("assignment")} icon={<ListChecks className="h-3.5 w-3.5" />} label="By assignment" />
         </div>
@@ -104,7 +104,7 @@ function HomeworkIndex() {
 
 function EmptyState() {
   return (
-    <div className="rounded-3xl border p-16 text-center" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+    <div className="rounded-3xl border p-16 text-center" style={{ borderColor: palette.border, background: palette.glass }}>
       <p className="text-[15px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>Nothing assigned yet. Change usually starts between sessions.</p>
       <p className="text-[12.5px] mt-2" style={{ color: palette.muted }}>Assign something from the library.</p>
     </div>
@@ -127,7 +127,7 @@ function PatientRow({ pid, items }: { pid: string; items: ReturnType<typeof useL
   const active = items.filter((x) => x.status === "assigned" || x.status === "in_progress").length;
   const dueLabel = new Date(nextDue).toLocaleDateString("en-IN", { day: "2-digit", month: "short" });
   return (
-    <Link to="/patients/$pid" params={{ pid: pid }} className="block rounded-2xl border p-5 hover:shadow-sm transition-shadow" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+    <Link to="/patients/$pid" params={{ pid: pid }} className="block rounded-2xl border p-5 hover:shadow-sm transition-shadow" style={{ borderColor: palette.border, background: palette.glassStrong }}>
       <div className="flex items-center gap-6">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
@@ -161,7 +161,7 @@ function AssignmentRow({ a }: { a: ReturnType<typeof useLiveAssignments>[number]
   const meta = STATUS_META[a.status];
   const overdue = a.status === "missed";
   return (
-    <Link to="/homework/$hid" params={{ hid: a.id }} className="block rounded-2xl border p-4 hover:shadow-sm transition-shadow" style={{ borderColor: overdue ? "#B0567A" : palette.border, background: "rgba(255,255,255,0.7)" }}>
+    <Link to="/homework/$hid" params={{ hid: a.id }} className="block rounded-2xl border p-4 hover:shadow-sm transition-shadow" style={{ borderColor: overdue ? "#B0567A" : palette.border, background: palette.glassStrong }}>
       <div className="flex items-center gap-4">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1 text-[10.5px] uppercase tracking-[0.16em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>

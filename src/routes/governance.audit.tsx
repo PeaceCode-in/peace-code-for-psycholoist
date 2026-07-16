@@ -1,3 +1,4 @@
+import { palette } from '@/components/practice/palette';
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { GovHeader } from "@/routes/governance";
@@ -50,8 +51,8 @@ function AuditView() {
 
       <Panel className="p-4 mb-5">
         <div className="flex items-center gap-3 flex-wrap">
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search actor, target, IP…" className="flex-1 min-w-[240px] rounded-lg px-3 py-2 text-[13px] outline-none" style={{ background: "rgba(255,255,255,0.7)", border: `1px solid ${VAULT.border}` }} />
-          <select value={verb} onChange={(e) => setVerb(e.target.value as AuditVerb | "all")} className="rounded-lg px-3 py-2 text-[13px] outline-none" style={{ background: "rgba(255,255,255,0.7)", border: `1px solid ${VAULT.border}` }}>
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search actor, target, IP…" className="flex-1 min-w-[240px] rounded-lg px-3 py-2 text-[13px] outline-none" style={{ background: palette.glassStrong, border: `1px solid ${VAULT.border}` }} />
+          <select value={verb} onChange={(e) => setVerb(e.target.value as AuditVerb | "all")} className="rounded-lg px-3 py-2 text-[13px] outline-none" style={{ background: palette.glassStrong, border: `1px solid ${VAULT.border}` }}>
             <option value="all">any verb</option>
             {VERBS.map((v) => <option key={v} value={v}>{v}</option>)}
           </select>

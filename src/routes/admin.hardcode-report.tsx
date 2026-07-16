@@ -1,5 +1,6 @@
 // /admin/hardcode-report — a ledger of hardcoded values the auditor found,
 // with source assignment or a deletion decision. Honest scoreboard, not theatre.
+import { palette } from '@/components/practice/palette';
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { AppShell } from "@/components/practice/AppShell";
@@ -120,7 +121,7 @@ function HardcodeReport() {
           </div>
         </div>
 
-        <div className="mt-6 rounded-2xl border overflow-hidden" style={{ borderColor: "rgba(20,30,60,0.08)", background: "rgba(255,255,255,0.6)" }}>
+        <div className="mt-6 rounded-2xl border overflow-hidden" style={{ borderColor: "rgba(20,30,60,0.08)", background: palette.glass }}>
           <table className="w-full text-[13px]">
             <thead>
               <tr className="text-left text-[10px] uppercase tracking-[0.12em] text-[color:var(--muted-foreground)]">

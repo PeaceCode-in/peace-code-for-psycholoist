@@ -1,5 +1,6 @@
 // ⌘⇧D — a quick, calm view into where data lives, who sees it, how long it stays.
 // Not a legal document — a promise of transparency.
+import { palette } from '@/components/practice/palette';
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { X, Shield } from "lucide-react";
@@ -87,7 +88,7 @@ export function DataHandlingSheet() {
             <div
               key={r.name}
               className="rounded-xl border p-4"
-              style={{ borderColor: "rgba(20,30,60,0.08)", background: "rgba(255,255,255,0.6)" }}
+              style={{ borderColor: "rgba(20,30,60,0.08)", background: palette.glass }}
             >
               <div className="text-[13px] font-medium">{r.name}</div>
               <div className="mt-2 grid grid-cols-3 gap-2 text-[11px] text-[color:var(--muted-foreground)]">

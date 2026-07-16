@@ -58,7 +58,7 @@ function SendFlow() {
             <Section title="Template">
               <select value={tplId} onChange={(e) => setTplId(e.target.value)}
                 className="w-full h-10 px-3 rounded-lg text-[13px]"
-                style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}>
+                style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}>
                 {templates.map((t) => (
                   <option key={t.id} value={t.id}>{CATEGORY_META[t.category].label} · {t.name}</option>
                 ))}
@@ -69,7 +69,7 @@ function SendFlow() {
             <Section title="Patient">
               <select value={pid} onChange={(e) => setPid(e.target.value)}
                 className="w-full h-10 px-3 rounded-lg text-[13px]"
-                style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}>
+                style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}>
                 {patients.map((p) => <option key={p.id} value={p.id}>{p.fullName} — {p.college}</option>)}
               </select>
             </Section>
@@ -78,7 +78,7 @@ function SendFlow() {
               <textarea value={note} onChange={(e) => setNote(e.target.value)} rows={4}
                 placeholder="A short note that appears above the document…"
                 className="w-full p-3 rounded-lg text-[13px] outline-none resize-none"
-                style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink, fontFamily: "'Fraunces', serif" }} />
+                style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink, fontFamily: "'Fraunces', serif" }} />
             </Section>
 
             <Section title="Delivery channel">
@@ -177,7 +177,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 function PatientPreview({ tpl, patientName, note }: { tpl: Template; patientName: string; note: string }) {
   return (
-    <div className="rounded-2xl overflow-hidden" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+    <div className="rounded-2xl overflow-hidden" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
       <div className="px-6 pt-6 pb-4 border-b" style={{ borderColor: palette.border }}>
         <div className="uppercase" style={{ fontFamily: "'DM Mono', ui-monospace, monospace", fontSize: 9.5, letterSpacing: "0.18em", color: palette.muted }}>
           From Dr. Sharma — for {patientName.split(" ")[0]}

@@ -77,7 +77,7 @@ function LetterPage() {
         <ArrowLeft className="h-3 w-3" /> Chart
       </Link>
 
-      <div className="rounded-3xl border p-8 lg:p-10" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.85)" }}>
+      <div className="rounded-3xl border p-8 lg:p-10" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <div className="flex items-baseline justify-between gap-3 flex-wrap">
           <div>
             <div className="text-[10.5px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Prescription letter</div>
@@ -98,7 +98,7 @@ function LetterPage() {
 
         <textarea value={body} onChange={(e) => setBody(e.target.value)} readOnly={readOnly} rows={16}
           className="mt-6 w-full rounded-xl border p-4 text-[13.5px] leading-[1.7] outline-none"
-          style={{ borderColor: palette.border, background: "#fff", color: palette.ink, fontFamily: "'DM Sans', sans-serif" }} />
+          style={{ borderColor: palette.border, background: palette.solid, color: palette.ink, fontFamily: "'DM Sans', sans-serif" }} />
 
         {existing?.signedAt && (
           <div className="mt-4 pt-4 border-t" style={{ borderColor: palette.border }}>
@@ -117,9 +117,9 @@ function LetterPage() {
         ))}
 
         {showAmend && (
-          <div className="mt-4 rounded-xl p-4 border" style={{ borderColor: palette.border, background: "#fff" }}>
+          <div className="mt-4 rounded-xl p-4 border" style={{ borderColor: palette.border, background: palette.solid }}>
             <div className="text-[10.5px] uppercase tracking-[0.14em] mb-1.5" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Reason for amendment</div>
-            <input value={amendReason} onChange={(e) => setAmendReason(e.target.value)} className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+            <input value={amendReason} onChange={(e) => setAmendReason(e.target.value)} className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
             <div className="mt-3 flex justify-end gap-2">
               <button onClick={() => setShowAmend(false)} className="text-[12px] underline" style={{ color: palette.muted }}>Cancel</button>
               <button onClick={submitAmend} className="inline-flex items-center h-9 px-4 rounded-full text-[12px]" style={{ background: palette.ink, color: "#fff" }}>Sign amendment</button>

@@ -41,24 +41,24 @@ function CpdReading() {
         <p className="text-[12px] mt-1" style={{ color: palette.muted }}>Books, papers, podcasts. Lighter than a full CPD entry. Promote any of them if you want to claim hours.</p>
       </div>
 
-      <section className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.72)", backdropFilter: "blur(14px)" }}>
+      <section className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
         <h3 style={{ fontFamily: "'Fraunces', serif", color: palette.ink, fontSize: 18 }}>Add a reading</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-3">
-          <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" className="rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: "#fff" }} />
-          <input value={author} onChange={(e) => setAuthor(e.target.value)} placeholder="Author (optional)" className="rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: "#fff" }} />
-          <select value={kind} onChange={(e) => setKind(e.target.value as ReadingEntry["kind"])} className="rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: "#fff" }}>
+          <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" className="rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: palette.solid }} />
+          <input value={author} onChange={(e) => setAuthor(e.target.value)} placeholder="Author (optional)" className="rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: palette.solid }} />
+          <select value={kind} onChange={(e) => setKind(e.target.value as ReadingEntry["kind"])} className="rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: palette.solid }}>
             <option value="book">Book</option>
             <option value="paper">Paper</option>
             <option value="podcast">Podcast</option>
             <option value="chapter">Chapter</option>
           </select>
-          <input type="number" min={0.5} step={0.5} value={hours} onChange={(e) => setHours(Number(e.target.value))} placeholder="Hours" className="rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: "#fff" }} />
-          <textarea value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="One line of what stuck (optional)" className="md:col-span-2 rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: "#fff", fontFamily: "'Fraunces', serif" }} rows={2} />
+          <input type="number" min={0.5} step={0.5} value={hours} onChange={(e) => setHours(Number(e.target.value))} placeholder="Hours" className="rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: palette.solid }} />
+          <textarea value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="One line of what stuck (optional)" className="md:col-span-2 rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: palette.solid, fontFamily: "'Fraunces', serif" }} rows={2} />
         </div>
         <button onClick={submit} className="mt-3 inline-flex items-center gap-1 rounded-full px-3 py-2 text-[12px]" style={{ background: palette.ink, color: "#fff" }}><Plus className="h-3.5 w-3.5" />Add reading</button>
       </section>
 
-      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "#fff" }}>
+      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.solid }}>
         {items.map((r, i) => {
           const Icon = KIND_ICON[r.kind];
           return (

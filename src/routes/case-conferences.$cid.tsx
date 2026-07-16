@@ -64,7 +64,7 @@ function ConferenceDetail() {
         <ArrowLeft className="h-3 w-3" /> Back to conferences
       </Link>
 
-      <div className="rounded-3xl border p-6 mb-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+      <div className="rounded-3xl border p-6 mb-5" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <div className="flex items-center gap-2 mb-1.5">
@@ -115,7 +115,7 @@ function ConferenceDetail() {
             {c.amendments.map((a) => {
               const author = getMember(a.authorId);
               return (
-                <div key={a.id} className="rounded-xl border p-3" style={{ borderColor: palette.border, background: "#fff" }}>
+                <div key={a.id} className="rounded-xl border p-3" style={{ borderColor: palette.border, background: palette.solid }}>
                   <div className="text-[11.5px]" style={{ color: palette.muted }}>{author?.fullName} · {new Date(a.at).toLocaleString("en-IN")}</div>
                   <div className="text-[12.5px] mt-1" style={{ color: palette.ink }}>{a.reason}</div>
                   <p className="text-[12px] mt-2 whitespace-pre-wrap" style={{ color: palette.muted }}>{a.patch}</p>
@@ -129,7 +129,7 @@ function ConferenceDetail() {
 
       {isLocked && iAmLead && <AmendPanel cid={c.id} />}
 
-      <div className="mt-5 rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.5)" }}>
+      <div className="mt-5 rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glass }}>
         <div className="text-[10.5px] uppercase tracking-wider mb-2" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Audit trail · {audit.length} events</div>
         <div className="max-h-40 overflow-auto space-y-1">
           {audit.slice().reverse().slice(0, 12).map((e) => (
@@ -186,7 +186,7 @@ function OverviewTab({ c }: { c: ReturnType<typeof useLiveConference> & object }
 
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+    <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glassStrong }}>
       <div className="text-[10.5px] uppercase tracking-wider mb-2" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{title}</div>
       {children}
     </div>
@@ -221,7 +221,7 @@ function SummaryTab({ c, isLocked }: { c: NonNullable<ReturnType<typeof useLiveC
   };
 
   return (
-    <div className="rounded-3xl border p-6" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+    <div className="rounded-3xl border p-6" style={{ borderColor: palette.border, background: palette.glassStrong }}>
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <Sparkles className="h-3.5 w-3.5" style={{ color: palette.primary }} />
@@ -241,7 +241,7 @@ function SummaryTab({ c, isLocked }: { c: NonNullable<ReturnType<typeof useLiveC
       ) : (
         <textarea value={text} onChange={(e) => { setText(e.target.value); setDirty(true); }}
           rows={14} className="w-full p-3 rounded-xl border text-[13px] outline-none leading-relaxed"
-          style={{ borderColor: palette.border, background: "#fff", color: palette.ink, fontFamily: "'DM Sans', sans-serif" }} />
+          style={{ borderColor: palette.border, background: palette.solid, color: palette.ink, fontFamily: "'DM Sans', sans-serif" }} />
       )}
       {c.summaryReviewedBy && !isLocked && (
         <div className="mt-3 text-[11px]" style={{ color: palette.muted }}>Reviewed by {getMember(c.summaryReviewedBy)?.fullName}. Never sent without lead review.</div>
@@ -269,7 +269,7 @@ function DiscussionTab({ c, isLocked }: { c: NonNullable<ReturnType<typeof useLi
   return (
     <div className="space-y-4">
       {(["pre","during","post"] as const).map((ph) => (
-        <div key={ph} className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+        <div key={ph} className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong }}>
           <div className="text-[10.5px] uppercase tracking-wider mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{ph === "pre" ? "Before conference" : ph === "during" ? "During conference" : "After conference"} · {grouped[ph].length}</div>
           {grouped[ph].length === 0 ? (
             <div className="text-[12px]" style={{ color: palette.muted }}>Nothing here yet.</div>
@@ -293,7 +293,7 @@ function DiscussionTab({ c, isLocked }: { c: NonNullable<ReturnType<typeof useLi
       ))}
 
       {!isLocked && (
-        <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+        <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong }}>
           <div className="flex items-center gap-2 mb-3">
             {(["pre","during","post"] as const).map((ph) => (
               <button key={ph} onClick={() => setPhase(ph)} className="h-7 px-3 rounded-full border text-[11px] uppercase tracking-wider"
@@ -303,7 +303,7 @@ function DiscussionTab({ c, isLocked }: { c: NonNullable<ReturnType<typeof useLi
           <textarea value={body} onChange={(e) => setBody(e.target.value)} rows={3}
             placeholder="Draft your post. This is not live chat — everyone sees it once you post."
             className="w-full p-3 rounded-xl border text-[13px] outline-none"
-            style={{ borderColor: palette.border, background: "#fff", color: palette.ink, fontFamily: "'DM Sans', sans-serif" }} />
+            style={{ borderColor: palette.border, background: palette.solid, color: palette.ink, fontFamily: "'DM Sans', sans-serif" }} />
           <div className="mt-3 flex justify-end">
             <button onClick={post} disabled={!body.trim()} className="h-9 px-4 rounded-full text-[12px] disabled:opacity-40" style={{ background: palette.ink, color: "#fff" }}>Post</button>
           </div>
@@ -331,7 +331,7 @@ function RecommendationsTab({ c, isLocked }: { c: NonNullable<ReturnType<typeof 
   };
 
   return (
-    <div className="rounded-3xl border p-6" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+    <div className="rounded-3xl border p-6" style={{ borderColor: palette.border, background: palette.glassStrong }}>
       <div className="space-y-5">
         {fields.map((f) => (
           <div key={f.key}>
@@ -342,7 +342,7 @@ function RecommendationsTab({ c, isLocked }: { c: NonNullable<ReturnType<typeof 
             ) : (
               <textarea value={rec[f.key] as string ?? ""} onChange={(e) => setRec((r) => ({ ...r, [f.key]: e.target.value }))} rows={3}
                 className="w-full p-3 rounded-xl border text-[13px] outline-none"
-                style={{ borderColor: palette.border, background: "#fff", color: palette.ink, fontFamily: "'DM Sans', sans-serif" }} />
+                style={{ borderColor: palette.border, background: palette.solid, color: palette.ink, fontFamily: "'DM Sans', sans-serif" }} />
             )}
           </div>
         ))}
@@ -354,7 +354,7 @@ function RecommendationsTab({ c, isLocked }: { c: NonNullable<ReturnType<typeof 
             <p className="text-[13px]" style={{ color: palette.ink }}>{followUp ? new Date(followUp).toLocaleDateString("en-IN", { day: "2-digit", month: "long", year: "numeric" }) : "None"}</p>
           ) : (
             <input type="date" value={followUp} onChange={(e) => setFollowUp(e.target.value)}
-              className="h-10 px-3 rounded-xl border text-[13px]" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+              className="h-10 px-3 rounded-xl border text-[13px]" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
           )}
         </div>
 
@@ -374,7 +374,7 @@ function SignOffTab({ c, isLocked, iAmLead }: { c: NonNullable<ReturnType<typeof
   const iAmParticipant = c.participants.some((p) => p.memberId === me);
 
   return (
-    <div className="rounded-3xl border p-6" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+    <div className="rounded-3xl border p-6" style={{ borderColor: palette.border, background: palette.glassStrong }}>
       <div className="mb-4">
         <div className="text-[11px] uppercase tracking-wider" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Sign-off · {c.signOffs.length} / {c.participants.length}</div>
         <p className="text-[12.5px] mt-1" style={{ color: palette.muted }}>Each participant confirms they were part of this discussion and agree with the recorded outcome. Lead locks the record.</p>
@@ -433,7 +433,7 @@ function AmendPanel({ cid }: { cid: string }) {
   const [patch, setPatch] = useState("");
   const [open, setOpen] = useState(false);
   return (
-    <div className="mt-5 rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.5)" }}>
+    <div className="mt-5 rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glass }}>
       {!open ? (
         <button onClick={() => setOpen(true)} className="inline-flex items-center gap-1.5 text-[12px]" style={{ color: palette.primary }}>
           <GitBranch className="h-3.5 w-3.5" /> Add amendment
@@ -443,10 +443,10 @@ function AmendPanel({ cid }: { cid: string }) {
           <div className="text-[11px] uppercase tracking-wider mb-2" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>New amendment</div>
           <input value={reason} onChange={(e) => setReason(e.target.value)} placeholder="Reason for amendment"
             className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none mb-2"
-            style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+            style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
           <textarea value={patch} onChange={(e) => setPatch(e.target.value)} rows={3} placeholder="What is being added or corrected"
             className="w-full p-3 rounded-xl border text-[13px] outline-none"
-            style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+            style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
           <div className="mt-2 flex justify-end gap-2">
             <button onClick={() => { setOpen(false); setReason(""); setPatch(""); }} className="h-9 px-3 rounded-full text-[12px]" style={{ color: palette.muted }}>Cancel</button>
             <button disabled={!reason.trim() || !patch.trim()} onClick={() => { amendConference(cid, me, reason.trim(), patch.trim()); setOpen(false); setReason(""); setPatch(""); }}

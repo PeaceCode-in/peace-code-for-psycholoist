@@ -46,7 +46,7 @@ function NotesIndex() {
             value={q} onChange={(e) => setQ(e.target.value)}
             placeholder="Search patient or note text"
             className="w-full h-9 pl-9 pr-3 rounded-full border text-[13px] outline-none"
-            style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", color: palette.ink, fontFamily: "'DM Sans', sans-serif" }}
+            style={{ borderColor: palette.border, background: palette.glassStrong, color: palette.ink, fontFamily: "'DM Sans', sans-serif" }}
           />
         </div>
         <FilterPill label="Type" value={type} onChange={(v) => setType(v as NoteTemplate | "all")} options={[{ v: "all", label: "All" }, ...Object.keys(TEMPLATE_META).map((k) => ({ v: k, label: k }))]} />
@@ -57,7 +57,7 @@ function NotesIndex() {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="rounded-3xl border p-16 text-center" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+        <div className="rounded-3xl border p-16 text-center" style={{ borderColor: palette.border, background: palette.glass }}>
           <p className="text-[15px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>Nothing written today. That's a rare thing.</p>
           <p className="text-[12.5px] mt-2" style={{ color: palette.muted }}>Start a new note when a session ends, or from a specific patient.</p>
         </div>
@@ -76,7 +76,7 @@ function LoadingRail() {
 
 function FilterPill({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: Array<{ v: string; label: string }> }) {
   return (
-    <label className="inline-flex items-center gap-2 h-9 px-3 rounded-full border text-[12px]" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
+    <label className="inline-flex items-center gap-2 h-9 px-3 rounded-full border text-[12px]" style={{ borderColor: palette.border, background: palette.glassStrong, color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
       <span className="uppercase tracking-wider text-[10.5px]">{label}</span>
       <select value={value} onChange={(e) => onChange(e.target.value)} className="bg-transparent outline-none text-[12px]" style={{ color: palette.ink }}>
         {options.map((o) => <option key={o.v} value={o.v}>{o.label}</option>)}
@@ -91,7 +91,7 @@ function NoteRow({ note }: { note: ReturnType<typeof useLiveNotes>[number] }) {
   const Icon = meta.icon;
   const date = new Date(note.updatedAt).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
   return (
-    <Link to="/notes/$nid" params={{ nid: note.id }} className="block rounded-2xl border transition-all duration-[180ms] hover:shadow-sm" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+    <Link to="/notes/$nid" params={{ nid: note.id }} className="block rounded-2xl border transition-all duration-[180ms] hover:shadow-sm" style={{ borderColor: palette.border, background: palette.glassStrong }}>
       <div className="p-5 flex items-start gap-5">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1.5">

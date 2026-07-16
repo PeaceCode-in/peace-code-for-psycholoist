@@ -32,7 +32,7 @@ function Compliance() {
       <p className="text-[12.5px] mb-6 max-w-xl" style={{ color: palette.muted }}>
         Completion signal per patient. Ghost patients haven't submitted anything. Two misses in a row raises a soft alert.
       </p>
-      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.75)" }}>
+      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <div className="grid grid-cols-[1.4fr_1fr_1fr_1fr_1fr] text-[10.5px] uppercase tracking-[0.14em] px-4 py-2 border-b" style={{ borderColor: palette.border, color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
           <div>Patient</div><div>Rate</div><div>Streak</div><div>Missed</div><div>Total</div>
         </div>

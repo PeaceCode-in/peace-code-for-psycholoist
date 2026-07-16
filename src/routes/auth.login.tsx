@@ -1,3 +1,4 @@
+import { palette } from '@/components/practice/palette';
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Mail, Lock, UserRound } from "lucide-react";
@@ -80,7 +81,7 @@ function LoginPage() {
           className="inline-flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-[14px] font-medium transition-colors hover:bg-white/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
           style={{
             borderColor: "rgba(120, 80, 60, 0.22)",
-            background: "rgba(255, 255, 255, 0.55)",
+            background: palette.glass,
             color: "#3f2a1e",
           }}
         >

@@ -50,7 +50,7 @@ function Section({ label, items, pmap }: { label: string; items: ReturnType<type
           const addedBy = pmap[j.addedBy];
           const attending = j.attendees.includes(ME_ID);
           return (
-            <div key={j.id} className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+            <div key={j.id} className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
               <div className="inline-flex items-center gap-1.5 text-[11px]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
                 <BookOpen className="h-3 w-3" /> {j.venue} · {j.year}
               </div>
@@ -89,7 +89,7 @@ function AddPaper({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "rgba(20,20,20,0.4)" }} onClick={onClose}>
-      <div className="w-full max-w-[520px] rounded-3xl border p-6" style={{ borderColor: palette.border, background: "#fff" }} onClick={(e) => e.stopPropagation()}>
+      <div className="w-full max-w-[520px] rounded-3xl border p-6" style={{ borderColor: palette.border, background: palette.solid }} onClick={(e) => e.stopPropagation()}>
         <div className="text-[11px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Add paper</div>
         <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Paper title" className="w-full border rounded-xl px-3 py-2 text-[13px] mb-2" style={{ borderColor: palette.border, fontFamily: "'Fraunces', serif" }} />
         <input value={authors} onChange={(e) => setAuthors(e.target.value)} placeholder="Authors" className="w-full border rounded-xl px-3 py-2 text-[12px] mb-2" style={{ borderColor: palette.border }} />

@@ -39,7 +39,7 @@ function InvoiceDetail() {
               <CurrencyNumber value={inv.balance} size="xl" />
             </div>
           </div>
-          <article className="rounded-3xl p-8" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+          <article className="rounded-3xl p-8" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
             <header className="flex items-start justify-between mb-8">
               <div>
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white mb-2" style={{ background: palette.primary, fontFamily: "'Fraunces', serif" }}>P</div>
@@ -211,7 +211,7 @@ function RecordPaymentModal({ invoiceId, balance, onClose }: { invoiceId: string
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <div className="relative w-full max-w-md rounded-3xl p-6" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+      <div className="relative w-full max-w-md rounded-3xl p-6" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
         <h3 className="text-[18px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>Record payment</h3>
         <div className="mt-4 space-y-3">
           <Field label="Amount">
@@ -235,7 +235,7 @@ function RecordPaymentModal({ invoiceId, balance, onClose }: { invoiceId: string
           </Field>
         </div>
         <div className="flex justify-end gap-2 mt-6">
-          <button onClick={onClose} className="h-9 px-4 rounded-full text-[12px]" style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}>Cancel</button>
+          <button onClick={onClose} className="h-9 px-4 rounded-full text-[12px]" style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}>Cancel</button>
           <button onClick={submit} className="h-9 px-4 rounded-full text-[12px]" style={{ background: palette.primary, color: "#fff" }}>Record payment</button>
         </div>
       </div>
@@ -267,6 +267,6 @@ function eventLabel(kind: string) {
   }
 }
 
-const glass = { background: "rgba(255,255,255,0.5)", backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` } as const;
-const field = { background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink } as const;
+const glass = { background: palette.glass, backdropFilter: "blur(24px)", border: `1px solid ${palette.border}` } as const;
+const field = { background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink } as const;
 void avatarUrl;

@@ -76,7 +76,7 @@ function TreatmentPlansPage() {
           <main className="space-y-6">
             {active && (
               <>
-                <section className="rounded-2xl border p-5" style={{ background: "#fff", borderColor: palette.border }}>
+                <section className="rounded-2xl border p-5" style={{ background: palette.solid, borderColor: palette.border }}>
                   <div className="flex items-center justify-between mb-3">
                     <div>
                       <div className="text-[10.5px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Goals</div>
@@ -92,7 +92,7 @@ function TreatmentPlansPage() {
                           value={g.status}
                           onChange={(e) => setGoals(goals.map((x) => x.id === g.id ? { ...x, status: e.target.value as Goal["status"] } : x))}
                           className="text-[11px] px-2 h-7 rounded-md"
-                          style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}
+                          style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}
                         >
                           <option value="open">Open</option>
                           <option value="progressing">Progressing</option>
@@ -103,7 +103,7 @@ function TreatmentPlansPage() {
                   </ul>
                 </section>
 
-                <section className="rounded-2xl border p-5" style={{ background: "#fff", borderColor: palette.border }}>
+                <section className="rounded-2xl border p-5" style={{ background: palette.solid, borderColor: palette.border }}>
                   <div className="text-[10.5px] uppercase tracking-[0.14em] mb-2" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>In the plan</div>
                   <ul className="space-y-2">
                     {chosen.map((c) => (
@@ -135,7 +135,7 @@ function TreatmentPlansPage() {
                   ) : (
                     <ul className="space-y-3">
                       {suggestion.blocks.map((b) => (
-                        <li key={b.id} className="p-3 rounded-lg" style={{ background: "rgba(255,255,255,0.6)", border: `1px solid ${palette.border}` }}>
+                        <li key={b.id} className="p-3 rounded-lg" style={{ background: palette.glass, border: `1px solid ${palette.border}` }}>
                           <div className="flex items-center justify-between mb-1">
                             <div className="text-[13px]" style={{ color: palette.ink }}>{b.label}</div>
                             <button

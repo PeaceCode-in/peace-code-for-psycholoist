@@ -66,7 +66,7 @@ function WorksheetsPage() {
           {assignments.length === 0 ? (
             <EmptyPaper title="No worksheets out yet." hint="Assign one from above." />
           ) : (
-            <div className="rounded-xl overflow-hidden" style={{ background: "#fff", border: `1px solid ${palette.border}` }}>
+            <div className="rounded-xl overflow-hidden" style={{ background: palette.solid, border: `1px solid ${palette.border}` }}>
               <table className="w-full text-[12.5px]">
                 <thead>
                   <tr style={{ background: "#FCF9FA" }}>
@@ -104,7 +104,7 @@ function WorksheetsPage() {
       {assign && (
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4" onClick={() => setAssign(null)}>
           <div className="absolute inset-0 bg-black/30" />
-          <div className="relative rounded-2xl w-full max-w-md p-6" style={{ background: "#fff", border: `1px solid ${palette.border}` }} onClick={(e) => e.stopPropagation()}>
+          <div className="relative rounded-2xl w-full max-w-md p-6" style={{ background: palette.solid, border: `1px solid ${palette.border}` }} onClick={(e) => e.stopPropagation()}>
             <div className="flex items-start justify-between">
               <div>
                 <div className="uppercase text-[10px] tracking-[0.18em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
@@ -119,7 +119,7 @@ function WorksheetsPage() {
               <div className="text-[10.5px] uppercase tracking-[0.16em] mb-1.5" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Patient</div>
               <select value={pid} onChange={(e) => setPid(e.target.value)}
                 className="w-full h-10 px-3 rounded-lg text-[13px]"
-                style={{ background: "#fff", border: `1px solid ${palette.border}`, color: palette.ink }}>
+                style={{ background: palette.solid, border: `1px solid ${palette.border}`, color: palette.ink }}>
                 {patients.map((p) => <option key={p.id} value={p.id}>{p.fullName}</option>)}
               </select>
             </div>

@@ -1,3 +1,4 @@
+import { palette } from '@/components/practice/palette';
 import { createFileRoute } from "@tanstack/react-router";
 import { GovHeader } from "@/routes/governance";
 import { updateRetention, useGovernance, releaseLegalHold, type DataClass } from "@/lib/governance-store";
@@ -43,7 +44,7 @@ function Retention() {
 
               <div className="mt-5 flex items-baseline gap-4">
                 {isEditing ? (
-                  <input type="number" value={draft} onChange={(e) => setDraft(Number(e.target.value))} className="w-28 rounded-lg px-2 py-1 text-[18px] outline-none" style={{ border: `1px solid ${VAULT.accent}`, background: "rgba(255,255,255,0.7)" }} />
+                  <input type="number" value={draft} onChange={(e) => setDraft(Number(e.target.value))} className="w-28 rounded-lg px-2 py-1 text-[18px] outline-none" style={{ border: `1px solid ${VAULT.accent}`, background: palette.glassStrong }} />
                 ) : (
                   <div className="text-[32px] leading-none" style={{ color: VAULT.ink, fontFamily: "'Fraunces', serif" }}>
                     {p.windowDays >= 365 ? `${years} ` : `${p.windowDays} `}

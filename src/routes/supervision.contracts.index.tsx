@@ -29,7 +29,7 @@ function Contracts() {
         {contracts.map((c) => {
           const sv = getSupervisor(c.supervisorId);
           return (
-            <Link key={c.id} to="/supervision/contracts/$cid" params={{ cid: c.id }} className="block rounded-2xl border p-5 hover:border-[var(--ink)] transition-all duration-[180ms]" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)", ["--ink" as string]: palette.ink }}>
+            <Link key={c.id} to="/supervision/contracts/$cid" params={{ cid: c.id }} className="block rounded-2xl border p-5 hover:border-[var(--ink)] transition-all duration-[180ms]" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)", ["--ink" as string]: palette.ink }}>
               <div className="flex items-center justify-between text-[11px]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
                 <span className="inline-flex items-center gap-1.5"><FileSignature className="h-3 w-3" /> Contract · {c.status}</span>
                 <span>{new Date(c.startedAt).toLocaleDateString("en-IN", { month: "short", year: "numeric" })} → {new Date(c.endsAt).toLocaleDateString("en-IN", { month: "short", year: "numeric" })}</span>

@@ -24,7 +24,7 @@ function DraftsPage() {
       </p>
 
       {drafts.length === 0 ? (
-        <div className="rounded-3xl border p-16 text-center" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+        <div className="rounded-3xl border p-16 text-center" style={{ borderColor: palette.border, background: palette.glass }}>
           <p className="text-[15px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>All caught up.</p>
           <p className="text-[12.5px] mt-2" style={{ color: palette.muted }}>No drafts waiting to be signed.</p>
         </div>
@@ -35,7 +35,7 @@ function DraftsPage() {
             const age = now - n.createdAt;
             const risk = age > H72;
             return (
-              <li key={n.id} className="rounded-2xl border p-4 flex items-start gap-4" style={{ borderColor: risk ? "#B0567A" : palette.border, background: "rgba(255,255,255,0.7)" }}>
+              <li key={n.id} className="rounded-2xl border p-4 flex items-start gap-4" style={{ borderColor: risk ? "#B0567A" : palette.border, background: palette.glassStrong }}>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1 text-[10.5px] uppercase tracking-[0.16em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
                     <span>{n.type}</span><span>·</span>

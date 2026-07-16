@@ -31,17 +31,17 @@ function Titrate() {
       <Link to="/prescriptions/patient/$pid" params={{ pid: m.patientId }} className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.16em] mb-6" style={{ color: palette.muted }}>
         <ArrowLeft className="h-3 w-3" /> Chart
       </Link>
-      <div className="rounded-3xl border p-8" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.85)" }}>
+      <div className="rounded-3xl border p-8" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <h2 className="text-[22px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>Titrate {m.drugSnapshot.generic}</h2>
         <p className="text-[12.5px] mt-1" style={{ color: palette.muted }}>Current: <span style={{ color: palette.ink }}>{m.dose} · {m.frequency}</span></p>
         <div className="mt-6 grid gap-4">
           <div>
             <div className="text-[10.5px] uppercase tracking-[0.14em] mb-1.5" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>New dose</div>
-            <input value={dose} onChange={(e) => setDose(e.target.value)} placeholder="e.g. 20 mg" className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+            <input value={dose} onChange={(e) => setDose(e.target.value)} placeholder="e.g. 20 mg" className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
           </div>
           <div>
             <div className="text-[10.5px] uppercase tracking-[0.14em] mb-1.5" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Reason</div>
-            <textarea value={reason} onChange={(e) => setReason(e.target.value)} rows={3} className="w-full rounded-xl border p-3 text-[13px] outline-none" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+            <textarea value={reason} onChange={(e) => setReason(e.target.value)} rows={3} className="w-full rounded-xl border p-3 text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
           </div>
         </div>
         <div className="mt-6 flex justify-end">

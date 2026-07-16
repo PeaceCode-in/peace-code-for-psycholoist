@@ -1,3 +1,4 @@
+import { palette } from '@/components/practice/palette';
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { getProfileBySlug } from "@/lib/profile-store";
 import { PublicProfileBody } from "@/components/practice/PublicProfileBody";
@@ -81,7 +82,7 @@ function PublicProfilePage() {
   }
 
   return (
-    <div style={{ minHeight: "100vh", background: "#fff" }}>
+    <div style={{ minHeight: "100vh", background: palette.solid }}>
       <PublicProfileBody profile={p} />
     </div>
   );

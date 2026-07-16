@@ -16,7 +16,7 @@ function TemplatesPage() {
         {(Object.keys(TEMPLATE_META) as NoteTemplate[]).map((t) => {
           const meta = TEMPLATE_META[t];
           return (
-            <div key={t} className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.75)" }}>
+            <div key={t} className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong }}>
               <div className="text-[10.5px] uppercase tracking-[0.16em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{t}</div>
               <h3 className="text-[18px] leading-tight tracking-tight mt-1" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>{meta.label}</h3>
               <p className="text-[12px] mt-1.5" style={{ color: palette.muted }}>{meta.blurb}</p>
@@ -28,7 +28,7 @@ function TemplatesPage() {
             </div>
           );
         })}
-        <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.75)" }}>
+        <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong }}>
           <div className="text-[10.5px] uppercase tracking-[0.16em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Group</div>
           <h3 className="text-[18px] leading-tight tracking-tight mt-1" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>Group note</h3>
           <p className="text-[12px] mt-1.5" style={{ color: palette.muted }}>Lives inside the Groups module. Shared with co-facilitators, never with members.</p>

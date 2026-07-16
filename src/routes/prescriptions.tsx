@@ -35,7 +35,7 @@ function PrescriptionsLayout() {
               What's on board. Logged when someone else prescribed, written when you did.
             </p>
           </div>
-          <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)", backdropFilter: "blur(12px)" }}>
+          <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: palette.glass, backdropFilter: "blur(12px)" }}>
             {TABS.map((t) => {
               const on = active(t.to, t.exact);
               const Icon = t.icon;

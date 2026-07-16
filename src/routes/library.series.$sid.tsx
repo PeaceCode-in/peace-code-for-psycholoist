@@ -26,7 +26,7 @@ function SeriesPage() {
       <ol className="space-y-4">
         {pieces.map((p, i) => (
           <li key={p.id}>
-            <Link to="/library/$pid" params={{ pid: p.id }} className="block rounded-2xl border p-5 hover:shadow-sm transition-all" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+            <Link to="/library/$pid" params={{ pid: p.id }} className="block rounded-2xl border p-5 hover:shadow-sm transition-all" style={{ borderColor: palette.border, background: palette.glassStrong }}>
               <div className="flex items-baseline gap-3">
                 <span className="text-[11px] tabular-nums" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{String(i + 1).padStart(2, "0")}</span>
                 <div className="flex-1">

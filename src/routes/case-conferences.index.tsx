@@ -58,7 +58,7 @@ function ConferencesIndex() {
             value={q} onChange={(e) => setQ(e.target.value)}
             placeholder="Search patient, presenting concern, or reason"
             className="w-full h-9 pl-9 pr-3 rounded-full border text-[13px] outline-none"
-            style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", color: palette.ink, fontFamily: "'DM Sans', sans-serif" }}
+            style={{ borderColor: palette.border, background: palette.glassStrong, color: palette.ink, fontFamily: "'DM Sans', sans-serif" }}
           />
         </div>
         <div className="inline-flex flex-wrap items-center gap-1.5">
@@ -81,7 +81,7 @@ function ConferencesIndex() {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="rounded-3xl border p-16 text-center" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+        <div className="rounded-3xl border p-16 text-center" style={{ borderColor: palette.border, background: palette.glass }}>
           <p className="text-[15px]" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>No conferences yet.</p>
           <p className="text-[12.5px] mt-2" style={{ color: palette.muted }}>Some of the best clinical work happens when two people look at the same patient.</p>
         </div>
@@ -108,7 +108,7 @@ function ConferenceRow({ c }: { c: Conference }) {
   return (
     <Link to="/case-conferences/$cid" params={{ cid: c.id }}
       className="block rounded-2xl border transition-all duration-[180ms] hover:border-[color:var(--pcp-hover)]"
-      style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", ["--pcp-hover" as string]: palette.ink }}>
+      style={{ borderColor: palette.border, background: palette.glassStrong, ["--pcp-hover" as string]: palette.ink }}>
       <div className="p-5 flex items-start gap-5">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1.5">

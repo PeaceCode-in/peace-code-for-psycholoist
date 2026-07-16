@@ -60,7 +60,7 @@ function AssignPage() {
         <ArrowLeft className="h-3 w-3" /> Back
       </Link>
 
-      <div className="rounded-3xl border p-8 lg:p-10" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.85)" }}>
+      <div className="rounded-3xl border p-8 lg:p-10" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         <Steps step={step} />
 
         {step === 1 && (
@@ -93,7 +93,7 @@ function AssignPage() {
             <div className="flex items-center gap-2 mt-3 mb-4">
               <div className="relative flex-1">
                 <Search className="h-3.5 w-3.5 absolute left-3 top-1/2 -translate-y-1/2" style={{ color: palette.muted }} />
-                <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search templates" className="w-full h-9 pl-9 pr-3 rounded-full border text-[12.5px] outline-none" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+                <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search templates" className="w-full h-9 pl-9 pr-3 rounded-full border text-[12.5px] outline-none" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
               </div>
               <select value={modality} onChange={(e) => setModality(e.target.value as Modality | "all")} className="h-9 px-3 rounded-full border text-[12px] bg-white" style={{ borderColor: palette.border, color: palette.ink }}>
                 <option value="all">All modalities</option>
@@ -123,10 +123,10 @@ function AssignPage() {
             <h2 className="text-[22px] mt-6 mb-4" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>Configure</h2>
             <div className="grid gap-5">
               <Field label="Due date">
-                <input type="date" value={dueAt} onChange={(e) => setDueAt(e.target.value)} className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+                <input type="date" value={dueAt} onChange={(e) => setDueAt(e.target.value)} className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
               </Field>
               <Field label="Recurrence">
-                <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: "#fff" }}>
+                <div className="inline-flex items-center rounded-full border p-1" style={{ borderColor: palette.border, background: palette.solid }}>
                   {(["once", "daily", "weekly"] as Recurrence[]).map((r) => {
                     const on = recurrence === r;
                     return (
@@ -138,10 +138,10 @@ function AssignPage() {
                 </div>
               </Field>
               <Field label="Custom instructions (optional — defaults to template's)">
-                <textarea value={instructions} onChange={(e) => setInstructions(e.target.value)} rows={3} className="w-full rounded-xl border p-3 text-[13px] outline-none" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+                <textarea value={instructions} onChange={(e) => setInstructions(e.target.value)} rows={3} className="w-full rounded-xl border p-3 text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
               </Field>
               <Field label="Reflection prompt (optional)">
-                <input value={reflection} onChange={(e) => setReflection(e.target.value)} placeholder="e.g. What surprised you this week?" className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+                <input value={reflection} onChange={(e) => setReflection(e.target.value)} placeholder="e.g. What surprised you this week?" className="w-full h-10 px-3 rounded-xl border text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
               </Field>
             </div>
             <FooterNav back={() => setStep(2)} next={submit} nextLabel="Assign" />

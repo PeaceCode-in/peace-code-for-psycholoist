@@ -36,7 +36,7 @@ function Formulary() {
       <div className="flex flex-wrap items-center gap-3 mb-5">
         <div className="relative flex-1 min-w-[240px]">
           <Search className="h-3.5 w-3.5 absolute left-3 top-1/2 -translate-y-1/2" style={{ color: palette.muted }} />
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search formulary" className="w-full h-9 pl-9 pr-3 rounded-full border text-[13px] outline-none" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", color: palette.ink }} />
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search formulary" className="w-full h-9 pl-9 pr-3 rounded-full border text-[13px] outline-none" style={{ borderColor: palette.border, background: palette.glassStrong, color: palette.ink }} />
         </div>
         <button onClick={() => setAdding((v) => !v)} className="inline-flex items-center gap-2 h-9 px-4 rounded-full text-[12.5px]" style={{ background: palette.ink, color: "#fff" }}>
           <Plus className="h-3.5 w-3.5" /> Add custom drug
@@ -44,14 +44,14 @@ function Formulary() {
       </div>
 
       {adding && (
-        <div className="rounded-2xl border p-5 mb-5 grid sm:grid-cols-4 gap-3" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.85)" }}>
-          <input value={nGeneric} onChange={(e) => setNGeneric(e.target.value)} placeholder="Generic name" className="h-10 px-3 rounded-xl border text-[13px]" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
-          <input value={nBrand} onChange={(e) => setNBrand(e.target.value)} placeholder="Brands (comma-sep)" className="h-10 px-3 rounded-xl border text-[13px]" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+        <div className="rounded-2xl border p-5 mb-5 grid sm:grid-cols-4 gap-3" style={{ borderColor: palette.border, background: palette.glassStrong }}>
+          <input value={nGeneric} onChange={(e) => setNGeneric(e.target.value)} placeholder="Generic name" className="h-10 px-3 rounded-xl border text-[13px]" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
+          <input value={nBrand} onChange={(e) => setNBrand(e.target.value)} placeholder="Brands (comma-sep)" className="h-10 px-3 rounded-xl border text-[13px]" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
           <select value={nClass} onChange={(e) => setNClass(e.target.value as DrugClass)} className="h-10 px-3 rounded-xl border text-[13px] bg-white" style={{ borderColor: palette.border, color: palette.ink }}>
             {["SSRI", "SNRI", "TCA", "Atypical AD", "Mood stabilizer", "Antipsychotic", "Benzodiazepine", "Z-drug", "ADHD stimulant", "ADHD non-stimulant", "Anxiolytic", "Beta-blocker", "Other"].map((c) => <option key={c} value={c}>{c}</option>)}
           </select>
           <div className="flex gap-2">
-            <input value={nRange} onChange={(e) => setNRange(e.target.value)} placeholder="Typical range" className="flex-1 h-10 px-3 rounded-xl border text-[13px]" style={{ borderColor: palette.border, background: "#fff", color: palette.ink }} />
+            <input value={nRange} onChange={(e) => setNRange(e.target.value)} placeholder="Typical range" className="flex-1 h-10 px-3 rounded-xl border text-[13px]" style={{ borderColor: palette.border, background: palette.solid, color: palette.ink }} />
             <button onClick={saveCustom} className="h-10 px-4 rounded-xl text-[12.5px]" style={{ background: palette.ink, color: "#fff" }}>Add</button>
           </div>
         </div>
@@ -72,7 +72,7 @@ function Formulary() {
 
 function List({ rows }: { rows: ReturnType<typeof useLiveFormulary> }) {
   return (
-    <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.75)" }}>
+    <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.glassStrong }}>
       {rows.map((d) => (
         <div key={d.id} className="flex items-center gap-3 px-4 py-2.5 border-b text-[13px]" style={{ borderColor: palette.border, color: palette.ink }}>
           <button onClick={() => toggleFavorite(d.id)} className="grid place-items-center h-7 w-7 rounded-full" style={{ color: d.favorite ? palette.primary : palette.muted }}>

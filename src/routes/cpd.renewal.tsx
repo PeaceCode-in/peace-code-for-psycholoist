@@ -28,7 +28,7 @@ function CpdRenewal() {
   return (
     <div className="max-w-[1100px] mx-auto px-5 sm:px-8 pb-16 space-y-8">
       {current && (
-        <section className="rounded-2xl border p-6 sm:p-8" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.72)", backdropFilter: "blur(14px)" }}>
+        <section className="rounded-2xl border p-6 sm:p-8" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
           <div className="text-[11px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Current licence</div>
           <h2 className="mt-1" style={{ fontFamily: "'Fraunces', serif", color: palette.ink, fontSize: 26 }}>{current.bodyLabel}</h2>
           <div className="text-[12px] mt-1" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
@@ -50,7 +50,7 @@ function CpdRenewal() {
               {Object.entries(summary.byCategory).map(([cat, v]) => {
                 const short = v.min > 0 && v.hours < v.min;
                 return (
-                  <div key={cat} className="flex items-center justify-between rounded-lg border px-3 py-2 text-[12px]" style={{ borderColor: palette.border, background: "#fff" }}>
+                  <div key={cat} className="flex items-center justify-between rounded-lg border px-3 py-2 text-[12px]" style={{ borderColor: palette.border, background: palette.solid }}>
                     <span style={{ color: palette.ink, fontFamily: "'Fraunces', serif" }}>{CATEGORY_LABEL[cat as keyof typeof CATEGORY_LABEL]}</span>
                     <span style={{ color: short ? "#B85C4A" : palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{v.hours.toFixed(1)}{v.min > 0 ? ` / ${v.min}` : ""}h</span>
                   </div>
@@ -61,7 +61,7 @@ function CpdRenewal() {
         </section>
       )}
 
-      <section className="rounded-2xl border p-6 sm:p-8" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.72)", backdropFilter: "blur(14px)" }}>
+      <section className="rounded-2xl border p-6 sm:p-8" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
         <div className="flex items-baseline justify-between gap-3 flex-wrap">
           <div>
             <h3 style={{ fontFamily: "'Fraunces', serif", color: palette.ink, fontSize: 20 }}>Renewal packet</h3>
@@ -92,7 +92,7 @@ function CpdRenewal() {
         )}
       </section>
 
-      <section className="rounded-2xl border p-6 sm:p-8" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.72)", backdropFilter: "blur(14px)" }}>
+      <section className="rounded-2xl border p-6 sm:p-8" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
         <h3 style={{ fontFamily: "'Fraunces', serif", color: palette.ink, fontSize: 20 }}>Regulatory watchlist</h3>
         <ul className="mt-3 space-y-2 text-[13px]" style={{ color: palette.ink, fontFamily: "'Fraunces', serif" }}>
           <li className="flex items-start gap-2"><AlertTriangle className="h-4 w-4 mt-0.5" style={{ color: "#B85C4A" }} /><span>RCI proposed doubling ethics minimum from 5h to 10h per cycle — draft consultation open through Q1.</span></li>
@@ -103,7 +103,7 @@ function CpdRenewal() {
 
       <section>
         <h3 className="mb-3" style={{ fontFamily: "'Fraunces', serif", color: palette.ink, fontSize: 18 }}>Past cycles</h3>
-        <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "#fff" }}>
+        <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.solid }}>
           {cycles.filter((c) => c.status === "past").map((c, i) => {
             const s = summarizeCycle(entries, c);
             return (
@@ -142,7 +142,7 @@ function CycleTimeline({ cycle }: { cycle: RenewalCycle }) {
 
 function Stat({ label, value, tone }: { label: string; value: string; tone?: "ok" | "warn" }) {
   return (
-    <div className="rounded-lg border px-3 py-2" style={{ borderColor: palette.border, background: "#fff" }}>
+    <div className="rounded-lg border px-3 py-2" style={{ borderColor: palette.border, background: palette.solid }}>
       <div className="text-[10px] uppercase tracking-[0.14em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>{label}</div>
       <div style={{ fontFamily: "'Fraunces', serif", color: tone === "warn" ? "#B85C4A" : palette.ink, fontSize: 20 }}>{value}</div>
     </div>

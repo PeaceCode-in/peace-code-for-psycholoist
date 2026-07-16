@@ -1,3 +1,4 @@
+import { palette } from '@/components/practice/palette';
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { BreathingDot, Glyph, Mono, Panel, Serif, SAKURA } from "@/components/practice/onboarding/primitives";
@@ -71,10 +72,10 @@ function WelcomeComplete() {
           >
             Open my dashboard
           </button>
-          <Link to="/documents" className="rounded-2xl px-5 py-4 text-[14px] text-center transition-all duration-150" style={{ background: "rgba(255,255,255,0.7)", border: `1px solid ${SAKURA.border}`, color: SAKURA.ink }}>
+          <Link to="/documents" className="rounded-2xl px-5 py-4 text-[14px] text-center transition-all duration-150" style={{ background: palette.glassStrong, border: `1px solid ${SAKURA.border}`, color: SAKURA.ink }}>
             Send myself a test intake
           </Link>
-          <Link to="/calendar" className="rounded-2xl px-5 py-4 text-[14px] text-center transition-all duration-150" style={{ background: "rgba(255,255,255,0.7)", border: `1px solid ${SAKURA.border}`, color: SAKURA.ink }}>
+          <Link to="/calendar" className="rounded-2xl px-5 py-4 text-[14px] text-center transition-all duration-150" style={{ background: palette.glassStrong, border: `1px solid ${SAKURA.border}`, color: SAKURA.ink }}>
             Book my first calendar slot
           </Link>
         </div>

@@ -126,18 +126,18 @@ function PieceEditor() {
         {draft.status === "published" ? (
           <>
             <Link to="/writing/$slug" params={{ slug: draft.slug }} target="_blank" className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full border text-[11.5px]"
-              style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", color: palette.ink }}>
+              style={{ borderColor: palette.border, background: palette.glassStrong, color: palette.ink }}>
               <ExternalLink className="h-3.5 w-3.5" /> View public
             </Link>
             <button onClick={onUnpublish} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full border text-[11.5px]"
-              style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", color: palette.muted }}>
+              style={{ borderColor: palette.border, background: palette.glassStrong, color: palette.muted }}>
               Unpublish
             </button>
           </>
         ) : (
           <>
             <button onClick={onSchedule} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full border text-[11.5px]"
-              style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", color: palette.muted }}>
+              style={{ borderColor: palette.border, background: palette.glassStrong, color: palette.muted }}>
               <Calendar className="h-3.5 w-3.5" /> Schedule
             </button>
             <button onClick={onPublish} className="inline-flex items-center gap-1.5 h-8 px-4 rounded-full text-[11.5px]" style={{ background: palette.ink, color: "#fff" }}>
@@ -160,7 +160,7 @@ function PieceEditor() {
       <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr_300px] gap-6">
         {/* Left sidebar */}
         <aside className="space-y-5">
-          <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+          <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glassStrong }}>
             <div className="text-[10.5px] uppercase tracking-[0.16em] mb-2" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Outline</div>
             {ol.length === 0 ? <div className="text-[11.5px]" style={{ color: palette.muted }}>Headings will appear here.</div> : (
               <ul className="space-y-1.5">
@@ -170,14 +170,14 @@ function PieceEditor() {
               </ul>
             )}
           </div>
-          <div className="rounded-2xl border p-4 space-y-1.5 text-[11.5px]" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
+          <div className="rounded-2xl border p-4 space-y-1.5 text-[11.5px]" style={{ borderColor: palette.border, background: palette.glassStrong, color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
             <div>Words · {wc}</div>
             <div>Read · {rt} min</div>
             <div>Blocks · {draft.blocks.length}</div>
             <div>Status · {draft.status}</div>
             <div>Versions · {draft.versions.length}</div>
           </div>
-          <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+          <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glassStrong }}>
             <div className="text-[10.5px] uppercase tracking-[0.16em] mb-2" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Publishability</div>
             <ul className="space-y-1.5">
               {checklist.map((c, i) => (
@@ -223,7 +223,7 @@ function PieceEditor() {
 
         {/* Right sidebar */}
         <aside className="space-y-5">
-          <div className="rounded-2xl border p-4 space-y-3" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+          <div className="rounded-2xl border p-4 space-y-3" style={{ borderColor: palette.border, background: palette.glassStrong }}>
             <div className="text-[10.5px] uppercase tracking-[0.16em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Metadata</div>
             <LabeledSelect label="Format" value={draft.format} onChange={(v) => set("format", v as PieceFormat)} options={FORMATS} />
             <LabeledSelect label="Category" value={draft.category} onChange={(v) => set("category", v as PieceCategory)} options={CATEGORIES} />
@@ -233,13 +233,13 @@ function PieceEditor() {
             <LabeledInput label="Tags (comma-sep.)" value={draft.tags.join(", ")} onChange={(v) => set("tags", v.split(",").map((x) => x.trim()).filter(Boolean))} />
             <LabeledInput label="Cover URL" value={draft.coverImage ?? ""} onChange={(v) => set("coverImage", v || undefined)} />
           </div>
-          <div className="rounded-2xl border p-4 space-y-3" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+          <div className="rounded-2xl border p-4 space-y-3" style={{ borderColor: palette.border, background: palette.glassStrong }}>
             <div className="text-[10.5px] uppercase tracking-[0.16em]" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>SEO</div>
             <LabeledInput label="Slug" value={draft.slug} onChange={(v) => set("slug", v.toLowerCase().replace(/[^a-z0-9-]/g, "-"))} />
             <LabeledInput label={`Meta title (${(draft.metaTitle ?? "").length}/60)`} value={draft.metaTitle ?? ""} onChange={(v) => set("metaTitle", v.slice(0, 60))} />
             <LabeledInput label={`Meta description (${(draft.metaDescription ?? "").length}/160)`} value={draft.metaDescription ?? ""} onChange={(v) => set("metaDescription", v.slice(0, 160))} multiline />
           </div>
-          <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+          <div className="rounded-2xl border p-4" style={{ borderColor: palette.border, background: palette.glassStrong }}>
             <div className="text-[10.5px] uppercase tracking-[0.16em] mb-2" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Version history</div>
             {draft.versions.length === 0 ? <div className="text-[11.5px]" style={{ color: palette.muted }}>No snapshots yet.</div> : (
               <ul className="space-y-1.5 max-h-40 overflow-auto">
@@ -256,7 +256,7 @@ function PieceEditor() {
               <Save className="h-3 w-3 inline mr-1" /> Snapshot now
             </button>
           </div>
-          <div className="rounded-2xl border p-4 space-y-2" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)" }}>
+          <div className="rounded-2xl border p-4 space-y-2" style={{ borderColor: palette.border, background: palette.glassStrong }}>
             <div className="text-[10.5px] uppercase tracking-[0.16em] mb-1" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Danger</div>
             <button onClick={onArchive} className="w-full h-8 rounded-full text-[11.5px] border" style={{ borderColor: palette.border, color: palette.muted }}>Archive</button>
             <button onClick={onDelete} className="w-full h-8 rounded-full text-[11.5px] border" style={{ borderColor: "#E9C9CE", color: "#B0567A" }}>
@@ -271,7 +271,7 @@ function PieceEditor() {
 
 function BlockEditor({ block, onChange, onRemove }: { block: Block; onChange: (patch: Partial<Block>) => void; onRemove: () => void }) {
   const base = "w-full bg-transparent outline-none resize-none";
-  const cardStyle = { borderColor: palette.border, background: "rgba(255,255,255,0.55)" };
+  const cardStyle = { borderColor: palette.border, background: palette.glass };
   const wrap = (children: React.ReactNode) => (
     <div className="rounded-2xl border p-4 relative group" style={cardStyle}>
       <button onClick={onRemove} className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 h-6 w-6 rounded-full flex items-center justify-center text-[10px]" style={{ color: palette.muted }}>×</button>
@@ -302,7 +302,7 @@ function BlockEditor({ block, onChange, onRemove }: { block: Block; onChange: (p
   if (block.type === "callout") return wrap(
     <div className="flex items-start gap-3">
       <select value={block.kind} onChange={(e) => onChange({ kind: e.target.value as "info" | "caution" })} className="text-[11px] rounded-full border px-2 py-1"
-        style={{ borderColor: palette.border, background: "#fff" }}>
+        style={{ borderColor: palette.border, background: palette.solid }}>
         <option value="info">Info</option><option value="caution">Caution</option>
       </select>
       <input value={block.text} onChange={(e) => onChange({ text: e.target.value })} placeholder="Callout text"
@@ -343,7 +343,7 @@ function BlockEditor({ block, onChange, onRemove }: { block: Block; onChange: (p
 function ToolBtn({ onClick, icon, label }: { onClick: () => void; icon: React.ReactNode; label: string }) {
   return (
     <button onClick={onClick} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full border text-[11.5px]"
-      style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
+      style={{ borderColor: palette.border, background: palette.glassStrong, color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>
       {icon} {label}
     </button>
   );

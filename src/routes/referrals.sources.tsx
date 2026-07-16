@@ -29,7 +29,7 @@ function SourcesPage() {
   return (
     <div className="max-w-[1200px] mx-auto px-5 sm:px-8 pb-16">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+        <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
           <div className="text-[11px] uppercase tracking-[0.14em] mb-4" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>By channel</div>
           {sources.map(([k, v]) => {
             const conv = v.count ? Math.round((v.converted / v.count) * 100) : 0;
@@ -47,7 +47,7 @@ function SourcesPage() {
           })}
         </div>
 
-        <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+        <div className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
           <div className="text-[11px] uppercase tracking-[0.14em] mb-4" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Top referrers (named)</div>
           {topNamed.map(([name, v]) => {
             const conv = v.count ? Math.round((v.converted / v.count) * 100) : 0;
@@ -65,7 +65,7 @@ function SourcesPage() {
         </div>
       </div>
 
-      <div className="mt-5 rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(14px)" }}>
+      <div className="mt-5 rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
         <div className="text-[11px] uppercase tracking-[0.14em] mb-3" style={{ color: palette.muted, fontFamily: "'DM Mono', ui-monospace, monospace" }}>Reciprocity — outbound vs inbound</div>
         <p className="text-[12px] max-w-2xl" style={{ color: palette.muted }}>
           Referrals travel both ways. A healthy practice sends about as many outbound referrals as it receives from peers. Chronic asymmetry — a peer who sends but never receives — is worth a conversation, not a spreadsheet.

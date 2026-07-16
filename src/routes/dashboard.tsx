@@ -131,7 +131,7 @@ function Dashboard() {
                   <div className="text-[12.5px] mt-1" style={{ color: ink }}>{a.message}</div>
                   <div className="mt-2 flex items-center justify-between">
                     <div className="text-[11px]" style={{ color: muted }}>{p?.name} · {relTime(a.createdAt)}</div>
-                    <button className="text-[11px] px-2.5 py-1 rounded-full inline-flex items-center gap-1" style={{ background: "rgba(255,255,255,0.7)", color: tone.ink, border: `1px solid ${tone.bd}` }}>
+                    <button className="text-[11px] px-2.5 py-1 rounded-full inline-flex items-center gap-1" style={{ background: palette.glassStrong, color: tone.ink, border: `1px solid ${tone.bd}` }}>
                       <ActionIcon className="w-3 h-3" /> {actionLabel}
                     </button>
                   </div>

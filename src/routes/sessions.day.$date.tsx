@@ -43,7 +43,7 @@ function DayView() {
       </div>
 
       {daySessions.length === 0 ? (
-        <div className="rounded-3xl border p-12 text-center" style={{ background: "rgba(255,255,255,0.5)", borderColor: "rgba(255,255,255,0.55)" }}>
+        <div className="rounded-3xl border p-12 text-center" style={{ background: palette.glass, borderColor: "rgba(255,255,255,0.55)" }}>
           <p className="text-[13px]" style={{ color: palette.muted }}>Nothing scheduled for this day.</p>
         </div>
       ) : (
@@ -56,7 +56,7 @@ function DayView() {
                 <Link
                   to="/sessions/$id" params={{ id: s.id }}
                   className="group flex items-center gap-4 rounded-2xl border px-4 py-3 transition-all hover:-translate-y-0.5"
-                  style={{ background: "rgba(255,255,255,0.65)", borderColor: "rgba(255,255,255,0.6)" }}
+                  style={{ background: palette.glass, borderColor: "rgba(255,255,255,0.6)" }}
                 >
                   <span className="w-1 self-stretch rounded-full" style={{ background: RISK_META[risk].token }} />
                   <div className="w-16 shrink-0">

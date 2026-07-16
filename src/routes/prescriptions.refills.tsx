@@ -26,7 +26,7 @@ function Refills() {
       <p className="text-[12.5px] mb-6 max-w-xl" style={{ color: palette.muted }}>
         Estimated refill dates based on start date and days-of-supply. Adjust supply on the medication itself.
       </p>
-      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.75)" }}>
+      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: palette.border, background: palette.glassStrong }}>
         {rows.length === 0 && <div className="p-8 text-center text-[12.5px]" style={{ color: palette.muted }}>Nothing due.</div>}
         {rows.map(({ m, nextRefillAt, daysUntil }) => {
           const p = getPatient(m.patientId);

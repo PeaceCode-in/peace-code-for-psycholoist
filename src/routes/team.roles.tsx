@@ -227,7 +227,7 @@ function PermissionsEditor({ member, me, canManage }: { member: TeamMember; me: 
                       >
                         <span
                           className="absolute top-0.5 w-4 h-4 rounded-full transition-transform"
-                          style={{ background: "#fff", transform: `translateX(${on ? 16 : 2}px)`, boxShadow: "0 1px 2px rgba(0,0,0,0.15)" }}
+                          style={{ background: palette.solid, transform: `translateX(${on ? 16 : 2}px)`, boxShadow: "0 1px 2px rgba(0,0,0,0.15)" }}
                         />
                       </button>
                     </div>

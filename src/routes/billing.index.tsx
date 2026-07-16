@@ -157,7 +157,7 @@ function Overview() {
 }
 
 const cardStyle = {
-  background: "rgba(255,255,255,0.42)",
+  background: palette.glass,
   backdropFilter: "blur(24px) saturate(140%)",
   border: `1px solid ${palette.border}`,
 } as const;

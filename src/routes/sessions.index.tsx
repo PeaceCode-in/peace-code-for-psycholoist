@@ -58,7 +58,7 @@ function Glass({ children, className = "", style }: { children: React.ReactNode;
   return (
     <div
       className={`rounded-3xl border ${className}`}
-      style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(24px) saturate(140%)", borderColor: "rgba(255,255,255,0.55)", boxShadow: "0 1px 0 rgba(255,255,255,0.6) inset", ...style }}
+      style={{ background: palette.glass, backdropFilter: "blur(24px) saturate(140%)", borderColor: "rgba(255,255,255,0.55)", boxShadow: "0 1px 0 rgba(255,255,255,0.6) inset", ...style }}
     >
       {children}
     </div>
@@ -245,7 +245,7 @@ function BacklogStrip({ backlog }: { backlog: Session[] }) {
                 to="/sessions/$id/wrap"
                 params={{ id: s.id }}
                 className="snap-start shrink-0 w-[220px] rounded-2xl border px-3 py-2.5 transition-transform hover:-translate-y-0.5"
-                style={{ background: "rgba(255,255,255,0.6)", borderColor: "rgba(255,255,255,0.6)" }}
+                style={{ background: palette.glass, borderColor: "rgba(255,255,255,0.6)" }}
               >
                 <div className="flex items-center gap-2">
                   <img src={avatarUrl(p?.id ?? s.patientId)} alt="" className="w-6 h-6 rounded-full" />
@@ -281,7 +281,7 @@ function CommandPalette({ open, onClose, sessions }: { open: boolean; onClose: (
   const next = sessions.find((s) => s.status !== "completed" && s.status !== "cancelled" && s.status !== "no_show" && new Date(s.startsAt).getTime() > Date.now());
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-24 px-4" onClick={onClose} style={{ background: "rgba(30,20,24,0.35)", backdropFilter: "blur(6px)" }}>
-      <div onClick={(e) => e.stopPropagation()} className="w-full max-w-lg rounded-2xl border overflow-hidden animate-in fade-in duration-150" style={{ background: "rgba(255,255,255,0.95)", borderColor: "rgba(255,255,255,0.7)" }}>
+      <div onClick={(e) => e.stopPropagation()} className="w-full max-w-lg rounded-2xl border overflow-hidden animate-in fade-in duration-150" style={{ background: palette.glassStrong, borderColor: "rgba(255,255,255,0.7)" }}>
         <input
           ref={ref}
           value={q}
@@ -388,9 +388,9 @@ function ScheduleBoard() {
         {/* Week nav */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-1.5">
-            <button onClick={() => setWeekOffset((v) => v - 1)} className="text-[11px] px-2.5 py-1 rounded-full border" style={{ borderColor: palette.border, color: palette.muted, background: "rgba(255,255,255,0.5)" }}>← Prev</button>
+            <button onClick={() => setWeekOffset((v) => v - 1)} className="text-[11px] px-2.5 py-1 rounded-full border" style={{ borderColor: palette.border, color: palette.muted, background: palette.glass }}>← Prev</button>
             <button onClick={() => setWeekOffset(0)} className="text-[11px] px-2.5 py-1 rounded-full" style={{ background: palette.ink, color: "#fff" }}>This week</button>
-            <button onClick={() => setWeekOffset((v) => v + 1)} className="text-[11px] px-2.5 py-1 rounded-full border" style={{ borderColor: palette.border, color: palette.muted, background: "rgba(255,255,255,0.5)" }}>Next →</button>
+            <button onClick={() => setWeekOffset((v) => v + 1)} className="text-[11px] px-2.5 py-1 rounded-full border" style={{ borderColor: palette.border, color: palette.muted, background: palette.glass }}>Next →</button>
           </div>
           <div className="hidden md:flex items-center gap-2 text-[11px]" style={{ color: palette.muted }}>
             <CalendarDays className="w-3.5 h-3.5" />

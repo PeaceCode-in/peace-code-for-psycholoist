@@ -26,11 +26,11 @@ function CpdProviders() {
         <h2 style={{ fontFamily: "'Fraunces', serif", color: palette.ink, fontSize: 24 }}>Provider directory</h2>
         <p className="text-[12px] mt-1" style={{ color: palette.muted }}>Verified CPD providers. Ratings are opt-in only. No leaderboards.</p>
       </div>
-      <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search by name, city, focus" className="w-full max-w-md rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: "#fff" }} />
+      <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search by name, city, focus" className="w-full max-w-md rounded-lg border px-3 py-2 text-[13px]" style={{ borderColor: palette.border, background: palette.solid }} />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {filtered.map((p) => (
-          <div key={p.id} className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.72)", backdropFilter: "blur(14px)" }}>
+          <div key={p.id} className="rounded-2xl border p-5" style={{ borderColor: palette.border, background: palette.glassStrong, backdropFilter: "blur(14px)" }}>
             <div className="flex items-baseline justify-between gap-3">
               <div>
                 <h3 style={{ fontFamily: "'Fraunces', serif", color: palette.ink, fontSize: 17 }}>{p.name}</h3>
@@ -58,7 +58,7 @@ function CpdProviders() {
       </div>
 
       {filtered.length === 0 && (
-        <div className="rounded-2xl border p-10 text-center" style={{ borderColor: palette.border, background: "rgba(255,255,255,0.6)" }}>
+        <div className="rounded-2xl border p-10 text-center" style={{ borderColor: palette.border, background: palette.glass }}>
           <p style={{ fontFamily: "'Fraunces', serif", color: palette.ink, fontSize: 16 }}>No providers match.</p>
         </div>
       )}
