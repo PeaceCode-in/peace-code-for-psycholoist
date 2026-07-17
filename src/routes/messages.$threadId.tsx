@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft, Star, Archive, Tag as TagIcon, MoreHorizontal, Paperclip, Bold, Italic, X, Trash2, CornerUpLeft, Printer, Download } from "lucide-react";
+import { ArrowLeft, Bookmark, Archive, Tag as TagIcon, MoreHorizontal, Paperclip, Bold, Italic, X, Trash2, CornerUpLeft, Printer, Download } from "lucide-react";
 import { AppShell } from "@/components/practice/AppShell";
 import { palette } from "@/components/practice/palette";
 import {
@@ -107,8 +107,8 @@ function ThreadHeader({ threadId }: { threadId: string }) {
         </div>
       </div>
       <div className="flex items-center gap-1">
-        <IconBtn onClick={() => toggleStar(threadId)} label={thread.isStarred ? "Unstar" : "Star"}>
-          <Star className="w-3.5 h-3.5" fill={thread.isStarred ? palette.primary : "none"} style={{ color: thread.isStarred ? palette.primary : palette.muted }} />
+        <IconBtn onClick={() => toggleStar(threadId)} label={thread.isStarred ? "Unstar" : "Bookmark"}>
+          <Bookmark className="w-3.5 h-3.5" fill={thread.isStarred ? palette.primary : "none"} style={{ color: thread.isStarred ? palette.primary : palette.muted }} />
         </IconBtn>
         <IconBtn onClick={() => { toggleArchive(threadId); navigate({ to: "/messages" }); }} label="Archive">
           <Archive className="w-3.5 h-3.5" style={{ color: palette.muted }} />
@@ -433,7 +433,7 @@ function ShortcutsSheet({ onClose }: { onClose: () => void }) {
     ["⌘↵", "Send message"],
     ["⌘/", "Show shortcuts"],
     ["j / k", "Next / previous thread"],
-    ["s", "Star thread"],
+    ["s", "Bookmark thread"],
     ["e", "Archive thread"],
     ["Esc", "Close popover"],
     ["/", "Open canned responses"],

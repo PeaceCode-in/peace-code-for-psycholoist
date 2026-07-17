@@ -5,7 +5,7 @@ import {
   Users, UserPlus, UsersRound, Share2,
   Video, NotebookPen, ClipboardList, Target, BookOpenCheck, Pill, ShieldAlert, MessagesSquare,
   Clock, Tag, Wallet, Banknote, FileSignature, Files, Receipt, Mail,
-  LineChart, Star, Sparkles, Library, GraduationCap,
+  LineChart, Sparkles, Library, GraduationCap,
   Handshake, UserCog, Microscope,
   FileLock2, History, Download,
   Search, Bell, Plus, LifeBuoy, Settings as SettingsIcon, LogOut, Menu, ShieldCheck, ChevronDown, ChevronRight, AlertOctagon, X,

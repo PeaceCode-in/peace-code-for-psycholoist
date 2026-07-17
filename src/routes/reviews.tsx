@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { AppShell, palette } from "@/components/practice/AppShell";
 import { useReviews, respondToReview, acknowledgeReview, flagReview, toggleVisibility, type Review } from "@/lib/reviews-store";
-import { Star, MessageCircle, Flag, EyeOff, Eye, Reply, Check } from "lucide-react";
+import { Heart, MessageCircle, Flag, EyeOff, Eye, Reply, Check } from "lucide-react";
 
 export const Route = createFileRoute("/reviews")({
   head: () => ({
@@ -245,7 +245,7 @@ function Stars({ value, size = 14 }: { value: number; size?: number }) {
   return (
     <div className="inline-flex items-center gap-0.5">
       {[1, 2, 3, 4, 5].map((n) => (
-        <Star key={n} style={{ width: size, height: size }} className={n <= value ? "fill-current" : ""} strokeWidth={1.7} color={n <= value ? "#C89A2E" : palette.border} />
+        <Heart key={n} style={{ width: size, height: size }} className={n <= value ? "fill-current" : ""} strokeWidth={1.7} color={n <= value ? "#C89A2E" : palette.border} />
       ))}
     </div>
   );

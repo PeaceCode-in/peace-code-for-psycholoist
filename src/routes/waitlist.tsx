@@ -1,7 +1,7 @@
 // Waitlist — priority scoring, bulk actions, offer-slot workflow, add-to-waitlist.
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Search, Mail, Phone, UserCheck, UserMinus, Clock, ArrowRight, Plus, X, Send, Star, ChevronDown, CheckSquare, Square } from "lucide-react";
+import { Search, Mail, Phone, UserCheck, UserMinus, Clock, ArrowRight, Plus, X, Send, Bookmark, ChevronDown, CheckSquare, Square } from "lucide-react";
 import { AppShell } from "@/components/practice/AppShell";
 import { palette } from "@/components/practice/palette";
 import { useLivePatients, updatePatient, dischargePatient, createPatient, avatarUrl, RISK_META, type Patient } from "@/lib/patients-store";
@@ -202,7 +202,7 @@ function Row({ p, meta, score, rank, checked, onCheck, onOffer }: { p: Patient; 
           <Clock className="h-3 w-3" /> {waited}d
         </div>
         <button title={`Priority boost (${boost}/3)`} onClick={() => setMeta(p.id, { priorityBoost: (((boost + 1) % 4) as 0 | 1 | 2 | 3) })} className="inline-flex items-center gap-0.5 rounded-full border px-2 py-1 text-[11px]" style={{ borderColor: palette.border, color: boost > 0 ? "#B85A3E" : palette.muted }}>
-          <Star className="h-3 w-3" fill={boost > 0 ? "#B85A3E" : "none"} /> {boost}
+          <Bookmark className="h-3 w-3" fill={boost > 0 ? "#B85A3E" : "none"} /> {boost}
         </button>
         <button onClick={onOffer} title="Offer slot" className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px]" style={{ background: palette.primary, color: "#fff" }}>
           <Send className="h-3 w-3" /> Offer

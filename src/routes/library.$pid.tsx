@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate, notFound } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  ArrowLeft, Save, Send, Star, Trash2, Calendar, Eye, Sparkles, AlertTriangle, Copy, ExternalLink,
+  ArrowLeft, Save, Send, Bookmark, Trash2, Calendar, Eye, Sparkles, AlertTriangle, Copy, ExternalLink,
   Plus, Heading2, Heading3, Quote, ImageIcon, Video as VideoIcon, Music, MessageSquare, BookMarked,
 } from "lucide-react";
 import { palette } from "@/components/practice/palette";
@@ -121,7 +121,7 @@ function PieceEditor() {
         </div>
         <button onClick={onFeature} className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full border text-[11.5px]"
           style={{ borderColor: palette.border, background: draft.featured ? palette.soft : "rgba(255,255,255,0.7)", color: draft.featured ? palette.primary : palette.muted }}>
-          <Star className="h-3.5 w-3.5" fill={draft.featured ? "currentColor" : "none"} /> {draft.featured ? "Featured" : "Feature"}
+          <Bookmark className="h-3.5 w-3.5" fill={draft.featured ? "currentColor" : "none"} /> {draft.featured ? "Featured" : "Feature"}
         </button>
         {draft.status === "published" ? (
           <>

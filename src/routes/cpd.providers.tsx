@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Star, MapPin, ShieldCheck } from "lucide-react";
+import { Heart, MapPin, ShieldCheck } from "lucide-react";
 import { palette } from "@/components/practice/palette";
 import { useProviders } from "@/lib/cpd-store";
 import { useHydrated } from "@/lib/use-hydrated";
@@ -42,7 +42,7 @@ function CpdProviders() {
               {p.rating && (
                 <div className="text-right">
                   <div className="inline-flex items-center gap-1 text-[13px]" style={{ color: palette.ink, fontFamily: "'Fraunces', serif" }}>
-                    <Star className="h-3.5 w-3.5" style={{ color: palette.primary, fill: palette.primary }} />{p.rating.toFixed(1)}
+                    <Heart className="h-3.5 w-3.5" style={{ color: palette.primary, fill: palette.primary }} />{p.rating.toFixed(1)}
                   </div>
                   <div className="text-[10px]" style={{ color: palette.muted }}>{p.timesAttended ?? 0}× attended</div>
                 </div>
