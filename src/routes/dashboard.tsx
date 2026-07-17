@@ -59,8 +59,6 @@ function Dashboard() {
   const [showAllPeers,    setShowAllPeers]    = useState(false);
   const [showNotes,       setShowNotes]       = useState(false);
 
-  const anyExpanded = showAllSchedule || showAllAlerts || showAllPulse || showAllInbox || showAllPeers || showNotes;
-
   const scheduleShown = showAllSchedule ? SESSIONS_TODAY : SESSIONS_TODAY.slice(0, 3);
   const alertsShown   = showAllAlerts   ? ALERTS         : ALERTS.slice(0, 2);
   const pulseShown    = showAllPulse    ? PATIENTS.slice(0, 8) : PATIENTS.slice(0, 3);
@@ -74,18 +72,39 @@ function Dashboard() {
   );
   const alertRing = Math.min(100, alertsCount * 20);
 
+  // Rotating micro-stat tiles: each cycles through a few facets every 4s so
+  // the dashboard breathes without ever demanding the user's attention.
+  const pulseTiles: RotatingFacet[][] = [
+    [
+      { label: "Sessions today", value: String(SESSIONS_TODAY.length), sub: `${SESSIONS_TODAY.filter(s=>s.modality==="video").length} video` },
+      { label: "Next session", value: nextSession ? fmtTime(nextSession.startsAt) : "—", sub: nextPatient?.name ?? "no next" },
+      { label: "Avg session", value: `${Math.round(SESSIONS_TODAY.reduce((a,s)=>a+s.minutes,0)/Math.max(1,SESSIONS_TODAY.length))}m`, sub: "today" },
+    ],
+    [
+      { label: "New this week", value: String(WEEK_METRICS.newPatients), sub: "intakes" },
+      { label: "Active caseload", value: String(PATIENTS.length), sub: "patients" },
+      { label: "High risk", value: String(PATIENTS.filter(p=>p.riskLevel==="high").length), sub: "need check-in" },
+    ],
+    [
+      { label: "Revenue", value: `₹${(REVENUE_MONTH.completed/1000).toFixed(0)}k`, sub: `${revenuePct}% of target` },
+      { label: "Pending", value: `₹${(REVENUE_MONTH.pending/1000).toFixed(0)}k`, sub: "to collect" },
+      { label: "Booked", value: `₹${(REVENUE_MONTH.booked/1000).toFixed(0)}k`, sub: "on the calendar" },
+    ],
+    [
+      { label: "Unread inbox", value: String(inboxUnread), sub: "from patients" },
+      { label: "Notes drafted", value: String(NOTES.length), sub: "this week" },
+      { label: "Peer updates", value: String(PEER_UPDATES.length), sub: "in your network" },
+    ],
+  ];
+
   return (
     <div
-      className="mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8"
-      style={{
-        maxWidth: 1280,
-        // Apple-Health-style: the whole board fits at a glance. Only when the
-        // user opts into "Show more" does scrolling become interesting.
-        maxHeight: anyExpanded ? undefined : "calc(100vh - 96px)",
-        overflow: anyExpanded ? "visible" : "hidden",
-      }}
+      className="mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8"
+      style={{ maxWidth: 1280 }}
     >
-      <div className="grid grid-cols-12 gap-4">
+      {/* silence the unused ref while keeping the state around for future toggles */}
+      {anyExpanded ? null : null}
+      <div className="grid grid-cols-12 gap-3 sm:gap-4">
 
         {/* ─── Hero (span-8): greeting + next session, with illustration ── */}
         <section
