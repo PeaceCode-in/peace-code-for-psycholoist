@@ -86,7 +86,7 @@ function Navbar() {
   }, []);
 
   const nav = [
-    { label: "Product", items: ["Schedule", "Notes", "Assessments", "Billing"] },
+    { label: "Features", href: "/features", items: ["Scheduling", "Notes", "Assessments", "Billing", "Telehealth", "Copilot"] },
     { label: "Practice", items: ["Solo clinicians", "Group practices", "Supervisors"] },
     { label: "Resources", items: ["Blog", "Guides", "Compliance"] },
     { label: "Company", items: ["About", "Careers", "Contact"] },
