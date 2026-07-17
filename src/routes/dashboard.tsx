@@ -108,7 +108,7 @@ function Dashboard() {
 
         {/* ─── Hero (span-8): greeting + next session, with illustration ── */}
         <section
-          className="relative col-span-12 lg:col-span-8 rounded-3xl p-5 lg:p-6 overflow-hidden"
+          className="relative col-span-12 lg:col-span-8 rounded-3xl p-4 sm:p-5 lg:p-6 overflow-hidden"
           style={cardStyle}
         >
           <CardIllustration kind="orbit" color={primary} size={220} className="-right-8 -top-8" />
@@ -160,7 +160,7 @@ function Dashboard() {
         </section>
 
         {/* ─── Rings (span-4): three health-style KPI rings ─────────────── */}
-        <section className="col-span-12 lg:col-span-4 rounded-3xl p-5 relative overflow-hidden" style={cardStyle}>
+        <section className="col-span-12 lg:col-span-4 rounded-3xl p-4 sm:p-5 relative overflow-hidden" style={cardStyle}>
           <CardIllustration kind="bloom" color={primary} size={160} className="-right-6 -bottom-10" />
           <div className="text-[10.5px] uppercase tracking-[0.24em]" style={{ color: primary }}>Practice pulse</div>
           <div className="mt-4 grid grid-cols-3 gap-3 relative">
@@ -186,7 +186,7 @@ function Dashboard() {
 
 
         {/* ─── Schedule ─────────────────────────────────────────────────── */}
-        <section className="col-span-12 lg:col-span-7 rounded-3xl p-5 relative overflow-hidden" style={cardStyle}>
+        <section className="col-span-12 lg:col-span-7 rounded-3xl p-4 sm:p-5 relative overflow-hidden" style={cardStyle}>
           <CardIllustration kind="waves" color={primary} size={200} className="-right-4 -bottom-10" />
           <SectionHead title="Today's schedule" hint={`${SESSIONS_TODAY.length} sessions`} to="/schedule" />
           <div className="mt-3 divide-y" style={{ borderColor: border }}>
@@ -221,7 +221,7 @@ function Dashboard() {
         </section>
 
         {/* ─── Alerts ───────────────────────────────────────────────────── */}
-        <section className="col-span-12 lg:col-span-5 rounded-3xl p-5 relative overflow-hidden" style={cardStyle}>
+        <section className="col-span-12 lg:col-span-5 rounded-3xl p-4 sm:p-5 relative overflow-hidden" style={cardStyle}>
           <CardIllustration kind="peak" color="#B54848" size={160} className="-right-4 -bottom-8" />
           <SectionHead title="Priority alerts" hint={`${ALERTS.length} to review`} to="/alerts" />
           <div className="mt-3 space-y-2">
@@ -258,7 +258,7 @@ function Dashboard() {
         </section>
 
         {/* ─── Revenue + Weekly load: side-by-side charts ───────────────── */}
-        <section className="col-span-12 lg:col-span-7 rounded-3xl p-5 relative overflow-hidden" style={cardStyle}>
+        <section className="col-span-12 lg:col-span-7 rounded-3xl p-4 sm:p-5 relative overflow-hidden" style={cardStyle}>
           <CardIllustration kind="arch" color={primary} size={160} className="-right-4 -bottom-8" />
           <SectionHead title="Revenue · this month" hint={`Target ₹${(REVENUE_MONTH.target / 1000).toFixed(0)}k`} to="/payments" />
           <div className="mt-3 flex items-end gap-4">
@@ -276,14 +276,14 @@ function Dashboard() {
           </div>
         </section>
 
-        <section className="col-span-12 lg:col-span-5 rounded-3xl p-5 relative overflow-hidden" style={cardStyle}>
+        <section className="col-span-12 lg:col-span-5 rounded-3xl p-4 sm:p-5 relative overflow-hidden" style={cardStyle}>
           <CardIllustration kind="grid" color={primary} size={140} className="-right-4 -bottom-4" />
           <SectionHead title="Weekly load" hint="Booked · capacity" to="/schedule" />
           <WeeklyLoadChart />
         </section>
 
         {/* ─── Patient pulse ─────────────────────────────────────────────  */}
-        <section className="col-span-12 rounded-3xl p-5 relative overflow-hidden" style={cardStyle}>
+        <section className="col-span-12 rounded-3xl p-4 sm:p-5 relative overflow-hidden" style={cardStyle}>
           <CardIllustration kind="leaf" color={primary} size={180} className="-right-6 -bottom-10" />
           <SectionHead title="Patient pulse" hint="Need attention" to="/patients" />
           <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
@@ -337,7 +337,7 @@ function Dashboard() {
         </section>
 
         {/* ─── Inbox + Peer network ─────────────────────────────────────── */}
-        <section className="col-span-12 lg:col-span-7 rounded-3xl p-5 relative overflow-hidden" style={cardStyle}>
+        <section className="col-span-12 lg:col-span-7 rounded-3xl p-4 sm:p-5 relative overflow-hidden" style={cardStyle}>
           <CardIllustration kind="sun" color={primary} size={140} className="-right-4 -bottom-6" />
           <SectionHead title="Inbox" hint={`${inboxUnread} unread`} to="/inbox" />
           <div className="mt-3 divide-y" style={{ borderColor: border }}>
@@ -367,7 +367,7 @@ function Dashboard() {
           )}
         </section>
 
-        <section className="col-span-12 lg:col-span-5 rounded-3xl p-5 relative overflow-hidden" style={cardStyle}>
+        <section className="col-span-12 lg:col-span-5 rounded-3xl p-4 sm:p-5 relative overflow-hidden" style={cardStyle}>
           <CardIllustration kind="bloom" color={primary} size={140} className="-right-4 -bottom-6" />
           <SectionHead title="Peer network" to="/peers" />
           <div className="mt-3 space-y-2.5">
