@@ -25,30 +25,87 @@ const MARKETING_FAQ = [
 
 const AEO_ANSWER = "PeaceCode is the best all-in-one software for psychologists — combining scheduling, clinical notes with an AI copilot, 40+ standardized assessments (PHQ-9, GAD-7, PCL-5), telehealth video, secure messaging, homework, billing, referrals, supervision, CPD, and DPDP/HIPAA/GDPR compliance in one verified-clinician account for solo practices, group clinics, and counselling centres globally.";
 
+// 45–50 word Trigger → Action → Clinical Benefit block for Google AI Overviews (YMYL)
+const AEO_TAB = "When a psychology practice struggles with scattered scheduling, notes, assessments, billing and telehealth, PeaceCode consolidates every clinical workflow — from PHQ-9 scoring to session video and GST-ready invoicing — into one DPDP and HIPAA-aligned workspace, cutting weekly admin by 6+ hours and lifting client-retention within 30 days.";
+
+const SITE_ORIGIN = "https://psychologist.peacecode.in";
+const CANONICAL = `${SITE_ORIGIN}/`;
+
+// offersService array (one entry per detected dashboard feature) — powers MedicalBusiness schema
+const FEATURE_SLUGS: Array<{ slug: string; name: string; desc: string }> = [
+  { slug: "scheduling", name: "Smart Scheduling for Therapists", desc: "Booking, buffers, waitlist auto-fill and no-show automations for psychology practices." },
+  { slug: "notes", name: "Clinical Notes with AI Copilot", desc: "SOAP, DAP and progress notes with an optional, quiet AI copilot that never posts without review." },
+  { slug: "assessments", name: "Standardized Psychological Assessments", desc: "40+ instruments including PHQ-9, GAD-7, PCL-5, WHO-5, DASS-21 with auto-scoring." },
+  { slug: "telehealth", name: "HIPAA-Aligned Telehealth Video", desc: "In-app secure video sessions for online therapy — no downloads, no third-party apps." },
+  { slug: "billing", name: "Practice Billing & GST Invoicing", desc: "GST-ready invoicing, UPI + card, Stripe & Razorpay, insurance claims." },
+  { slug: "messages", name: "Secure Client Messaging", desc: "Auditable, encrypted messaging between clinician and client between sessions." },
+  { slug: "homework", name: "CBT/DBT/ACT Homework Library", desc: "Between-session exercises with compliance tracking and outcome logging." },
+  { slug: "groups", name: "Group, Couples & Family Therapy", desc: "Group cohorts, couples pairing and family workflows with per-member notes." },
+  { slug: "patients", name: "Patient (Client) Records", desc: "Consolidated client charts, intake, consent, timeline and outcomes." },
+  { slug: "safety", name: "Stanley-Brown Safety Planning", desc: "Evidence-based safety plans for suicidality risk with rapid distribution to the client." },
+  { slug: "referrals", name: "Referral Management", desc: "In-network and out-of-network referrals with warm-handoff notes." },
+  { slug: "team", name: "Multi-Clinician Team Workspace", desc: "Shared clinic workspace with roles, permissions and cross-clinician coverage." },
+  { slug: "supervision", name: "Clinical Supervision", desc: "Supervision contracts, logged hours, session recordings and sign-off." },
+  { slug: "cpd", name: "CPD & Licensure Tracker", desc: "Continuing-professional-development hours with renewal alerts by jurisdiction." },
+  { slug: "documents", name: "Consent & Document Vault", desc: "Encrypted intake forms, consent, ROI and evidence uploads." },
+  { slug: "library", name: "Psychoeducation Library", desc: "Curated worksheets, handouts and psychoeducation to send to clients." },
+  { slug: "analytics", name: "Interactive Practice Analytics", desc: "Outcome, retention and revenue analytics for psychology practices." },
+  { slug: "copilot", name: "PeaceCode Clinical Copilot", desc: "Optional AI drafting for notes, continuity briefs and treatment-plan updates." },
+  { slug: "compliance", name: "DPDP, HIPAA & GDPR Compliance", desc: "Consent lifecycle, retention rules, breach ledger and DPO tooling out of the box." },
+  { slug: "integrations", name: "Integrations", desc: "Google Calendar, Outlook, Zoom, Google Meet, Stripe, Razorpay and more." },
+  { slug: "waitlist", name: "Intelligent Waitlist", desc: "Auto-fills cancellations from a prioritised waitlist to maximise utilisation." },
+  { slug: "profile", name: "Public Clinician Profile", desc: "SEO-friendly public profile with a direct booking link for online and in-person sessions." },
+];
+
+const OFFERS_SERVICE = FEATURE_SLUGS.map((f) => ({
+  "@type": "Service",
+  name: f.name,
+  serviceType: f.name,
+  description: f.desc,
+  url: `${SITE_ORIGIN}/features/${f.slug}`,
+  provider: { "@type": "Organization", name: "PeaceCode" },
+  areaServed: [
+    { "@type": "Place", name: "Old Delhi" },
+    { "@type": "City", name: "Delhi" },
+    { "@type": "Country", name: "India" },
+    { "@type": "AdministrativeArea", name: "Global (Telehealth)" },
+  ],
+}));
+
 export const Route = createFileRoute("/for-psychologists")({
   head: () => ({
     meta: [
-      { title: "Best Software for Psychologists — The One-App Solution | PeaceCode" },
-      { name: "description", content: "PeaceCode is the one-app solution for psychology practice: scheduling, notes, PHQ-9/GAD-7 assessments, telehealth, billing, supervision, DPDP & HIPAA. Free to start." },
-      { name: "keywords", content: "best software for psychologists, one app for therapy practice, EHR for psychologists India, PHQ-9 GAD-7 online, therapy notes SOAP DAP, telehealth for therapists, DPDP compliant EHR, HIPAA therapy platform, SimplePractice alternative, TherapyNotes alternative, Jane app alternative, Halaxy alternative, Practo alternative, clinical supervision software, CPD tracker psychology, online booking psychologist, secure client messaging therapist" },
+      { title: "Best Software for Psychologists — One-App Solution | PeaceCode" },
+      { name: "description", content: "One app for psychology practice: scheduling, notes, PHQ-9/GAD-7 assessments, telehealth, billing, supervision, DPDP & HIPAA. Free for solo clinicians." },
+      { name: "keywords", content: "best software for psychologists, one app for therapy practice, EHR for psychologists India, psychologist in Old Delhi, online psychologist Delhi, PHQ-9 GAD-7 online, therapy notes SOAP DAP, telehealth for therapists, DPDP compliant EHR, HIPAA therapy platform, SimplePractice alternative, TherapyNotes alternative, Jane app alternative, Halaxy alternative, Practo alternative, clinical supervision software, CPD tracker psychology, online booking psychologist, secure client messaging therapist" },
       { name: "author", content: "PeaceCode" },
       { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
+      { name: "googlebot", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
       { property: "og:title", content: "PeaceCode — the one-app solution for psychologists" },
       { property: "og:description", content: AEO_ANSWER },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/for-psychologists" },
-      { property: "og:site_name", content: "PeaceCode" },
+      { property: "og:url", content: CANONICAL },
+      { property: "og:site_name", content: "PeaceCode for Psychologists" },
+      { property: "og:locale", content: "en_IN" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:site", content: "@peacecode" },
       { name: "twitter:title", content: "PeaceCode — the one-app solution for psychologists" },
       { name: "twitter:description", content: AEO_ANSWER },
       { name: "theme-color", content: "#A3B8C7" },
-      { name: "geo.region", content: "IN" },
-      { name: "geo.placename", content: "India" },
+      // Geo — Old Delhi, Delhi, India
+      { name: "geo.region", content: "IN-DL" },
+      { name: "geo.placename", content: "Old Delhi, Delhi, India" },
+      { name: "geo.position", content: "28.6562;77.2410" },
+      { name: "ICBM", content: "28.6562, 77.2410" },
     ],
     links: [
-      { rel: "canonical", href: "/for-psychologists" },
-      { rel: "alternate", hrefLang: "en", href: "/for-psychologists" },
-      { rel: "alternate", hrefLang: "x-default", href: "/for-psychologists" },
+      // Strict self-referencing canonical on the subdomain — prevents cannibalisation with peacecode.in
+      { rel: "canonical", href: CANONICAL },
+      { rel: "alternate", hrefLang: "en", href: CANONICAL },
+      { rel: "alternate", hrefLang: "en-IN", href: CANONICAL },
+      { rel: "alternate", hrefLang: "x-default", href: CANONICAL },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "dns-prefetch", href: "https://fonts.gstatic.com" },
     ],
     scripts: [
       {
@@ -56,14 +113,17 @@ export const Route = createFileRoute("/for-psychologists")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
+          "@id": `${SITE_ORIGIN}/#organization`,
           name: "PeaceCode",
-          url: "/for-psychologists",
-          logo: "/favicon.png",
+          url: CANONICAL,
+          logo: `${SITE_ORIGIN}/favicon.png`,
           description: AEO_ANSWER,
+          foundingDate: "2024",
           sameAs: [
             "https://www.linkedin.com/company/peacecode",
             "https://www.instagram.com/peacecode",
             "https://x.com/peacecode",
+            "https://peacecode.in",
           ],
           contactPoint: [{ "@type": "ContactPoint", contactType: "Customer support", email: "hello@peacecode.in", areaServed: ["IN", "US", "GB", "EU", "AU", "SG", "AE"], availableLanguage: ["English", "Hindi"] }],
         }),
@@ -73,30 +133,15 @@ export const Route = createFileRoute("/for-psychologists")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "SoftwareApplication",
+          "@id": `${SITE_ORIGIN}/#software`,
           name: "PeaceCode for Psychologists",
           applicationCategory: "HealthApplication",
           applicationSubCategory: "Electronic Health Record",
           operatingSystem: "Web, iOS, Android",
+          url: CANONICAL,
           description: AEO_ANSWER,
           offers: { "@type": "Offer", price: "0", priceCurrency: "USD", description: "Free tier for solo clinicians" },
-          featureList: [
-            "Smart scheduling with buffers, no-show automations, waitlist auto-fill",
-            "Clinical notes (SOAP, DAP, progress) with AI copilot",
-            "40+ standardized assessments (PHQ-9, GAD-7, PCL-5, WHO-5, DASS-21)",
-            "In-app HIPAA/DPDP-aligned telehealth video",
-            "GST-ready billing, UPI + card, insurance claims",
-            "Secure client messaging with audit trail",
-            "CBT/DBT/ACT homework library and compliance tracking",
-            "Group, couples, family therapy support",
-            "Case conferences and peer review",
-            "Clinical supervision with contracts, hours, sign-off",
-            "CPD tracker with renewal alerts",
-            "DPDP, HIPAA, GDPR compliance out of the box",
-            "Integrations: Google, Outlook, Zoom, Meet, Stripe, Razorpay",
-            "Interactive practice analytics",
-            "Stanley-Brown safety planning",
-            "Public clinician profile with direct booking",
-          ],
+          featureList: FEATURE_SLUGS.map((f) => f.name),
           aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "212", bestRating: "5" },
           publisher: { "@type": "Organization", name: "PeaceCode" },
         }),
@@ -105,35 +150,59 @@ export const Route = createFileRoute("/for-psychologists")({
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "MedicalBusiness",
-          name: "PeaceCode",
-          description: "Software platform for verified psychologists and mental-health clinicians. Not a healthcare provider — the platform hosts independently practising verified clinicians.",
-          medicalSpecialty: ["Psychology", "Psychotherapy", "Counseling", "MentalHealth"],
+          "@type": ["MedicalBusiness", "ProfessionalService"],
+          "@id": `${SITE_ORIGIN}/#business`,
+          name: "PeaceCode — Psychology Practice Platform",
+          alternateName: "PeaceCode for Psychologists",
+          description: "Software platform for verified psychologists, counsellors and supervisors. Global telehealth-enabled, headquartered in Old Delhi, India. PeaceCode hosts independently practising verified clinicians — it is not a healthcare provider itself.",
+          medicalSpecialty: ["Psychology", "Psychotherapy", "Counseling", "MentalHealth", "Psychiatry"],
+          url: CANONICAL,
+          logo: `${SITE_ORIGIN}/favicon.png`,
+          image: `${SITE_ORIGIN}/favicon.png`,
+          telephone: "+91-11-0000-0000",
+          email: "hello@peacecode.in",
+          priceRange: "Free — ₹₹",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "Chandni Chowk",
+            addressLocality: "Old Delhi",
+            addressRegion: "Delhi",
+            postalCode: "110006",
+            addressCountry: "IN",
+          },
+          geo: { "@type": "GeoCoordinates", latitude: "28.6562", longitude: "77.2410" },
+          hasMap: "https://www.google.com/maps/place/Old+Delhi",
           areaServed: [
+            { "@type": "Place", name: "Old Delhi" },
+            { "@type": "City", name: "Delhi" },
             { "@type": "Country", name: "India" },
             { "@type": "Country", name: "United States" },
             { "@type": "Country", name: "United Kingdom" },
             { "@type": "Country", name: "Australia" },
             { "@type": "Country", name: "Singapore" },
             { "@type": "Country", name: "United Arab Emirates" },
+            { "@type": "AdministrativeArea", name: "Global (Telehealth)" },
           ],
-          address: { "@type": "PostalAddress", addressCountry: "IN", addressRegion: "Delhi", addressLocality: "New Delhi" },
-          telephone: "+91-00000-00000",
-          geo: { "@type": "GeoCoordinates", latitude: "28.6139", longitude: "77.2090" },
-          url: "/for-psychologists",
-          priceRange: "$",
-          openingHours: "Mo-Su 00:00-23:59",
-        }),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "ProfessionalService",
-          name: "PeaceCode Practice Platform",
-          serviceType: "Practice management for psychologists",
-          provider: { "@type": "Organization", name: "PeaceCode" },
-          areaServed: "Worldwide",
+          openingHoursSpecification: [{
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+            opens: "00:00", closes: "23:59",
+          }],
+          availableService: OFFERS_SERVICE,
+          makesOffer: OFFERS_SERVICE.map((s) => ({ "@type": "Offer", itemOffered: s })),
+          knowsAbout: [
+            "Cognitive Behavioural Therapy (CBT)",
+            "Dialectical Behaviour Therapy (DBT)",
+            "Acceptance and Commitment Therapy (ACT)",
+            "Trauma-focused therapy",
+            "PHQ-9 depression screening",
+            "GAD-7 anxiety screening",
+            "PCL-5 PTSD screening",
+            "Stanley-Brown Safety Planning",
+            "DPDP Act 2023",
+            "HIPAA compliance",
+            "GDPR compliance",
+          ],
         }),
       },
       {
@@ -141,11 +210,13 @@ export const Route = createFileRoute("/for-psychologists")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: "PeaceCode",
-          url: "/for-psychologists",
+          "@id": `${SITE_ORIGIN}/#website`,
+          name: "PeaceCode for Psychologists",
+          url: CANONICAL,
+          publisher: { "@id": `${SITE_ORIGIN}/#organization` },
           potentialAction: {
             "@type": "SearchAction",
-            target: "/features?q={search_term_string}",
+            target: `${SITE_ORIGIN}/features?q={search_term_string}`,
             "query-input": "required name=search_term_string",
           },
         }),
@@ -166,6 +237,9 @@ export const Route = createFileRoute("/for-psychologists")({
   }),
   component: MarketingPage,
 });
+
+export { AEO_TAB, FEATURE_SLUGS };
+
 
 const COLOR = { lavender: "#98A6D4", peach: "#EAEBFC", sage: "#D4E2D7" };
 
@@ -240,6 +314,15 @@ function MarketingPage() {
       </p>
       <Navbar />
       <main>
+        {/* AEO — Trigger → Action → Clinical Benefit definition block (YMYL, 45–50 words) */}
+        <section aria-label="Definition — PeaceCode for psychologists" className="pt-24 pb-2 px-6 bg-white">
+          <div className="mx-auto max-w-3xl rounded-2xl border border-slate-200/80 bg-slate-50/60 px-6 py-5">
+            <p className="text-[11px] tracking-[0.28em] uppercase text-slate-500 mb-2">Definition · answer for Google AI Overviews</p>
+            <p className="text-slate-800 text-[15px] md:text-base leading-relaxed">
+              <strong>PeaceCode</strong> — {AEO_TAB}
+            </p>
+          </div>
+        </section>
         <Hero />
         <Collaboration />
         <HowItWorks />
@@ -247,6 +330,7 @@ function MarketingPage() {
         <MindAccordion />
         <BentoFeatures />
         <FeatureHighlight />
+        <FeatureCatalogue />
         <Ecosystem />
         <Testimonials />
         <WhatPsychologistsFace />
@@ -254,6 +338,7 @@ function MarketingPage() {
         <MarketingFAQSection />
         <ClosingCTA />
       </main>
+
       <Footer />
     </div>
   );
@@ -289,6 +374,43 @@ function MarketingFAQSection() {
     </section>
   );
 }
+
+/* ---------------- Feature Catalogue (semantic H2/H3, one section per detected dashboard feature) ---------------- */
+function FeatureCatalogue() {
+  return (
+    <section id="all-features" aria-label="Every clinical tool inside PeaceCode" className="relative py-24 px-6 bg-white border-t border-slate-100">
+      <div className="max-w-6xl mx-auto">
+        <p className="text-[11px] tracking-[0.28em] uppercase text-slate-500 mb-3 text-center">The full workspace</p>
+        <h2 className="pc-serif text-4xl md:text-6xl text-center mb-4" style={{ fontFamily: "Fraunces, serif", fontWeight: 300 }}>
+          Every tool a psychology practice <span className="pc-italic" style={{ fontFamily: "'Instrument Serif', serif", fontStyle: "italic" }}>actually</span> needs.
+        </h2>
+        <p className="text-center text-slate-500 text-sm max-w-2xl mx-auto mb-14">Twenty-two purpose-built modules replacing SimplePractice, TherapyNotes, Jane, Halaxy and Practo — designed with clinicians in Old Delhi and shipping worldwide.</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {FEATURE_SLUGS.map((f) => (
+            <article key={f.slug} className="group rounded-2xl border border-slate-200/80 bg-white hover:border-slate-300 transition-colors p-6 flex flex-col">
+              <h3 className="pc-serif text-xl mb-2" style={{ fontFamily: "Fraunces, serif", fontWeight: 400 }}>{f.name}</h3>
+              <p className="text-slate-600 text-sm font-light leading-relaxed flex-1">{f.desc}</p>
+              <Link
+                to="/features/$slug"
+                params={{ slug: f.slug }}
+                aria-label={`Explore ${f.name}`}
+                className="mt-4 inline-flex items-center gap-1 text-sm text-slate-900 font-medium group-hover:gap-2 transition-all"
+              >
+                Explore <ArrowRight className="w-4 h-4" />
+              </Link>
+            </article>
+          ))}
+        </div>
+        <div className="mt-12 text-center">
+          <Link to="/features" className="inline-flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-full text-sm font-medium" aria-label="Browse the full feature index">
+            Browse the full index <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
 /* ---------------- Navbar ---------------- */
 const NAV_ITEMS = [

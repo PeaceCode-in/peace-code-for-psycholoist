@@ -931,20 +931,40 @@ export const Route = createFileRoute("/features/$slug")({
   head: ({ params, loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Feature not found — PeaceCode" }, { name: "robots", content: "noindex" }] };
     const f = loaderData.feature;
-    const url = `/features/${params.slug}`;
+    const ORIGIN = "https://psychologist.peacecode.in";
+    const url = `${ORIGIN}/features/${params.slug}`;
+    const rawTitle = `${f.hero} for Psychologists — PeaceCode`;
+    const title = rawTitle.length > 60 ? `${f.hero} — PeaceCode` : rawTitle;
+    const descSource = f.aeoSummary || f.subtitle;
+    const description = descSource.length > 160 ? descSource.slice(0, 157) + "…" : descSource;
     return {
       meta: [
-        { title: `${f.hero} for Psychologists — PeaceCode` },
-        { name: "description", content: f.subtitle.length > 160 ? f.subtitle.slice(0, 157) + "…" : f.subtitle },
+        { title },
+        { name: "description", content: description },
         { name: "keywords", content: f.keywords },
+        { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
+        { name: "googlebot", content: "index, follow, max-snippet:-1, max-image-preview:large" },
         { property: "og:title", content: `${f.hero} — PeaceCode for Psychologists` },
-        { property: "og:description", content: f.subtitle },
+        { property: "og:description", content: description },
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
+        { property: "og:site_name", content: "PeaceCode for Psychologists" },
+        { property: "og:locale", content: "en_IN" },
+        { property: "article:publisher", content: ORIGIN + "/" },
         { name: "twitter:card", content: "summary_large_image" },
-        { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large" },
+        { name: "twitter:title", content: `${f.hero} — PeaceCode` },
+        { name: "twitter:description", content: description },
+        { name: "geo.region", content: "IN-DL" },
+        { name: "geo.placename", content: "Old Delhi, Delhi, India" },
+        { name: "geo.position", content: "28.6562;77.2410" },
+        { name: "ICBM", content: "28.6562, 77.2410" },
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [
+        { rel: "canonical", href: url },
+        { rel: "alternate", hrefLang: "en", href: url },
+        { rel: "alternate", hrefLang: "en-IN", href: url },
+        { rel: "alternate", hrefLang: "x-default", href: url },
+      ],
       scripts: [
         {
           type: "application/ld+json",
@@ -962,14 +982,34 @@ export const Route = createFileRoute("/features/$slug")({
           type: "application/ld+json",
           children: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Article",
+            "@type": "TechArticle",
             headline: `${f.hero} for Psychologists`,
             description: f.aeoSummary,
             about: f.tag,
             keywords: f.keywords,
-            author: { "@type": "Organization", name: "PeaceCode" },
-            publisher: { "@type": "Organization", name: "PeaceCode" },
-            mainEntityOfPage: url,
+            inLanguage: "en",
+            author: { "@type": "Organization", name: "PeaceCode", url: ORIGIN + "/" },
+            publisher: { "@type": "Organization", name: "PeaceCode", url: ORIGIN + "/", logo: { "@type": "ImageObject", url: ORIGIN + "/favicon.png" } },
+            mainEntityOfPage: { "@type": "WebPage", "@id": url },
+            audience: { "@type": "MedicalAudience", audienceType: "Psychologist", healthCondition: { "@type": "MedicalCondition", name: "Mental Health" } },
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: f.hero,
+            serviceType: f.hero,
+            description: f.aeoSummary,
+            url,
+            provider: { "@type": "Organization", name: "PeaceCode", url: ORIGIN + "/" },
+            areaServed: [
+              { "@type": "Place", name: "Old Delhi" },
+              { "@type": "City", name: "Delhi" },
+              { "@type": "Country", name: "India" },
+              { "@type": "AdministrativeArea", name: "Global (Telehealth)" },
+            ],
           }),
         },
         {
@@ -978,8 +1018,8 @@ export const Route = createFileRoute("/features/$slug")({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: "/for-psychologists" },
-              { "@type": "ListItem", position: 2, name: "Features", item: "/features" },
+              { "@type": "ListItem", position: 1, name: "Home", item: ORIGIN + "/" },
+              { "@type": "ListItem", position: 2, name: "Features", item: ORIGIN + "/features" },
               { "@type": "ListItem", position: 3, name: f.hero, item: url },
             ],
           }),
@@ -987,6 +1027,7 @@ export const Route = createFileRoute("/features/$slug")({
       ],
     };
   },
+
   notFoundComponent: FeatureNotFound,
   component: FeatureDetail,
 });
