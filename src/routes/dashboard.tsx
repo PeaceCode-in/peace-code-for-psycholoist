@@ -19,6 +19,7 @@ import {
 import { useIsTouch } from "@/hooks/use-is-touch";
 import { AnimatedIcon } from "@/components/practice/AnimatedIcon";
 import { CardIllustration } from "@/components/practice/CardIllustration";
+import { MentalHealthIllustration } from "@/components/practice/MentalHealthIllustration";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
