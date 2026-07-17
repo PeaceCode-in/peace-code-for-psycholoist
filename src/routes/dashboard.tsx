@@ -472,6 +472,37 @@ function LoadMoreButton({ expanded, hiddenCount, onClick }: { expanded: boolean;
   );
 }
 
+function RotatingTile({ facets, accent, delayMs = 0 }: { facets: RotatingFacet[]; accent: string; delayMs?: number }) {
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    const start = setTimeout(() => {
+      setIdx((i) => (i + 1) % facets.length);
+    }, delayMs);
+    const t = setInterval(() => setIdx((i) => (i + 1) % facets.length), 4200);
+    return () => { clearTimeout(start); clearInterval(t); };
+  }, [facets.length, delayMs]);
+  const f = facets[idx];
+  return (
+    <section
+      className="col-span-6 lg:col-span-3 rounded-2xl p-3 sm:p-4 relative overflow-hidden"
+      style={cardStyle}
+    >
+      <div className="flex items-center justify-between">
+        <div className="text-[9.5px] uppercase tracking-[0.2em] truncate" style={{ color: accent }}>{f.label}</div>
+        <div className="flex gap-1 shrink-0">
+          {facets.map((_, i) => (
+            <span key={i} className="w-1 h-1 rounded-full transition-opacity" style={{ background: accent, opacity: i === idx ? 1 : 0.25 }} />
+          ))}
+        </div>
+      </div>
+      <div key={idx} className="mt-2 text-[20px] sm:text-[22px] tabular-nums leading-none pc-reveal truncate" style={{ fontFamily: "'Fraunces', serif", color: ink }}>
+        {f.value}
+      </div>
+      {f.sub && <div className="mt-1 text-[10.5px] truncate" style={{ color: muted }}>{f.sub}</div>}
+    </section>
+  );
+}
+
 function Ring({ label, value, pct, color, to }: { label: string; value: string; pct: number; color: string; to: string }) {
   const R = 22, C = 2 * Math.PI * R;
   const dash = C * (Math.min(100, Math.max(0, pct)) / 100);
