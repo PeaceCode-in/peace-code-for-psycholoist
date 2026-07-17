@@ -1607,8 +1607,24 @@ html.dark .recharts-tooltip-cursor {
 .pc-icon-host:hover .pc-icon-float,
 .pc-icon-host:hover .pc-icon-breathe,
 .pc-icon-host:hover .pc-icon-tilt { animation-duration: 1.4s; }
+
+/* Hover-only variants — idle icons stay still until the user hovers */
+.pc-icon-hover-tilt    { transform-origin: 50% 55%; transition: transform 200ms ease; }
+.pc-icon-host:hover .pc-icon-hover-tilt,
+a:hover > .pc-icon-hover-tilt,
+button:hover > .pc-icon-hover-tilt   { animation: pc-icon-tilt-kf 1.4s ease-in-out infinite; }
+.pc-icon-hover-float   { transition: transform 200ms ease; }
+.pc-icon-host:hover .pc-icon-hover-float,
+a:hover > .pc-icon-hover-float,
+button:hover > .pc-icon-hover-float  { animation: pc-icon-float-kf 1.8s ease-in-out infinite; }
+.pc-icon-hover-breathe { transition: transform 200ms ease; }
+.pc-icon-host:hover .pc-icon-hover-breathe,
+a:hover > .pc-icon-hover-breathe,
+button:hover > .pc-icon-hover-breathe{ animation: pc-icon-breathe-kf 1.6s ease-in-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
-  .pc-icon-float, .pc-icon-breathe, .pc-icon-tilt { animation: none !important; }
+  .pc-icon-float, .pc-icon-breathe, .pc-icon-tilt,
+  .pc-icon-hover-float, .pc-icon-hover-breathe, .pc-icon-hover-tilt { animation: none !important; }
 }
 
 /* Reveal on "Show more" — fluid, not jumpy */
