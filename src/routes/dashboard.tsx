@@ -45,6 +45,8 @@ const relTime = (iso: string) => {
 };
 const daysUntil = (iso: string) => Math.max(0, Math.round((new Date(iso).getTime() - Date.now()) / 86400_000));
 
+type RotatingFacet = { label: string; value: string; sub?: string };
+
 function Dashboard() {
   const inboxUnread = INBOX.filter((m) => m.unread).length;
   const alertsCount = ALERTS.length;
