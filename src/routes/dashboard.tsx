@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AppShell, palette } from "@/components/practice/AppShell";
 import {
   Video, MapPin, Phone, ArrowUpRight, AlertTriangle, MessageCircle, TrendingUp,
