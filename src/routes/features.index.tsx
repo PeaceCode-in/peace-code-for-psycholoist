@@ -1,30 +1,64 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
-  CalendarCheck, FileText, ClipboardList, Wallet, Video, Users, ShieldCheck, Bell, ArrowRight,
+  CalendarCheck, FileText, ClipboardList, Wallet, Video, Users, ShieldCheck, Bell,
+  MessageSquare, BookOpen, UsersRound, Share2, GraduationCap, Award, FolderOpen,
+  Library, BarChart3, LifeBuoy, Plug, Hourglass, Globe, HeartPulse, ArrowRight,
 } from "lucide-react";
 
 export const Route = createFileRoute("/features/")({
   head: () => ({
     meta: [
-      { title: "Features — PeaceCode for Psychologists" },
-      { name: "description", content: "Every tool inside PeaceCode — scheduling, notes, assessments, billing, telehealth, and copilot. Explore each one." },
-      { property: "og:title", content: "Features — PeaceCode" },
-      { property: "og:description", content: "The full clinical toolkit for psychologists." },
+      { title: "All Features — The One-App Solution for Psychologists | PeaceCode" },
+      { name: "description", content: "22 tools built for private psychology practice — scheduling, notes, assessments, telehealth, billing, supervision, compliance and more. One login." },
+      { property: "og:title", content: "Every feature inside PeaceCode for Psychologists" },
+      { property: "og:description", content: "The complete clinical toolkit — 22 features, one login, built for verified psychologists." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/features" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "keywords", content: "psychology practice software, EHR for psychologists, therapy notes app, PHQ-9 GAD-7 online, telehealth for therapists, DPDP compliant EHR India, SimplePractice alternative, TherapyNotes alternative" },
+    ],
+    links: [{ rel: "canonical", href: "/features" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "/for-psychologists" },
+            { "@type": "ListItem", position: 2, name: "Features", item: "/features" },
+          ],
+        }),
+      },
     ],
   }),
   component: FeaturesIndex,
 });
 
 const features = [
-  { slug: "scheduling", icon: CalendarCheck, tag: "Schedule", title: "Smart scheduling", desc: "Buffers, no-show automations, and booking links your clients actually use.", ready: true },
-  { slug: "notes", icon: FileText, tag: "Notes", title: "Clinical notes with a copilot", desc: "SOAP, DAP and progress notes drafted while you listen.", ready: false },
-  { slug: "assessments", icon: ClipboardList, tag: "Assessments", title: "Assessments & outcomes", desc: "PHQ-9, GAD-7 and custom instruments, scored and charted over time.", ready: false },
-  { slug: "billing", icon: Wallet, tag: "Billing", title: "Billing without friction", desc: "GST-ready invoices, UPI and card payouts, clean monthly reports.", ready: false },
-  { slug: "telehealth", icon: Video, tag: "Telehealth", title: "Telehealth video", desc: "Secure in-app video with waiting room and consent capture.", ready: false },
-  { slug: "teams", icon: Users, tag: "Teams", title: "Group practice tools", desc: "Supervisors, shared caseloads, and case conferences with peer review.", ready: false },
-  { slug: "compliance", icon: ShieldCheck, tag: "Compliance", title: "DPDP compliance", desc: "Consent, retention, and audit logs configured for Indian practice.", ready: false },
-  { slug: "copilot", icon: Bell, tag: "Copilot", title: "A quiet co-pilot", desc: "Continuity briefs, risk flags, and homework suggestions — never noise.", ready: false },
+  { slug: "scheduling", icon: CalendarCheck, tag: "Schedule", title: "Smart scheduling", desc: "Buffers, no-show automations, and a booking link clients actually use." },
+  { slug: "notes", icon: FileText, tag: "Notes", title: "Clinical notes with a copilot", desc: "SOAP, DAP, intake and progress notes drafted while you listen." },
+  { slug: "assessments", icon: ClipboardList, tag: "Assessments", title: "Assessments & outcomes", desc: "40+ instruments — PHQ-9, GAD-7, PCL-5 — scored and charted over time." },
+  { slug: "telehealth", icon: Video, tag: "Telehealth", title: "In-app secure video", desc: "Waiting room, consent, and encrypted sessions with no download for clients." },
+  { slug: "billing", icon: Wallet, tag: "Billing", title: "Billing without friction", desc: "GST-ready invoices, UPI + card payouts, insurance claims, monthly reports." },
+  { slug: "messages", icon: MessageSquare, tag: "Messaging", title: "Secure client messaging", desc: "HIPAA/DPDP-aligned chat with canned replies and a full audit trail." },
+  { slug: "homework", icon: BookOpen, tag: "Homework", title: "Between-session care", desc: "CBT worksheets, thought records, behavioural logs, compliance at a glance." },
+  { slug: "groups", icon: UsersRound, tag: "Groups", title: "Group & couples therapy", desc: "Roster, attendance, per-member notes, and shared homework in one place." },
+  { slug: "patients", icon: HeartPulse, tag: "Patients", title: "Patient charts", desc: "Every note, session, assessment and message on one calm timeline." },
+  { slug: "safety", icon: LifeBuoy, tag: "Safety", title: "Risk & safety planning", desc: "Stanley-Brown safety plans, risk flags, and an emergency protocol." },
+  { slug: "referrals", icon: Share2, tag: "Referrals", title: "Warm referrals in & out", desc: "Track sources, close the loop, and grow your professional network." },
+  { slug: "teams", icon: Users, tag: "Teams", title: "Group practice", desc: "Shared caseloads, supervision, case conferences, and peer review." },
+  { slug: "supervision", icon: Award, tag: "Supervision", title: "Supervision tracker", desc: "Contracts, hours, competencies, and supervisor sign-off." },
+  { slug: "cpd", icon: GraduationCap, tag: "CPD", title: "CPD & continuing education", desc: "Plan, catalog, log and renewal reminders — never miss a licence cycle." },
+  { slug: "documents", icon: FolderOpen, tag: "Documents", title: "Documents & templates", desc: "Intake packets, informed consent, certificates, custom template editor." },
+  { slug: "library", icon: Library, tag: "Library", title: "Resource library", desc: "Psychoeducation media, worksheets and series — reuse across your caseload." },
+  { slug: "analytics", icon: BarChart3, tag: "Analytics", title: "Practice analytics", desc: "Caseload, revenue, no-show rate and outcomes on interactive charts." },
+  { slug: "copilot", icon: Bell, tag: "Copilot", title: "A quiet co-pilot", desc: "Continuity briefs, risk flags, and gentle nudges — never noise." },
+  { slug: "compliance", icon: ShieldCheck, tag: "Compliance", title: "DPDP / HIPAA compliance", desc: "Consent, retention, audit logs and breach ledger — configured for you." },
+  { slug: "integrations", icon: Plug, tag: "Integrations", title: "Integrations & API", desc: "Google, Outlook, Zoom, Meet, Stripe, Razorpay, webhooks, API tokens." },
+  { slug: "waitlist", icon: Hourglass, tag: "Waitlist", title: "Waitlist auto-fill", desc: "Priority queue notified instantly when a slot opens." },
+  { slug: "profile", icon: Globe, tag: "Profile", title: "Public clinician profile", desc: "SEO-optimized page with direct booking — your website, done." },
 ];
 
 const styles = `
@@ -37,64 +71,53 @@ const styles = `
 
 function FeaturesIndex() {
   return (
-    <div className="pc-mkt min-h-screen" style={{ background: "linear-gradient(180deg, #EAEBFC 0%, #ffffff 40%, #EAEBFC 100%)" }}>
+    <main className="pc-mkt min-h-screen" style={{ background: "linear-gradient(180deg, #EAEBFC 0%, #ffffff 40%, #EAEBFC 100%)" }}>
       <style dangerouslySetInnerHTML={{ __html: styles }} />
-
       <div className="max-w-6xl mx-auto px-6 pt-32 pb-24">
-        <div className="mb-6">
-          <Link to="/for-psychologists" className="text-sm text-slate-600 hover:text-slate-900 inline-flex items-center gap-1">
-            ← Back to overview
-          </Link>
-        </div>
+        <nav aria-label="Breadcrumb" className="mb-6">
+          <Link to="/for-psychologists" className="text-sm text-slate-600 hover:text-slate-900 inline-flex items-center gap-1">← Back to overview</Link>
+        </nav>
 
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }} className="max-w-3xl mb-16">
-          <p className="pc-label text-slate-500 mb-4">Features</p>
-          <h1 className="pc-serif text-5xl md:text-7xl leading-[1.05] mb-6">
-            Every tool, <span className="pc-italic">explained.</span>
-          </h1>
-          <p className="text-lg text-slate-600 font-light">
-            One page per feature. What it is, how it works, and where it saves you time in a clinical week.
-          </p>
-        </motion.div>
+        <header>
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }} className="max-w-3xl mb-16">
+            <p className="pc-label text-slate-500 mb-4">Features · 22 tools · 1 login</p>
+            <h1 className="pc-serif text-5xl md:text-7xl leading-[1.05] mb-6">
+              The complete <span className="pc-italic">psychology</span> workspace.
+            </h1>
+            <p className="text-lg text-slate-600 font-light max-w-2xl">
+              Everything a private practice, clinic, or counselling centre needs — from the first booking to the final discharge letter — on one calm surface. Every feature has its own page: what it does, how it flows, and how much time it saves in a real clinical week.
+            </p>
+          </motion.div>
+        </header>
 
-        <div className="grid md:grid-cols-2 gap-5">
+        <section aria-label="All features" className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {features.map((f, i) => {
             const Icon = f.icon;
-            const card = (
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.7, delay: (i % 4) * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={f.ready ? { y: -6 } : {}}
-                className={`glass-color p-8 h-full flex flex-col ${f.ready ? "cursor-pointer" : "opacity-70"}`}
-              >
-                <div className="flex items-start justify-between mb-5">
-                  <div className="w-12 h-12 rounded-2xl bg-white/70 flex items-center justify-center shadow-sm">
-                    <Icon className="w-5 h-5 text-slate-700" />
+            return (
+              <Link key={f.slug} to="/features/$slug" params={{ slug: f.slug }} className="block">
+                <motion.article
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.6, delay: (i % 6) * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ y: -6 }}
+                  className="glass-color p-7 h-full flex flex-col cursor-pointer"
+                >
+                  <div className="w-11 h-11 rounded-2xl bg-white/70 flex items-center justify-center shadow-sm mb-4">
+                    <Icon className="w-5 h-5 text-slate-700" aria-hidden />
                   </div>
-                  {!f.ready && (
-                    <span className="text-[10px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full bg-white/60 text-slate-500 border border-white/70">
-                      Soon
-                    </span>
-                  )}
-                </div>
-                <p className="pc-label text-slate-500 mb-3">{f.tag}</p>
-                <h3 className="pc-serif text-2xl md:text-3xl mb-2">{f.title}</h3>
-                <p className="text-slate-600 font-light mb-5 flex-1">{f.desc}</p>
-                <span className={`text-sm font-medium inline-flex items-center gap-1 ${f.ready ? "text-slate-900" : "text-slate-400"}`}>
-                  {f.ready ? "Explore" : "Coming soon"} <ArrowRight className="w-3.5 h-3.5" />
-                </span>
-              </motion.div>
-            );
-            return f.ready ? (
-              <Link key={f.slug} to="/features/$slug" params={{ slug: f.slug }} className="block">{card}</Link>
-            ) : (
-              <div key={f.slug}>{card}</div>
+                  <p className="pc-label text-slate-500 mb-2">{f.tag}</p>
+                  <h2 className="pc-serif text-2xl mb-2">{f.title}</h2>
+                  <p className="text-slate-600 font-light text-sm mb-5 flex-1">{f.desc}</p>
+                  <span className="text-sm font-medium inline-flex items-center gap-1 text-slate-900">
+                    Explore <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                </motion.article>
+              </Link>
             );
           })}
-        </div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 }

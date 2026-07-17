@@ -17,6 +17,7 @@ import { Route as TemplatesRouteImport } from './routes/templates'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as SupervisionRouteImport } from './routes/supervision'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SessionsRouteImport } from './routes/sessions'
 import { Route as ServicesRouteImport } from './routes/services'
@@ -311,6 +312,11 @@ const SupportRoute = SupportRouteImport.update({
 const SupervisionRoute = SupervisionRouteImport.update({
   id: '/supervision',
   path: '/supervision',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SettingsRoute = SettingsRouteImport.update({
@@ -1640,6 +1646,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/sessions': typeof SessionsRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/supervision': typeof SupervisionRouteWithChildren
   '/support': typeof SupportRoute
   '/team': typeof TeamRouteWithChildren
@@ -1884,6 +1891,7 @@ export interface FileRoutesByTo {
   '/reviews': typeof ReviewsRoute
   '/risk': typeof RiskRoute
   '/services': typeof ServicesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
   '/templates': typeof TemplatesRoute
   '/treatment-plans': typeof TreatmentPlansRoute
@@ -2140,6 +2148,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/sessions': typeof SessionsRouteWithChildren
   '/settings': typeof SettingsRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/supervision': typeof SupervisionRouteWithChildren
   '/support': typeof SupportRoute
   '/team': typeof TeamRouteWithChildren
@@ -2407,6 +2416,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sessions'
     | '/settings'
+    | '/sitemap.xml'
     | '/supervision'
     | '/support'
     | '/team'
@@ -2651,6 +2661,7 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/risk'
     | '/services'
+    | '/sitemap.xml'
     | '/support'
     | '/templates'
     | '/treatment-plans'
@@ -2906,6 +2917,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sessions'
     | '/settings'
+    | '/sitemap.xml'
     | '/supervision'
     | '/support'
     | '/team'
@@ -3172,6 +3184,7 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   SessionsRoute: typeof SessionsRouteWithChildren
   SettingsRoute: typeof SettingsRouteWithChildren
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SupervisionRoute: typeof SupervisionRouteWithChildren
   SupportRoute: typeof SupportRoute
   TeamRoute: typeof TeamRouteWithChildren
@@ -3261,6 +3274,13 @@ declare module '@tanstack/react-router' {
       path: '/supervision'
       fullPath: '/supervision'
       preLoaderRoute: typeof SupervisionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/settings': {
@@ -5828,6 +5848,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   SessionsRoute: SessionsRouteWithChildren,
   SettingsRoute: SettingsRouteWithChildren,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SupervisionRoute: SupervisionRouteWithChildren,
   SupportRoute: SupportRoute,
   TeamRoute: TeamRouteWithChildren,
