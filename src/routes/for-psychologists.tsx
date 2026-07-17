@@ -1,21 +1,22 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
-  Menu, X, ArrowRight, CalendarCheck, ClipboardList, Users, Wallet,
-  FileText, ShieldCheck, Video, Bell, CloudRain, BatteryLow, Cloud, Sun,
-  ChevronDown, Plus, Minus, Apple, Play, Instagram, Twitter, Linkedin, Youtube,
+  Menu, X, ArrowRight, ChevronDown, Plus, Minus,
+  Instagram, Twitter, Linkedin, Youtube,
+  CalendarCheck, ClipboardList, FileText, Wallet, ShieldCheck, Video,
+  Users, Activity, Bell, Sparkles, Brain, Layers,
 } from "lucide-react";
 
-const LOGIN_URL = "/auth/login";
+const LOGIN_URL = "https://app.peacecode.in/psychologist/auth";
 
 export const Route = createFileRoute("/for-psychologists")({
   head: () => ({
     meta: [
-      { title: "PeaceCode for Psychologists — The calm practice OS" },
-      { name: "description", content: "A clinical workspace built for psychologists — scheduling, notes, assessments, billing, and outcomes in one calm place." },
-      { property: "og:title", content: "PeaceCode for Psychologists" },
-      { property: "og:description", content: "The calm practice OS for verified psychologists." },
+      { title: "PeaceCode · Practice — the calm workspace for psychologists" },
+      { name: "description", content: "A calm, clinical workspace for verified psychologists — scheduling, notes, assessments, billing, referrals and outcomes in one place." },
+      { property: "og:title", content: "PeaceCode · Practice — for psychologists" },
+      { property: "og:description", content: "The calm workspace for verified psychologists." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "index, follow" },
@@ -23,6 +24,8 @@ export const Route = createFileRoute("/for-psychologists")({
   }),
   component: MarketingPage,
 });
+
+const COLOR = { lavender: "#98A6D4", peach: "#EAEBFC", sage: "#D4E2D7" };
 
 const reveal = {
   initial: { opacity: 0, y: 40 },
@@ -32,42 +35,74 @@ const reveal = {
 };
 
 const styles = `
-  .pc-mkt { font-family: 'Inter', sans-serif; color: #1a1a2e; }
-  .pc-serif { font-family: 'Fraunces', serif; font-weight: 300; letter-spacing: -0.02em; }
-  .pc-display { font-family: 'DM Serif Display', serif; font-weight: 400; letter-spacing: -0.015em; }
-  .pc-italic { font-family: 'Instrument Serif', serif; font-style: italic; }
+  .pc-mkt { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; color: #1a1a2e; }
+  .pc-serif { font-family: 'Fraunces', 'Instrument Serif', Georgia, serif; font-weight: 300; letter-spacing: -0.02em; }
+  .pc-display { font-family: 'DM Serif Display', 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.015em; }
+  .pc-italic { font-family: 'Instrument Serif', 'Fraunces', Georgia, serif; font-style: italic; font-weight: 400; }
   .pc-label { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 600; }
 
-  .glass-color { background: rgba(255,255,255,0.4); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 8px 30px rgba(0,0,0,0.04); border-radius: 1.75rem; }
-  .glass-white { background: rgba(255,255,255,0.7); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 20px 60px -15px rgba(0,0,0,0.1); border-radius: 1.75rem; }
-  .liquid-glass {
-    background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.28) 48%, rgba(210,200,240,0.18)),
-                radial-gradient(circle at 18% 12%, rgba(255,255,255,0.7), transparent 34%);
-    border: 1px solid rgba(255,255,255,0.55);
+  .glass-color { background: rgba(255,255,255,0.30); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); border: 1px solid rgba(255,255,255,0.60); box-shadow: 0 8px 30px rgba(0,0,0,0.04); border-radius: 1.75rem; }
+  .glass-white { background: rgba(255,255,255,0.70); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border: 1px solid rgba(255,255,255,0.80); box-shadow: 0 20px 60px -15px rgba(0,0,0,0.10); border-radius: 1.75rem; }
+
+  .liquid-glass-button {
+    position: relative; isolation: isolate; overflow: hidden; color: #2A2140;
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.42), rgba(255,255,255,0.28) 48%, rgba(210,200,240,0.18)),
+      radial-gradient(circle at 18% 12%, rgba(255,255,255,0.70), transparent 34%);
+    border-top: 1px solid rgba(255,255,255,0.58);
+    border-left: 1px solid rgba(255,255,255,0.58);
+    border-right: 1px solid rgba(255,255,255,0.24);
+    border-bottom: 1px solid rgba(255,255,255,0.24);
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.58), 0 14px 38px rgba(90,80,140,0.14);
     backdrop-filter: blur(22px) saturate(1.25); -webkit-backdrop-filter: blur(22px) saturate(1.25);
+    transition: background 180ms ease;
   }
-  .grain::after {
-    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.06; mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.7'/></svg>");
+  .liquid-glass-button:hover {
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.55), rgba(255,255,255,0.34) 48%, rgba(210,200,240,0.24)),
+      radial-gradient(circle at 18% 12%, rgba(255,255,255,0.78), transparent 34%);
   }
+  .liquid-glass-icon {
+    color: #2A2140;
+    background: linear-gradient(135deg, rgba(255,255,255,0.48), rgba(255,255,255,0.24));
+    border: 1px solid rgba(255,255,255,0.58);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.62), 0 10px 24px rgba(90,80,140,0.12);
+    backdrop-filter: blur(18px) saturate(1.2); -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  }
+
+  .grain-overlay {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 240px 240px;
+  }
+
+  .how-card { position: relative; overflow: hidden; border-radius: 1.25rem; cursor: default; isolation: isolate; }
+  .how-card img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+  .how-card:hover img { transform: scale(1.02); }
+  .how-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.55) 30%, rgba(0,0,0,0.15) 55%, transparent 75%); pointer-events: none; z-index: 1; }
+  .how-card-content { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; justify-content: space-between; padding: 2rem; pointer-events: none; }
+  .how-card-step { font-family: 'Fraunces', serif; font-size: 0.8rem; font-weight: 300; letter-spacing: 0.18em; color: rgba(255,255,255,0.55); text-transform: uppercase; }
+  .how-card-headline { font-family: 'Fraunces', serif; font-size: 1.65rem; font-weight: 400; color: rgba(255,255,255,0.95); line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 0.75rem; }
+  .how-card-desc { font-family: 'Inter', sans-serif; font-size: 0.82rem; color: rgba(255,255,255,0.72); line-height: 1.65; max-width: 30ch; }
+  .how-card-micro { font-family: 'Inter', sans-serif; font-size: 0.7rem; font-style: italic; color: rgba(255,255,255,0.42); margin-top: 0.65rem; letter-spacing: 0.02em; }
+  @media (min-width: 768px) { .how-card-headline { font-size: 1.85rem; } .how-card-content { padding: 2.25rem; } }
+  @media (min-width: 1024px) { .how-card-headline { font-size: 2rem; } .how-card-content { padding: 2.5rem; } }
 `;
 
 function MarketingPage() {
   return (
-    <div className="pc-mkt relative overflow-x-hidden">
+    <div className="pc-mkt relative overflow-x-hidden bg-white">
       <style dangerouslySetInnerHTML={{ __html: styles }} />
       <Navbar />
       <Hero />
-      <Trust />
+      <Collaboration />
       <HowItWorks />
       <MoodGate />
-      <FAQ />
-      <Bento />
+      <MindAccordion />
+      <BentoFeatures />
       <FeatureHighlight />
       <Ecosystem />
       <Testimonials />
-      <Weather />
+      <WhatPsychologistsFace />
       <Blog />
       <ClosingCTA />
       <Footer />
@@ -76,212 +111,300 @@ function MarketingPage() {
 }
 
 /* ---------------- Navbar ---------------- */
+const NAV_ITEMS = [
+  {
+    label: "Announcements",
+    href: "#announcements",
+    dropdown: { columns: [{ items: [
+      { label: "Blog", href: "#blog" },
+      { label: "Product updates", href: "#announcements" },
+    ]}]},
+  },
+  {
+    label: "About",
+    href: "#about",
+    dropdown: { columns: [{ header: "ABOUT", items: [
+      { label: "Our story", href: "#about" },
+      { label: "Careers", href: "#careers" },
+      { label: "Contact", href: "#contact" },
+      { label: "FAQs", href: "#faq" },
+    ]}]},
+  },
+  {
+    label: "Practice",
+    href: "#practice",
+    dropdown: { columns: [
+      { header: "CLINICAL", items: [
+        { label: "Scheduling", href: "/features/scheduling" },
+        { label: "Session notes", href: "/features" },
+        { label: "Assessments", href: "/features" },
+        { label: "Safety planning", href: "/features" },
+      ]},
+      { header: "OPERATIONS", items: [
+        { label: "Billing", href: "/features" },
+        { label: "Referrals", href: "/features" },
+        { label: "Telehealth", href: "/features" },
+        { label: "Compliance", href: "/features" },
+      ]},
+    ]},
+  },
+  { label: "Resources", href: "#resources" },
+];
+
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const nav = [
-    { label: "Features", href: "/features", items: ["Scheduling", "Notes", "Assessments", "Billing", "Telehealth", "Copilot"] },
-    { label: "Practice", items: ["Solo clinicians", "Group practices", "Supervisors"] },
-    { label: "Resources", items: ["Blog", "Guides", "Compliance"] },
-    { label: "Company", items: ["About", "Careers", "Contact"] },
-  ];
-
   return (
-    <motion.header
-      initial={false}
-      animate={{
-        top: scrolled ? 16 : 0,
-        marginInline: scrolled ? 16 : 0,
-        borderRadius: scrolled ? 32 : 0,
-      }}
-      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed left-0 right-0 z-50"
-      style={{
-        background: scrolled ? "rgba(255,255,255,0.55)" : "transparent",
-        backdropFilter: scrolled ? "blur(24px) saturate(1.4)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(24px) saturate(1.4)" : "none",
-        border: scrolled ? "1px solid rgba(255,255,255,0.7)" : "1px solid transparent",
-        color: scrolled ? "#1a1a2e" : "#ffffff",
-      }}
+    <header
+      className={`fixed z-50 left-0 right-0 transition-all duration-300 ${
+        scrolled ? "top-4 px-4 md:px-8" : "top-0 px-0"
+      }`}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-8 h-16">
-        <a href="#" className="pc-serif text-2xl">peace<span className="pc-italic">code</span></a>
+      <div
+        className={`mx-auto max-w-[1360px] flex items-center justify-between transition-all duration-300 ${
+          scrolled
+            ? "rounded-[2rem] bg-white/30 backdrop-blur-xl border border-white/50 shadow-[0_8px_32px_rgba(255,255,255,0.15)] py-4 px-6 md:px-8"
+            : "bg-transparent py-5 px-6 md:px-10"
+        }`}
+      >
+        <Link to="/for-psychologists" className="flex items-center gap-2 shrink-0" aria-label="PeaceCode">
+          <img
+            src="/nav%20bar%20logo.svg"
+            alt="PeaceCode"
+            className={`h-7 w-auto object-contain transition-all duration-300 ${
+              scrolled ? "brightness-0" : "brightness-0 invert drop-shadow-sm"
+            }`}
+            onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+          />
+          <span
+            className={`pc-serif text-[20px] transition-colors ${scrolled ? "text-slate-900" : "text-white"}`}
+            style={{ fontWeight: 400 }}
+          >
+            PeaceCode
+          </span>
+        </Link>
 
         <nav className="hidden lg:flex items-center gap-1">
-          {nav.map((n) => {
-            const featureSlugMap: Record<string, string> = {
-              Scheduling: "scheduling", Notes: "notes", Assessments: "assessments",
-              Billing: "billing", Telehealth: "telehealth", Copilot: "copilot",
-            };
-            return (
-              <div key={n.label} className="relative group px-4 py-2">
-                {"href" in n && n.href ? (
-                  <Link to={n.href} className="flex items-center gap-1 text-sm font-medium">
-                    {n.label} <ChevronDown className="w-3.5 h-3.5 opacity-60" />
-                  </Link>
-                ) : (
-                  <button className="flex items-center gap-1 text-sm font-medium">
-                    {n.label} <ChevronDown className="w-3.5 h-3.5 opacity-60" />
-                  </button>
-                )}
-                <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition">
-                  <div className="glass-white p-4 min-w-[220px] text-slate-800">
-                    {n.items.map((i) => {
-                      const slug = featureSlugMap[i];
-                      return slug ? (
-                        <Link key={i} to="/features/$slug" params={{ slug }} className="block px-3 py-2 rounded-xl hover:bg-white/60 text-sm">{i}</Link>
-                      ) : (
-                        <a key={i} href="#" className="block px-3 py-2 rounded-xl hover:bg-white/60 text-sm">{i}</a>
-                      );
-                    })}
+          {NAV_ITEMS.map((item) => (
+            <div
+              key={item.label}
+              className="relative"
+              onMouseEnter={() => item.dropdown && setOpenDropdown(item.label)}
+              onMouseLeave={() => setOpenDropdown(null)}
+            >
+              <a
+                href={item.href}
+                className={`inline-flex items-center gap-1 px-4 py-2 text-[14px] font-medium transition-colors ${
+                  scrolled ? "text-slate-900 hover:text-slate-600" : "text-white/95 hover:text-white"
+                }`}
+              >
+                {item.label}
+                {item.dropdown ? <ChevronDown className="h-3.5 w-3.5 opacity-70" /> : null}
+              </a>
+              {item.dropdown && openDropdown === item.label ? (
+                <div className="absolute left-0 top-full pt-3 min-w-[260px]">
+                  <div className="bg-white/95 backdrop-blur-2xl border border-white/60 shadow-[0_12px_40px_rgba(0,0,0,0.08)] rounded-[1.5rem] p-7 flex gap-8">
+                    {item.dropdown.columns.map((col, ci) => (
+                      <div key={ci} className="min-w-[140px]">
+                        {"header" in col && col.header ? (
+                          <div className="pc-label text-slate-500 mb-3">{col.header}</div>
+                        ) : null}
+                        <ul className="space-y-2">
+                          {col.items.map((li) => (
+                            <li key={li.label}>
+                              <a href={li.href} className="text-[14px] text-slate-800 hover:text-slate-500 transition-colors">
+                                {li.label}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              ) : null}
+            </div>
+          ))}
         </nav>
 
-        <div className="flex items-center gap-3">
-          <Link
-            to={LOGIN_URL}
-            className="hidden md:inline-flex items-center px-5 py-2 rounded-full text-sm font-medium transition-all"
-            style={{
-              background: scrolled ? "#0f172a" : "#ffffff",
-              color: scrolled ? "#ffffff" : "#0f172a",
-              boxShadow: scrolled ? "0 4px 14px rgba(15,23,42,0.25)" : "0 4px 14px rgba(0,0,0,0.08)",
-            }}
+        <div className="flex items-center gap-2">
+          <a
+            href={LOGIN_URL}
+            className={`hidden sm:inline-flex items-center rounded-full px-6 py-2.5 text-[14px] font-medium transition-all ${
+              scrolled
+                ? "bg-slate-900 text-white hover:bg-slate-800"
+                : "bg-white text-slate-900 hover:bg-white/90"
+            }`}
           >
             Login
-          </Link>
-          <button className="lg:hidden p-2" onClick={() => setOpen(!open)} aria-label="Menu">
-            {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </a>
+          <button
+            onClick={() => setMobileOpen((v) => !v)}
+            aria-label="Menu"
+            className={`lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors ${
+              scrolled ? "text-slate-900 hover:bg-slate-100" : "text-white hover:bg-white/10"
+            }`}
+          >
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
-      {open && (
-        <div className="lg:hidden px-4 pb-4">
-          <div className="glass-white p-4 text-slate-800">
-            {nav.map((n) => (
-              <details key={n.label} className="py-2 border-b border-slate-200/50 last:border-0">
-                <summary className="flex justify-between items-center cursor-pointer font-medium">
-                  {n.label} <Plus className="w-4 h-4" />
-                </summary>
-                <div className="pt-2 pl-2">
-                  {n.items.map((i) => <a key={i} href="#" className="block py-1.5 text-sm text-slate-600">{i}</a>)}
-                </div>
-              </details>
+      {mobileOpen ? (
+        <div className="lg:hidden mx-4 mt-2 bg-white/85 backdrop-blur-xl border border-white/40 rounded-2xl shadow-lg p-5">
+          <ul className="space-y-3">
+            {NAV_ITEMS.map((i) => (
+              <li key={i.label}>
+                <a href={i.href} className="block py-1.5 text-[15px] text-slate-900" onClick={() => setMobileOpen(false)}>
+                  {i.label}
+                </a>
+              </li>
             ))}
-            <Link to={LOGIN_URL} className="mt-4 block text-center px-5 py-3 rounded-full bg-slate-900 text-white font-medium">Login</Link>
-          </div>
+            <li className="pt-2 border-t border-slate-200">
+              <a
+                href={LOGIN_URL}
+                className="inline-flex items-center rounded-full px-5 py-2 text-[14px] font-medium bg-slate-900 text-white"
+              >
+                Login
+              </a>
+            </li>
+          </ul>
         </div>
-      )}
-    </motion.header>
+      ) : null}
+    </header>
   );
 }
 
 /* ---------------- Hero ---------------- */
 function Hero() {
-  const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, 100]);
-  const y2 = useTransform(scrollY, [0, 500], [0, -60]);
-
-  const words = ["A", "calmer", "way", "to", "run", "your", "practice."];
-
   return (
-    <section
-      className="relative min-h-screen flex flex-col items-center justify-center px-6 grain overflow-hidden"
-      style={{
-        background:
-          "linear-gradient(180deg, #A3B8C7 0%, #B8C4D3 40%, #D4DCE4 100%)",
-      }}
-    >
-      {/* Floating decorations */}
-      <motion.div style={{ y: y1 }} className="absolute top-32 left-[8%] hidden md:block opacity-70">
-        <div className="w-24 h-24 rounded-full" style={{ background: "radial-gradient(circle, rgba(255,255,255,0.6), transparent 70%)" }} />
-      </motion.div>
-      <motion.div style={{ y: y2 }} className="absolute top-48 right-[12%] hidden md:block opacity-60">
-        <div className="w-40 h-40 rounded-full" style={{ background: "radial-gradient(circle, rgba(234,235,252,0.7), transparent 70%)" }} />
-      </motion.div>
-      <motion.div
-        animate={{ y: [0, -18, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-40 left-[15%] hidden md:block"
-      >
-        <Cloud className="w-16 h-16 text-white/60" />
-      </motion.div>
+    <section className="relative w-full min-h-screen overflow-hidden bg-[#A3B8C7]">
+      <img
+        src="/hero-background.webp"
+        alt=""
+        aria-hidden
+        className="absolute inset-0 h-full w-full object-cover"
+        onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")}
+      />
+      <div className="absolute inset-0 grain-overlay opacity-[0.08] mix-blend-overlay pointer-events-none" />
 
-      <div className="relative text-center max-w-4xl mx-auto text-white">
-        <motion.p {...reveal} className="pc-label mb-8 text-white/80">For verified psychologists</motion.p>
+      {/* Floating birds */}
+      <FloatingBird src="/bg-decoration-2.svg" className="absolute top-[18%] right-[8%] w-16 opacity-80" delay={0} y={12} />
+      <FloatingBird src="/bg-decoration-2.svg" className="absolute top-[34%] right-[22%] w-10 opacity-60" delay={0.4} y={8} />
+      <FloatingBird src="/bg-decoration-2.svg" className="absolute top-[46%] right-[6%] w-8 opacity-50 blur-[1px]" delay={0.8} y={10} />
+      <FloatingBird src="/bg-decoration-2.svg" className="absolute bottom-[28%] left-[10%] w-12 opacity-70" delay={1.2} y={14} />
+      <FloatingBird src="/bg-decoration-1.svg" className="absolute bottom-[36%] right-[38%] w-20 opacity-90" delay={0.6} y={16} />
 
-        <h1 className="pc-serif text-5xl md:text-7xl lg:text-8xl leading-[1.05] mb-8">
-          {words.map((w, i) => (
-            <motion.span
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 + i * 0.08, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="inline-block mr-3"
-            >
-              {w === "calmer" ? <span className="pc-italic">calmer</span> : w}
-            </motion.span>
-          ))}
-        </h1>
+      {/* Cloud layer */}
+      <motion.img
+        src="/landing-illustration-2.svg"
+        alt=""
+        aria-hidden
+        initial={{ x: -120, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute -bottom-6 left-0 w-full pointer-events-none select-none"
+        onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")}
+      />
 
+      {/* Text */}
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 text-center">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.9 }}
-          className="text-lg md:text-xl text-white/85 max-w-2xl mx-auto mb-10 font-light"
+          transition={{ duration: 0.9, delay: 0.2 }}
+          className="pc-label text-white/85 mb-6"
         >
-          Scheduling, notes, assessments, billing, and outcomes — one clinical workspace built for the way psychologists actually work.
+          For psychologists, by PeaceCode
         </motion.p>
-
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.0, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="pc-serif text-white max-w-[18ch] text-[clamp(44px,7vw,88px)] leading-[1.02]"
+        >
+          The calm workspace <span className="pc-italic">behind steady care.</span>
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.55 }}
+          className="mt-6 max-w-[52ch] text-[16px] md:text-[17px] text-white/85 leading-relaxed"
+        >
+          Scheduling, notes, assessments, billing and outcomes — held together in one clinical space that respects
+          your time and your patients.
+        </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.4, duration: 0.9 }}
+          transition={{ duration: 0.9, delay: 0.75 }}
+          className="mt-9"
         >
-          <motion.a
+          <a
             href={LOGIN_URL}
-            whileHover={{ scale: 1.04, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="inline-flex items-center gap-2 bg-white text-slate-900 px-8 py-4 rounded-[18px] font-medium text-base shadow-lg"
+            className="liquid-glass-button inline-flex items-center gap-2.5 rounded-full pl-5 pr-6 py-3 text-[15px] font-medium"
           >
-            Start your practice <ArrowRight className="w-4 h-4" />
-          </motion.a>
+            <img
+              src="/nav%20bar%20logo.svg"
+              alt=""
+              aria-hidden
+              className="w-[18px] h-[18px] brightness-0"
+              onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")}
+            />
+            Get started
+            <ArrowRight className="h-4 w-4" />
+          </a>
         </motion.div>
       </div>
-
-      {/* Slide-in cloud layer */}
-      <motion.div
-        initial={{ x: "-100%", opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 2, ease: [0.22, 1, 0.36, 1], delay: 0.6 }}
-        className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none"
-        style={{ background: "linear-gradient(180deg, transparent, rgba(255,255,255,0.4))" }}
-      />
     </section>
   );
 }
 
-/* ---------------- Trust ---------------- */
-function Trust() {
-  const logos = ["NIMHANS", "IIT Delhi", "Fortis", "Manipal", "AIIMS", "Apollo"];
+function FloatingBird({ src, className, delay, y }: { src: string; className: string; delay: number; y: number }) {
   return (
-    <section className="relative py-24 px-6 bg-white">
-      <motion.div {...reveal} className="max-w-6xl mx-auto text-center">
-        <p className="pc-label text-slate-500 mb-8">In collaboration with</p>
-        <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 opacity-70">
-          {logos.map((l) => (
-            <span key={l} className="pc-serif text-2xl text-slate-700">{l}</span>
+    <motion.img
+      src={src}
+      alt=""
+      aria-hidden
+      className={className}
+      animate={{ y: [0, -y, 0] }}
+      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay }}
+      onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")}
+    />
+  );
+}
+
+/* ---------------- Collaboration ---------------- */
+function Collaboration() {
+  return (
+    <section className="relative w-full py-24 md:py-32 overflow-hidden">
+      <img src="/section2-bg.webp" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover"
+        onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")} />
+      <motion.img
+        src="/cloud-bg-5.svg" alt="" aria-hidden
+        className="absolute right-0 top-10 w-[704px] max-w-[70vw] pointer-events-none select-none"
+        style={{ mixBlendMode: "screen" }}
+        initial={{ x: 60, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1.4 }}
+        onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")}
+      />
+      <motion.div {...reveal} className="relative z-10 mx-auto max-w-[1200px] px-6 text-center">
+        <p className="pc-label text-slate-600 mb-4">Trusted by clinicians and institutions</p>
+        <h2 className="pc-serif text-slate-900 text-[clamp(28px,3.6vw,44px)] leading-[1.1] max-w-[24ch] mx-auto">
+          Care that stays <span className="pc-italic">continuous</span> across teams and time.
+        </h2>
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-x-14 gap-y-8 opacity-80">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <img key={i} src="/assets/dtu.svg" alt="Partner" className="h-12 md:h-14 grayscale opacity-70"
+              onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")} />
           ))}
         </div>
       </motion.div>
@@ -293,51 +416,54 @@ function Trust() {
 function HowItWorks() {
   const steps = [
     {
-      n: "01",
-      title: "Set up your practice",
-      desc: "Import your calendar, add clients, and configure fees in under ten minutes.",
-      bg: "linear-gradient(135deg, #A3B8C7, #98A6D4)",
+      step: "STEP 01",
+      title: "Open a room built for the work.",
+      desc: "Video, notes and safety tools live in the same place — no toggling tabs mid-session.",
+      micro: "Set up in under a minute.",
+      img: "/assets/how-step-01-safe-space.jpg",
     },
     {
-      n: "02",
-      title: "Run sessions with focus",
-      desc: "Guided intake, in-session notes, and a copilot that drafts your SOAP write-up.",
-      bg: "linear-gradient(135deg, #EAEBFC, #D4E2D7)",
+      step: "STEP 02",
+      title: "Write the note while it's fresh.",
+      desc: "SOAP, DAP, or your own template — with assessment scores auto-pulled and dictation ready.",
+      micro: "Signed and locked in one pass.",
+      img: "/assets/how-step-02-peer-support.jpg",
     },
     {
-      n: "03",
-      title: "See the arc of care",
-      desc: "PHQ-9, GAD-7 and custom instruments plot progress across every client.",
-      bg: "linear-gradient(135deg, #D4E2D7, #A3B8C7)",
+      step: "STEP 03",
+      title: "Watch outcomes take shape.",
+      desc: "PHQ-9, GAD-7 and custom measures charted per patient — spot drift before it becomes a crisis.",
+      micro: "Evidence-based, quietly.",
+      img: "/assets/how-step-03-progress.jpg",
     },
   ];
+
   return (
-    <section className="relative py-32 px-6 bg-white">
-      <motion.div {...reveal} className="max-w-6xl mx-auto text-center mb-16">
-        <p className="pc-label text-slate-500 mb-4">How it works</p>
-        <h2 className="pc-serif text-4xl md:text-6xl">Three steps to a <span className="pc-italic">calmer</span> practice.</h2>
-      </motion.div>
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
-        {steps.map((s, i) => (
-          <motion.div
-            key={s.n}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-            whileHover={{ y: -6 }}
-            className="relative h-[440px] rounded-[28px] overflow-hidden group cursor-pointer"
-            style={{ background: s.bg }}
-          >
-            <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, rgba(15,23,42,0.55) 0%, transparent 55%)" }} />
-            <div className="absolute inset-0 grain" />
-            <div className="absolute inset-0 p-8 flex flex-col justify-end text-white">
-              <span className="pc-serif text-6xl opacity-70 mb-3">{s.n}</span>
-              <h3 className="pc-serif text-2xl mb-2">{s.title}</h3>
-              <p className="text-sm text-white/85 font-light">{s.desc}</p>
-            </div>
-          </motion.div>
-        ))}
+    <section className="relative w-full py-24 md:py-32 overflow-hidden">
+      <img src="/section3-bg.webp" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover"
+        onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")} />
+      <div className="relative z-10 mx-auto max-w-[1280px] px-6">
+        <motion.div {...reveal} className="text-center mb-14">
+          <p className="pc-label text-slate-600 mb-4">How it works</p>
+          <h2 className="pc-serif text-slate-900 text-[clamp(32px,4vw,52px)] leading-[1.05] max-w-[22ch] mx-auto">
+            Three moments that make a <span className="pc-italic">practice feel calm.</span>
+          </h2>
+        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+          {steps.map((s, i) => (
+            <motion.div key={s.step} {...reveal} transition={{ ...reveal.transition, delay: i * 0.1 }} className="how-card aspect-[4/5]">
+              <img src={s.img} alt="" onError={(e) => ((e.currentTarget as HTMLImageElement).style.background = "#3a3a4a")} />
+              <div className="how-card-content">
+                <span className="how-card-step">{s.step}</span>
+                <div>
+                  <h3 className="how-card-headline">{s.title}</h3>
+                  <p className="how-card-desc">{s.desc}</p>
+                  <p className="how-card-micro">{s.micro}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -345,176 +471,205 @@ function HowItWorks() {
 
 /* ---------------- Mood Gate ---------------- */
 function MoodGate() {
-  const opts = ["Anxiety & panic", "Mood & depression", "Trauma", "Relationships", "Adolescents", "Burnout"];
-  const [sel, setSel] = useState<string | null>(null);
+  const [choice, setChoice] = useState<number | null>(null);
+  const moods = [
+    { label: "Overloaded caseload", copy: "Batch triage, waitlist scoring and smart scheduling clear the fog." },
+    { label: "Notes falling behind", copy: "In-session SOAP drafts and dictation catch you up in one pass." },
+    { label: "Unclear outcomes", copy: "Assessment trajectories per patient — see what's actually working." },
+    { label: "Billing chaos", copy: "Invoicing, GST/PAN, refunds and payouts in one clean ledger." },
+  ];
   return (
-    <section className="relative py-32 px-6 bg-white">
-      <motion.div {...reveal} className="max-w-3xl mx-auto text-center">
-        <p className="pc-label text-slate-500 mb-4">Built around your work</p>
-        <h2 className="pc-serif text-4xl md:text-5xl mb-4">What do your <span className="pc-italic">clients</span> bring you most?</h2>
-        <p className="text-slate-600 mb-10 font-light">Pick what fits — we'll show tools designed for that presentation.</p>
-        <div className="flex flex-wrap justify-center gap-3">
-          {opts.map((o) => (
-            <button
-              key={o}
-              onClick={() => setSel(o)}
-              className="px-5 py-2.5 rounded-full text-sm font-medium transition-all border"
-              style={{
-                background: sel === o ? "#0f172a" : "rgba(255,255,255,0.7)",
-                color: sel === o ? "#fff" : "#1a1a2e",
-                borderColor: sel === o ? "#0f172a" : "rgba(15,23,42,0.12)",
-              }}
-            >
-              {o}
-            </button>
-          ))}
+    <section id="practice" className="relative w-full py-28 md:py-36 bg-white">
+      <div className="mx-auto max-w-[1120px] px-6">
+        <motion.div {...reveal} className="text-center mb-12">
+          <p className="pc-label text-slate-500 mb-4">Where are you today?</p>
+          <h2 className="pc-serif text-slate-900 text-[clamp(30px,4vw,48px)] leading-[1.05] max-w-[24ch] mx-auto">
+            Tell us the friction — <span className="pc-italic">we'll show you the fix.</span>
+          </h2>
+        </motion.div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          {moods.map((m, i) => {
+            const active = choice === i;
+            return (
+              <button
+                key={m.label}
+                onClick={() => setChoice(i)}
+                className={`glass-white text-left p-6 transition-all duration-200 ${
+                  active ? "ring-2 ring-slate-900/70 -translate-y-1" : "hover:-translate-y-0.5"
+                }`}
+              >
+                <div className="pc-label text-slate-500 mb-3">0{i + 1}</div>
+                <div className="pc-serif text-[18px] text-slate-900">{m.label}</div>
+              </button>
+            );
+          })}
         </div>
-        {sel && (
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-8 pc-italic text-slate-700 text-lg">
-            Great — templates and instruments tuned for {sel.toLowerCase()} are ready in your workspace.
-          </motion.p>
-        )}
-      </motion.div>
+        {choice !== null ? (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
+            className="mt-8 glass-white p-8 md:p-10 max-w-[720px] mx-auto text-center"
+          >
+            <p className="pc-serif text-slate-900 text-[22px] leading-snug">{moods[choice].copy}</p>
+          </motion.div>
+        ) : null}
+      </div>
     </section>
   );
 }
 
-/* ---------------- FAQ ---------------- */
-function FAQ() {
+/* ---------------- Mind Accordion (FAQ) ---------------- */
+function MindAccordion() {
   const items = [
-    { q: "Is my client data private and compliant?", a: "Yes. PeaceCode is DPDP-aligned with encryption in transit and at rest, audit logs, and configurable retention windows." },
-    { q: "Can I import from my current tool?", a: "You can import clients, appointments, and notes from CSV or common EHR exports. Our team assists with migrations." },
-    { q: "Do I need to be a verified psychologist?", a: "Yes. Practice accounts require RCI licensure verification or an equivalent regulatory credential." },
-    { q: "How does billing work?", a: "Flat monthly per clinician. No per-session fees. Cancel anytime." },
+    { q: "Is this only for solo practice?", a: "No. PeaceCode works for solo clinicians and multi-clinician groups — role-based access, supervision workflows and shared calendars are all built in." },
+    { q: "How does it handle compliance?", a: "DPDP-aligned consent flows, audit logs, encrypted storage and configurable retention. Every export is logged; every access is traceable." },
+    { q: "Will my patients need to install anything?", a: "No. Telehealth runs in the browser. Patients get a link, a waiting room and a note that a session is starting." },
+    { q: "Can I bring my templates and forms?", a: "Yes — import your intake forms, note templates and consent copy. Or start with our clinician-authored defaults and edit from there." },
+    { q: "What about assessments?", a: "PHQ-9, GAD-7, PCL-5, WHO-5, DASS-21 and more are built in. Custom instruments can be added; scores auto-flow into the chart and the note." },
   ];
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section className="relative py-32 px-6 bg-white">
-      <motion.div {...reveal} className="max-w-3xl mx-auto">
-        <p className="pc-label text-slate-500 mb-4 text-center">Common questions</p>
-        <h2 className="pc-serif text-4xl md:text-5xl text-center mb-12">Answers, <span className="pc-italic">not caveats.</span></h2>
-        <div className="space-y-3">
-          {items.map((it, i) => (
-            <div key={i} className="glass-white overflow-hidden">
-              <button
-                onClick={() => setOpen(open === i ? null : i)}
-                className="w-full flex items-center justify-between p-6 text-left"
-              >
-                <span className="pc-serif text-xl">{it.q}</span>
-                {open === i ? <Minus className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
-              </button>
-              <motion.div
-                initial={false}
-                animate={{ height: open === i ? "auto" : 0, opacity: open === i ? 1 : 0 }}
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="overflow-hidden"
-              >
-                <p className="px-6 pb-6 text-slate-600 font-light">{it.a}</p>
-              </motion.div>
-            </div>
-          ))}
+    <section id="faq" className="relative w-full py-24 md:py-32 bg-white overflow-hidden">
+      <motion.img
+        src="/cloud-bg-2.svg" alt="" aria-hidden
+        style={{ mixBlendMode: "multiply" }}
+        className="absolute left-0 top-24 w-[420px] max-w-[45vw] pointer-events-none opacity-70"
+        initial={{ x: -40, opacity: 0 }} whileInView={{ x: 0, opacity: 0.7 }} viewport={{ once: true }} transition={{ duration: 1.2 }}
+        onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")}
+      />
+      <div className="relative z-10 mx-auto max-w-[880px] px-6">
+        <motion.div {...reveal} className="text-center mb-12">
+          <p className="pc-label text-slate-500 mb-4">Questions clinicians ask</p>
+          <h2 className="pc-serif text-slate-900 text-[clamp(30px,4vw,48px)] leading-[1.05]">
+            Straight answers, <span className="pc-italic">no marketing fog.</span>
+          </h2>
+        </motion.div>
+        <div className="divide-y divide-slate-200 border-y border-slate-200">
+          {items.map((it, i) => {
+            const on = open === i;
+            return (
+              <div key={it.q}>
+                <button
+                  className="w-full flex items-center justify-between py-6 text-left"
+                  onClick={() => setOpen(on ? null : i)}
+                >
+                  <span className="pc-serif text-slate-900 text-[20px] md:text-[22px] pr-6">{it.q}</span>
+                  <span className="shrink-0 h-8 w-8 rounded-full liquid-glass-icon inline-flex items-center justify-center">
+                    {on ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                  </span>
+                </button>
+                {on ? (
+                  <motion.p
+                    initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}
+                    className="text-[15px] text-slate-600 leading-relaxed pb-6 pr-12"
+                  >
+                    {it.a}
+                  </motion.p>
+                ) : null}
+              </div>
+            );
+          })}
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
 
-/* ---------------- Bento ---------------- */
-function Bento() {
-  const cards = [
-    { icon: CalendarCheck, tag: "Schedule", title: "A calendar that respects your energy", desc: "Buffers between sessions, no-show automations, and booking links you actually want to share.", span: "md:col-span-7" },
-    { icon: FileText, tag: "Notes", title: "Notes drafted while you listen", desc: "Guided SOAP, DAP and progress notes with an AI copilot you can trust and correct.", span: "md:col-span-5" },
-    { icon: ClipboardList, tag: "Assessments", title: "PHQ-9, GAD-7, and your own", desc: "Send, score, and chart change over time — automatic.", span: "md:col-span-4" },
-    { icon: Wallet, tag: "Billing", title: "Invoices without the friction", desc: "GST-ready invoices, UPI and card payouts, and clean monthly reports.", span: "md:col-span-4" },
-    { icon: Video, tag: "Telehealth", title: "Video that just works", desc: "In-app secure video with a waiting room and consent capture.", span: "md:col-span-4" },
-    { icon: Users, tag: "Teams", title: "Built for solo and group practices", desc: "Add supervisors, share caseloads, and run case conferences with peer review.", span: "md:col-span-7" },
-    { icon: ShieldCheck, tag: "Compliance", title: "DPDP, audit-ready, always", desc: "Consent, retention, and audit logs — configured for Indian clinical practice.", span: "md:col-span-5" },
-    { icon: Bell, tag: "Copilot", title: "A quiet co-pilot", desc: "Continuity briefs, risk flags, and homework suggestions — never noise.", span: "md:col-span-12" },
+/* ---------------- Bento Features ---------------- */
+function BentoFeatures() {
+  const bento = [
+    { span: "md:col-span-7", tag: "SCHEDULING",   title: "A calendar that respects buffers.",   body: "Back-to-back protection, telehealth links auto-attached, reschedules that don't ripple through your day.", icon: CalendarCheck },
+    { span: "md:col-span-5", tag: "NOTES",        title: "SOAP that writes itself.",             body: "In-session dictation and structured drafts — you edit, you sign, you move on.", icon: FileText },
+    { span: "md:col-span-5", tag: "ASSESSMENTS",  title: "Outcomes you can see.",                body: "Per-patient trajectories for PHQ-9, GAD-7 and custom instruments — trend lines, not just scores.", icon: Activity },
+    { span: "md:col-span-7", tag: "BILLING",      title: "One clean ledger.",                    body: "Invoices, GST/PAN, refunds and payouts — reconciled, exportable, audit-friendly.", icon: Wallet },
+    { span: "md:col-span-4", tag: "TELEHEALTH",   title: "Rooms that just open.",                body: "No installs. Waiting room, consent-to-record, one link per session.", icon: Video },
+    { span: "md:col-span-4", tag: "SAFETY",       title: "A plan when it matters.",              body: "Stanley-Brown safety plans, escalation contacts and helplines within reach.", icon: ShieldCheck },
+    { span: "md:col-span-4", tag: "REFERRALS",    title: "Warm handoffs, tracked.",              body: "In and out — sources, urgency, and conversion in one honest view.", icon: Users },
+    { span: "md:col-span-12", tag: "COPILOT",     title: "A quiet AI that stays inside your notes.", body: "Continuity briefs, SOAP drafts and follow-up prompts — grounded in the chart, never in the cloud alone.", icon: Sparkles },
   ];
 
   return (
-    <section className="relative pt-0 pb-32 px-6" style={{ background: "#EAEBFC" }}>
-      {/* Wavy transition from white above */}
-      <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="absolute top-0 left-0 w-full h-20 -translate-y-px">
-        <path d="M0,0 L0,40 C120,70 200,25 320,40 C440,55 520,75 640,62 C760,50 840,25 960,38 C1080,50 1180,72 1300,58 C1380,48 1420,30 1440,40 L1440,0 Z" fill="#ffffff" />
-      </svg>
-
-      <motion.div {...reveal} className="max-w-6xl mx-auto text-center mb-16 pt-24">
-        <p className="pc-label text-slate-500 mb-4">Everything you need</p>
-        <h2 className="pc-serif text-4xl md:text-6xl">One workspace. <span className="pc-italic">All of it.</span></h2>
-      </motion.div>
-
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-5">
-        {cards.map((c, i) => {
-          const Icon = c.icon;
-          return (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.7, delay: (i % 4) * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -8 }}
-              className={`glass-color p-8 group cursor-pointer ${c.span}`}
-            >
-              <motion.div
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 4 + i, repeat: Infinity, ease: "easeInOut" }}
-                className="w-12 h-12 rounded-2xl bg-white/70 flex items-center justify-center mb-5 shadow-sm"
-              >
-                <Icon className="w-5 h-5 text-slate-700" />
+    <section id="features" className="relative w-full pb-28 md:pb-36 pt-0" style={{ background: COLOR.peach }}>
+      <WavyBridge from="#FFFFFF" to={COLOR.peach} />
+      <div className="mx-auto max-w-[1280px] px-6 pt-4">
+        <motion.div {...reveal} className="text-center mb-14">
+          <p className="pc-label text-slate-500 mb-4">The workspace</p>
+          <h2 className="pc-serif text-slate-900 text-[clamp(32px,4.4vw,56px)] leading-[1.05] max-w-[26ch] mx-auto">
+            One clinical space. <span className="pc-italic">Every part of the practice.</span>
+          </h2>
+        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
+          {bento.map((b, i) => {
+            const Icon = b.icon;
+            return (
+              <motion.div key={b.title} {...reveal} transition={{ ...reveal.transition, delay: (i % 3) * 0.08 }}
+                className={`glass-color p-7 md:p-8 ${b.span} min-h-[220px] flex flex-col justify-between`}>
+                <div className="flex items-start justify-between">
+                  <motion.div
+                    animate={{ y: [0, -8, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
+                    className="h-11 w-11 rounded-2xl liquid-glass-icon inline-flex items-center justify-center"
+                  >
+                    <Icon className="h-5 w-5" strokeWidth={1.5} />
+                  </motion.div>
+                  <span className="text-[10px] tracking-[0.3em] uppercase text-slate-500 font-semibold">{b.tag}</span>
+                </div>
+                <div className="mt-6">
+                  <h3 className="pc-serif text-slate-900 text-2xl md:text-[26px] tracking-tight">{b.title}</h3>
+                  <p className="mt-3 text-sm text-slate-600 leading-relaxed">{b.body}</p>
+                </div>
+                <a href="/features" className="mt-6 text-[11px] uppercase tracking-[0.25em] text-slate-800 font-semibold inline-flex items-center gap-1.5">
+                  Explore <ArrowRight className="h-3.5 w-3.5" />
+                </a>
               </motion.div>
-              <p className="pc-label text-slate-500 mb-3">{c.tag}</p>
-              <h3 className="pc-serif text-2xl md:text-3xl mb-2">{c.title}</h3>
-              <p className="text-slate-600 font-light mb-4">{c.desc}</p>
-              <span className="text-sm font-medium inline-flex items-center gap-1 text-slate-800 group-hover:gap-2 transition-all">
-                Explore <ArrowRight className="w-3.5 h-3.5" />
-              </span>
-            </motion.div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </section>
+  );
+}
+
+function WavyBridge({ from, to }: { from: string; to: string }) {
+  return (
+    <div className="w-full -mt-1" style={{ background: from }}>
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="block w-full h-[80px] md:h-[110px]">
+        <path d="M0,64 C240,120 480,20 720,60 C960,100 1200,40 1440,80 L1440,120 L0,120 Z" fill={to} />
+      </svg>
+    </div>
   );
 }
 
 /* ---------------- Feature Highlight ---------------- */
 function FeatureHighlight() {
   return (
-    <section className="relative py-32 px-6 bg-white overflow-hidden">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-        <motion.div {...reveal}>
-          <p className="pc-label text-slate-500 mb-4">Copilot</p>
-          <h2 className="pc-serif text-4xl md:text-5xl mb-6">A brief before every <span className="pc-italic">session.</span></h2>
-          <p className="text-slate-600 font-light text-lg mb-6">
-            Continuity briefs stitch together your last note, the client's homework, assessment deltas, and any safety flags — one glance, before they walk in.
-          </p>
-          <ul className="space-y-3 text-slate-700">
-            {["Last-session anchors", "Homework outcomes", "Risk deltas", "Suggested opening"].map((x) => (
-              <li key={x} className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full bg-slate-900" />{x}</li>
-            ))}
-          </ul>
-        </motion.div>
-        <motion.div {...reveal} className="glass-white p-8">
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="pc-label text-slate-500">Continuity brief</span>
-              <span className="text-xs text-slate-500">Session 8 · Priya S.</span>
-            </div>
-            <div className="p-4 rounded-2xl bg-white/60">
-              <p className="text-sm text-slate-700 leading-relaxed">
-                Sleep improved (2 nights &gt; 7hrs). PHQ-9 dropped from 14 → 11. Homework: 4/7 thought records completed. Consider testing behavioural activation this week.
-              </p>
-            </div>
-            <div className="grid grid-cols-3 gap-3">
-              {[["PHQ-9", "11", "-3"], ["GAD-7", "9", "-1"], ["Sleep", "6.4h", "+0.8"]].map((m) => (
-                <div key={m[0]} className="p-3 rounded-2xl bg-white/60 text-center">
-                  <p className="pc-label text-slate-500 text-[9px]">{m[0]}</p>
-                  <p className="pc-serif text-2xl">{m[1]}</p>
-                  <p className="text-xs text-emerald-600">{m[2]}</p>
-                </div>
-              ))}
-            </div>
+    <section className="relative w-full py-28 md:py-36 overflow-hidden" style={{ background: "linear-gradient(180deg,#93A8C1 0%,#F4F6F8 100%)" }}>
+      <img src="/journal-illustration-1.svg" alt="" aria-hidden
+        className="hidden xl:block absolute -left-6 top-10 w-[30vw] pointer-events-none"
+        style={{ mixBlendMode: "multiply", transform: "scale(1.35)" }}
+        onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")} />
+      <img src="/journal-illustration-2.svg" alt="" aria-hidden
+        className="hidden xl:block absolute -right-6 bottom-10 w-[30vw] pointer-events-none"
+        style={{ mixBlendMode: "multiply", transform: "rotate(-90deg)" }}
+        onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")} />
+
+      <div className="relative z-10 mx-auto max-w-[1200px] px-6">
+        <motion.div {...reveal} className="glass-white overflow-hidden grid grid-cols-1 lg:grid-cols-[58%_42%]">
+          <div className="aspect-[4/3] lg:aspect-auto">
+            <img src="/assets/editorial-courtyard.jpg" alt="A quiet courtyard" className="h-full w-full object-cover"
+              onError={(e) => ((e.currentTarget as HTMLImageElement).style.background = "#c9d3dc")} />
+          </div>
+          <div className="p-8 md:p-12 flex flex-col justify-center">
+            <p className="pc-label text-slate-500 mb-4">Continuity, held</p>
+            <h3 className="pc-serif text-slate-900 text-[clamp(26px,3vw,38px)] leading-[1.1]">
+              A brief before every session, <span className="pc-italic">so the hour begins where you left off.</span>
+            </h3>
+            <p className="mt-5 text-slate-600 leading-relaxed">
+              The continuity brief pulls the last note, the last score, the last homework — grounded in the chart. You
+              open the room already oriented, and the patient feels it.
+            </p>
+            <a href="/features" className="mt-7 inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.25em] font-semibold text-slate-900">
+              See how it works <ArrowRight className="h-4 w-4" />
+            </a>
           </div>
         </motion.div>
       </div>
@@ -524,95 +679,121 @@ function FeatureHighlight() {
 
 /* ---------------- Ecosystem ---------------- */
 function Ecosystem() {
-  const pieces = ["Practice", "Client portal", "Supervision", "Research", "Directory"];
+  const cards = [
+    { icon: "/peer-support-icon.svg",  fallback: Users,  title: "Supervision & peer groups",  body: "Case conferences, group notes and shared caseload views — training and quality kept in one loop." },
+    { icon: "/comm-coaching-icon.svg", fallback: Layers, title: "Referrals & networks",       body: "GPs, psychiatrists, EAPs, universities — track incoming, refer outgoing, close the loop." },
+    { icon: "/therapists-icon.svg",    fallback: Brain,  title: "The clinician bench",        body: "CPD, reflections, professional identity — a private space alongside the clinical one." },
+  ];
   return (
-    <section className="relative py-32 px-6" style={{ background: "linear-gradient(180deg, #ffffff, #EAEBFC)" }}>
-      <motion.div {...reveal} className="max-w-6xl mx-auto text-center">
-        <p className="pc-label text-slate-500 mb-4">The ecosystem</p>
-        <h2 className="pc-serif text-4xl md:text-6xl mb-12">Bigger than a <span className="pc-italic">dashboard.</span></h2>
-        <div className="flex flex-wrap justify-center gap-4">
-          {pieces.map((p) => (
-            <motion.div key={p} whileHover={{ y: -4 }} className="glass-color px-8 py-5">
-              <span className="pc-serif text-xl">{p}</span>
-            </motion.div>
-          ))}
+    <section id="ecosystem" className="relative w-full py-24 md:py-32" style={{ background: COLOR.peach }}>
+      <div className="mx-auto max-w-[1200px] px-6">
+        <motion.div {...reveal} className="text-center mb-14">
+          <p className="pc-label text-slate-500 mb-4">The wider practice</p>
+          <h2 className="pc-serif text-slate-900 text-[clamp(30px,4vw,48px)] leading-[1.05]">
+            Not just a tool. <span className="pc-italic">A place to be a clinician.</span>
+          </h2>
+        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {cards.map((c, i) => {
+            const Fallback = c.fallback;
+            return (
+              <motion.div key={c.title} {...reveal} transition={{ ...reveal.transition, delay: i * 0.1 }}
+                className="glass-white p-10 text-center">
+                <div className="flex justify-center mb-6 h-[180px] items-center">
+                  <img src={c.icon} alt="" className="h-[180px] w-auto object-contain"
+                    onError={(e) => { const el = e.currentTarget as HTMLImageElement; el.replaceWith(document.createElement("div")); }} />
+                  <Fallback className="hidden h-16 w-16 text-slate-400" />
+                </div>
+                <h3 className="pc-serif text-slate-900 text-[22px] mb-3">{c.title}</h3>
+                <p className="text-sm text-slate-600 leading-relaxed">{c.body}</p>
+              </motion.div>
+            );
+          })}
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
 
 /* ---------------- Testimonials ---------------- */
 function Testimonials() {
-  const t = [
-    { q: "The continuity brief alone saved me an hour a day. I read it and I'm ready.", a: "Dr. Ananya R.", r: "Clinical Psychologist, Bengaluru" },
-    { q: "Finally an EHR that doesn't feel like accounting software. My notes are actually usable now.", a: "Dr. Vikram M.", r: "Psychotherapist, Mumbai" },
-    { q: "Onboarded my whole group practice in a weekend. Supervision workflows are excellent.", a: "Dr. Nisha K.", r: "Director, Mind & Body Collective" },
+  const quotes = [
+    { q: "The first tool that didn't add work to my Sundays. Notes are done before I stand up.", who: "Dr. A. Menon", role: "Clinical Psychologist, Bengaluru" },
+    { q: "My caseload doubled and my week got quieter. That still surprises me.", who: "Dr. R. Kapoor", role: "Psychotherapist, Mumbai" },
+    { q: "Assessments finally feel useful instead of admin. Patients see their own trajectory.", who: "Dr. S. Iyer", role: "Counselling Psychologist, Chennai" },
   ];
   return (
-    <section className="relative py-32 px-6 bg-white">
-      <motion.div {...reveal} className="max-w-6xl mx-auto text-center mb-16">
-        <p className="pc-label text-slate-500 mb-4">From clinicians</p>
-        <h2 className="pc-serif text-4xl md:text-6xl">Trusted where it <span className="pc-italic">matters.</span></h2>
-      </motion.div>
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
-        {t.map((x, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: i * 0.1 }}
-            className="glass-white p-8"
-          >
-            <p className="pc-serif text-xl leading-relaxed mb-6">"{x.q}"</p>
-            <p className="text-sm font-medium">{x.a}</p>
-            <p className="text-xs text-slate-500">{x.r}</p>
-          </motion.div>
-        ))}
+    <section className="relative w-full py-28 md:py-36 bg-gradient-to-b from-[#EAEBFC] to-white">
+      <div className="mx-auto max-w-[1200px] px-6">
+        <motion.div {...reveal} className="text-center mb-14">
+          <p className="pc-label text-slate-500 mb-4">In their words</p>
+          <h2 className="pc-serif text-slate-900 text-[clamp(30px,4vw,48px)] leading-[1.05]">
+            Clinicians who traded chaos <span className="pc-italic">for clarity.</span>
+          </h2>
+        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {quotes.map((q, i) => (
+            <motion.figure key={q.who} {...reveal} transition={{ ...reveal.transition, delay: i * 0.1 }}
+              className="glass-white p-8">
+              <blockquote className="pc-serif text-slate-900 text-[19px] leading-snug">"{q.q}"</blockquote>
+              <figcaption className="mt-6">
+                <div className="text-[14px] font-medium text-slate-900">{q.who}</div>
+                <div className="text-[13px] text-slate-500">{q.role}</div>
+              </figcaption>
+            </motion.figure>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
-/* ---------------- Weather ---------------- */
-function Weather() {
-  const items = [
-    { i: CloudRain, t: "The 6pm cancellation", d: "A no-show turns your night. We turn it into a smart re-book link." },
-    { i: BatteryLow, t: "Note fatigue at 9pm", d: "The copilot drafts the SOAP so you finish it in a click." },
-    { i: Cloud, t: "The Sunday-night dread", d: "Continuity briefs surface Monday's cases before you open your laptop." },
-    { i: Sun, t: "The clarity of progress", d: "Weekly outcomes make every client's arc visible in one chart." },
+/* ---------------- What Psychologists Face ---------------- */
+function WhatPsychologistsFace() {
+  const cols = [
+    { h: "The invisible load", items: ["No-show whiplash", "After-hours notes", "Insurance back-and-forth", "Referral limbo"] },
+    { h: "The clinical drift",  items: ["Outdated risk picture", "Assessment scores that vanish", "Homework that goes unread", "Consent that expired"] },
+    { h: "The lonely bench",    items: ["Supervision squeezed in", "Peer cases in DMs", "CPD as a spreadsheet", "Isolation you don't name"] },
   ];
+  const [open, setOpen] = useState<Record<string, boolean>>({});
   return (
-    <section className="relative py-32 px-6" style={{ background: "linear-gradient(180deg, #EAEBFC, #ffffff)" }}>
-      <motion.div {...reveal} className="max-w-6xl mx-auto text-center mb-16">
-        <p className="pc-label text-slate-500 mb-4">What psychologists face</p>
-        <h2 className="pc-serif text-4xl md:text-6xl">The weather of a <span className="pc-italic">clinical week.</span></h2>
-      </motion.div>
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-5">
-        {items.map((x, i) => {
-          const Icon = x.i;
-          return (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: i * 0.1 }}
-              className="glass-color p-6"
-            >
-              <motion.div
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 4 + i, repeat: Infinity, ease: "easeInOut" }}
-                className="w-12 h-12 rounded-2xl bg-white/70 flex items-center justify-center mb-4"
-              >
-                <Icon className="w-5 h-5 text-slate-700" />
-              </motion.div>
-              <h3 className="pc-serif text-xl mb-1">{x.t}</h3>
-              <p className="text-sm text-slate-600 font-light">{x.d}</p>
-            </motion.div>
-          );
-        })}
+    <section className="relative w-full py-24 md:py-32" style={{ background: "linear-gradient(180deg,#FFFFFF 0%,#F5F6FC 50%,#FFFFFF 100%)" }}>
+      <div className="mx-auto max-w-[1200px] px-6">
+        <motion.div {...reveal} className="text-center mb-14">
+          <p className="pc-label text-slate-500 mb-4">What psychologists carry</p>
+          <h2 className="pc-serif text-slate-900 text-[clamp(30px,4vw,48px)] leading-[1.05] max-w-[28ch] mx-auto">
+            The parts of the work no one <span className="pc-italic">put on the brochure.</span>
+          </h2>
+        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:divide-x divide-slate-200">
+          {cols.map((c) => (
+            <div key={c.h} className="px-6 md:px-10">
+              <h3 className="pc-serif text-slate-900 text-[22px] mb-6">{c.h}</h3>
+              <ul className="space-y-3">
+                {c.items.map((it) => {
+                  const key = c.h + it;
+                  const on = !!open[key];
+                  return (
+                    <li key={it}>
+                      <button
+                        onClick={() => setOpen((o) => ({ ...o, [key]: !on }))}
+                        className="w-full flex items-center justify-between text-left py-3 border-b border-slate-200/70"
+                      >
+                        <span className="text-[15px] text-slate-800">{it}</span>
+                        {on ? <Minus className="h-4 w-4 text-slate-500" /> : <Plus className="h-4 w-4 text-slate-500" />}
+                      </button>
+                      {on ? (
+                        <p className="text-[13px] text-slate-500 pt-2 pb-3 pr-6">
+                          PeaceCode holds this quietly in the background so it stops holding you.
+                        </p>
+                      ) : null}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -621,38 +802,43 @@ function Weather() {
 /* ---------------- Blog ---------------- */
 function Blog() {
   const posts = [
-    { tag: "Practice", title: "Designing intake for the first ten minutes", read: "6 min", bg: "linear-gradient(135deg, #A3B8C7, #98A6D4)" },
-    { tag: "Clinical", title: "When PHQ-9 stalls: reading plateaus honestly", read: "8 min", bg: "linear-gradient(135deg, #EAEBFC, #D4E2D7)" },
-    { tag: "Business", title: "Pricing for solo practice in Indian metros", read: "5 min", bg: "linear-gradient(135deg, #D4E2D7, #A3B8C7)" },
+    { img: "/ChatGPT Image Jun 3, 2026, 03_03_06 PM.png", tag: "PRACTICE", title: "The 12-minute note: how structure buys back your evenings.", date: "Jun 12" },
+    { img: "/ChatGPT Image Jun 3, 2026, 03_08_14 PM.png", tag: "OUTCOMES", title: "Why trajectory beats a single PHQ-9 score, every time.",       date: "Jun 04" },
+    { img: "/ChatGPT Image Jun 3, 2026, 03_35_21 PM.png", tag: "ETHICS",   title: "DPDP for private practice — a plain-language walkthrough.",     date: "May 28" },
   ];
   return (
-    <section className="relative py-32 px-6 bg-white">
-      <motion.div {...reveal} className="max-w-6xl mx-auto flex items-end justify-between mb-12 flex-wrap gap-6">
-        <div>
-          <p className="pc-label text-slate-500 mb-4">From the journal</p>
-          <h2 className="pc-serif text-4xl md:text-5xl">Field notes for <span className="pc-italic">clinicians.</span></h2>
+    <section id="blog" className="relative w-full py-24 md:py-32 bg-white">
+      <div className="mx-auto max-w-[1200px] px-6">
+        <motion.div {...reveal} className="flex items-end justify-between mb-12">
+          <div>
+            <p className="pc-label text-slate-500 mb-4">From the journal</p>
+            <h2 className="pc-serif text-slate-900 text-[clamp(28px,3.6vw,44px)] leading-[1.05]">
+              Notes for the <span className="pc-italic">working clinician.</span>
+            </h2>
+          </div>
+          <a href="#blog" className="hidden md:inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.25em] font-semibold text-slate-900">
+            All posts <ArrowRight className="h-4 w-4" />
+          </a>
+        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {posts.map((p, i) => (
+            <motion.a key={p.title} href="#blog" {...reveal} transition={{ ...reveal.transition, delay: i * 0.1 }}
+              className="group block">
+              <div className="aspect-[4/3] overflow-hidden rounded-2xl bg-slate-100">
+                <img src={p.img} alt="" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  onError={(e) => ((e.currentTarget as HTMLImageElement).style.background = "#e2e8f0")} />
+              </div>
+              <div className="mt-5">
+                <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-slate-500 font-semibold">
+                  <span>{p.tag}</span><span>·</span><span>{p.date}</span>
+                </div>
+                <h3 className="mt-3 pc-serif text-slate-900 text-[22px] leading-snug group-hover:text-slate-600 transition-colors">
+                  {p.title}
+                </h3>
+              </div>
+            </motion.a>
+          ))}
         </div>
-        <a href="#" className="text-sm font-medium inline-flex items-center gap-2">All posts <ArrowRight className="w-4 h-4" /></a>
-      </motion.div>
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
-        {posts.map((p, i) => (
-          <motion.a
-            key={i}
-            href="#"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: i * 0.1 }}
-            whileHover={{ y: -6 }}
-            className="block rounded-[28px] overflow-hidden border border-slate-200/60"
-          >
-            <div className="h-52 relative grain" style={{ background: p.bg }} />
-            <div className="p-6 bg-white">
-              <p className="pc-label text-slate-500 mb-3">{p.tag} · {p.read}</p>
-              <h3 className="pc-serif text-2xl">{p.title}</h3>
-            </div>
-          </motion.a>
-        ))}
       </div>
     </section>
   );
@@ -660,39 +846,32 @@ function Blog() {
 
 /* ---------------- Closing CTA ---------------- */
 function ClosingCTA() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
   return (
-    <section className="relative py-40 px-6 text-center overflow-hidden" style={{ background: "linear-gradient(180deg, #ffffff, #EAEBFC 60%, #A3B8C7)" }}>
-      <motion.div
-        animate={{ y: [0, -14, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-20 left-[10%] hidden md:block opacity-70"
-      >
-        <Cloud className="w-20 h-20 text-white" />
-      </motion.div>
-      <motion.div
-        animate={{ y: [0, 12, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-24 right-[8%] hidden md:block opacity-70"
-      >
-        <Sun className="w-16 h-16 text-white" />
-      </motion.div>
-
-      <motion.div {...reveal} className="max-w-3xl mx-auto relative">
-        <h2 className="pc-serif text-4xl md:text-7xl mb-8 leading-[1.05]">
-          Your practice, held with <span className="pc-italic">the same care</span> you give.
+    <section ref={ref} className="relative w-full py-32 md:py-40 bg-white overflow-hidden">
+      <motion.img
+        src="/cloud-bg-4.svg" alt="" aria-hidden
+        style={{ y, mixBlendMode: "multiply" }}
+        className="absolute left-0 top-1/4 w-[420px] max-w-[45vw] pointer-events-none opacity-70"
+        onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")}
+      />
+      <motion.div {...reveal} className="relative z-10 mx-auto max-w-[900px] px-6 text-center">
+        <h2 className="pc-serif text-slate-900 text-[clamp(38px,5.5vw,72px)] leading-[1.02]">
+          Fewer tabs. Steadier care. <span className="pc-italic">Sundays back.</span>
         </h2>
-        <p className="text-slate-700 font-light text-lg mb-10">
-          Free to try. Verified in a day. No card required.
+        <p className="mt-6 text-slate-600 max-w-[54ch] mx-auto text-[16px] leading-relaxed">
+          Try PeaceCode with your next intake. Bring your templates, your patients, and your standards — we handle the rest.
         </p>
-        <motion.a
-          href={LOGIN_URL}
-          whileHover={{ scale: 1.04, y: -2 }}
-          whileTap={{ scale: 0.98 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          className="liquid-glass inline-flex items-center gap-2 px-9 py-4 rounded-full font-medium text-slate-900"
-        >
-          Start your practice <ArrowRight className="w-4 h-4" />
-        </motion.a>
+        <div className="mt-10 flex flex-wrap justify-center gap-3">
+          <a href={LOGIN_URL} className="liquid-glass-button inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-medium">
+            Get started <ArrowRight className="h-4 w-4" />
+          </a>
+          <a href="#faq" className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-medium border border-slate-300 text-slate-900 hover:bg-slate-50">
+            Talk to us <Bell className="h-4 w-4" />
+          </a>
+        </div>
       </motion.div>
     </section>
   );
@@ -700,70 +879,91 @@ function ClosingCTA() {
 
 /* ---------------- Footer ---------------- */
 function Footer() {
-  const cols = [
-    { h: "About", items: ["Story", "Team", "Careers", "Press"] },
-    { h: "Product", items: ["Schedule", "Notes", "Assessments", "Billing", "Copilot"] },
-    { h: "Library", items: ["Blog", "Guides", "Compliance", "Changelog"] },
+  const linkCols = [
+    { h: "PRACTICE",  links: [["Scheduling", "/features/scheduling"], ["Notes", "/features"], ["Assessments", "/features"], ["Billing", "/features"], ["Telehealth", "/features"]] },
+    { h: "COMPANY",   links: [["About", "#about"], ["Careers", "#careers"], ["Contact", "#contact"], ["Press", "#press"]] },
+    { h: "RESOURCES", links: [["Blog", "#blog"], ["Help centre", "#help"], ["Clinician stories", "#stories"], ["Changelog", "#changelog"]] },
   ];
   return (
-    <footer className="relative pt-24 pb-10 px-6 text-white" style={{ background: "linear-gradient(180deg, #A3B8C7, #6b7d92)" }}>
-      <div className="max-w-7xl mx-auto grid md:grid-cols-12 gap-10">
-        <div className="md:col-span-5">
-          <h3 className="pc-serif text-4xl md:text-5xl mb-6 leading-tight">
-            Start your <span className="pc-italic">practice</span> today.
-          </h3>
-          <div className="flex flex-wrap gap-3 mb-6">
-            <a href="#" className="liquid-glass inline-flex items-center gap-2 px-5 py-3 rounded-full text-white">
-              <Apple className="w-4 h-4" /> App Store
-            </a>
-            <a href="#" className="liquid-glass inline-flex items-center gap-2 px-5 py-3 rounded-full text-white">
-              <Play className="w-4 h-4" /> Google Play
-            </a>
-          </div>
-          <Link to={LOGIN_URL} className="inline-flex items-center px-6 py-3 rounded-full bg-white text-slate-900 font-medium">
-            Login to your workspace
-          </Link>
-        </div>
-
-        <div className="md:col-span-5 grid grid-cols-3 gap-6">
-          {cols.map((c) => (
-            <div key={c.h}>
-              <p className="pc-label mb-4 text-white/70">{c.h}</p>
-              <ul className="space-y-2 text-sm text-white/90">
-                {c.items.map((i) => <li key={i}><a href="#" className="hover:text-white">{i}</a></li>)}
-              </ul>
+    <footer className="relative w-full bg-white overflow-hidden">
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: "url(/section3-bg.webp)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          transform: "rotate(180deg)",
+          maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.9) 100%)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.9) 100%)",
+        }}
+      />
+      <div className="relative z-10 mx-auto max-w-[1280px] px-6 pt-24 pb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          {/* LEFT */}
+          <div className="lg:col-span-5">
+            <h3 className="pc-serif text-slate-900 text-[clamp(36px,4.5vw,60px)] leading-[1.02]">
+              Find your <span className="pc-italic">practice rhythm.</span>
+            </h3>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href={LOGIN_URL} className="liquid-glass-button inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium">
+                Login <ArrowRight className="h-4 w-4" />
+              </a>
+              <a href="#practice" className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium border border-slate-300 text-slate-900 hover:bg-slate-50">
+                See the workspace
+              </a>
             </div>
-          ))}
-        </div>
-
-        <div className="md:col-span-2 flex flex-col gap-6">
-          <div>
-            <p className="pc-label mb-4 text-white/70">Social</p>
-            <div className="flex gap-2">
-              {[Instagram, Twitter, Linkedin, Youtube].map((I, i) => (
-                <a key={i} href="#" className="w-9 h-9 rounded-xl bg-white/15 backdrop-blur border border-white/25 flex items-center justify-center hover:bg-white/25 transition">
-                  <I className="w-4 h-4" />
+          </div>
+          {/* CENTER */}
+          <div className="lg:col-span-5 grid grid-cols-3 gap-6">
+            {linkCols.map((c) => (
+              <div key={c.h}>
+                <h4 style={{ textTransform: "uppercase", fontSize: 13, letterSpacing: "0.1em", fontWeight: 600, color: "#0F172A" }}>{c.h}</h4>
+                <ul className="mt-4 space-y-2.5">
+                  {c.links.map(([l, href]) => (
+                    <li key={l}>
+                      <a href={href} className="text-[14px] transition-colors" style={{ color: "#475569" }}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = "#0F172A")}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = "#475569")}>
+                        {l}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          {/* RIGHT */}
+          <div className="lg:col-span-2">
+            <div className="flex flex-wrap gap-2 mb-5">
+              {[Instagram, Twitter, Linkedin, Youtube].map((Icon, i) => (
+                <a key={i} href="#social" aria-label="Social"
+                  className="h-11 w-11 rounded-xl inline-flex items-center justify-center text-slate-800"
+                  style={{ background: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.65)", backdropFilter: "blur(18px)" }}>
+                  <Icon className="h-4 w-4" strokeWidth={1.6} />
                 </a>
               ))}
             </div>
-          </div>
-          <div>
-            <p className="pc-label mb-3 text-white/70">Compliance</p>
-            <div className="flex gap-2 flex-wrap">
-              {["ISO 27001", "HIPAA", "DPDP"].map((b) => (
-                <span key={b} className="text-[10px] font-semibold px-2.5 py-1 rounded-md bg-white/15 border border-white/25">{b}</span>
+            <div className="flex flex-wrap gap-2">
+              {["DPDP-aligned", "Clinician-authored", "India-hosted"].map((b) => (
+                <span key={b} className="rounded-full px-3 py-1"
+                  style={{ background: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.65)", fontSize: 11, color: "#0F172A" }}>
+                  {b}
+                </span>
               ))}
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto mt-16 pt-6 border-t border-white/20 flex flex-wrap justify-between gap-4 text-xs text-white/70">
-        <span>© {new Date().getFullYear()} PeaceCode. All rights reserved.</span>
-        <div className="flex gap-5">
-          <a href="#">Privacy</a><a href="#">Terms</a><a href="#">DPA</a><a href="#">Disclosures</a>
+        <div className="mt-16 pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4 text-[13px] text-slate-500">
+          <span>© 2026 PeaceCode. All rights reserved.</span>
+          <div className="flex gap-5">
+            <a href="#privacy" className="hover:text-slate-900">Privacy</a>
+            <a href="#terms" className="hover:text-slate-900">Terms</a>
+            <a href="#dpa" className="hover:text-slate-900">DPA</a>
+            <a href="#security" className="hover:text-slate-900">Security</a>
+          </div>
         </div>
-        <span className="max-w-md">Not a substitute for emergency care. If you or a client are in crisis, call iCall 9152987821.</span>
       </div>
     </footer>
   );
