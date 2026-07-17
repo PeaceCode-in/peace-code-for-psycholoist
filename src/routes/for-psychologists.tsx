@@ -375,6 +375,43 @@ function MarketingFAQSection() {
   );
 }
 
+/* ---------------- Feature Catalogue (semantic H2/H3, one section per detected dashboard feature) ---------------- */
+function FeatureCatalogue() {
+  return (
+    <section id="all-features" aria-label="Every clinical tool inside PeaceCode" className="relative py-24 px-6 bg-white border-t border-slate-100">
+      <div className="max-w-6xl mx-auto">
+        <p className="text-[11px] tracking-[0.28em] uppercase text-slate-500 mb-3 text-center">The full workspace</p>
+        <h2 className="pc-serif text-4xl md:text-6xl text-center mb-4" style={{ fontFamily: "Fraunces, serif", fontWeight: 300 }}>
+          Every tool a psychology practice <span className="pc-italic" style={{ fontFamily: "'Instrument Serif', serif", fontStyle: "italic" }}>actually</span> needs.
+        </h2>
+        <p className="text-center text-slate-500 text-sm max-w-2xl mx-auto mb-14">Twenty-two purpose-built modules replacing SimplePractice, TherapyNotes, Jane, Halaxy and Practo — designed with clinicians in Old Delhi and shipping worldwide.</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {FEATURE_SLUGS.map((f) => (
+            <article key={f.slug} className="group rounded-2xl border border-slate-200/80 bg-white hover:border-slate-300 transition-colors p-6 flex flex-col">
+              <h3 className="pc-serif text-xl mb-2" style={{ fontFamily: "Fraunces, serif", fontWeight: 400 }}>{f.name}</h3>
+              <p className="text-slate-600 text-sm font-light leading-relaxed flex-1">{f.desc}</p>
+              <Link
+                to="/features/$slug"
+                params={{ slug: f.slug }}
+                aria-label={`Explore ${f.name}`}
+                className="mt-4 inline-flex items-center gap-1 text-sm text-slate-900 font-medium group-hover:gap-2 transition-all"
+              >
+                Explore <ArrowRight className="w-4 h-4" />
+              </Link>
+            </article>
+          ))}
+        </div>
+        <div className="mt-12 text-center">
+          <Link to="/features" className="inline-flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-full text-sm font-medium" aria-label="Browse the full feature index">
+            Browse the full index <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
 /* ---------------- Navbar ---------------- */
 const NAV_ITEMS = [
   {
