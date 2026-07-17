@@ -234,21 +234,59 @@ function MarketingPage() {
   return (
     <div className="pc-mkt relative overflow-x-hidden bg-white">
       <style dangerouslySetInnerHTML={{ __html: styles }} />
+      {/* Machine-readable AEO answer for AI Overviews / ChatGPT / Perplexity — visually hidden but semantic */}
+      <p className="sr-only" itemProp="description">
+        {AEO_ANSWER}
+      </p>
       <Navbar />
-      <Hero />
-      <Collaboration />
-      <HowItWorks />
-      <MoodGate />
-      <MindAccordion />
-      <BentoFeatures />
-      <FeatureHighlight />
-      <Ecosystem />
-      <Testimonials />
-      <WhatPsychologistsFace />
-      <Blog />
-      <ClosingCTA />
+      <main>
+        <Hero />
+        <Collaboration />
+        <HowItWorks />
+        <MoodGate />
+        <MindAccordion />
+        <BentoFeatures />
+        <FeatureHighlight />
+        <Ecosystem />
+        <Testimonials />
+        <WhatPsychologistsFace />
+        <Blog />
+        <MarketingFAQSection />
+        <ClosingCTA />
+      </main>
       <Footer />
     </div>
+  );
+}
+
+/* ---------------- FAQ Section (AEO / featured-snippet oriented) ---------------- */
+function MarketingFAQSection() {
+  return (
+    <section id="faq" aria-label="Frequently asked questions" className="relative py-24 px-6 bg-white">
+      <div className="max-w-3xl mx-auto">
+        <p className="pc-label text-slate-500 mb-4 text-center" style={{ fontSize: 11, letterSpacing: "0.28em" }}>FAQ · answers for clinicians & clients</p>
+        <h2 className="pc-serif text-4xl md:text-6xl text-center mb-4" style={{ fontFamily: "Fraunces, serif", fontWeight: 300 }}>
+          The <span className="pc-italic" style={{ fontFamily: "'Instrument Serif', serif", fontStyle: "italic" }}>honest</span> answers.
+        </h2>
+        <p className="text-center text-slate-500 text-sm mb-12 max-w-xl mx-auto">Everything most psychologists ask before switching to a one-app workspace — and everything clients ask before booking online.</p>
+        <div className="space-y-3">
+          {MARKETING_FAQ.map((it, i) => (
+            <details key={it.q} open={i === 0} className="rounded-2xl border border-slate-200/80 bg-white/70 p-6 group">
+              <summary className="cursor-pointer flex items-center justify-between gap-4 list-none">
+                <h3 className="pc-serif text-lg md:text-xl leading-snug" style={{ fontFamily: "Fraunces, serif", fontWeight: 400 }}>{it.q}</h3>
+                <span className="shrink-0 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <p className="mt-4 text-slate-600 font-light leading-relaxed">{it.a}</p>
+            </details>
+          ))}
+        </div>
+        <div className="mt-10 text-center">
+          <a href={LOGIN_URL} className="inline-flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-full text-sm font-medium">
+            Start free — no card required
+          </a>
+        </div>
+      </div>
+    </section>
   );
 }
 
