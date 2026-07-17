@@ -8,7 +8,7 @@ import {
   Users, Activity, Bell, Sparkles, Brain, Layers,
 } from "lucide-react";
 
-const LOGIN_URL = "https://app.peacecode.in/psychologist/auth";
+const LOGIN_URL = "/auth";
 
 export const Route = createFileRoute("/for-psychologists")({
   head: () => ({

@@ -1,16 +1,8 @@
-import { createFileRoute, useRouter } from "@tanstack/react-router";
-import { useEffect } from "react";
-import { loadSession } from "@/lib/auth-store";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
-  component: IndexRedirect,
+  beforeLoad: () => {
+    throw redirect({ to: "/for-psychologists", replace: true });
+  },
+  component: () => null,
 });
-
-function IndexRedirect() {
-  const router = useRouter();
-  useEffect(() => {
-    const s = loadSession();
-    router.navigate({ to: s ? "/dashboard" : "/auth", replace: true });
-  }, [router]);
-  return <div style={{ minHeight: "100vh", background: "#F5F9FF" }} />;
-}
