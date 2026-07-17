@@ -113,6 +113,8 @@ function Dashboard() {
           style={cardStyle}
         >
           <CardIllustration kind="orbit" color={primary} size={220} className="-right-8 -top-8" />
+          <MentalHealthIllustration kind="breath" color={primary} size={150} className="-left-6 -bottom-6 opacity-70" />
+          <MentalHealthIllustration kind="wave" color={primary} size={180} className="right-24 -bottom-10 hidden md:block opacity-60" />
           <div className="relative flex items-start justify-between gap-4 flex-wrap">
             <div className="min-w-0">
               <div className="text-[10.5px] uppercase tracking-[0.24em]" style={{ color: primary }}>{fmtDay()}</div>
