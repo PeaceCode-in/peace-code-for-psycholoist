@@ -289,7 +289,7 @@ function AccordionGroup({
         onMouseEnter={(e) => { if (!containsActive && !open) e.currentTarget.style.background = "var(--pc-chrome-hover)"; }}
         onMouseLeave={(e) => { if (!containsActive && !open) e.currentTarget.style.background = "transparent"; }}
       >
-        <Icon className="w-[15px] h-[15px] shrink-0" strokeWidth={1.8} style={{ color: containsActive ? palette.primary : palette.muted }} />
+        <Icon className="w-[15px] h-[15px] shrink-0 pc-icon-hover-tilt" strokeWidth={1.8} style={{ color: containsActive ? palette.primary : palette.muted }} />
         <span className="flex-1 text-left truncate" style={{ fontWeight: containsActive ? 500 : 400 }}>{category.label}</span>
         {!open && headerCount > 0 && (
           <span className="text-[9.5px] tabular-nums px-1.5 min-w-[16px] h-[16px] rounded-full flex items-center justify-center" style={{ background: palette.primary, color: "#fff" }}>{headerCount}</span>
