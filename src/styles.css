@@ -1633,3 +1633,18 @@ button:hover > .pc-icon-hover-breathe{ animation: pc-icon-breathe-kf 1.6s ease-i
   from { opacity: 0; transform: translateY(4px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* Mental-health illustration micro-motions — always subtle, always optional */
+@keyframes mhi-breath-kf { 0%,100% { transform: scale(1); opacity: var(--mhi-opacity, 1); } 50% { transform: scale(1.06); opacity: calc(var(--mhi-opacity, 1) * 0.75); } }
+@keyframes mhi-ripple-kf { 0% { transform: scale(0.6); opacity: 0.9; } 100% { transform: scale(1.35); opacity: 0; } }
+@keyframes mhi-drift-kf  { 0%,100% { transform: rotate(-1.5deg); } 50% { transform: rotate(1.5deg); } }
+@keyframes mhi-spin-kf   { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes mhi-wave-kf   { 0%,100% { transform: translateX(0); } 50% { transform: translateX(-6px); } }
+.mhi-breath { animation: mhi-breath-kf 5.2s ease-in-out infinite; }
+.mhi-ripple { animation: mhi-ripple-kf 4.2s ease-out infinite; }
+.mhi-drift  { animation: mhi-drift-kf  6.8s ease-in-out infinite; }
+.mhi-spin   { animation: mhi-spin-kf   28s linear infinite; }
+.mhi-wave   { animation: mhi-wave-kf   8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .mhi-breath, .mhi-ripple, .mhi-drift, .mhi-spin, .mhi-wave { animation: none !important; }
+}
