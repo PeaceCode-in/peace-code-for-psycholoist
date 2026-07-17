@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { AppShell } from "@/components/practice/AppShell";
+import { MentalHealthIllustration } from "@/components/practice/MentalHealthIllustration";
 import { palette } from "@/components/practice/palette";
 import {
   useCategoryItems, useCategoryCounts, useNotifs, useNotificationTicker, useUndo,
