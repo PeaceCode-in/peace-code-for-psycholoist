@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AppShell, palette } from "@/components/practice/AppShell";
 import {
   Video, MapPin, Phone, ArrowUpRight, AlertTriangle, MessageCircle, TrendingUp,
@@ -45,6 +45,8 @@ const relTime = (iso: string) => {
 };
 const daysUntil = (iso: string) => Math.max(0, Math.round((new Date(iso).getTime() - Date.now()) / 86400_000));
 
+type RotatingFacet = { label: string; value: string; sub?: string };
+
 function Dashboard() {
   const inboxUnread = INBOX.filter((m) => m.unread).length;
   const alertsCount = ALERTS.length;
@@ -59,8 +61,6 @@ function Dashboard() {
   const [showAllPeers,    setShowAllPeers]    = useState(false);
   const [showNotes,       setShowNotes]       = useState(false);
 
-  const anyExpanded = showAllSchedule || showAllAlerts || showAllPulse || showAllInbox || showAllPeers || showNotes;
-
   const scheduleShown = showAllSchedule ? SESSIONS_TODAY : SESSIONS_TODAY.slice(0, 3);
   const alertsShown   = showAllAlerts   ? ALERTS         : ALERTS.slice(0, 2);
   const pulseShown    = showAllPulse    ? PATIENTS.slice(0, 8) : PATIENTS.slice(0, 3);
@@ -74,22 +74,41 @@ function Dashboard() {
   );
   const alertRing = Math.min(100, alertsCount * 20);
 
+  // Rotating micro-stat tiles: each cycles through a few facets every 4s so
+  // the dashboard breathes without ever demanding the user's attention.
+  const pulseTiles: RotatingFacet[][] = [
+    [
+      { label: "Sessions today", value: String(SESSIONS_TODAY.length), sub: `${SESSIONS_TODAY.filter(s=>s.modality==="video").length} video` },
+      { label: "Next session", value: nextSession ? fmtTime(nextSession.startsAt) : "—", sub: nextPatient?.name ?? "no next" },
+      { label: "Avg session", value: `${Math.round(SESSIONS_TODAY.reduce((a,s)=>a+s.minutes,0)/Math.max(1,SESSIONS_TODAY.length))}m`, sub: "today" },
+    ],
+    [
+      { label: "New this week", value: String(WEEK_METRICS.newPatients), sub: "intakes" },
+      { label: "Active caseload", value: String(PATIENTS.length), sub: "patients" },
+      { label: "High risk", value: String(PATIENTS.filter(p=>p.riskLevel==="high").length), sub: "need check-in" },
+    ],
+    [
+      { label: "Revenue", value: `₹${(REVENUE_MONTH.completed/1000).toFixed(0)}k`, sub: `${revenuePct}% of target` },
+      { label: "Pending", value: `₹${(REVENUE_MONTH.pending/1000).toFixed(0)}k`, sub: "to collect" },
+      { label: "Booked", value: `₹${(REVENUE_MONTH.booked/1000).toFixed(0)}k`, sub: "on the calendar" },
+    ],
+    [
+      { label: "Unread inbox", value: String(inboxUnread), sub: "from patients" },
+      { label: "Notes drafted", value: String(NOTES.length), sub: "this week" },
+      { label: "Peer updates", value: String(PEER_UPDATES.length), sub: "in your network" },
+    ],
+  ];
+
   return (
     <div
-      className="mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8"
-      style={{
-        maxWidth: 1280,
-        // Apple-Health-style: the whole board fits at a glance. Only when the
-        // user opts into "Show more" does scrolling become interesting.
-        maxHeight: anyExpanded ? undefined : "calc(100vh - 96px)",
-        overflow: anyExpanded ? "visible" : "hidden",
-      }}
+      className="mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8"
+      style={{ maxWidth: 1280 }}
     >
-      <div className="grid grid-cols-12 gap-4">
+      <div className="grid grid-cols-12 gap-3 sm:gap-4">
 
         {/* ─── Hero (span-8): greeting + next session, with illustration ── */}
         <section
-          className="relative col-span-12 lg:col-span-8 rounded-3xl p-5 lg:p-6 overflow-hidden"
+          className="relative col-span-12 lg:col-span-8 rounded-3xl p-4 sm:p-5 lg:p-6 overflow-hidden"
           style={cardStyle}
         >
           <CardIllustration kind="orbit" color={primary} size={220} className="-right-8 -top-8" />
@@ -141,7 +160,7 @@ function Dashboard() {
         </section>
 
         {/* ─── Rings (span-4): three health-style KPI rings ─────────────── */}
-        <section className="col-span-12 lg:col-span-4 rounded-3xl p-5 relative overflow-hidden" style={cardStyle}>
+        <section className="col-span-12 lg:col-span-4 rounded-3xl p-4 sm:p-5 relative overflow-hidden" style={cardStyle}>
           <CardIllustration kind="bloom" color={primary} size={160} className="-right-6 -bottom-10" />
           <div className="text-[10.5px] uppercase tracking-[0.24em]" style={{ color: primary }}>Practice pulse</div>
           <div className="mt-4 grid grid-cols-3 gap-3 relative">
@@ -154,8 +173,20 @@ function Dashboard() {
           </div>
         </section>
 
+        {/* ─── Rotating micro-stat tiles: 4 compact cards that cycle facets ── */}
+        {pulseTiles.map((facets, i) => (
+          <RotatingTile
+            key={i}
+            facets={facets}
+            accent={i % 2 === 0 ? primary : "#8CB9A6"}
+            delayMs={i * 900}
+          />
+        ))}
+
+
+
         {/* ─── Schedule ─────────────────────────────────────────────────── */}
-        <section className="col-span-12 lg:col-span-7 rounded-3xl p-5 relative overflow-hidden" style={cardStyle}>
+        <section className="col-span-12 lg:col-span-7 rounded-3xl p-4 sm:p-5 relative overflow-hidden" style={cardStyle}>
           <CardIllustration kind="waves" color={primary} size={200} className="-right-4 -bottom-10" />
           <SectionHead title="Today's schedule" hint={`${SESSIONS_TODAY.length} sessions`} to="/schedule" />
           <div className="mt-3 divide-y" style={{ borderColor: border }}>
@@ -190,7 +221,7 @@ function Dashboard() {
         </section>
 
         {/* ─── Alerts ───────────────────────────────────────────────────── */}
-        <section className="col-span-12 lg:col-span-5 rounded-3xl p-5 relative overflow-hidden" style={cardStyle}>
+        <section className="col-span-12 lg:col-span-5 rounded-3xl p-4 sm:p-5 relative overflow-hidden" style={cardStyle}>
           <CardIllustration kind="peak" color="#B54848" size={160} className="-right-4 -bottom-8" />
           <SectionHead title="Priority alerts" hint={`${ALERTS.length} to review`} to="/alerts" />
           <div className="mt-3 space-y-2">
@@ -227,7 +258,7 @@ function Dashboard() {
         </section>
 
         {/* ─── Revenue + Weekly load: side-by-side charts ───────────────── */}
-        <section className="col-span-12 lg:col-span-7 rounded-3xl p-5 relative overflow-hidden" style={cardStyle}>
+        <section className="col-span-12 lg:col-span-7 rounded-3xl p-4 sm:p-5 relative overflow-hidden" style={cardStyle}>
           <CardIllustration kind="arch" color={primary} size={160} className="-right-4 -bottom-8" />
           <SectionHead title="Revenue · this month" hint={`Target ₹${(REVENUE_MONTH.target / 1000).toFixed(0)}k`} to="/payments" />
           <div className="mt-3 flex items-end gap-4">
@@ -245,14 +276,14 @@ function Dashboard() {
           </div>
         </section>
 
-        <section className="col-span-12 lg:col-span-5 rounded-3xl p-5 relative overflow-hidden" style={cardStyle}>
+        <section className="col-span-12 lg:col-span-5 rounded-3xl p-4 sm:p-5 relative overflow-hidden" style={cardStyle}>
           <CardIllustration kind="grid" color={primary} size={140} className="-right-4 -bottom-4" />
           <SectionHead title="Weekly load" hint="Booked · capacity" to="/schedule" />
           <WeeklyLoadChart />
         </section>
 
         {/* ─── Patient pulse ─────────────────────────────────────────────  */}
-        <section className="col-span-12 rounded-3xl p-5 relative overflow-hidden" style={cardStyle}>
+        <section className="col-span-12 rounded-3xl p-4 sm:p-5 relative overflow-hidden" style={cardStyle}>
           <CardIllustration kind="leaf" color={primary} size={180} className="-right-6 -bottom-10" />
           <SectionHead title="Patient pulse" hint="Need attention" to="/patients" />
           <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
@@ -306,7 +337,7 @@ function Dashboard() {
         </section>
 
         {/* ─── Inbox + Peer network ─────────────────────────────────────── */}
-        <section className="col-span-12 lg:col-span-7 rounded-3xl p-5 relative overflow-hidden" style={cardStyle}>
+        <section className="col-span-12 lg:col-span-7 rounded-3xl p-4 sm:p-5 relative overflow-hidden" style={cardStyle}>
           <CardIllustration kind="sun" color={primary} size={140} className="-right-4 -bottom-6" />
           <SectionHead title="Inbox" hint={`${inboxUnread} unread`} to="/inbox" />
           <div className="mt-3 divide-y" style={{ borderColor: border }}>
@@ -336,7 +367,7 @@ function Dashboard() {
           )}
         </section>
 
-        <section className="col-span-12 lg:col-span-5 rounded-3xl p-5 relative overflow-hidden" style={cardStyle}>
+        <section className="col-span-12 lg:col-span-5 rounded-3xl p-4 sm:p-5 relative overflow-hidden" style={cardStyle}>
           <CardIllustration kind="bloom" color={primary} size={140} className="-right-4 -bottom-6" />
           <SectionHead title="Peer network" to="/peers" />
           <div className="mt-3 space-y-2.5">
@@ -438,6 +469,37 @@ function LoadMoreButton({ expanded, hiddenCount, onClick }: { expanded: boolean;
       {expanded ? "Show less" : `Load ${hiddenCount} more`}
       <ChevronDown className="w-3 h-3 transition-transform" style={{ transform: expanded ? "rotate(180deg)" : "none" }} />
     </button>
+  );
+}
+
+function RotatingTile({ facets, accent, delayMs = 0 }: { facets: RotatingFacet[]; accent: string; delayMs?: number }) {
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    const start = setTimeout(() => {
+      setIdx((i) => (i + 1) % facets.length);
+    }, delayMs);
+    const t = setInterval(() => setIdx((i) => (i + 1) % facets.length), 4200);
+    return () => { clearTimeout(start); clearInterval(t); };
+  }, [facets.length, delayMs]);
+  const f = facets[idx];
+  return (
+    <section
+      className="col-span-6 lg:col-span-3 rounded-2xl p-3 sm:p-4 relative overflow-hidden"
+      style={cardStyle}
+    >
+      <div className="flex items-center justify-between">
+        <div className="text-[9.5px] uppercase tracking-[0.2em] truncate" style={{ color: accent }}>{f.label}</div>
+        <div className="flex gap-1 shrink-0">
+          {facets.map((_, i) => (
+            <span key={i} className="w-1 h-1 rounded-full transition-opacity" style={{ background: accent, opacity: i === idx ? 1 : 0.25 }} />
+          ))}
+        </div>
+      </div>
+      <div key={idx} className="mt-2 text-[20px] sm:text-[22px] tabular-nums leading-none pc-reveal truncate" style={{ fontFamily: "'Fraunces', serif", color: ink }}>
+        {f.value}
+      </div>
+      {f.sub && <div className="mt-1 text-[10.5px] truncate" style={{ color: muted }}>{f.sub}</div>}
+    </section>
   );
 }
 
