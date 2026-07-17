@@ -42,6 +42,7 @@ import { Route as InboxRouteImport } from './routes/inbox'
 import { Route as HomeworkRouteImport } from './routes/homework'
 import { Route as GroupsRouteImport } from './routes/groups'
 import { Route as GovernanceRouteImport } from './routes/governance'
+import { Route as ForPsychologistsRouteImport } from './routes/for-psychologists'
 import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CpdRouteImport } from './routes/cpd'
@@ -433,6 +434,11 @@ const GroupsRoute = GroupsRouteImport.update({
 const GovernanceRoute = GovernanceRouteImport.update({
   id: '/governance',
   path: '/governance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForPsychologistsRoute = ForPsychologistsRouteImport.update({
+  id: '/for-psychologists',
+  path: '/for-psychologists',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DocumentsRoute = DocumentsRouteImport.update({
@@ -1596,6 +1602,7 @@ export interface FileRoutesByFullPath {
   '/cpd': typeof CpdRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRouteWithChildren
+  '/for-psychologists': typeof ForPsychologistsRoute
   '/governance': typeof GovernanceRouteWithChildren
   '/groups': typeof GroupsRoute
   '/homework': typeof HomeworkRouteWithChildren
@@ -1852,6 +1859,7 @@ export interface FileRoutesByTo {
   '/availability': typeof AvailabilityRoute
   '/copilot': typeof CopilotRoute
   '/dashboard': typeof DashboardRoute
+  '/for-psychologists': typeof ForPsychologistsRoute
   '/groups': typeof GroupsRoute
   '/inbox': typeof InboxRouteWithChildren
   '/mcp': typeof McpRoute
@@ -2090,6 +2098,7 @@ export interface FileRoutesById {
   '/cpd': typeof CpdRouteWithChildren
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRouteWithChildren
+  '/for-psychologists': typeof ForPsychologistsRoute
   '/governance': typeof GovernanceRouteWithChildren
   '/groups': typeof GroupsRoute
   '/homework': typeof HomeworkRouteWithChildren
@@ -2354,6 +2363,7 @@ export interface FileRouteTypes {
     | '/cpd'
     | '/dashboard'
     | '/documents'
+    | '/for-psychologists'
     | '/governance'
     | '/groups'
     | '/homework'
@@ -2610,6 +2620,7 @@ export interface FileRouteTypes {
     | '/availability'
     | '/copilot'
     | '/dashboard'
+    | '/for-psychologists'
     | '/groups'
     | '/inbox'
     | '/mcp'
@@ -2847,6 +2858,7 @@ export interface FileRouteTypes {
     | '/cpd'
     | '/dashboard'
     | '/documents'
+    | '/for-psychologists'
     | '/governance'
     | '/groups'
     | '/homework'
@@ -3110,6 +3122,7 @@ export interface RootRouteChildren {
   CpdRoute: typeof CpdRouteWithChildren
   DashboardRoute: typeof DashboardRoute
   DocumentsRoute: typeof DocumentsRouteWithChildren
+  ForPsychologistsRoute: typeof ForPsychologistsRoute
   GovernanceRoute: typeof GovernanceRouteWithChildren
   GroupsRoute: typeof GroupsRoute
   HomeworkRoute: typeof HomeworkRouteWithChildren
@@ -3397,6 +3410,13 @@ declare module '@tanstack/react-router' {
       path: '/governance'
       fullPath: '/governance'
       preLoaderRoute: typeof GovernanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/for-psychologists': {
+      id: '/for-psychologists'
+      path: '/for-psychologists'
+      fullPath: '/for-psychologists'
+      preLoaderRoute: typeof ForPsychologistsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/documents': {
@@ -5742,6 +5762,7 @@ const rootRouteChildren: RootRouteChildren = {
   CpdRoute: CpdRouteWithChildren,
   DashboardRoute: DashboardRoute,
   DocumentsRoute: DocumentsRouteWithChildren,
+  ForPsychologistsRoute: ForPsychologistsRoute,
   GovernanceRoute: GovernanceRouteWithChildren,
   GroupsRoute: GroupsRoute,
   HomeworkRoute: HomeworkRouteWithChildren,
