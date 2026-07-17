@@ -121,7 +121,7 @@ const styles = `
 `;
 
 function FeatureDetail() {
-  const { feature: f } = Route.useLoaderData();
+  const { feature: f } = Route.useLoaderData() as { feature: Feature };
 
   return (
     <div className="pc-mkt">
