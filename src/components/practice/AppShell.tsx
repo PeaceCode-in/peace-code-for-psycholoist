@@ -714,7 +714,7 @@ function MobileBottomPill() {
             className="relative flex flex-col items-center justify-center gap-0.5 px-3 py-1 rounded-full"
             style={{ color: active ? palette.ink : palette.muted }}
           >
-            <it.icon className="w-4 h-4" strokeWidth={1.8} />
+            <it.icon className="w-4 h-4 pc-icon-hover-tilt" strokeWidth={1.8} />
             <span className="text-[9.5px]">{it.title}</span>
             {typeof it.badge === "number" && it.badge > 0 && (
               <span className="absolute top-0 right-1 min-w-[14px] h-[14px] px-1 rounded-full text-[8.5px] flex items-center justify-center text-white" style={{ background: palette.primary }}>{it.badge}</span>
@@ -759,7 +759,7 @@ function QuickAddMenu() {
                 className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[12px] hover:bg-black/[0.03]"
                 style={{ color: palette.ink }}
               >
-                <it.icon className="w-3.5 h-3.5" />
+                <it.icon className="w-3.5 h-3.5 pc-icon-hover-float" />
                 {it.label}
               </button>
             ))}
@@ -824,7 +824,7 @@ function TopBar({ crumb, onToggleSidebar, onOpenMobile, pinned }: { crumb?: stri
         onClick={onOpenMobile}
         aria-label="Open menu"
       >
-        <Menu className="w-5 h-5" style={{ color: palette.ink }} />
+        <Menu className="w-5 h-5 pc-icon-hover-tilt" style={{ color: palette.ink }} />
       </button>
       <button
         className="hidden md:flex items-center justify-center w-9 h-9 rounded-xl transition-all duration-150 hover:bg-[var(--pc-chrome-hover)] hover:shadow-sm active:scale-95"
