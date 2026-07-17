@@ -1607,8 +1607,24 @@ html.dark .recharts-tooltip-cursor {
 .pc-icon-host:hover .pc-icon-float,
 .pc-icon-host:hover .pc-icon-breathe,
 .pc-icon-host:hover .pc-icon-tilt { animation-duration: 1.4s; }
+
+/* Hover-only variants — idle icons stay still until the user hovers */
+.pc-icon-hover-tilt    { transform-origin: 50% 55%; transition: transform 200ms ease; }
+.pc-icon-host:hover .pc-icon-hover-tilt,
+a:hover > .pc-icon-hover-tilt,
+button:hover > .pc-icon-hover-tilt   { animation: pc-icon-tilt-kf 1.4s ease-in-out infinite; }
+.pc-icon-hover-float   { transition: transform 200ms ease; }
+.pc-icon-host:hover .pc-icon-hover-float,
+a:hover > .pc-icon-hover-float,
+button:hover > .pc-icon-hover-float  { animation: pc-icon-float-kf 1.8s ease-in-out infinite; }
+.pc-icon-hover-breathe { transition: transform 200ms ease; }
+.pc-icon-host:hover .pc-icon-hover-breathe,
+a:hover > .pc-icon-hover-breathe,
+button:hover > .pc-icon-hover-breathe{ animation: pc-icon-breathe-kf 1.6s ease-in-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
-  .pc-icon-float, .pc-icon-breathe, .pc-icon-tilt { animation: none !important; }
+  .pc-icon-float, .pc-icon-breathe, .pc-icon-tilt,
+  .pc-icon-hover-float, .pc-icon-hover-breathe, .pc-icon-hover-tilt { animation: none !important; }
 }
 
 /* Reveal on "Show more" — fluid, not jumpy */
@@ -1616,4 +1632,19 @@ html.dark .recharts-tooltip-cursor {
 @keyframes pc-reveal-kf {
   from { opacity: 0; transform: translateY(4px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Mental-health illustration micro-motions — always subtle, always optional */
+@keyframes mhi-breath-kf { 0%,100% { transform: scale(1); opacity: var(--mhi-opacity, 1); } 50% { transform: scale(1.06); opacity: calc(var(--mhi-opacity, 1) * 0.75); } }
+@keyframes mhi-ripple-kf { 0% { transform: scale(0.6); opacity: 0.9; } 100% { transform: scale(1.35); opacity: 0; } }
+@keyframes mhi-drift-kf  { 0%,100% { transform: rotate(-1.5deg); } 50% { transform: rotate(1.5deg); } }
+@keyframes mhi-spin-kf   { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes mhi-wave-kf   { 0%,100% { transform: translateX(0); } 50% { transform: translateX(-6px); } }
+.mhi-breath { animation: mhi-breath-kf 5.2s ease-in-out infinite; }
+.mhi-ripple { animation: mhi-ripple-kf 4.2s ease-out infinite; }
+.mhi-drift  { animation: mhi-drift-kf  6.8s ease-in-out infinite; }
+.mhi-spin   { animation: mhi-spin-kf   28s linear infinite; }
+.mhi-wave   { animation: mhi-wave-kf   8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .mhi-breath, .mhi-ripple, .mhi-drift, .mhi-spin, .mhi-wave { animation: none !important; }
 }

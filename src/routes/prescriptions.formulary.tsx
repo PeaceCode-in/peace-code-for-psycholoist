@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Star, EyeOff, Eye, Plus, Search } from "lucide-react";
+import { Bookmark, EyeOff, Eye, Plus, Search } from "lucide-react";
 import { palette } from "@/components/practice/palette";
 import { useLiveFormulary, toggleFavorite, toggleHidden, addCustomDrug, type DrugClass, type Frequency } from "@/lib/prescriptions-store";
 import { useHydrated } from "@/lib/use-hydrated";
@@ -76,7 +76,7 @@ function List({ rows }: { rows: ReturnType<typeof useLiveFormulary> }) {
       {rows.map((d) => (
         <div key={d.id} className="flex items-center gap-3 px-4 py-2.5 border-b text-[13px]" style={{ borderColor: palette.border, color: palette.ink }}>
           <button onClick={() => toggleFavorite(d.id)} className="grid place-items-center h-7 w-7 rounded-full" style={{ color: d.favorite ? palette.primary : palette.muted }}>
-            <Star className="h-3.5 w-3.5" fill={d.favorite ? palette.primary : "none"} />
+            <Bookmark className="h-3.5 w-3.5" fill={d.favorite ? palette.primary : "none"} />
           </button>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">

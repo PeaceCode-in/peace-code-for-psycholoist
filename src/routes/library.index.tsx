@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Plus, Search, Star, Eye, Calendar, ExternalLink } from "lucide-react";
+import { Plus, Search, Bookmark, Eye, Calendar, ExternalLink } from "lucide-react";
 import { palette } from "@/components/practice/palette";
 import {
   useLivePieces, createPiece, toggleFeatured, readingTimeMin, excerpt,
@@ -132,7 +132,7 @@ function LibraryIndex() {
                   )}
                   {p.featured && (
                     <div className="absolute top-2 right-2 h-6 w-6 rounded-full flex items-center justify-center" style={{ background: palette.ink, color: "#fff" }}>
-                      <Star className="h-3 w-3" fill="#fff" />
+                      <Bookmark className="h-3 w-3" fill="#fff" />
                     </div>
                   )}
                 </div>

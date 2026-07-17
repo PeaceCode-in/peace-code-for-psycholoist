@@ -5,7 +5,7 @@ import {
   Users, UserPlus, UsersRound, Share2,
   Video, NotebookPen, ClipboardList, Target, BookOpenCheck, Pill, ShieldAlert, MessagesSquare,
   Clock, Tag, Wallet, Banknote, FileSignature, Files, Receipt, Mail,
-  LineChart, Star, Sparkles, Library, GraduationCap,
+  LineChart, Sparkles, Library, GraduationCap,
   Handshake, UserCog, Microscope,
   FileLock2, History, Download,
   Search, Bell, Plus, LifeBuoy, Settings as SettingsIcon, LogOut, Menu, ShieldCheck, ChevronDown, ChevronRight, AlertOctagon, X,
@@ -289,7 +289,7 @@ function AccordionGroup({
         onMouseEnter={(e) => { if (!containsActive && !open) e.currentTarget.style.background = "var(--pc-chrome-hover)"; }}
         onMouseLeave={(e) => { if (!containsActive && !open) e.currentTarget.style.background = "transparent"; }}
       >
-        <Icon className="w-[15px] h-[15px] shrink-0" strokeWidth={1.8} style={{ color: containsActive ? palette.primary : palette.muted }} />
+        <Icon className="w-[15px] h-[15px] shrink-0 pc-icon-hover-tilt" strokeWidth={1.8} style={{ color: containsActive ? palette.primary : palette.muted }} />
         <span className="flex-1 text-left truncate" style={{ fontWeight: containsActive ? 500 : 400 }}>{category.label}</span>
         {!open && headerCount > 0 && (
           <span className="text-[9.5px] tabular-nums px-1.5 min-w-[16px] h-[16px] rounded-full flex items-center justify-center" style={{ background: palette.primary, color: "#fff" }}>{headerCount}</span>
@@ -585,7 +585,7 @@ function DesktopTubeSidebar({
                     style={{ background: palette.primary }}
                   />
                 )}
-                <c.icon className="w-[18px] h-[18px]" strokeWidth={1.8} />
+                <c.icon className="w-[18px] h-[18px] pc-icon-hover-tilt" strokeWidth={1.8} />
               </Link>
             );
           })}
@@ -605,8 +605,8 @@ function DesktopTubeSidebar({
               color: pinned ? palette.ink : palette.primary,
             }}
           >
-            {pinned ? <PanelLeftClose className="w-[15px] h-[15px]" strokeWidth={1.8} />
-                    : <PanelLeftOpen className="w-[15px] h-[15px]" strokeWidth={1.8} />}
+            {pinned ? <PanelLeftClose className="w-[15px] h-[15px] pc-icon-hover-tilt" strokeWidth={1.8} />
+                    : <PanelLeftOpen className="w-[15px] h-[15px] pc-icon-hover-tilt" strokeWidth={1.8} />}
             {pinned && <span>Collapse</span>}
           </button>
 
@@ -617,7 +617,7 @@ function DesktopTubeSidebar({
             style={pinned ? { color: palette.muted } : { background: palette.primary }}
             title="Dr. Sharma"
           >
-            {pinned ? <><SettingsIcon className="w-[15px] h-[15px]" strokeWidth={1.8} /> Settings</> : "DS"}
+            {pinned ? <><SettingsIcon className="w-[15px] h-[15px] pc-icon-hover-tilt" strokeWidth={1.8} /> Settings</> : "DS"}
           </Link>
 
           <button
@@ -714,7 +714,7 @@ function MobileBottomPill() {
             className="relative flex flex-col items-center justify-center gap-0.5 px-3 py-1 rounded-full"
             style={{ color: active ? palette.ink : palette.muted }}
           >
-            <it.icon className="w-4 h-4" strokeWidth={1.8} />
+            <it.icon className="w-4 h-4 pc-icon-hover-tilt" strokeWidth={1.8} />
             <span className="text-[9.5px]">{it.title}</span>
             {typeof it.badge === "number" && it.badge > 0 && (
               <span className="absolute top-0 right-1 min-w-[14px] h-[14px] px-1 rounded-full text-[8.5px] flex items-center justify-center text-white" style={{ background: palette.primary }}>{it.badge}</span>
@@ -759,7 +759,7 @@ function QuickAddMenu() {
                 className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[12px] hover:bg-black/[0.03]"
                 style={{ color: palette.ink }}
               >
-                <it.icon className="w-3.5 h-3.5" />
+                <it.icon className="w-3.5 h-3.5 pc-icon-hover-float" />
                 {it.label}
               </button>
             ))}
@@ -824,7 +824,7 @@ function TopBar({ crumb, onToggleSidebar, onOpenMobile, pinned }: { crumb?: stri
         onClick={onOpenMobile}
         aria-label="Open menu"
       >
-        <Menu className="w-5 h-5" style={{ color: palette.ink }} />
+        <Menu className="w-5 h-5 pc-icon-hover-tilt" style={{ color: palette.ink }} />
       </button>
       <button
         className="hidden md:flex items-center justify-center w-9 h-9 rounded-xl transition-all duration-150 hover:bg-[var(--pc-chrome-hover)] hover:shadow-sm active:scale-95"

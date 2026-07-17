@@ -3,6 +3,8 @@ import { useMemo, useState } from "react";
 import { Plus, Search, ChevronRight, Users, UserPlus, ShieldAlert, Sparkles } from "lucide-react";
 import { AppShell } from "@/components/practice/AppShell";
 import { palette } from "@/components/practice/palette";
+import { MentalHealthIllustration } from "@/components/practice/MentalHealthIllustration";
+import { AnimatedIcon } from "@/components/practice/AnimatedIcon";
 import { Button, Card, EmptyState, Pill, RiskBadge, StatusBadge, TextInput, SectionLabel, fmtDate } from "@/components/practice/patients/primitives";
 import { useLivePatients, patientStats, avatarUrl, type PatientStatus, type RiskLevel } from "@/lib/patients-store";
 import { useHydrated } from "@/lib/use-hydrated";
@@ -43,16 +45,19 @@ function PatientsIndex() {
   return (
     <AppShell crumb="Patients">
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 lg:py-10">
-        <header className="flex items-end justify-between gap-4 flex-wrap mb-8">
-          <div>
+        <header className="relative flex items-end justify-between gap-4 flex-wrap mb-8 overflow-hidden">
+          <MentalHealthIllustration kind="branch" color={palette.primary} size={180} className="-right-6 -top-6 hidden sm:block" />
+          <div className="relative">
             <div className="text-[10.5px] tracking-[0.24em] uppercase" style={{ color: palette.muted }}>Clients</div>
             <h1 className="text-[clamp(1.9rem,3vw,2.6rem)] leading-[1.02] tracking-tight mt-1" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>
               Patients
             </h1>
             <p className="text-[13px] mt-2 max-w-md" style={{ color: palette.muted }}>Your caseload — everyone you're currently seeing, on your waitlist, or maintaining continuity of care with.</p>
           </div>
-          <Link to="/patients/new">
-            <Button variant="primary"><Plus className="w-4 h-4" /> Add patient</Button>
+          <Link to="/patients/new" className="relative">
+            <Button variant="primary">
+              <AnimatedIcon icon={Plus} motion="breathe" size={14} padded={false} color="currentColor" /> Add patient
+            </Button>
           </Link>
         </header>
 

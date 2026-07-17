@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { Search, Plus, Star, Archive, AlertOctagon, Inbox } from "lucide-react";
+import { Search, Plus, Bookmark, Archive, AlertOctagon, Inbox } from "lucide-react";
 import { AppShell } from "@/components/practice/AppShell";
 import { palette } from "@/components/practice/palette";
 import { useLiveThreads, ensureSeededWithPatients, type Thread } from "@/lib/messages-store";
@@ -148,7 +148,7 @@ function ThreadRow({ thread, active }: { thread: Thread; active: boolean }) {
               }}
             >{thread.subject}</span>
             {unread && <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: palette.primary }} />}
-            {thread.isStarred && !unread && <Star className="w-3 h-3 shrink-0" style={{ color: palette.primary }} fill={palette.primary} />}
+            {thread.isStarred && !unread && <Bookmark className="w-3 h-3 shrink-0" style={{ color: palette.primary }} fill={palette.primary} />}
           </div>
           <div className="flex items-center justify-between gap-2 mt-1">
             <span

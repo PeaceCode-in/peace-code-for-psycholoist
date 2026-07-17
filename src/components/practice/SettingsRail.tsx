@@ -1,5 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { palette } from "@/components/practice/palette";
+import { MentalHealthIllustration } from "@/components/practice/MentalHealthIllustration";
 import {
   User, IdCard, Palette, Bell, CalendarClock, Briefcase, Wallet, Video,
   ClipboardList, LifeBuoy, ShieldAlert, Shield, Lock, Database, FileLock2,
@@ -64,14 +65,15 @@ export function SettingsRail() {
   return (
     <aside className="w-full lg:w-60 shrink-0">
       <div
-        className="rounded-2xl p-3 lg:sticky lg:top-4 max-h-[calc(100dvh-2rem)] overflow-y-auto"
+        className="relative rounded-2xl p-3 lg:sticky lg:top-4 max-h-[calc(100dvh-2rem)] overflow-y-auto"
         style={{ background: surface, border: `1px solid ${border}` }}
       >
+        <MentalHealthIllustration kind="gear" color={primary} size={120} className="-right-3 -top-3" />
         <div
-          className="px-2 py-1.5 mb-1 text-[11px] tracking-[0.22em] uppercase flex items-center gap-1.5"
+          className="relative px-2 py-1.5 mb-1 text-[11px] tracking-[0.22em] uppercase flex items-center gap-1.5"
           style={{ color: muted }}
         >
-          <Cog className="w-3 h-3" /> Settings
+          <Cog className="w-3 h-3 pc-icon-hover-tilt" /> Settings
         </div>
         {SETTINGS_SECTIONS.map((s) => (
           <div key={s.label} className="mt-3">

@@ -1,6 +1,7 @@
 import { createFileRoute, Outlet, Link, useRouterState } from "@tanstack/react-router";
 import { AppShell } from "@/components/practice/AppShell";
 import { palette } from "@/components/practice/palette";
+import { MentalHealthIllustration } from "@/components/practice/MentalHealthIllustration";
 
 export const Route = createFileRoute("/billing")({
   head: () => ({ meta: [{ title: "Billing — PeaceCode · Practice" }, { name: "description", content: "Invoices, payments, insurance claims and financial reports." }] }),
@@ -21,8 +22,9 @@ function BillingLayout() {
   return (
     <AppShell crumb="Billing">
       <div className="max-w-7xl mx-auto px-5 sm:px-8 pt-6">
-        <div className="flex items-baseline justify-between flex-wrap gap-3">
-          <div>
+        <div className="relative flex items-baseline justify-between flex-wrap gap-3 overflow-hidden">
+          <MentalHealthIllustration kind="coin" color={palette.primary} size={150} className="-right-2 -top-4 hidden sm:block" />
+          <div className="relative">
             <h1 className="text-[clamp(1.6rem,2.4vw,2rem)] leading-tight tracking-tight" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>
               Billing
             </h1>

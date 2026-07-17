@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { AppShell } from "@/components/practice/AppShell";
+import { MentalHealthIllustration } from "@/components/practice/MentalHealthIllustration";
 import { palette } from "@/components/practice/palette";
 import {
   useCategoryItems, useCategoryCounts, useNotifs, useNotificationTicker, useUndo,
@@ -140,12 +141,13 @@ function InboxPage() {
           className="hidden md:flex flex-col w-[220px] shrink-0 border-r overflow-y-auto"
           style={{ borderColor: palette.border, background: "#FCF9FA" }}
         >
-          <div className="px-5 pt-6 pb-4">
-            <div style={{ fontFamily: "'Fraunces', serif", fontSize: 22, color: palette.ink, lineHeight: 1.1 }}>
+          <div className="relative px-5 pt-6 pb-4 overflow-hidden">
+            <MentalHealthIllustration kind="ripple" color={palette.primary} size={120} className="-right-3 -top-3" />
+            <div className="relative" style={{ fontFamily: "'Fraunces', serif", fontSize: 22, color: palette.ink, lineHeight: 1.1 }}>
               Inbox
             </div>
             <div
-              className="mt-1 uppercase"
+              className="relative mt-1 uppercase"
               style={{ fontFamily: "'DM Mono', ui-monospace, monospace", fontSize: 10, letterSpacing: "0.18em", color: palette.muted }}
             >
               a calm triage
