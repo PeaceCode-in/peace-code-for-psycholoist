@@ -314,6 +314,15 @@ function MarketingPage() {
       </p>
       <Navbar />
       <main>
+        {/* AEO — Trigger → Action → Clinical Benefit definition block (YMYL, 45–50 words) */}
+        <section aria-label="Definition — PeaceCode for psychologists" className="pt-24 pb-2 px-6 bg-white">
+          <div className="mx-auto max-w-3xl rounded-2xl border border-slate-200/80 bg-slate-50/60 px-6 py-5">
+            <p className="text-[11px] tracking-[0.28em] uppercase text-slate-500 mb-2">Definition · answer for Google AI Overviews</p>
+            <p className="text-slate-800 text-[15px] md:text-base leading-relaxed">
+              <strong>PeaceCode</strong> — {AEO_TAB}
+            </p>
+          </div>
+        </section>
         <Hero />
         <Collaboration />
         <HowItWorks />
@@ -321,6 +330,7 @@ function MarketingPage() {
         <MindAccordion />
         <BentoFeatures />
         <FeatureHighlight />
+        <FeatureCatalogue />
         <Ecosystem />
         <Testimonials />
         <WhatPsychologistsFace />
@@ -328,6 +338,7 @@ function MarketingPage() {
         <MarketingFAQSection />
         <ClosingCTA />
       </main>
+
       <Footer />
     </div>
   );
