@@ -31,22 +31,8 @@ export function validateThemeConsistency(): ThemeCheck {
     };
   }
 
-  // Explicit mode must agree with preset tone.
-  if (theme === "light" && preset.tone === "dark") {
-    return { ok: false, reason: `Light mode is using a dark preset "${bgAttr}".`, mode, bg: bgAttr, theme };
-  }
-  if (theme === "dark" && preset.tone === "light") {
-    return { ok: false, reason: `Dark mode is using a light preset "${bgAttr}".`, mode, bg: bgAttr, theme };
-  }
-
-  // Resolved DOM mode must match preset tone.
-  if (mode !== preset.tone) {
-    return {
-      ok: false,
-      reason: `DOM is "${mode}" but preset "${bgAttr}" is ${preset.tone}.`,
-      mode, bg: bgAttr, theme,
-    };
-  }
-
+  // Users may freely mix any preset with any mode — we only report unknown
+  // presets or a persisted/applied mismatch, not tone drift.
   return { ok: true, mode, bg: bgAttr, theme };
+
 }
