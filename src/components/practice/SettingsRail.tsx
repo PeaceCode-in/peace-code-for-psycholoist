@@ -1,5 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { palette } from "@/components/practice/palette";
+import { MentalHealthIllustration } from "@/components/practice/MentalHealthIllustration";
 import {
   User, IdCard, Palette, Bell, CalendarClock, Briefcase, Wallet, Video,
   ClipboardList, LifeBuoy, ShieldAlert, Shield, Lock, Database, FileLock2,
