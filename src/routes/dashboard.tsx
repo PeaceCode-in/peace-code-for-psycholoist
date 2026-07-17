@@ -102,8 +102,6 @@ function Dashboard() {
       className="mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8"
       style={{ maxWidth: 1280 }}
     >
-      {/* silence the unused ref while keeping the state around for future toggles */}
-      {anyExpanded ? null : null}
       <div className="grid grid-cols-12 gap-3 sm:gap-4">
 
         {/* ─── Hero (span-8): greeting + next session, with illustration ── */}
