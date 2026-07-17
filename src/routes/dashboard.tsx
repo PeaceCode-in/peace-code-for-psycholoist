@@ -173,6 +173,18 @@ function Dashboard() {
           </div>
         </section>
 
+        {/* ─── Rotating micro-stat tiles: 4 compact cards that cycle facets ── */}
+        {pulseTiles.map((facets, i) => (
+          <RotatingTile
+            key={i}
+            facets={facets}
+            accent={i % 2 === 0 ? primary : "#8CB9A6"}
+            delayMs={i * 900}
+          />
+        ))}
+
+
+
         {/* ─── Schedule ─────────────────────────────────────────────────── */}
         <section className="col-span-12 lg:col-span-7 rounded-3xl p-5 relative overflow-hidden" style={cardStyle}>
           <CardIllustration kind="waves" color={primary} size={200} className="-right-4 -bottom-10" />
