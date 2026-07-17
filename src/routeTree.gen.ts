@@ -74,6 +74,7 @@ import { Route as LibraryIndexRouteImport } from './routes/library.index'
 import { Route as IntegrationsIndexRouteImport } from './routes/integrations.index'
 import { Route as HomeworkIndexRouteImport } from './routes/homework.index'
 import { Route as GovernanceIndexRouteImport } from './routes/governance.index'
+import { Route as FeaturesIndexRouteImport } from './routes/features.index'
 import { Route as DocumentsIndexRouteImport } from './routes/documents.index'
 import { Route as CpdIndexRouteImport } from './routes/cpd.index'
 import { Route as CaseConferencesIndexRouteImport } from './routes/case-conferences.index'
@@ -189,6 +190,7 @@ import { Route as GovernanceConsentRouteImport } from './routes/governance.conse
 import { Route as GovernanceBreachRouteImport } from './routes/governance.breach'
 import { Route as GovernanceAuditRouteImport } from './routes/governance.audit'
 import { Route as GovernanceAccessRouteImport } from './routes/governance.access'
+import { Route as FeaturesSlugRouteImport } from './routes/features.$slug'
 import { Route as DocumentsWorksheetsRouteImport } from './routes/documents.worksheets'
 import { Route as DocumentsNewRouteImport } from './routes/documents.new'
 import { Route as DocumentsIdRouteImport } from './routes/documents.$id'
@@ -595,6 +597,11 @@ const GovernanceIndexRoute = GovernanceIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => GovernanceRoute,
+} as any)
+const FeaturesIndexRoute = FeaturesIndexRouteImport.update({
+  id: '/features/',
+  path: '/features/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const DocumentsIndexRoute = DocumentsIndexRouteImport.update({
   id: '/',
@@ -1173,6 +1180,11 @@ const GovernanceAccessRoute = GovernanceAccessRouteImport.update({
   path: '/access',
   getParentRoute: () => GovernanceRoute,
 } as any)
+const FeaturesSlugRoute = FeaturesSlugRouteImport.update({
+  id: '/features/$slug',
+  path: '/features/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DocumentsWorksheetsRoute = DocumentsWorksheetsRouteImport.update({
   id: '/worksheets',
   path: '/worksheets',
@@ -1674,6 +1686,7 @@ export interface FileRoutesByFullPath {
   '/documents/$id': typeof DocumentsIdRoute
   '/documents/new': typeof DocumentsNewRoute
   '/documents/worksheets': typeof DocumentsWorksheetsRoute
+  '/features/$slug': typeof FeaturesSlugRoute
   '/governance/access': typeof GovernanceAccessRoute
   '/governance/audit': typeof GovernanceAuditRoute
   '/governance/breach': typeof GovernanceBreachRoute
@@ -1789,6 +1802,7 @@ export interface FileRoutesByFullPath {
   '/case-conferences/': typeof CaseConferencesIndexRoute
   '/cpd/': typeof CpdIndexRoute
   '/documents/': typeof DocumentsIndexRoute
+  '/features/': typeof FeaturesIndexRoute
   '/governance/': typeof GovernanceIndexRoute
   '/homework/': typeof HomeworkIndexRoute
   '/integrations/': typeof IntegrationsIndexRoute
@@ -1909,6 +1923,7 @@ export interface FileRoutesByTo {
   '/documents/$id': typeof DocumentsIdRoute
   '/documents/new': typeof DocumentsNewRoute
   '/documents/worksheets': typeof DocumentsWorksheetsRoute
+  '/features/$slug': typeof FeaturesSlugRoute
   '/governance/access': typeof GovernanceAccessRoute
   '/governance/audit': typeof GovernanceAuditRoute
   '/governance/breach': typeof GovernanceBreachRoute
@@ -2022,6 +2037,7 @@ export interface FileRoutesByTo {
   '/case-conferences': typeof CaseConferencesIndexRoute
   '/cpd': typeof CpdIndexRoute
   '/documents': typeof DocumentsIndexRoute
+  '/features': typeof FeaturesIndexRoute
   '/governance': typeof GovernanceIndexRoute
   '/homework': typeof HomeworkIndexRoute
   '/integrations': typeof IntegrationsIndexRoute
@@ -2170,6 +2186,7 @@ export interface FileRoutesById {
   '/documents/$id': typeof DocumentsIdRoute
   '/documents/new': typeof DocumentsNewRoute
   '/documents/worksheets': typeof DocumentsWorksheetsRoute
+  '/features/$slug': typeof FeaturesSlugRoute
   '/governance/access': typeof GovernanceAccessRoute
   '/governance/audit': typeof GovernanceAuditRoute
   '/governance/breach': typeof GovernanceBreachRoute
@@ -2285,6 +2302,7 @@ export interface FileRoutesById {
   '/case-conferences/': typeof CaseConferencesIndexRoute
   '/cpd/': typeof CpdIndexRoute
   '/documents/': typeof DocumentsIndexRoute
+  '/features/': typeof FeaturesIndexRoute
   '/governance/': typeof GovernanceIndexRoute
   '/homework/': typeof HomeworkIndexRoute
   '/integrations/': typeof IntegrationsIndexRoute
@@ -2435,6 +2453,7 @@ export interface FileRouteTypes {
     | '/documents/$id'
     | '/documents/new'
     | '/documents/worksheets'
+    | '/features/$slug'
     | '/governance/access'
     | '/governance/audit'
     | '/governance/breach'
@@ -2550,6 +2569,7 @@ export interface FileRouteTypes {
     | '/case-conferences/'
     | '/cpd/'
     | '/documents/'
+    | '/features/'
     | '/governance/'
     | '/homework/'
     | '/integrations/'
@@ -2670,6 +2690,7 @@ export interface FileRouteTypes {
     | '/documents/$id'
     | '/documents/new'
     | '/documents/worksheets'
+    | '/features/$slug'
     | '/governance/access'
     | '/governance/audit'
     | '/governance/breach'
@@ -2783,6 +2804,7 @@ export interface FileRouteTypes {
     | '/case-conferences'
     | '/cpd'
     | '/documents'
+    | '/features'
     | '/governance'
     | '/homework'
     | '/integrations'
@@ -2930,6 +2952,7 @@ export interface FileRouteTypes {
     | '/documents/$id'
     | '/documents/new'
     | '/documents/worksheets'
+    | '/features/$slug'
     | '/governance/access'
     | '/governance/audit'
     | '/governance/breach'
@@ -3045,6 +3068,7 @@ export interface FileRouteTypes {
     | '/case-conferences/'
     | '/cpd/'
     | '/documents/'
+    | '/features/'
     | '/governance/'
     | '/homework/'
     | '/integrations/'
@@ -3172,9 +3196,11 @@ export interface RootRouteChildren {
   ComplianceAuditRoute: typeof ComplianceAuditRoute
   ComplianceConsentRoute: typeof ComplianceConsentRoute
   ComplianceExportRoute: typeof ComplianceExportRoute
+  FeaturesSlugRoute: typeof FeaturesSlugRoute
   HealthRoutesRoute: typeof HealthRoutesRoute
   PSlugRoute: typeof PSlugRoute
   CalendarIndexRoute: typeof CalendarIndexRoute
+  FeaturesIndexRoute: typeof FeaturesIndexRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   CalendarBookSlugRoute: typeof CalendarBookSlugRoute
 }
@@ -3635,6 +3661,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/governance/'
       preLoaderRoute: typeof GovernanceIndexRouteImport
       parentRoute: typeof GovernanceRoute
+    }
+    '/features/': {
+      id: '/features/'
+      path: '/features'
+      fullPath: '/features/'
+      preLoaderRoute: typeof FeaturesIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/documents/': {
       id: '/documents/'
@@ -4440,6 +4473,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/governance/access'
       preLoaderRoute: typeof GovernanceAccessRouteImport
       parentRoute: typeof GovernanceRoute
+    }
+    '/features/$slug': {
+      id: '/features/$slug'
+      path: '/features/$slug'
+      fullPath: '/features/$slug'
+      preLoaderRoute: typeof FeaturesSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/documents/worksheets': {
       id: '/documents/worksheets'
@@ -5813,9 +5853,11 @@ const rootRouteChildren: RootRouteChildren = {
   ComplianceAuditRoute: ComplianceAuditRoute,
   ComplianceConsentRoute: ComplianceConsentRoute,
   ComplianceExportRoute: ComplianceExportRoute,
+  FeaturesSlugRoute: FeaturesSlugRoute,
   HealthRoutesRoute: HealthRoutesRoute,
   PSlugRoute: PSlugRoute,
   CalendarIndexRoute: CalendarIndexRoute,
+  FeaturesIndexRoute: FeaturesIndexRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   CalendarBookSlugRoute: CalendarBookSlugRoute,
 }
