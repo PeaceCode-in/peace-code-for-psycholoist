@@ -585,7 +585,7 @@ function DesktopTubeSidebar({
                     style={{ background: palette.primary }}
                   />
                 )}
-                <c.icon className="w-[18px] h-[18px]" strokeWidth={1.8} />
+                <c.icon className="w-[18px] h-[18px] pc-icon-hover-tilt" strokeWidth={1.8} />
               </Link>
             );
           })}
@@ -605,8 +605,8 @@ function DesktopTubeSidebar({
               color: pinned ? palette.ink : palette.primary,
             }}
           >
-            {pinned ? <PanelLeftClose className="w-[15px] h-[15px]" strokeWidth={1.8} />
-                    : <PanelLeftOpen className="w-[15px] h-[15px]" strokeWidth={1.8} />}
+            {pinned ? <PanelLeftClose className="w-[15px] h-[15px] pc-icon-hover-tilt" strokeWidth={1.8} />
+                    : <PanelLeftOpen className="w-[15px] h-[15px] pc-icon-hover-tilt" strokeWidth={1.8} />}
             {pinned && <span>Collapse</span>}
           </button>
 
@@ -617,7 +617,7 @@ function DesktopTubeSidebar({
             style={pinned ? { color: palette.muted } : { background: palette.primary }}
             title="Dr. Sharma"
           >
-            {pinned ? <><SettingsIcon className="w-[15px] h-[15px]" strokeWidth={1.8} /> Settings</> : "DS"}
+            {pinned ? <><SettingsIcon className="w-[15px] h-[15px] pc-icon-hover-tilt" strokeWidth={1.8} /> Settings</> : "DS"}
           </Link>
 
           <button
