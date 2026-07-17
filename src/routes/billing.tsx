@@ -22,8 +22,9 @@ function BillingLayout() {
   return (
     <AppShell crumb="Billing">
       <div className="max-w-7xl mx-auto px-5 sm:px-8 pt-6">
-        <div className="flex items-baseline justify-between flex-wrap gap-3">
-          <div>
+        <div className="relative flex items-baseline justify-between flex-wrap gap-3 overflow-hidden">
+          <MentalHealthIllustration kind="coin" color={palette.primary} size={150} className="-right-2 -top-4 hidden sm:block" />
+          <div className="relative">
             <h1 className="text-[clamp(1.6rem,2.4vw,2rem)] leading-tight tracking-tight" style={{ fontFamily: "'Fraunces', serif", color: palette.ink }}>
               Billing
             </h1>
