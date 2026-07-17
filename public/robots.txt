@@ -69,4 +69,5 @@ Allow: /
 User-agent: Meta-ExternalAgent
 Allow: /
 
-Sitemap: /sitemap.xml
+Sitemap: https://psychologist.peacecode.in/sitemap.xml
+Host: psychologist.peacecode.in
