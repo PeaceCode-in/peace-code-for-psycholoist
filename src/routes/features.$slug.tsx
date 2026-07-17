@@ -347,7 +347,7 @@ const FEATURES: Record<string, Feature> = {
     ],
     savings: [
       { metric: "1 view", label: "Whole cohort", note: "roster, attendance, outcomes on one screen" },
-      { metric: "n × faster", label: "Per-member notes", body: "shared body, private lines", note: "duplicate nothing" },
+      { metric: "n × faster", label: "Per-member notes", note: "shared body, private lines — duplicate nothing" },
       { metric: "Any format", label: "CBT · DBT · couples · family", note: "same primitives, different flow" },
     ],
     faq: [
