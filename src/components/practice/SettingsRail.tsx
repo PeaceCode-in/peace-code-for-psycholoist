@@ -65,7 +65,7 @@ export function SettingsRail() {
   return (
     <aside className="w-full lg:w-60 shrink-0">
       <div
-        className="relative rounded-2xl p-3 lg:sticky lg:top-4 max-h-[calc(100dvh-2rem)] overflow-hidden lg:overflow-y-auto"
+        className="relative rounded-2xl p-3 lg:sticky lg:top-4 max-h-[calc(100dvh-2rem)] overflow-y-auto"
         style={{ background: surface, border: `1px solid ${border}` }}
       >
         <MentalHealthIllustration kind="gear" color={primary} size={120} className="-right-3 -top-3" />
