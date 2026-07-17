@@ -1587,3 +1587,33 @@ html.dark .recharts-tooltip-cursor {
   stroke: color-mix(in oklab, var(--foreground) 20%, transparent) !important;
 }
 
+
+/* ── Animated icon micro-interactions (AnimatedIcon.tsx) ───── */
+@keyframes pc-icon-float-kf {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-1.5px); }
+}
+@keyframes pc-icon-breathe-kf {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.08); }
+}
+@keyframes pc-icon-tilt-kf {
+  0%, 100% { transform: rotate(-4deg); }
+  50%      { transform: rotate(4deg); }
+}
+.pc-icon-float   { animation: pc-icon-float-kf 4.6s ease-in-out infinite; }
+.pc-icon-breathe { animation: pc-icon-breathe-kf 3.8s ease-in-out infinite; }
+.pc-icon-tilt    { animation: pc-icon-tilt-kf 5.2s ease-in-out infinite; }
+.pc-icon-host:hover .pc-icon-float,
+.pc-icon-host:hover .pc-icon-breathe,
+.pc-icon-host:hover .pc-icon-tilt { animation-duration: 1.4s; }
+@media (prefers-reduced-motion: reduce) {
+  .pc-icon-float, .pc-icon-breathe, .pc-icon-tilt { animation: none !important; }
+}
+
+/* Reveal on "Show more" — fluid, not jumpy */
+.pc-reveal { animation: pc-reveal-kf 260ms ease-out both; }
+@keyframes pc-reveal-kf {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
