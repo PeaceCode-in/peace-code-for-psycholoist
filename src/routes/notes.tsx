@@ -1,6 +1,7 @@
 import { createFileRoute, Outlet, Link, useRouterState } from "@tanstack/react-router";
 import { AppShell } from "@/components/practice/AppShell";
 import { palette } from "@/components/practice/palette";
+import { MentalHealthIllustration } from "@/components/practice/MentalHealthIllustration";
 import { FileText, LayoutTemplate, Inbox, CheckSquare } from "lucide-react";
 
 export const Route = createFileRoute("/notes")({
