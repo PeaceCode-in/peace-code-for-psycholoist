@@ -1,6 +1,7 @@
 import { createFileRoute, Outlet, Link, useRouterState } from "@tanstack/react-router";
 import { AppShell } from "@/components/practice/AppShell";
 import { palette } from "@/components/practice/palette";
+import { MentalHealthIllustration } from "@/components/practice/MentalHealthIllustration";
 
 export const Route = createFileRoute("/billing")({
   head: () => ({ meta: [{ title: "Billing — PeaceCode · Practice" }, { name: "description", content: "Invoices, payments, insurance claims and financial reports." }] }),
