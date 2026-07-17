@@ -114,20 +114,37 @@ function Navbar() {
         <a href="#" className="pc-serif text-2xl">peace<span className="pc-italic">code</span></a>
 
         <nav className="hidden lg:flex items-center gap-1">
-          {nav.map((n) => (
-            <div key={n.label} className="relative group px-4 py-2">
-              <button className="flex items-center gap-1 text-sm font-medium">
-                {n.label} <ChevronDown className="w-3.5 h-3.5 opacity-60" />
-              </button>
-              <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition">
-                <div className="glass-white p-4 min-w-[220px] text-slate-800">
-                  {n.items.map((i) => (
-                    <a key={i} href="#" className="block px-3 py-2 rounded-xl hover:bg-white/60 text-sm">{i}</a>
-                  ))}
+          {nav.map((n) => {
+            const featureSlugMap: Record<string, string> = {
+              Scheduling: "scheduling", Notes: "notes", Assessments: "assessments",
+              Billing: "billing", Telehealth: "telehealth", Copilot: "copilot",
+            };
+            return (
+              <div key={n.label} className="relative group px-4 py-2">
+                {"href" in n && n.href ? (
+                  <Link to={n.href} className="flex items-center gap-1 text-sm font-medium">
+                    {n.label} <ChevronDown className="w-3.5 h-3.5 opacity-60" />
+                  </Link>
+                ) : (
+                  <button className="flex items-center gap-1 text-sm font-medium">
+                    {n.label} <ChevronDown className="w-3.5 h-3.5 opacity-60" />
+                  </button>
+                )}
+                <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition">
+                  <div className="glass-white p-4 min-w-[220px] text-slate-800">
+                    {n.items.map((i) => {
+                      const slug = featureSlugMap[i];
+                      return slug ? (
+                        <Link key={i} to="/features/$slug" params={{ slug }} className="block px-3 py-2 rounded-xl hover:bg-white/60 text-sm">{i}</Link>
+                      ) : (
+                        <a key={i} href="#" className="block px-3 py-2 rounded-xl hover:bg-white/60 text-sm">{i}</a>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-3">
