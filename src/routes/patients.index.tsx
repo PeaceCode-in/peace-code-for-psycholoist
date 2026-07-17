@@ -3,6 +3,8 @@ import { useMemo, useState } from "react";
 import { Plus, Search, ChevronRight, Users, UserPlus, ShieldAlert, Sparkles } from "lucide-react";
 import { AppShell } from "@/components/practice/AppShell";
 import { palette } from "@/components/practice/palette";
+import { MentalHealthIllustration } from "@/components/practice/MentalHealthIllustration";
+import { AnimatedIcon } from "@/components/practice/AnimatedIcon";
 import { Button, Card, EmptyState, Pill, RiskBadge, StatusBadge, TextInput, SectionLabel, fmtDate } from "@/components/practice/patients/primitives";
 import { useLivePatients, patientStats, avatarUrl, type PatientStatus, type RiskLevel } from "@/lib/patients-store";
 import { useHydrated } from "@/lib/use-hydrated";
