@@ -6,19 +6,37 @@ import {
   Library, BarChart3, LifeBuoy, Plug, Hourglass, Globe, HeartPulse, ArrowRight,
 } from "lucide-react";
 
+const ORIGIN = "https://psychologist.peacecode.in";
+const INDEX_URL = `${ORIGIN}/features`;
+const INDEX_TITLE = "All 22 Features for Psychologists — PeaceCode";
+const INDEX_DESC = "22 clinical tools in one login — scheduling, SOAP notes copilot, PHQ-9/GAD-7 assessments, telehealth, GST billing, supervision, DPDP/HIPAA compliance. Built for verified psychologists in India and worldwide.";
+
 export const Route = createFileRoute("/features/")({
   head: () => ({
     meta: [
-      { title: "All Features — The One-App Solution for Psychologists | PeaceCode" },
-      { name: "description", content: "22 tools built for private psychology practice — scheduling, notes, assessments, telehealth, billing, supervision, compliance and more. One login." },
-      { property: "og:title", content: "Every feature inside PeaceCode for Psychologists" },
-      { property: "og:description", content: "The complete clinical toolkit — 22 features, one login, built for verified psychologists." },
+      { title: INDEX_TITLE },
+      { name: "description", content: INDEX_DESC },
+      { name: "keywords", content: "psychology practice software, EHR for psychologists, therapy notes app, PHQ-9 GAD-7 online, telehealth for therapists, DPDP compliant EHR India, HIPAA therapy software, SimplePractice alternative, TherapyNotes alternative, private practice management" },
+      { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
+      { name: "googlebot", content: "index, follow, max-snippet:-1, max-image-preview:large" },
+      { property: "og:title", content: INDEX_TITLE },
+      { property: "og:description", content: INDEX_DESC },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/features" },
+      { property: "og:url", content: INDEX_URL },
+      { property: "og:site_name", content: "PeaceCode for Psychologists" },
+      { property: "og:locale", content: "en_IN" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "keywords", content: "psychology practice software, EHR for psychologists, therapy notes app, PHQ-9 GAD-7 online, telehealth for therapists, DPDP compliant EHR India, SimplePractice alternative, TherapyNotes alternative" },
+      { name: "twitter:title", content: INDEX_TITLE },
+      { name: "twitter:description", content: INDEX_DESC },
+      { name: "geo.region", content: "IN-DL" },
+      { name: "geo.placename", content: "Old Delhi, Delhi, India" },
     ],
-    links: [{ rel: "canonical", href: "/features" }],
+    links: [
+      { rel: "canonical", href: INDEX_URL },
+      { rel: "alternate", hrefLang: "en", href: INDEX_URL },
+      { rel: "alternate", hrefLang: "en-IN", href: INDEX_URL },
+      { rel: "alternate", hrefLang: "x-default", href: INDEX_URL },
+    ],
     scripts: [
       {
         type: "application/ld+json",
@@ -26,9 +44,38 @@ export const Route = createFileRoute("/features/")({
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "/for-psychologists" },
-            { "@type": "ListItem", position: 2, name: "Features", item: "/features" },
+            { "@type": "ListItem", position: 1, name: "Home", item: `${ORIGIN}/for-psychologists` },
+            { "@type": "ListItem", position: 2, name: "Features", item: INDEX_URL },
           ],
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "PeaceCode features for psychologists",
+          numberOfItems: features.length,
+          itemListElement: features.map((f, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            url: `${ORIGIN}/features/${f.slug}`,
+            name: f.title,
+            description: f.desc,
+          })),
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: INDEX_TITLE,
+          description: INDEX_DESC,
+          url: INDEX_URL,
+          inLanguage: "en",
+          isPartOf: { "@type": "WebSite", name: "PeaceCode for Psychologists", url: `${ORIGIN}/` },
+          about: { "@type": "Thing", name: "Psychology practice management software" },
         }),
       },
     ],
