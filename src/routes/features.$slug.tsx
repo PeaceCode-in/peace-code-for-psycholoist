@@ -11,6 +11,8 @@ import {
 } from "lucide-react";
 import branchLeft from "@/assets/sakura/branch-left.svg";
 import branchRight from "@/assets/sakura/branch-right.svg";
+import { SchedulingDeepDive } from "@/components/marketing/features/SchedulingDeepDive";
+
 
 
 const LOGIN_URL = "/auth";
@@ -1145,8 +1147,10 @@ const styles = `
 
 function FeatureDetail() {
   const { feature: f } = Route.useLoaderData() as { feature: Feature };
+  if (f.slug === "scheduling") return <SchedulingDeepDive />;
   const topThree = f.capabilities.slice(0, 3);
   const rest = f.capabilities.slice(3);
+
 
   return (
     <article className="pc-mkt sakura-page">
