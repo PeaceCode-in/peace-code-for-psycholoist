@@ -9,6 +9,9 @@ import {
   Share2, Network, Users, Award, GraduationCap, FolderOpen, Library, BarChart3,
   Plug, Hourglass, Globe, Bell, Layers, MapPin, Zap, FileCheck, Building2, Star,
 } from "lucide-react";
+import branchLeft from "@/assets/sakura/branch-left.svg";
+import branchRight from "@/assets/sakura/branch-right.svg";
+
 
 const LOGIN_URL = "/auth";
 
