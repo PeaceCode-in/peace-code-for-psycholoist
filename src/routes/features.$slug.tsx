@@ -17,6 +17,34 @@ import { SchedulingDeepDive } from "@/components/marketing/features/SchedulingDe
 
 const LOGIN_URL = "/auth";
 
+/** Per-feature "Get started" destination — deep-link into the matching app surface after auth. */
+const FEATURE_APP_ROUTE: Record<string, { path: string; label: string }> = {
+  scheduling:    { path: "/calendar",             label: "Open your calendar" },
+  notes:         { path: "/notes",                label: "Start a note" },
+  assessments:   { path: "/assessments/library",  label: "Browse assessments" },
+  telehealth:    { path: "/telehealth",           label: "Launch a session" },
+  billing:       { path: "/billing/invoices/new", label: "Create an invoice" },
+  messages:      { path: "/inbox",                label: "Open the inbox" },
+  homework:      { path: "/homework/assign",      label: "Assign homework" },
+  groups:        { path: "/groups",               label: "Set up a group" },
+  patients:      { path: "/patients",             label: "Open patient charts" },
+  safety:        { path: "/patients",             label: "Start a safety plan" },
+  referrals:     { path: "/referrals",            label: "Log a referral" },
+  teams:         { path: "/team",                 label: "Invite your team" },
+  supervision:   { path: "/supervision",          label: "Open supervision" },
+  cpd:           { path: "/cpd",                  label: "Track CPD hours" },
+  documents:     { path: "/documents",            label: "Open documents" },
+  library:       { path: "/homework/library",     label: "Open the library" },
+  analytics:     { path: "/analytics",            label: "See your analytics" },
+  copilot:       { path: "/copilot",              label: "Meet the copilot" },
+  compliance:    { path: "/compliance/audit",     label: "Review compliance" },
+  integrations:  { path: "/settings/integrations",label: "Connect integrations" },
+  waitlist:      { path: "/calendar/availability",label: "Configure waitlist" },
+  profile:       { path: "/marketing/profile",    label: "Build your profile" },
+};
+const ctaFor = (slug: string) =>
+  FEATURE_APP_ROUTE[slug] ?? { path: "/dashboard", label: "Get started free" };
+
 type Cap = { icon: ComponentType<{ className?: string }>; title: string; body: string };
 type Step = { step: string; title: string; body: string };
 type Save = { metric: string; label: string; note: string };
