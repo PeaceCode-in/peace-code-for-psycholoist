@@ -487,18 +487,16 @@ function Navbar() {
             : "bg-transparent py-5 px-6 md:px-10"
         }`}
       >
-        <Link to="/for-psychologists" className="flex items-center gap-2 shrink-0" aria-label="PeaceCode">
+        <Link to="/for-psychologists" className="flex items-center gap-2.5 shrink-0" aria-label="PeaceCode">
           <img
-            src="/nav%20bar%20logo.svg"
+            src="/nav-bar-logo.svg"
             alt="PeaceCode"
-            className={`h-7 w-auto object-contain transition-all duration-300 ${
-              scrolled ? "brightness-0" : "brightness-0 invert drop-shadow-sm"
-            }`}
+            className="h-8 w-auto object-contain"
             onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
           />
           <span
-            className={`pc-serif text-[20px] transition-colors ${scrolled ? "text-slate-900" : "text-white"}`}
-            style={{ fontWeight: 400 }}
+            className="pc-serif text-[20px] transition-colors text-slate-900"
+            style={{ fontWeight: 500 }}
           >
             PeaceCode
           </span>
