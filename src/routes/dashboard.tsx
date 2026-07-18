@@ -268,7 +268,7 @@ function Dashboard() {
           <div className="mt-3 flex items-end gap-4">
             <div className="shrink-0">
               <div className="text-[26px] leading-none tabular-nums" style={{ fontFamily: "'Fraunces', serif", color: ink }}>₹{(REVENUE_MONTH.completed / 1000).toFixed(0)}k</div>
-              <div className="text-[11px] mt-1 flex items-center gap-1" style={{ color: "#1F7A3E" }}><TrendingUp className="w-3 h-3" /> +14% vs last month</div>
+              <div className="text-[11px] mt-1 flex items-center gap-1" style={{ color: "var(--status-success)" }}><TrendingUp className="w-3 h-3" /> +14% vs last month</div>
             </div>
             <AreaSpark values={REVENUE_SPARK} />
           </div>
