@@ -12,6 +12,7 @@ import {
 import branchLeft from "@/assets/sakura/branch-left.svg";
 import branchRight from "@/assets/sakura/branch-right.svg";
 import { getDeepDive } from "@/components/marketing/features/deep-dives";
+import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 
 
 
