@@ -535,7 +535,7 @@ function Kpi({
         style={{ fontFamily: "'Fraunces', serif", color: "var(--foreground)" }}>{value}</div>
       <div
         className="mt-2 flex items-center gap-1.5 text-[11.5px]"
-        style={{ color: positive ? "color-mix(in oklab, var(--foreground) 20%, #3F7A55)" : "color-mix(in oklab, var(--foreground) 15%, #B54848)" }}
+        style={{ color: positive ? "var(--status-success)" : "var(--status-danger)" }}
       >
         <Arrow className="w-3 h-3" /> {positive ? "+" : ""}{delta}{deltaSuffix}
       </div>
