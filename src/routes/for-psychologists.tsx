@@ -493,6 +493,7 @@ function Navbar() {
             src="/nav-bar-logo.svg"
             alt="PeaceCode"
             className="h-8 w-auto object-contain"
+            style={{ filter: "brightness(0)" }}
             onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
           />
           <span
