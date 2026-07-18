@@ -926,8 +926,10 @@ function Hero() {
           </a>
           <a
             href="#practice"
-            className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[15px] font-medium border transition-colors"
-            style={{ borderColor: COLOR.border, color: COLOR.ink, background: "rgba(255,255,255,0.6)" }}
+            className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[15px] font-medium border-2 transition-colors"
+            style={{ borderColor: COLOR.rose, color: COLOR.rose, background: "transparent" }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = COLOR.rose; e.currentTarget.style.color = "#FFF8FA"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = COLOR.rose; }}
           >
             See the workspace
           </a>
