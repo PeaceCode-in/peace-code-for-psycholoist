@@ -406,7 +406,17 @@ const FEATURE_GROUPS: Array<{ title: string; blurb: string; slugs: string[] }> =
 
 function FeatureCatalogue() {
   const [open, setOpen] = useState<string | null>(null);
+  const [hasHover, setHasHover] = useState(true);
   const bySlug = Object.fromEntries(FEATURE_SLUGS.map((f) => [f.slug, f]));
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const update = () => setHasHover(mq.matches);
+    update();
+    mq.addEventListener?.("change", update);
+    return () => mq.removeEventListener?.("change", update);
+  }, []);
 
   return (
     <section id="all-features" aria-label="Every clinical tool inside PeaceCode" className="relative py-24 px-6">
@@ -416,20 +426,33 @@ function FeatureCatalogue() {
           Three rooms. <span className="pc-italic" style={{ fontFamily: "'Instrument Serif', serif", fontStyle: "italic" }}>One practice.</span>
         </h2>
         <p className="text-center text-sm max-w-2xl mx-auto mb-14" style={{ color: COLOR.muted }}>
-          Twenty-two modules organised the way clinicians actually think. Hover a room to see what lives inside.
+          Twenty-two modules organised the way clinicians actually think. {hasHover ? "Hover" : "Tap"} a room to see what lives inside.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {FEATURE_GROUPS.map((g) => {
             const isOpen = open === g.title;
+            const hoverHandlers = hasHover
+              ? {
+                  onMouseEnter: () => setOpen(g.title),
+                  onMouseLeave: () => setOpen(null),
+                  onFocus: () => setOpen(g.title),
+                  onBlur: () => setOpen(null),
+                }
+              : {};
             return (
               <article
                 key={g.title}
-                onMouseEnter={() => setOpen(g.title)}
-                onMouseLeave={() => setOpen(null)}
-                onFocus={() => setOpen(g.title)}
-                onBlur={() => setOpen(null)}
+                {...hoverHandlers}
                 onClick={() => setOpen(isOpen ? null : g.title)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setOpen(isOpen ? null : g.title);
+                  }
+                }}
+                role="button"
+                aria-expanded={isOpen}
                 tabIndex={0}
                 className={`group relative rounded-3xl p-7 md:p-8 cursor-pointer transition-[grid-column,transform,box-shadow] duration-500 ease-out outline-none
                   ${isOpen ? "md:col-span-2 lg:col-span-2 shadow-[0_24px_60px_-24px_rgba(120,60,80,0.28)]" : "shadow-[0_8px_24px_-12px_rgba(120,60,80,0.15)] hover:-translate-y-0.5"}`}
