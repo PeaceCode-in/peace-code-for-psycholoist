@@ -272,8 +272,8 @@ const styles = `
   .pc-italic { font-family: 'Instrument Serif', 'Fraunces', Georgia, serif; font-style: italic; font-weight: 400; }
   .pc-label { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 600; }
 
-  .glass-color { background: rgba(255,248,250,0.55); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); border: 1px solid rgba(138,51,85,0.18); box-shadow: 0 8px 30px rgba(20,10,14,0.08); border-radius: 1.75rem; }
-  .glass-white { background: rgba(255,255,255,0.70); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border: 1px solid rgba(255,255,255,0.80); box-shadow: 0 20px 60px -15px rgba(0,0,0,0.10); border-radius: 1.75rem; }
+  .glass-color { background: rgba(255,248,250,0.55); backdrop-filter: blur(32px); border: 1px solid rgba(138,51,85,0.18); box-shadow: 0 8px 30px rgba(20,10,14,0.08); border-radius: 1.75rem; }
+  .glass-white { background: rgba(255,255,255,0.70); backdrop-filter: blur(40px); border: 1px solid rgba(255,255,255,0.80); box-shadow: 0 20px 60px -15px rgba(0,0,0,0.10); border-radius: 1.75rem; }
 
   .liquid-glass-button {
     position: relative; isolation: isolate; overflow: hidden; color: #2A2140;
@@ -285,7 +285,7 @@ const styles = `
     border-right: 1px solid rgba(255,255,255,0.24);
     border-bottom: 1px solid rgba(255,255,255,0.24);
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.58), 0 14px 38px rgba(90,80,140,0.14);
-    backdrop-filter: blur(22px) saturate(1.25); -webkit-backdrop-filter: blur(22px) saturate(1.25);
+    backdrop-filter: blur(22px) saturate(1.25);
     transition: background 180ms ease;
   }
   .liquid-glass-button:hover {
@@ -298,7 +298,7 @@ const styles = `
     background: linear-gradient(135deg, rgba(255,255,255,0.48), rgba(255,255,255,0.24));
     border: 1px solid rgba(255,255,255,0.58);
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.62), 0 10px 24px rgba(90,80,140,0.12);
-    backdrop-filter: blur(18px) saturate(1.2); -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    backdrop-filter: blur(18px) saturate(1.2);
   }
 
   .grain-overlay {
@@ -366,7 +366,7 @@ function MarketingFAQSection() {
         <p className="text-center text-slate-500 text-sm mb-12 max-w-xl mx-auto">Everything most psychologists ask before switching to a one-app workspace — and everything clients ask before booking online.</p>
         <div className="space-y-3">
           {MARKETING_FAQ.map((it, i) => (
-            <details key={it.q} open={i === 0} className="rounded-2xl border border-slate-200/80 bg-white/70 p-6 group">
+            <details key={it.q} open={i === 0} className="rounded-2xl p-6 group glass-color">
               <summary className="cursor-pointer flex items-center justify-between gap-4 list-none">
                 <h3 className="pc-serif text-lg md:text-xl leading-snug" style={{ fontFamily: "Fraunces, serif", fontWeight: 400 }}>{it.q}</h3>
                 <span className="shrink-0 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 group-open:rotate-45 transition-transform">+</span>
@@ -619,7 +619,7 @@ function Navbar() {
                         <ul className="space-y-2">
                           {col.items.map((li) => (
                             <li key={li.label}>
-                              <a href={li.href} className="text-[14px] text-slate-800 hover:text-slate-500 transition-colors">
+                              <a href={li.href} className="text-[14px]  hover:text-slate-500 transition-colors">
                                 {li.label}
                               </a>
                             </li>
@@ -772,7 +772,7 @@ function Collaboration() {
     "iCall · TISS",
   ];
   return (
-    <section className="relative w-full py-24 md:py-28" style={{ background: COLOR.cream }}>
+    <section className="relative w-full py-24 md:py-28" style={{ background: "transparent" }}>
       <motion.div {...reveal} className="relative z-10 mx-auto max-w-[1200px] px-6 text-center">
         <p className="pc-label mb-4" style={{ color: COLOR.rose }}>Trusted by clinicians and institutions</p>
         <h2 className="pc-serif text-[clamp(28px,3.6vw,44px)] leading-[1.1] max-w-[24ch] mx-auto" style={{ color: COLOR.ink }}>
@@ -960,7 +960,7 @@ function BentoFeatures() {
   ];
 
   return (
-    <section id="features" className="relative w-full pb-28 md:pb-36 pt-0" style={{ background: COLOR.petal }}>
+    <section id="features" className="relative w-full pb-28 md:pb-36 pt-0" style={{ background: "transparent" }}>
       <WavyBridge from="#FFFFFF" to={COLOR.petal} />
       <div className="mx-auto max-w-[1280px] px-6 pt-4">
         <motion.div {...reveal} className="text-center mb-14">
@@ -989,7 +989,7 @@ function BentoFeatures() {
                   <h3 className="pc-serif text-slate-900 text-2xl md:text-[26px] tracking-tight">{b.title}</h3>
                   <p className="mt-3 text-sm text-slate-600 leading-relaxed">{b.body}</p>
                 </div>
-                <a href="/features" className="mt-6 text-[11px] uppercase tracking-[0.25em] text-slate-800 font-semibold inline-flex items-center gap-1.5">
+                <a href="/features" className="mt-6 text-[11px] uppercase tracking-[0.25em]  font-semibold inline-flex items-center gap-1.5">
                   Explore <ArrowRight className="h-3.5 w-3.5" />
                 </a>
               </motion.div>
@@ -1003,7 +1003,7 @@ function BentoFeatures() {
 
 function WavyBridge({ from, to }: { from: string; to: string }) {
   return (
-    <div className="w-full -mt-1" style={{ background: from }}>
+    <div className="w-full -mt-1" style={{ background: "transparent" }}>
       <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="block w-full h-[80px] md:h-[110px]">
         <path d="M0,64 C240,120 480,20 720,60 C960,100 1200,40 1440,80 L1440,120 L0,120 Z" fill={to} />
       </svg>
@@ -1014,7 +1014,7 @@ function WavyBridge({ from, to }: { from: string; to: string }) {
 /* ---------------- Feature Highlight ---------------- */
 function FeatureHighlight() {
   return (
-    <section className="relative w-full py-28 md:py-36 overflow-hidden" style={{ background: `linear-gradient(180deg, ${COLOR.cream} 0%, ${COLOR.petal} 100%)` }}>
+    <section className="relative w-full py-28 md:py-36 overflow-hidden" style={{ background: "transparent" }}>
       <img src="/journal-illustration-1.svg" alt="" aria-hidden
         className="hidden xl:block absolute -left-6 top-10 w-[30vw] pointer-events-none"
         style={{ mixBlendMode: "multiply", transform: "scale(1.35)" }}
@@ -1057,7 +1057,7 @@ function Ecosystem() {
     { icon: "/therapists-icon.svg",    fallback: Brain,  title: "The clinician bench",        body: "CPD, reflections, professional identity — a private space alongside the clinical one." },
   ];
   return (
-    <section id="ecosystem" className="relative w-full py-24 md:py-32" style={{ background: COLOR.petal }}>
+    <section id="ecosystem" className="relative w-full py-24 md:py-32" style={{ background: "transparent" }}>
       <div className="mx-auto max-w-[1200px] px-6">
         <motion.div {...reveal} className="text-center mb-14">
           <p className="pc-label text-slate-500 mb-4">The wider practice</p>
@@ -1095,7 +1095,7 @@ function Testimonials() {
     { q: "Assessments finally feel useful instead of admin. Patients see their own trajectory.", who: "Dr. S. Iyer", role: "Counselling Psychologist, Chennai" },
   ];
   return (
-    <section className="relative w-full py-28 md:py-36" style={{ background: `linear-gradient(180deg, ${COLOR.petal} 0%, ${COLOR.cream} 100%)` }}>
+    <section className="relative w-full py-28 md:py-36" style={{ background: "transparent" }}>
       <div className="mx-auto max-w-[1200px] px-6">
         <motion.div {...reveal} className="text-center mb-14">
           <p className="pc-label text-slate-500 mb-4">In their words</p>
@@ -1129,7 +1129,7 @@ function WhatPsychologistsFace() {
   ];
   const [open, setOpen] = useState<Record<string, boolean>>({});
   return (
-    <section className="relative w-full py-24 md:py-32" style={{ background: `linear-gradient(180deg, ${COLOR.cream} 0%, ${COLOR.petal} 50%, ${COLOR.cream} 100%)` }}>
+    <section className="relative w-full py-24 md:py-32" style={{ background: "transparent" }}>
       <div className="mx-auto max-w-[1200px] px-6">
         <motion.div {...reveal} className="text-center mb-14">
           <p className="pc-label text-slate-500 mb-4">What psychologists carry</p>
@@ -1151,7 +1151,7 @@ function WhatPsychologistsFace() {
                         onClick={() => setOpen((o) => ({ ...o, [key]: !on }))}
                         className="w-full flex items-center justify-between text-left py-3 border-b border-slate-200/70"
                       >
-                        <span className="text-[15px] text-slate-800">{it}</span>
+                        <span className="text-[15px] ">{it}</span>
                         {on ? <Minus className="h-4 w-4 text-slate-500" /> : <Plus className="h-4 w-4 text-slate-500" />}
                       </button>
                       {on ? (
@@ -1291,7 +1291,7 @@ function Footer() {
           <div className="lg:col-span-5 grid grid-cols-3 gap-6">
             {linkCols.map((c) => (
               <div key={c.h}>
-                <h4 style={{ textTransform: "uppercase", fontSize: 13, letterSpacing: "0.1em", fontWeight: 600, color: "#0F172A" }}>{c.h}</h4>
+                <h4 style={{ textTransform: "uppercase", fontSize: 13, letterSpacing: "0.1em", fontWeight: 600, color: COLOR.ink }}>{c.h}</h4>
                 <ul className="mt-4 space-y-2.5">
                   {c.links.map(([l, href]) => (
                     <li key={l}>
@@ -1311,7 +1311,7 @@ function Footer() {
             <div className="flex flex-wrap gap-2 mb-5">
               {[Instagram, Twitter, Linkedin, Youtube].map((Icon, i) => (
                 <a key={i} href="#social" aria-label="Social"
-                  className="h-11 w-11 rounded-xl inline-flex items-center justify-center text-slate-800"
+                  className="h-11 w-11 rounded-xl inline-flex items-center justify-center "
                   style={{ background: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.65)", backdropFilter: "blur(18px)" }}>
                   <Icon className="h-4 w-4" strokeWidth={1.6} />
                 </a>
@@ -1320,7 +1320,7 @@ function Footer() {
             <div className="flex flex-wrap gap-2">
               {["DPDP-aligned", "Clinician-authored", "India-hosted"].map((b) => (
                 <span key={b} className="rounded-full px-3 py-1"
-                  style={{ background: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.65)", fontSize: 11, color: "#0F172A" }}>
+                  style={{ background: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.65)", fontSize: 11, color: COLOR.ink }}>
                   {b}
                 </span>
               ))}
