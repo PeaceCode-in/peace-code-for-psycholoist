@@ -926,7 +926,7 @@ function WavyBridge({ from, to }: { from: string; to: string }) {
 /* ---------------- Feature Highlight ---------------- */
 function FeatureHighlight() {
   return (
-    <section className="relative w-full py-28 md:py-36 overflow-hidden" style={{ background: "linear-gradient(180deg,#93A8C1 0%,#F4F6F8 100%)" }}>
+    <section className="relative w-full py-28 md:py-36 overflow-hidden" style={{ background: `linear-gradient(180deg, ${COLOR.cream} 0%, ${COLOR.petal} 100%)` }}>
       <img src="/journal-illustration-1.svg" alt="" aria-hidden
         className="hidden xl:block absolute -left-6 top-10 w-[30vw] pointer-events-none"
         style={{ mixBlendMode: "multiply", transform: "scale(1.35)" }}
