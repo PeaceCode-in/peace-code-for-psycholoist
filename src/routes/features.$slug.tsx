@@ -1180,7 +1180,10 @@ const styles = `
 `;
 
 function FeatureDetail() {
-  const { feature: f } = Route.useLoaderData() as { feature: Feature };
+  const { slug } = Route.useParams();
+  const f = FEATURES[slug];
+  if (!f) return <FeatureNotFound />;
+
   const DeepDive = getDeepDive(f.slug);
   if (DeepDive) return <DeepDive />;
   const topThree = f.capabilities.slice(0, 3);
