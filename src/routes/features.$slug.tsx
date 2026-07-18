@@ -7,7 +7,7 @@ import {
   Video, DoorOpen, Camera, Wallet, Receipt, CreditCard, PiggyBank, MessageSquare, Inbox,
   BookOpen, Repeat, TrendingUp, UsersRound, HeartPulse, LifeBuoy, AlertTriangle, PhoneCall,
   Share2, Network, Users, Award, GraduationCap, FolderOpen, Library, BarChart3,
-  Plug, Hourglass, Globe, Bell, Layers, MapPin, Zap, FileCheck, Building2, Star,
+  Plug, Hourglass, Globe, Bell, Layers, MapPin, Zap, FileCheck, Building2, Star, ChevronDown,
 } from "lucide-react";
 import branchLeft from "@/assets/sakura/branch-left.svg";
 import branchRight from "@/assets/sakura/branch-right.svg";
