@@ -62,20 +62,21 @@ type ModalityView = "bars" | "donut";
 
 // Chart palette — pulls semantic tokens so dark mode inverts automatically.
 const CHART = {
-  primary: "hsl(var(--primary, 220 65% 51%)) ",
+  primary: "var(--primary)",
   ink: "var(--foreground)",
-  muted: "var(--muted-foreground)",
-  grid: "color-mix(in oklab, var(--foreground) 12%, transparent)",
+  muted: "var(--chart-axis)",
+  grid: "var(--chart-grid)",
   card: "var(--card)",
   border: "var(--border)",
   series: [
-    "var(--primary)",
-    "#7BA88A",
-    "#C2A97E",
-    "#A48CC7",
-    "#E88A6A",
+    "var(--chart-1)",
+    "var(--chart-2)",
+    "var(--chart-3)",
+    "var(--chart-4)",
+    "var(--chart-5)",
   ],
 };
+
 
 function AnalyticsPage() {
   const [range, setRange] = useState<Range>("90d");
