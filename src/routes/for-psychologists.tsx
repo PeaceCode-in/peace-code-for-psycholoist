@@ -429,7 +429,7 @@ function MarketingFAQSection() {
 }
 
 /* ---------------- Feature Catalogue — grouped category cards, hover expands to reveal sub-features ---------------- */
-const FEATURE_GROUPS: Array<{ title: string; blurb: string; slugs: string[] }> = [
+export const FEATURE_GROUPS: Array<{ title: string; blurb: string; slugs: string[] }> = [
   {
     title: "Clinical work",
     blurb: "The room, the hour, the work between sessions.",
