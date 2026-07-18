@@ -1041,7 +1041,7 @@ function WhatPsychologistsFace() {
   ];
   const [open, setOpen] = useState<Record<string, boolean>>({});
   return (
-    <section className="relative w-full py-24 md:py-32" style={{ background: "linear-gradient(180deg,#FFFFFF 0%,#F5F6FC 50%,#FFFFFF 100%)" }}>
+    <section className="relative w-full py-24 md:py-32" style={{ background: `linear-gradient(180deg, ${COLOR.cream} 0%, ${COLOR.petal} 50%, ${COLOR.cream} 100%)` }}>
       <div className="mx-auto max-w-[1200px] px-6">
         <motion.div {...reveal} className="text-center mb-14">
           <p className="pc-label text-slate-500 mb-4">What psychologists carry</p>
