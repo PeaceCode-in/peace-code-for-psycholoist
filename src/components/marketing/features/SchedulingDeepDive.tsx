@@ -87,6 +87,8 @@ export function SchedulingDeepDive() {
   return (
     <article className="pc-mkt sakura-page">
       <style dangerouslySetInnerHTML={{ __html: schedulingStyles }} />
+      <MarketingNavbar />
+
 
       {/* ─── HERO ─── */}
       <header className="relative pt-20 pb-24 px-6 overflow-hidden">
