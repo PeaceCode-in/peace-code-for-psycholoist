@@ -168,8 +168,9 @@ function Dashboard() {
           <div className="text-[10.5px] uppercase tracking-[0.24em]" style={{ color: primary }}>Practice pulse</div>
           <div className="mt-4 grid grid-cols-3 gap-3 relative">
             <Ring label="Revenue"  value={`${revenuePct}%`}  pct={revenuePct}  color={primary}   to="/payments" />
-            <Ring label="Capacity" value={`${capacityPct}%`} pct={capacityPct} color="#8CB9A6"   to="/schedule" />
-            <Ring label="Alerts"   value={String(alertsCount)} pct={alertRing} color="#DC3B4A"   to="/alerts" />
+            <Ring label="Capacity" value={`${capacityPct}%`} pct={capacityPct} color="var(--status-calm)"   to="/schedule" />
+            <Ring label="Alerts"   value={String(alertsCount)} pct={alertRing} color="var(--status-danger-strong)"   to="/alerts" />
+
           </div>
           <div className="mt-4 text-[11px] flex items-center gap-1.5" style={{ color: muted }}>
             <HeartPulse className="w-3 h-3" style={{ color: primary }} /> Steady week — nothing needs your attention right now.
@@ -181,7 +182,7 @@ function Dashboard() {
           <RotatingTile
             key={i}
             facets={facets}
-            accent={i % 2 === 0 ? primary : "#8CB9A6"}
+            accent={i % 2 === 0 ? primary : "var(--status-calm)"}
             delayMs={i * 900}
           />
         ))}
@@ -199,7 +200,7 @@ function Dashboard() {
               return (
                 <div key={s.id} className="py-2.5 flex items-center gap-3 group pc-reveal">
                   <div className="text-[12px] tabular-nums w-14 shrink-0" style={{ color: ink }}>{fmtTime(s.startsAt)}</div>
-                  <span className="w-1 h-8 rounded-full" style={{ background: s.modality === "video" ? primary : s.modality === "in-person" ? "#8CB9A6" : "#C9A66B" }} />
+                  <span className="w-1 h-8 rounded-full" style={{ background: s.modality === "video" ? primary : s.modality === "in-person" ? "var(--status-calm)" : "var(--status-warning)" }} />
                   {p && <Avatar patient={p} size={32} />}
                   <div className="min-w-0 flex-1">
                     <div className="text-[13px] truncate" style={{ color: ink }}>{p?.name}</div>
@@ -225,12 +226,12 @@ function Dashboard() {
 
         {/* ─── Alerts ───────────────────────────────────────────────────── */}
         <section className="col-span-12 lg:col-span-5 rounded-3xl p-4 sm:p-5 relative overflow-hidden" style={cardStyle}>
-          <CardIllustration kind="peak" color="#B54848" size={160} className="-right-4 -bottom-8" />
+          <CardIllustration kind="peak" color="var(--status-danger)" size={160} className="-right-4 -bottom-8" />
           <SectionHead title="Priority alerts" hint={`${ALERTS.length} to review`} to="/alerts" />
           <div className="mt-3 space-y-2">
             {alertsShown.map((a) => {
               const p = getPatient(a.patientId);
-              const tone = a.priority === "high" ? { bg: "#FDECEC", ink: "#B54848", bd: "#F3C7C7" }
+              const tone = a.priority === "high" ? { bg: "var(--status-danger-soft)", ink: "var(--status-danger)", bd: "var(--status-danger-border)" }
                 : a.priority === "medium" ? { bg: soft, ink: primary, bd: border }
                 : { bg: surface2, ink: muted, bd: border };
               const ActionIcon = a.action === "call" ? PhoneCall : a.action === "message" ? MessageCircle : FileText;
@@ -267,7 +268,7 @@ function Dashboard() {
           <div className="mt-3 flex items-end gap-4">
             <div className="shrink-0">
               <div className="text-[26px] leading-none tabular-nums" style={{ fontFamily: "'Fraunces', serif", color: ink }}>₹{(REVENUE_MONTH.completed / 1000).toFixed(0)}k</div>
-              <div className="text-[11px] mt-1 flex items-center gap-1" style={{ color: "#1F7A3E" }}><TrendingUp className="w-3 h-3" /> +14% vs last month</div>
+              <div className="text-[11px] mt-1 flex items-center gap-1" style={{ color: "var(--status-success)" }}><TrendingUp className="w-3 h-3" /> +14% vs last month</div>
             </div>
             <AreaSpark values={REVENUE_SPARK} />
           </div>
@@ -292,7 +293,7 @@ function Dashboard() {
           <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
             {pulseShown.map((p) => {
               const risk = p.riskLevel;
-              const dot = risk === "high" ? "#DC3B4A" : risk === "elevated" ? "#E08A3C" : risk === "moderate" ? "#C9A66B" : "#8CB9A6";
+              const dot = risk === "high" ? "var(--status-danger-strong)" : risk === "elevated" ? "var(--status-warning-strong)" : risk === "moderate" ? "var(--status-warning)" : "var(--status-calm)";
               return (
                 <Link
                   key={p.id}
@@ -606,7 +607,7 @@ function TipBox({ active, payload, label, unit }: any) {
 function PhqSpark({ values }: { values: number[] }) {
   const trigger = useTipTrigger();
   const rising = values[values.length - 1] > values[0];
-  const stroke = rising ? "#DC3B4A" : "#1F7A3E";
+  const stroke = rising ? "var(--status-danger-strong)" : "var(--status-success)";
   const data = values.map((v, i) => ({ week: `W${i + 1}`, score: v }));
   return (
     <div className="w-full h-9 -mx-1">

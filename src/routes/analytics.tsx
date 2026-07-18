@@ -62,20 +62,21 @@ type ModalityView = "bars" | "donut";
 
 // Chart palette — pulls semantic tokens so dark mode inverts automatically.
 const CHART = {
-  primary: "hsl(var(--primary, 220 65% 51%)) ",
+  primary: "var(--primary)",
   ink: "var(--foreground)",
-  muted: "var(--muted-foreground)",
-  grid: "color-mix(in oklab, var(--foreground) 12%, transparent)",
+  muted: "var(--chart-axis)",
+  grid: "var(--chart-grid)",
   card: "var(--card)",
   border: "var(--border)",
   series: [
-    "var(--primary)",
-    "#7BA88A",
-    "#C2A97E",
-    "#A48CC7",
-    "#E88A6A",
+    "var(--chart-1)",
+    "var(--chart-2)",
+    "var(--chart-3)",
+    "var(--chart-4)",
+    "var(--chart-5)",
   ],
 };
+
 
 function AnalyticsPage() {
   const [range, setRange] = useState<Range>("90d");
@@ -534,7 +535,7 @@ function Kpi({
         style={{ fontFamily: "'Fraunces', serif", color: "var(--foreground)" }}>{value}</div>
       <div
         className="mt-2 flex items-center gap-1.5 text-[11.5px]"
-        style={{ color: positive ? "color-mix(in oklab, var(--foreground) 20%, #3F7A55)" : "color-mix(in oklab, var(--foreground) 15%, #B54848)" }}
+        style={{ color: positive ? "var(--status-success)" : "var(--status-danger)" }}
       >
         <Arrow className="w-3 h-3" /> {positive ? "+" : ""}{delta}{deltaSuffix}
       </div>
