@@ -260,7 +260,7 @@ import { Route as PatientsPidDocumentsRouteImport } from './routes/patients.$pid
 import { Route as PatientsPidChartRouteImport } from './routes/patients.$pid.chart'
 import { Route as PatientsPidBillingRouteImport } from './routes/patients.$pid.billing'
 import { Route as PatientsPidAssessmentsRouteImport } from './routes/patients.$pid.assessments'
-import { Route as OgFeaturesSlugDotsvgRouteImport } from './routes/og.features.$slug[.]svg'
+import { Route as OgFeaturesSlugRouteImport } from './routes/og.features.$slug'
 import { Route as NotesNidAmendRouteImport } from './routes/notes.$nid.amend'
 import { Route as LibrarySeriesSidRouteImport } from './routes/library.series.$sid'
 import { Route as LibraryRepurposePidRouteImport } from './routes/library.repurpose.$pid'
@@ -1541,9 +1541,9 @@ const PatientsPidAssessmentsRoute = PatientsPidAssessmentsRouteImport.update({
   path: '/assessments',
   getParentRoute: () => PatientsPidRoute,
 } as any)
-const OgFeaturesSlugDotsvgRoute = OgFeaturesSlugDotsvgRouteImport.update({
-  id: '/og/features/$slug.svg',
-  path: '/og/features/$slug.svg',
+const OgFeaturesSlugRoute = OgFeaturesSlugRouteImport.update({
+  id: '/og/features/$slug',
+  path: '/og/features/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NotesNidAmendRoute = NotesNidAmendRouteImport.update({
@@ -1876,7 +1876,7 @@ export interface FileRoutesByFullPath {
   '/library/repurpose/$pid': typeof LibraryRepurposePidRoute
   '/library/series/$sid': typeof LibrarySeriesSidRoute
   '/notes/$nid/amend': typeof NotesNidAmendRoute
-  '/og/features/$slug.svg': typeof OgFeaturesSlugDotsvgRoute
+  '/og/features/$slug': typeof OgFeaturesSlugRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/billing': typeof PatientsPidBillingRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
@@ -2117,7 +2117,7 @@ export interface FileRoutesByTo {
   '/library/repurpose/$pid': typeof LibraryRepurposePidRoute
   '/library/series/$sid': typeof LibrarySeriesSidRoute
   '/notes/$nid/amend': typeof NotesNidAmendRoute
-  '/og/features/$slug.svg': typeof OgFeaturesSlugDotsvgRoute
+  '/og/features/$slug': typeof OgFeaturesSlugRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/billing': typeof PatientsPidBillingRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
@@ -2388,7 +2388,7 @@ export interface FileRoutesById {
   '/library/repurpose/$pid': typeof LibraryRepurposePidRoute
   '/library/series/$sid': typeof LibrarySeriesSidRoute
   '/notes/$nid/amend': typeof NotesNidAmendRoute
-  '/og/features/$slug.svg': typeof OgFeaturesSlugDotsvgRoute
+  '/og/features/$slug': typeof OgFeaturesSlugRoute
   '/patients/$pid/assessments': typeof PatientsPidAssessmentsRoute
   '/patients/$pid/billing': typeof PatientsPidBillingRoute
   '/patients/$pid/chart': typeof PatientsPidChartRoute
@@ -2661,7 +2661,7 @@ export interface FileRouteTypes {
     | '/library/repurpose/$pid'
     | '/library/series/$sid'
     | '/notes/$nid/amend'
-    | '/og/features/$slug.svg'
+    | '/og/features/$slug'
     | '/patients/$pid/assessments'
     | '/patients/$pid/billing'
     | '/patients/$pid/chart'
@@ -2902,7 +2902,7 @@ export interface FileRouteTypes {
     | '/library/repurpose/$pid'
     | '/library/series/$sid'
     | '/notes/$nid/amend'
-    | '/og/features/$slug.svg'
+    | '/og/features/$slug'
     | '/patients/$pid/assessments'
     | '/patients/$pid/billing'
     | '/patients/$pid/chart'
@@ -3172,7 +3172,7 @@ export interface FileRouteTypes {
     | '/library/repurpose/$pid'
     | '/library/series/$sid'
     | '/notes/$nid/amend'
-    | '/og/features/$slug.svg'
+    | '/og/features/$slug'
     | '/patients/$pid/assessments'
     | '/patients/$pid/billing'
     | '/patients/$pid/chart'
@@ -3280,7 +3280,7 @@ export interface RootRouteChildren {
   FeaturesIndexRoute: typeof FeaturesIndexRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   CalendarBookSlugRoute: typeof CalendarBookSlugRoute
-  OgFeaturesSlugDotsvgRoute: typeof OgFeaturesSlugDotsvgRoute
+  OgFeaturesSlugRoute: typeof OgFeaturesSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -5042,11 +5042,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PatientsPidAssessmentsRouteImport
       parentRoute: typeof PatientsPidRoute
     }
-    '/og/features/$slug.svg': {
-      id: '/og/features/$slug.svg'
-      path: '/og/features/$slug.svg'
-      fullPath: '/og/features/$slug.svg'
-      preLoaderRoute: typeof OgFeaturesSlugDotsvgRouteImport
+    '/og/features/$slug': {
+      id: '/og/features/$slug'
+      path: '/og/features/$slug'
+      fullPath: '/og/features/$slug'
+      preLoaderRoute: typeof OgFeaturesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/notes/$nid/amend': {
@@ -5985,7 +5985,7 @@ const rootRouteChildren: RootRouteChildren = {
   FeaturesIndexRoute: FeaturesIndexRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   CalendarBookSlugRoute: CalendarBookSlugRoute,
-  OgFeaturesSlugDotsvgRoute: OgFeaturesSlugDotsvgRoute,
+  OgFeaturesSlugRoute: OgFeaturesSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
