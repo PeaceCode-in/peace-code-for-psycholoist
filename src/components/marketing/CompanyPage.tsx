@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import branchLeft from "@/assets/sakura/branch-left.svg";
 import branchRight from "@/assets/sakura/branch-right.svg";
+import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 
 const LOGIN_URL = "/auth";
 
