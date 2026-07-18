@@ -548,11 +548,7 @@ function Navbar() {
         <div className="flex items-center gap-2">
           <a
             href={LOGIN_URL}
-            className={`hidden sm:inline-flex items-center rounded-full px-6 py-2.5 text-[14px] font-medium transition-all ${
-              scrolled
-                ? "bg-slate-900 text-white hover:bg-slate-800"
-                : "bg-white text-slate-900 hover:bg-white/90"
-            }`}
+            className="hidden sm:inline-flex items-center rounded-full px-6 py-2.5 text-[14px] font-medium transition-all bg-slate-900 text-white hover:bg-slate-800"
           >
             Login
           </a>
