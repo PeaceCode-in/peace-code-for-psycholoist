@@ -126,6 +126,27 @@
   --blue-soft: var(--sakura-blush);
   --ember: var(--sakura-rose);
 
+  /* Chart & status tokens — semantic, Sakura-tuned.
+     Series 1 = brand rose; sequels shift hue while keeping Sakura warmth. */
+  --chart-1: var(--sakura-rose);       /* #8A3355 */
+  --chart-2: #7BA88A;                  /* sage */
+  --chart-3: #C2A97E;                  /* honey */
+  --chart-4: #A48CC7;                  /* lilac */
+  --chart-5: #E88A6A;                  /* coral */
+  --chart-grid: color-mix(in oklab, var(--sakura-ink) 12%, transparent);
+  --chart-axis: var(--sakura-muted);
+
+  --status-success: #1F7A3E;
+  --status-success-soft: #E6F4EC;
+  --status-warning: #C9A66B;
+  --status-warning-strong: #E08A3C;
+  --status-danger: #B54848;
+  --status-danger-strong: #DC3B4A;
+  --status-danger-soft: #FDECEC;
+  --status-danger-border: #F3C7C7;
+  --status-calm: #8CB9A6;
+
+
 
   /* Signature gradients — Sky Breeze / Lavender Dream / Sunset Calm */
   --gradient-aurora: radial-gradient(
