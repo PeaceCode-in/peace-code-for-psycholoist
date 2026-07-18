@@ -749,6 +749,23 @@ function Navbar({ darkMode = false, onToggleDark }: { darkMode?: boolean; onTogg
 
         {/* ── Right cluster ── */}
         <div className="flex items-center gap-1.5 shrink-0">
+          {onToggleDark ? (
+            <button
+              type="button"
+              onClick={onToggleDark}
+              aria-pressed={darkMode}
+              aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+              title={darkMode ? "Light mode" : "Dark mode"}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full transition-transform hover:-translate-y-0.5"
+              style={{
+                color: "var(--sakura-ink)",
+                background: "color-mix(in oklab, var(--sakura-petal) 55%, transparent)",
+                border: "1px solid color-mix(in oklab, var(--sakura-ink) 10%, transparent)",
+              }}
+            >
+              {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
+          ) : null}
           <a
             href={LOGIN_URL}
             className="hidden sm:inline-flex items-center rounded-full px-5 py-2 text-[13.5px] font-medium transition-transform hover:-translate-y-0.5"
