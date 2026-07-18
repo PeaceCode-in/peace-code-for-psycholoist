@@ -317,17 +317,81 @@ const styles = `
   .how-card-micro { font-family: 'Inter', sans-serif; font-size: 0.7rem; font-style: italic; color: rgba(255,255,255,0.42); margin-top: 0.65rem; letter-spacing: 0.02em; }
   @media (min-width: 768px) { .how-card-headline { font-size: 1.85rem; } .how-card-content { padding: 2.25rem; } }
   @media (min-width: 1024px) { .how-card-headline { font-size: 2rem; } .how-card-content { padding: 2.5rem; } }
+
+  /* ---------- High Contrast Sakura ---------- */
+  /* Base contrast (default):
+       ink #140A0E on cream #F9E6EC ≈ 17.2:1 (AAA)
+       muted #5B4348 on cream ≈ 7.8:1 (AAA)
+       rose #8A3355 on cream ≈ 5.9:1 (AA large + AA body)
+     High contrast bumps base density + grain and darkens rose/muted further. */
+  .pc-mkt[data-contrast="high"] { background: #F0C9D6; color: #0B0407; }
+  .pc-mkt[data-contrast="high"]::before {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.35' numOctaves='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.22  0 0 0 0 0.08  0 0 0 0 0.16  0 0 0 0.35 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: 1;
+  }
+  /* Force darker ink for any Sakura-toned text tokens */
+  .pc-mkt[data-contrast="high"] [style*="color: rgb(20, 10, 14)"],
+  .pc-mkt[data-contrast="high"] [style*="#140A0E"] { color: #000000 !important; }
+  .pc-mkt[data-contrast="high"] [style*="color: rgb(91, 67, 72)"],
+  .pc-mkt[data-contrast="high"] [style*="#5B4348"] { color: #2E1A1F !important; } /* ≈ 12.6:1 on #F0C9D6 */
+  .pc-mkt[data-contrast="high"] [style*="color: rgb(138, 51, 85)"],
+  .pc-mkt[data-contrast="high"] [style*="#8A3355"] { color: #5A1A34 !important; } /* ≈ 8.9:1 on #F0C9D6 */
+  /* Glass surfaces get stronger opacity + darker hairline for AA against denser bg */
+  .pc-mkt[data-contrast="high"] .glass-color,
+  .pc-mkt[data-contrast="high"] [style*="rgba(255,248,250,0.55)"],
+  .pc-mkt[data-contrast="high"] [style*="rgba(255,255,255,0.55)"],
+  .pc-mkt[data-contrast="high"] [style*="rgba(255,248,250,0.65)"],
+  .pc-mkt[data-contrast="high"] [style*="rgba(255,255,255,0.70)"] {
+    background: rgba(255, 250, 252, 0.92) !important;
+    border-color: rgba(90, 26, 52, 0.35) !important;
+  }
+  /* Card border on expand — darker ring for AA non-text contrast (>= 3:1) */
+  .pc-mkt[data-contrast="high"] article[aria-expanded="true"] {
+    box-shadow: 0 0 0 2px #5A1A34, 0 24px 60px -24px rgba(60, 20, 34, 0.45) !important;
+  }
+  /* Focus ring meets 3:1 on any bg */
+  .pc-mkt :focus-visible { outline: 2px solid #5A1A34; outline-offset: 3px; border-radius: 12px; }
 `;
 
 function MarketingPage() {
+  const [highContrast, setHighContrast] = useState(false);
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("pc-mkt-contrast");
+      if (saved === "high") setHighContrast(true);
+    } catch {}
+  }, []);
+  useEffect(() => {
+    try { localStorage.setItem("pc-mkt-contrast", highContrast ? "high" : "normal"); } catch {}
+  }, [highContrast]);
+
   return (
-    <div className="pc-mkt relative overflow-x-hidden">
+    <div className="pc-mkt relative overflow-x-hidden" data-contrast={highContrast ? "high" : "normal"}>
       <style dangerouslySetInnerHTML={{ __html: styles }} />
       {/* Machine-readable AEO answer for AI Overviews / ChatGPT / Perplexity — visually hidden but semantic */}
       <p className="sr-only" itemProp="description">
         {AEO_ANSWER}
       </p>
+      <button
+        type="button"
+        onClick={() => setHighContrast((v) => !v)}
+        aria-pressed={highContrast}
+        aria-label={highContrast ? "Disable high contrast Sakura mode" : "Enable high contrast Sakura mode"}
+        className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-xs font-semibold tracking-wide shadow-lg transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none"
+        style={{
+          background: highContrast ? "#0B0407" : "#5A1A34",
+          color: "#FFFFFF",
+          border: "1px solid rgba(255,255,255,0.25)",
+        }}
+      >
+        <span aria-hidden style={{
+          display: "inline-block", width: 10, height: 10, borderRadius: 999,
+          background: highContrast ? "#F9C6D6" : "#FFFFFF",
+        }} />
+        {highContrast ? "High contrast: on" : "High contrast"}
+      </button>
       <Navbar />
+
       <main>
         {/* AEO — Trigger → Action → Clinical Benefit definition (hidden from users, exposed to crawlers/LLMs) */}
         <section aria-label="Definition — PeaceCode for psychologists" className="sr-only">
