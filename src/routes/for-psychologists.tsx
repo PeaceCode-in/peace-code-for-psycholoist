@@ -268,7 +268,7 @@ const styles = `
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.32  0 0 0 0 0.14  0 0 0 0 0.22  0 0 0 0.22 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
     background-size: 320px 320px; mix-blend-mode: multiply; opacity: 1;
   }
-  .pc-mkt > * { position: relative; z-index: 1; }
+  .pc-mkt > *:not(.fixed):not(.sticky):not(.absolute) { position: relative; z-index: 1; }
   .pc-serif { font-family: 'Fraunces', 'Instrument Serif', Georgia, serif; font-weight: 300; letter-spacing: -0.02em; }
   .pc-display { font-family: 'DM Serif Display', 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.015em; }
   .pc-italic { font-family: 'Instrument Serif', 'Fraunces', Georgia, serif; font-style: italic; font-weight: 400; }
