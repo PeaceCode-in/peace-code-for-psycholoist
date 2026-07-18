@@ -5,6 +5,7 @@ import {
   MessageSquare, BookOpen, UsersRound, Share2, GraduationCap, Award, FolderOpen,
   Library, BarChart3, LifeBuoy, Plug, Hourglass, Globe, HeartPulse, ArrowRight,
 } from "lucide-react";
+import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 
 const ORIGIN = "https://psychologist.peacecode.in";
 const INDEX_URL = `${ORIGIN}/features`;
