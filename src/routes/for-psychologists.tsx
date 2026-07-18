@@ -91,7 +91,7 @@ export const Route = createFileRoute("/for-psychologists")({
       { name: "twitter:site", content: "@peacecode" },
       { name: "twitter:title", content: "PeaceCode — the one-app solution for psychologists" },
       { name: "twitter:description", content: AEO_ANSWER },
-      { name: "theme-color", content: "#A3B8C7" },
+      { name: "theme-color", content: "#FCEAF0" },
       // Geo — Old Delhi, Delhi, India
       { name: "geo.region", content: "IN-DL" },
       { name: "geo.placename", content: "Old Delhi, Delhi, India" },
@@ -260,7 +260,13 @@ const reveal = {
 };
 
 const styles = `
-  .pc-mkt { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; color: #1a1a2e; }
+  .pc-mkt { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; color: #1E1418; background: #FFF8FA; }
+  .pc-mkt::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.42  0 0 0 0 0.24  0 0 0 0 0.30  0 0 0 0.14 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 260px 260px; mix-blend-mode: multiply; opacity: 0.85;
+  }
+  .pc-mkt > * { position: relative; z-index: 1; }
   .pc-serif { font-family: 'Fraunces', 'Instrument Serif', Georgia, serif; font-weight: 300; letter-spacing: -0.02em; }
   .pc-display { font-family: 'DM Serif Display', 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.015em; }
   .pc-italic { font-family: 'Instrument Serif', 'Fraunces', Georgia, serif; font-style: italic; font-weight: 400; }
@@ -296,7 +302,7 @@ const styles = `
   }
 
   .grain-overlay {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.75 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
     background-size: 240px 240px;
   }
 
@@ -315,7 +321,7 @@ const styles = `
 
 function MarketingPage() {
   return (
-    <div className="pc-mkt relative overflow-x-hidden bg-white">
+    <div className="pc-mkt relative overflow-x-hidden">
       <style dangerouslySetInnerHTML={{ __html: styles }} />
       {/* Machine-readable AEO answer for AI Overviews / ChatGPT / Perplexity — visually hidden but semantic */}
       <p className="sr-only" itemProp="description">
@@ -351,7 +357,7 @@ function MarketingPage() {
 /* ---------------- FAQ Section (AEO / featured-snippet oriented) ---------------- */
 function MarketingFAQSection() {
   return (
-    <section id="faq" aria-label="Frequently asked questions" className="relative py-24 px-6 bg-white">
+    <section id="faq" aria-label="Frequently asked questions" className="relative py-24 px-6">
       <div className="max-w-3xl mx-auto">
         <p className="pc-label text-slate-500 mb-4 text-center" style={{ fontSize: 11, letterSpacing: "0.28em" }}>FAQ · answers for clinicians & clients</p>
         <h2 className="pc-serif text-4xl md:text-6xl text-center mb-4" style={{ fontFamily: "Fraunces, serif", fontWeight: 300 }}>
@@ -382,7 +388,7 @@ function MarketingFAQSection() {
 /* ---------------- Feature Catalogue (semantic H2/H3, one section per detected dashboard feature) ---------------- */
 function FeatureCatalogue() {
   return (
-    <section id="all-features" aria-label="Every clinical tool inside PeaceCode" className="relative py-24 px-6 bg-white border-t border-slate-100">
+    <section id="all-features" aria-label="Every clinical tool inside PeaceCode" className="relative py-24 px-6 border-t border-slate-100">
       <div className="max-w-6xl mx-auto">
         <p className="text-[11px] tracking-[0.28em] uppercase text-slate-500 mb-3 text-center">The full workspace</p>
         <h2 className="pc-serif text-4xl md:text-6xl text-center mb-4" style={{ fontFamily: "Fraunces, serif", fontWeight: 300 }}>
@@ -764,7 +770,7 @@ function MoodGate() {
     { label: "Billing chaos", copy: "Invoicing, GST/PAN, refunds and payouts in one clean ledger." },
   ];
   return (
-    <section id="practice" className="relative w-full py-28 md:py-36 bg-white">
+    <section id="practice" className="relative w-full py-28 md:py-36">
       <div className="mx-auto max-w-[1120px] px-6">
         <motion.div {...reveal} className="text-center mb-12">
           <p className="pc-label text-slate-500 mb-4">Where are you today?</p>
@@ -813,7 +819,7 @@ function MindAccordion() {
   ];
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="relative w-full py-24 md:py-32 bg-white overflow-hidden">
+    <section id="faq" className="relative w-full py-24 md:py-32 overflow-hidden">
       <div className="relative z-10 mx-auto max-w-[880px] px-6">
         <motion.div {...reveal} className="text-center mb-12">
           <p className="pc-label text-slate-500 mb-4">Questions clinicians ask</p>
@@ -920,7 +926,7 @@ function WavyBridge({ from, to }: { from: string; to: string }) {
 /* ---------------- Feature Highlight ---------------- */
 function FeatureHighlight() {
   return (
-    <section className="relative w-full py-28 md:py-36 overflow-hidden" style={{ background: "linear-gradient(180deg,#93A8C1 0%,#F4F6F8 100%)" }}>
+    <section className="relative w-full py-28 md:py-36 overflow-hidden" style={{ background: `linear-gradient(180deg, ${COLOR.cream} 0%, ${COLOR.petal} 100%)` }}>
       <img src="/journal-illustration-1.svg" alt="" aria-hidden
         className="hidden xl:block absolute -left-6 top-10 w-[30vw] pointer-events-none"
         style={{ mixBlendMode: "multiply", transform: "scale(1.35)" }}
@@ -1035,7 +1041,7 @@ function WhatPsychologistsFace() {
   ];
   const [open, setOpen] = useState<Record<string, boolean>>({});
   return (
-    <section className="relative w-full py-24 md:py-32" style={{ background: "linear-gradient(180deg,#FFFFFF 0%,#F5F6FC 50%,#FFFFFF 100%)" }}>
+    <section className="relative w-full py-24 md:py-32" style={{ background: `linear-gradient(180deg, ${COLOR.cream} 0%, ${COLOR.petal} 50%, ${COLOR.cream} 100%)` }}>
       <div className="mx-auto max-w-[1200px] px-6">
         <motion.div {...reveal} className="text-center mb-14">
           <p className="pc-label text-slate-500 mb-4">What psychologists carry</p>
@@ -1085,7 +1091,7 @@ function Blog() {
     { img: "/ChatGPT Image Jun 3, 2026, 03_35_21 PM.png", tag: "ETHICS",   title: "DPDP for private practice — a plain-language walkthrough.",     date: "May 28" },
   ];
   return (
-    <section id="blog" className="relative w-full py-24 md:py-32 bg-white">
+    <section id="blog" className="relative w-full py-24 md:py-32">
       <div className="mx-auto max-w-[1200px] px-6">
         <motion.div {...reveal} className="flex items-end justify-between mb-12">
           <div>
@@ -1128,7 +1134,7 @@ function ClosingCTA() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
   return (
-    <section ref={ref} className="relative w-full py-32 md:py-40 bg-white overflow-hidden">
+    <section ref={ref} className="relative w-full py-32 md:py-40 overflow-hidden">
       <motion.div
         aria-hidden
         style={{ y }}
@@ -1164,7 +1170,7 @@ function Footer() {
     { h: "RESOURCES", links: [["Blog", "#blog"], ["Help centre", "#help"], ["Clinician stories", "#stories"], ["Changelog", "#changelog"]] },
   ];
   return (
-    <footer className="relative w-full bg-white overflow-hidden">
+    <footer className="relative w-full overflow-hidden">
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
