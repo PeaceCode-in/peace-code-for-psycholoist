@@ -628,7 +628,7 @@ const NAV_ITEMS: NavItem[] = [
   },
 ];
 
-function Navbar() {
+function Navbar({ darkMode = false, onToggleDark }: { darkMode?: boolean; onToggleDark?: () => void }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
