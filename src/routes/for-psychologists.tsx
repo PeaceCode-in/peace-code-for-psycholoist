@@ -320,40 +320,34 @@ const styles = `
   @media (min-width: 768px) { .how-card-headline { font-size: 1.85rem; } .how-card-content { padding: 2.25rem; } }
   @media (min-width: 1024px) { .how-card-headline { font-size: 2rem; } .how-card-content { padding: 2.5rem; } }
 
-  /* ---------- High Contrast Sakura ---------- */
-  /* Base contrast (default):
-       ink #140A0E on cream #F9E6EC ≈ 17.2:1 (AAA)
-       muted #5B4348 on cream ≈ 7.8:1 (AAA)
-       rose #8A3355 on cream ≈ 5.9:1 (AA large + AA body)
-     High contrast bumps base density + grain and darkens rose/muted further. */
-  .pc-mkt[data-contrast="high"] { background: #F0C9D6; color: #0B0407; }
-  .pc-mkt[data-contrast="high"]::before {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.35' numOctaves='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.22  0 0 0 0 0.08  0 0 0 0 0.16  0 0 0 0.35 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-    opacity: 1;
+  /* ---------- Graphite Dark Mode (marketing) ----------
+     Toggled via .pc-mkt[data-mode="dark"]. Remaps Sakura tokens so every
+     descendant that reads var(--sakura-*) inverts to a graphite palette
+     with warm-white text. Glass surfaces become dark frosted glass. */
+  .pc-mkt[data-mode="dark"] {
+    --sakura-cream:  #14100F;   /* base graphite */
+    --sakura-petal:  #221B1E;   /* elevated surface */
+    --sakura-blush:  #3A2A30;   /* accent surface */
+    --sakura-ink:    #F5ECEF;   /* primary text (warm white) */
+    --sakura-muted:  #B8A9AE;   /* secondary text */
+    --sakura-rose:   #F4A3BE;   /* accent — brightened for contrast on dark */
+    --sakura-border: #3A2A30;
+    --sakura-glass-color-bg:     rgba(34, 27, 30, 0.65);
+    --sakura-glass-color-border: rgba(244, 163, 190, 0.22);
+    --sakura-glass-white-bg:     rgba(34, 27, 30, 0.55);
+    --sakura-glass-white-border: rgba(245, 236, 239, 0.14);
+    background: #14100F;
+    color: #F5ECEF;
   }
-  /* Force darker ink for any Sakura-toned text tokens */
-  .pc-mkt[data-contrast="high"] [style*="color: rgb(20, 10, 14)"],
-  .pc-mkt[data-contrast="high"] [style*="#140A0E"] { color: #000000 !important; }
-  .pc-mkt[data-contrast="high"] [style*="color: rgb(91, 67, 72)"],
-  .pc-mkt[data-contrast="high"] [style*="#5B4348"] { color: #2E1A1F !important; } /* ≈ 12.6:1 on #F0C9D6 */
-  .pc-mkt[data-contrast="high"] [style*="color: rgb(138, 51, 85)"],
-  .pc-mkt[data-contrast="high"] [style*="#8A3355"] { color: #5A1A34 !important; } /* ≈ 8.9:1 on #F0C9D6 */
-  /* Glass surfaces get stronger opacity + darker hairline for AA against denser bg */
-  .pc-mkt[data-contrast="high"] .glass-color,
-  .pc-mkt[data-contrast="high"] [style*="rgba(255,248,250,0.55)"],
-  .pc-mkt[data-contrast="high"] [style*="rgba(255,255,255,0.55)"],
-  .pc-mkt[data-contrast="high"] [style*="rgba(255,248,250,0.65)"],
-  .pc-mkt[data-contrast="high"] [style*="rgba(255,255,255,0.70)"] {
-    background: rgba(255, 250, 252, 0.92) !important;
-    border-color: rgba(90, 26, 52, 0.35) !important;
-  }
-  /* Card border on expand — darker ring for AA non-text contrast (>= 3:1) */
-  .pc-mkt[data-contrast="high"] article[aria-expanded="true"] {
-    box-shadow: 0 0 0 2px #5A1A34, 0 24px 60px -24px rgba(60, 20, 34, 0.45) !important;
-  }
-  /* Focus ring meets 3:1 on any bg */
-  .pc-mkt :focus-visible { outline: 2px solid #5A1A34; outline-offset: 3px; border-radius: 12px; }
+  .pc-mkt[data-mode="dark"] .grain-overlay { opacity: 0.35; mix-blend-mode: screen; }
+  /* Neutralize any hardcoded near-white backgrounds that ignore tokens */
+  .pc-mkt[data-mode="dark"] [style*="#FFFFFF"],
+  .pc-mkt[data-mode="dark"] [style*="#ffffff"],
+  .pc-mkt[data-mode="dark"] [style*="rgb(255, 255, 255)"] { }
+  /* Focus ring */
+  .pc-mkt :focus-visible { outline: 2px solid var(--sakura-rose); outline-offset: 3px; border-radius: 12px; }
 `;
+
 
 function MarketingPage() {
   const [highContrast, setHighContrast] = useState(false);
