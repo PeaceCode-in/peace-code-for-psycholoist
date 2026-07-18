@@ -88,43 +88,44 @@
 :root {
   --radius: 1rem;
 
-  /* PeaceCode palette — Soft. Calm. Mindful.
-     Primary blues: #F7FAFF #EAF3FF #D6E6FB #AFC9F5 #7FA8E6 #4B6CB7
-     Neutrals ink: #1D2A44 #4A5A7A #7587A6 #A6B6CC #DCE3EF #F2F5F9 */
-  --background: oklch(0.985 0.008 255);      /* #F7FAFF-ish */
-  --foreground: oklch(0.24 0.06 260);        /* #1D2A44 */
+  /* Sakura palette — single source of truth (see --sakura-* above).
+     Every shadcn semantic token below resolves to a Sakura value so the
+     whole app inherits the palette automatically. */
+  --background: var(--sakura-cream);
+  --foreground: var(--sakura-ink);
 
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.24 0.06 260);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.24 0.06 260);
+  --card: #FFFFFF;
+  --card-foreground: var(--sakura-ink);
+  --popover: #FFFFFF;
+  --popover-foreground: var(--sakura-ink);
 
-  --primary: oklch(0.55 0.13 260);           /* #4B6CB7 */
-  --primary-foreground: oklch(0.985 0.008 255);
-  --secondary: oklch(0.94 0.03 265);         /* #EAF3FF / lavender wash */
-  --secondary-foreground: oklch(0.28 0.07 265);
-  --muted: oklch(0.955 0.014 260);           /* #F2F5F9 */
-  --muted-foreground: oklch(0.55 0.04 265);  /* #7587A6 */
-  --accent: oklch(0.9 0.05 295);             /* lavender */
-  --accent-foreground: oklch(0.28 0.07 265);
-  --destructive: oklch(0.7 0.14 20);
-  --destructive-foreground: oklch(0.99 0.005 255);
-  --border: oklch(0.9 0.02 260 / 0.7);       /* #DCE3EF */
-  --input: oklch(0.9 0.02 260);
-  --ring: oklch(0.72 0.09 260);              /* #7FA8E6 */
+  --primary: var(--sakura-rose);
+  --primary-foreground: #FFF8FA;
+  --secondary: var(--sakura-petal);
+  --secondary-foreground: var(--sakura-ink);
+  --muted: var(--sakura-petal);
+  --muted-foreground: var(--sakura-muted);
+  --accent: var(--sakura-blush);
+  --accent-foreground: var(--sakura-ink);
+  --destructive: oklch(0.55 0.19 25);
+  --destructive-foreground: #FFF8FA;
+  --border: var(--sakura-border);
+  --input: var(--sakura-border);
+  --ring: var(--sakura-rose);
 
-  /* Brand palette (mapped to soft-blue system) */
-  --navy: oklch(0.24 0.06 260);              /* #1D2A44 */
-  --navy-soft: oklch(0.42 0.06 262);         /* #4A5A7A */
-  --cream: oklch(0.985 0.008 255);           /* #F7FAFF */
-  --cream-warm: oklch(0.965 0.018 265);      /* #EAF3FF */
-  --lavender: oklch(0.88 0.06 300);          /* #D5C9F7 */
-  --sky: oklch(0.87 0.07 255);               /* #AFC9F5 */
-  --fog: oklch(0.94 0.014 260);              /* #DCE3EF */
-  --moss: oklch(0.9 0.05 155);               /* #CDEBD9 */
-  --peach: oklch(0.9 0.055 40);              /* #FCE8F1 / #FFE8D6 */
-  --blue-soft: oklch(0.78 0.1 258);          /* #7FA8E6 */
-  --ember: oklch(0.82 0.09 350);             /* #F8CADA blush */
+  /* Brand palette (mapped to Sakura) */
+  --navy: var(--sakura-ink);
+  --navy-soft: var(--sakura-muted);
+  --cream: var(--sakura-cream);
+  --cream-warm: #FFF3F6;
+  --lavender: var(--sakura-petal);
+  --sky: var(--sakura-blush);
+  --fog: var(--sakura-border);
+  --moss: oklch(0.9 0.05 155);
+  --peach: var(--sakura-petal);
+  --blue-soft: var(--sakura-blush);
+  --ember: var(--sakura-rose);
+
 
   /* Signature gradients — Sky Breeze / Lavender Dream / Sunset Calm */
   --gradient-aurora: radial-gradient(
