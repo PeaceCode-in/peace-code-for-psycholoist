@@ -200,7 +200,7 @@ function Dashboard() {
               return (
                 <div key={s.id} className="py-2.5 flex items-center gap-3 group pc-reveal">
                   <div className="text-[12px] tabular-nums w-14 shrink-0" style={{ color: ink }}>{fmtTime(s.startsAt)}</div>
-                  <span className="w-1 h-8 rounded-full" style={{ background: s.modality === "video" ? primary : s.modality === "in-person" ? "#8CB9A6" : "#C9A66B" }} />
+                  <span className="w-1 h-8 rounded-full" style={{ background: s.modality === "video" ? primary : s.modality === "in-person" ? "var(--status-calm)" : "var(--status-warning)" }} />
                   {p && <Avatar patient={p} size={32} />}
                   <div className="min-w-0 flex-1">
                     <div className="text-[13px] truncate" style={{ color: ink }}>{p?.name}</div>
