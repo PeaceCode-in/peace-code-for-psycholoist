@@ -1193,6 +1193,9 @@ function FeatureDetail() {
   return (
     <article className="pc-mkt sakura-page">
       <style dangerouslySetInnerHTML={{ __html: styles }} />
+      <MarketingNavbar />
+
+
 
       {/* ─── HERO ───────────────────────────────────────────── */}
       <header className="relative pt-20 pb-24 px-6 overflow-hidden">
