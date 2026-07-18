@@ -321,7 +321,7 @@ const styles = `
 
 function MarketingPage() {
   return (
-    <div className="pc-mkt relative overflow-x-hidden bg-white">
+    <div className="pc-mkt relative overflow-x-hidden">
       <style dangerouslySetInnerHTML={{ __html: styles }} />
       {/* Machine-readable AEO answer for AI Overviews / ChatGPT / Perplexity — visually hidden but semantic */}
       <p className="sr-only" itemProp="description">
@@ -357,7 +357,7 @@ function MarketingPage() {
 /* ---------------- FAQ Section (AEO / featured-snippet oriented) ---------------- */
 function MarketingFAQSection() {
   return (
-    <section id="faq" aria-label="Frequently asked questions" className="relative py-24 px-6 bg-white">
+    <section id="faq" aria-label="Frequently asked questions" className="relative py-24 px-6">
       <div className="max-w-3xl mx-auto">
         <p className="pc-label text-slate-500 mb-4 text-center" style={{ fontSize: 11, letterSpacing: "0.28em" }}>FAQ · answers for clinicians & clients</p>
         <h2 className="pc-serif text-4xl md:text-6xl text-center mb-4" style={{ fontFamily: "Fraunces, serif", fontWeight: 300 }}>
@@ -388,7 +388,7 @@ function MarketingFAQSection() {
 /* ---------------- Feature Catalogue (semantic H2/H3, one section per detected dashboard feature) ---------------- */
 function FeatureCatalogue() {
   return (
-    <section id="all-features" aria-label="Every clinical tool inside PeaceCode" className="relative py-24 px-6 bg-white border-t border-slate-100">
+    <section id="all-features" aria-label="Every clinical tool inside PeaceCode" className="relative py-24 px-6 border-t border-slate-100">
       <div className="max-w-6xl mx-auto">
         <p className="text-[11px] tracking-[0.28em] uppercase text-slate-500 mb-3 text-center">The full workspace</p>
         <h2 className="pc-serif text-4xl md:text-6xl text-center mb-4" style={{ fontFamily: "Fraunces, serif", fontWeight: 300 }}>
@@ -770,7 +770,7 @@ function MoodGate() {
     { label: "Billing chaos", copy: "Invoicing, GST/PAN, refunds and payouts in one clean ledger." },
   ];
   return (
-    <section id="practice" className="relative w-full py-28 md:py-36 bg-white">
+    <section id="practice" className="relative w-full py-28 md:py-36">
       <div className="mx-auto max-w-[1120px] px-6">
         <motion.div {...reveal} className="text-center mb-12">
           <p className="pc-label text-slate-500 mb-4">Where are you today?</p>
@@ -819,7 +819,7 @@ function MindAccordion() {
   ];
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="relative w-full py-24 md:py-32 bg-white overflow-hidden">
+    <section id="faq" className="relative w-full py-24 md:py-32 overflow-hidden">
       <div className="relative z-10 mx-auto max-w-[880px] px-6">
         <motion.div {...reveal} className="text-center mb-12">
           <p className="pc-label text-slate-500 mb-4">Questions clinicians ask</p>
@@ -1091,7 +1091,7 @@ function Blog() {
     { img: "/ChatGPT Image Jun 3, 2026, 03_35_21 PM.png", tag: "ETHICS",   title: "DPDP for private practice — a plain-language walkthrough.",     date: "May 28" },
   ];
   return (
-    <section id="blog" className="relative w-full py-24 md:py-32 bg-white">
+    <section id="blog" className="relative w-full py-24 md:py-32">
       <div className="mx-auto max-w-[1200px] px-6">
         <motion.div {...reveal} className="flex items-end justify-between mb-12">
           <div>
@@ -1134,7 +1134,7 @@ function ClosingCTA() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
   return (
-    <section ref={ref} className="relative w-full py-32 md:py-40 bg-white overflow-hidden">
+    <section ref={ref} className="relative w-full py-32 md:py-40 overflow-hidden">
       <motion.div
         aria-hidden
         style={{ y }}
@@ -1170,7 +1170,7 @@ function Footer() {
     { h: "RESOURCES", links: [["Blog", "#blog"], ["Help centre", "#help"], ["Clinician stories", "#stories"], ["Changelog", "#changelog"]] },
   ];
   return (
-    <footer className="relative w-full bg-white overflow-hidden">
+    <footer className="relative w-full overflow-hidden">
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
