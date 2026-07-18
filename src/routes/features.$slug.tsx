@@ -957,10 +957,14 @@ const FEATURES: Record<string, Feature> = {
 
 export const Route = createFileRoute("/features/$slug")({
   loader: ({ params }) => {
-    const f = FEATURES[params.slug];
-    if (!f) throw notFound();
-    return { feature: f };
+    // Only validate the slug — do NOT return the feature object.
+    // FEATURES contains React ComponentType values (icons) which are not
+    // JSON-serializable; returning them from a loader silently breaks SSR
+    // dehydration and leaves the client with a blank page.
+    if (!FEATURES[params.slug]) throw notFound();
+    return { slug: params.slug };
   },
+
   head: ({ params, loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Feature not found — PeaceCode" }, { name: "robots", content: "noindex" }] };
     const f = loaderData.feature;
