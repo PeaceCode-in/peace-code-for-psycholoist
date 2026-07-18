@@ -464,12 +464,13 @@ function FeatureCatalogue() {
                 </div>
 
                 <div
-                  className="grid transition-[grid-template-rows,opacity,margin] duration-500 ease-out"
+                  className="grid transition-[grid-template-rows,opacity,margin] duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
                   style={{ gridTemplateRows: isOpen ? "1fr" : "0fr", opacity: isOpen ? 1 : 0, marginTop: isOpen ? "1.5rem" : "0" }}
+                  aria-hidden={!isOpen}
                 >
                   <div className="overflow-hidden">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t" style={{ borderColor: COLOR.border }}>
-                      {g.slugs.map((slug) => {
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t" style={{ borderColor: COLOR.border }}>
+                      {g.slugs.map((slug, idx) => {
                         const f = bySlug[slug];
                         if (!f) return null;
                         return (
@@ -478,12 +479,21 @@ function FeatureCatalogue() {
                             to="/features/$slug"
                             params={{ slug }}
                             onClick={(e) => e.stopPropagation()}
-                            className="block rounded-xl p-3.5 transition-colors"
-                            style={{ background: "rgba(255,255,255,0.55)", border: `1px solid ${COLOR.border}` }}
+                            tabIndex={isOpen ? 0 : -1}
+                            aria-hidden={!isOpen}
+                            className="block rounded-xl p-3.5 transition-[transform,background,opacity] duration-300 ease-out hover:-translate-y-0.5"
+                            style={{
+                              background: "rgba(255,248,250,0.65)",
+                              border: `1px solid ${COLOR.border}`,
+                              opacity: isOpen ? 1 : 0,
+                              transform: isOpen ? "translateY(0)" : "translateY(8px)",
+                              transitionDelay: isOpen ? `${180 + idx * 55}ms` : "0ms",
+                              pointerEvents: isOpen ? "auto" : "none",
+                            }}
                           >
                             <div className="flex items-center justify-between gap-3">
                               <span className="pc-serif text-[15px] leading-tight" style={{ fontFamily: "Fraunces, serif", color: COLOR.ink }}>{f.name}</span>
-                              <ArrowRight className="w-4 h-4 shrink-0" style={{ color: COLOR.rose }} />
+                              <ArrowRight className="w-4 h-4 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5" style={{ color: COLOR.rose }} />
                             </div>
                             <p className="text-xs mt-1.5 leading-relaxed" style={{ color: COLOR.muted }}>{f.desc}</p>
                           </Link>
