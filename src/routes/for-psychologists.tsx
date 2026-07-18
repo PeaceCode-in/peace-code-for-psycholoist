@@ -592,33 +592,25 @@ function Navbar() {
 /* ---------------- Hero ---------------- */
 function Hero() {
   return (
-    <section className="relative w-full min-h-screen overflow-hidden bg-[#A3B8C7]">
-      <img
-        src="/hero-background.webp"
-        alt=""
+    <section
+      className="relative w-full min-h-screen overflow-hidden"
+      style={{
+        background:
+          "radial-gradient(1200px 700px at 50% 0%, #FCEAF0 0%, #FFF8FA 55%, #FFFFFF 100%)",
+      }}
+    >
+      {/* subtle grain for texture — sakura only */}
+      <div className="absolute inset-0 grain-overlay opacity-[0.06] pointer-events-none" />
+      {/* soft rose glow accents */}
+      <div
         aria-hidden
-        className="absolute inset-0 h-full w-full object-cover"
-        onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")}
+        className="absolute -top-24 -left-24 w-[520px] h-[520px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(closest-side, rgba(241,199,214,0.55), transparent 70%)" }}
       />
-      <div className="absolute inset-0 grain-overlay opacity-[0.08] mix-blend-overlay pointer-events-none" />
-
-      {/* Floating birds */}
-      <FloatingBird src="/bg-decoration-2.svg" className="absolute top-[18%] right-[8%] w-16 opacity-80" delay={0} y={12} />
-      <FloatingBird src="/bg-decoration-2.svg" className="absolute top-[34%] right-[22%] w-10 opacity-60" delay={0.4} y={8} />
-      <FloatingBird src="/bg-decoration-2.svg" className="absolute top-[46%] right-[6%] w-8 opacity-50 blur-[1px]" delay={0.8} y={10} />
-      <FloatingBird src="/bg-decoration-2.svg" className="absolute bottom-[28%] left-[10%] w-12 opacity-70" delay={1.2} y={14} />
-      <FloatingBird src="/bg-decoration-1.svg" className="absolute bottom-[36%] right-[38%] w-20 opacity-90" delay={0.6} y={16} />
-
-      {/* Cloud layer */}
-      <motion.img
-        src="/landing-illustration-2.svg"
-        alt=""
+      <div
         aria-hidden
-        initial={{ x: -120, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute -bottom-6 left-0 w-full pointer-events-none select-none"
-        onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")}
+        className="absolute -bottom-32 -right-24 w-[560px] h-[560px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(closest-side, rgba(176,86,122,0.18), transparent 70%)" }}
       />
 
       {/* Text */}
@@ -627,7 +619,8 @@ function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.2 }}
-          className="pc-label text-white/85 mb-6"
+          className="pc-label mb-6"
+          style={{ color: COLOR.rose }}
         >
           For psychologists, by PeaceCode
         </motion.p>
@@ -635,7 +628,8 @@ function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.0, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="pc-serif text-white max-w-[18ch] text-[clamp(44px,7vw,88px)] leading-[1.02]"
+          className="pc-serif max-w-[18ch] text-[clamp(44px,7vw,88px)] leading-[1.02]"
+          style={{ color: COLOR.ink }}
         >
           The calm workspace <span className="pc-italic">behind steady care.</span>
         </motion.h1>
@@ -643,7 +637,8 @@ function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.55 }}
-          className="mt-6 max-w-[52ch] text-[16px] md:text-[17px] text-white/85 leading-relaxed"
+          className="mt-6 max-w-[52ch] text-[16px] md:text-[17px] leading-relaxed"
+          style={{ color: COLOR.muted }}
         >
           Scheduling, notes, assessments, billing and outcomes — held together in one clinical space that respects
           your time and your patients.
@@ -652,21 +647,24 @@ function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.75 }}
-          className="mt-9"
+          className="mt-9 flex flex-wrap items-center justify-center gap-3"
         >
           <a
             href={LOGIN_URL}
-            className="liquid-glass-button inline-flex items-center gap-2.5 rounded-full pl-5 pr-6 py-3 text-[15px] font-medium"
+            className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-medium text-white transition-colors"
+            style={{ background: COLOR.rose }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "#9a4868")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = COLOR.rose)}
           >
-            <img
-              src="/nav%20bar%20logo.svg"
-              alt=""
-              aria-hidden
-              className="w-[18px] h-[18px] brightness-0"
-              onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")}
-            />
             Get started
             <ArrowRight className="h-4 w-4" />
+          </a>
+          <a
+            href="#practice"
+            className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[15px] font-medium border transition-colors"
+            style={{ borderColor: COLOR.border, color: COLOR.ink, background: "rgba(255,255,255,0.6)" }}
+          >
+            See the workspace
           </a>
         </motion.div>
       </div>
@@ -674,19 +672,6 @@ function Hero() {
   );
 }
 
-function FloatingBird({ src, className, delay, y }: { src: string; className: string; delay: number; y: number }) {
-  return (
-    <motion.img
-      src={src}
-      alt=""
-      aria-hidden
-      className={className}
-      animate={{ y: [0, -y, 0] }}
-      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay }}
-      onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")}
-    />
-  );
-}
 
 /* ---------------- Collaboration ---------------- */
 function Collaboration() {
