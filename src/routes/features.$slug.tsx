@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import branchLeft from "@/assets/sakura/branch-left.svg";
 import branchRight from "@/assets/sakura/branch-right.svg";
-import { SchedulingDeepDive } from "@/components/marketing/features/SchedulingDeepDive";
+import { getDeepDive } from "@/components/marketing/features/deep-dives";
 
 
 
@@ -1175,7 +1175,8 @@ const styles = `
 
 function FeatureDetail() {
   const { feature: f } = Route.useLoaderData() as { feature: Feature };
-  if (f.slug === "scheduling") return <SchedulingDeepDive />;
+  const DeepDive = getDeepDive(f.slug);
+  if (DeepDive) return <DeepDive />;
   const topThree = f.capabilities.slice(0, 3);
   const rest = f.capabilities.slice(3);
 
