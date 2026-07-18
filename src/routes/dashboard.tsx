@@ -168,8 +168,9 @@ function Dashboard() {
           <div className="text-[10.5px] uppercase tracking-[0.24em]" style={{ color: primary }}>Practice pulse</div>
           <div className="mt-4 grid grid-cols-3 gap-3 relative">
             <Ring label="Revenue"  value={`${revenuePct}%`}  pct={revenuePct}  color={primary}   to="/payments" />
-            <Ring label="Capacity" value={`${capacityPct}%`} pct={capacityPct} color="#8CB9A6"   to="/schedule" />
-            <Ring label="Alerts"   value={String(alertsCount)} pct={alertRing} color="#DC3B4A"   to="/alerts" />
+            <Ring label="Capacity" value={`${capacityPct}%`} pct={capacityPct} color="var(--status-calm)"   to="/schedule" />
+            <Ring label="Alerts"   value={String(alertsCount)} pct={alertRing} color="var(--status-danger-strong)"   to="/alerts" />
+
           </div>
           <div className="mt-4 text-[11px] flex items-center gap-1.5" style={{ color: muted }}>
             <HeartPulse className="w-3 h-3" style={{ color: primary }} /> Steady week — nothing needs your attention right now.
