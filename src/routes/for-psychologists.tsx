@@ -756,15 +756,41 @@ function Navbar() {
 
       {mobileOpen ? (
         <div className="lg:hidden mx-4 mt-2 bg-white/85 backdrop-blur-xl border border-white/40 rounded-2xl shadow-lg p-5">
-          <ul className="space-y-3">
+          <ul className="space-y-1">
             {NAV_ITEMS.map((i) => (
               <li key={i.label}>
-                <a href={i.href} className="block py-1.5 text-[15px] text-slate-900" onClick={() => setMobileOpen(false)}>
-                  {i.label}
-                </a>
+                {i.dropdown ? (
+                  <details className="group">
+                    <summary className="flex items-center justify-between py-2 text-[15px] font-medium text-slate-900 cursor-pointer list-none">
+                      <span>{i.label}</span>
+                      <ChevronDown className="h-4 w-4 opacity-60 transition-transform group-open:rotate-180" />
+                    </summary>
+                    <ul className="pl-3 pb-2 space-y-1.5">
+                      {i.dropdown.columns.flatMap((c) => c.items).map((li) => (
+                        <li key={li.label}>
+                          <a
+                            href={li.href}
+                            className="block py-1 text-[14px] text-slate-700 hover:text-slate-900"
+                            onClick={() => setMobileOpen(false)}
+                          >
+                            {li.label}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                ) : (
+                  <a
+                    href={i.href}
+                    className="block py-2 text-[15px] text-slate-900"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {i.label}
+                  </a>
+                )}
               </li>
             ))}
-            <li className="pt-2 border-t border-slate-200">
+            <li className="pt-3 mt-2 border-t border-slate-200">
               <a
                 href={LOGIN_URL}
                 className="inline-flex items-center rounded-full px-5 py-2 text-[14px] font-medium bg-slate-900 text-white"
