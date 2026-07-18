@@ -607,7 +607,7 @@ function TipBox({ active, payload, label, unit }: any) {
 function PhqSpark({ values }: { values: number[] }) {
   const trigger = useTipTrigger();
   const rising = values[values.length - 1] > values[0];
-  const stroke = rising ? "#DC3B4A" : "#1F7A3E";
+  const stroke = rising ? "var(--status-danger-strong)" : "var(--status-success)";
   const data = values.map((v, i) => ({ week: `W${i + 1}`, score: v }));
   return (
     <div className="w-full h-9 -mx-1">
