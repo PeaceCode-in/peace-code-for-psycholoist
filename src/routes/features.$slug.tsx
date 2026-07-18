@@ -1368,8 +1368,13 @@ function FeatureDetail() {
           <h2 className="pc-serif text-3xl md:text-5xl mb-8 leading-[1.05]" style={{ color: "var(--sakura-ink)" }}>
             {f.cta} <span className="pc-italic">{f.ctaItalic}</span>
           </h2>
-          <a href={LOGIN_URL} className="sakura-btn-dark">
-            Get started free <ArrowRight className="w-4 h-4" />
+          <a
+            href={`${LOGIN_URL}?next=${encodeURIComponent(ctaFor(f.slug).path)}`}
+            className="sakura-btn-dark"
+            data-feature={f.slug}
+            aria-label={`${ctaFor(f.slug).label} — ${f.hero}`}
+          >
+            {ctaFor(f.slug).label} <ArrowRight className="w-4 h-4" />
           </a>
           <div className="mt-6">
             <Link to="/features" className="text-sm underline underline-offset-4" style={{ color: "var(--sakura-muted)" }}>
