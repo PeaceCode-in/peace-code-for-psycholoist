@@ -7,7 +7,7 @@ import {
   Video, DoorOpen, Camera, Wallet, Receipt, CreditCard, PiggyBank, MessageSquare, Inbox,
   BookOpen, Repeat, TrendingUp, UsersRound, HeartPulse, LifeBuoy, AlertTriangle, PhoneCall,
   Share2, Network, Users, Award, GraduationCap, FolderOpen, Library, BarChart3,
-  Plug, Hourglass, Globe, Bell, Layers, MapPin, Zap, FileCheck, Building2, Star,
+  Plug, Hourglass, Globe, Bell, Layers, MapPin, Zap, FileCheck, Building2, Star, ChevronDown,
 } from "lucide-react";
 import branchLeft from "@/assets/sakura/branch-left.svg";
 import branchRight from "@/assets/sakura/branch-right.svg";
@@ -1321,10 +1321,11 @@ function FeatureDetail() {
           </h2>
           <div className="space-y-3">
             {f.faq.map((it) => (
-              <details key={it.q} className="sakura-card p-6 group">
+              <details key={it.q} className="sakura-card p-6 group [&_.pc-faq-chevron]:open:rotate-180">
                 <summary className="cursor-pointer flex items-start gap-3 list-none">
                   <Check className="w-4 h-4 mt-1.5 shrink-0" style={{ color: "var(--sakura-rose)" }} />
-                  <h3 className="pc-serif text-lg" style={{ color: "var(--sakura-ink)" }}>{it.q}</h3>
+                  <h3 className="pc-serif text-lg flex-1" style={{ color: "var(--sakura-ink)" }}>{it.q}</h3>
+                  <ChevronDown className="pc-faq-chevron w-4 h-4 mt-1.5 shrink-0 transition-transform duration-200" style={{ color: "var(--sakura-muted)" }} aria-hidden="true" />
                 </summary>
                 <p className="font-light pl-7 mt-3 text-sm" style={{ color: "var(--sakura-muted)" }}>{it.a}</p>
               </details>
