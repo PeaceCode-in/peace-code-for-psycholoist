@@ -91,7 +91,7 @@ export const Route = createFileRoute("/for-psychologists")({
       { name: "twitter:site", content: "@peacecode" },
       { name: "twitter:title", content: "PeaceCode — the one-app solution for psychologists" },
       { name: "twitter:description", content: AEO_ANSWER },
-      { name: "theme-color", content: "#A3B8C7" },
+      { name: "theme-color", content: "#FCEAF0" },
       // Geo — Old Delhi, Delhi, India
       { name: "geo.region", content: "IN-DL" },
       { name: "geo.placename", content: "Old Delhi, Delhi, India" },
