@@ -1134,12 +1134,13 @@ function ClosingCTA() {
   const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
   return (
     <section ref={ref} className="relative w-full py-32 md:py-40 bg-white overflow-hidden">
-      <motion.img
-        src="/cloud-bg-4.svg" alt="" aria-hidden
-        style={{ y, mixBlendMode: "multiply" }}
-        className="absolute left-0 top-1/4 w-[420px] max-w-[45vw] pointer-events-none opacity-70"
-        onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")}
-      />
+      <motion.div
+        aria-hidden
+        style={{ y }}
+        className="absolute left-1/2 -translate-x-1/2 top-1/3 w-[520px] h-[520px] rounded-full pointer-events-none"
+      >
+        <div className="w-full h-full rounded-full" style={{ background: "radial-gradient(closest-side, rgba(246,214,225,0.6), transparent 70%)" }} />
+      </motion.div>
       <motion.div {...reveal} className="relative z-10 mx-auto max-w-[900px] px-6 text-center">
         <h2 className="pc-serif text-slate-900 text-[clamp(38px,5.5vw,72px)] leading-[1.02]">
           Fewer tabs. Steadier care. <span className="pc-italic">Sundays back.</span>
