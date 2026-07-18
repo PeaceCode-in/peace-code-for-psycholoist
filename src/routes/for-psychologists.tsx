@@ -241,15 +241,17 @@ export const Route = createFileRoute("/for-psychologists")({
 export { AEO_TAB, FEATURE_SLUGS };
 
 
-// Sakura palette — matches the dashboard theme (see src/lib/settings-store.ts).
+// Sakura palette — sourced from centralized tokens (see src/lib/sakura-tokens.ts).
+// CSS variables `--sakura-*` are defined in src/styles.css for use in className strings.
+import { SAKURA } from "@/lib/sakura-tokens";
 const COLOR = {
-  cream: "#F9E6EC",       // deeper sakura page base
-  petal: "#F2C9D6",       // soft pink surface
-  blush: "#E9A9BE",       // deeper pink surface
-  rose:  "#8A3355",       // primary rose (darker for AA)
-  ink:   "#140A0E",       // near-black ink
-  muted: "#5B4348",       // muted text (AA on cream)
-  border:"#D9B8C2",       // hairline border
+  cream:  SAKURA.cream,
+  petal:  SAKURA.petal,
+  blush:  SAKURA.blush,
+  rose:   SAKURA.rose,
+  ink:    SAKURA.ink,
+  muted:  SAKURA.muted,
+  border: SAKURA.border,
 };
 
 const reveal = {

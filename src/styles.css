@@ -56,6 +56,35 @@
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
+/* ============================================================
+   Sakura Palette — centralized tokens.
+   Mirror of `src/lib/sakura-tokens.ts`. Update both together.
+   Consume via: var(--sakura-cream), var(--sakura-ink), etc.
+   ============================================================ */
+:root {
+  --sakura-cream:  #F9E6EC;
+  --sakura-petal:  #F2C9D6;
+  --sakura-blush:  #E9A9BE;
+  --sakura-ink:    #140A0E;
+  --sakura-muted:  #5B4348;
+  --sakura-rose:   #8A3355;
+  --sakura-border: #D9B8C2;
+
+  --sakura-glass-color-bg:     rgba(255, 248, 250, 0.55);
+  --sakura-glass-color-border: rgba(138,  51,  85, 0.18);
+  --sakura-glass-white-bg:     rgba(255, 255, 255, 0.70);
+  --sakura-glass-white-border: rgba(255, 255, 255, 0.80);
+}
+
+[data-contrast="high"] {
+  --sakura-cream: #F0C9D6;
+  --sakura-ink:   #000000;
+  --sakura-muted: #2E1A1F;
+  --sakura-rose:  #5A1A34;
+  --sakura-glass-color-bg:     rgba(255, 248, 250, 0.92);
+  --sakura-glass-color-border: rgba(90, 26, 52, 0.30);
+}
+
 :root {
   --radius: 1rem;
 
