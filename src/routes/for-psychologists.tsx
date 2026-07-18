@@ -260,7 +260,13 @@ const reveal = {
 };
 
 const styles = `
-  .pc-mkt { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; color: #1a1a2e; }
+  .pc-mkt { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; color: #1E1418; background: #FFF8FA; }
+  .pc-mkt::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.42  0 0 0 0 0.24  0 0 0 0 0.30  0 0 0 0.14 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 260px 260px; mix-blend-mode: multiply; opacity: 0.85;
+  }
+  .pc-mkt > * { position: relative; z-index: 1; }
   .pc-serif { font-family: 'Fraunces', 'Instrument Serif', Georgia, serif; font-weight: 300; letter-spacing: -0.02em; }
   .pc-display { font-family: 'DM Serif Display', 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.015em; }
   .pc-italic { font-family: 'Instrument Serif', 'Fraunces', Georgia, serif; font-style: italic; font-weight: 400; }
