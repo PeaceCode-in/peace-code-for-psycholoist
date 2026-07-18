@@ -957,13 +957,19 @@ const FEATURES: Record<string, Feature> = {
 
 export const Route = createFileRoute("/features/$slug")({
   loader: ({ params }) => {
-    const f = FEATURES[params.slug];
-    if (!f) throw notFound();
-    return { feature: f };
+    // Only validate the slug — do NOT return the feature object.
+    // FEATURES contains React ComponentType values (icons) which are not
+    // JSON-serializable; returning them from a loader silently breaks SSR
+    // dehydration and leaves the client with a blank page.
+    if (!FEATURES[params.slug]) throw notFound();
+    return { slug: params.slug };
   },
+
   head: ({ params, loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Feature not found — PeaceCode" }, { name: "robots", content: "noindex" }] };
-    const f = loaderData.feature;
+    const f = FEATURES[params.slug];
+    if (!f) return { meta: [{ title: "Feature not found — PeaceCode" }, { name: "robots", content: "noindex" }] };
+
     const ORIGIN = "https://psychologist.peacecode.in";
     const url = `${ORIGIN}/features/${params.slug}`;
     const rawTitle = `${f.hero} for Psychologists — PeaceCode`;
@@ -1004,7 +1010,7 @@ export const Route = createFileRoute("/features/$slug")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "FAQPage",
-            mainEntity: f.faq.map((it) => ({
+            mainEntity: f.faq.map((it: FAQ) => ({
               "@type": "Question",
               name: it.q,
               acceptedAnswer: { "@type": "Answer", text: it.a },
@@ -1174,7 +1180,10 @@ const styles = `
 `;
 
 function FeatureDetail() {
-  const { feature: f } = Route.useLoaderData() as { feature: Feature };
+  const { slug } = Route.useParams();
+  const f = FEATURES[slug];
+  if (!f) return <FeatureNotFound />;
+
   const DeepDive = getDeepDive(f.slug);
   if (DeepDive) return <DeepDive />;
   const topThree = f.capabilities.slice(0, 3);

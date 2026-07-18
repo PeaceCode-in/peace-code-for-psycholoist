@@ -599,7 +599,9 @@ function buildFeatureNav(): NavItem[] {
   const bySlug = Object.fromEntries(FEATURE_SLUGS.map((f) => [f.slug, f]));
   return FEATURE_GROUPS.map((g) => ({
     label: g.title,
-    href: "#features",
+    // Top-level titles never point at the landing page; send them to the
+    // dedicated features index so every nav entry has its own scrollable page.
+    href: "/features",
     dropdown: {
       columns: [
         {
@@ -618,15 +620,16 @@ const NAV_ITEMS: NavItem[] = [
   ...buildFeatureNav(),
   {
     label: "Company",
-    href: "#about",
+    href: "/company/story",
     dropdown: { columns: [{ header: "COMPANY", items: [
-      { label: "Our story", href: "#about" },
-      { label: "Product updates", href: "#announcements" },
-      { label: "FAQs", href: "#faq" },
-      { label: "Contact", href: "#contact" },
+      { label: "Our story", href: "/company/story" },
+      { label: "Product updates", href: "/company/updates" },
+      { label: "FAQs", href: "/company/faq" },
+      { label: "Contact", href: "/company/contact" },
     ]}]},
   },
 ];
+
 
 function Navbar({ darkMode = false, onToggleDark }: { darkMode?: boolean; onToggleDark?: () => void }) {
   const [scrolled, setScrolled] = useState(false);
