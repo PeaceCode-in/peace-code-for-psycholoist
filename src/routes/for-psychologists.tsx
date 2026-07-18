@@ -385,34 +385,130 @@ function MarketingFAQSection() {
   );
 }
 
-/* ---------------- Feature Catalogue (semantic H2/H3, one section per detected dashboard feature) ---------------- */
+/* ---------------- Feature Catalogue — grouped category cards, hover expands to reveal sub-features ---------------- */
+const FEATURE_GROUPS: Array<{ title: string; blurb: string; slugs: string[] }> = [
+  {
+    title: "Clinical care",
+    blurb: "The room, the hour, the work between.",
+    slugs: ["scheduling", "notes", "assessments", "safety", "homework", "copilot"],
+  },
+  {
+    title: "Clients & records",
+    blurb: "Charts, consent and continuity in one place.",
+    slugs: ["patients", "documents", "messages", "library", "profile", "waitlist"],
+  },
+  {
+    title: "Sessions & delivery",
+    blurb: "How the session actually reaches the client.",
+    slugs: ["telehealth", "groups", "referrals"],
+  },
+  {
+    title: "Practice operations",
+    blurb: "Billing, teams and the boring stuff done right.",
+    slugs: ["billing", "team", "integrations", "analytics"],
+  },
+  {
+    title: "Governance & growth",
+    blurb: "Compliance, supervision and your license.",
+    slugs: ["compliance", "supervision", "cpd"],
+  },
+];
+
 function FeatureCatalogue() {
+  const [open, setOpen] = useState<string | null>(null);
+  const bySlug = Object.fromEntries(FEATURE_SLUGS.map((f) => [f.slug, f]));
+
   return (
-    <section id="all-features" aria-label="Every clinical tool inside PeaceCode" className="relative py-24 px-6 border-t border-slate-100">
+    <section id="all-features" aria-label="Every clinical tool inside PeaceCode" className="relative py-24 px-6">
       <div className="max-w-6xl mx-auto">
-        <p className="text-[11px] tracking-[0.28em] uppercase text-slate-500 mb-3 text-center">The full workspace</p>
-        <h2 className="pc-serif text-4xl md:text-6xl text-center mb-4" style={{ fontFamily: "Fraunces, serif", fontWeight: 300 }}>
-          Every tool a psychology practice <span className="pc-italic" style={{ fontFamily: "'Instrument Serif', serif", fontStyle: "italic" }}>actually</span> needs.
+        <p className="text-[11px] tracking-[0.28em] uppercase mb-3 text-center" style={{ color: COLOR.muted }}>The full workspace</p>
+        <h2 className="pc-serif text-4xl md:text-6xl text-center mb-4" style={{ fontFamily: "Fraunces, serif", fontWeight: 300, color: COLOR.ink }}>
+          Five rooms. <span className="pc-italic" style={{ fontFamily: "'Instrument Serif', serif", fontStyle: "italic" }}>One practice.</span>
         </h2>
-        <p className="text-center text-slate-500 text-sm max-w-2xl mx-auto mb-14">Twenty-two purpose-built modules replacing SimplePractice, TherapyNotes, Jane, Halaxy and Practo — designed with clinicians in Old Delhi and shipping worldwide.</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {FEATURE_SLUGS.map((f) => (
-            <article key={f.slug} className="group rounded-2xl border border-slate-200/80 bg-white hover:border-slate-300 transition-colors p-6 flex flex-col">
-              <h3 className="pc-serif text-xl mb-2" style={{ fontFamily: "Fraunces, serif", fontWeight: 400 }}>{f.name}</h3>
-              <p className="text-slate-600 text-sm font-light leading-relaxed flex-1">{f.desc}</p>
-              <Link
-                to="/features/$slug"
-                params={{ slug: f.slug }}
-                aria-label={`Explore ${f.name}`}
-                className="mt-4 inline-flex items-center gap-1 text-sm text-slate-900 font-medium group-hover:gap-2 transition-all"
+        <p className="text-center text-sm max-w-2xl mx-auto mb-14" style={{ color: COLOR.muted }}>
+          Twenty-two modules organised the way clinicians actually think. Hover a room to see what lives inside.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {FEATURE_GROUPS.map((g) => {
+            const isOpen = open === g.title;
+            return (
+              <article
+                key={g.title}
+                onMouseEnter={() => setOpen(g.title)}
+                onMouseLeave={() => setOpen(null)}
+                onFocus={() => setOpen(g.title)}
+                onBlur={() => setOpen(null)}
+                onClick={() => setOpen(isOpen ? null : g.title)}
+                tabIndex={0}
+                className={`group relative rounded-3xl p-7 md:p-8 cursor-pointer transition-[grid-column,transform,box-shadow] duration-500 ease-out outline-none
+                  ${isOpen ? "md:col-span-2 lg:col-span-2 shadow-[0_24px_60px_-24px_rgba(120,60,80,0.28)]" : "shadow-[0_8px_24px_-12px_rgba(120,60,80,0.15)] hover:-translate-y-0.5"}`}
+                style={{
+                  background: "rgba(255,255,255,0.55)",
+                  backdropFilter: "blur(28px) saturate(1.2)",
+                  border: `1px solid ${isOpen ? COLOR.rose + "40" : "rgba(255,255,255,0.7)"}`,
+                }}
               >
-                Explore <ArrowRight className="w-4 h-4" />
-              </Link>
-            </article>
-          ))}
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-[10.5px] tracking-[0.24em] uppercase mb-2" style={{ color: COLOR.rose }}>
+                      {g.slugs.length} tools
+                    </p>
+                    <h3 className="pc-serif text-2xl md:text-[28px] leading-tight" style={{ fontFamily: "Fraunces, serif", fontWeight: 400, color: COLOR.ink }}>
+                      {g.title}
+                    </h3>
+                    <p className="text-sm mt-2 max-w-sm" style={{ color: COLOR.muted }}>{g.blurb}</p>
+                  </div>
+                  <span
+                    aria-hidden
+                    className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-lg transition-transform duration-500"
+                    style={{
+                      background: isOpen ? COLOR.rose : "rgba(255,255,255,0.7)",
+                      color: isOpen ? "#fff" : COLOR.ink,
+                      transform: isOpen ? "rotate(45deg)" : "rotate(0)",
+                      border: `1px solid ${COLOR.border}`,
+                    }}
+                  >
+                    +
+                  </span>
+                </div>
+
+                <div
+                  className="grid transition-[grid-template-rows,opacity,margin] duration-500 ease-out"
+                  style={{ gridTemplateRows: isOpen ? "1fr" : "0fr", opacity: isOpen ? 1 : 0, marginTop: isOpen ? "1.5rem" : "0" }}
+                >
+                  <div className="overflow-hidden">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t" style={{ borderColor: COLOR.border }}>
+                      {g.slugs.map((slug) => {
+                        const f = bySlug[slug];
+                        if (!f) return null;
+                        return (
+                          <Link
+                            key={slug}
+                            to="/features/$slug"
+                            params={{ slug }}
+                            onClick={(e) => e.stopPropagation()}
+                            className="block rounded-xl p-3.5 transition-colors"
+                            style={{ background: "rgba(255,255,255,0.55)", border: `1px solid ${COLOR.border}` }}
+                          >
+                            <div className="flex items-center justify-between gap-3">
+                              <span className="pc-serif text-[15px] leading-tight" style={{ fontFamily: "Fraunces, serif", color: COLOR.ink }}>{f.name}</span>
+                              <ArrowRight className="w-4 h-4 shrink-0" style={{ color: COLOR.rose }} />
+                            </div>
+                            <p className="text-xs mt-1.5 leading-relaxed" style={{ color: COLOR.muted }}>{f.desc}</p>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
+
         <div className="mt-12 text-center">
-          <Link to="/features" className="inline-flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-full text-sm font-medium" aria-label="Browse the full feature index">
+          <Link to="/features" className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium" style={{ background: COLOR.ink, color: "#fff" }} aria-label="Browse the full feature index">
             Browse the full index <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -420,6 +516,7 @@ function FeatureCatalogue() {
     </section>
   );
 }
+
 
 
 /* ---------------- Navbar ---------------- */
