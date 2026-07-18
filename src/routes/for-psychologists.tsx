@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import {
-  Menu, X, ArrowRight, ChevronDown, Plus, Minus,
+  Menu, X, ArrowRight, ChevronDown, Plus, Minus, Sun, Moon,
   Instagram, Twitter, Linkedin, Youtube,
   CalendarCheck, ClipboardList, FileText, Wallet, ShieldCheck, Video,
   Users, Activity, Bell, Sparkles, Brain, Layers,
@@ -320,79 +320,56 @@ const styles = `
   @media (min-width: 768px) { .how-card-headline { font-size: 1.85rem; } .how-card-content { padding: 2.25rem; } }
   @media (min-width: 1024px) { .how-card-headline { font-size: 2rem; } .how-card-content { padding: 2.5rem; } }
 
-  /* ---------- High Contrast Sakura ---------- */
-  /* Base contrast (default):
-       ink #140A0E on cream #F9E6EC ≈ 17.2:1 (AAA)
-       muted #5B4348 on cream ≈ 7.8:1 (AAA)
-       rose #8A3355 on cream ≈ 5.9:1 (AA large + AA body)
-     High contrast bumps base density + grain and darkens rose/muted further. */
-  .pc-mkt[data-contrast="high"] { background: #F0C9D6; color: #0B0407; }
-  .pc-mkt[data-contrast="high"]::before {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.35' numOctaves='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.22  0 0 0 0 0.08  0 0 0 0 0.16  0 0 0 0.35 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-    opacity: 1;
+  /* ---------- Graphite Dark Mode (marketing) ----------
+     Toggled via .pc-mkt[data-mode="dark"]. Remaps Sakura tokens so every
+     descendant that reads var(--sakura-*) inverts to a graphite palette
+     with warm-white text. Glass surfaces become dark frosted glass. */
+  .pc-mkt[data-mode="dark"] {
+    --sakura-cream:  #14100F;   /* base graphite */
+    --sakura-petal:  #221B1E;   /* elevated surface */
+    --sakura-blush:  #3A2A30;   /* accent surface */
+    --sakura-ink:    #F5ECEF;   /* primary text (warm white) */
+    --sakura-muted:  #B8A9AE;   /* secondary text */
+    --sakura-rose:   #F4A3BE;   /* accent — brightened for contrast on dark */
+    --sakura-border: #3A2A30;
+    --sakura-glass-color-bg:     rgba(34, 27, 30, 0.65);
+    --sakura-glass-color-border: rgba(244, 163, 190, 0.22);
+    --sakura-glass-white-bg:     rgba(34, 27, 30, 0.55);
+    --sakura-glass-white-border: rgba(245, 236, 239, 0.14);
+    background: #14100F;
+    color: #F5ECEF;
   }
-  /* Force darker ink for any Sakura-toned text tokens */
-  .pc-mkt[data-contrast="high"] [style*="color: rgb(20, 10, 14)"],
-  .pc-mkt[data-contrast="high"] [style*="#140A0E"] { color: #000000 !important; }
-  .pc-mkt[data-contrast="high"] [style*="color: rgb(91, 67, 72)"],
-  .pc-mkt[data-contrast="high"] [style*="#5B4348"] { color: #2E1A1F !important; } /* ≈ 12.6:1 on #F0C9D6 */
-  .pc-mkt[data-contrast="high"] [style*="color: rgb(138, 51, 85)"],
-  .pc-mkt[data-contrast="high"] [style*="#8A3355"] { color: #5A1A34 !important; } /* ≈ 8.9:1 on #F0C9D6 */
-  /* Glass surfaces get stronger opacity + darker hairline for AA against denser bg */
-  .pc-mkt[data-contrast="high"] .glass-color,
-  .pc-mkt[data-contrast="high"] [style*="rgba(255,248,250,0.55)"],
-  .pc-mkt[data-contrast="high"] [style*="rgba(255,255,255,0.55)"],
-  .pc-mkt[data-contrast="high"] [style*="rgba(255,248,250,0.65)"],
-  .pc-mkt[data-contrast="high"] [style*="rgba(255,255,255,0.70)"] {
-    background: rgba(255, 250, 252, 0.92) !important;
-    border-color: rgba(90, 26, 52, 0.35) !important;
-  }
-  /* Card border on expand — darker ring for AA non-text contrast (>= 3:1) */
-  .pc-mkt[data-contrast="high"] article[aria-expanded="true"] {
-    box-shadow: 0 0 0 2px #5A1A34, 0 24px 60px -24px rgba(60, 20, 34, 0.45) !important;
-  }
-  /* Focus ring meets 3:1 on any bg */
-  .pc-mkt :focus-visible { outline: 2px solid #5A1A34; outline-offset: 3px; border-radius: 12px; }
+  .pc-mkt[data-mode="dark"] .grain-overlay { opacity: 0.35; mix-blend-mode: screen; }
+  /* Neutralize any hardcoded near-white backgrounds that ignore tokens */
+  .pc-mkt[data-mode="dark"] [style*="#FFFFFF"],
+  .pc-mkt[data-mode="dark"] [style*="#ffffff"],
+  .pc-mkt[data-mode="dark"] [style*="rgb(255, 255, 255)"] { }
+  /* Focus ring */
+  .pc-mkt :focus-visible { outline: 2px solid var(--sakura-rose); outline-offset: 3px; border-radius: 12px; }
 `;
 
+
 function MarketingPage() {
-  const [highContrast, setHighContrast] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("pc-mkt-contrast");
-      if (saved === "high") setHighContrast(true);
+      const saved = localStorage.getItem("pc-mkt-mode");
+      if (saved === "dark") setDarkMode(true);
     } catch {}
   }, []);
   useEffect(() => {
-    try { localStorage.setItem("pc-mkt-contrast", highContrast ? "high" : "normal"); } catch {}
-  }, [highContrast]);
+    try { localStorage.setItem("pc-mkt-mode", darkMode ? "dark" : "light"); } catch {}
+  }, [darkMode]);
 
   return (
-    <div className="pc-mkt relative overflow-x-hidden" data-contrast={highContrast ? "high" : "normal"}>
+    <div className="pc-mkt relative overflow-x-hidden" data-mode={darkMode ? "dark" : "light"}>
       <style dangerouslySetInnerHTML={{ __html: styles }} />
       {/* Machine-readable AEO answer for AI Overviews / ChatGPT / Perplexity — visually hidden but semantic */}
       <p className="sr-only" itemProp="description">
         {AEO_ANSWER}
       </p>
-      <button
-        type="button"
-        onClick={() => setHighContrast((v) => !v)}
-        aria-pressed={highContrast}
-        aria-label={highContrast ? "Disable high contrast Sakura mode" : "Enable high contrast Sakura mode"}
-        className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-xs font-semibold tracking-wide shadow-lg transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none"
-        style={{
-          background: highContrast ? "#0B0407" : "#5A1A34",
-          color: "#FFFFFF",
-          border: "1px solid rgba(255,255,255,0.25)",
-        }}
-      >
-        <span aria-hidden style={{
-          display: "inline-block", width: 10, height: 10, borderRadius: 999,
-          background: highContrast ? "#F9C6D6" : "#FFFFFF",
-        }} />
-        {highContrast ? "High contrast: on" : "High contrast"}
-      </button>
-      <Navbar />
+      <Navbar darkMode={darkMode} onToggleDark={() => setDarkMode((v) => !v)} />
+
 
       <main>
         {/* AEO — Trigger → Action → Clinical Benefit definition (hidden from users, exposed to crawlers/LLMs) */}
@@ -651,7 +628,7 @@ const NAV_ITEMS: NavItem[] = [
   },
 ];
 
-function Navbar() {
+function Navbar({ darkMode = false, onToggleDark }: { darkMode?: boolean; onToggleDark?: () => void }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -772,6 +749,23 @@ function Navbar() {
 
         {/* ── Right cluster ── */}
         <div className="flex items-center gap-1.5 shrink-0">
+          {onToggleDark ? (
+            <button
+              type="button"
+              onClick={onToggleDark}
+              aria-pressed={darkMode}
+              aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+              title={darkMode ? "Light mode" : "Dark mode"}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full transition-transform hover:-translate-y-0.5"
+              style={{
+                color: "var(--sakura-ink)",
+                background: "color-mix(in oklab, var(--sakura-petal) 55%, transparent)",
+                border: "1px solid color-mix(in oklab, var(--sakura-ink) 10%, transparent)",
+              }}
+            >
+              {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
+          ) : null}
           <a
             href={LOGIN_URL}
             className="hidden sm:inline-flex items-center rounded-full px-5 py-2 text-[13.5px] font-medium transition-transform hover:-translate-y-0.5"
