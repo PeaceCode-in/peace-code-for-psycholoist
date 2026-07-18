@@ -241,7 +241,16 @@ export const Route = createFileRoute("/for-psychologists")({
 export { AEO_TAB, FEATURE_SLUGS };
 
 
-const COLOR = { lavender: "#98A6D4", peach: "#EAEBFC", sage: "#D4E2D7" };
+// Sakura palette — matches the dashboard theme (see src/lib/settings-store.ts).
+const COLOR = {
+  cream: "#FFF8FA",       // page base
+  petal: "#FCEAF0",       // soft pink surface
+  blush: "#F6D6E1",       // deeper pink surface
+  rose:  "#B0567A",       // primary rose
+  ink:   "#1E1418",       // ink
+  muted: "#7B6A70",       // muted text
+  border:"#EADFE2",       // hairline border
+};
 
 const reveal = {
   initial: { opacity: 0, y: 40 },
