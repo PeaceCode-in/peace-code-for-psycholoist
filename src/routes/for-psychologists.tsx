@@ -413,13 +413,13 @@ function FeatureCatalogue() {
       <div className="max-w-6xl mx-auto">
         <p className="text-[11px] tracking-[0.28em] uppercase mb-3 text-center" style={{ color: COLOR.muted }}>The full workspace</p>
         <h2 className="pc-serif text-4xl md:text-6xl text-center mb-4" style={{ fontFamily: "Fraunces, serif", fontWeight: 300, color: COLOR.ink }}>
-          Five rooms. <span className="pc-italic" style={{ fontFamily: "'Instrument Serif', serif", fontStyle: "italic" }}>One practice.</span>
+          Three rooms. <span className="pc-italic" style={{ fontFamily: "'Instrument Serif', serif", fontStyle: "italic" }}>One practice.</span>
         </h2>
         <p className="text-center text-sm max-w-2xl mx-auto mb-14" style={{ color: COLOR.muted }}>
           Twenty-two modules organised the way clinicians actually think. Hover a room to see what lives inside.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {FEATURE_GROUPS.map((g) => {
             const isOpen = open === g.title;
             return (
