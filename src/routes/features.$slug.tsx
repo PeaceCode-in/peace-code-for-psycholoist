@@ -1440,3 +1440,87 @@ function FeatureDetail() {
   );
 }
 
+/**
+ * Related workflows — internal-linking block rendered on every feature page.
+ *
+ * Uses descriptive anchor text (feature name + one-line benefit) rather than
+ * "click here" style links, so search engines can attribute keyword context
+ * to the destination URL. All destinations resolve to /features/<slug>, which
+ * are already listed in /sitemap.xml.
+ */
+function RelatedFeatures({ slug }: { slug: string }) {
+  const related = (RELATED_FEATURES[slug] ?? [])
+    .map((s) => MARKETING_FEATURES.find((f) => f.slug === s))
+    .filter((f): f is (typeof MARKETING_FEATURES)[number] => Boolean(f));
+
+  if (related.length === 0) return null;
+
+  return (
+    <section
+      aria-labelledby="related-workflows-heading"
+      className="relative py-20 px-6"
+    >
+      <div className="max-w-5xl mx-auto">
+        <p className="pc-label mb-3 text-center" style={{ color: "var(--sakura-muted)" }}>
+          Related workflows
+        </p>
+        <h2
+          id="related-workflows-heading"
+          className="pc-serif text-3xl md:text-4xl text-center mb-3"
+          style={{ color: "var(--sakura-ink)" }}
+        >
+          Continue <span className="pc-italic">exploring.</span>
+        </h2>
+        <p
+          className="text-center max-w-2xl mx-auto mb-10 font-light text-sm"
+          style={{ color: "var(--sakura-muted)" }}
+        >
+          Features that pair naturally with this one in a psychology practice.
+        </p>
+        <nav aria-label="Related features" className="grid gap-4 sm:grid-cols-2">
+          {related.map((rf) => (
+            <Link
+              key={rf.slug}
+              to="/features/$slug"
+              params={{ slug: rf.slug }}
+              className="sakura-card p-6 group block transition-transform duration-150 hover:-translate-y-0.5"
+              aria-label={`${rf.name} — ${rf.desc}`}
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div className="min-w-0">
+                  <h3
+                    className="pc-serif text-lg mb-1"
+                    style={{ color: "var(--sakura-ink)" }}
+                  >
+                    {rf.name}
+                  </h3>
+                  <p
+                    className="font-light text-sm"
+                    style={{ color: "var(--sakura-muted)" }}
+                  >
+                    {rf.desc}
+                  </p>
+                </div>
+                <ArrowRight
+                  className="w-4 h-4 mt-1.5 shrink-0 transition-transform duration-150 group-hover:translate-x-0.5"
+                  style={{ color: "var(--sakura-rose)" }}
+                  aria-hidden="true"
+                />
+              </div>
+            </Link>
+          ))}
+        </nav>
+        <p className="text-center mt-8">
+          <Link
+            to="/features"
+            className="text-sm underline underline-offset-4"
+            style={{ color: "var(--sakura-muted)" }}
+          >
+            See all features for psychologists
+          </Link>
+        </p>
+      </div>
+    </section>
+  );
+}
+
