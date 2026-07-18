@@ -1013,6 +1013,7 @@ export const Route = createFileRoute("/features/$slug")({
     const title = rawTitle.length > 60 ? `${f.hero} — PeaceCode` : rawTitle;
     const descSource = f.aeoSummary || f.subtitle;
     const description = descSource.length > 160 ? descSource.slice(0, 157) + "…" : descSource;
+    const ogImage = `${ORIGIN}/og/features/${params.slug}.svg`;
     return {
       meta: [
         { title },
@@ -1026,10 +1027,17 @@ export const Route = createFileRoute("/features/$slug")({
         { property: "og:url", content: url },
         { property: "og:site_name", content: "PeaceCode for Psychologists" },
         { property: "og:locale", content: "en_IN" },
+        { property: "og:image", content: ogImage },
+        { property: "og:image:type", content: "image/svg+xml" },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        { property: "og:image:alt", content: `${f.hero} — Sakura cover for PeaceCode for Psychologists` },
         { property: "article:publisher", content: ORIGIN + "/" },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: `${f.hero} — PeaceCode` },
         { name: "twitter:description", content: description },
+        { name: "twitter:image", content: ogImage },
+        { name: "twitter:image:alt", content: `${f.hero} — PeaceCode for Psychologists` },
         { name: "geo.region", content: "IN-DL" },
         { name: "geo.placename", content: "Old Delhi, Delhi, India" },
         { name: "geo.position", content: "28.6562;77.2410" },
