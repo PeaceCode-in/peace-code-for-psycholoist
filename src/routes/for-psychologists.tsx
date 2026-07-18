@@ -513,7 +513,7 @@ function Navbar() {
               <a
                 href={item.href}
                 className={`inline-flex items-center gap-1 px-4 py-2 text-[14px] font-medium transition-colors ${
-                  scrolled ? "text-slate-900 hover:text-slate-600" : "text-white/95 hover:text-white"
+                  "text-slate-900 hover:text-slate-600"
                 }`}
               >
                 {item.label}
@@ -560,7 +560,7 @@ function Navbar() {
             onClick={() => setMobileOpen((v) => !v)}
             aria-label="Menu"
             className={`lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors ${
-              scrolled ? "text-slate-900 hover:bg-slate-100" : "text-white hover:bg-white/10"
+              "text-slate-900 hover:bg-slate-100"
             }`}
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
