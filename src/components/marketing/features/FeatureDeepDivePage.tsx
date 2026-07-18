@@ -257,6 +257,8 @@ export function FeatureDeepDivePage({
     <article className="fdd-page">
       <style dangerouslySetInnerHTML={{ __html: CHROME_CSS }} />
       <SakuraWidgetStyles />
+      <MarketingNavbar />
+
 
       {/* ─── HERO ─── */}
       <header className="relative pt-20 pb-24 px-6 overflow-hidden">
