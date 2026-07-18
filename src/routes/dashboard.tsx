@@ -226,7 +226,7 @@ function Dashboard() {
 
         {/* ─── Alerts ───────────────────────────────────────────────────── */}
         <section className="col-span-12 lg:col-span-5 rounded-3xl p-4 sm:p-5 relative overflow-hidden" style={cardStyle}>
-          <CardIllustration kind="peak" color="#B54848" size={160} className="-right-4 -bottom-8" />
+          <CardIllustration kind="peak" color="var(--status-danger)" size={160} className="-right-4 -bottom-8" />
           <SectionHead title="Priority alerts" hint={`${ALERTS.length} to review`} to="/alerts" />
           <div className="mt-3 space-y-2">
             {alertsShown.map((a) => {
