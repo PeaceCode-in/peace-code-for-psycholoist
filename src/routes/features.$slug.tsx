@@ -9,6 +9,9 @@ import {
   Share2, Network, Users, Award, GraduationCap, FolderOpen, Library, BarChart3,
   Plug, Hourglass, Globe, Bell, Layers, MapPin, Zap, FileCheck, Building2, Star,
 } from "lucide-react";
+import branchLeft from "@/assets/sakura/branch-left.svg";
+import branchRight from "@/assets/sakura/branch-right.svg";
+
 
 const LOGIN_URL = "/auth";
 
@@ -1054,157 +1057,295 @@ const reveal = {
 };
 
 const styles = `
-  .pc-mkt { font-family: 'Inter', sans-serif; color: #1a1a2e; }
+  .pc-mkt { font-family: 'Inter', sans-serif; color: var(--sakura-ink); }
   .pc-serif { font-family: 'Fraunces', serif; font-weight: 300; letter-spacing: -0.02em; }
   .pc-italic { font-family: 'Instrument Serif', serif; font-style: italic; }
   .pc-label { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 600; }
-  .glass-color { background: rgba(255,255,255,0.45); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.65); box-shadow: 0 8px 30px rgba(0,0,0,0.04); border-radius: 1.75rem; }
-  .glass-white { background: rgba(255,255,255,0.72); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 20px 60px -15px rgba(0,0,0,0.08); border-radius: 1.75rem; }
+
+  .sakura-page {
+    background: var(--sakura-cream);
+    position: relative;
+  }
+  .sakura-page::before {
+    content: "";
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.55  0 0 0 0 0.2  0 0 0 0 0.33  0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.85; pointer-events: none; z-index: 0; mix-blend-mode: multiply;
+  }
+  .sakura-page > * { position: relative; z-index: 1; }
+
+  .sakura-branch {
+    position: absolute; top: 3.5rem; width: 220px; height: auto; pointer-events: none;
+    opacity: 0.95; user-select: none;
+  }
+  @media (min-width: 768px) { .sakura-branch { width: 300px; top: 4.5rem; } }
+  @media (min-width: 1200px) { .sakura-branch { width: 360px; } }
+
+  .sakura-pill {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.4rem 0.9rem; border-radius: 999px;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid var(--sakura-border);
+    color: var(--sakura-ink);
+    font-size: 11px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase;
+  }
+
+  .sakura-card {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--sakura-border);
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 60px -30px rgba(138, 51, 85, 0.18);
+  }
+  .sakura-card-tag {
+    display: inline-block; padding: 0.25rem 0.6rem; border-radius: 999px;
+    background: var(--sakura-petal); color: var(--sakura-rose);
+    font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  .sakura-icon-chip {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--sakura-petal);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--sakura-rose);
+  }
+
+  .sakura-btn-dark {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--sakura-ink); color: var(--sakura-cream);
+    padding: 0.95rem 2rem; border-radius: 999px;
+    font-weight: 500; font-size: 0.9rem;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+  }
+  .sakura-btn-dark:hover { transform: translateY(-1px); box-shadow: 0 12px 30px -10px rgba(20, 10, 14, 0.35); }
+
+  .sakura-btn-ghost {
+    color: var(--sakura-rose); font-size: 0.85rem; font-weight: 500;
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    transition: gap 150ms ease;
+  }
+  .sakura-btn-ghost:hover { gap: 0.5rem; }
+
+  .sakura-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+  .sakura-table th, .sakura-table td {
+    padding: 1rem 1.25rem; text-align: left; font-size: 0.9rem;
+    border-bottom: 1px solid var(--sakura-border);
+  }
+  .sakura-table th {
+    font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--sakura-muted);
+    background: rgba(255, 255, 255, 0.55);
+  }
+  .sakura-table tr:last-child td { border-bottom: none; }
+  .sakura-table tr:hover td { background: rgba(242, 201, 214, 0.25); }
+  .sakura-step-num {
+    font-family: 'Fraunces', serif; font-weight: 400;
+    color: var(--sakura-rose); font-size: 1.05rem;
+  }
 `;
 
 function FeatureDetail() {
   const { feature: f } = Route.useLoaderData() as { feature: Feature };
+  const topThree = f.capabilities.slice(0, 3);
+  const rest = f.capabilities.slice(3);
 
   return (
-    <article className="pc-mkt">
+    <article className="pc-mkt sakura-page">
       <style dangerouslySetInnerHTML={{ __html: styles }} />
 
-      {/* Hero — H1 lives here */}
-      <header className="relative pt-28 pb-24 px-6 overflow-hidden" style={{ background: "linear-gradient(180deg, #A3B8C7 0%, #B8C4D3 50%, #EAEBFC 100%)" }}>
-        <div className="max-w-5xl mx-auto text-center relative text-white">
-          <nav aria-label="Breadcrumb" className="mb-6">
-            <Link to="/features" className="text-sm text-white/85 hover:text-white inline-flex items-center gap-1">← All features</Link>
+      {/* ─── HERO ───────────────────────────────────────────── */}
+      <header className="relative pt-20 pb-24 px-6 overflow-hidden">
+        <img src={branchLeft} alt="" aria-hidden="true" className="sakura-branch left-0 -translate-x-[15%]" />
+        <img src={branchRight} alt="" aria-hidden="true" className="sakura-branch right-0 translate-x-[15%]" />
+
+        <div className="max-w-4xl mx-auto text-center relative">
+          <nav aria-label="Breadcrumb" className="mb-6 flex justify-center">
+            <Link to="/features" className="text-sm hover:opacity-100 opacity-70 inline-flex items-center gap-1" style={{ color: "var(--sakura-muted)" }}>
+              ← All features
+            </Link>
           </nav>
-          <p className="pc-label mb-6 text-white/85">{f.tag}</p>
-          <h1 className="pc-serif text-5xl md:text-7xl lg:text-8xl leading-[1.05] mb-6">
+
+          <div className="mb-8 flex justify-center">
+            <span className="sakura-pill">
+              <Sparkles className="w-3 h-3" /> {f.tag}
+            </span>
+          </div>
+
+          <h1 className="pc-serif text-4xl md:text-6xl lg:text-7xl leading-[1.08] mb-8" style={{ color: "var(--sakura-ink)" }}>
             {f.title} <span className="pc-italic">{f.italicWord}</span>
           </h1>
-          <p className="text-lg md:text-xl text-white/85 max-w-2xl mx-auto mb-6 font-light">{f.subtitle}</p>
 
-          {/* 50-word AEO snippet — machine-readable, first-viewport */}
-          <p className="max-w-3xl mx-auto text-[13px] md:text-sm text-white/75 italic leading-relaxed mb-10">
-            {f.aeoSummary}
+          <p className="text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed" style={{ color: "var(--sakura-muted)" }}>
+            {f.subtitle}
           </p>
 
-          <a href={LOGIN_URL} className="inline-flex items-center gap-2 bg-white text-slate-900 px-8 py-4 rounded-[18px] font-medium text-base shadow-lg hover:scale-[1.02] transition-transform">
-            Try it in your practice <ArrowRight className="w-4 h-4" />
-          </a>
+          {/* AEO snippet — kept for crawlers, faded for readers */}
+          <p className="sr-only">{f.aeoSummary}</p>
         </div>
       </header>
 
-      {/* Problem */}
-      <section aria-label="The problem" className="relative py-24 px-6 bg-white">
+      {/* ─── SPLIT COPY ROW ───────────────────────────────────── */}
+      <section aria-label="The context" className="relative py-20 px-6">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-14 items-start">
+          <motion.h2 {...reveal} className="pc-serif text-3xl md:text-5xl leading-[1.1]" style={{ color: "var(--sakura-ink)" }}>
+            {f.problem.title.replace(/\.$/, "")}<span className="pc-italic">.</span>
+          </motion.h2>
           <motion.div {...reveal}>
-            <p className="pc-label text-slate-500 mb-4">The problem</p>
-            <h2 className="pc-serif text-3xl md:text-5xl mb-6">{f.problem.title}</h2>
-            <p className="text-slate-600 font-light text-lg">{f.problem.body}</p>
+            <p className="text-base leading-relaxed font-light mb-4" style={{ color: "var(--sakura-muted)" }}>
+              {f.problem.body}
+            </p>
+            <ul className="space-y-2 mt-4">
+              {f.problem.points.map((p) => (
+                <li key={p} className="flex items-start gap-2 text-sm" style={{ color: "var(--sakura-muted)" }}>
+                  <span className="mt-2 w-1 h-1 rounded-full shrink-0" style={{ background: "var(--sakura-rose)" }} />
+                  {p}
+                </li>
+              ))}
+            </ul>
           </motion.div>
-          <motion.ul {...reveal} className="space-y-3">
-            {f.problem.points.map((p) => (
-              <li key={p} className="glass-white p-5 flex items-start gap-3">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-slate-900 shrink-0" />
-                <span className="text-slate-700">{p}</span>
-              </li>
-            ))}
-          </motion.ul>
         </div>
       </section>
 
-      {/* Capabilities */}
-      <section aria-label="Capabilities" className="relative py-24 px-6" style={{ background: "#EAEBFC" }}>
-        <motion.div {...reveal} className="max-w-6xl mx-auto text-center mb-14">
-          <p className="pc-label text-slate-500 mb-4">What's inside</p>
-          <h2 className="pc-serif text-4xl md:text-6xl">{f.capTitle} <span className="pc-italic">{f.capItalic}</span></h2>
-        </motion.div>
+      {/* ─── 3 CAPABILITY CARDS (reference layout) ───────────── */}
+      <section aria-label="Capabilities" className="relative py-16 px-6">
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-5">
-          {f.capabilities.map((c, i) => {
+          {topThree.map((c, i) => {
             const Icon = c.icon;
             return (
-              <motion.div key={c.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.7, delay: (i % 3) * 0.08, ease: [0.22, 1, 0.36, 1] }} whileHover={{ y: -6 }} className="glass-color p-7">
-                <div className="w-11 h-11 rounded-2xl bg-white/70 flex items-center justify-center mb-4 shadow-sm">
-                  <Icon className="w-5 h-5 text-slate-700" />
-                </div>
-                <h3 className="pc-serif text-2xl mb-2">{c.title}</h3>
-                <p className="text-slate-600 font-light text-sm">{c.body}</p>
+              <motion.div
+                key={c.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -4 }}
+                className="sakura-card p-6"
+              >
+                <div className="sakura-icon-chip mb-5"><Icon className="w-5 h-5" /></div>
+                <span className="sakura-card-tag mb-3">{f.tag}</span>
+                <h3 className="pc-serif text-2xl mt-3 mb-2" style={{ color: "var(--sakura-ink)" }}>{c.title}</h3>
+                <p className="text-sm font-light leading-relaxed mb-5" style={{ color: "var(--sakura-muted)" }}>{c.body}</p>
+                <a href="#workflow" className="sakura-btn-ghost">
+                  View Details <ArrowRight className="w-3.5 h-3.5" />
+                </a>
               </motion.div>
             );
           })}
         </div>
       </section>
 
-      {/* Workflow */}
-      <section aria-label="How it flows" className="relative py-24 px-6 bg-white">
-        <motion.div {...reveal} className="max-w-6xl mx-auto text-center mb-14">
-          <p className="pc-label text-slate-500 mb-4">How it flows</p>
-          <h2 className="pc-serif text-4xl md:text-6xl">Four steps, <span className="pc-italic">once.</span></h2>
+      {/* ─── WORKFLOW AS TABLE ────────────────────────────────── */}
+      <section id="workflow" aria-label="How it flows" className="relative py-20 px-6">
+        <motion.div {...reveal} className="max-w-3xl mx-auto text-center mb-10">
+          <p className="pc-label mb-3" style={{ color: "var(--sakura-muted)" }}>How it flows</p>
+          <h2 className="pc-serif text-3xl md:text-5xl" style={{ color: "var(--sakura-ink)" }}>
+            Four steps, <span className="pc-italic">once.</span>
+          </h2>
         </motion.div>
-        <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-5">
-          {f.workflow.map((w, i) => (
-            <motion.div key={w.step} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.7, delay: i * 0.08 }} className="p-6 border border-slate-200/60 rounded-[28px] bg-white/70">
-              <span className="pc-serif text-5xl text-slate-300">{w.step}</span>
-              <h3 className="pc-serif text-xl mt-2 mb-2">{w.title}</h3>
-              <p className="text-slate-600 font-light text-sm">{w.body}</p>
-            </motion.div>
-          ))}
-        </div>
-        <div className="mt-10 text-center">
-          <a href={LOGIN_URL} className="inline-flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-full text-sm font-medium">
-            Explore in your workspace <ArrowRight className="w-4 h-4" />
-          </a>
-        </div>
+        <motion.div {...reveal} className="max-w-4xl mx-auto sakura-card overflow-hidden">
+          <table className="sakura-table">
+            <thead>
+              <tr>
+                <th style={{ width: "80px" }}>Step</th>
+                <th>What happens</th>
+                <th>You do</th>
+              </tr>
+            </thead>
+            <tbody>
+              {f.workflow.map((w) => (
+                <tr key={w.step}>
+                  <td><span className="sakura-step-num">{w.step}</span></td>
+                  <td className="pc-serif text-lg" style={{ color: "var(--sakura-ink)" }}>{w.title}</td>
+                  <td className="font-light" style={{ color: "var(--sakura-muted)" }}>{w.body}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </motion.div>
       </section>
 
-      {/* Savings */}
-      <section aria-label="Impact" className="relative py-24 px-6" style={{ background: "linear-gradient(180deg, #ffffff, #EAEBFC)" }}>
-        <motion.div {...reveal} className="max-w-4xl mx-auto text-center mb-14">
-          <p className="pc-label text-slate-500 mb-4">Where it saves you</p>
-          <h2 className="pc-serif text-4xl md:text-5xl">The measurable <span className="pc-italic">difference.</span></h2>
+      {/* ─── REMAINING CAPABILITIES (if any) as compact grid ── */}
+      {rest.length > 0 && (
+        <section aria-label="Also included" className="relative py-16 px-6">
+          <motion.div {...reveal} className="max-w-3xl mx-auto text-center mb-10">
+            <p className="pc-label mb-3" style={{ color: "var(--sakura-muted)" }}>Also included</p>
+            <h2 className="pc-serif text-3xl md:text-4xl" style={{ color: "var(--sakura-ink)" }}>
+              {f.capTitle} <span className="pc-italic">{f.capItalic}</span>
+            </h2>
+          </motion.div>
+          <div className="max-w-5xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {rest.map((c, i) => {
+              const Icon = c.icon;
+              return (
+                <motion.div key={c.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.05 }} className="sakura-card p-5">
+                  <div className="sakura-icon-chip mb-3" style={{ width: 36, height: 36 }}>
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <h3 className="pc-serif text-lg mb-1" style={{ color: "var(--sakura-ink)" }}>{c.title}</h3>
+                  <p className="text-xs font-light" style={{ color: "var(--sakura-muted)" }}>{c.body}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* ─── SAVINGS ROW ──────────────────────────────────────── */}
+      <section aria-label="Impact" className="relative py-20 px-6">
+        <motion.div {...reveal} className="max-w-3xl mx-auto text-center mb-10">
+          <p className="pc-label mb-3" style={{ color: "var(--sakura-muted)" }}>The measurable difference</p>
+          <h2 className="pc-serif text-3xl md:text-5xl" style={{ color: "var(--sakura-ink)" }}>
+            Where it <span className="pc-italic">saves you.</span>
+          </h2>
         </motion.div>
-        <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-6">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-5">
           {f.savings.map((s, i) => (
-            <motion.div key={s.label} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: i * 0.1 }} className="glass-white p-8 text-center">
-              <p className="pc-serif text-5xl md:text-6xl mb-2">{s.metric}</p>
-              <p className="pc-label text-slate-700 mb-3">{s.label}</p>
-              <p className="text-xs text-slate-500 font-light">{s.note}</p>
+            <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: i * 0.08 }} className="sakura-card p-8 text-center">
+              <p className="pc-serif text-5xl md:text-6xl mb-2" style={{ color: "var(--sakura-rose)" }}>{s.metric}</p>
+              <p className="pc-label mb-2" style={{ color: "var(--sakura-ink)" }}>{s.label}</p>
+              <p className="text-xs font-light" style={{ color: "var(--sakura-muted)" }}>{s.note}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* FAQ */}
-      <section aria-label="FAQ" className="relative py-24 px-6 bg-white">
+      {/* ─── FAQ ──────────────────────────────────────────────── */}
+      <section aria-label="FAQ" className="relative py-20 px-6">
         <motion.div {...reveal} className="max-w-3xl mx-auto">
-          <p className="pc-label text-slate-500 mb-4 text-center">Frequently asked</p>
-          <h2 className="pc-serif text-4xl md:text-5xl text-center mb-12">Straight <span className="pc-italic">answers.</span></h2>
-          <div className="space-y-4">
+          <p className="pc-label mb-3 text-center" style={{ color: "var(--sakura-muted)" }}>Frequently asked</p>
+          <h2 className="pc-serif text-3xl md:text-5xl text-center mb-10" style={{ color: "var(--sakura-ink)" }}>
+            Straight <span className="pc-italic">answers.</span>
+          </h2>
+          <div className="space-y-3">
             {f.faq.map((it) => (
-              <details key={it.q} className="glass-white p-6 group">
+              <details key={it.q} className="sakura-card p-6 group">
                 <summary className="cursor-pointer flex items-start gap-3 list-none">
-                  <Check className="w-4 h-4 mt-1.5 text-slate-500 shrink-0" />
-                  <h3 className="pc-serif text-xl">{it.q}</h3>
+                  <Check className="w-4 h-4 mt-1.5 shrink-0" style={{ color: "var(--sakura-rose)" }} />
+                  <h3 className="pc-serif text-lg" style={{ color: "var(--sakura-ink)" }}>{it.q}</h3>
                 </summary>
-                <p className="text-slate-600 font-light pl-7 mt-3">{it.a}</p>
+                <p className="font-light pl-7 mt-3 text-sm" style={{ color: "var(--sakura-muted)" }}>{it.a}</p>
               </details>
             ))}
           </div>
         </motion.div>
       </section>
 
-      {/* CTA */}
-      <footer className="relative py-32 px-6 text-center overflow-hidden" style={{ background: "linear-gradient(180deg, #EAEBFC, #A3B8C7)" }}>
+      {/* ─── CTA ──────────────────────────────────────────────── */}
+      <footer className="relative py-24 px-6 text-center overflow-hidden">
         <motion.div {...reveal} className="max-w-3xl mx-auto">
-          <h2 className="pc-serif text-4xl md:text-6xl mb-8 leading-[1.05] text-slate-900">
+          <h2 className="pc-serif text-3xl md:text-5xl mb-8 leading-[1.05]" style={{ color: "var(--sakura-ink)" }}>
             {f.cta} <span className="pc-italic">{f.ctaItalic}</span>
           </h2>
-          <a href={LOGIN_URL} className="inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-full font-medium">
+          <a href={LOGIN_URL} className="sakura-btn-dark">
             Get started free <ArrowRight className="w-4 h-4" />
           </a>
           <div className="mt-6">
-            <Link to="/features" className="text-sm text-slate-700 hover:text-slate-900 underline underline-offset-4">Or browse other features</Link>
+            <Link to="/features" className="text-sm underline underline-offset-4" style={{ color: "var(--sakura-muted)" }}>
+              Or browse other features
+            </Link>
           </div>
         </motion.div>
       </footer>
     </article>
   );
 }
+
