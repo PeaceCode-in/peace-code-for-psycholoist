@@ -388,29 +388,19 @@ function MarketingFAQSection() {
 /* ---------------- Feature Catalogue — grouped category cards, hover expands to reveal sub-features ---------------- */
 const FEATURE_GROUPS: Array<{ title: string; blurb: string; slugs: string[] }> = [
   {
-    title: "Clinical care",
-    blurb: "The room, the hour, the work between.",
-    slugs: ["scheduling", "notes", "assessments", "safety", "homework", "copilot"],
+    title: "Clinical work",
+    blurb: "The room, the hour, the work between sessions.",
+    slugs: ["scheduling", "notes", "assessments", "safety", "homework", "copilot", "telehealth", "groups", "referrals"],
   },
   {
     title: "Clients & records",
-    blurb: "Charts, consent and continuity in one place.",
+    blurb: "Charts, consent, messaging and continuity in one place.",
     slugs: ["patients", "documents", "messages", "library", "profile", "waitlist"],
   },
   {
-    title: "Sessions & delivery",
-    blurb: "How the session actually reaches the client.",
-    slugs: ["telehealth", "groups", "referrals"],
-  },
-  {
-    title: "Practice operations",
-    blurb: "Billing, teams and the boring stuff done right.",
-    slugs: ["billing", "team", "integrations", "analytics"],
-  },
-  {
-    title: "Governance & growth",
-    blurb: "Compliance, supervision and your license.",
-    slugs: ["compliance", "supervision", "cpd"],
+    title: "Practice & governance",
+    blurb: "Billing, team, compliance and your license.",
+    slugs: ["billing", "team", "integrations", "analytics", "compliance", "supervision", "cpd"],
   },
 ];
 
@@ -423,13 +413,13 @@ function FeatureCatalogue() {
       <div className="max-w-6xl mx-auto">
         <p className="text-[11px] tracking-[0.28em] uppercase mb-3 text-center" style={{ color: COLOR.muted }}>The full workspace</p>
         <h2 className="pc-serif text-4xl md:text-6xl text-center mb-4" style={{ fontFamily: "Fraunces, serif", fontWeight: 300, color: COLOR.ink }}>
-          Five rooms. <span className="pc-italic" style={{ fontFamily: "'Instrument Serif', serif", fontStyle: "italic" }}>One practice.</span>
+          Three rooms. <span className="pc-italic" style={{ fontFamily: "'Instrument Serif', serif", fontStyle: "italic" }}>One practice.</span>
         </h2>
         <p className="text-center text-sm max-w-2xl mx-auto mb-14" style={{ color: COLOR.muted }}>
           Twenty-two modules organised the way clinicians actually think. Hover a room to see what lives inside.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {FEATURE_GROUPS.map((g) => {
             const isOpen = open === g.title;
             return (
