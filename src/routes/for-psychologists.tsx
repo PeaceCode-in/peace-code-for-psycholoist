@@ -388,29 +388,19 @@ function MarketingFAQSection() {
 /* ---------------- Feature Catalogue — grouped category cards, hover expands to reveal sub-features ---------------- */
 const FEATURE_GROUPS: Array<{ title: string; blurb: string; slugs: string[] }> = [
   {
-    title: "Clinical care",
-    blurb: "The room, the hour, the work between.",
-    slugs: ["scheduling", "notes", "assessments", "safety", "homework", "copilot"],
+    title: "Clinical work",
+    blurb: "The room, the hour, the work between sessions.",
+    slugs: ["scheduling", "notes", "assessments", "safety", "homework", "copilot", "telehealth", "groups", "referrals"],
   },
   {
     title: "Clients & records",
-    blurb: "Charts, consent and continuity in one place.",
+    blurb: "Charts, consent, messaging and continuity in one place.",
     slugs: ["patients", "documents", "messages", "library", "profile", "waitlist"],
   },
   {
-    title: "Sessions & delivery",
-    blurb: "How the session actually reaches the client.",
-    slugs: ["telehealth", "groups", "referrals"],
-  },
-  {
-    title: "Practice operations",
-    blurb: "Billing, teams and the boring stuff done right.",
-    slugs: ["billing", "team", "integrations", "analytics"],
-  },
-  {
-    title: "Governance & growth",
-    blurb: "Compliance, supervision and your license.",
-    slugs: ["compliance", "supervision", "cpd"],
+    title: "Practice & governance",
+    blurb: "Billing, team, compliance and your license.",
+    slugs: ["billing", "team", "integrations", "analytics", "compliance", "supervision", "cpd"],
   },
 ];
 
