@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import branchLeft from "@/assets/sakura/branch-left.svg";
 import branchRight from "@/assets/sakura/branch-right.svg";
-import { SchedulingDeepDive } from "@/components/marketing/features/SchedulingDeepDive";
+import { getDeepDive } from "@/components/marketing/features/deep-dives";
 
 
 
