@@ -13,6 +13,42 @@ import branchLeft from "@/assets/sakura/branch-left.svg";
 import branchRight from "@/assets/sakura/branch-right.svg";
 import { getDeepDive } from "@/components/marketing/features/deep-dives";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
+import { MARKETING_FEATURES } from "@/lib/marketing-features";
+
+/**
+ * Editorial "related workflows" graph — powers the internal-linking section
+ * shown on every feature page. Each entry lists 3–4 sibling slugs that share
+ * a clinical workflow with the current page, so crawlers and readers can
+ * follow descriptive anchors instead of a flat list.
+ */
+const RELATED_FEATURES: Record<string, string[]> = {
+  scheduling:   ["waitlist", "telehealth", "messages", "billing"],
+  notes:        ["copilot", "assessments", "documents", "supervision"],
+  assessments:  ["notes", "analytics", "safety", "homework"],
+  telehealth:   ["scheduling", "messages", "documents", "compliance"],
+  billing:      ["scheduling", "integrations", "analytics", "compliance"],
+  messages:     ["telehealth", "homework", "scheduling", "compliance"],
+  homework:     ["library", "assessments", "messages", "patients"],
+  groups:       ["scheduling", "notes", "patients", "billing"],
+  patients:     ["notes", "assessments", "documents", "referrals"],
+  safety:       ["assessments", "notes", "patients", "supervision"],
+  referrals:    ["patients", "documents", "messages", "compliance"],
+  team:         ["supervision", "compliance", "cpd", "patients"],
+  supervision:  ["notes", "cpd", "team", "documents"],
+  cpd:          ["supervision", "team", "compliance", "library"],
+  documents:    ["compliance", "notes", "patients", "referrals"],
+  library:      ["homework", "assessments", "patients", "copilot"],
+  analytics:    ["billing", "assessments", "scheduling", "patients"],
+  copilot:      ["notes", "assessments", "library", "documents"],
+  compliance:   ["documents", "billing", "telehealth", "team"],
+  integrations: ["scheduling", "billing", "telehealth", "documents"],
+  waitlist:     ["scheduling", "messages", "profile", "analytics"],
+  profile:      ["scheduling", "waitlist", "billing", "telehealth"],
+};
+
+/** Path a feature page lives at — sitemap-safe absolute-relative URL. */
+const featurePath = (slug: string) => `/features/${slug}`;
+
 
 
 
