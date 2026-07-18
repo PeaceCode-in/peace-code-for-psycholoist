@@ -655,6 +655,7 @@ function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -663,114 +664,159 @@ function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const openNow = (label: string) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpenDropdown(label);
+  };
+  const closeSoon = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setOpenDropdown(null), 140);
+  };
+
   return (
     <header
-      className={`fixed z-50 left-0 right-0 transition-all duration-300 ${
-        scrolled ? "top-4 px-4 md:px-8" : "top-0 px-0"
+      className={`fixed z-50 left-0 right-0 flex justify-center transition-all duration-300 ${
+        scrolled ? "top-3 px-3" : "top-4 px-3"
       }`}
     >
       <div
-        className={`mx-auto max-w-[1360px] flex items-center justify-between transition-all duration-300 ${
+        className={`w-full max-w-[1040px] grid grid-cols-[auto_1fr_auto] items-center gap-3 rounded-full border py-2 pl-4 pr-2 transition-all duration-300 ${
           scrolled
-            ? "rounded-[2rem] bg-white/30 backdrop-blur-xl border border-white/50 shadow-[0_8px_32px_rgba(255,255,255,0.15)] py-4 px-6 md:px-8"
-            : "bg-transparent py-5 px-6 md:px-10"
+            ? "shadow-[0_10px_40px_-12px_rgba(138,51,85,0.25)]"
+            : "shadow-[0_6px_24px_-14px_rgba(138,51,85,0.20)]"
         }`}
+        style={{
+          background: "color-mix(in oklab, var(--sakura-cream) 65%, transparent)",
+          backdropFilter: "blur(22px) saturate(140%)",
+          borderColor: "color-mix(in oklab, var(--sakura-ink) 8%, transparent)",
+        }}
       >
-        <Link to="/for-psychologists" className="flex items-center gap-2.5 shrink-0" aria-label="PeaceCode">
+        {/* ── Brand ── */}
+        <Link to="/for-psychologists" className="flex min-w-0 items-center gap-2 shrink-0 pl-1" aria-label="PeaceCode">
           <img
             src="/nav-bar-logo.svg"
-            alt="PeaceCode"
-            className="h-8 w-auto object-contain"
+            alt=""
+            aria-hidden="true"
+            className="h-7 w-auto object-contain shrink-0"
             style={{ filter: "brightness(0)" }}
             onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
           />
-          <span
-            className="pc-serif text-[20px] transition-colors text-slate-900"
-            style={{ fontWeight: 500 }}
-          >
+          <span className="pc-serif text-[18px] leading-none truncate" style={{ fontWeight: 500, color: "var(--sakura-ink)" }}>
             PeaceCode
           </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-1">
-          {NAV_ITEMS.map((item) => (
-            <div
-              key={item.label}
-              className="relative"
-              onMouseEnter={() => item.dropdown && setOpenDropdown(item.label)}
-              onMouseLeave={() => setOpenDropdown(null)}
-            >
-              <a
-                href={item.href}
-                className={`inline-flex items-center gap-1 px-4 py-2 text-[14px] font-medium transition-colors ${
-                  "text-slate-900 hover:text-slate-600"
-                }`}
+        {/* ── Desktop nav ── */}
+        <nav className="hidden lg:flex items-center justify-center gap-0.5 min-w-0">
+          {NAV_ITEMS.map((item) => {
+            const isOpen = openDropdown === item.label;
+            return (
+              <div
+                key={item.label}
+                className="relative"
+                onMouseEnter={() => item.dropdown && openNow(item.label)}
+                onMouseLeave={() => item.dropdown && closeSoon()}
               >
-                {item.label}
-                {item.dropdown ? <ChevronDown className="h-3.5 w-3.5 opacity-70" /> : null}
-              </a>
-              {item.dropdown && openDropdown === item.label ? (
-                <div className="absolute left-0 top-full pt-3 min-w-[260px]">
-                  <div className="bg-white/95 backdrop-blur-2xl border border-white/60 shadow-[0_12px_40px_rgba(0,0,0,0.08)] rounded-[1.5rem] p-7 flex gap-8">
-                    {item.dropdown.columns.map((col, ci) => (
-                      <div key={ci} className="min-w-[140px]">
-                        {"header" in col && col.header ? (
-                          <div className="pc-label text-slate-500 mb-3">{col.header}</div>
-                        ) : null}
-                        <ul className="space-y-2">
-                          {col.items.map((li) => (
-                            <li key={li.label}>
-                              <a href={li.href} className="text-[14px]  hover:text-slate-500 transition-colors">
-                                {li.label}
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
+                <a
+                  href={item.href}
+                  onFocus={() => item.dropdown && openNow(item.label)}
+                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[13.5px] font-medium whitespace-nowrap transition-colors"
+                  style={{
+                    color: "var(--sakura-ink)",
+                    background: isOpen ? "color-mix(in oklab, var(--sakura-petal) 55%, transparent)" : "transparent",
+                  }}
+                >
+                  {item.label}
+                  {item.dropdown ? <ChevronDown className={`h-3 w-3 opacity-70 transition-transform ${isOpen ? "rotate-180" : ""}`} /> : null}
+                </a>
+                {item.dropdown && isOpen ? (
+                  <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 min-w-[240px] z-10">
+                    <div
+                      className="rounded-2xl p-5"
+                      style={{
+                        background: "color-mix(in oklab, var(--sakura-cream) 92%, transparent)",
+                        backdropFilter: "blur(28px) saturate(150%)",
+                        border: "1px solid color-mix(in oklab, var(--sakura-ink) 10%, transparent)",
+                        boxShadow: "0 20px 60px -25px rgba(138,51,85,0.28)",
+                      }}
+                    >
+                      {item.dropdown.columns.map((col, ci) => (
+                        <div key={ci}>
+                          {col.header ? (
+                            <div className="pc-label mb-3" style={{ color: "var(--sakura-muted)", fontSize: 10.5 }}>{col.header}</div>
+                          ) : null}
+                          <ul className="space-y-1.5">
+                            {col.items.map((li) => (
+                              <li key={li.label}>
+                                <a
+                                  href={li.href}
+                                  className="block rounded-lg px-2 py-1.5 text-[13.5px] transition-colors"
+                                  style={{ color: "var(--sakura-ink)" }}
+                                  onMouseEnter={(e) => { e.currentTarget.style.background = "color-mix(in oklab, var(--sakura-petal) 60%, transparent)"; }}
+                                  onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+                                >
+                                  {li.label}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ) : null}
-            </div>
-          ))}
+                ) : null}
+              </div>
+            );
+          })}
         </nav>
 
-        <div className="flex items-center gap-2">
+        {/* ── Right cluster ── */}
+        <div className="flex items-center gap-1.5 shrink-0">
           <a
             href={LOGIN_URL}
-            className="hidden sm:inline-flex items-center rounded-full px-6 py-2.5 text-[14px] font-medium transition-all bg-slate-900 text-white hover:bg-slate-800"
+            className="hidden sm:inline-flex items-center rounded-full px-5 py-2 text-[13.5px] font-medium transition-transform hover:-translate-y-0.5"
+            style={{ background: "var(--sakura-ink)", color: "var(--sakura-cream)" }}
           >
             Login
           </a>
           <button
             onClick={() => setMobileOpen((v) => !v)}
             aria-label="Menu"
-            className={`lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors ${
-              "text-slate-900 hover:bg-slate-100"
-            }`}
+            className="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-full"
+            style={{ color: "var(--sakura-ink)", background: "color-mix(in oklab, var(--sakura-petal) 55%, transparent)" }}
           >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
         </div>
       </div>
 
+      {/* ── Mobile drawer ── */}
       {mobileOpen ? (
-        <div className="lg:hidden mx-4 mt-2 bg-white/85 backdrop-blur-xl border border-white/40 rounded-2xl shadow-lg p-5">
+        <div
+          className="lg:hidden absolute top-full left-3 right-3 mt-2 rounded-2xl p-4"
+          style={{
+            background: "color-mix(in oklab, var(--sakura-cream) 92%, transparent)",
+            backdropFilter: "blur(24px)",
+            border: "1px solid color-mix(in oklab, var(--sakura-ink) 10%, transparent)",
+            boxShadow: "0 20px 50px -20px rgba(138,51,85,0.25)",
+          }}
+        >
           <ul className="space-y-1">
             {NAV_ITEMS.map((i) => (
               <li key={i.label}>
                 {i.dropdown ? (
                   <details className="group">
-                    <summary className="flex items-center justify-between py-2 text-[15px] font-medium text-slate-900 cursor-pointer list-none">
+                    <summary className="flex items-center justify-between py-2 px-2 text-[14.5px] font-medium cursor-pointer list-none rounded-lg" style={{ color: "var(--sakura-ink)" }}>
                       <span>{i.label}</span>
                       <ChevronDown className="h-4 w-4 opacity-60 transition-transform group-open:rotate-180" />
                     </summary>
-                    <ul className="pl-3 pb-2 space-y-1.5">
+                    <ul className="pl-4 pb-2 space-y-1">
                       {i.dropdown.columns.flatMap((c) => c.items).map((li) => (
                         <li key={li.label}>
                           <a
                             href={li.href}
-                            className="block py-1 text-[14px] text-slate-700 hover:text-slate-900"
+                            className="block py-1.5 px-2 text-[13.5px] rounded-md"
+                            style={{ color: "var(--sakura-muted)" }}
                             onClick={() => setMobileOpen(false)}
                           >
                             {li.label}
@@ -782,7 +828,8 @@ function Navbar() {
                 ) : (
                   <a
                     href={i.href}
-                    className="block py-2 text-[15px] text-slate-900"
+                    className="block py-2 px-2 text-[14.5px]"
+                    style={{ color: "var(--sakura-ink)" }}
                     onClick={() => setMobileOpen(false)}
                   >
                     {i.label}
@@ -790,10 +837,11 @@ function Navbar() {
                 )}
               </li>
             ))}
-            <li className="pt-3 mt-2 border-t border-slate-200">
+            <li className="pt-3 mt-2" style={{ borderTop: "1px solid color-mix(in oklab, var(--sakura-ink) 10%, transparent)" }}>
               <a
                 href={LOGIN_URL}
-                className="inline-flex items-center rounded-full px-5 py-2 text-[14px] font-medium bg-slate-900 text-white"
+                className="inline-flex items-center rounded-full px-5 py-2 text-[13.5px] font-medium"
+                style={{ background: "var(--sakura-ink)", color: "var(--sakura-cream)" }}
               >
                 Login
               </a>
@@ -804,6 +852,7 @@ function Navbar() {
     </header>
   );
 }
+
 
 /* ---------------- Hero ---------------- */
 function Hero() {
