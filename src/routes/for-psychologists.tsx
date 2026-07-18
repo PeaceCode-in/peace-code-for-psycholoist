@@ -608,45 +608,47 @@ function FeatureCatalogue() {
 
 
 
-/* ---------------- Navbar ---------------- */
-const NAV_ITEMS = [
+/* ---------------- Navbar ----------------
+   Only main titles show in the bar. Sub-features live inside each dropdown
+   and are revealed on hover (desktop) or tap (mobile). Titles + slugs are
+   sourced from FEATURE_GROUPS / FEATURE_SLUGS so the nav stays in lock-step
+   with the on-page feature catalogue and every SEO deep-dive page.
+   NOTE: the glass navbar CSS below is intentionally unchanged.
+------------------------------------------------------------------- */
+type NavColumn = { header?: string; items: Array<{ label: string; href: string }> };
+type NavItem = { label: string; href: string; dropdown?: { columns: NavColumn[] } };
+
+function buildFeatureNav(): NavItem[] {
+  const bySlug = Object.fromEntries(FEATURE_SLUGS.map((f) => [f.slug, f]));
+  return FEATURE_GROUPS.map((g) => ({
+    label: g.title,
+    href: "#features",
+    dropdown: {
+      columns: [
+        {
+          header: g.title.toUpperCase(),
+          items: g.slugs
+            .map((s) => bySlug[s])
+            .filter(Boolean)
+            .map((f) => ({ label: f.name, href: `/features/${f.slug}` })),
+        },
+      ],
+    },
+  }));
+}
+
+const NAV_ITEMS: NavItem[] = [
+  ...buildFeatureNav(),
   {
-    label: "Announcements",
-    href: "#announcements",
-    dropdown: { columns: [{ items: [
-      { label: "Blog", href: "#blog" },
-      { label: "Product updates", href: "#announcements" },
-    ]}]},
-  },
-  {
-    label: "About",
+    label: "Company",
     href: "#about",
-    dropdown: { columns: [{ header: "ABOUT", items: [
+    dropdown: { columns: [{ header: "COMPANY", items: [
       { label: "Our story", href: "#about" },
-      { label: "Careers", href: "#careers" },
-      { label: "Contact", href: "#contact" },
+      { label: "Product updates", href: "#announcements" },
       { label: "FAQs", href: "#faq" },
+      { label: "Contact", href: "#contact" },
     ]}]},
   },
-  {
-    label: "Practice",
-    href: "#practice",
-    dropdown: { columns: [
-      { header: "CLINICAL", items: [
-        { label: "Scheduling", href: "/features/scheduling" },
-        { label: "Session notes", href: "/features" },
-        { label: "Assessments", href: "/features" },
-        { label: "Safety planning", href: "/features" },
-      ]},
-      { header: "OPERATIONS", items: [
-        { label: "Billing", href: "/features" },
-        { label: "Referrals", href: "/features" },
-        { label: "Telehealth", href: "/features" },
-        { label: "Compliance", href: "/features" },
-      ]},
-    ]},
-  },
-  { label: "Resources", href: "#resources" },
 ];
 
 function Navbar() {
