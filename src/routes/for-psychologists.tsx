@@ -629,7 +629,7 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.0, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="pc-serif max-w-[18ch] text-[clamp(44px,7vw,88px)] leading-[1.02]"
-          style={{ color: "#1E1418", fontWeight: 400 }}
+          style={{ color: "#1E1418", fontWeight: 500, opacity: 1 }}
         >
           The calm workspace <span className="pc-italic">behind steady care.</span>
         </motion.h1>
