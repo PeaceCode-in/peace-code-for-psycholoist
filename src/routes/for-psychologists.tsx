@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import {
-  Menu, X, ArrowRight, ChevronDown, Plus, Minus,
+  Menu, X, ArrowRight, ChevronDown, Plus, Minus, Sun, Moon,
   Instagram, Twitter, Linkedin, Youtube,
   CalendarCheck, ClipboardList, FileText, Wallet, ShieldCheck, Video,
   Users, Activity, Bell, Sparkles, Brain, Layers,
