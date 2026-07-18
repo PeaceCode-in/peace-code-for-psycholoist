@@ -1006,7 +1006,7 @@ function Testimonials() {
     { q: "Assessments finally feel useful instead of admin. Patients see their own trajectory.", who: "Dr. S. Iyer", role: "Counselling Psychologist, Chennai" },
   ];
   return (
-    <section className="relative w-full py-28 md:py-36 bg-gradient-to-b from-[#EAEBFC] to-white">
+    <section className="relative w-full py-28 md:py-36" style={{ background: `linear-gradient(180deg, ${COLOR.petal} 0%, ${COLOR.cream} 100%)` }}>
       <div className="mx-auto max-w-[1200px] px-6">
         <motion.div {...reveal} className="text-center mb-14">
           <p className="pc-label text-slate-500 mb-4">In their words</p>
