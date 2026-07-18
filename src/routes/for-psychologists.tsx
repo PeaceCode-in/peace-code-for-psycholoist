@@ -350,43 +350,26 @@ const styles = `
 
 
 function MarketingPage() {
-  const [highContrast, setHighContrast] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("pc-mkt-contrast");
-      if (saved === "high") setHighContrast(true);
+      const saved = localStorage.getItem("pc-mkt-mode");
+      if (saved === "dark") setDarkMode(true);
     } catch {}
   }, []);
   useEffect(() => {
-    try { localStorage.setItem("pc-mkt-contrast", highContrast ? "high" : "normal"); } catch {}
-  }, [highContrast]);
+    try { localStorage.setItem("pc-mkt-mode", darkMode ? "dark" : "light"); } catch {}
+  }, [darkMode]);
 
   return (
-    <div className="pc-mkt relative overflow-x-hidden" data-contrast={highContrast ? "high" : "normal"}>
+    <div className="pc-mkt relative overflow-x-hidden" data-mode={darkMode ? "dark" : "light"}>
       <style dangerouslySetInnerHTML={{ __html: styles }} />
       {/* Machine-readable AEO answer for AI Overviews / ChatGPT / Perplexity — visually hidden but semantic */}
       <p className="sr-only" itemProp="description">
         {AEO_ANSWER}
       </p>
-      <button
-        type="button"
-        onClick={() => setHighContrast((v) => !v)}
-        aria-pressed={highContrast}
-        aria-label={highContrast ? "Disable high contrast Sakura mode" : "Enable high contrast Sakura mode"}
-        className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-xs font-semibold tracking-wide shadow-lg transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none"
-        style={{
-          background: highContrast ? "#0B0407" : "#5A1A34",
-          color: "#FFFFFF",
-          border: "1px solid rgba(255,255,255,0.25)",
-        }}
-      >
-        <span aria-hidden style={{
-          display: "inline-block", width: 10, height: 10, borderRadius: 999,
-          background: highContrast ? "#F9C6D6" : "#FFFFFF",
-        }} />
-        {highContrast ? "High contrast: on" : "High contrast"}
-      </button>
-      <Navbar />
+      <Navbar darkMode={darkMode} onToggleDark={() => setDarkMode((v) => !v)} />
+
 
       <main>
         {/* AEO — Trigger → Action → Clinical Benefit definition (hidden from users, exposed to crawlers/LLMs) */}
