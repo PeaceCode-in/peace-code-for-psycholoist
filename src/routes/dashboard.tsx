@@ -182,7 +182,7 @@ function Dashboard() {
           <RotatingTile
             key={i}
             facets={facets}
-            accent={i % 2 === 0 ? primary : "#8CB9A6"}
+            accent={i % 2 === 0 ? primary : "var(--status-calm)"}
             delayMs={i * 900}
           />
         ))}
