@@ -1390,6 +1390,9 @@ function FeatureDetail() {
         </div>
       </section>
 
+      {/* ─── Related workflows (internal linking for SEO) ────── */}
+      <RelatedFeatures slug={f.slug} />
+
       {/* ─── FAQ ──────────────────────────────────────────────── */}
       <section aria-label="FAQ" className="relative py-20 px-6">
         <motion.div {...reveal} className="max-w-3xl mx-auto">
