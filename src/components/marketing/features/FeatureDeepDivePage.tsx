@@ -34,6 +34,7 @@ import type { ReactNode } from "react";
 import branchLeft from "@/assets/sakura/branch-left.svg";
 import branchRight from "@/assets/sakura/branch-right.svg";
 import { SakuraWidgetStyles, StatChip } from "./sakura-widgets";
+import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 
 /* ────────────────────────────────────────────────────────────────
  * Shared reveal-on-scroll preset
@@ -256,6 +257,8 @@ export function FeatureDeepDivePage({
     <article className="fdd-page">
       <style dangerouslySetInnerHTML={{ __html: CHROME_CSS }} />
       <SakuraWidgetStyles />
+      <MarketingNavbar />
+
 
       {/* ─── HERO ─── */}
       <header className="relative pt-20 pb-24 px-6 overflow-hidden">

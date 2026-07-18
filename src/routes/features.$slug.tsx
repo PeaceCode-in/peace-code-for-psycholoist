@@ -12,6 +12,7 @@ import {
 import branchLeft from "@/assets/sakura/branch-left.svg";
 import branchRight from "@/assets/sakura/branch-right.svg";
 import { getDeepDive } from "@/components/marketing/features/deep-dives";
+import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 
 
 
@@ -1193,6 +1194,9 @@ function FeatureDetail() {
   return (
     <article className="pc-mkt sakura-page">
       <style dangerouslySetInnerHTML={{ __html: styles }} />
+      <MarketingNavbar />
+
+
 
       {/* ─── HERO ───────────────────────────────────────────── */}
       <header className="relative pt-20 pb-24 px-6 overflow-hidden">

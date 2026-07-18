@@ -5,6 +5,7 @@ import {
   MessageSquare, BookOpen, UsersRound, Share2, GraduationCap, Award, FolderOpen,
   Library, BarChart3, LifeBuoy, Plug, Hourglass, Globe, HeartPulse, ArrowRight,
 } from "lucide-react";
+import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 
 const ORIGIN = "https://psychologist.peacecode.in";
 const INDEX_URL = `${ORIGIN}/features`;
@@ -120,6 +121,8 @@ function FeaturesIndex() {
   return (
     <main className="pc-mkt min-h-screen" style={{ background: "linear-gradient(180deg, #EAEBFC 0%, #ffffff 40%, #EAEBFC 100%)" }}>
       <style dangerouslySetInnerHTML={{ __html: styles }} />
+      <MarketingNavbar />
+
       <div className="max-w-6xl mx-auto px-6 pt-32 pb-24">
         <nav aria-label="Breadcrumb" className="mb-6">
           <Link to="/for-psychologists" className="text-sm text-slate-600 hover:text-slate-900 inline-flex items-center gap-1">← Back to overview</Link>

@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import branchLeft from "@/assets/sakura/branch-left.svg";
 import branchRight from "@/assets/sakura/branch-right.svg";
+import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 
 const LOGIN_URL = "https://psychologist.peacecode.in/auth";
 
@@ -86,6 +87,8 @@ export function SchedulingDeepDive() {
   return (
     <article className="pc-mkt sakura-page">
       <style dangerouslySetInnerHTML={{ __html: schedulingStyles }} />
+      <MarketingNavbar />
+
 
       {/* ─── HERO ─── */}
       <header className="relative pt-20 pb-24 px-6 overflow-hidden">

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import branchLeft from "@/assets/sakura/branch-left.svg";
 import branchRight from "@/assets/sakura/branch-right.svg";
+import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 
 const LOGIN_URL = "/auth";
 
@@ -60,6 +61,8 @@ export function CompanyPage({
   return (
     <article className="cp-mkt cp-page">
       <style dangerouslySetInnerHTML={{ __html: styles }} />
+      <MarketingNavbar />
+
 
       <header className="relative pt-24 pb-16 px-6 overflow-hidden">
         <img src={branchLeft} alt="" aria-hidden className="cp-branch left-0 -translate-x-[15%]" />
