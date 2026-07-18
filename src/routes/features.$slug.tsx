@@ -967,7 +967,9 @@ export const Route = createFileRoute("/features/$slug")({
 
   head: ({ params, loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Feature not found — PeaceCode" }, { name: "robots", content: "noindex" }] };
-    const f = loaderData.feature;
+    const f = FEATURES[params.slug];
+    if (!f) return { meta: [{ title: "Feature not found — PeaceCode" }, { name: "robots", content: "noindex" }] };
+
     const ORIGIN = "https://psychologist.peacecode.in";
     const url = `${ORIGIN}/features/${params.slug}`;
     const rawTitle = `${f.hero} for Psychologists — PeaceCode`;
