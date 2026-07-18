@@ -231,7 +231,7 @@ function Dashboard() {
           <div className="mt-3 space-y-2">
             {alertsShown.map((a) => {
               const p = getPatient(a.patientId);
-              const tone = a.priority === "high" ? { bg: "#FDECEC", ink: "#B54848", bd: "#F3C7C7" }
+              const tone = a.priority === "high" ? { bg: "var(--status-danger-soft)", ink: "var(--status-danger)", bd: "var(--status-danger-border)" }
                 : a.priority === "medium" ? { bg: soft, ink: primary, bd: border }
                 : { bg: surface2, ink: muted, bd: border };
               const ActionIcon = a.action === "call" ? PhoneCall : a.action === "message" ? MessageCircle : FileText;
