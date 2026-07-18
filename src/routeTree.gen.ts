@@ -205,6 +205,7 @@ import { Route as CpdEidRouteImport } from './routes/cpd.$eid'
 import { Route as ComplianceExportRouteImport } from './routes/compliance.export'
 import { Route as ComplianceConsentRouteImport } from './routes/compliance.consent'
 import { Route as ComplianceAuditRouteImport } from './routes/compliance.audit'
+import { Route as CompanyStoryRouteImport } from './routes/company.story'
 import { Route as CaseConferencesPeerReviewRouteImport } from './routes/case-conferences.peer-review'
 import { Route as CaseConferencesNewRouteImport } from './routes/case-conferences.new'
 import { Route as CaseConferencesCidRouteImport } from './routes/case-conferences.$cid'
@@ -1256,6 +1257,11 @@ const ComplianceAuditRoute = ComplianceAuditRouteImport.update({
   path: '/compliance/audit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CompanyStoryRoute = CompanyStoryRouteImport.update({
+  id: '/company/story',
+  path: '/company/story',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CaseConferencesPeerReviewRoute =
   CaseConferencesPeerReviewRouteImport.update({
     id: '/peer-review',
@@ -1680,6 +1686,7 @@ export interface FileRoutesByFullPath {
   '/case-conferences/$cid': typeof CaseConferencesCidRoute
   '/case-conferences/new': typeof CaseConferencesNewRoute
   '/case-conferences/peer-review': typeof CaseConferencesPeerReviewRoute
+  '/company/story': typeof CompanyStoryRoute
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
@@ -1918,6 +1925,7 @@ export interface FileRoutesByTo {
   '/case-conferences/$cid': typeof CaseConferencesCidRoute
   '/case-conferences/new': typeof CaseConferencesNewRoute
   '/case-conferences/peer-review': typeof CaseConferencesPeerReviewRoute
+  '/company/story': typeof CompanyStoryRoute
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
@@ -2182,6 +2190,7 @@ export interface FileRoutesById {
   '/case-conferences/$cid': typeof CaseConferencesCidRoute
   '/case-conferences/new': typeof CaseConferencesNewRoute
   '/case-conferences/peer-review': typeof CaseConferencesPeerReviewRoute
+  '/company/story': typeof CompanyStoryRoute
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
@@ -2450,6 +2459,7 @@ export interface FileRouteTypes {
     | '/case-conferences/$cid'
     | '/case-conferences/new'
     | '/case-conferences/peer-review'
+    | '/company/story'
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
@@ -2688,6 +2698,7 @@ export interface FileRouteTypes {
     | '/case-conferences/$cid'
     | '/case-conferences/new'
     | '/case-conferences/peer-review'
+    | '/company/story'
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
@@ -2951,6 +2962,7 @@ export interface FileRouteTypes {
     | '/case-conferences/$cid'
     | '/case-conferences/new'
     | '/case-conferences/peer-review'
+    | '/company/story'
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
@@ -3206,6 +3218,7 @@ export interface RootRouteChildren {
   CalendarIntegrationsRoute: typeof CalendarIntegrationsRoute
   CalendarMonthRoute: typeof CalendarMonthRoute
   CalendarSettingsRoute: typeof CalendarSettingsRoute
+  CompanyStoryRoute: typeof CompanyStoryRoute
   ComplianceAuditRoute: typeof ComplianceAuditRoute
   ComplianceConsentRoute: typeof ComplianceConsentRoute
   ComplianceExportRoute: typeof ComplianceExportRoute
@@ -4592,6 +4605,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComplianceAuditRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/company/story': {
+      id: '/company/story'
+      path: '/company/story'
+      fullPath: '/company/story'
+      preLoaderRoute: typeof CompanyStoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/case-conferences/peer-review': {
       id: '/case-conferences/peer-review'
       path: '/peer-review'
@@ -5871,6 +5891,7 @@ const rootRouteChildren: RootRouteChildren = {
   CalendarIntegrationsRoute: CalendarIntegrationsRoute,
   CalendarMonthRoute: CalendarMonthRoute,
   CalendarSettingsRoute: CalendarSettingsRoute,
+  CompanyStoryRoute: CompanyStoryRoute,
   ComplianceAuditRoute: ComplianceAuditRoute,
   ComplianceConsentRoute: ComplianceConsentRoute,
   ComplianceExportRoute: ComplianceExportRoute,
