@@ -899,8 +899,8 @@ function BentoFeatures() {
   ];
 
   return (
-    <section id="features" className="relative w-full pb-28 md:pb-36 pt-0" style={{ background: COLOR.peach }}>
-      <WavyBridge from="#FFFFFF" to={COLOR.peach} />
+    <section id="features" className="relative w-full pb-28 md:pb-36 pt-0" style={{ background: COLOR.petal }}>
+      <WavyBridge from="#FFFFFF" to={COLOR.petal} />
       <div className="mx-auto max-w-[1280px] px-6 pt-4">
         <motion.div {...reveal} className="text-center mb-14">
           <p className="pc-label text-slate-500 mb-4">The workspace</p>
@@ -996,7 +996,7 @@ function Ecosystem() {
     { icon: "/therapists-icon.svg",    fallback: Brain,  title: "The clinician bench",        body: "CPD, reflections, professional identity — a private space alongside the clinical one." },
   ];
   return (
-    <section id="ecosystem" className="relative w-full py-24 md:py-32" style={{ background: COLOR.peach }}>
+    <section id="ecosystem" className="relative w-full py-24 md:py-32" style={{ background: COLOR.petal }}>
       <div className="mx-auto max-w-[1200px] px-6">
         <motion.div {...reveal} className="text-center mb-14">
           <p className="pc-label text-slate-500 mb-4">The wider practice</p>
