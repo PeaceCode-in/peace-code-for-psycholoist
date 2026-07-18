@@ -243,13 +243,13 @@ export { AEO_TAB, FEATURE_SLUGS };
 
 // Sakura palette — matches the dashboard theme (see src/lib/settings-store.ts).
 const COLOR = {
-  cream: "#FFF8FA",       // page base
-  petal: "#FCEAF0",       // soft pink surface
-  blush: "#F6D6E1",       // deeper pink surface
-  rose:  "#B0567A",       // primary rose
-  ink:   "#1E1418",       // ink
-  muted: "#7B6A70",       // muted text
-  border:"#EADFE2",       // hairline border
+  cream: "#F9E6EC",       // deeper sakura page base
+  petal: "#F2C9D6",       // soft pink surface
+  blush: "#E9A9BE",       // deeper pink surface
+  rose:  "#8A3355",       // primary rose (darker for AA)
+  ink:   "#140A0E",       // near-black ink
+  muted: "#5B4348",       // muted text (AA on cream)
+  border:"#D9B8C2",       // hairline border
 };
 
 const reveal = {
@@ -260,11 +260,11 @@ const reveal = {
 };
 
 const styles = `
-  .pc-mkt { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; color: #1E1418; background: #FFF8FA; }
+  .pc-mkt { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; color: #140A0E; background: #F9E6EC; }
   .pc-mkt::before {
     content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.42  0 0 0 0 0.24  0 0 0 0 0.30  0 0 0 0.14 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-    background-size: 260px 260px; mix-blend-mode: multiply; opacity: 0.85;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.32  0 0 0 0 0.14  0 0 0 0 0.22  0 0 0 0.22 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 320px 320px; mix-blend-mode: multiply; opacity: 1;
   }
   .pc-mkt > * { position: relative; z-index: 1; }
   .pc-serif { font-family: 'Fraunces', 'Instrument Serif', Georgia, serif; font-weight: 300; letter-spacing: -0.02em; }
@@ -272,7 +272,7 @@ const styles = `
   .pc-italic { font-family: 'Instrument Serif', 'Fraunces', Georgia, serif; font-style: italic; font-weight: 400; }
   .pc-label { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 600; }
 
-  .glass-color { background: rgba(255,255,255,0.30); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); border: 1px solid rgba(255,255,255,0.60); box-shadow: 0 8px 30px rgba(0,0,0,0.04); border-radius: 1.75rem; }
+  .glass-color { background: rgba(255,248,250,0.55); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); border: 1px solid rgba(138,51,85,0.18); box-shadow: 0 8px 30px rgba(20,10,14,0.08); border-radius: 1.75rem; }
   .glass-white { background: rgba(255,255,255,0.70); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border: 1px solid rgba(255,255,255,0.80); box-shadow: 0 20px 60px -15px rgba(0,0,0,0.10); border-radius: 1.75rem; }
 
   .liquid-glass-button {
