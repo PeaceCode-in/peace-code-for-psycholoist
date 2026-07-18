@@ -819,13 +819,6 @@ function MindAccordion() {
   const [open, setOpen] = useState<number | null>(0);
   return (
     <section id="faq" className="relative w-full py-24 md:py-32 bg-white overflow-hidden">
-      <motion.img
-        src="/cloud-bg-2.svg" alt="" aria-hidden
-        style={{ mixBlendMode: "multiply" }}
-        className="absolute left-0 top-24 w-[420px] max-w-[45vw] pointer-events-none opacity-70"
-        initial={{ x: -40, opacity: 0 }} whileInView={{ x: 0, opacity: 0.7 }} viewport={{ once: true }} transition={{ duration: 1.2 }}
-        onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")}
-      />
       <div className="relative z-10 mx-auto max-w-[880px] px-6">
         <motion.div {...reveal} className="text-center mb-12">
           <p className="pc-label text-slate-500 mb-4">Questions clinicians ask</p>
