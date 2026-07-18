@@ -675,32 +675,32 @@ function Hero() {
 
 /* ---------------- Collaboration ---------------- */
 function Collaboration() {
+  const partners = [
+    "Delhi Technological University",
+    "Fortis Mind",
+    "AIIMS Trainees Network",
+    "MPower Minds",
+    "iCall · TISS",
+  ];
   return (
-    <section className="relative w-full py-24 md:py-32 overflow-hidden">
-      <img src="/section2-bg.webp" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover"
-        onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")} />
-      <motion.img
-        src="/cloud-bg-5.svg" alt="" aria-hidden
-        className="absolute right-0 top-10 w-[704px] max-w-[70vw] pointer-events-none select-none"
-        style={{ mixBlendMode: "screen" }}
-        initial={{ x: 60, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1.4 }}
-        onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")}
-      />
+    <section className="relative w-full py-24 md:py-28" style={{ background: COLOR.cream }}>
       <motion.div {...reveal} className="relative z-10 mx-auto max-w-[1200px] px-6 text-center">
-        <p className="pc-label text-slate-600 mb-4">Trusted by clinicians and institutions</p>
-        <h2 className="pc-serif text-slate-900 text-[clamp(28px,3.6vw,44px)] leading-[1.1] max-w-[24ch] mx-auto">
+        <p className="pc-label mb-4" style={{ color: COLOR.rose }}>Trusted by clinicians and institutions</p>
+        <h2 className="pc-serif text-[clamp(28px,3.6vw,44px)] leading-[1.1] max-w-[24ch] mx-auto" style={{ color: COLOR.ink }}>
           Care that stays <span className="pc-italic">continuous</span> across teams and time.
         </h2>
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-x-14 gap-y-8 opacity-80">
-          {[1, 2, 3, 4, 5].map((i) => (
-            <img key={i} src="/assets/dtu.svg" alt="Partner" className="h-12 md:h-14 grayscale opacity-70"
-              onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = "none")} />
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
+          {partners.map((p) => (
+            <span key={p} className="pc-serif text-[15px] md:text-[16px]" style={{ color: COLOR.muted, fontWeight: 500 }}>
+              {p}
+            </span>
           ))}
         </div>
       </motion.div>
     </section>
   );
 }
+
 
 /* ---------------- How It Works ---------------- */
 function HowItWorks() {
