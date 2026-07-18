@@ -125,7 +125,7 @@ function renderCard(name: string, desc: string): string {
 </svg>`;
 }
 
-export const Route = createFileRoute("/og/features/$slug")({
+export const Route = createFileRoute("/og/features/$slug.svg")({
   server: {
     handlers: {
       GET: ({ params }) => {
