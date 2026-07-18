@@ -293,7 +293,7 @@ function Dashboard() {
           <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
             {pulseShown.map((p) => {
               const risk = p.riskLevel;
-              const dot = risk === "high" ? "#DC3B4A" : risk === "elevated" ? "#E08A3C" : risk === "moderate" ? "#C9A66B" : "#8CB9A6";
+              const dot = risk === "high" ? "var(--status-danger-strong)" : risk === "elevated" ? "var(--status-warning-strong)" : risk === "moderate" ? "var(--status-warning)" : "var(--status-calm)";
               return (
                 <Link
                   key={p.id}
