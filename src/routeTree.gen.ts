@@ -205,7 +205,10 @@ import { Route as CpdEidRouteImport } from './routes/cpd.$eid'
 import { Route as ComplianceExportRouteImport } from './routes/compliance.export'
 import { Route as ComplianceConsentRouteImport } from './routes/compliance.consent'
 import { Route as ComplianceAuditRouteImport } from './routes/compliance.audit'
+import { Route as CompanyUpdatesRouteImport } from './routes/company.updates'
 import { Route as CompanyStoryRouteImport } from './routes/company.story'
+import { Route as CompanyFaqRouteImport } from './routes/company.faq'
+import { Route as CompanyContactRouteImport } from './routes/company.contact'
 import { Route as CaseConferencesPeerReviewRouteImport } from './routes/case-conferences.peer-review'
 import { Route as CaseConferencesNewRouteImport } from './routes/case-conferences.new'
 import { Route as CaseConferencesCidRouteImport } from './routes/case-conferences.$cid'
@@ -1257,9 +1260,24 @@ const ComplianceAuditRoute = ComplianceAuditRouteImport.update({
   path: '/compliance/audit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CompanyUpdatesRoute = CompanyUpdatesRouteImport.update({
+  id: '/company/updates',
+  path: '/company/updates',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CompanyStoryRoute = CompanyStoryRouteImport.update({
   id: '/company/story',
   path: '/company/story',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompanyFaqRoute = CompanyFaqRouteImport.update({
+  id: '/company/faq',
+  path: '/company/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompanyContactRoute = CompanyContactRouteImport.update({
+  id: '/company/contact',
+  path: '/company/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CaseConferencesPeerReviewRoute =
@@ -1686,7 +1704,10 @@ export interface FileRoutesByFullPath {
   '/case-conferences/$cid': typeof CaseConferencesCidRoute
   '/case-conferences/new': typeof CaseConferencesNewRoute
   '/case-conferences/peer-review': typeof CaseConferencesPeerReviewRoute
+  '/company/contact': typeof CompanyContactRoute
+  '/company/faq': typeof CompanyFaqRoute
   '/company/story': typeof CompanyStoryRoute
+  '/company/updates': typeof CompanyUpdatesRoute
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
@@ -1925,7 +1946,10 @@ export interface FileRoutesByTo {
   '/case-conferences/$cid': typeof CaseConferencesCidRoute
   '/case-conferences/new': typeof CaseConferencesNewRoute
   '/case-conferences/peer-review': typeof CaseConferencesPeerReviewRoute
+  '/company/contact': typeof CompanyContactRoute
+  '/company/faq': typeof CompanyFaqRoute
   '/company/story': typeof CompanyStoryRoute
+  '/company/updates': typeof CompanyUpdatesRoute
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
@@ -2190,7 +2214,10 @@ export interface FileRoutesById {
   '/case-conferences/$cid': typeof CaseConferencesCidRoute
   '/case-conferences/new': typeof CaseConferencesNewRoute
   '/case-conferences/peer-review': typeof CaseConferencesPeerReviewRoute
+  '/company/contact': typeof CompanyContactRoute
+  '/company/faq': typeof CompanyFaqRoute
   '/company/story': typeof CompanyStoryRoute
+  '/company/updates': typeof CompanyUpdatesRoute
   '/compliance/audit': typeof ComplianceAuditRoute
   '/compliance/consent': typeof ComplianceConsentRoute
   '/compliance/export': typeof ComplianceExportRoute
@@ -2459,7 +2486,10 @@ export interface FileRouteTypes {
     | '/case-conferences/$cid'
     | '/case-conferences/new'
     | '/case-conferences/peer-review'
+    | '/company/contact'
+    | '/company/faq'
     | '/company/story'
+    | '/company/updates'
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
@@ -2698,7 +2728,10 @@ export interface FileRouteTypes {
     | '/case-conferences/$cid'
     | '/case-conferences/new'
     | '/case-conferences/peer-review'
+    | '/company/contact'
+    | '/company/faq'
     | '/company/story'
+    | '/company/updates'
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
@@ -2962,7 +2995,10 @@ export interface FileRouteTypes {
     | '/case-conferences/$cid'
     | '/case-conferences/new'
     | '/case-conferences/peer-review'
+    | '/company/contact'
+    | '/company/faq'
     | '/company/story'
+    | '/company/updates'
     | '/compliance/audit'
     | '/compliance/consent'
     | '/compliance/export'
@@ -3218,7 +3254,10 @@ export interface RootRouteChildren {
   CalendarIntegrationsRoute: typeof CalendarIntegrationsRoute
   CalendarMonthRoute: typeof CalendarMonthRoute
   CalendarSettingsRoute: typeof CalendarSettingsRoute
+  CompanyContactRoute: typeof CompanyContactRoute
+  CompanyFaqRoute: typeof CompanyFaqRoute
   CompanyStoryRoute: typeof CompanyStoryRoute
+  CompanyUpdatesRoute: typeof CompanyUpdatesRoute
   ComplianceAuditRoute: typeof ComplianceAuditRoute
   ComplianceConsentRoute: typeof ComplianceConsentRoute
   ComplianceExportRoute: typeof ComplianceExportRoute
@@ -4605,11 +4644,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComplianceAuditRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/company/updates': {
+      id: '/company/updates'
+      path: '/company/updates'
+      fullPath: '/company/updates'
+      preLoaderRoute: typeof CompanyUpdatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/company/story': {
       id: '/company/story'
       path: '/company/story'
       fullPath: '/company/story'
       preLoaderRoute: typeof CompanyStoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/company/faq': {
+      id: '/company/faq'
+      path: '/company/faq'
+      fullPath: '/company/faq'
+      preLoaderRoute: typeof CompanyFaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/company/contact': {
+      id: '/company/contact'
+      path: '/company/contact'
+      fullPath: '/company/contact'
+      preLoaderRoute: typeof CompanyContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/case-conferences/peer-review': {
@@ -5891,7 +5951,10 @@ const rootRouteChildren: RootRouteChildren = {
   CalendarIntegrationsRoute: CalendarIntegrationsRoute,
   CalendarMonthRoute: CalendarMonthRoute,
   CalendarSettingsRoute: CalendarSettingsRoute,
+  CompanyContactRoute: CompanyContactRoute,
+  CompanyFaqRoute: CompanyFaqRoute,
   CompanyStoryRoute: CompanyStoryRoute,
+  CompanyUpdatesRoute: CompanyUpdatesRoute,
   ComplianceAuditRoute: ComplianceAuditRoute,
   ComplianceConsentRoute: ComplianceConsentRoute,
   ComplianceExportRoute: ComplianceExportRoute,
