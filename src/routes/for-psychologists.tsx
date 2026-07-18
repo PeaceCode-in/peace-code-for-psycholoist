@@ -896,7 +896,7 @@ function Hero() {
           className="pc-serif max-w-[18ch] text-[clamp(44px,7vw,88px)] leading-[1.02]"
           style={{ color: "#1E1418", fontWeight: 500, opacity: 1 }}
         >
-          The calm workspace <span className="pc-italic">behind steady care.</span>
+          The calm workspace <span className="pc-italic" style={{ color: COLOR.rose }}>behind steady care.</span>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
