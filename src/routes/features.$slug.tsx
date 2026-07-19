@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import type { ComponentType } from "react";
+import { useEffect, useState, type ComponentType } from "react";
 import {
   CalendarCheck, ArrowRight, Clock, Link2, BellOff, RefreshCw, ShieldCheck, Check,
   FileText, Sparkles, History, PenLine, Lock, ClipboardList, LineChart, Activity, Send,
