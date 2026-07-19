@@ -530,9 +530,8 @@ function DesktopTubeSidebar({
 
       style={{
         width: pinned ? 288 : 72,
-        background: "var(--pc-rail-bg)",
-        // No hard right-border — topbar shares the same wash so the two surfaces meet seamlessly.
-        boxShadow: "18px 0 40px -32px rgba(63,18,38,0.22)",
+        // Rail inherits the unified app wash — no gradient fill, no right-edge border/shadow seam.
+        background: "transparent",
       }}
     >
       <div className="h-full flex flex-col p-3">
