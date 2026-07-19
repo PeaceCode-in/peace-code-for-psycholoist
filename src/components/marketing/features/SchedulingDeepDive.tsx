@@ -8,8 +8,6 @@ import {
   ArrowRight, Sparkles, Clock, Link2, BellOff, RefreshCw, ShieldCheck, CalendarCheck,
   Check, TrendingDown, TrendingUp, Users, Zap, Coffee, Moon, Sun,
 } from "lucide-react";
-import branchLeft from "@/assets/sakura/branch-left.svg";
-import branchRight from "@/assets/sakura/branch-right.svg";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 import { useMarketingTheme } from "@/lib/use-marketing-theme";
 
@@ -94,8 +92,6 @@ export function SchedulingDeepDive() {
 
       {/* ─── HERO ─── */}
       <header className="relative pt-20 pb-24 px-6 overflow-hidden">
-        <img src={branchLeft} alt="" aria-hidden="true" className="sakura-branch left-0 -translate-x-[15%]" />
-        <img src={branchRight} alt="" aria-hidden="true" className="sakura-branch right-0 translate-x-[15%]" />
         <div className="max-w-4xl mx-auto text-center relative">
           <nav className="mb-6 flex justify-center">
             <Link to="/features" className="text-sm inline-flex items-center gap-1" style={{ color: "var(--sakura-muted)" }}>

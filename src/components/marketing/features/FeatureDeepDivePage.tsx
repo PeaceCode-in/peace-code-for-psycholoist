@@ -31,8 +31,6 @@ import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronDown, Sparkles } from "lucide-react";
 import type { ReactNode } from "react";
-import branchLeft from "@/assets/sakura/branch-left.svg";
-import branchRight from "@/assets/sakura/branch-right.svg";
 import { SakuraWidgetStyles, StatChip } from "./sakura-widgets";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 import { useMarketingTheme } from "@/lib/use-marketing-theme";
