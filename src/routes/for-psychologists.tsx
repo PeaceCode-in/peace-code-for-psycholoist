@@ -34,6 +34,7 @@ const CANONICAL = `${SITE_ORIGIN}/`;
 // Feature catalogue is the single source of truth for the marketing site and
 // the sitemap. Edit src/lib/marketing-features.ts to add / rename features.
 import { MARKETING_FEATURES as FEATURE_SLUGS } from "@/lib/marketing-features";
+import { useMarketingTheme } from "@/lib/use-marketing-theme";
 
 
 const OFFERS_SERVICE = FEATURE_SLUGS.map((f) => ({
