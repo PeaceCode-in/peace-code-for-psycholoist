@@ -241,7 +241,7 @@ const reveal = {
 };
 
 const styles = `
-  .pc-mkt { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; color: #140A0E; background: #F9E6EC; }
+  .pc-mkt { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; color: var(--sakura-ink); background: var(--sakura-cream); }
   .pc-mkt::before {
     content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.32  0 0 0 0 0.14  0 0 0 0 0.22  0 0 0 0.22 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
@@ -253,8 +253,71 @@ const styles = `
   .pc-italic { font-family: 'Instrument Serif', 'Fraunces', Georgia, serif; font-style: italic; font-weight: 400; }
   .pc-label { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 600; }
 
-  .glass-color { background: rgba(255,248,250,0.55); backdrop-filter: blur(32px); border: 1px solid rgba(138,51,85,0.18); box-shadow: 0 8px 30px rgba(20,10,14,0.08); border-radius: 1.75rem; }
-  .glass-white { background: rgba(255,255,255,0.70); backdrop-filter: blur(40px); border: 1px solid rgba(255,255,255,0.80); box-shadow: 0 20px 60px -15px rgba(0,0,0,0.10); border-radius: 1.75rem; }
+  .glass-color {
+    background: var(--sakura-glass-color-bg);
+    color: var(--sakura-ink);
+    backdrop-filter: blur(32px) saturate(1.12);
+    border: 1px solid var(--sakura-glass-color-border);
+    box-shadow: 0 8px 30px color-mix(in oklab, var(--sakura-ink) 8%, transparent);
+    border-radius: 1.75rem;
+  }
+  .glass-white {
+    background: var(--sakura-glass-white-bg);
+    color: var(--sakura-ink);
+    backdrop-filter: blur(40px) saturate(1.16);
+    border: 1px solid var(--sakura-glass-white-border);
+    box-shadow: 0 20px 60px -18px color-mix(in oklab, var(--sakura-ink) 16%, transparent);
+    border-radius: 1.75rem;
+  }
+  .testimonial-glass {
+    position: relative;
+    overflow: hidden;
+    min-height: 208px;
+    background:
+      linear-gradient(145deg, color-mix(in oklab, var(--sakura-petal) 54%, var(--sakura-cream)) 0%, color-mix(in oklab, var(--sakura-cream) 82%, transparent) 100%),
+      var(--sakura-glass-white-bg);
+    border-color: color-mix(in oklab, var(--sakura-rose) 24%, transparent);
+  }
+  .testimonial-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.35' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.36  0 0 0 0 0.15  0 0 0 0 0.24  0 0 0 0.16 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 180px 180px;
+    mix-blend-mode: multiply;
+    opacity: 0.42;
+  }
+  .pc-mkt[data-mode="dark"] .testimonial-glass::before { mix-blend-mode: screen; opacity: 0.18; }
+  .burden-panel {
+    position: relative;
+    overflow: hidden;
+    min-height: 100%;
+    color: var(--sakura-ink);
+    background:
+      linear-gradient(180deg, color-mix(in oklab, var(--sakura-cream) 72%, transparent), color-mix(in oklab, var(--sakura-petal) 62%, transparent)),
+      var(--sakura-glass-color-bg);
+    border: 1px solid color-mix(in oklab, var(--sakura-rose) 20%, transparent);
+    border-radius: 1.5rem;
+    box-shadow: 0 18px 50px -30px color-mix(in oklab, var(--sakura-ink) 22%, transparent);
+    backdrop-filter: blur(30px) saturate(1.1);
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+  .burden-panel:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in oklab, var(--sakura-rose) 34%, transparent);
+    background:
+      linear-gradient(180deg, color-mix(in oklab, var(--sakura-petal) 64%, transparent), color-mix(in oklab, var(--sakura-cream) 78%, transparent)),
+      var(--sakura-glass-white-bg);
+  }
+  .burden-row {
+    border-bottom: 1px solid color-mix(in oklab, var(--sakura-border) 74%, transparent);
+  }
+  .burden-row:focus-visible {
+    outline: 2px solid var(--sakura-rose);
+    outline-offset: 3px;
+    border-radius: 0.75rem;
+  }
 
   .liquid-glass-button {
     position: relative; isolation: isolate; overflow: hidden; color: #140A0E;
@@ -323,7 +386,7 @@ const styles = `
     --sakura-border: #3A2A30;
     --sakura-glass-color-bg:     rgba(34, 27, 30, 0.65);
     --sakura-glass-color-border: rgba(244, 163, 190, 0.22);
-    --sakura-glass-white-bg:     rgba(34, 27, 30, 0.55);
+    --sakura-glass-white-bg:     rgba(34, 27, 30, 0.72);
     --sakura-glass-white-border: rgba(245, 236, 239, 0.14);
     background: #14100F;
     color: #F5ECEF;
@@ -345,7 +408,7 @@ const styles = `
     --sakura-border: rgba(0,0,0,0.18) !important;
     --sakura-glass-color-bg:     rgba(255, 248, 250, 0.92) !important;
     --sakura-glass-color-border: rgba(90, 26, 52, 0.30) !important;
-    --sakura-glass-white-bg:     rgba(255, 255, 255, 0.85) !important;
+    --sakura-glass-white-bg:     rgba(255, 248, 250, 0.92) !important;
     --sakura-glass-white-border: rgba(90, 26, 52, 0.22) !important;
     background: #F0C9D6 !important;
     color: #000000 !important;
@@ -357,6 +420,7 @@ const styles = `
 
 function MarketingPage() {
   const [darkMode, setDarkMode] = useState(false);
+  const [contrastMode, setContrastMode] = useState<"normal" | "high">("normal");
   useEffect(() => {
     try {
       const saved = localStorage.getItem("pc-mkt-mode");
@@ -364,11 +428,20 @@ function MarketingPage() {
     } catch {}
   }, []);
   useEffect(() => {
+    if (typeof document === "undefined") return;
+    const root = document.documentElement;
+    const syncContrast = () => setContrastMode(root.getAttribute("data-contrast") === "high" ? "high" : "normal");
+    syncContrast();
+    const observer = new MutationObserver(syncContrast);
+    observer.observe(root, { attributes: true, attributeFilter: ["data-contrast"] });
+    return () => observer.disconnect();
+  }, []);
+  useEffect(() => {
     try { localStorage.setItem("pc-mkt-mode", darkMode ? "dark" : "light"); } catch {}
   }, [darkMode]);
 
   return (
-    <div className="pc-mkt relative overflow-x-hidden" data-mode={darkMode ? "dark" : "light"}>
+    <div className="pc-mkt relative overflow-x-hidden" data-mode={darkMode ? "dark" : "light"} data-contrast={contrastMode}>
       <style dangerouslySetInnerHTML={{ __html: styles }} />
       {/* Machine-readable AEO answer for AI Overviews / ChatGPT / Perplexity — visually hidden but semantic */}
       <p className="sr-only" itemProp="description">
@@ -897,7 +970,7 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.0, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="pc-serif max-w-[18ch] text-[clamp(44px,7vw,88px)] leading-[1.02]"
-          style={{ color: "#1E1418", fontWeight: 500, opacity: 1 }}
+          style={{ color: "var(--sakura-ink)", fontWeight: 500, opacity: 1 }}
         >
           The calm workspace <span className="pc-italic" style={{ color: COLOR.rose }}>behind steady care.</span>
         </motion.h1>
@@ -919,7 +992,7 @@ function Hero() {
         >
           <a
             href={LOGIN_URL}
-            className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-medium text-white transition-colors"
+            className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-medium transition-colors"
             style={{ background: COLOR.rose }}
             onMouseEnter={(e) => (e.currentTarget.style.background = "#9a4868")}
             onMouseLeave={(e) => (e.currentTarget.style.background = COLOR.rose)}
@@ -1286,12 +1359,12 @@ function Testimonials() {
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {quotes.map((q, i) => (
-            <motion.figure key={q.who} {...reveal} transition={{ ...reveal.transition, delay: i * 0.1 }}
-              className="glass-white p-8">
-              <blockquote className="pc-serif text-slate-900 text-[19px] leading-snug">"{q.q}"</blockquote>
+              <motion.figure key={q.who} {...reveal} transition={{ ...reveal.transition, delay: i * 0.1 }}
+              className="glass-white testimonial-glass p-8 md:p-9">
+              <blockquote className="relative pc-serif text-slate-900 text-[20px] leading-[1.28]">"{q.q}"</blockquote>
               <figcaption className="mt-6">
-                <div className="text-[14px] font-medium text-slate-900">{q.who}</div>
-                <div className="text-[13px] text-slate-500">{q.role}</div>
+                <div className="relative text-[14px] font-semibold text-slate-900">{q.who}</div>
+                <div className="relative text-[13px] font-medium text-slate-600">{q.role}</div>
               </figcaption>
             </motion.figure>
           ))}
@@ -1318,10 +1391,10 @@ function WhatPsychologistsFace() {
             The parts of the work no one <span className="pc-italic">put on the brochure.</span>
           </h2>
         </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:divide-x divide-slate-200">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {cols.map((c) => (
-            <div key={c.h} className="px-6 md:px-10">
-              <h3 className="pc-serif text-slate-900 text-[22px] mb-6">{c.h}</h3>
+            <div key={c.h} className="burden-panel px-6 py-7 md:px-8 md:py-8">
+              <h3 className="pc-serif text-slate-900 text-[24px] leading-tight mb-6">{c.h}</h3>
               <ul className="space-y-3">
                 {c.items.map((it) => {
                   const key = c.h + it;
@@ -1330,13 +1403,13 @@ function WhatPsychologistsFace() {
                     <li key={it}>
                       <button
                         onClick={() => setOpen((o) => ({ ...o, [key]: !on }))}
-                        className="w-full flex items-center justify-between text-left py-3 border-b border-slate-200/70"
+                        className="burden-row group w-full flex items-center justify-between gap-4 text-left py-3.5 transition-colors"
                       >
-                        <span className="text-[15px] ">{it}</span>
-                        {on ? <Minus className="h-4 w-4 text-slate-500" /> : <Plus className="h-4 w-4 text-slate-500" />}
+                        <span className="text-[15px] font-medium leading-snug text-slate-900">{it}</span>
+                        {on ? <Minus className="h-4 w-4 shrink-0 text-slate-600 transition-transform group-hover:scale-110" /> : <Plus className="h-4 w-4 shrink-0 text-slate-600 transition-transform group-hover:scale-110" />}
                       </button>
                       {on ? (
-                        <p className="text-[13px] text-slate-500 pt-2 pb-3 pr-6">
+                        <p className="text-[13px] font-medium text-slate-600 leading-relaxed pt-2 pb-3 pr-6">
                           PeaceCode holds this quietly in the background so it stops holding you.
                         </p>
                       ) : null}
