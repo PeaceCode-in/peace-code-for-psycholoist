@@ -937,10 +937,6 @@ function Hero() {
   return (
     <section
       className="relative w-full min-h-screen overflow-hidden"
-      style={{
-        background:
-          "radial-gradient(1200px 700px at 50% 0%, #F6C9D7 0%, #F9D8E2 45%, #FBE4EB 100%)",
-      }}
     >
       {/* subtle grain for texture — sakura only */}
       <div className="absolute inset-0 grain-overlay opacity-[0.06] pointer-events-none" />
