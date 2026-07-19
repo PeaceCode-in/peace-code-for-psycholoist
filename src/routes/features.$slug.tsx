@@ -1465,8 +1465,9 @@ function RelatedFeatures({ slug }: { slug: string }) {
 
   return (
     <section
+      id="related"
       aria-labelledby="related-workflows-heading"
-      className="relative py-20 px-6"
+      className="relative py-20 px-6 scroll-mt-24"
     >
       <div className="max-w-5xl mx-auto">
         <p className="pc-label mb-3 text-center" style={{ color: "var(--sakura-muted)" }}>
