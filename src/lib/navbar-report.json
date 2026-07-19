@@ -1,8 +1,8 @@
 {
-  "startedAt": 1784442152170,
-  "finishedAt": 1784442182256,
+  "startedAt": 1784442232510,
+  "finishedAt": 1784442305548,
   "total": 28,
-  "failed": 16,
+  "failed": 0,
   "results": [
     {
       "route": "/for-psychologists",
@@ -32,44 +32,32 @@
       "route": "/features/notes",
       "breakpoint": "mobile",
       "viewport": 375,
-      "pass": false,
-      "issues": [
-        "navbar position='relative', expected 'fixed'",
-        "navbar not pinned after scroll: top=-1184"
-      ],
+      "pass": true,
+      "issues": [],
       "screenshot": "/tmp/browser/navbar/mobile__features_notes.png"
     },
     {
       "route": "/company/story",
       "breakpoint": "mobile",
       "viewport": 375,
-      "pass": false,
-      "issues": [
-        "navbar position='relative', expected 'fixed'",
-        "navbar not pinned after scroll: top=-1184"
-      ],
+      "pass": true,
+      "issues": [],
       "screenshot": "/tmp/browser/navbar/mobile__company_story.png"
     },
     {
       "route": "/company/faq",
       "breakpoint": "mobile",
       "viewport": 375,
-      "pass": false,
-      "issues": [
-        "navbar position='relative', expected 'fixed'",
-        "navbar not pinned after scroll: top=-1184"
-      ],
+      "pass": true,
+      "issues": [],
       "screenshot": "/tmp/browser/navbar/mobile__company_faq.png"
     },
     {
       "route": "/company/contact",
       "breakpoint": "mobile",
       "viewport": 375,
-      "pass": false,
-      "issues": [
-        "navbar position='relative', expected 'fixed'",
-        "navbar not pinned after scroll: top=-1025"
-      ],
+      "pass": true,
+      "issues": [],
       "screenshot": "/tmp/browser/navbar/mobile__company_contact.png"
     },
     {
@@ -100,44 +88,32 @@
       "route": "/features/notes",
       "breakpoint": "tablet",
       "viewport": 768,
-      "pass": false,
-      "issues": [
-        "navbar position='relative', expected 'fixed'",
-        "navbar not pinned after scroll: top=-1184"
-      ],
+      "pass": true,
+      "issues": [],
       "screenshot": "/tmp/browser/navbar/tablet__features_notes.png"
     },
     {
       "route": "/company/story",
       "breakpoint": "tablet",
       "viewport": 768,
-      "pass": false,
-      "issues": [
-        "navbar position='relative', expected 'fixed'",
-        "navbar not pinned after scroll: top=-733"
-      ],
+      "pass": true,
+      "issues": [],
       "screenshot": "/tmp/browser/navbar/tablet__company_story.png"
     },
     {
       "route": "/company/faq",
       "breakpoint": "tablet",
       "viewport": 768,
-      "pass": false,
-      "issues": [
-        "navbar position='relative', expected 'fixed'",
-        "navbar not pinned after scroll: top=-793"
-      ],
+      "pass": true,
+      "issues": [],
       "screenshot": "/tmp/browser/navbar/tablet__company_faq.png"
     },
     {
       "route": "/company/contact",
       "breakpoint": "tablet",
       "viewport": 768,
-      "pass": false,
-      "issues": [
-        "navbar position='relative', expected 'fixed'",
-        "navbar not pinned after scroll: top=-509"
-      ],
+      "pass": true,
+      "issues": [],
       "screenshot": "/tmp/browser/navbar/tablet__company_contact.png"
     },
     {
@@ -168,44 +144,32 @@
       "route": "/features/notes",
       "breakpoint": "desktop",
       "viewport": 1280,
-      "pass": false,
-      "issues": [
-        "navbar position='relative', expected 'fixed'",
-        "navbar not pinned after scroll: top=-1184"
-      ],
+      "pass": true,
+      "issues": [],
       "screenshot": "/tmp/browser/navbar/desktop__features_notes.png"
     },
     {
       "route": "/company/story",
       "breakpoint": "desktop",
       "viewport": 1280,
-      "pass": false,
-      "issues": [
-        "navbar position='relative', expected 'fixed'",
-        "navbar not pinned after scroll: top=-830"
-      ],
+      "pass": true,
+      "issues": [],
       "screenshot": "/tmp/browser/navbar/desktop__company_story.png"
     },
     {
       "route": "/company/faq",
       "breakpoint": "desktop",
       "viewport": 1280,
-      "pass": false,
-      "issues": [
-        "navbar position='relative', expected 'fixed'",
-        "navbar not pinned after scroll: top=-865"
-      ],
+      "pass": true,
+      "issues": [],
       "screenshot": "/tmp/browser/navbar/desktop__company_faq.png"
     },
     {
       "route": "/company/contact",
       "breakpoint": "desktop",
       "viewport": 1280,
-      "pass": false,
-      "issues": [
-        "navbar position='relative', expected 'fixed'",
-        "navbar not pinned after scroll: top=-632"
-      ],
+      "pass": true,
+      "issues": [],
       "screenshot": "/tmp/browser/navbar/desktop__company_contact.png"
     },
     {
@@ -236,44 +200,32 @@
       "route": "/features/notes",
       "breakpoint": "wide",
       "viewport": 1600,
-      "pass": false,
-      "issues": [
-        "navbar position='relative', expected 'fixed'",
-        "navbar not pinned after scroll: top=-1184"
-      ],
+      "pass": true,
+      "issues": [],
       "screenshot": "/tmp/browser/navbar/wide__features_notes.png"
     },
     {
       "route": "/company/story",
       "breakpoint": "wide",
       "viewport": 1600,
-      "pass": false,
-      "issues": [
-        "navbar position='relative', expected 'fixed'",
-        "navbar not pinned after scroll: top=-730"
-      ],
+      "pass": true,
+      "issues": [],
       "screenshot": "/tmp/browser/navbar/wide__company_story.png"
     },
     {
       "route": "/company/faq",
       "breakpoint": "wide",
       "viewport": 1600,
-      "pass": false,
-      "issues": [
-        "navbar position='relative', expected 'fixed'",
-        "navbar not pinned after scroll: top=-765"
-      ],
+      "pass": true,
+      "issues": [],
       "screenshot": "/tmp/browser/navbar/wide__company_faq.png"
     },
     {
       "route": "/company/contact",
       "breakpoint": "wide",
       "viewport": 1600,
-      "pass": false,
-      "issues": [
-        "navbar position='relative', expected 'fixed'",
-        "navbar not pinned after scroll: top=-532"
-      ],
+      "pass": true,
+      "issues": [],
       "screenshot": "/tmp/browser/navbar/wide__company_contact.png"
     }
   ]
