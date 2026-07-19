@@ -184,7 +184,7 @@ export function MarketingNavbar({ darkMode: darkModeProp, onToggleDark: onToggle
           <a
             href={LOGIN_URL}
             className="hidden sm:inline-flex items-center rounded-full px-5 py-2 text-[13.5px] font-medium transition-transform hover:-translate-y-0.5"
-            style={{ background: "var(--sakura-ink)", color: "var(--sakura-cream)" }}
+            style={{ background: "color-mix(in oklab, var(--sakura-petal) 78%, transparent)", color: "var(--sakura-ink)", border: "1px solid color-mix(in oklab, var(--sakura-ink) 16%, transparent)" }}
           >
             Login
           </a>
@@ -249,7 +249,7 @@ export function MarketingNavbar({ darkMode: darkModeProp, onToggleDark: onToggle
               <a
                 href={LOGIN_URL}
                 className="inline-flex items-center rounded-full px-5 py-2 text-[13.5px] font-medium"
-                style={{ background: "var(--sakura-ink)", color: "var(--sakura-cream)" }}
+                style={{ background: "color-mix(in oklab, var(--sakura-petal) 78%, transparent)", color: "var(--sakura-ink)", border: "1px solid color-mix(in oklab, var(--sakura-ink) 16%, transparent)" }}
               >
                 Login
               </a>
