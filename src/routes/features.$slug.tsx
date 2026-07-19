@@ -1274,7 +1274,7 @@ function FeatureDetail() {
       </header>
 
       {/* ─── SPLIT COPY ROW ───────────────────────────────────── */}
-      <section aria-label="The context" className="relative py-20 px-6">
+      <section id="overview" aria-label="The context" className="relative py-20 px-6 scroll-mt-24">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-14 items-start">
           <motion.h2 {...reveal} className="pc-serif text-3xl md:text-5xl leading-[1.1]" style={{ color: "var(--sakura-ink)" }}>
             {f.problem.title.replace(/\.$/, "")}<span className="pc-italic">.</span>
