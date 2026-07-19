@@ -110,16 +110,31 @@ const features = [
 ];
 
 const styles = `
-  .pc-mkt { font-family: 'Inter', sans-serif; color: #1a1a2e; }
+  .pc-mkt { font-family: 'Inter', sans-serif; color: var(--sakura-ink, #1a1a2e); }
   .pc-serif { font-family: 'Fraunces', serif; font-weight: 300; letter-spacing: -0.02em; }
   .pc-italic { font-family: 'Instrument Serif', serif; font-style: italic; }
   .pc-label { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 600; }
   .glass-color { background: rgba(255,255,255,0.45); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.65); box-shadow: 0 8px 30px rgba(0,0,0,0.04); border-radius: 1.75rem; }
+  .pc-mkt[data-mode="dark"] { background: #140A0E !important; color: #F7ECEF !important; }
+  .pc-mkt[data-mode="dark"] .glass-color { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+  .pc-mkt[data-mode="dark"] .text-slate-900, .pc-mkt[data-mode="dark"] .text-slate-800 { color: #F7ECEF !important; }
+  .pc-mkt[data-mode="dark"] .text-slate-700, .pc-mkt[data-mode="dark"] .text-slate-600, .pc-mkt[data-mode="dark"] .text-slate-500 { color: #C9B4BC !important; }
+  .pc-mkt[data-mode="dark"] .bg-white, .pc-mkt[data-mode="dark"] .bg-slate-50, .pc-mkt[data-mode="dark"] .bg-slate-100 { background-color: rgba(255,255,255,0.05) !important; }
+  .pc-mkt[data-mode="dark"] .border-slate-200, .pc-mkt[data-mode="dark"] .border-slate-100 { border-color: rgba(255,255,255,0.1) !important; }
 `;
 
 function FeaturesIndex() {
+  const { darkMode } = useMarketingTheme();
   return (
-    <main className="pc-mkt min-h-screen" style={{ background: "linear-gradient(180deg, #EAEBFC 0%, #ffffff 40%, #EAEBFC 100%)" }}>
+    <main
+      className="pc-mkt min-h-screen"
+      data-mode={darkMode ? "dark" : "light"}
+      style={{
+        background: darkMode
+          ? "linear-gradient(180deg, #140A0E 0%, #1E1014 50%, #140A0E 100%)"
+          : "linear-gradient(180deg, #FFF8FA 0%, #ffffff 40%, #F9E6EC 100%)",
+      }}
+    >
       <style dangerouslySetInnerHTML={{ __html: styles }} />
       <MarketingNavbar />
 
