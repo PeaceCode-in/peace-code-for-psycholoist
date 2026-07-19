@@ -812,11 +812,10 @@ function TopBar({ crumb, onToggleSidebar, onOpenMobile, pinned }: { crumb?: stri
     <header
       className="pc-topbar sticky top-0 z-30 h-14 shrink-0 flex items-center gap-2 px-3 sm:px-4"
       style={{
-        // Continuous surface with the sidebar — same blush wash, no hard seam or border.
-        background: "var(--pc-topbar-bg)",
+        // Fully continuous with the sidebar and content — no fills, borders, or seams.
+        background: "transparent",
         backdropFilter: "blur(14px)",
         WebkitBackdropFilter: "blur(14px)",
-        boxShadow: "0 1px 0 rgba(255,255,255,0.75) inset, 0 8px 24px -22px rgba(63,18,38,0.22)",
       }}
     >
       <button
