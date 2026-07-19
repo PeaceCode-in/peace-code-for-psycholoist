@@ -131,6 +131,7 @@ import { Route as ScheduleAvailabilityRouteImport } from './routes/schedule.avai
 import { Route as ReferralsSourcesRouteImport } from './routes/referrals.sources'
 import { Route as ReferralsAnalyticsRouteImport } from './routes/referrals.analytics'
 import { Route as ReferralsRidRouteImport } from './routes/referrals.$rid'
+import { Route as QaMarketingRouteImport } from './routes/qa.marketing'
 import { Route as ProfilePublicSeoRouteImport } from './routes/profile-public.seo'
 import { Route as ProfilePublicPreviewRouteImport } from './routes/profile-public.preview'
 import { Route as ProfilePublicDiscoveryRouteImport } from './routes/profile-public.discovery'
@@ -890,6 +891,11 @@ const ReferralsRidRoute = ReferralsRidRouteImport.update({
   id: '/$rid',
   path: '/$rid',
   getParentRoute: () => ReferralsRoute,
+} as any)
+const QaMarketingRoute = QaMarketingRouteImport.update({
+  id: '/qa/marketing',
+  path: '/qa/marketing',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ProfilePublicSeoRoute = ProfilePublicSeoRouteImport.update({
   id: '/seo',
@@ -1789,6 +1795,7 @@ export interface FileRoutesByFullPath {
   '/profile-public/discovery': typeof ProfilePublicDiscoveryRoute
   '/profile-public/preview': typeof ProfilePublicPreviewRoute
   '/profile-public/seo': typeof ProfilePublicSeoRoute
+  '/qa/marketing': typeof QaMarketingRoute
   '/referrals/$rid': typeof ReferralsRidRoute
   '/referrals/analytics': typeof ReferralsAnalyticsRoute
   '/referrals/sources': typeof ReferralsSourcesRoute
@@ -2031,6 +2038,7 @@ export interface FileRoutesByTo {
   '/profile-public/discovery': typeof ProfilePublicDiscoveryRoute
   '/profile-public/preview': typeof ProfilePublicPreviewRoute
   '/profile-public/seo': typeof ProfilePublicSeoRoute
+  '/qa/marketing': typeof QaMarketingRoute
   '/referrals/$rid': typeof ReferralsRidRoute
   '/referrals/analytics': typeof ReferralsAnalyticsRoute
   '/referrals/sources': typeof ReferralsSourcesRoute
@@ -2301,6 +2309,7 @@ export interface FileRoutesById {
   '/profile-public/discovery': typeof ProfilePublicDiscoveryRoute
   '/profile-public/preview': typeof ProfilePublicPreviewRoute
   '/profile-public/seo': typeof ProfilePublicSeoRoute
+  '/qa/marketing': typeof QaMarketingRoute
   '/referrals/$rid': typeof ReferralsRidRoute
   '/referrals/analytics': typeof ReferralsAnalyticsRoute
   '/referrals/sources': typeof ReferralsSourcesRoute
@@ -2574,6 +2583,7 @@ export interface FileRouteTypes {
     | '/profile-public/discovery'
     | '/profile-public/preview'
     | '/profile-public/seo'
+    | '/qa/marketing'
     | '/referrals/$rid'
     | '/referrals/analytics'
     | '/referrals/sources'
@@ -2816,6 +2826,7 @@ export interface FileRouteTypes {
     | '/profile-public/discovery'
     | '/profile-public/preview'
     | '/profile-public/seo'
+    | '/qa/marketing'
     | '/referrals/$rid'
     | '/referrals/analytics'
     | '/referrals/sources'
@@ -3085,6 +3096,7 @@ export interface FileRouteTypes {
     | '/profile-public/discovery'
     | '/profile-public/preview'
     | '/profile-public/seo'
+    | '/qa/marketing'
     | '/referrals/$rid'
     | '/referrals/analytics'
     | '/referrals/sources'
@@ -3277,6 +3289,7 @@ export interface RootRouteChildren {
   FeaturesSlugRoute: typeof FeaturesSlugRoute
   HealthRoutesRoute: typeof HealthRoutesRoute
   PSlugRoute: typeof PSlugRoute
+  QaMarketingRoute: typeof QaMarketingRoute
   CalendarIndexRoute: typeof CalendarIndexRoute
   FeaturesIndexRoute: typeof FeaturesIndexRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -4139,6 +4152,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/referrals/$rid'
       preLoaderRoute: typeof ReferralsRidRouteImport
       parentRoute: typeof ReferralsRoute
+    }
+    '/qa/marketing': {
+      id: '/qa/marketing'
+      path: '/qa/marketing'
+      fullPath: '/qa/marketing'
+      preLoaderRoute: typeof QaMarketingRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/profile-public/seo': {
       id: '/profile-public/seo'
@@ -5982,6 +6002,7 @@ const rootRouteChildren: RootRouteChildren = {
   FeaturesSlugRoute: FeaturesSlugRoute,
   HealthRoutesRoute: HealthRoutesRoute,
   PSlugRoute: PSlugRoute,
+  QaMarketingRoute: QaMarketingRoute,
   CalendarIndexRoute: CalendarIndexRoute,
   FeaturesIndexRoute: FeaturesIndexRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
