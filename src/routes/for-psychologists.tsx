@@ -291,6 +291,32 @@ const styles = `
     border: 1px solid var(--sakura-glass-white-border);
     box-shadow: 0 20px 60px -18px color-mix(in oklab, var(--sakura-ink) 16%, transparent);
     border-radius: 1.75rem;
+    transition: transform 260ms cubic-bezier(.2,.7,.2,1), box-shadow 260ms ease, border-color 260ms ease;
+    will-change: transform;
+    animation: pcFloat 9s ease-in-out infinite;
+  }
+  .glass-white:hover {
+    transform: translateY(-6px) scale(1.012);
+    box-shadow: 0 32px 80px -20px color-mix(in oklab, var(--sakura-rose) 32%, transparent);
+    border-color: color-mix(in oklab, var(--sakura-rose) 40%, transparent);
+  }
+  .glass-white:nth-of-type(3n)   { animation-delay: -1.5s; animation-duration: 10.5s; }
+  .glass-white:nth-of-type(3n+1) { animation-delay: -3.0s; animation-duration: 11.5s; }
+  .glass-white:nth-of-type(3n+2) { animation-delay: -4.5s; animation-duration: 9.5s;  }
+  .burden-panel { animation: pcFloat 11s ease-in-out infinite; }
+  .burden-panel:nth-of-type(even) { animation-delay: -2.4s; animation-duration: 12.5s; }
+  .testimonial-glass { animation: pcFloatSoft 12s ease-in-out infinite; }
+  .testimonial-glass:nth-of-type(even) { animation-delay: -3.2s; }
+  @keyframes pcFloat {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    50%     { transform: translateY(-6px) rotate(-0.15deg); }
+  }
+  @keyframes pcFloatSoft {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-4px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .glass-white, .burden-panel, .testimonial-glass { animation: none !important; }
   }
   .testimonial-glass {
     position: relative;
@@ -474,7 +500,7 @@ function MarketingPage() {
         <BentoFeatures />
         <FeatureHighlight />
         <FeatureCatalogue />
-        <Ecosystem />
+        
         <Testimonials />
         <WhatPsychologistsFace />
         <Blog />
@@ -1310,43 +1336,6 @@ function FeatureHighlight() {
   );
 }
 
-/* ---------------- Ecosystem ---------------- */
-function Ecosystem() {
-  const cards = [
-    { icon: "/peer-support-icon.svg",  fallback: Users,  title: "Supervision & peer groups",  body: "Case conferences, group notes and shared caseload views — training and quality kept in one loop." },
-    { icon: "/comm-coaching-icon.svg", fallback: Layers, title: "Referrals & networks",       body: "GPs, psychiatrists, EAPs, universities — track incoming, refer outgoing, close the loop." },
-    { icon: "/therapists-icon.svg",    fallback: Brain,  title: "The clinician bench",        body: "CPD, reflections, professional identity — a private space alongside the clinical one." },
-  ];
-  return (
-    <section id="ecosystem" className="relative w-full py-24 md:py-32" style={{ background: "transparent" }}>
-      <div className="mx-auto max-w-[1200px] px-6">
-        <motion.div {...reveal} className="text-center mb-14">
-          <p className="pc-label text-slate-500 mb-4">The wider practice</p>
-          <h2 className="pc-serif text-slate-900 text-[clamp(30px,4vw,48px)] leading-[1.05]">
-            Not just a tool. <span className="pc-italic">A place to be a clinician.</span>
-          </h2>
-        </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {cards.map((c, i) => {
-            const Fallback = c.fallback;
-            return (
-              <motion.div key={c.title} {...reveal} transition={{ ...reveal.transition, delay: i * 0.1 }}
-                className="glass-white p-10 text-center">
-                <div className="flex justify-center mb-6 h-[180px] items-center">
-                  <img src={c.icon} alt="" className="h-[180px] w-auto object-contain"
-                    onError={(e) => { const el = e.currentTarget as HTMLImageElement; el.replaceWith(document.createElement("div")); }} />
-                  <Fallback className="hidden h-16 w-16 text-slate-400" />
-                </div>
-                <h3 className="pc-serif text-slate-900 text-[22px] mb-3">{c.title}</h3>
-                <p className="text-sm text-slate-600 leading-relaxed">{c.body}</p>
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ---------------- Testimonials ---------------- */
 function Testimonials() {
