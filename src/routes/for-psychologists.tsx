@@ -1044,9 +1044,9 @@ function Hero() {
           <a
             href={LOGIN_URL}
             className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-medium transition-colors"
-            style={{ background: COLOR.petal, color: COLOR.ink, border: `1px solid ${COLOR.ink}24` }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = COLOR.blush)}
-            onMouseLeave={(e) => (e.currentTarget.style.background = COLOR.rose)}
+            style={{ background: COLOR.blush, color: COLOR.ink, border: `1px solid ${COLOR.ink}33`, boxShadow: `0 14px 34px -24px ${COLOR.ink}` }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = COLOR.petal)}
+            onMouseLeave={(e) => (e.currentTarget.style.background = COLOR.blush)}
           >
             Get started
             <ArrowRight className="h-4 w-4" />
@@ -1054,9 +1054,9 @@ function Hero() {
           <a
             href="#practice"
             className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[15px] font-medium border-2 transition-colors"
-            style={{ borderColor: COLOR.rose, color: COLOR.rose, background: "transparent" }}
+            style={{ borderColor: COLOR.rose, color: COLOR.ink, background: "rgba(255,244,248,0.42)" }}
             onMouseEnter={(e) => { e.currentTarget.style.background = COLOR.petal; e.currentTarget.style.color = COLOR.ink; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = COLOR.rose; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255,244,248,0.42)"; e.currentTarget.style.color = COLOR.ink; }}
           >
             See the workspace
           </a>

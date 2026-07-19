@@ -19,7 +19,7 @@ export const SAKURA = {
 
   // Ink / text
   ink:    "#140A0E", // near-black primary text
-  muted:  "#5B4348", // muted body copy (AA on cream)
+  muted:  "#2E1A1F", // dark body copy on Sakura light mode
   rose:   "#8A3355", // brand rose (darker for AA)
 
   // Structure
