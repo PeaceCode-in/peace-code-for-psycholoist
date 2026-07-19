@@ -1228,8 +1228,8 @@ function MindAccordion() {
             Straight answers, <span className="pc-italic">no marketing fog.</span>
           </h2>
         </motion.div>
-        <div className="[&>*+*]:border-t" style={{ ["--tw-divide-opacity" as never]: 1 } as React.CSSProperties}>
-          <style dangerouslySetInnerHTML={{ __html: `#faq .[\\&\\>\\*\\+\\*]\\:border-t > * + * { border-color: color-mix(in oklab, var(--sakura-border) 55%, transparent) !important; }` }} />
+        <div className="faq-list">
+          <style dangerouslySetInnerHTML={{ __html: `.faq-list > div + div { border-top: 1px solid color-mix(in oklab, var(--sakura-border) 55%, transparent); }` }} />
           {items.map((it, i) => {
             const on = open === i;
             return (
