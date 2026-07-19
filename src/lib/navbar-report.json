@@ -1,6 +1,6 @@
 {
-  "startedAt": 1784441927427,
-  "finishedAt": 1784441958787,
+  "startedAt": 1784442015754,
+  "finishedAt": 1784442045339,
   "total": 28,
   "failed": 16,
   "results": [
@@ -34,8 +34,8 @@
       "viewport": 375,
       "pass": false,
       "issues": [
-        "header position='relative', expected 'fixed'",
-        "header not pinned after scroll: top=-1184"
+        "navbar position='relative', expected 'fixed'",
+        "navbar not pinned after scroll: top=-1184"
       ],
       "screenshot": "/tmp/browser/navbar/mobile__features_notes.png"
     },
@@ -45,8 +45,8 @@
       "viewport": 375,
       "pass": false,
       "issues": [
-        "header position='relative', expected 'fixed'",
-        "header not pinned after scroll: top=-1184"
+        "navbar position='relative', expected 'fixed'",
+        "navbar not pinned after scroll: top=-1184"
       ],
       "screenshot": "/tmp/browser/navbar/mobile__company_story.png"
     },
@@ -56,8 +56,8 @@
       "viewport": 375,
       "pass": false,
       "issues": [
-        "header position='relative', expected 'fixed'",
-        "header not pinned after scroll: top=-1184"
+        "navbar position='relative', expected 'fixed'",
+        "navbar not pinned after scroll: top=-1184"
       ],
       "screenshot": "/tmp/browser/navbar/mobile__company_faq.png"
     },
@@ -67,8 +67,8 @@
       "viewport": 375,
       "pass": false,
       "issues": [
-        "header position='relative', expected 'fixed'",
-        "header not pinned after scroll: top=-1025"
+        "navbar position='relative', expected 'fixed'",
+        "navbar not pinned after scroll: top=-1025"
       ],
       "screenshot": "/tmp/browser/navbar/mobile__company_contact.png"
     },
@@ -102,8 +102,8 @@
       "viewport": 768,
       "pass": false,
       "issues": [
-        "header position='relative', expected 'fixed'",
-        "header not pinned after scroll: top=-1184"
+        "navbar position='relative', expected 'fixed'",
+        "navbar not pinned after scroll: top=-1184"
       ],
       "screenshot": "/tmp/browser/navbar/tablet__features_notes.png"
     },
@@ -113,8 +113,8 @@
       "viewport": 768,
       "pass": false,
       "issues": [
-        "header position='relative', expected 'fixed'",
-        "header not pinned after scroll: top=-733"
+        "navbar position='relative', expected 'fixed'",
+        "navbar not pinned after scroll: top=-733"
       ],
       "screenshot": "/tmp/browser/navbar/tablet__company_story.png"
     },
@@ -124,8 +124,8 @@
       "viewport": 768,
       "pass": false,
       "issues": [
-        "header position='relative', expected 'fixed'",
-        "header not pinned after scroll: top=-793"
+        "navbar position='relative', expected 'fixed'",
+        "navbar not pinned after scroll: top=-793"
       ],
       "screenshot": "/tmp/browser/navbar/tablet__company_faq.png"
     },
@@ -135,8 +135,8 @@
       "viewport": 768,
       "pass": false,
       "issues": [
-        "header position='relative', expected 'fixed'",
-        "header not pinned after scroll: top=-509"
+        "navbar position='relative', expected 'fixed'",
+        "navbar not pinned after scroll: top=-509"
       ],
       "screenshot": "/tmp/browser/navbar/tablet__company_contact.png"
     },
@@ -170,8 +170,8 @@
       "viewport": 1280,
       "pass": false,
       "issues": [
-        "header position='relative', expected 'fixed'",
-        "header not pinned after scroll: top=-1184"
+        "navbar position='relative', expected 'fixed'",
+        "navbar not pinned after scroll: top=-1184"
       ],
       "screenshot": "/tmp/browser/navbar/desktop__features_notes.png"
     },
@@ -181,8 +181,8 @@
       "viewport": 1280,
       "pass": false,
       "issues": [
-        "header position='relative', expected 'fixed'",
-        "header not pinned after scroll: top=-830"
+        "navbar position='relative', expected 'fixed'",
+        "navbar not pinned after scroll: top=-830"
       ],
       "screenshot": "/tmp/browser/navbar/desktop__company_story.png"
     },
@@ -192,8 +192,8 @@
       "viewport": 1280,
       "pass": false,
       "issues": [
-        "header position='relative', expected 'fixed'",
-        "header not pinned after scroll: top=-865"
+        "navbar position='relative', expected 'fixed'",
+        "navbar not pinned after scroll: top=-865"
       ],
       "screenshot": "/tmp/browser/navbar/desktop__company_faq.png"
     },
@@ -203,8 +203,8 @@
       "viewport": 1280,
       "pass": false,
       "issues": [
-        "header position='relative', expected 'fixed'",
-        "header not pinned after scroll: top=-632"
+        "navbar position='relative', expected 'fixed'",
+        "navbar not pinned after scroll: top=-632"
       ],
       "screenshot": "/tmp/browser/navbar/desktop__company_contact.png"
     },
@@ -238,8 +238,8 @@
       "viewport": 1600,
       "pass": false,
       "issues": [
-        "header position='relative', expected 'fixed'",
-        "header not pinned after scroll: top=-1184"
+        "navbar position='relative', expected 'fixed'",
+        "navbar not pinned after scroll: top=-1184"
       ],
       "screenshot": "/tmp/browser/navbar/wide__features_notes.png"
     },
@@ -249,8 +249,8 @@
       "viewport": 1600,
       "pass": false,
       "issues": [
-        "header position='relative', expected 'fixed'",
-        "header not pinned after scroll: top=-730"
+        "navbar position='relative', expected 'fixed'",
+        "navbar not pinned after scroll: top=-730"
       ],
       "screenshot": "/tmp/browser/navbar/wide__company_story.png"
     },
@@ -260,8 +260,8 @@
       "viewport": 1600,
       "pass": false,
       "issues": [
-        "header position='relative', expected 'fixed'",
-        "header not pinned after scroll: top=-765"
+        "navbar position='relative', expected 'fixed'",
+        "navbar not pinned after scroll: top=-765"
       ],
       "screenshot": "/tmp/browser/navbar/wide__company_faq.png"
     },
@@ -271,8 +271,8 @@
       "viewport": 1600,
       "pass": false,
       "issues": [
-        "header position='relative', expected 'fixed'",
-        "header not pinned after scroll: top=-532"
+        "navbar position='relative', expected 'fixed'",
+        "navbar not pinned after scroll: top=-532"
       ],
       "screenshot": "/tmp/browser/navbar/wide__company_contact.png"
     }
