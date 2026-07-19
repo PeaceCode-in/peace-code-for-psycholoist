@@ -1,8 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
-import branchLeft from "@/assets/sakura/branch-left.svg";
-import branchRight from "@/assets/sakura/branch-right.svg";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 import { useMarketingTheme } from "@/lib/use-marketing-theme";
 
@@ -68,8 +66,6 @@ export function CompanyPage({
 
 
       <header className="relative pt-24 pb-16 px-6 overflow-hidden">
-        <img src={branchLeft} alt="" aria-hidden className="cp-branch left-0 -translate-x-[15%]" />
-        <img src={branchRight} alt="" aria-hidden className="cp-branch right-0 translate-x-[15%]" />
         <div className="max-w-3xl mx-auto text-center relative">
           <nav aria-label="Breadcrumb" className="mb-6 flex justify-center">
             <Link to="/for-psychologists" className="text-sm opacity-70 hover:opacity-100 inline-flex items-center gap-1" style={{ color: "var(--sakura-muted)" }}>

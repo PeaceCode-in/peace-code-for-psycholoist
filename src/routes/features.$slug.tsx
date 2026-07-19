@@ -9,8 +9,6 @@ import {
   Share2, Network, Users, Award, GraduationCap, FolderOpen, Library, BarChart3,
   Plug, Hourglass, Globe, Bell, Layers, MapPin, Zap, FileCheck, Building2, Star, ChevronDown,
 } from "lucide-react";
-import branchLeft from "@/assets/sakura/branch-left.svg";
-import branchRight from "@/assets/sakura/branch-right.svg";
 import { getDeepDive } from "@/components/marketing/features/deep-dives";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 import { MARKETING_FEATURES } from "@/lib/marketing-features";
@@ -1260,8 +1258,6 @@ function FeatureDetail() {
 
       {/* ─── HERO ───────────────────────────────────────────── */}
       <header className="relative pt-20 pb-24 px-6 overflow-hidden">
-        <img src={branchLeft} alt="" aria-hidden="true" className="sakura-branch left-0 -translate-x-[15%]" />
-        <img src={branchRight} alt="" aria-hidden="true" className="sakura-branch right-0 translate-x-[15%]" />
 
         <div className="max-w-4xl mx-auto text-center relative">
           <nav aria-label="Breadcrumb" className="mb-6 flex justify-center">
