@@ -4,6 +4,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import branchLeft from "@/assets/sakura/branch-left.svg";
 import branchRight from "@/assets/sakura/branch-right.svg";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
+import { useMarketingTheme } from "@/lib/use-marketing-theme";
 
 const LOGIN_URL = "/auth";
 
@@ -58,8 +59,9 @@ export function CompanyPage({
   sections: CompanySection[];
   ctaLabel?: string;
 }) {
+  const { darkMode } = useMarketingTheme();
   return (
-    <article className="cp-mkt cp-page">
+    <article className="cp-mkt cp-page" data-mode={darkMode ? "dark" : "light"}>
       <style dangerouslySetInnerHTML={{ __html: styles }} />
       <MarketingNavbar />
 
