@@ -39,8 +39,9 @@ NAV_SELECTOR = "header:has(img[src='/nav-bar-logo.svg'])"
 
 async def check(page, label, route, width) -> dict:
     issues: list[str] = []
-    await page.goto(f"{BASE}{route}", wait_until="domcontentloaded")
+    await page.goto(f"{BASE}{route}", wait_until="networkidle")
     await page.wait_for_selector(NAV_SELECTOR, timeout=5000)
+    await page.wait_for_timeout(200)
 
     # 1. fixed position
     pos = await page.evaluate(
