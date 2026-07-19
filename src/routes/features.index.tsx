@@ -6,6 +6,7 @@ import {
   Library, BarChart3, LifeBuoy, Plug, Hourglass, Globe, HeartPulse, ArrowRight,
 } from "lucide-react";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
+import { useMarketingTheme } from "@/lib/use-marketing-theme";
 
 const ORIGIN = "https://psychologist.peacecode.in";
 const INDEX_URL = `${ORIGIN}/features`;
