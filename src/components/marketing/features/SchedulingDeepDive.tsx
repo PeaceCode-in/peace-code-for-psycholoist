@@ -11,6 +11,7 @@ import {
 import branchLeft from "@/assets/sakura/branch-left.svg";
 import branchRight from "@/assets/sakura/branch-right.svg";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
+import { useMarketingTheme } from "@/lib/use-marketing-theme";
 
 const LOGIN_URL = "https://psychologist.peacecode.in/auth";
 
@@ -84,8 +85,9 @@ const faqs = [
 
 // ─── Component ────────────────────────────────────────────────────
 export function SchedulingDeepDive() {
+  const { darkMode } = useMarketingTheme();
   return (
-    <article className="pc-mkt sakura-page">
+    <article className="pc-mkt sakura-page" data-mode={darkMode ? "dark" : "light"}>
       <style dangerouslySetInnerHTML={{ __html: schedulingStyles }} />
       <MarketingNavbar />
 
