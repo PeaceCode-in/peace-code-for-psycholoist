@@ -333,6 +333,23 @@ const styles = `
   .pc-mkt[data-mode="dark"] [style*="#FFFFFF"],
   .pc-mkt[data-mode="dark"] [style*="#ffffff"],
   .pc-mkt[data-mode="dark"] [style*="rgb(255, 255, 255)"] { }
+  /* High contrast wins over dark mode — force dark ink on light Sakura */
+  .pc-mkt[data-contrast="high"],
+  .pc-mkt[data-mode="dark"][data-contrast="high"] {
+    --sakura-cream:  #F0C9D6 !important;
+    --sakura-petal:  #F7DDE5 !important;
+    --sakura-blush:  #E8B8CB !important;
+    --sakura-ink:    #000000 !important;
+    --sakura-muted:  #2E1A1F !important;
+    --sakura-rose:   #5A1A34 !important;
+    --sakura-border: rgba(0,0,0,0.18) !important;
+    --sakura-glass-color-bg:     rgba(255, 248, 250, 0.92) !important;
+    --sakura-glass-color-border: rgba(90, 26, 52, 0.30) !important;
+    --sakura-glass-white-bg:     rgba(255, 255, 255, 0.85) !important;
+    --sakura-glass-white-border: rgba(90, 26, 52, 0.22) !important;
+    background: #F0C9D6 !important;
+    color: #000000 !important;
+  }
   /* Focus ring */
   .pc-mkt :focus-visible { outline: 2px solid var(--sakura-rose); outline-offset: 3px; border-radius: 12px; }
 `;
