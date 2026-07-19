@@ -819,8 +819,8 @@ function Navbar({ darkMode = false, onToggleDark }: { darkMode?: boolean; onTogg
             src="/nav-bar-logo.svg"
             alt=""
             aria-hidden="true"
-            className="h-7 w-auto object-contain shrink-0"
-            style={{ filter: "brightness(0)" }}
+            className="object-contain shrink-0"
+            style={{ height: 28, width: 28, maxHeight: 28, maxWidth: 28, filter: "brightness(0)" }}
             onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
           />
           <span className="pc-serif text-[18px] leading-none truncate" style={{ fontWeight: 500, color: "var(--sakura-ink)" }}>
