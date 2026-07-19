@@ -260,7 +260,7 @@ import { Route as PatientsPidDocumentsRouteImport } from './routes/patients.$pid
 import { Route as PatientsPidChartRouteImport } from './routes/patients.$pid.chart'
 import { Route as PatientsPidBillingRouteImport } from './routes/patients.$pid.billing'
 import { Route as PatientsPidAssessmentsRouteImport } from './routes/patients.$pid.assessments'
-import { Route as OgFeaturesSlugDotsvgRouteImport } from './routes/og.features.$slug[.]svg'
+import { Route as OgFeaturesSlugDotsvgRouteImport } from './routes/og.features.$slug[.svg]'
 import { Route as NotesNidAmendRouteImport } from './routes/notes.$nid.amend'
 import { Route as LibrarySeriesSidRouteImport } from './routes/library.series.$sid'
 import { Route as LibraryRepurposePidRouteImport } from './routes/library.repurpose.$pid'
