@@ -1355,7 +1355,7 @@ function FeatureDetail() {
 
       {/* ─── REMAINING CAPABILITIES (if any) as compact grid ── */}
       {rest.length > 0 && (
-        <section aria-label="Also included" className="relative py-16 px-6">
+        <section id="more" aria-label="Also included" className="relative py-16 px-6 scroll-mt-24">
           <motion.div {...reveal} className="max-w-3xl mx-auto text-center mb-10">
             <p className="pc-label mb-3" style={{ color: "var(--sakura-muted)" }}>Also included</p>
             <h2 className="pc-serif text-3xl md:text-4xl" style={{ color: "var(--sakura-ink)" }}>
