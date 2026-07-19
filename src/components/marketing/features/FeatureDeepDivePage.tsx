@@ -114,15 +114,16 @@ const CHROME_CSS = `
   .fdd-cta {
     display: inline-flex; align-items: center; gap: 0.5rem;
     padding: 0.85rem 1.5rem;
-    background: var(--sakura-ink);
-    color: var(--sakura-cream);
+    background: color-mix(in oklab, var(--sakura-petal) 78%, transparent);
+    color: var(--sakura-ink);
+    border: 1px solid color-mix(in oklab, var(--sakura-ink) 16%, transparent);
     border-radius: 999px;
     font-size: 0.95rem; font-weight: 500;
     transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
   }
   .fdd-cta:hover {
     transform: translateY(-2px);
-    background: var(--sakura-rose);
+    background: var(--sakura-petal);
     box-shadow: 0 18px 40px -18px rgba(138,51,85,0.55);
   }
   .fdd-cta-ghost {

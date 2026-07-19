@@ -115,7 +115,9 @@ const styles = `
   .pc-serif { font-family: 'Fraunces', serif; font-weight: 300; letter-spacing: -0.02em; }
   .pc-italic { font-family: 'Instrument Serif', serif; font-style: italic; }
   .pc-label { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 600; }
-  .glass-color { background: rgba(255,255,255,0.45); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.65); box-shadow: 0 8px 30px rgba(0,0,0,0.04); border-radius: 1.75rem; }
+  .glass-color { background: var(--sakura-glass-white-bg); color: var(--sakura-ink); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid var(--sakura-glass-white-border); box-shadow: 0 8px 30px color-mix(in oklab, var(--sakura-ink) 8%, transparent); border-radius: 1.75rem; }
+  .pc-mkt:not([data-mode="dark"]) .glass-color, .pc-mkt:not([data-mode="dark"]) .glass-color * { color: var(--sakura-ink) !important; }
+  .pc-mkt:not([data-mode="dark"]) .glass-color p, .pc-mkt:not([data-mode="dark"]) .text-slate-600, .pc-mkt:not([data-mode="dark"]) .text-slate-500 { color: var(--sakura-muted) !important; }
   .pc-mkt[data-mode="dark"] { background: #140A0E !important; color: #F7ECEF !important; }
   .pc-mkt[data-mode="dark"] .glass-color { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
   .pc-mkt[data-mode="dark"] .text-slate-900, .pc-mkt[data-mode="dark"] .text-slate-800 { color: #F7ECEF !important; }
@@ -133,7 +135,7 @@ function FeaturesIndex() {
       style={{
         background: darkMode
           ? "linear-gradient(180deg, #140A0E 0%, #1E1014 50%, #140A0E 100%)"
-          : "linear-gradient(180deg, #FFF8FA 0%, #ffffff 40%, #F9E6EC 100%)",
+          : "var(--sakura-cream)",
       }}
     >
       <style dangerouslySetInnerHTML={{ __html: styles }} />

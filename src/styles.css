@@ -157,6 +157,42 @@
   color: var(--sakura-ink) !important;
 }
 
+/* Sakura light mode must never use white/cream copy. Keep all marketing
+   surfaces readable with dark ink text, including stray Tailwind utilities
+   and inline color styles left inside route components. */
+.pc-mkt:not([data-mode="dark"]),
+.sakura-page:not([data-mode="dark"]),
+.cp-page:not([data-mode="dark"]),
+.fdd-page:not([data-mode="dark"]) {
+  color: var(--sakura-ink) !important;
+}
+.pc-mkt:not([data-mode="dark"]) .text-white,
+.sakura-page:not([data-mode="dark"]) .text-white,
+.cp-page:not([data-mode="dark"]) .text-white,
+.fdd-page:not([data-mode="dark"]) .text-white,
+.pc-mkt:not([data-mode="dark"]) [style*="color: #fff"],
+.pc-mkt:not([data-mode="dark"]) [style*="color:#fff"],
+.pc-mkt:not([data-mode="dark"]) [style*="color: #FFF"],
+.pc-mkt:not([data-mode="dark"]) [style*="color:#FFF"],
+.pc-mkt:not([data-mode="dark"]) [style*="color: rgb(255, 255, 255)"],
+.pc-mkt:not([data-mode="dark"]) [style*="color: var(--sakura-cream)"],
+.sakura-page:not([data-mode="dark"]) [style*="color: #fff"],
+.sakura-page:not([data-mode="dark"]) [style*="color: var(--sakura-cream)"],
+.cp-page:not([data-mode="dark"]) [style*="color: #fff"],
+.cp-page:not([data-mode="dark"]) [style*="color: var(--sakura-cream)"],
+.fdd-page:not([data-mode="dark"]) [style*="color: #fff"],
+.fdd-page:not([data-mode="dark"]) [style*="color: var(--sakura-cream)"] {
+  color: var(--sakura-ink) !important;
+}
+.pc-mkt:not([data-mode="dark"]) .bg-slate-900,
+.pc-mkt:not([data-mode="dark"]) .bg-gray-900,
+.pc-mkt:not([data-mode="dark"]) .bg-zinc-900,
+.sakura-page:not([data-mode="dark"]) .bg-slate-900,
+.fdd-page:not([data-mode="dark"]) .bg-slate-900 {
+  background-color: color-mix(in oklab, var(--sakura-petal) 78%, transparent) !important;
+  border: 1px solid color-mix(in oklab, var(--sakura-ink) 16%, transparent) !important;
+}
+
 :root {
   --radius: 1rem;
 

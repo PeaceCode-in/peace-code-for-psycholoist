@@ -1123,7 +1123,7 @@ function FeatureNotFound() {
       <div className="text-center">
         <h1 className="pc-serif text-5xl mb-3" style={{ fontFamily: "Fraunces, serif", fontWeight: 300 }}>Feature not found</h1>
         <p className="text-slate-600 mb-6">Have a look at the full list instead.</p>
-        <Link to="/features" className="inline-flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-full text-sm font-medium">
+        <Link to="/features" className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium border" style={{ background: "color-mix(in oklab, var(--sakura-petal) 78%, transparent)", borderColor: "color-mix(in oklab, var(--sakura-ink) 16%, transparent)", color: "var(--sakura-ink)" }}>
           See all features <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
@@ -1193,7 +1193,8 @@ const styles = `
 
   .sakura-btn-dark {
     display: inline-flex; align-items: center; gap: 0.5rem;
-    background: var(--sakura-ink); color: var(--sakura-cream);
+    background: color-mix(in oklab, var(--sakura-petal) 78%, transparent); color: var(--sakura-ink);
+    border: 1px solid color-mix(in oklab, var(--sakura-ink) 16%, transparent);
     padding: 0.95rem 2rem; border-radius: 999px;
     font-weight: 500; font-size: 0.9rem;
     transition: transform 150ms ease, box-shadow 150ms ease;

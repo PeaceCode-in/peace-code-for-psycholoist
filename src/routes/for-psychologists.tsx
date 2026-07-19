@@ -300,6 +300,24 @@ const styles = `
     box-shadow: 0 32px 80px -20px color-mix(in oklab, var(--sakura-rose) 32%, transparent);
     border-color: color-mix(in oklab, var(--sakura-rose) 40%, transparent);
   }
+  .pc-mkt:not([data-mode="dark"]) .glass-color,
+  .pc-mkt:not([data-mode="dark"]) .glass-color *,
+  .pc-mkt:not([data-mode="dark"]) .glass-white,
+  .pc-mkt:not([data-mode="dark"]) .glass-white *,
+  .pc-mkt:not([data-mode="dark"]) .burden-panel,
+  .pc-mkt:not([data-mode="dark"]) .burden-panel *,
+  .pc-mkt:not([data-mode="dark"]) .testimonial-glass,
+  .pc-mkt:not([data-mode="dark"]) .testimonial-glass * {
+    color: var(--sakura-ink) !important;
+  }
+  .pc-mkt:not([data-mode="dark"]) .glass-color p,
+  .pc-mkt:not([data-mode="dark"]) .glass-white p,
+  .pc-mkt:not([data-mode="dark"]) .burden-panel p,
+  .pc-mkt:not([data-mode="dark"]) .testimonial-glass p,
+  .pc-mkt:not([data-mode="dark"]) .text-slate-600,
+  .pc-mkt:not([data-mode="dark"]) .text-slate-500 {
+    color: var(--sakura-muted) !important;
+  }
   .glass-white:nth-of-type(3n)   { animation-delay: -1.5s; animation-duration: 10.5s; }
   .glass-white:nth-of-type(3n+1) { animation-delay: -3.0s; animation-duration: 11.5s; }
   .glass-white:nth-of-type(3n+2) { animation-delay: -4.5s; animation-duration: 9.5s;  }
@@ -401,7 +419,7 @@ const styles = `
   .pc-mkt .text-slate-700, .pc-mkt .text-slate-600, .pc-mkt .text-slate-500, .pc-mkt .text-gray-700, .pc-mkt .text-gray-600, .pc-mkt .text-gray-500, .pc-mkt .text-zinc-600, .pc-mkt .text-neutral-600 { color: var(--sakura-muted) !important; }
   .pc-mkt .text-slate-400, .pc-mkt .text-slate-300, .pc-mkt .text-gray-400, .pc-mkt .text-gray-300 { color: color-mix(in oklab, var(--sakura-muted) 75%, var(--sakura-cream)) !important; }
   .pc-mkt .bg-slate-50, .pc-mkt .bg-slate-100, .pc-mkt .bg-gray-50, .pc-mkt .bg-gray-100, .pc-mkt .bg-zinc-50, .pc-mkt .bg-neutral-50 { background-color: var(--sakura-petal) !important; }
-  .pc-mkt .bg-slate-900, .pc-mkt .bg-gray-900, .pc-mkt .bg-zinc-900 { background-color: var(--sakura-ink) !important; }
+  .pc-mkt .bg-slate-900, .pc-mkt .bg-gray-900, .pc-mkt .bg-zinc-900 { background-color: color-mix(in oklab, var(--sakura-petal) 78%, transparent) !important; color: var(--sakura-ink) !important; }
   .pc-mkt .border-slate-200, .pc-mkt .border-slate-100, .pc-mkt .border-gray-200, .pc-mkt .border-gray-100, .pc-mkt .border-zinc-200 { border-color: var(--sakura-border) !important; }
 
   .grain-overlay {
@@ -535,7 +553,7 @@ function MarketingFAQSection() {
           ))}
         </div>
         <div className="mt-10 text-center">
-          <a href={LOGIN_URL} className="inline-flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-full text-sm font-medium">
+          <a href={LOGIN_URL} className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium border" style={{ background: "color-mix(in oklab, var(--sakura-petal) 78%, transparent)", borderColor: "color-mix(in oklab, var(--sakura-ink) 16%, transparent)", color: "var(--sakura-ink)" }}>
             Start free — no card required
           </a>
         </div>
@@ -636,7 +654,7 @@ function FeatureCatalogue() {
                     className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-lg transition-transform duration-500"
                     style={{
                       background: isOpen ? COLOR.rose : "rgba(255,255,255,0.7)",
-                      color: isOpen ? "#fff" : COLOR.ink,
+                      color: COLOR.ink,
                       transform: isOpen ? "rotate(45deg)" : "rotate(0)",
                       border: `1px solid ${COLOR.border}`,
                     }}
@@ -690,7 +708,7 @@ function FeatureCatalogue() {
         </div>
 
         <div className="mt-12 text-center">
-          <Link to="/features" className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium" style={{ background: COLOR.ink, color: "#fff" }} aria-label="Browse the full feature index">
+          <Link to="/features" className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium" style={{ background: COLOR.petal, border: `1px solid ${COLOR.ink}24`, color: COLOR.ink }} aria-label="Browse the full feature index">
             Browse the full index <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -888,7 +906,7 @@ function Navbar({ darkMode = false, onToggleDark }: { darkMode?: boolean; onTogg
           <a
             href={LOGIN_URL}
             className="hidden sm:inline-flex items-center rounded-full px-5 py-2 text-[13.5px] font-medium transition-transform hover:-translate-y-0.5"
-            style={{ background: "var(--sakura-ink)", color: "var(--sakura-cream)" }}
+            style={{ background: "color-mix(in oklab, var(--sakura-petal) 78%, transparent)", color: "var(--sakura-ink)", border: "1px solid color-mix(in oklab, var(--sakura-ink) 16%, transparent)" }}
           >
             Login
           </a>
@@ -954,7 +972,7 @@ function Navbar({ darkMode = false, onToggleDark }: { darkMode?: boolean; onTogg
               <a
                 href={LOGIN_URL}
                 className="inline-flex items-center rounded-full px-5 py-2 text-[13.5px] font-medium"
-                style={{ background: "var(--sakura-ink)", color: "var(--sakura-cream)" }}
+                style={{ background: "color-mix(in oklab, var(--sakura-petal) 78%, transparent)", color: "var(--sakura-ink)", border: "1px solid color-mix(in oklab, var(--sakura-ink) 16%, transparent)" }}
               >
                 Login
               </a>
@@ -1026,8 +1044,8 @@ function Hero() {
           <a
             href={LOGIN_URL}
             className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-medium transition-colors"
-            style={{ background: COLOR.rose }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "#9a4868")}
+            style={{ background: COLOR.petal, color: COLOR.ink, border: `1px solid ${COLOR.ink}24` }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = COLOR.blush)}
             onMouseLeave={(e) => (e.currentTarget.style.background = COLOR.rose)}
           >
             Get started
@@ -1037,7 +1055,7 @@ function Hero() {
             href="#practice"
             className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[15px] font-medium border-2 transition-colors"
             style={{ borderColor: COLOR.rose, color: COLOR.rose, background: "transparent" }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = COLOR.rose; e.currentTarget.style.color = "#FFF8FA"; }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = COLOR.petal; e.currentTarget.style.color = COLOR.ink; }}
             onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = COLOR.rose; }}
           >
             See the workspace
@@ -1594,10 +1612,10 @@ function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* LEFT */}
           <div className="lg:col-span-5">
-            <h3 className="pc-serif text-[clamp(36px,4.5vw,60px)] leading-[1.02]" style={{ color: COLOR.cream }}>
+            <h3 className="pc-serif text-[clamp(36px,4.5vw,60px)] leading-[1.02]" style={{ color: COLOR.ink }}>
               Find your <span className="pc-italic" style={{ color: COLOR.rose }}>practice rhythm.</span>
             </h3>
-            <p className="mt-5 max-w-[42ch] text-[15px] leading-relaxed" style={{ color: `${COLOR.cream}CC` }}>
+            <p className="mt-5 max-w-[42ch] text-[15px] leading-relaxed" style={{ color: COLOR.muted }}>
               A calm, clinician-authored workspace for the private practice you actually want to run.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -1608,8 +1626,8 @@ function Footer() {
                 Login <ArrowRight className="h-4 w-4" />
               </a>
               <a href="#practice" className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium transition-colors"
-                style={{ border: `1px solid ${COLOR.cream}44`, color: COLOR.cream }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = `${COLOR.cream}12`; }}
+                style={{ border: `1px solid ${COLOR.ink}24`, color: COLOR.ink }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = `${COLOR.petal}CC`; }}
                 onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}>
                 See the workspace
               </a>
@@ -1623,9 +1641,9 @@ function Footer() {
                 <ul className="mt-4 space-y-2.5">
                   {c.links.map(([l, href]) => (
                     <li key={l}>
-                      <a href={href} className="text-[14px] transition-colors" style={{ color: `${COLOR.cream}B8` }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = COLOR.cream)}
-                        onMouseLeave={(e) => (e.currentTarget.style.color = `${COLOR.cream}B8`)}>
+                      <a href={href} className="text-[14px] transition-colors" style={{ color: COLOR.muted }}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = COLOR.ink)}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = COLOR.muted)}>
                         {l}
                       </a>
                     </li>
@@ -1640,9 +1658,9 @@ function Footer() {
               {[Instagram, Twitter, Linkedin, Youtube].map((Icon, i) => (
                 <a key={i} href="#social" aria-label="Social"
                   className="h-10 w-10 rounded-xl inline-flex items-center justify-center transition-colors"
-                  style={{ background: `${COLOR.cream}10`, border: `1px solid ${COLOR.cream}22`, color: COLOR.cream }}
+                  style={{ background: `${COLOR.petal}99`, border: `1px solid ${COLOR.ink}22`, color: COLOR.ink }}
                   onMouseEnter={(e) => { e.currentTarget.style.background = `${COLOR.rose}30`; e.currentTarget.style.borderColor = COLOR.rose; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = `${COLOR.cream}10`; e.currentTarget.style.borderColor = `${COLOR.cream}22`; }}>
+                  onMouseLeave={(e) => { e.currentTarget.style.background = `${COLOR.petal}99`; e.currentTarget.style.borderColor = `${COLOR.ink}22`; }}>
                   <Icon className="h-4 w-4" strokeWidth={1.6} />
                 </a>
               ))}
@@ -1650,7 +1668,7 @@ function Footer() {
             <div className="flex flex-wrap gap-2">
               {["DPDP-aligned", "Clinician-authored", "India-hosted"].map((b) => (
                 <span key={b} className="rounded-full px-3 py-1"
-                  style={{ background: `${COLOR.cream}0E`, border: `1px solid ${COLOR.cream}22`, fontSize: 11, color: COLOR.cream }}>
+                  style={{ background: `${COLOR.petal}99`, border: `1px solid ${COLOR.ink}22`, fontSize: 11, color: COLOR.ink }}>
                   {b}
                 </span>
               ))}
@@ -1659,14 +1677,14 @@ function Footer() {
         </div>
 
         <div className="mt-16 pt-6 flex flex-wrap items-center justify-between gap-4 text-[13px]"
-          style={{ borderTop: `1px solid ${COLOR.cream}1F`, color: `${COLOR.cream}88` }}>
+          style={{ borderTop: `1px solid ${COLOR.ink}1F`, color: COLOR.muted }}>
           <span>© 2026 PeaceCode. All rights reserved.</span>
           <div className="flex gap-5">
             {[["Privacy", "#privacy"], ["Terms", "#terms"], ["DPA", "#dpa"], ["Security", "#security"]].map(([l, h]) => (
               <a key={l} href={h} className="transition-colors"
-                style={{ color: `${COLOR.cream}88` }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = COLOR.cream)}
-                onMouseLeave={(e) => (e.currentTarget.style.color = `${COLOR.cream}88`)}>{l}</a>
+                style={{ color: COLOR.muted }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = COLOR.ink)}
+                onMouseLeave={(e) => (e.currentTarget.style.color = COLOR.muted)}>{l}</a>
             ))}
           </div>
         </div>
