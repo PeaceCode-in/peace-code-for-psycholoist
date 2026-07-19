@@ -1338,39 +1338,114 @@ function WhatPsychologistsFace() {
 /* ---------------- Blog ---------------- */
 function Blog() {
   const posts = [
-    { img: "/ChatGPT Image Jun 3, 2026, 03_03_06 PM.png", tag: "PRACTICE", title: "The 12-minute note: how structure buys back your evenings.", date: "Jun 12" },
-    { img: "/ChatGPT Image Jun 3, 2026, 03_08_14 PM.png", tag: "OUTCOMES", title: "Why trajectory beats a single PHQ-9 score, every time.",       date: "Jun 04" },
-    { img: "/ChatGPT Image Jun 3, 2026, 03_35_21 PM.png", tag: "ETHICS",   title: "DPDP for private practice — a plain-language walkthrough.",     date: "May 28" },
+    {
+      tag: "PRACTICE", date: "Jun 12", read: "6 min read",
+      title: "The 12-minute note: how structure buys back your evenings.",
+      excerpt: "A repeatable SOAP scaffold that trims documentation drag without flattening clinical voice.",
+      art: "note",
+    },
+    {
+      tag: "OUTCOMES", date: "Jun 04", read: "8 min read",
+      title: "Why trajectory beats a single PHQ-9 score, every time.",
+      excerpt: "Longitudinal drift, not the number itself, tells you when a plan needs to change.",
+      art: "trend",
+    },
+    {
+      tag: "ETHICS", date: "May 28", read: "10 min read",
+      title: "DPDP for private practice — a plain-language walkthrough.",
+      excerpt: "Consent, retention, and breach duties, translated for a solo Indian clinic.",
+      art: "shield",
+    },
   ];
+
+  const Art = ({ kind }: { kind: string }) => (
+    <svg viewBox="0 0 400 300" className="h-full w-full" preserveAspectRatio="xMidYMid slice" aria-hidden>
+      <defs>
+        <linearGradient id={`bg-${kind}`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor={COLOR.petal} />
+          <stop offset="100%" stopColor={COLOR.blush} />
+        </linearGradient>
+        <radialGradient id={`glow-${kind}`} cx="0.75" cy="0.2" r="0.7">
+          <stop offset="0%" stopColor={COLOR.rose} stopOpacity="0.35" />
+          <stop offset="100%" stopColor={COLOR.rose} stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <rect width="400" height="300" fill={`url(#bg-${kind})`} />
+      <rect width="400" height="300" fill={`url(#glow-${kind})`} />
+      {kind === "note" && (
+        <g stroke={COLOR.ink} strokeWidth="1.4" fill="none" opacity="0.85">
+          <rect x="70" y="55" width="230" height="190" rx="10" fill={COLOR.cream} />
+          <line x1="90" y1="90"  x2="240" y2="90"  />
+          <line x1="90" y1="115" x2="280" y2="115" />
+          <line x1="90" y1="140" x2="260" y2="140" />
+          <line x1="90" y1="165" x2="220" y2="165" />
+          <line x1="90" y1="190" x2="270" y2="190" strokeDasharray="3 4" />
+          <circle cx="255" cy="220" r="14" fill={COLOR.rose} stroke="none" />
+          <path d="M249 220 l5 5 l9 -10" stroke={COLOR.cream} strokeWidth="2" />
+        </g>
+      )}
+      {kind === "trend" && (
+        <g fill="none" opacity="0.9">
+          <line x1="60" y1="240" x2="360" y2="240" stroke={COLOR.ink} strokeWidth="1" opacity="0.4" />
+          <line x1="60" y1="60"  x2="60"  y2="240" stroke={COLOR.ink} strokeWidth="1" opacity="0.4" />
+          <path d="M70 210 L120 190 L170 170 L220 140 L270 130 L320 95 L360 80"
+            stroke={COLOR.rose} strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M70 220 L120 215 L170 205 L220 195 L270 180 L320 170 L360 155"
+            stroke={COLOR.ink} strokeWidth="1.5" strokeDasharray="4 5" opacity="0.6" />
+          {[[70,210],[170,170],[270,130],[360,80]].map(([x,y],i)=>(
+            <circle key={i} cx={x} cy={y} r="4" fill={COLOR.rose} stroke={COLOR.cream} strokeWidth="1.5" />
+          ))}
+        </g>
+      )}
+      {kind === "shield" && (
+        <g opacity="0.95">
+          <path d="M200 55 L280 90 L280 165 C280 205 245 235 200 250 C155 235 120 205 120 165 L120 90 Z"
+            fill={COLOR.cream} stroke={COLOR.ink} strokeWidth="1.6" />
+          <path d="M165 155 L190 180 L235 130" stroke={COLOR.rose} strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="200" cy="105" r="4" fill={COLOR.rose} />
+        </g>
+      )}
+    </svg>
+  );
+
   return (
     <section id="blog" className="relative w-full py-24 md:py-32">
       <div className="mx-auto max-w-[1200px] px-6">
-        <motion.div {...reveal} className="flex items-end justify-between mb-12">
+        <motion.div {...reveal} className="flex items-end justify-between mb-12 gap-6 flex-wrap">
           <div>
-            <p className="pc-label text-slate-500 mb-4">From the journal</p>
-            <h2 className="pc-serif text-slate-900 text-[clamp(28px,3.6vw,44px)] leading-[1.05]">
-              Notes for the <span className="pc-italic">working clinician.</span>
+            <p className="pc-label mb-4" style={{ color: COLOR.rose }}>From the journal</p>
+            <h2 className="pc-serif text-[clamp(28px,3.6vw,44px)] leading-[1.05]" style={{ color: COLOR.ink }}>
+              Notes for the <span className="pc-italic" style={{ color: COLOR.rose }}>working clinician.</span>
             </h2>
           </div>
-          <a href="#blog" className="hidden md:inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.25em] font-semibold text-slate-900">
+          <a href="#blog" className="inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.22em] font-semibold rounded-full px-5 py-2.5 transition-colors"
+            style={{ color: COLOR.ink, border: `1px solid ${COLOR.ink}30` }}
+            onMouseEnter={(e)=>{e.currentTarget.style.background = COLOR.ink; e.currentTarget.style.color = COLOR.cream;}}
+            onMouseLeave={(e)=>{e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = COLOR.ink;}}>
             All posts <ArrowRight className="h-4 w-4" />
           </a>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {posts.map((p, i) => (
-            <motion.a key={p.title} href="#blog" {...reveal} transition={{ ...reveal.transition, delay: i * 0.1 }}
-              className="group block">
-              <div className="aspect-[4/3] overflow-hidden rounded-2xl bg-slate-100">
-                <img src={p.img} alt="" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                  onError={(e) => ((e.currentTarget as HTMLImageElement).style.background = COLOR.blush)} />
+            <motion.a key={p.title} href="#blog" {...reveal} transition={{ ...reveal.transition, delay: i * 0.08 }}
+              className="group block rounded-3xl overflow-hidden transition-transform duration-500 hover:-translate-y-1"
+              style={{ background: `${COLOR.cream}CC`, border: `1px solid ${COLOR.ink}12`, backdropFilter: "blur(20px)", boxShadow: `0 12px 40px -20px ${COLOR.ink}30` }}>
+              <div className="aspect-[4/3] overflow-hidden">
+                <Art kind={p.art} />
               </div>
-              <div className="mt-5">
-                <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-slate-500 font-semibold">
-                  <span>{p.tag}</span><span>·</span><span>{p.date}</span>
+              <div className="p-6">
+                <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] font-semibold" style={{ color: COLOR.rose }}>
+                  <span>{p.tag}</span><span style={{ color: `${COLOR.ink}40` }}>·</span>
+                  <span style={{ color: COLOR.muted }}>{p.date}</span><span style={{ color: `${COLOR.ink}40` }}>·</span>
+                  <span style={{ color: COLOR.muted }}>{p.read}</span>
                 </div>
-                <h3 className="mt-3 pc-serif text-slate-900 text-[22px] leading-snug group-hover:text-slate-600 transition-colors">
+                <h3 className="mt-3 pc-serif text-[22px] leading-snug transition-colors" style={{ color: COLOR.ink }}>
                   {p.title}
                 </h3>
+                <p className="mt-3 text-[14px] leading-relaxed" style={{ color: COLOR.muted }}>{p.excerpt}</p>
+                <span className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-medium transition-transform group-hover:translate-x-1" style={{ color: COLOR.ink }}>
+                  Read <ArrowRight className="h-3.5 w-3.5" />
+                </span>
               </div>
             </motion.a>
           ))}
