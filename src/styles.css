@@ -131,6 +131,32 @@
 [data-mode="dark"] .border-gray-200,
 [data-mode="dark"] .border-gray-100 { border-color: rgba(255,255,255,0.10) !important; }
 
+/* ─── Marketing glass-card safety net (light mode) ─────────────────
+   Any card inside a marketing wrapper that uses a white / near-white
+   background must show dark ink text. Prevents "white on white"
+   invisible copy when Tailwind utilities or inline styles override
+   the Sakura tokens. */
+.pc-mkt:not([data-mode="dark"]) .bg-white,
+.pc-mkt:not([data-mode="dark"]) [class*="bg-white/"],
+.sakura-page:not([data-mode="dark"]) .bg-white,
+.cp-page:not([data-mode="dark"]) .bg-white,
+.fdd-page:not([data-mode="dark"]) .bg-white {
+  background-color: var(--sakura-glass-white-bg) !important;
+  backdrop-filter: blur(24px) saturate(1.1);
+  border: 1px solid var(--sakura-glass-white-border) !important;
+  color: var(--sakura-ink) !important;
+}
+.pc-mkt:not([data-mode="dark"]) .glass-white,
+.pc-mkt:not([data-mode="dark"]) .glass-white *:not(svg):not(path),
+.sakura-page:not([data-mode="dark"]) .glass-white,
+.sakura-page:not([data-mode="dark"]) .glass-white *:not(svg):not(path) {
+  color: var(--sakura-ink);
+}
+.pc-mkt:not([data-mode="dark"]) .glass-white .text-white,
+.pc-mkt:not([data-mode="dark"]) .bg-white .text-white {
+  color: var(--sakura-ink) !important;
+}
+
 :root {
   --radius: 1rem;
 
