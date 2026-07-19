@@ -1153,7 +1153,7 @@ const styles = `
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.55  0 0 0 0 0.2  0 0 0 0 0.33  0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
     opacity: 0.85; pointer-events: none; z-index: 0; mix-blend-mode: multiply;
   }
-  .sakura-page > * { position: relative; z-index: 1; }
+  .sakura-page > *:not(header):not(.fixed):not(.sticky):not(.absolute) { position: relative; z-index: 1; }
 
   .sakura-branch {
     position: absolute; top: 3.5rem; width: 220px; height: auto; pointer-events: none;
