@@ -34,17 +34,20 @@ ROUTES = [
 ]
 
 
+NAV_SELECTOR = "header:has(img[src='/nav-bar-logo.svg'])"
+
+
 async def check(page, label, route, width) -> dict:
     issues: list[str] = []
     await page.goto(f"{BASE}{route}", wait_until="domcontentloaded")
-    await page.wait_for_selector("header", timeout=5000)
+    await page.wait_for_selector(NAV_SELECTOR, timeout=5000)
 
     # 1. fixed position
     pos = await page.evaluate(
-        "() => getComputedStyle(document.querySelector('header')).position"
+        f"() => getComputedStyle(document.querySelector({NAV_SELECTOR!r})).position"
     )
     if pos != "fixed":
-        issues.append(f"header position={pos!r}, expected 'fixed'")
+        issues.append(f"navbar position={pos!r}, expected 'fixed'")
 
     # 2. no horizontal overflow at rest
     overflow = await page.evaluate(
@@ -59,18 +62,17 @@ async def check(page, label, route, width) -> dict:
 
     # 3. header width fits viewport
     box = await page.evaluate(
-        "() => { const r = document.querySelector('header').getBoundingClientRect();"
+        f"() => {{ const r = document.querySelector({NAV_SELECTOR!r}).getBoundingClientRect();"
         "        return { x: r.x, w: r.width, top: r.top }; }"
     )
     if box["w"] > width + 1:
-        issues.append(f"header width {box['w']} > viewport {width}")
-    top_before = box["top"]
+        issues.append(f"navbar width {box['w']} > viewport {width}")
 
     # 4. remains fixed after scrolling
     await page.evaluate("() => window.scrollTo(0, 1200)")
     await page.wait_for_timeout(400)
     box2 = await page.evaluate(
-        "() => { const r = document.querySelector('header').getBoundingClientRect();"
+        f"() => {{ const r = document.querySelector({NAV_SELECTOR!r}).getBoundingClientRect();"
         "        return { top: r.top, w: r.width }; }"
     )
     # fixed → top stays close to viewport top (within a few px of the resting offset)
