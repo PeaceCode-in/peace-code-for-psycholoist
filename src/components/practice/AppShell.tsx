@@ -530,9 +530,8 @@ function DesktopTubeSidebar({
 
       style={{
         width: pinned ? 288 : 72,
-        background: "var(--pc-rail-bg)",
-        // No hard right-border — topbar shares the same wash so the two surfaces meet seamlessly.
-        boxShadow: "18px 0 40px -32px rgba(63,18,38,0.22)",
+        // Rail inherits the unified app wash — no gradient fill, no right-edge border/shadow seam.
+        background: "transparent",
       }}
     >
       <div className="h-full flex flex-col p-3">
@@ -812,11 +811,10 @@ function TopBar({ crumb, onToggleSidebar, onOpenMobile, pinned }: { crumb?: stri
     <header
       className="pc-topbar sticky top-0 z-30 h-14 shrink-0 flex items-center gap-2 px-3 sm:px-4"
       style={{
-        // Continuous surface with the sidebar — same blush wash, no hard seam or border.
-        background: "var(--pc-topbar-bg)",
+        // Fully continuous with the sidebar and content — no fills, borders, or seams.
+        background: "transparent",
         backdropFilter: "blur(14px)",
         WebkitBackdropFilter: "blur(14px)",
-        boxShadow: "0 1px 0 rgba(255,255,255,0.75) inset, 0 8px 24px -22px rgba(63,18,38,0.22)",
       }}
     >
       <button
@@ -907,7 +905,11 @@ export function AppShell({ children, crumb }: { children: ReactNode; crumb?: str
       <GlassFX />
       <div
         className="min-h-screen flex w-full"
-        style={{ color: "var(--pc-ink, #1E1418)", fontFamily: "'DM Sans', system-ui, sans-serif" }}
+        style={{
+          color: "var(--pc-ink, #1E1418)",
+          fontFamily: "'DM Sans', system-ui, sans-serif",
+          background: "var(--pc-app-bg)",
+        }}
       >
         <DesktopTubeSidebar
           onDuty={onDuty}

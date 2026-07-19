@@ -330,13 +330,14 @@
   --pc-aurora-c: #EAF3FF;
 
   /* Chrome surfaces (sidebar rail, flyout, topbar, drawer) — light default */
-  --pc-rail-bg:        linear-gradient(180deg, #FFF9FB 0%, #F8E3EB 100%);
+  --pc-app-bg:         linear-gradient(180deg, #FFF9FB 0%, #FBEEF2 45%, #F8E3EB 100%);
+  --pc-rail-bg:        transparent;
   --pc-rail-flyout-bg: rgba(255,247,250,0.96);
-  --pc-topbar-bg:      linear-gradient(180deg, rgba(255,249,251,0.96) 0%, rgba(255,247,250,0.94) 100%);
+  --pc-topbar-bg:      transparent;
   --pc-drawer-bg:      linear-gradient(180deg, rgba(255,249,251,0.98) 0%, rgba(248,227,235,0.98) 100%);
   --pc-chrome-hover:   rgba(255,255,255,0.55);
   --pc-chrome-active:  rgba(255,255,255,0.72);
-  --pc-chrome-shadow:  10px 0 28px -24px rgba(63,18,38,0.28);
+  --pc-chrome-shadow:  none;
 
   /* Glass surfaces used on inline styles across app content */
   --pc-glass:        rgba(255,255,255,0.60);
@@ -364,13 +365,14 @@
   --pc-aurora-c: #12203E;
 
   /* Chrome surfaces (sidebar rail, flyout, topbar, drawer) — dark */
-  --pc-rail-bg:        linear-gradient(180deg, #14181F 0%, #0F1218 100%);
+  --pc-app-bg:         linear-gradient(180deg, #14181F 0%, #10141C 50%, #0C1016 100%);
+  --pc-rail-bg:        transparent;
   --pc-rail-flyout-bg: rgba(20,24,32,0.96);
-  --pc-topbar-bg:      linear-gradient(180deg, rgba(20,24,32,0.94) 0%, rgba(15,18,24,0.92) 100%);
+  --pc-topbar-bg:      transparent;
   --pc-drawer-bg:      linear-gradient(180deg, rgba(20,24,32,0.98) 0%, rgba(12,14,20,0.98) 100%);
   --pc-chrome-hover:   rgba(255,255,255,0.06);
   --pc-chrome-active:  rgba(255,255,255,0.10);
-  --pc-chrome-shadow:  10px 0 28px -24px rgba(0,0,0,0.55);
+  --pc-chrome-shadow:  none;
 
   /* Glass surfaces — dark variants so inline "white glass" backgrounds don't flash white */
   --pc-glass:        rgba(20,27,51,0.55);
