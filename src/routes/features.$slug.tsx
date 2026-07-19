@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import type { ComponentType } from "react";
+import { useEffect, useState, type ComponentType } from "react";
 import {
   CalendarCheck, ArrowRight, Clock, Link2, BellOff, RefreshCw, ShieldCheck, Check,
   FileText, Sparkles, History, PenLine, Lock, ClipboardList, LineChart, Activity, Send,
@@ -1273,8 +1273,12 @@ function FeatureDetail() {
         </div>
       </header>
 
+      <FeatureTOC hasMore={rest.length > 0} />
+
+
+
       {/* ─── SPLIT COPY ROW ───────────────────────────────────── */}
-      <section aria-label="The context" className="relative py-20 px-6">
+      <section id="overview" aria-label="The context" className="relative py-20 px-6 scroll-mt-24">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-14 items-start">
           <motion.h2 {...reveal} className="pc-serif text-3xl md:text-5xl leading-[1.1]" style={{ color: "var(--sakura-ink)" }}>
             {f.problem.title.replace(/\.$/, "")}<span className="pc-italic">.</span>
@@ -1296,7 +1300,7 @@ function FeatureDetail() {
       </section>
 
       {/* ─── 3 CAPABILITY CARDS (reference layout) ───────────── */}
-      <section aria-label="Capabilities" className="relative py-16 px-6">
+      <section id="capabilities" aria-label="Capabilities" className="relative py-16 px-6 scroll-mt-24">
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-5">
           {topThree.map((c, i) => {
             const Icon = c.icon;
@@ -1324,7 +1328,7 @@ function FeatureDetail() {
       </section>
 
       {/* ─── WORKFLOW AS TABLE ────────────────────────────────── */}
-      <section id="workflow" aria-label="How it flows" className="relative py-20 px-6">
+      <section id="workflow" aria-label="How it flows" className="relative py-20 px-6 scroll-mt-24">
         <motion.div {...reveal} className="max-w-3xl mx-auto text-center mb-10">
           <p className="pc-label mb-3" style={{ color: "var(--sakura-muted)" }}>How it flows</p>
           <h2 className="pc-serif text-3xl md:text-5xl" style={{ color: "var(--sakura-ink)" }}>
@@ -1355,7 +1359,7 @@ function FeatureDetail() {
 
       {/* ─── REMAINING CAPABILITIES (if any) as compact grid ── */}
       {rest.length > 0 && (
-        <section aria-label="Also included" className="relative py-16 px-6">
+        <section id="more" aria-label="Also included" className="relative py-16 px-6 scroll-mt-24">
           <motion.div {...reveal} className="max-w-3xl mx-auto text-center mb-10">
             <p className="pc-label mb-3" style={{ color: "var(--sakura-muted)" }}>Also included</p>
             <h2 className="pc-serif text-3xl md:text-4xl" style={{ color: "var(--sakura-ink)" }}>
@@ -1380,7 +1384,7 @@ function FeatureDetail() {
       )}
 
       {/* ─── SAVINGS ROW ──────────────────────────────────────── */}
-      <section aria-label="Impact" className="relative py-20 px-6">
+      <section id="impact" aria-label="Impact" className="relative py-20 px-6 scroll-mt-24">
         <motion.div {...reveal} className="max-w-3xl mx-auto text-center mb-10">
           <p className="pc-label mb-3" style={{ color: "var(--sakura-muted)" }}>The measurable difference</p>
           <h2 className="pc-serif text-3xl md:text-5xl" style={{ color: "var(--sakura-ink)" }}>
@@ -1402,7 +1406,7 @@ function FeatureDetail() {
       <RelatedFeatures slug={f.slug} />
 
       {/* ─── FAQ ──────────────────────────────────────────────── */}
-      <section aria-label="FAQ" className="relative py-20 px-6">
+      <section id="faq" aria-label="FAQ" className="relative py-20 px-6 scroll-mt-24">
         <motion.div {...reveal} className="max-w-3xl mx-auto">
           <p className="pc-label mb-3 text-center" style={{ color: "var(--sakura-muted)" }}>Frequently asked</p>
           <h2 className="pc-serif text-3xl md:text-5xl text-center mb-10" style={{ color: "var(--sakura-ink)" }}>
@@ -1449,6 +1453,137 @@ function FeatureDetail() {
 }
 
 /**
+ * On-page table of contents. Sticky rail on desktop (xl+), floating pill
+ * on mobile that expands to a sheet. Active section highlights via
+ * IntersectionObserver against the section IDs rendered above.
+ */
+const TOC_SECTIONS: Array<{ id: string; label: string; requiresMore?: boolean }> = [
+  { id: "overview", label: "Overview" },
+  { id: "capabilities", label: "Capabilities" },
+  { id: "workflow", label: "How it flows" },
+  { id: "more", label: "Also included", requiresMore: true },
+  { id: "impact", label: "Impact" },
+  { id: "related", label: "Related workflows" },
+  { id: "faq", label: "FAQ" },
+];
+
+function FeatureTOC({ hasMore }: { hasMore: boolean }) {
+  const items = TOC_SECTIONS.filter((s) => !s.requiresMore || hasMore);
+  const [active, setActive] = useState<string>(items[0]?.id ?? "");
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const els = items
+      .map((i) => document.getElementById(i.id))
+      .filter((el): el is HTMLElement => Boolean(el));
+    if (els.length === 0) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]?.target.id) setActive(visible[0].target.id);
+      },
+      { rootMargin: "-40% 0px -50% 0px", threshold: [0, 0.25, 0.5, 1] },
+    );
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [items]);
+
+  const handleJump = (id: string) => {
+    setOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  return (
+    <>
+      {/* Desktop rail */}
+      <nav
+        aria-label="On this page"
+        className="hidden xl:block fixed top-32 right-6 z-30 w-56"
+      >
+        <p
+          className="pc-label mb-3 text-xs tracking-[0.18em]"
+          style={{ color: "var(--sakura-muted)" }}
+        >
+          On this page
+        </p>
+        <ul className="space-y-1 border-l" style={{ borderColor: "color-mix(in oklab, var(--sakura-rose) 25%, transparent)" }}>
+          {items.map((it) => {
+            const isActive = active === it.id;
+            return (
+              <li key={it.id}>
+                <button
+                  type="button"
+                  onClick={() => handleJump(it.id)}
+                  className="block w-full text-left pl-3 py-1.5 text-sm transition-colors -ml-px border-l"
+                  style={{
+                    borderColor: isActive ? "var(--sakura-rose)" : "transparent",
+                    color: isActive ? "var(--sakura-ink)" : "var(--sakura-muted)",
+                    fontWeight: isActive ? 500 : 400,
+                  }}
+                >
+                  {it.label}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+
+      {/* Mobile floating pill */}
+      <div className="xl:hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-40">
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-controls="feature-toc-sheet"
+          className="sakura-card px-4 py-2 text-sm inline-flex items-center gap-2 shadow-lg"
+          style={{ color: "var(--sakura-ink)" }}
+        >
+          <span
+            className="w-1.5 h-1.5 rounded-full"
+            style={{ background: "var(--sakura-rose)" }}
+          />
+          {items.find((i) => i.id === active)?.label ?? "Contents"}
+          <ChevronDown
+            className="w-4 h-4 transition-transform"
+            style={{ transform: open ? "rotate(180deg)" : undefined, color: "var(--sakura-muted)" }}
+          />
+        </button>
+        {open && (
+          <div
+            id="feature-toc-sheet"
+            role="menu"
+            className="sakura-card absolute bottom-14 left-1/2 -translate-x-1/2 w-64 p-2"
+          >
+            {items.map((it) => {
+              const isActive = active === it.id;
+              return (
+                <button
+                  key={it.id}
+                  type="button"
+                  role="menuitem"
+                  onClick={() => handleJump(it.id)}
+                  className="block w-full text-left px-3 py-2 text-sm rounded"
+                  style={{
+                    background: isActive ? "color-mix(in oklab, var(--sakura-rose) 12%, transparent)" : "transparent",
+                    color: isActive ? "var(--sakura-ink)" : "var(--sakura-muted)",
+                  }}
+                >
+                  {it.label}
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+
+/**
  * Related workflows — internal-linking block rendered on every feature page.
  *
  * Uses descriptive anchor text (feature name + one-line benefit) rather than
@@ -1465,8 +1600,9 @@ function RelatedFeatures({ slug }: { slug: string }) {
 
   return (
     <section
+      id="related"
       aria-labelledby="related-workflows-heading"
-      className="relative py-20 px-6"
+      className="relative py-20 px-6 scroll-mt-24"
     >
       <div className="max-w-5xl mx-auto">
         <p className="pc-label mb-3 text-center" style={{ color: "var(--sakura-muted)" }}>
