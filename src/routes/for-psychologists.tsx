@@ -289,6 +289,35 @@ const styles = `
     opacity: 0.42;
   }
   .pc-mkt[data-mode="dark"] .testimonial-glass::before { mix-blend-mode: screen; opacity: 0.18; }
+  .burden-panel {
+    position: relative;
+    overflow: hidden;
+    min-height: 100%;
+    color: var(--sakura-ink);
+    background:
+      linear-gradient(180deg, color-mix(in oklab, var(--sakura-cream) 72%, transparent), color-mix(in oklab, var(--sakura-petal) 62%, transparent)),
+      var(--sakura-glass-color-bg);
+    border: 1px solid color-mix(in oklab, var(--sakura-rose) 20%, transparent);
+    border-radius: 1.5rem;
+    box-shadow: 0 18px 50px -30px color-mix(in oklab, var(--sakura-ink) 22%, transparent);
+    backdrop-filter: blur(30px) saturate(1.1);
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+  .burden-panel:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in oklab, var(--sakura-rose) 34%, transparent);
+    background:
+      linear-gradient(180deg, color-mix(in oklab, var(--sakura-petal) 64%, transparent), color-mix(in oklab, var(--sakura-cream) 78%, transparent)),
+      var(--sakura-glass-white-bg);
+  }
+  .burden-row {
+    border-bottom: 1px solid color-mix(in oklab, var(--sakura-border) 74%, transparent);
+  }
+  .burden-row:focus-visible {
+    outline: 2px solid var(--sakura-rose);
+    outline-offset: 3px;
+    border-radius: 0.75rem;
+  }
 
   .liquid-glass-button {
     position: relative; isolation: isolate; overflow: hidden; color: #140A0E;
@@ -1362,10 +1391,10 @@ function WhatPsychologistsFace() {
             The parts of the work no one <span className="pc-italic">put on the brochure.</span>
           </h2>
         </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:divide-x divide-slate-200">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {cols.map((c) => (
-            <div key={c.h} className="px-6 md:px-10">
-              <h3 className="pc-serif text-slate-900 text-[22px] mb-6">{c.h}</h3>
+            <div key={c.h} className="burden-panel px-6 py-7 md:px-8 md:py-8">
+              <h3 className="pc-serif text-slate-900 text-[24px] leading-tight mb-6">{c.h}</h3>
               <ul className="space-y-3">
                 {c.items.map((it) => {
                   const key = c.h + it;
@@ -1374,13 +1403,13 @@ function WhatPsychologistsFace() {
                     <li key={it}>
                       <button
                         onClick={() => setOpen((o) => ({ ...o, [key]: !on }))}
-                        className="w-full flex items-center justify-between text-left py-3 border-b border-slate-200/70"
+                        className="burden-row group w-full flex items-center justify-between gap-4 text-left py-3.5 transition-colors"
                       >
-                        <span className="text-[15px] ">{it}</span>
-                        {on ? <Minus className="h-4 w-4 text-slate-500" /> : <Plus className="h-4 w-4 text-slate-500" />}
+                        <span className="text-[15px] font-medium leading-snug text-slate-900">{it}</span>
+                        {on ? <Minus className="h-4 w-4 shrink-0 text-slate-600 transition-transform group-hover:scale-110" /> : <Plus className="h-4 w-4 shrink-0 text-slate-600 transition-transform group-hover:scale-110" />}
                       </button>
                       {on ? (
-                        <p className="text-[13px] text-slate-500 pt-2 pb-3 pr-6">
+                        <p className="text-[13px] font-medium text-slate-600 leading-relaxed pt-2 pb-3 pr-6">
                           PeaceCode holds this quietly in the background so it stops holding you.
                         </p>
                       ) : null}
