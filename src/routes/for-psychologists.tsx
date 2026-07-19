@@ -995,7 +995,7 @@ function HowItWorks() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
           {steps.map((s, i) => (
             <motion.div key={s.step} {...reveal} transition={{ ...reveal.transition, delay: i * 0.1 }} className="how-card aspect-[4/5]">
-              <img src={s.img} alt="" onError={(e) => ((e.currentTarget as HTMLImageElement).style.background = "#3a3a4a")} />
+              <img src={s.img} alt="" onError={(e) => ((e.currentTarget as HTMLImageElement).style.background = COLOR.blush)} />
               <div className="how-card-content">
                 <span className="how-card-step">{s.step}</span>
                 <div>
@@ -1125,7 +1125,7 @@ function BentoFeatures() {
 
   return (
     <section id="features" className="relative w-full pb-28 md:pb-36 pt-0" style={{ background: "transparent" }}>
-      <WavyBridge from="#FFFFFF" to={COLOR.petal} />
+      <WavyBridge from={COLOR.cream} to={COLOR.petal} />
       <div className="mx-auto max-w-[1280px] px-6 pt-4">
         <motion.div {...reveal} className="text-center mb-14">
           <p className="pc-label text-slate-500 mb-4">The workspace</p>
@@ -1192,7 +1192,7 @@ function FeatureHighlight() {
         <motion.div {...reveal} className="glass-white overflow-hidden grid grid-cols-1 lg:grid-cols-[58%_42%]">
           <div className="aspect-[4/3] lg:aspect-auto">
             <img src="/assets/editorial-courtyard.jpg" alt="A quiet courtyard" className="h-full w-full object-cover"
-              onError={(e) => ((e.currentTarget as HTMLImageElement).style.background = "#c9d3dc")} />
+              onError={(e) => ((e.currentTarget as HTMLImageElement).style.background = COLOR.blush)} />
           </div>
           <div className="p-8 md:p-12 flex flex-col justify-center">
             <p className="pc-label text-slate-500 mb-4">Continuity, held</p>
@@ -1362,7 +1362,7 @@ function Blog() {
               className="group block">
               <div className="aspect-[4/3] overflow-hidden rounded-2xl bg-slate-100">
                 <img src={p.img} alt="" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                  onError={(e) => ((e.currentTarget as HTMLImageElement).style.background = "#e2e8f0")} />
+                  onError={(e) => ((e.currentTarget as HTMLImageElement).style.background = COLOR.blush)} />
               </div>
               <div className="mt-5">
                 <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-slate-500 font-semibold">
@@ -1459,9 +1459,9 @@ function Footer() {
                 <ul className="mt-4 space-y-2.5">
                   {c.links.map(([l, href]) => (
                     <li key={l}>
-                      <a href={href} className="text-[14px] transition-colors" style={{ color: "#475569" }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = "#0F172A")}
-                        onMouseLeave={(e) => (e.currentTarget.style.color = "#475569")}>
+                      <a href={href} className="text-[14px] transition-colors" style={{ color: COLOR.muted }}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = COLOR.ink)}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = COLOR.muted)}>
                         {l}
                       </a>
                     </li>
