@@ -257,30 +257,40 @@ const styles = `
   .glass-white { background: rgba(255,255,255,0.70); backdrop-filter: blur(40px); border: 1px solid rgba(255,255,255,0.80); box-shadow: 0 20px 60px -15px rgba(0,0,0,0.10); border-radius: 1.75rem; }
 
   .liquid-glass-button {
-    position: relative; isolation: isolate; overflow: hidden; color: #2A2140;
+    position: relative; isolation: isolate; overflow: hidden; color: #140A0E;
     background:
-      linear-gradient(135deg, rgba(255,255,255,0.42), rgba(255,255,255,0.28) 48%, rgba(210,200,240,0.18)),
+      linear-gradient(135deg, rgba(255,248,250,0.55), rgba(255,236,242,0.32) 48%, rgba(244,163,190,0.18)),
       radial-gradient(circle at 18% 12%, rgba(255,255,255,0.70), transparent 34%);
     border-top: 1px solid rgba(255,255,255,0.58);
     border-left: 1px solid rgba(255,255,255,0.58);
-    border-right: 1px solid rgba(255,255,255,0.24);
-    border-bottom: 1px solid rgba(255,255,255,0.24);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.58), 0 14px 38px rgba(90,80,140,0.14);
+    border-right: 1px solid rgba(138,51,85,0.20);
+    border-bottom: 1px solid rgba(138,51,85,0.20);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.58), 0 14px 38px rgba(138,51,85,0.14);
     backdrop-filter: blur(22px) saturate(1.25);
     transition: background 180ms ease;
   }
   .liquid-glass-button:hover {
     background:
-      linear-gradient(135deg, rgba(255,255,255,0.55), rgba(255,255,255,0.34) 48%, rgba(210,200,240,0.24)),
+      linear-gradient(135deg, rgba(255,248,250,0.68), rgba(255,236,242,0.42) 48%, rgba(244,163,190,0.26)),
       radial-gradient(circle at 18% 12%, rgba(255,255,255,0.78), transparent 34%);
   }
   .liquid-glass-icon {
-    color: #2A2140;
-    background: linear-gradient(135deg, rgba(255,255,255,0.48), rgba(255,255,255,0.24));
+    color: #140A0E;
+    background: linear-gradient(135deg, rgba(255,248,250,0.55), rgba(255,236,242,0.28));
     border: 1px solid rgba(255,255,255,0.58);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.62), 0 10px 24px rgba(90,80,140,0.12);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.62), 0 10px 24px rgba(138,51,85,0.14);
     backdrop-filter: blur(18px) saturate(1.2);
   }
+
+  /* ==== Sakura-only palette lock ====
+     Force any stray Tailwind slate/gray/zinc/neutral utilities inside the
+     marketing landing to resolve to Sakura tones so nothing drifts blue-grey. */
+  .pc-mkt .text-slate-900, .pc-mkt .text-slate-800, .pc-mkt .text-gray-900, .pc-mkt .text-gray-800, .pc-mkt .text-zinc-900, .pc-mkt .text-neutral-900 { color: var(--sakura-ink) !important; }
+  .pc-mkt .text-slate-700, .pc-mkt .text-slate-600, .pc-mkt .text-slate-500, .pc-mkt .text-gray-700, .pc-mkt .text-gray-600, .pc-mkt .text-gray-500, .pc-mkt .text-zinc-600, .pc-mkt .text-neutral-600 { color: var(--sakura-muted) !important; }
+  .pc-mkt .text-slate-400, .pc-mkt .text-slate-300, .pc-mkt .text-gray-400, .pc-mkt .text-gray-300 { color: color-mix(in oklab, var(--sakura-muted) 75%, var(--sakura-cream)) !important; }
+  .pc-mkt .bg-slate-50, .pc-mkt .bg-slate-100, .pc-mkt .bg-gray-50, .pc-mkt .bg-gray-100, .pc-mkt .bg-zinc-50, .pc-mkt .bg-neutral-50 { background-color: var(--sakura-petal) !important; }
+  .pc-mkt .bg-slate-900, .pc-mkt .bg-gray-900, .pc-mkt .bg-zinc-900 { background-color: var(--sakura-ink) !important; }
+  .pc-mkt .border-slate-200, .pc-mkt .border-slate-100, .pc-mkt .border-gray-200, .pc-mkt .border-gray-100, .pc-mkt .border-zinc-200 { border-color: var(--sakura-border) !important; }
 
   .grain-overlay {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.75 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
@@ -985,7 +995,7 @@ function HowItWorks() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
           {steps.map((s, i) => (
             <motion.div key={s.step} {...reveal} transition={{ ...reveal.transition, delay: i * 0.1 }} className="how-card aspect-[4/5]">
-              <img src={s.img} alt="" onError={(e) => ((e.currentTarget as HTMLImageElement).style.background = "#3a3a4a")} />
+              <img src={s.img} alt="" onError={(e) => ((e.currentTarget as HTMLImageElement).style.background = COLOR.blush)} />
               <div className="how-card-content">
                 <span className="how-card-step">{s.step}</span>
                 <div>
@@ -1115,7 +1125,7 @@ function BentoFeatures() {
 
   return (
     <section id="features" className="relative w-full pb-28 md:pb-36 pt-0" style={{ background: "transparent" }}>
-      <WavyBridge from="#FFFFFF" to={COLOR.petal} />
+      <WavyBridge from={COLOR.cream} to={COLOR.petal} />
       <div className="mx-auto max-w-[1280px] px-6 pt-4">
         <motion.div {...reveal} className="text-center mb-14">
           <p className="pc-label text-slate-500 mb-4">The workspace</p>
@@ -1182,7 +1192,7 @@ function FeatureHighlight() {
         <motion.div {...reveal} className="glass-white overflow-hidden grid grid-cols-1 lg:grid-cols-[58%_42%]">
           <div className="aspect-[4/3] lg:aspect-auto">
             <img src="/assets/editorial-courtyard.jpg" alt="A quiet courtyard" className="h-full w-full object-cover"
-              onError={(e) => ((e.currentTarget as HTMLImageElement).style.background = "#c9d3dc")} />
+              onError={(e) => ((e.currentTarget as HTMLImageElement).style.background = COLOR.blush)} />
           </div>
           <div className="p-8 md:p-12 flex flex-col justify-center">
             <p className="pc-label text-slate-500 mb-4">Continuity, held</p>
@@ -1352,7 +1362,7 @@ function Blog() {
               className="group block">
               <div className="aspect-[4/3] overflow-hidden rounded-2xl bg-slate-100">
                 <img src={p.img} alt="" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                  onError={(e) => ((e.currentTarget as HTMLImageElement).style.background = "#e2e8f0")} />
+                  onError={(e) => ((e.currentTarget as HTMLImageElement).style.background = COLOR.blush)} />
               </div>
               <div className="mt-5">
                 <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-slate-500 font-semibold">
@@ -1449,9 +1459,9 @@ function Footer() {
                 <ul className="mt-4 space-y-2.5">
                   {c.links.map(([l, href]) => (
                     <li key={l}>
-                      <a href={href} className="text-[14px] transition-colors" style={{ color: "#475569" }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = "#0F172A")}
-                        onMouseLeave={(e) => (e.currentTarget.style.color = "#475569")}>
+                      <a href={href} className="text-[14px] transition-colors" style={{ color: COLOR.muted }}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = COLOR.ink)}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = COLOR.muted)}>
                         {l}
                       </a>
                     </li>
