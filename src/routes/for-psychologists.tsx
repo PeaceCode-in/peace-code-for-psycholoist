@@ -262,7 +262,7 @@ const styles = `
   }
   .pc-mkt > *:not(.fixed):not(.sticky):not(.absolute) { position: relative; z-index: 1; background: transparent !important; }
 
-  /* Footer inherits the page background — flip its cream-on-ink text to ink-on-page */
+  /* Footer inherits the single fixed page background — no separate washes/dividers that create seams. */
   .pc-mkt footer h1, .pc-mkt footer h2, .pc-mkt footer h3, .pc-mkt footer h4,
   .pc-mkt footer p, .pc-mkt footer a, .pc-mkt footer span, .pc-mkt footer li {
     color: var(--sakura-ink) !important;
@@ -1609,14 +1609,8 @@ function Footer() {
     { h: "RESOURCES", links: [["Blog", "#blog"], ["Help centre", "#help"], ["Clinician stories", "#stories"], ["Changelog", "#changelog"]] },
   ];
   return (
-    <footer className="relative w-full overflow-hidden mt-24" style={{ color: "var(--sakura-ink)" }}>
-      {/* subtle rose glow accents — no solid background so page flows through */}
-      <div aria-hidden className="absolute inset-0 pointer-events-none"
-        style={{ background: `radial-gradient(1000px 500px at 15% 0%, ${COLOR.rose}18, transparent 60%), radial-gradient(800px 400px at 90% 100%, ${COLOR.rose}14, transparent 65%)` }} />
-      <div aria-hidden className="absolute inset-0 pointer-events-none grain-overlay" style={{ opacity: 0.10, mixBlendMode: "multiply" }} />
-      <div aria-hidden className="absolute top-0 left-1/2 -translate-x-1/2 w-[85%] h-px" style={{ background: `linear-gradient(to right, transparent, ${COLOR.ink}22, transparent)` }} />
-
-      <div className="relative z-10 mx-auto max-w-[1280px] px-6 pt-24 pb-10">
+    <footer className="relative w-full overflow-hidden" style={{ color: "var(--sakura-ink)", background: "transparent" }}>
+      <div className="relative z-10 mx-auto max-w-[1280px] px-6 pt-28 pb-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* LEFT */}
           <div className="lg:col-span-5">
