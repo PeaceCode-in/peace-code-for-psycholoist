@@ -367,7 +367,7 @@ function MarketingPage() {
         </section>
         <Hero />
         <Collaboration />
-        <HowItWorks />
+        
         <MoodGate />
         <MindAccordion />
         <BentoFeatures />
