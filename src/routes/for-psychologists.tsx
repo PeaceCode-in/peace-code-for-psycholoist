@@ -242,13 +242,35 @@ const reveal = {
 };
 
 const styles = `
-  .pc-mkt { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; color: var(--sakura-ink); background: var(--sakura-cream); }
+  .pc-mkt {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    color: var(--sakura-ink);
+    background: var(--sakura-cream);
+    position: relative;
+  }
+  /* ONE continuous page background — fixed so it never seams across scroll */
+  .pc-mkt::after {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+    background:
+      radial-gradient(1200px 700px at 50% 0%, #F6C9D7 0%, #F9D8E2 45%, #FBE4EB 100%),
+      var(--sakura-cream);
+  }
   .pc-mkt::before {
     content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.32  0 0 0 0 0.14  0 0 0 0 0.22  0 0 0 0.22 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
     background-size: 320px 320px; mix-blend-mode: multiply; opacity: 1;
   }
-  .pc-mkt > *:not(.fixed):not(.sticky):not(.absolute) { position: relative; z-index: 1; }
+  .pc-mkt > *:not(.fixed):not(.sticky):not(.absolute) { position: relative; z-index: 1; background: transparent !important; }
+
+  /* Footer inherits the page background — flip its cream-on-ink text to ink-on-page */
+  .pc-mkt footer h1, .pc-mkt footer h2, .pc-mkt footer h3, .pc-mkt footer h4,
+  .pc-mkt footer p, .pc-mkt footer a, .pc-mkt footer span, .pc-mkt footer li {
+    color: var(--sakura-ink) !important;
+  }
+  .pc-mkt footer a:hover { color: var(--sakura-rose) !important; }
+  .pc-mkt footer [style*="border"] { border-color: color-mix(in oklab, var(--sakura-ink) 18%, transparent) !important; }
+
+
   .pc-serif { font-family: 'Fraunces', 'Instrument Serif', Georgia, serif; font-weight: 300; letter-spacing: -0.02em; }
   .pc-display { font-family: 'DM Serif Display', 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.015em; }
   .pc-italic { font-family: 'Instrument Serif', 'Fraunces', Georgia, serif; font-style: italic; font-weight: 400; }
@@ -391,6 +413,12 @@ const styles = `
     --sakura-glass-white-border: rgba(245, 236, 239, 0.14);
     background: #14100F;
     color: #F5ECEF;
+  }
+  /* Graphite version of the continuous page background */
+  .pc-mkt[data-mode="dark"]::after {
+    background:
+      radial-gradient(1200px 700px at 50% 0%, #2A1F24 0%, #1E1518 45%, #14100F 100%),
+      #14100F;
   }
   .pc-mkt[data-mode="dark"] .grain-overlay { opacity: 0.35; mix-blend-mode: screen; }
   /* Neutralize any hardcoded near-white backgrounds that ignore tokens */
@@ -918,10 +946,6 @@ function Hero() {
   return (
     <section
       className="relative w-full min-h-screen overflow-hidden"
-      style={{
-        background:
-          "radial-gradient(1200px 700px at 50% 0%, #F6C9D7 0%, #F9D8E2 45%, #FBE4EB 100%)",
-      }}
     >
       {/* subtle grain for texture — sakura only */}
       <div className="absolute inset-0 grain-overlay opacity-[0.06] pointer-events-none" />
@@ -1570,11 +1594,12 @@ function Footer() {
     { h: "RESOURCES", links: [["Blog", "#blog"], ["Help centre", "#help"], ["Clinician stories", "#stories"], ["Changelog", "#changelog"]] },
   ];
   return (
-    <footer className="relative w-full overflow-hidden mt-24" style={{ background: COLOR.ink, color: COLOR.cream }}>
-      {/* subtle rose glow + grain */}
+    <footer className="relative w-full overflow-hidden mt-24" style={{ color: "var(--sakura-ink)" }}>
+      {/* subtle rose glow accents — no solid background so page flows through */}
       <div aria-hidden className="absolute inset-0 pointer-events-none"
-        style={{ background: `radial-gradient(1000px 500px at 15% 0%, ${COLOR.rose}22, transparent 60%), radial-gradient(800px 400px at 90% 100%, ${COLOR.rose}18, transparent 65%)` }} />
-      <div aria-hidden className="absolute inset-0 pointer-events-none grain-overlay" style={{ opacity: 0.18, mixBlendMode: "overlay" }} />
+        style={{ background: `radial-gradient(1000px 500px at 15% 0%, ${COLOR.rose}18, transparent 60%), radial-gradient(800px 400px at 90% 100%, ${COLOR.rose}14, transparent 65%)` }} />
+      <div aria-hidden className="absolute inset-0 pointer-events-none grain-overlay" style={{ opacity: 0.10, mixBlendMode: "multiply" }} />
+      <div aria-hidden className="absolute top-0 left-1/2 -translate-x-1/2 w-[85%] h-px" style={{ background: `linear-gradient(to right, transparent, ${COLOR.ink}22, transparent)` }} />
 
       <div className="relative z-10 mx-auto max-w-[1280px] px-6 pt-24 pb-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
