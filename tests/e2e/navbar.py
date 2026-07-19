@@ -77,9 +77,9 @@ async def check(page, label, route, width) -> dict:
     )
     # fixed → top stays close to viewport top (within a few px of the resting offset)
     if box2["top"] > 60 or box2["top"] < -5:
-        issues.append(f"header not pinned after scroll: top={box2['top']}")
+        issues.append(f"navbar not pinned after scroll: top={box2['top']}")
     if box2["w"] > width + 1:
-        issues.append(f"header width after scroll {box2['w']} > viewport {width}")
+        issues.append(f"navbar width after scroll {box2['w']} > viewport {width}")
 
     shot = SHOTS / f"{label}_{route.replace('/', '_') or 'root'}.png"
     await page.screenshot(path=str(shot))
