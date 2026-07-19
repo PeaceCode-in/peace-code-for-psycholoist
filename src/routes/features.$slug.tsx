@@ -1296,7 +1296,7 @@ function FeatureDetail() {
       </section>
 
       {/* ─── 3 CAPABILITY CARDS (reference layout) ───────────── */}
-      <section aria-label="Capabilities" className="relative py-16 px-6">
+      <section id="capabilities" aria-label="Capabilities" className="relative py-16 px-6 scroll-mt-24">
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-5">
           {topThree.map((c, i) => {
             const Icon = c.icon;
