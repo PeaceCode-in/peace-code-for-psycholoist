@@ -34,6 +34,7 @@ const CANONICAL = `${SITE_ORIGIN}/`;
 // Feature catalogue is the single source of truth for the marketing site and
 // the sitemap. Edit src/lib/marketing-features.ts to add / rename features.
 import { MARKETING_FEATURES as FEATURE_SLUGS } from "@/lib/marketing-features";
+import { useMarketingTheme } from "@/lib/use-marketing-theme";
 
 
 const OFFERS_SERVICE = FEATURE_SLUGS.map((f) => ({
@@ -419,26 +420,8 @@ const styles = `
 
 
 function MarketingPage() {
-  const [darkMode, setDarkMode] = useState(false);
-  const [contrastMode, setContrastMode] = useState<"normal" | "high">("normal");
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem("pc-mkt-mode");
-      if (saved === "dark") setDarkMode(true);
-    } catch {}
-  }, []);
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    const root = document.documentElement;
-    const syncContrast = () => setContrastMode(root.getAttribute("data-contrast") === "high" ? "high" : "normal");
-    syncContrast();
-    const observer = new MutationObserver(syncContrast);
-    observer.observe(root, { attributes: true, attributeFilter: ["data-contrast"] });
-    return () => observer.disconnect();
-  }, []);
-  useEffect(() => {
-    try { localStorage.setItem("pc-mkt-mode", darkMode ? "dark" : "light"); } catch {}
-  }, [darkMode]);
+  const { darkMode, toggleDark, highContrast, toggleContrast } = useMarketingTheme();
+  const contrastMode = highContrast ? "high" : "normal";
 
   return (
     <div className="pc-mkt relative overflow-x-hidden" data-mode={darkMode ? "dark" : "light"} data-contrast={contrastMode}>
@@ -447,7 +430,7 @@ function MarketingPage() {
       <p className="sr-only" itemProp="description">
         {AEO_ANSWER}
       </p>
-      <Navbar darkMode={darkMode} onToggleDark={() => setDarkMode((v) => !v)} />
+      <Navbar darkMode={darkMode} onToggleDark={toggleDark} />
 
 
       <main>

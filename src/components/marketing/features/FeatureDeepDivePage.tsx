@@ -35,6 +35,7 @@ import branchLeft from "@/assets/sakura/branch-left.svg";
 import branchRight from "@/assets/sakura/branch-right.svg";
 import { SakuraWidgetStyles, StatChip } from "./sakura-widgets";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
+import { useMarketingTheme } from "@/lib/use-marketing-theme";
 
 /* ────────────────────────────────────────────────────────────────
  * Shared reveal-on-scroll preset
@@ -253,8 +254,9 @@ export function FeatureDeepDivePage({
   faqs,
   children,
 }: DeepDivePageProps) {
+  const { darkMode } = useMarketingTheme();
   return (
-    <article className="fdd-page">
+    <article className="fdd-page" data-mode={darkMode ? "dark" : "light"}>
       <style dangerouslySetInnerHTML={{ __html: CHROME_CSS }} />
       <SakuraWidgetStyles />
       <MarketingNavbar />

@@ -43,7 +43,12 @@ const NAV_ITEMS: NavItem[] = [
   },
 ];
 
-export function MarketingNavbar({ darkMode = false, onToggleDark }: { darkMode?: boolean; onToggleDark?: () => void }) {
+import { useMarketingTheme } from "@/lib/use-marketing-theme";
+
+export function MarketingNavbar({ darkMode: darkModeProp, onToggleDark: onToggleDarkProp }: { darkMode?: boolean; onToggleDark?: () => void } = {}) {
+  const theme = useMarketingTheme();
+  const darkMode = darkModeProp ?? theme.darkMode;
+  const onToggleDark = onToggleDarkProp ?? theme.toggleDark;
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
