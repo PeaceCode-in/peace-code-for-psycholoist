@@ -26,10 +26,10 @@ const styles = `
   .cp-branch { position: absolute; top: 3.5rem; width: 220px; height: auto; pointer-events: none; opacity: 0.9; user-select: none; }
   @media (min-width: 768px) { .cp-branch { width: 300px; } }
   .cp-pill { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.9rem; border-radius: 999px;
-    background: rgba(255,255,255,0.7); border: 1px solid var(--sakura-border); color: var(--sakura-ink);
+    background: var(--sakura-glass-white-bg); border: 1px solid var(--sakura-glass-white-border); color: var(--sakura-ink);
     font-size: 11px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; }
-  .cp-card { background: rgba(255,255,255,0.72); backdrop-filter: blur(20px); border: 1px solid var(--sakura-border);
-    border-radius: 1.25rem; padding: 1.75rem; box-shadow: 0 20px 60px -30px rgba(138,51,85,0.18); }
+  .cp-card { background: var(--sakura-glass-white-bg); color: var(--sakura-ink); backdrop-filter: blur(20px); border: 1px solid var(--sakura-glass-white-border);
+    border-radius: 1.25rem; padding: 1.75rem; box-shadow: 0 20px 60px -30px color-mix(in oklab, var(--sakura-rose) 24%, transparent); }
   .cp-btn-dark { display: inline-flex; align-items: center; gap: 0.5rem; background: color-mix(in oklab, var(--sakura-petal) 78%, transparent); color: var(--sakura-ink);
     border: 1px solid color-mix(in oklab, var(--sakura-ink) 16%, transparent);
     padding: 0.85rem 1.75rem; border-radius: 999px; font-weight: 500; font-size: 0.9rem;
