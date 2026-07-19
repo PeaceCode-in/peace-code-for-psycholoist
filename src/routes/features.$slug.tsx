@@ -14,6 +14,7 @@ import branchRight from "@/assets/sakura/branch-right.svg";
 import { getDeepDive } from "@/components/marketing/features/deep-dives";
 import { MarketingNavbar } from "@/components/marketing/MarketingNavbar";
 import { MARKETING_FEATURES } from "@/lib/marketing-features";
+import { useMarketingTheme } from "@/lib/use-marketing-theme";
 
 /**
  * Editorial "related workflows" graph — powers the internal-linking section
@@ -1222,11 +1223,25 @@ const styles = `
     font-family: 'Fraunces', serif; font-weight: 400;
     color: var(--sakura-rose); font-size: 1.05rem;
   }
+
+  /* ─── Universal dark mode for feature deep-dive pages ─── */
+  .pc-mkt[data-mode="dark"] { --sakura-cream: #140A0E; --sakura-petal: #241318; --sakura-blush: #2E1820; --sakura-rose: #F4A3BE; --sakura-ink: #F7ECEF; --sakura-muted: #C9B4BC; --sakura-border: rgba(255,255,255,0.1); }
+  .pc-mkt[data-mode="dark"].sakura-page::before { opacity: 0.35; mix-blend-mode: screen; }
+  .pc-mkt[data-mode="dark"] .sakura-card { background: rgba(255,255,255,0.05); box-shadow: 0 20px 60px -30px rgba(0,0,0,0.6); }
+  .pc-mkt[data-mode="dark"] .sakura-pill { background: rgba(255,255,255,0.06); }
+  .pc-mkt[data-mode="dark"] .sakura-table th { background: rgba(255,255,255,0.04); }
+  .pc-mkt[data-mode="dark"] .sakura-table tr:hover td { background: rgba(244,163,190,0.08); }
+  .pc-mkt[data-mode="dark"] .sakura-btn-dark { background: var(--sakura-rose); color: #140A0E; }
+  .pc-mkt[data-mode="dark"] .text-slate-900, .pc-mkt[data-mode="dark"] .text-slate-800, .pc-mkt[data-mode="dark"] .text-gray-900 { color: var(--sakura-ink) !important; }
+  .pc-mkt[data-mode="dark"] .text-slate-700, .pc-mkt[data-mode="dark"] .text-slate-600, .pc-mkt[data-mode="dark"] .text-slate-500, .pc-mkt[data-mode="dark"] .text-gray-600 { color: var(--sakura-muted) !important; }
+  .pc-mkt[data-mode="dark"] .bg-white { background-color: rgba(255,255,255,0.05) !important; }
+  .pc-mkt[data-mode="dark"] .border-slate-200, .pc-mkt[data-mode="dark"] .border-slate-100 { border-color: var(--sakura-border) !important; }
 `;
 
 function FeatureDetail() {
   const { slug } = Route.useParams();
   const f = FEATURES[slug];
+  const { darkMode } = useMarketingTheme();
   if (!f) return <FeatureNotFound />;
 
   const DeepDive = getDeepDive(f.slug);
@@ -1236,7 +1251,7 @@ function FeatureDetail() {
 
 
   return (
-    <article className="pc-mkt sakura-page">
+    <article className="pc-mkt sakura-page" data-mode={darkMode ? "dark" : "light"}>
       <style dangerouslySetInnerHTML={{ __html: styles }} />
       <MarketingNavbar />
 
