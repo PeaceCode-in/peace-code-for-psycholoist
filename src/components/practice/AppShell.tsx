@@ -907,7 +907,11 @@ export function AppShell({ children, crumb }: { children: ReactNode; crumb?: str
       <GlassFX />
       <div
         className="min-h-screen flex w-full"
-        style={{ color: "var(--pc-ink, #1E1418)", fontFamily: "'DM Sans', system-ui, sans-serif" }}
+        style={{
+          color: "var(--pc-ink, #1E1418)",
+          fontFamily: "'DM Sans', system-ui, sans-serif",
+          background: "var(--pc-app-bg)",
+        }}
       >
         <DesktopTubeSidebar
           onDuty={onDuty}
