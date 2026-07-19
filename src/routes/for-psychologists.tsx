@@ -262,6 +262,15 @@ const styles = `
   }
   .pc-mkt > *:not(.fixed):not(.sticky):not(.absolute) { position: relative; z-index: 1; background: transparent !important; }
 
+  /* Footer inherits the page background — flip its cream-on-ink text to ink-on-page */
+  .pc-mkt footer h1, .pc-mkt footer h2, .pc-mkt footer h3, .pc-mkt footer h4,
+  .pc-mkt footer p, .pc-mkt footer a, .pc-mkt footer span, .pc-mkt footer li {
+    color: var(--sakura-ink) !important;
+  }
+  .pc-mkt footer a:hover { color: var(--sakura-rose) !important; }
+  .pc-mkt footer [style*="border"] { border-color: color-mix(in oklab, var(--sakura-ink) 18%, transparent) !important; }
+
+
   .pc-serif { font-family: 'Fraunces', 'Instrument Serif', Georgia, serif; font-weight: 300; letter-spacing: -0.02em; }
   .pc-display { font-family: 'DM Serif Display', 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.015em; }
   .pc-italic { font-family: 'Instrument Serif', 'Fraunces', Georgia, serif; font-style: italic; font-weight: 400; }
