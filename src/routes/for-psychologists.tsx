@@ -405,6 +405,12 @@ const styles = `
     background: #14100F;
     color: #F5ECEF;
   }
+  /* Graphite version of the continuous page background */
+  .pc-mkt[data-mode="dark"]::after {
+    background:
+      radial-gradient(1200px 700px at 50% 0%, #2A1F24 0%, #1E1518 45%, #14100F 100%),
+      #14100F;
+  }
   .pc-mkt[data-mode="dark"] .grain-overlay { opacity: 0.35; mix-blend-mode: screen; }
   /* Neutralize any hardcoded near-white backgrounds that ignore tokens */
   .pc-mkt[data-mode="dark"] [style*="#FFFFFF"],
