@@ -85,6 +85,50 @@
   --sakura-glass-color-border: rgba(90, 26, 52, 0.30);
 }
 
+/* ─── Universal marketing-site dark mode ──────────────────────────
+   Any marketing wrapper (pc-mkt, sakura-page, cp-page, fdd-page) with
+   data-mode="dark" flips Sakura tokens to their dark counterparts, so
+   every landing/feature/company page follows the same scheme without
+   each page having to define its own dark styles. */
+[data-mode="dark"].pc-mkt,
+[data-mode="dark"].sakura-page,
+[data-mode="dark"].cp-page,
+[data-mode="dark"].fdd-page,
+[data-mode="dark"].cp-mkt {
+  --sakura-cream:  #140A0E;
+  --sakura-petal:  #241318;
+  --sakura-blush:  #2E1820;
+  --sakura-rose:   #F4A3BE;
+  --sakura-ink:    #F7ECEF;
+  --sakura-muted:  #C9B4BC;
+  --sakura-border: rgba(255, 255, 255, 0.10);
+  --sakura-glass-white-bg:     rgba(255, 255, 255, 0.06);
+  --sakura-glass-white-border: rgba(255, 255, 255, 0.12);
+  --sakura-glass-color-bg:     rgba(20, 10, 14, 0.55);
+  --sakura-glass-color-border: rgba(244, 163, 190, 0.20);
+  background-color: #140A0E !important;
+  color: #F7ECEF !important;
+}
+[data-mode="dark"] .bg-white,
+[data-mode="dark"] .bg-slate-50,
+[data-mode="dark"] .bg-slate-100,
+[data-mode="dark"] .bg-gray-50,
+[data-mode="dark"] .bg-gray-100 { background-color: rgba(255,255,255,0.05) !important; }
+[data-mode="dark"] .text-slate-900,
+[data-mode="dark"] .text-slate-800,
+[data-mode="dark"] .text-gray-900,
+[data-mode="dark"] .text-gray-800 { color: #F7ECEF !important; }
+[data-mode="dark"] .text-slate-700,
+[data-mode="dark"] .text-slate-600,
+[data-mode="dark"] .text-slate-500,
+[data-mode="dark"] .text-gray-700,
+[data-mode="dark"] .text-gray-600,
+[data-mode="dark"] .text-gray-500 { color: #C9B4BC !important; }
+[data-mode="dark"] .border-slate-200,
+[data-mode="dark"] .border-slate-100,
+[data-mode="dark"] .border-gray-200,
+[data-mode="dark"] .border-gray-100 { border-color: rgba(255,255,255,0.10) !important; }
+
 :root {
   --radius: 1rem;
 
