@@ -194,6 +194,14 @@
   border: 1px solid color-mix(in oklab, var(--sakura-ink) 16%, transparent) !important;
 }
 
+/* Hard lock: Sakura/light marketing pages must never render white/cream text. */
+.pc-mkt:not([data-mode="dark"]) :is(h1,h2,h3,h4,h5,h6,p,span,a,li,dt,dd,label,strong,em,small,button,blockquote,figcaption),
+.sakura-page:not([data-mode="dark"]) :is(h1,h2,h3,h4,h5,h6,p,span,a,li,dt,dd,label,strong,em,small,button,blockquote,figcaption),
+.cp-page:not([data-mode="dark"]) :is(h1,h2,h3,h4,h5,h6,p,span,a,li,dt,dd,label,strong,em,small,button,blockquote,figcaption),
+.fdd-page:not([data-mode="dark"]) :is(h1,h2,h3,h4,h5,h6,p,span,a,li,dt,dd,label,strong,em,small,button,blockquote,figcaption) {
+  color: var(--sakura-ink) !important;
+}
+
 :root {
   --radius: 1rem;
 

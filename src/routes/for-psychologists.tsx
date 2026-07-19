@@ -488,6 +488,14 @@ const styles = `
   }
   /* Focus ring */
   .pc-mkt :focus-visible { outline: 2px solid var(--sakura-rose); outline-offset: 3px; border-radius: 12px; }
+
+  /* Final Sakura light-mode text lock: no white/cream copy on the public page. */
+  .pc-mkt:not([data-mode="dark"]) :is(h1,h2,h3,h4,h5,h6,p,span,a,li,dt,dd,label,strong,em,small,button,blockquote,figcaption) {
+    color: var(--sakura-ink) !important;
+  }
+  .pc-mkt:not([data-mode="dark"]) :is(svg,path,circle,rect,line,polyline,polygon) {
+    color: currentColor;
+  }
 `;
 
 
