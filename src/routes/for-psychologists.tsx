@@ -1228,7 +1228,8 @@ function MindAccordion() {
             Straight answers, <span className="pc-italic">no marketing fog.</span>
           </h2>
         </motion.div>
-        <div className="divide-y divide-slate-200 border-y border-slate-200">
+        <div className="faq-list">
+          <style dangerouslySetInnerHTML={{ __html: `.faq-list > div + div { border-top: 1px solid color-mix(in oklab, var(--sakura-border) 55%, transparent); }` }} />
           {items.map((it, i) => {
             const on = open === i;
             return (
@@ -1273,8 +1274,7 @@ function BentoFeatures() {
   ];
 
   return (
-    <section id="features" className="relative w-full pb-28 md:pb-36 pt-0" style={{ background: "transparent" }}>
-      <WavyBridge from={COLOR.cream} to={COLOR.petal} />
+    <section id="features" className="relative w-full pb-28 md:pb-36 pt-8" style={{ background: "transparent" }}>
       <div className="mx-auto max-w-[1280px] px-6 pt-4">
         <motion.div {...reveal} className="text-center mb-14">
           <p className="pc-label text-slate-500 mb-4">The workspace</p>
