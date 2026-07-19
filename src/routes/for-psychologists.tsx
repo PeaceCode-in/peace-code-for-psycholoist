@@ -242,13 +242,26 @@ const reveal = {
 };
 
 const styles = `
-  .pc-mkt { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; color: var(--sakura-ink); background: var(--sakura-cream); }
+  .pc-mkt {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    color: var(--sakura-ink);
+    background: var(--sakura-cream);
+    position: relative;
+  }
+  /* ONE continuous page background — fixed so it never seams across scroll */
+  .pc-mkt::after {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+    background:
+      radial-gradient(1200px 700px at 50% 0%, #F6C9D7 0%, #F9D8E2 45%, #FBE4EB 100%),
+      var(--sakura-cream);
+  }
   .pc-mkt::before {
     content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.32  0 0 0 0 0.14  0 0 0 0 0.22  0 0 0 0.22 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
     background-size: 320px 320px; mix-blend-mode: multiply; opacity: 1;
   }
-  .pc-mkt > *:not(.fixed):not(.sticky):not(.absolute) { position: relative; z-index: 1; }
+  .pc-mkt > *:not(.fixed):not(.sticky):not(.absolute) { position: relative; z-index: 1; background: transparent !important; }
+
   .pc-serif { font-family: 'Fraunces', 'Instrument Serif', Georgia, serif; font-weight: 300; letter-spacing: -0.02em; }
   .pc-display { font-family: 'DM Serif Display', 'Instrument Serif', serif; font-weight: 400; letter-spacing: -0.015em; }
   .pc-italic { font-family: 'Instrument Serif', 'Fraunces', Georgia, serif; font-style: italic; font-weight: 400; }
