@@ -72,8 +72,10 @@
 
   --sakura-glass-color-bg:     rgba(255, 248, 250, 0.55);
   --sakura-glass-color-border: rgba(138,  51,  85, 0.18);
-  --sakura-glass-white-bg:     rgba(255, 255, 255, 0.70);
-  --sakura-glass-white-border: rgba(255, 255, 255, 0.80);
+  /* Glass over Sakura — warm-tinted translucent surface so cards read as
+     frosted glass on the pink background, not opaque white blocks. */
+  --sakura-glass-white-bg:     rgba(255, 244, 248, 0.55);
+  --sakura-glass-white-border: rgba(138, 51, 85, 0.16);
 }
 
 [data-contrast="high"] {
