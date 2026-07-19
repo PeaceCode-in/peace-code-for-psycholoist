@@ -419,26 +419,8 @@ const styles = `
 
 
 function MarketingPage() {
-  const [darkMode, setDarkMode] = useState(false);
-  const [contrastMode, setContrastMode] = useState<"normal" | "high">("normal");
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem("pc-mkt-mode");
-      if (saved === "dark") setDarkMode(true);
-    } catch {}
-  }, []);
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    const root = document.documentElement;
-    const syncContrast = () => setContrastMode(root.getAttribute("data-contrast") === "high" ? "high" : "normal");
-    syncContrast();
-    const observer = new MutationObserver(syncContrast);
-    observer.observe(root, { attributes: true, attributeFilter: ["data-contrast"] });
-    return () => observer.disconnect();
-  }, []);
-  useEffect(() => {
-    try { localStorage.setItem("pc-mkt-mode", darkMode ? "dark" : "light"); } catch {}
-  }, [darkMode]);
+  const { darkMode, toggleDark, highContrast, toggleContrast } = useMarketingTheme();
+  const contrastMode = highContrast ? "high" : "normal";
 
   return (
     <div className="pc-mkt relative overflow-x-hidden" data-mode={darkMode ? "dark" : "light"} data-contrast={contrastMode}>
@@ -447,7 +429,7 @@ function MarketingPage() {
       <p className="sr-only" itemProp="description">
         {AEO_ANSWER}
       </p>
-      <Navbar darkMode={darkMode} onToggleDark={() => setDarkMode((v) => !v)} />
+      <Navbar darkMode={darkMode} onToggleDark={toggleDark} />
 
 
       <main>
