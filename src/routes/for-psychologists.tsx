@@ -1422,31 +1422,33 @@ function Footer() {
     { h: "RESOURCES", links: [["Blog", "#blog"], ["Help centre", "#help"], ["Clinician stories", "#stories"], ["Changelog", "#changelog"]] },
   ];
   return (
-    <footer className="relative w-full overflow-hidden">
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "url(/section3-bg.webp)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          transform: "rotate(180deg)",
-          maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.9) 100%)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.9) 100%)",
-        }}
-      />
+    <footer className="relative w-full overflow-hidden mt-24" style={{ background: COLOR.ink, color: COLOR.cream }}>
+      {/* subtle rose glow + grain */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none"
+        style={{ background: `radial-gradient(1000px 500px at 15% 0%, ${COLOR.rose}22, transparent 60%), radial-gradient(800px 400px at 90% 100%, ${COLOR.rose}18, transparent 65%)` }} />
+      <div aria-hidden className="absolute inset-0 pointer-events-none grain-overlay" style={{ opacity: 0.18, mixBlendMode: "overlay" }} />
+
       <div className="relative z-10 mx-auto max-w-[1280px] px-6 pt-24 pb-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* LEFT */}
           <div className="lg:col-span-5">
-            <h3 className="pc-serif text-slate-900 text-[clamp(36px,4.5vw,60px)] leading-[1.02]">
-              Find your <span className="pc-italic">practice rhythm.</span>
+            <h3 className="pc-serif text-[clamp(36px,4.5vw,60px)] leading-[1.02]" style={{ color: COLOR.cream }}>
+              Find your <span className="pc-italic" style={{ color: COLOR.rose }}>practice rhythm.</span>
             </h3>
+            <p className="mt-5 max-w-[42ch] text-[15px] leading-relaxed" style={{ color: `${COLOR.cream}CC` }}>
+              A calm, clinician-authored workspace for the private practice you actually want to run.
+            </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href={LOGIN_URL} className="liquid-glass-button inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium">
+              <a href={LOGIN_URL} className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium transition-colors"
+                style={{ background: COLOR.rose, color: COLOR.ink }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = COLOR.cream)}
+                onMouseLeave={(e) => (e.currentTarget.style.background = COLOR.rose)}>
                 Login <ArrowRight className="h-4 w-4" />
               </a>
-              <a href="#practice" className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium border border-slate-300 text-slate-900 hover:bg-slate-50">
+              <a href="#practice" className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium transition-colors"
+                style={{ border: `1px solid ${COLOR.cream}44`, color: COLOR.cream }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = `${COLOR.cream}12`; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}>
                 See the workspace
               </a>
             </div>
@@ -1455,13 +1457,13 @@ function Footer() {
           <div className="lg:col-span-5 grid grid-cols-3 gap-6">
             {linkCols.map((c) => (
               <div key={c.h}>
-                <h4 style={{ textTransform: "uppercase", fontSize: 13, letterSpacing: "0.1em", fontWeight: 600, color: COLOR.ink }}>{c.h}</h4>
+                <h4 style={{ textTransform: "uppercase", fontSize: 12, letterSpacing: "0.14em", fontWeight: 600, color: COLOR.rose }}>{c.h}</h4>
                 <ul className="mt-4 space-y-2.5">
                   {c.links.map(([l, href]) => (
                     <li key={l}>
-                      <a href={href} className="text-[14px] transition-colors" style={{ color: COLOR.muted }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = COLOR.ink)}
-                        onMouseLeave={(e) => (e.currentTarget.style.color = COLOR.muted)}>
+                      <a href={href} className="text-[14px] transition-colors" style={{ color: `${COLOR.cream}B8` }}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = COLOR.cream)}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = `${COLOR.cream}B8`)}>
                         {l}
                       </a>
                     </li>
@@ -1475,8 +1477,10 @@ function Footer() {
             <div className="flex flex-wrap gap-2 mb-5">
               {[Instagram, Twitter, Linkedin, Youtube].map((Icon, i) => (
                 <a key={i} href="#social" aria-label="Social"
-                  className="h-11 w-11 rounded-xl inline-flex items-center justify-center "
-                  style={{ background: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.65)", backdropFilter: "blur(18px)" }}>
+                  className="h-10 w-10 rounded-xl inline-flex items-center justify-center transition-colors"
+                  style={{ background: `${COLOR.cream}10`, border: `1px solid ${COLOR.cream}22`, color: COLOR.cream }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = `${COLOR.rose}30`; e.currentTarget.style.borderColor = COLOR.rose; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = `${COLOR.cream}10`; e.currentTarget.style.borderColor = `${COLOR.cream}22`; }}>
                   <Icon className="h-4 w-4" strokeWidth={1.6} />
                 </a>
               ))}
@@ -1484,7 +1488,7 @@ function Footer() {
             <div className="flex flex-wrap gap-2">
               {["DPDP-aligned", "Clinician-authored", "India-hosted"].map((b) => (
                 <span key={b} className="rounded-full px-3 py-1"
-                  style={{ background: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.65)", fontSize: 11, color: COLOR.ink }}>
+                  style={{ background: `${COLOR.cream}0E`, border: `1px solid ${COLOR.cream}22`, fontSize: 11, color: COLOR.cream }}>
                   {b}
                 </span>
               ))}
@@ -1492,13 +1496,16 @@ function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4 text-[13px] text-slate-500">
+        <div className="mt-16 pt-6 flex flex-wrap items-center justify-between gap-4 text-[13px]"
+          style={{ borderTop: `1px solid ${COLOR.cream}1F`, color: `${COLOR.cream}88` }}>
           <span>© 2026 PeaceCode. All rights reserved.</span>
           <div className="flex gap-5">
-            <a href="#privacy" className="hover:text-slate-900">Privacy</a>
-            <a href="#terms" className="hover:text-slate-900">Terms</a>
-            <a href="#dpa" className="hover:text-slate-900">DPA</a>
-            <a href="#security" className="hover:text-slate-900">Security</a>
+            {[["Privacy", "#privacy"], ["Terms", "#terms"], ["DPA", "#dpa"], ["Security", "#security"]].map(([l, h]) => (
+              <a key={l} href={h} className="transition-colors"
+                style={{ color: `${COLOR.cream}88` }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = COLOR.cream)}
+                onMouseLeave={(e) => (e.currentTarget.style.color = `${COLOR.cream}88`)}>{l}</a>
+            ))}
           </div>
         </div>
       </div>
