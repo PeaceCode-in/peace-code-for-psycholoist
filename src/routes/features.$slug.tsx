@@ -1380,7 +1380,7 @@ function FeatureDetail() {
       )}
 
       {/* ─── SAVINGS ROW ──────────────────────────────────────── */}
-      <section aria-label="Impact" className="relative py-20 px-6">
+      <section id="impact" aria-label="Impact" className="relative py-20 px-6 scroll-mt-24">
         <motion.div {...reveal} className="max-w-3xl mx-auto text-center mb-10">
           <p className="pc-label mb-3" style={{ color: "var(--sakura-muted)" }}>The measurable difference</p>
           <h2 className="pc-serif text-3xl md:text-5xl" style={{ color: "var(--sakura-ink)" }}>
