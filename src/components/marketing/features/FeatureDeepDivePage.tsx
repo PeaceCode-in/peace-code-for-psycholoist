@@ -263,18 +263,6 @@ export function FeatureDeepDivePage({
 
       {/* ─── HERO ─── */}
       <header className="relative pt-20 pb-24 px-6 overflow-hidden">
-        <img
-          src={branchLeft}
-          alt=""
-          aria-hidden="true"
-          className="fdd-branch left-0 -translate-x-[15%]"
-        />
-        <img
-          src={branchRight}
-          alt=""
-          aria-hidden="true"
-          className="fdd-branch right-0 translate-x-[15%]"
-        />
 
         <div className="max-w-4xl mx-auto text-center relative">
           <nav className="mb-6 flex justify-center">
