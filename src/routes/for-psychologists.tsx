@@ -1681,14 +1681,15 @@ function Footer() {
         <div className="mt-16 pt-6 flex flex-wrap items-center justify-between gap-4 text-[13px]"
           style={{ borderTop: `1px solid ${COLOR.ink}1F`, color: COLOR.muted }}>
           <span>© 2026 PeaceCode. All rights reserved.</span>
-          <div className="flex gap-5">
-            {[["Privacy", "#privacy"], ["Terms", "#terms"], ["DPA", "#dpa"], ["Security", "#security"]].map(([l, h]) => (
+          <div className="flex flex-wrap gap-5">
+            {[["Privacy", "#privacy"], ["Terms", "#terms"], ["DPA", "#dpa"], ["Security", "#security"], ["Sitemap", "/sitemap.xml"], ["robots.txt", "/robots.txt"]].map(([l, h]) => (
               <a key={l} href={h} className="transition-colors"
                 style={{ color: COLOR.muted }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = COLOR.ink)}
                 onMouseLeave={(e) => (e.currentTarget.style.color = COLOR.muted)}>{l}</a>
             ))}
           </div>
+
         </div>
       </div>
     </footer>
